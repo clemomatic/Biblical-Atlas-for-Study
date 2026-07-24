@@ -5,6 +5,7 @@ import {
   BiblicalMapCategory,
   BiblicalPlace,
   BiblicalRoute,
+  BiblicalRouteCategory,
   BiblicalTerritory,
   EventData,
   MapLabelLevel,
@@ -132,6 +133,24 @@ const MAP_MARKER_STYLES: Record<
     color: '#0f172a',
     background: '#ffffff'
   },
+  'ancient-city': {
+    label: 'Grand centre antique',
+    symbol: '■',
+    color: '#7f1d1d',
+    background: '#fff7ed'
+  },
+  'biblical-site': {
+    label: 'Lieu biblique',
+    symbol: '●',
+    color: '#4338ca',
+    background: '#eef2ff'
+  },
+  'exodus-stage': {
+    label: 'Étape possible de l’Exode',
+    symbol: '◆',
+    color: '#b45309',
+    background: '#fffbeb'
+  },
   summit: {
     label: 'Sommet',
     symbol: '✚',
@@ -169,40 +188,49 @@ const MAP_LEGEND = Object.entries(MAP_MARKER_STYLES) as [
   (typeof MAP_MARKER_STYLES)[BiblicalMapCategory]
 ][];
 
-const OVERVIEW_CATEGORIES = new Set<BiblicalMapCategory>([
-  'refuge-city',
-  'both-scriptures',
-  'summit',
-  'body-of-water',
-  'river'
-]);
+const ROUTE_CATEGORY_STYLES: Record<
+  BiblicalRouteCategory,
+  { label: string; color: string; dashArray?: string }
+> = {
+  'patriarch-abraham': {
+    label: 'Voyages d’Abraham',
+    color: '#e11d48'
+  },
+  'patriarch-isaac': {
+    label: 'Voyages d’Isaac',
+    color: '#7e22ce'
+  },
+  'patriarch-jacob': {
+    label: 'Voyages de Jacob',
+    color: '#059669'
+  },
+  'ancient-road': {
+    label: 'Routes de l’époque',
+    color: '#9a5b3f',
+    dashArray: '2, 7'
+  },
+  exodus: {
+    label: 'Itinéraire possible de l’Exode',
+    color: '#dc2626',
+    dashArray: '9, 6'
+  },
+  missionary: {
+    label: 'Voyages missionnaires',
+    color: '#13a30c',
+    dashArray: '6, 8'
+  }
+};
 
-const STUDY_CATEGORIES = new Set<BiblicalMapCategory>([
-  ...OVERVIEW_CATEGORIES,
-  'levitical-city',
-  'greek-scriptures',
-  'spring'
-]);
-
-const OVERVIEW_PLACE_IDS = new Set([
-  'jerusalem',
-  'hebron',
-  'beersheba',
-  'bethel',
-  'shechem',
-  'samaria',
-  'bethlehem',
-  'nazareth',
-  'capernaum',
-  'caesarea',
-  'dan'
-]);
+const ROUTE_LEGEND = Object.entries(ROUTE_CATEGORY_STYLES) as [
+  BiblicalRouteCategory,
+  (typeof ROUTE_CATEGORY_STYLES)[BiblicalRouteCategory]
+][];
 
 const MAP_LABEL_MIN_ZOOM: Record<MapLabelLevel, number> = {
-  major: 7,
-  regional: 8,
-  study: 9,
-  local: 11
+  major: 4,
+  regional: 6,
+  study: 8,
+  local: 10
 };
 
 export const MapView: React.FC<MapViewProps> = ({
@@ -227,6 +255,9 @@ export const MapView: React.FC<MapViewProps> = ({
   const markersRef = useRef<Record<string, L.Marker>>({});
 
   const [showRoutes, setShowRoutes] = useState(true);
+  const [visibleRouteCategories, setVisibleRouteCategories] = useState<
+    Set<BiblicalRouteCategory>
+  >(() => new Set(ROUTE_LEGEND.map(([category]) => category)));
   const [showTerritories, setShowTerritories] = useState(true);
   const [baseMap, setBaseMap] = useState<BaseMapId>(getInitialBaseMap);
   const [mapZoom, setMapZoom] = useState(7);
@@ -304,6 +335,13 @@ export const MapView: React.FC<MapViewProps> = ({
     markersRef.current = {};
 
     const query = searchQuery.trim().toLowerCase();
+    const selectedEventRoutePlaceIds = new Set(
+      routes
+        .filter(route =>
+          selectedEvent?.associatedRouteIds?.includes(route.id)
+        )
+        .flatMap(route => route.associatedPlaceIds || [])
+    );
     const filteredPlaces = places.filter(place => {
       if (
         selectedPlace?.id !== place.id &&
@@ -313,20 +351,20 @@ export const MapView: React.FC<MapViewProps> = ({
       }
       if (
         selectedEvent?.associatedLocationIds?.length &&
-        !selectedEvent.associatedLocationIds.includes(place.id)
+        !selectedEvent.associatedLocationIds.includes(place.id) &&
+        !selectedEventRoutePlaceIds.has(place.id)
       ) {
         return false;
       }
+      const labelLevel = place.mapLabelLevel || 'local';
+      const isEventPlace =
+        selectedEvent?.associatedLocationIds?.includes(place.id) ||
+        selectedEventRoutePlaceIds.has(place.id);
       if (
-        mapZoom < 9 &&
         !query &&
         selectedPlace?.id !== place.id &&
-        !OVERVIEW_PLACE_IDS.has(place.id) &&
-        (!place.mapCategory ||
-          !(mapZoom < 8
-            ? OVERVIEW_CATEGORIES
-            : STUDY_CATEGORIES
-          ).has(place.mapCategory))
+        !isEventPlace &&
+        mapZoom < MAP_LABEL_MIN_ZOOM[labelLevel]
       ) {
         return false;
       }
@@ -358,7 +396,8 @@ export const MapView: React.FC<MapViewProps> = ({
       .forEach(place => {
       const isHighlighted =
         selectedPlace?.id === place.id ||
-        selectedEvent?.associatedLocationIds?.includes(place.id);
+        selectedEvent?.associatedLocationIds?.includes(place.id) ||
+        selectedEventRoutePlaceIds.has(place.id);
       const markerStyle = place.mapCategory
         ? MAP_MARKER_STYLES[place.mapCategory]
         : {
@@ -437,7 +476,9 @@ export const MapView: React.FC<MapViewProps> = ({
         .filter(
           route =>
             route.id === selectedRouteId ||
-            overlapsPeriod(route.startYear, route.endYear, visiblePeriod)
+            (overlapsPeriod(route.startYear, route.endYear, visiblePeriod) &&
+              (!route.routeCategory ||
+                visibleRouteCategories.has(route.routeCategory)))
         )
         .filter(route => {
           if (!selectedEvent) return true;
@@ -448,12 +489,15 @@ export const MapView: React.FC<MapViewProps> = ({
         })
         .forEach(route => {
           const isSelected = route.id === selectedRouteId;
+          const categoryStyle = route.routeCategory
+            ? ROUTE_CATEGORY_STYLES[route.routeCategory]
+            : undefined;
           const polyline = L.polyline(
             route.points.map(point => point.coordinates),
             {
               color: route.color,
               weight: isSelected ? 6 : 3,
-              dashArray: isSelected ? undefined : '6, 8',
+              dashArray: isSelected ? undefined : categoryStyle?.dashArray,
               opacity: isSelected ? 1 : 0.76
             }
           );
@@ -474,6 +518,7 @@ export const MapView: React.FC<MapViewProps> = ({
     visiblePeriod,
     searchQuery,
     showRoutes,
+    visibleRouteCategories,
     showTerritories,
     mapZoom,
     onSelectPlace,
@@ -577,7 +622,15 @@ export const MapView: React.FC<MapViewProps> = ({
             <div className="grid grid-cols-2 gap-x-3 gap-y-2 border-t border-slate-100 px-2.5 py-2.5">
               {MAP_LEGEND.map(([category, style]) => {
                 const count = places.filter(
-                  place => place.mapCategory === category
+                  place =>
+                    place.mapCategory === category &&
+                    overlapsPeriod(
+                      place.startYear,
+                      place.endYear,
+                      visiblePeriod
+                    ) &&
+                    mapZoom >=
+                      MAP_LABEL_MIN_ZOOM[place.mapLabelLevel || 'local']
                 ).length;
                 if (count === 0) return null;
                 return (
@@ -604,9 +657,9 @@ export const MapView: React.FC<MapViewProps> = ({
               })}
             </div>
             <p className="border-t border-slate-100 px-2.5 py-2 text-[10px] leading-relaxed text-slate-500">
-              Jérusalem reste nommée dans la vue générale. Les centres
-              régionaux, lieux d’étude puis repères locaux sont nommés
-              progressivement jusqu’au zoom 11.
+              Les grands centres restent nommés dans la vue générale. Les
+              centres régionaux, lieux d’étude puis repères locaux apparaissent
+              progressivement jusqu’au zoom 10.
             </p>
           </details>
 
@@ -629,6 +682,70 @@ export const MapView: React.FC<MapViewProps> = ({
             />
             <span>Itinéraires et voyages</span>
           </button>
+
+          {showRoutes && (
+            <details className="group rounded-xl border border-slate-100 bg-white/70">
+              <summary className="cursor-pointer list-none px-2.5 py-2 font-semibold text-slate-700 marker:content-none">
+                <span className="flex items-center justify-between gap-3">
+                  <span>Catégories d’itinéraires</span>
+                  <span
+                    aria-hidden="true"
+                    className="text-slate-400 transition group-open:rotate-180"
+                  >
+                    ▾
+                  </span>
+                </span>
+              </summary>
+              <div className="grid grid-cols-2 gap-1.5 border-t border-slate-100 p-2">
+                {ROUTE_LEGEND.map(([category, style]) => {
+                  const count = routes.filter(
+                    route =>
+                      route.routeCategory === category &&
+                      overlapsPeriod(
+                        route.startYear,
+                        route.endYear,
+                        visiblePeriod
+                      )
+                  ).length;
+                  if (count === 0) return null;
+                  const isVisible = visibleRouteCategories.has(category);
+                  return (
+                    <button
+                      key={category}
+                      type="button"
+                      aria-pressed={isVisible}
+                      onClick={() =>
+                        setVisibleRouteCategories(current => {
+                          const next = new Set(current);
+                          if (next.has(category)) next.delete(category);
+                          else next.add(category);
+                          return next;
+                        })
+                      }
+                      className={`flex min-w-0 items-center gap-2 rounded-lg px-2 py-1.5 text-left text-[10px] leading-tight transition ${
+                        isVisible
+                          ? 'bg-slate-50 text-slate-700 shadow-sm ring-1 ring-slate-200'
+                          : 'text-slate-400 hover:bg-slate-50'
+                      }`}
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="h-0.5 w-5 shrink-0 rounded-full"
+                        style={{
+                          backgroundColor: style.color,
+                          opacity: isVisible ? 1 : 0.3
+                        }}
+                      />
+                      <span className="min-w-0">
+                        {style.label}{' '}
+                        <span className="text-slate-400">({count})</span>
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </details>
+          )}
 
           <button
             type="button"

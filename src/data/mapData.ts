@@ -1,6 +1,8 @@
 import { BiblicalPlace, BiblicalRoute, BiblicalTerritory } from '../types';
 import { createEventId } from '../utils/stableIds';
 import { PROMISED_LAND_PLACES } from './promisedLandPlaces';
+import { PATRIARCH_AND_EXODUS_PLACES } from './patriarchAndExodusPlaces';
+import { PATRIARCH_AND_EXODUS_ROUTES } from './patriarchAndExodusRoutes';
 
 /**
  * BIBLICAL PLACES DATABASE
@@ -344,15 +346,17 @@ const mergePlaceCorpus = (
 
 export const BIBLICAL_PLACES = mergePlaceCorpus(
   CORE_BIBLICAL_PLACES,
-  PROMISED_LAND_PLACES
+  [...PROMISED_LAND_PLACES, ...PATRIARCH_AND_EXODUS_PLACES]
 );
 
 export const BIBLICAL_ROUTES: BiblicalRoute[] = [
+  ...PATRIARCH_AND_EXODUS_ROUTES,
   {
     id: "route_paul_1",
     name: "1er Voyage Missionnaire de Paul",
     description: "Vers 47-48 de n. è. De Antioche de Syrie à Chypre puis en Asie Mineure (Galatie) avant de revenir à Antioche.",
     color: "#13a30c",
+    routeCategory: "missionary",
     startYear: 47,
     endYear: 48,
     biblicalReferences: ["Actes 13:1 - 14:28"],
@@ -375,32 +379,6 @@ export const BIBLICAL_ROUTES: BiblicalRoute[] = [
       { stepNumber: 8, name: "Lystre", coordinates: [37.5833, 32.4500], description: "Guérison d'un boiteux, Paul lapidé mais survit" },
       { stepNumber: 9, name: "Derbe", coordinates: [37.3500, 33.1667], description: "Nombreux disciples faits" },
       { stepNumber: 10, name: "Retour à Antioche de Syrie", coordinates: [36.2021, 36.1604], description: "Rapport à l'assemblée" }
-    ]
-  },
-  {
-    id: "route_exodus",
-    name: "Itinéraire de l'Exode",
-    description: "De Ramsès en Égypte jusqu'au Sinaï puis vers la Terre Promise.",
-    color: "#d57a15",
-    startYear: -1512,
-    endYear: -1472,
-    biblicalReferences: ["Exode 12:37", "Nombres 33:1-49"],
-    associatedEventIds: [
-      createEventId(
-        "Sortie d’Égypte",
-        "-1512-01-01 00:00:00",
-        "Événements marquants"
-      )
-    ],
-    associatedCharacters: ["Moïse", "Aaron"],
-    points: [
-      { stepNumber: 1, name: "Ramsès (Égypte)", coordinates: [30.7877, 31.8347], description: "Départ d'Égypte" },
-      { stepNumber: 2, name: "Succoth", coordinates: [30.5500, 32.1000], description: "Premier campement" },
-      { stepNumber: 3, name: "Traversée de la Mer Rouge", coordinates: [29.9667, 32.5500], description: "Miracle de la mer fendue" },
-      { stepNumber: 4, name: "Marah & Élim", coordinates: [29.2833, 32.9667], description: "Eaux amères adoucies et oasis" },
-      { stepNumber: 5, name: "Mont Sinaï", coordinates: [28.5394, 33.9753], description: "Don de la Loi" },
-      { stepNumber: 6, name: "Kadesh-Barnéa", coordinates: [30.6500, 34.4167], description: "Envoi des 12 espions" },
-      { stepNumber: 7, name: "Plaines de Moab", coordinates: [31.8000, 35.6000], description: "Camp avant la traversée du Jourdain" }
     ]
   }
 ];

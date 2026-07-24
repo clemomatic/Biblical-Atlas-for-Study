@@ -7,11 +7,21 @@ export type BiblicalMapCategory =
   | 'hebrew-scriptures'
   | 'greek-scriptures'
   | 'both-scriptures'
+  | 'ancient-city'
+  | 'biblical-site'
+  | 'exodus-stage'
   | 'summit'
   | 'wadi'
   | 'body-of-water'
   | 'river'
   | 'spring';
+export type BiblicalRouteCategory =
+  | 'patriarch-abraham'
+  | 'patriarch-isaac'
+  | 'patriarch-jacob'
+  | 'ancient-road'
+  | 'exodus'
+  | 'missionary';
 
 export interface SourceReference {
   id: string;
@@ -117,6 +127,8 @@ export interface BiblicalRoute extends EntityMetadata {
   name: string;
   description: string;
   color: string;
+  /** Groupe visuel et filtre de consultation de l'itinéraire. */
+  routeCategory?: BiblicalRouteCategory;
   startYear?: number;
   endYear?: number;
   points: {

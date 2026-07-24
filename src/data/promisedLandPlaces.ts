@@ -28,7 +28,7 @@ interface PromisedLandPlaceSeed {
   coordinatePrecision: 'site' | 'representative' | 'approximate';
 }
 
-const CATEGORY_DESCRIPTIONS: Record<BiblicalMapCategory, string> = {
+const CATEGORY_DESCRIPTIONS: Partial<Record<BiblicalMapCategory, string>> = {
   'levitical-city': 'Ville lévitique indiquée sur la carte source.',
   'refuge-city': 'Ville de refuge indiquée sur la carte source.',
   'hebrew-scriptures': 'Lieu cité dans les Écritures hébraïques selon la carte source.',
@@ -41,7 +41,7 @@ const CATEGORY_DESCRIPTIONS: Record<BiblicalMapCategory, string> = {
   spring: 'Source ou puits identifié sur la carte source.'
 };
 
-const CATEGORY_LABELS: Record<BiblicalMapCategory, string> = {
+const CATEGORY_LABELS: Partial<Record<BiblicalMapCategory, string>> = {
   "levitical-city": "Ville lévitique",
   "refuge-city": "Ville de refuge",
   "hebrew-scriptures": "Lieu des Écritures hébraïques",
@@ -403,7 +403,9 @@ export const PROMISED_LAND_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
     name: seed.name,
     alternateNames: seed.alternateNames,
     coordinates: seed.coordinates,
-    description: CATEGORY_DESCRIPTIONS[seed.mapCategory],
+    description:
+      CATEGORY_DESCRIPTIONS[seed.mapCategory] ||
+      'Repère identifié sur la carte source.',
     biblicalReferences: seed.biblicalReferences,
     documentaryReferences: [
       `Carte « La Terre promise », grille ${gridReference}`
@@ -429,7 +431,7 @@ export const PROMISED_LAND_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
     certainty: seed.certainty,
     notes: sourceNote,
     lastVerified: '2026-07-24',
-    category: CATEGORY_LABELS[seed.mapCategory],
+    category: CATEGORY_LABELS[seed.mapCategory] || 'Repère cartographique',
     mapCategory: seed.mapCategory,
     mapReferences: seed.mapReferences,
     coordinatePrecision: seed.coordinatePrecision,
