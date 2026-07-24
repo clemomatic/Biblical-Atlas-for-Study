@@ -1,5 +1,6 @@
 export type CertaintyLevel = 'certain' | 'probable' | 'possible' | 'unknown';
 export type TimelineDisplayLevel = 'overview' | 'study' | 'detail';
+export type MapLabelLevel = 'major' | 'regional' | 'study' | 'local';
 export type BiblicalMapCategory =
   | 'levitical-city'
   | 'refuge-city'
@@ -107,6 +108,8 @@ export interface BiblicalPlace extends EntityMetadata {
   mapReferences?: string[];
   /** Nature de la coordonnée affichée, distincte du degré de certitude. */
   coordinatePrecision?: 'site' | 'representative' | 'approximate';
+  /** Niveau de zoom à partir duquel le nom du lieu est affiché en permanence. */
+  mapLabelLevel?: MapLabelLevel;
 }
 
 export interface BiblicalRoute extends EntityMetadata {

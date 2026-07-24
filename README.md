@@ -40,7 +40,8 @@ pnpm check
 
 ### Frise
 
-- zoom, déplacement horizontal et regroupement visuel des événements proches ;
+- zoom logarithmique, déplacement horizontal et vue annuelle avec repères mensuels ;
+- événements toujours distincts, sans fusion visuelle ;
 - modes de densité pour ajuster la quantité de texte affichée ;
 - rendu limité aux événements qui croisent le viewport, avec une marge autour de la zone visible ;
 - transmission en continu de la période affichée à la carte.
@@ -52,7 +53,7 @@ pnpm check
 - commandes indépendantes et accessibles pour les itinéraires et territoires ;
 - fond « Relief naturel » par défaut et fond clair CARTO mémorisé localement ;
 - légende des lieux conforme aux catégories des cartes documentaires ;
-- libellés détaillés à partir du niveau de zoom d’étude pour préserver la lisibilité ;
+- libellés cartographiques progressifs en quatre niveaux : majeur, régional, étude et local ;
 - filtrage temporel lorsque les dates d’une entité sont connues ;
 - sélection et mise en valeur d’un itinéraire ;
 - navigation dans les deux sens entre carte, frise et fiches documentaires.
@@ -75,6 +76,12 @@ Champs documentaires communs :
 | `certainty` | `certain`, `probable`, `possible` ou `unknown` |
 | `notes` | Notes éditoriales |
 | `lastVerified` | Date de dernière vérification au format `AAAA-MM-JJ` |
+| `mapLabelLevel` | Priorité d’affichage du nom d’un lieu selon le zoom cartographique |
+
+Le corpus de la Terre promise conserve un lien direct vers la carte documentaire
+[« La Terre promise », dans *Voyez le bon pays*, p. 18-19](https://wol.jw.org/fr/wol/d/r30/lp-f/1102003103).
+Les coordonnées identifiées sont croisées séparément avec
+[OpenBible.info Bible Geocoding Data](https://github.com/openbibleinfo/Bible-Geocoding-Data).
 
 Relations principales :
 

@@ -25,6 +25,58 @@ interface TimelineViewProps {
   searchQuery: string;
 }
 
+const MIN_PX_PER_YEAR = 0.35;
+const MAX_PX_PER_YEAR = 720;
+const DEFAULT_PX_PER_YEAR = 1.2;
+const ZOOM_SLIDER_STEPS = 1000;
+const INITIAL_CENTER_YEAR = -1000;
+const MONTH_LABELS = [
+  'janv.',
+  'févr.',
+  'mars',
+  'avr.',
+  'mai',
+  'juin',
+  'juil.',
+  'août',
+  'sept.',
+  'oct.',
+  'nov.',
+  'déc.'
+];
+
+const scaleToSliderValue = (scale: number): number =>
+  (Math.log(scale / MIN_PX_PER_YEAR) /
+    Math.log(MAX_PX_PER_YEAR / MIN_PX_PER_YEAR)) *
+  ZOOM_SLIDER_STEPS;
+
+const sliderValueToScale = (value: number): number =>
+  MIN_PX_PER_YEAR *
+  Math.pow(
+    MAX_PX_PER_YEAR / MIN_PX_PER_YEAR,
+    value / ZOOM_SLIDER_STEPS
+  );
+
+const positionToCalendarYear = (position: number): number => {
+  const positionYear = Math.floor(position + Number.EPSILON);
+  return positionYear < 0 ? positionYear : positionYear + 1;
+};
+
+const formatTimelineTick = (position: number, interval: number): string => {
+  const calendarYear = positionToCalendarYear(position);
+  if (interval >= 1) return formatDateFrench(calendarYear);
+
+  const positionYear = Math.floor(position + Number.EPSILON);
+  const fraction = Math.max(0, position - positionYear);
+  const monthIndex = Math.min(11, Math.round(fraction * 12));
+  const compactYear =
+    calendarYear < 0 ? `${Math.abs(calendarYear)} av.` : `${calendarYear}`;
+  return `${MONTH_LABELS[monthIndex]} ${compactYear}`;
+};
+
+const formatZoomScale = (scale: number): string =>
+  scale >= 10 ? Math.round(scale).toString() : scale.toFixed(1);
+
 export const TimelineView: React.FC<TimelineViewProps> = ({
   eras,
   categories,
@@ -44,8 +96,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const [viewportX, setViewportX] = useState<{ startX: number; endX: number }>({ startX: 0, endX: 2000 });
 
   // Zoom level: pixels per year
-  const [pxPerYear, setPxPerYear] = useState<number>(0.5); // Default scale
+  const [pxPerYear, setPxPerYear] =
+    useState<number>(DEFAULT_PX_PER_YEAR);
   const containerRef = useRef<HTMLDivElement>(null);
+  const hasInitializedViewportRef = useRef(false);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
   const [scrollLeft, setScrollLeft] = useState<number>(0);
@@ -78,9 +132,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const minYear = -4100;
   const maxYear = 2050;
   const totalYears = maxYear - minYear;
-  const minPxPerYear = 0.2;
-  const overviewMaxPxPerYear = 0.35;
-  const detailMinPxPerYear = 1.2;
+  const overviewMaxPxPerYear = 0.75;
+  const detailMinPxPerYear = 8;
 
   const timelineWidth = Math.max(1200, totalYears * pxPerYear);
   const viewportRenderMargin = 240;
@@ -144,6 +197,29 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   useEffect(() => {
     if (!isActive) return;
     const frame = window.requestAnimationFrame(updateViewport);
+    return () => window.cancelAnimationFrame(frame);
+  }, [isActive, timelineWidth]);
+
+  useEffect(() => {
+    if (
+      !isActive ||
+      hasInitializedViewportRef.current ||
+      !containerRef.current
+    ) {
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      if (!containerRef.current) return;
+      const centerRatio = (INITIAL_CENTER_YEAR - minYear) / totalYears;
+      containerRef.current.scrollLeft = Math.max(
+        0,
+        centerRatio * timelineWidth - containerRef.current.clientWidth / 2
+      );
+      hasInitializedViewportRef.current = true;
+      updateViewport();
+    });
+
     return () => window.cancelAnimationFrame(frame);
   }, [isActive, timelineWidth]);
 
@@ -316,7 +392,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       ? (containerRef.current.scrollLeft + anchorOffset) / timelineWidth
       : 0.5
   ) => {
-    const nextScale = Math.min(10, Math.max(minPxPerYear, requestedScale));
+    const nextScale = Math.min(
+      MAX_PX_PER_YEAR,
+      Math.max(MIN_PX_PER_YEAR, requestedScale)
+    );
     const nextTimelineWidth = Math.max(1200, totalYears * nextScale);
     setPxPerYear(nextScale);
 
@@ -673,28 +752,69 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
     const anchorOffset = e.clientX - rect.left;
-    const zoomFactor = Math.exp(-e.deltaY * 0.0015);
+    const zoomFactor = Math.exp(-e.deltaY * 0.004);
     setZoomAroundAnchor(pxPerYear * zoomFactor, anchorOffset);
   };
 
   // Ticks calculation
   const tickInterval = useMemo(() => {
-    if (pxPerYear > 4) return 25;
-    if (pxPerYear > 2) return 50;
-    if (pxPerYear > 0.8) return 100;
-    if (pxPerYear > 0.3) return 250;
-    return 500;
+    const targetYears = 60 / pxPerYear;
+    const intervals = [
+      1 / 12,
+      1 / 4,
+      1 / 2,
+      1,
+      2,
+      5,
+      10,
+      25,
+      50,
+      100,
+      250,
+      500
+    ];
+    return (
+      intervals.find(interval => interval >= targetYears) ||
+      intervals[intervals.length - 1]
+    );
   }, [pxPerYear]);
 
   const ticks = useMemo(() => {
-    const list = [];
-    let y = Math.ceil(minYear / tickInterval) * tickInterval;
-    while (y <= maxYear) {
-      if (y !== 0) list.push(y);
-      y += tickInterval;
+    const list: { position: number; label: string }[] = [];
+    const renderMargin = 120;
+    const visibleStart =
+      minYear +
+      (Math.max(0, viewportX.startX - renderMargin) / timelineWidth) *
+        totalYears;
+    const visibleEnd =
+      minYear +
+      (Math.min(timelineWidth, viewportX.endX + renderMargin) /
+        timelineWidth) *
+        totalYears;
+    const firstTick =
+      Math.ceil((visibleStart - Number.EPSILON) / tickInterval) *
+      tickInterval;
+
+    for (
+      let position = firstTick;
+      position <= visibleEnd + Number.EPSILON;
+      position += tickInterval
+    ) {
+      const normalizedPosition = Number(position.toFixed(8));
+      list.push({
+        position: normalizedPosition,
+        label: formatTimelineTick(normalizedPosition, tickInterval)
+      });
     }
     return list;
-  }, [tickInterval, minYear, maxYear]);
+  }, [
+    tickInterval,
+    minYear,
+    totalYears,
+    timelineWidth,
+    viewportX.startX,
+    viewportX.endX
+  ]);
 
   // Scroll to selected event when changed
   useEffect(() => {
@@ -704,7 +824,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         const targetScale =
           pxPerYear < overviewMaxPxPerYear &&
           !backgroundCategoryNames.has(ev.category)
-            ? 1.8
+            ? 12
             : pxPerYear;
         const targetTimelineWidth = Math.max(1200, totalYears * targetScale);
 
@@ -734,7 +854,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               <button
                 onClick={() =>
                   setZoomAroundAnchor(
-                    pxPerYear * 1.3,
+                    pxPerYear * 2,
                     (containerRef.current?.clientWidth || 0) / 2
                   )
                 }
@@ -743,11 +863,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               >
                 <ZoomIn className="w-3.5 h-3.5" />
               </button>
-              <span className="px-1.5 font-mono text-[11px] text-indigo-600 font-bold">{pxPerYear.toFixed(1)}px/an</span>
+              <span className="px-1.5 font-mono text-[11px] text-indigo-600 font-bold">{formatZoomScale(pxPerYear)} px/an</span>
               <button
                 onClick={() =>
                   setZoomAroundAnchor(
-                    pxPerYear / 1.3,
+                    pxPerYear / 2,
                     (containerRef.current?.clientWidth || 0) / 2
                   )
                 }
@@ -782,7 +902,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             <button
               onClick={() =>
                 setZoomAroundAnchor(
-                  pxPerYear * 1.3,
+                  pxPerYear * 2,
                   (containerRef.current?.clientWidth || 0) / 2
                 )
               }
@@ -794,13 +914,13 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             
             <input
               type="range"
-              min={minPxPerYear}
-              max="10"
-              step="0.1"
-              value={pxPerYear}
+              min="0"
+              max={ZOOM_SLIDER_STEPS}
+              step="1"
+              value={scaleToSliderValue(pxPerYear)}
               onChange={(e) =>
                 setZoomAroundAnchor(
-                  parseFloat(e.target.value),
+                  sliderValueToScale(parseFloat(e.target.value)),
                   (containerRef.current?.clientWidth || 0) / 2
                 )
               }
@@ -810,7 +930,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             <button
               onClick={() =>
                 setZoomAroundAnchor(
-                  pxPerYear / 1.3,
+                  pxPerYear / 2,
                   (containerRef.current?.clientWidth || 0) / 2
                 )
               }
@@ -825,7 +945,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             <button
               onClick={() =>
                 setZoomAroundAnchor(
-                  0.2,
+                  MIN_PX_PER_YEAR,
                   (containerRef.current?.clientWidth || 0) / 2
                 )
               }
@@ -839,7 +959,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             <button
               onClick={() =>
                 setZoomAroundAnchor(
-                  0.6,
+                  2.4,
                   (containerRef.current?.clientWidth || 0) / 2
                 )
               }
@@ -853,16 +973,34 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             <button
               onClick={() =>
                 setZoomAroundAnchor(
-                  1.8,
+                  36,
                   (containerRef.current?.clientWidth || 0) / 2
                 )
               }
               className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition ${
-                zoomDisplayLevel === 'detail' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-600 hover:bg-slate-200'
+                zoomDisplayLevel === 'detail' && pxPerYear < 360
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:bg-slate-200'
               }`}
-              title="Vue détaillée avec fort zoom"
+              title="Vue détaillée sur quelques décennies"
             >
               Détails
+            </button>
+            <button
+              onClick={() =>
+                setZoomAroundAnchor(
+                  MAX_PX_PER_YEAR,
+                  (containerRef.current?.clientWidth || 0) / 2
+                )
+              }
+              className={`px-2 py-0.5 rounded-md text-[10px] font-bold transition ${
+                pxPerYear >= 360
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : 'text-slate-600 hover:bg-slate-200'
+              }`}
+              title="Vue annuelle avec repères mensuels"
+            >
+              1 an
             </button>
           </div>
 
@@ -955,7 +1093,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           <button
             onClick={() =>
               setZoomAroundAnchor(
-                0.6,
+                2.4,
                 (containerRef.current?.clientWidth || 0) / 2
               )
             }
@@ -969,7 +1107,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           <div className="flex items-center gap-2 font-medium truncate">
             <Sparkles className="w-3.5 h-3.5 text-indigo-300 shrink-0 animate-pulse" />
             <span className="truncate">
-              <strong>Vue d'ensemble ({pxPerYear.toFixed(1)} px/an)</strong> : les événements restent sur leur ligne et les titres s’adaptent à l’espace disponible.
+              <strong>Vue d'ensemble ({formatZoomScale(pxPerYear)} px/an)</strong> : les événements restent sur leur ligne et les titres s’adaptent à l’espace disponible.
             </span>
           </div>
           <button
@@ -1110,16 +1248,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
           {/* 2. YEAR TICKS & RULER */}
           <div className="sticky top-12 left-0 right-0 h-8 bg-white/90 border-b border-slate-200 z-10 flex items-center">
-            {ticks.map((year) => {
-              const x = getXFromYear(year);
+            {ticks.map(tick => {
+              const x = getXFromYear(tick.position);
               return (
                 <div
-                  key={year}
+                  key={tick.position}
                   style={{ left: `${x}px` }}
                   className="absolute top-0 bottom-0 flex flex-col items-center justify-between"
                 >
                   <span className="text-[10px] text-slate-500 font-mono tracking-tighter whitespace-nowrap pt-0.5">
-                    {formatDateFrench(year)}
+                    {tick.label}
                   </span>
                   <div className="w-[1px] h-2 bg-slate-300" />
                 </div>
@@ -1213,11 +1351,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             style={{ top: `${eventBodyTop}px` }}
             className="absolute bottom-0 left-0 right-0 pointer-events-none z-0"
           >
-            {ticks.map((year) => {
-              const x = getXFromYear(year);
+            {ticks.map(tick => {
+              const x = getXFromYear(tick.position);
               return (
                 <div
-                  key={year}
+                  key={tick.position}
                   style={{ left: `${x}px` }}
                   className="absolute top-0 bottom-0 w-[1px] bg-slate-100 border-r border-dashed border-slate-200"
                 />

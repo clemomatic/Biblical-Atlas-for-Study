@@ -7,6 +7,7 @@ import {
   BiblicalRoute,
   BiblicalTerritory,
   EventData,
+  MapLabelLevel,
   TimelinePeriod
 } from '../types';
 import { Layers, Info, Map as MapIcon, Mountain } from 'lucide-react';
@@ -197,6 +198,13 @@ const OVERVIEW_PLACE_IDS = new Set([
   'dan'
 ]);
 
+const MAP_LABEL_MIN_ZOOM: Record<MapLabelLevel, number> = {
+  major: 7,
+  regional: 8,
+  study: 9,
+  local: 11
+};
+
 export const MapView: React.FC<MapViewProps> = ({
   places,
   routes,
@@ -359,7 +367,9 @@ export const MapView: React.FC<MapViewProps> = ({
             color: '#4338ca',
             background: '#ffffff'
           };
-      const showLabel = mapZoom >= 12 || isHighlighted;
+      const labelLevel = place.mapLabelLevel || 'local';
+      const showLabel =
+        mapZoom >= MAP_LABEL_MIN_ZOOM[labelLevel] || isHighlighted;
       const markerHtml = `
         <div class="relative flex items-center justify-center">
           <div
@@ -375,7 +385,11 @@ export const MapView: React.FC<MapViewProps> = ({
           </div>
           ${
             showLabel
-              ? `<span class="absolute -bottom-5 whitespace-nowrap rounded border border-slate-200 bg-white/95 px-1.5 py-0.5 text-[11px] font-bold text-slate-900 shadow">
+              ? `<span class="absolute left-1/2 -bottom-5 -translate-x-1/2 whitespace-nowrap rounded border ${
+                  labelLevel === 'major'
+                    ? 'border-indigo-300 bg-indigo-50/95 text-[12px] font-extrabold text-indigo-950 shadow-md'
+                    : 'border-slate-200 bg-white/95 text-[11px] font-bold text-slate-900 shadow'
+                } px-1.5 py-0.5">
                   ${escapeHtml(place.name)}
                 </span>`
               : ''
@@ -590,9 +604,9 @@ export const MapView: React.FC<MapViewProps> = ({
               })}
             </div>
             <p className="border-t border-slate-100 px-2.5 py-2 text-[10px] leading-relaxed text-slate-500">
-              Les repères majeurs restent visibles au niveau général. Tous les
-              lieux apparaissent progressivement, puis intégralement à partir
-              du zoom 9.
+              Jérusalem reste nommée dans la vue générale. Les centres
+              régionaux, lieux d’étude puis repères locaux sont nommés
+              progressivement jusqu’au zoom 11.
             </p>
           </details>
 

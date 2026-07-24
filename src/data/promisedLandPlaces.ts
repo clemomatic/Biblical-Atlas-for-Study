@@ -1,4 +1,9 @@
-import { BiblicalMapCategory, BiblicalPlace, CertaintyLevel } from '../types';
+import {
+  BiblicalMapCategory,
+  BiblicalPlace,
+  CertaintyLevel,
+  MapLabelLevel
+} from '../types';
 
 /**
  * Corpus statique dérivé des cartes « La Terre promise » et
@@ -47,6 +52,42 @@ const CATEGORY_LABELS: Record<BiblicalMapCategory, string> = {
   "body-of-water": "Étendue d’eau",
   "river": "Fleuve",
   "spring": "Source ou puits"
+};
+
+const REGIONAL_LABEL_IDS = new Set([
+  'samaria',
+  'hebron',
+  'beersheba',
+  'nazareth',
+  'capernaum',
+  'dan',
+  'obi-jericho-1',
+  'obi-gaza',
+  'obi-tyre'
+]);
+
+const STUDY_LABEL_IDS = new Set([
+  'bethlehem',
+  'bethel',
+  'shechem',
+  'megiddo',
+  'caesarea',
+  'joppa',
+  'obi-hazor-1',
+  'obi-kedesh-5-f2',
+  'obi-ramoth-gilead',
+  'obi-sea-of-galilee',
+  'obi-salt-sea',
+  'jordan_river',
+  'carmel',
+  'obi-mount-tabor'
+]);
+
+const getMapLabelLevel = (id: string): MapLabelLevel => {
+  if (id === 'jerusalem') return 'major';
+  if (REGIONAL_LABEL_IDS.has(id)) return 'regional';
+  if (STUDY_LABEL_IDS.has(id)) return 'study';
+  return 'local';
 };
 
 const SEEDS: PromisedLandPlaceSeed[] = [
@@ -371,7 +412,8 @@ export const PROMISED_LAND_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
       {
         id: 'carte-terre-promise',
         label: 'Carte « La Terre promise » et encart « Les environs de Jérusalem »',
-        citation: `Référence de grille : ${gridReference}`
+        url: 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102003103',
+        citation: `« Voyez le bon pays », p. 18-19 ; référence de grille : ${gridReference}`
       },
       ...(seed.ancientId
         ? [
@@ -390,6 +432,7 @@ export const PROMISED_LAND_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
     category: CATEGORY_LABELS[seed.mapCategory],
     mapCategory: seed.mapCategory,
     mapReferences: seed.mapReferences,
-    coordinatePrecision: seed.coordinatePrecision
+    coordinatePrecision: seed.coordinatePrecision,
+    mapLabelLevel: getMapLabelLevel(seed.id)
   };
 });
