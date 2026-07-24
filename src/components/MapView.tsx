@@ -9,6 +9,7 @@ import {
   TimelinePeriod
 } from '../types';
 import { Layers, Info } from 'lucide-react';
+import { formatDateFrench } from '../utils/dateUtils';
 
 delete (L.Icon.Default.prototype as { _getIconUrl?: unknown })._getIconUrl;
 L.Icon.Default.mergeOptions({
@@ -23,8 +24,11 @@ interface MapViewProps {
   territories: BiblicalTerritory[];
   selectedPlace: BiblicalPlace | null;
   selectedEvent: EventData | null;
+  selectedRouteId: string | null;
   visiblePeriod: TimelinePeriod | null;
+  isActive: boolean;
   onSelectPlace: (place: BiblicalPlace) => void;
+  onSelectRoute: (route: BiblicalRoute) => void;
   searchQuery: string;
 }
 
@@ -58,8 +62,11 @@ export const MapView: React.FC<MapViewProps> = ({
   territories,
   selectedPlace,
   selectedEvent,
+  selectedRouteId,
   visiblePeriod,
+  isActive,
   onSelectPlace,
+  onSelectRoute,
   searchQuery
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
@@ -82,7 +89,7 @@ export const MapView: React.FC<MapViewProps> = ({
     });
 
     L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
       {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -113,6 +120,12 @@ export const MapView: React.FC<MapViewProps> = ({
   }, []);
 
   useEffect(() => {
+    if (!isActive || !mapRef.current) return;
+    const timeout = window.setTimeout(() => mapRef.current?.invalidateSize(), 0);
+    return () => window.clearTimeout(timeout);
+  }, [isActive]);
+
+  useEffect(() => {
     const markerLayer = markerLayerRef.current;
     const routeLayer = routeLayerRef.current;
     const territoryLayer = territoryLayerRef.current;
@@ -125,7 +138,12 @@ export const MapView: React.FC<MapViewProps> = ({
 
     const query = searchQuery.trim().toLowerCase();
     const filteredPlaces = places.filter(place => {
-      if (!overlapsPeriod(place.startYear, place.endYear, visiblePeriod)) return false;
+      if (
+        selectedPlace?.id !== place.id &&
+        !overlapsPeriod(place.startYear, place.endYear, visiblePeriod)
+      ) {
+        return false;
+      }
       if (
         selectedEvent?.associatedLocationIds?.length &&
         !selectedEvent.associatedLocationIds.includes(place.id)
@@ -149,15 +167,15 @@ export const MapView: React.FC<MapViewProps> = ({
         <div class="relative flex items-center justify-center">
           <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-lg transition-transform ${
             isHighlighted
-              ? 'bg-purple-600 text-white scale-125 ring-4 ring-purple-400/50'
-              : 'bg-white text-purple-700 border border-purple-200 hover:scale-110'
+              ? 'bg-indigo-600 text-white scale-125 ring-4 ring-cyan-400/40'
+              : 'bg-white text-indigo-700 border border-indigo-200 hover:scale-110'
           }">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
             </svg>
           </div>
-          <span class="absolute -bottom-5 whitespace-nowrap text-[11px] font-bold px-1.5 py-0.5 rounded bg-white/90 text-stone-900 border border-stone-200 shadow">
+          <span class="absolute -bottom-5 whitespace-nowrap text-[11px] font-bold px-1.5 py-0.5 rounded bg-white/90 text-slate-900 border border-slate-200 shadow">
             ${escapeHtml(place.name)}
           </span>
         </div>`;
@@ -196,8 +214,10 @@ export const MapView: React.FC<MapViewProps> = ({
 
     if (showRoutes) {
       routes
-        .filter(route =>
-          overlapsPeriod(route.startYear, route.endYear, visiblePeriod)
+        .filter(
+          route =>
+            route.id === selectedRouteId ||
+            overlapsPeriod(route.startYear, route.endYear, visiblePeriod)
         )
         .filter(route => {
           if (!selectedEvent) return true;
@@ -207,17 +227,21 @@ export const MapView: React.FC<MapViewProps> = ({
           );
         })
         .forEach(route => {
-          L.polyline(
+          const isSelected = route.id === selectedRouteId;
+          const polyline = L.polyline(
             route.points.map(point => point.coordinates),
             {
               color: route.color,
-              weight: 3,
-              dashArray: '6, 8',
-              opacity: 0.8
+              weight: isSelected ? 6 : 3,
+              dashArray: isSelected ? undefined : '6, 8',
+              opacity: isSelected ? 1 : 0.76
             }
-          )
-            .bindTooltip(escapeHtml(route.name))
+          );
+          polyline.on('click', () => onSelectRoute(route));
+          polyline
+            .bindTooltip(escapeHtml(route.name), { sticky: true })
             .addTo(routeLayer);
+          if (isSelected) polyline.bringToFront();
         });
     }
   }, [
@@ -226,11 +250,13 @@ export const MapView: React.FC<MapViewProps> = ({
     territories,
     selectedPlace,
     selectedEvent,
+    selectedRouteId,
     visiblePeriod,
     searchQuery,
     showRoutes,
     showTerritories,
-    onSelectPlace
+    onSelectPlace,
+    onSelectRoute
   ]);
 
   useEffect(() => {
@@ -239,52 +265,84 @@ export const MapView: React.FC<MapViewProps> = ({
     }
   }, [selectedPlace]);
 
+  useEffect(() => {
+    if (!selectedRouteId || !mapRef.current || !isActive) return;
+    const route = routes.find(item => item.id === selectedRouteId);
+    if (!route || route.points.length === 0) return;
+    const bounds = L.latLngBounds(
+      route.points.map(point => point.coordinates)
+    );
+    mapRef.current.fitBounds(bounds, {
+      padding: [56, 56],
+      maxZoom: 10,
+      animate: true
+    });
+  }, [selectedRouteId, routes, isActive]);
+
   return (
-    <div className="flex flex-col h-[calc(100vh-4rem)] bg-stone-50 relative overflow-hidden">
-      <div className="absolute top-4 left-4 z-[400] flex flex-col gap-2">
-        <div className="bg-white/90 backdrop-blur-md border border-stone-200 rounded-2xl p-2.5 shadow-xl space-y-2 text-xs text-stone-800">
-          <div className="font-bold text-purple-700 uppercase tracking-wider px-1 pb-1 border-b border-stone-100 flex items-center gap-1.5">
-            <Layers className="w-3.5 h-3.5" />
+    <div className="relative flex h-full flex-col overflow-hidden bg-slate-50">
+      <div className="absolute left-3 top-3 z-[400] flex max-w-[calc(100%-1.5rem)] flex-col gap-2 sm:left-4 sm:top-4">
+        <div className="space-y-2 rounded-2xl border border-white/70 bg-white/90 p-2.5 text-xs text-slate-800 shadow-xl shadow-slate-900/10 backdrop-blur-xl">
+          <div className="flex items-center gap-1.5 border-b border-slate-100 px-1 pb-2 font-bold uppercase tracking-wider text-indigo-700">
+            <Layers className="size-3.5" />
             <span>Couches de la carte</span>
           </div>
 
-          <label className="flex items-center gap-2 cursor-pointer hover:text-stone-950 px-1">
-            <input
-              type="checkbox"
-              checked={showRoutes}
-              onChange={event => setShowRoutes(event.target.checked)}
-              className="accent-purple-600 rounded"
+          <button
+            type="button"
+            onClick={() => setShowRoutes(value => !value)}
+            aria-pressed={showRoutes}
+            className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left font-semibold transition ${
+              showRoutes
+                ? 'bg-indigo-50 text-indigo-800'
+                : 'text-slate-500 hover:bg-slate-50'
+            }`}
+          >
+            <span
+              className={`size-2 rounded-full ${
+                showRoutes ? 'bg-indigo-600' : 'bg-slate-300'
+              }`}
             />
             <span>Itinéraires et voyages</span>
-          </label>
+          </button>
 
-          <label className="flex items-center gap-2 cursor-pointer hover:text-stone-950 px-1">
-            <input
-              type="checkbox"
-              checked={showTerritories}
-              onChange={event => setShowTerritories(event.target.checked)}
-              className="accent-purple-600 rounded"
+          <button
+            type="button"
+            onClick={() => setShowTerritories(value => !value)}
+            aria-pressed={showTerritories}
+            className={`flex w-full items-center gap-2 rounded-xl px-2.5 py-2 text-left font-semibold transition ${
+              showTerritories
+                ? 'bg-cyan-50 text-cyan-800'
+                : 'text-slate-500 hover:bg-slate-50'
+            }`}
+          >
+            <span
+              className={`size-2 rounded-full ${
+                showTerritories ? 'bg-cyan-500' : 'bg-slate-300'
+              }`}
             />
             <span>Territoires et royaumes</span>
-          </label>
+          </button>
         </div>
 
         {visiblePeriod && (
-          <div className="bg-white/90 backdrop-blur-md border border-stone-200 rounded-xl p-3 shadow-xl text-xs text-stone-700 max-w-xs">
-            Période de la frise : {Math.round(visiblePeriod.startYear)} à{' '}
-            {Math.round(visiblePeriod.endYear)}
+          <div className="max-w-xs rounded-xl border border-white/70 bg-white/90 p-3 text-xs text-slate-600 shadow-xl shadow-slate-900/10 backdrop-blur-xl">
+            <span className="font-semibold text-slate-900">Période visible</span>
+            <br />
+            {formatDateFrench(Math.round(visiblePeriod.startYear))} à{' '}
+            {formatDateFrench(Math.round(visiblePeriod.endYear))}
           </div>
         )}
 
         {selectedEvent && (
-          <div className="bg-purple-50/90 backdrop-blur-md border border-purple-200 rounded-xl p-3 shadow-xl text-xs text-purple-900 max-w-xs">
-            <div className="font-bold text-purple-700 flex items-center gap-1.5 mb-1">
-              <Info className="w-4 h-4 shrink-0" />
-              <span>Filtre lié à l’événement :</span>
+          <div className="max-w-xs rounded-xl border border-indigo-200 bg-indigo-50/90 p-3 text-xs text-indigo-950 shadow-xl shadow-indigo-900/10 backdrop-blur-xl">
+            <div className="mb-1 flex items-center gap-1.5 font-bold text-indigo-700">
+              <Info className="size-4 shrink-0" />
+              <span>Contexte de l’événement</span>
             </div>
-            <p className="font-semibold text-stone-950">{selectedEvent.text}</p>
-            <p className="text-[11px] text-purple-800/80 mt-1">
-              Les lieux et itinéraires associés sont mis en contexte avec la période de la frise.
+            <p className="font-semibold text-slate-950">{selectedEvent.text}</p>
+            <p className="mt-1 text-[11px] text-indigo-800/80">
+              Seuls les lieux et itinéraires associés sont affichés.
             </p>
           </div>
         )}

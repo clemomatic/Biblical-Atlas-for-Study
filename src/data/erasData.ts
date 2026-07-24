@@ -5,15 +5,15 @@ import { normalizeCategoryName } from '../utils/dataVocabulary';
 
 const rawEras = [
   { id: 'era_1', name: "De la création d'Adam au Déluge", start: "-4025-01-01 00:00:00", end: "-2369-01-01 00:00:00", color: "210,215,225" },
-  { id: 'era_2', name: "Déluge jusqu'à l'alliance Abrahamique", start: "-2369-01-01 00:00:00", end: "-1942-01-01 00:00:00", color: "215,225,220" },
-  { id: 'era_3', name: "De l'alliance Abrahamique à l'Exode", start: "-1942-01-01 00:00:00", end: "-1512-01-01 00:00:00", color: "205,222,210" },
+  { id: 'era_2', name: "Déluge jusqu'à l'alliance abrahamique", start: "-2369-01-01 00:00:00", end: "-1942-01-01 00:00:00", color: "215,225,220" },
+  { id: 'era_3', name: "De l'alliance abrahamique à l'Exode", start: "-1942-01-01 00:00:00", end: "-1512-01-01 00:00:00", color: "205,222,210" },
   { id: 'era_4', name: "De l'Exode à la construction du Temple", start: "-1512-01-01 00:00:00", end: "-1033-01-01 00:00:00", color: "210,225,195" },
   { id: 'era_5', name: "De la construction du Temple à la scission du Royaume", start: "-1033-01-01 00:00:00", end: "-996-01-01 00:00:00", color: "225,220,195" },
-  { id: 'era_6', name: "Des deux Royaumes à la déstruction de Jérusalem", start: "-996-01-01 00:00:00", end: "-606-01-01 00:00:00", color: "228,212,198" },
-  { id: 'era_7', name: "De la Déstruction de Jérusalem au retour d'Exil", start: "-606-01-01 00:00:00", end: "-536-01-01 00:00:00", color: "230,202,202" },
-  { id: 'era_8', name: "Du retour d'Exil à la reconstruction de la muraille", start: "-536-01-01 00:00:00", end: "-454-01-01 00:00:00", color: "232,208,220" },
-  { id: 'era_9', name: "De la reconstruction de la muraille au baptème de Jésus", start: "-454-01-01 00:00:00", end: "29-01-01 00:00:00", color: "222,205,232" },
-  { id: 'era_10', name: "De l'époque de Jésus à Aujourd'hui", start: "29-01-01 00:00:00", end: "2050-12-01 00:00:00", color: "202,212,238" }
+  { id: 'era_6', name: "Des deux royaumes à la destruction de Jérusalem", start: "-996-01-01 00:00:00", end: "-606-01-01 00:00:00", color: "228,212,198" },
+  { id: 'era_7', name: "De la destruction de Jérusalem au retour d'exil", start: "-606-01-01 00:00:00", end: "-536-01-01 00:00:00", color: "230,202,202" },
+  { id: 'era_8', name: "Du retour d'exil à la reconstruction de la muraille", start: "-536-01-01 00:00:00", end: "-454-01-01 00:00:00", color: "232,208,220" },
+  { id: 'era_9', name: "De la reconstruction de la muraille au baptême de Jésus", start: "-454-01-01 00:00:00", end: "29-01-01 00:00:00", color: "222,205,232" },
+  { id: 'era_10', name: "De l'époque de Jésus à aujourd'hui", start: "29-01-01 00:00:00", end: "2050-12-01 00:00:00", color: "202,212,238" }
 ];
 
 export const ERAS: EraData[] = rawEras.map(e => {

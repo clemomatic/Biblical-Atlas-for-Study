@@ -145,7 +145,7 @@ const rawEventsData: RawEvent[] = [
   // Key Events
   { text: "Déluge", category: "Événements Marquants", start: "-2369-10-31 00:00:00", end: "-2369-10-31 00:00:00", associatedLocationIds: ["ararat"] },
   { text: "Jéhovah décrète le Déluge", category: "Événements Marquants", start: "-2489-01-01 00:00:00", end: "-2489-01-01 00:00:00" },
-  { text: "Periode Possible Tour de Babel", category: "Événements Marquants", start: "-2268-01-02 00:00:00", end: "-2028-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, description: "Genèse 10:25", associatedLocationIds: ["babylon"] },
+  { text: "Période possible de la tour de Babel", category: "Événements Marquants", start: "-2268-01-02 00:00:00", end: "-2028-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, description: "Genèse 10:25", associatedLocationIds: ["babylon"] },
   { text: "Alliance avec Abraham", category: "Événements Marquants", start: "-1942-01-01 00:00:00", end: "-1942-01-01 00:00:00", description: "14 Nisan", associatedLocationIds: ["shechem", "hebron"] },
   { text: "Jacob fuit son frère à Haran", category: "Événements Marquants", start: "-1780-01-01 00:00:00", end: "-1780-01-01 00:00:00", description: "Source : It(2) Rachel", associatedLocationIds: ["beersheba", "bethel", "haran"] },
   { text: "Retrouvailles avec Joseph", category: "Événements Marquants", start: "-1727-01-01 00:00:00", end: "-1727-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["goshen"] },
