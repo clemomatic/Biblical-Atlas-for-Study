@@ -10,8 +10,7 @@ import { ERAS, CATEGORIES } from './data/erasData';
 import { EVENTS } from './data/timelineEvents';
 import {
   BIBLICAL_PLACES,
-  BIBLICAL_ROUTES,
-  BIBLICAL_TERRITORIES
+  BIBLICAL_ROUTES
 } from './data/mapData';
 import { TimelineView } from './components/TimelineView';
 import { MapView } from './components/MapView';
@@ -322,15 +321,11 @@ export default function App() {
           >
             <MapView
               places={places}
-              routes={routes}
-              territories={BIBLICAL_TERRITORIES}
               selectedPlace={selectedPlace}
               selectedEvent={selectedEvent}
-              selectedRouteId={selectedRoute?.id || null}
               visiblePeriod={visiblePeriod}
               isActive={activeTab === 'map'}
               onSelectPlace={handleSelectPlace}
-              onSelectRoute={handleSelectRoute}
               searchQuery=""
             />
           </section>
