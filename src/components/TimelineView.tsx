@@ -42,6 +42,11 @@ const MAX_CHARACTER_SUBLANES = 10;
 const CHARACTER_SUBLANE_HEIGHT = 22;
 const ERA_RAIL_HEIGHT = 60;
 const YEAR_RULER_HEIGHT = 30;
+const BIBLICAL_BOOK_TRACK_COUNT = 2;
+const BIBLICAL_BOOK_TRACK_TOP = 32;
+const BIBLICAL_BOOK_TRACK_SPACING = 28;
+const BIBLICAL_BOOK_ITEM_HEIGHT = 24;
+const BIBLICAL_BOOK_RAIL_BOTTOM_PADDING = 10;
 const MONTH_LABELS = [
   'janv.',
   'févr.',
@@ -798,6 +803,38 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     [layoutLanes, backgroundCategoryNames]
   );
 
+  const trackedBackgroundPeriodItems = useMemo(() => {
+    const trackEndXs = Array.from(
+      { length: BIBLICAL_BOOK_TRACK_COUNT },
+      () => Number.NEGATIVE_INFINITY
+    );
+
+    return [...backgroundPeriodItems]
+      .sort(
+        (left, right) =>
+          left.startX - right.startX ||
+          right.endX - right.startX - (left.endX - left.startX)
+      )
+      .map(item => {
+        const availableTrackIndex = trackEndXs.findIndex(
+          trackEndX => trackEndX <= item.startX
+        );
+        const visibleTrackIndex =
+          availableTrackIndex >= 0
+            ? availableTrackIndex
+            : trackEndXs[0] <= trackEndXs[1]
+              ? 0
+              : 1;
+
+        trackEndXs[visibleTrackIndex] = Math.max(
+          trackEndXs[visibleTrackIndex],
+          item.endX
+        );
+
+        return { ...item, visibleTrackIndex };
+      });
+  }, [backgroundPeriodItems]);
+
   const legendCategoryCounts = useMemo(() => {
     const counts = new Map<string, number>();
 
@@ -829,7 +866,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     const viewportWidth = viewportX.endX - viewportX.startX;
     const renderMargin = Math.max(80, viewportWidth * 0.08);
 
-    return backgroundPeriodItems
+    return trackedBackgroundPeriodItems
       .filter(
         item =>
           item.endX >= viewportX.startX - renderMargin &&
@@ -841,12 +878,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             right.minYear -
             (left.maxYear - left.minYear) ||
           left.startX - right.startX
-      )
-      .map(item => ({ ...item, visibleTrackIndex: 0 }));
-  }, [backgroundPeriodItems, viewportX.startX, viewportX.endX]);
+      );
+  }, [trackedBackgroundPeriodItems, viewportX.startX, viewportX.endX]);
 
   const backgroundRailHeight =
-    visibleBackgroundPeriodItems.length > 0 ? 66 : 0;
+    visibleBackgroundPeriodItems.length > 0
+      ? BIBLICAL_BOOK_TRACK_TOP +
+        (BIBLICAL_BOOK_TRACK_COUNT - 1) * BIBLICAL_BOOK_TRACK_SPACING +
+        BIBLICAL_BOOK_ITEM_HEIGHT +
+        BIBLICAL_BOOK_RAIL_BOTTOM_PADDING
+      : 0;
   const eventBodyTop =
     ERA_RAIL_HEIGHT + YEAR_RULER_HEIGHT + backgroundRailHeight;
 
@@ -1595,7 +1636,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                     type="button"
                     style={{
                       left: `${item.startX}px`,
-                      top: `${32 + item.visibleTrackIndex * 28}px`,
+                      top: `${
+                        BIBLICAL_BOOK_TRACK_TOP +
+                        item.visibleTrackIndex * BIBLICAL_BOOK_TRACK_SPACING
+                      }px`,
                       width: `${width}px`,
                       zIndex: isActive ? 50 : nestingZIndex
                     }}
