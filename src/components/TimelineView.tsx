@@ -61,7 +61,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const [hoveredClusterId, setHoveredClusterId] = useState<string | null>(null);
   const [selectedCluster, setSelectedCluster] = useState<PositionedCluster | null>(null);
-  const [enableClustering, setEnableClustering] = useState<boolean>(true);
+  const [enableClustering, setEnableClustering] = useState<boolean>(false);
   const [isControlBarCollapsed, setIsControlBarCollapsed] = useState<boolean>(false);
   const [collapsedCategories, setCollapsedCategories] = useState<Set<string>>(new Set());
 
@@ -357,6 +357,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     maxYear: number;
     sublaneIndex: number;
     primaryEvent: EventData;
+    labelWidth: number;
+    showLabel: boolean;
   }
 
   interface CategoryLane {
@@ -371,14 +373,23 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     labelDisplayMode === 'compact' ||
     (labelDisplayMode === 'auto' && pxPerYear < 0.45);
 
-  // Dynamic pixel distance threshold to merge adjacent events into a single cluster
+  const backgroundCategoryNames = useMemo(
+    () =>
+      new Set(
+        categories
+          .filter(category => category.displayMode === 'background-period')
+          .map(category => category.name)
+      ),
+    [categories]
+  );
+
+  // Optional grouping is deliberately limited to true visual collisions.
   const clusterPixelRadius = useMemo(() => {
     if (!enableClustering) return 0;
-    if (pxPerYear < 0.3) return 48; // Group items within 48px when heavily zoomed out
-    if (pxPerYear < 0.65) return 36; // Group items within 36px at low zoom
-    if (labelDisplayMode === 'compact') return 28;
-    return 20; // Default threshold to merge exact overlapping items
-  }, [enableClustering, pxPerYear, labelDisplayMode]);
+    if (pxPerYear < 0.3) return 8;
+    if (pxPerYear < 0.65) return 6;
+    return 4;
+  }, [enableClustering, pxPerYear]);
 
   // Click handler to expand/zoom into a cluster and center timeline
   const handleClusterClick = (cluster: PositionedCluster) => {
@@ -408,11 +419,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
     const eventsByCat: { [cat: string]: EventData[] } = {};
     finalFilteredEvents.forEach(e => {
-      const isBookPeriod =
-        e.category.toLowerCase().includes('livre biblique') ||
-        e.category.toLowerCase().includes('livres bibliques') ||
-        e.category.toLowerCase().includes('période livre') ||
-        e.category.toLowerCase().includes('periode livre');
+      const isBookPeriod = backgroundCategoryNames.has(e.category);
 
       if (e.isPoint && !isBookPeriod) {
         const pointCatName = 'Événements';
@@ -435,10 +442,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       const catEvents = eventsByCat[catName];
       const sortedEvents = [...catEvents].sort((a, b) => a.startPos - b.startPos);
 
-      const isBookCategory =
-        catName.toLowerCase().includes('livre biblique') ||
-        catName.toLowerCase().includes('période livre') ||
-        catName.toLowerCase().includes('periode livre');
+      const isBookCategory = backgroundCategoryNames.has(catName);
 
       // 1. Group nearby events into raw clusters (skip for biblical book background cards)
       const rawClusters: EventData[][] = [];
@@ -452,8 +456,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             const lastInGroupX = getXFromYear(currentGroup[currentGroup.length - 1].startPos);
             const firstInGroupX = getXFromYear(currentGroup[0].startPos);
 
-            // Merge into group if close in pixel distance
-            if (evX - lastInGroupX <= clusterPixelRadius || evX - firstInGroupX <= clusterPixelRadius * 1.5) {
+            // Both limits are required to prevent long chain clusters.
+            if (
+              evX - lastInGroupX <= clusterPixelRadius &&
+              evX - firstInGroupX <= clusterPixelRadius * 1.5
+            ) {
               currentGroup.push(ev);
             } else {
               rawClusters.push([ev]);
@@ -467,6 +474,12 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       // 2. Position raw clusters into sublane tracks
       const tracks: { lastX: number }[] = [];
       const positionedClusters: PositionedCluster[] = [];
+
+      const rawClusterStartXs = rawClusters.map(group => {
+        const averageYear =
+          group.reduce((acc, event) => acc + event.startYear, 0) / group.length;
+        return getXFromYear(averageYear);
+      });
 
       rawClusters.forEach((group, groupIdx) => {
         const isCluster = group.length > 1;
@@ -482,6 +495,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           : (primaryEvent.isPoint ? startX : getXFromYear(primaryEvent.endPos));
 
         const rangeWidth = Math.max(16, endX - startX);
+        const nextStartX =
+          rawClusterStartXs[groupIdx + 1] ?? Number.POSITIVE_INFINITY;
 
         let labelWidthEstimate: number;
         if (isCluster) {
@@ -492,16 +507,37 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           labelWidthEstimate = primaryEvent.text.length * 6.5 + (primaryEvent.icon ? 24 : 12) + (primaryEvent.isPoint ? 65 : 0);
         }
 
-        const visualWidth = Math.max(rangeWidth, labelWidthEstimate);
-        const visualEndX = startX + visualWidth + (isLowZoomMode ? 8 : 12);
+        const availableBeforeNext = Number.isFinite(nextStartX)
+          ? Math.max(0, nextStartX - startX - 18)
+          : 112;
+        const lowZoomLabelWidth = primaryEvent.isPoint
+          ? Math.min(112, availableBeforeNext)
+          : Math.min(140, Math.max(0, rangeWidth - 10));
+        const labelWidth = isLowZoomMode && !isBookCategory
+          ? lowZoomLabelWidth
+          : labelWidthEstimate;
+        const showLabel =
+          !isLowZoomMode ||
+          isBookCategory ||
+          labelWidth >= 30;
 
-        // Find available track
-        let sublaneIndex = tracks.findIndex(t => t.lastX <= startX);
-        if (sublaneIndex === -1) {
-          tracks.push({ lastX: visualEndX });
-          sublaneIndex = tracks.length - 1;
+        let sublaneIndex: number;
+        if (isLowZoomMode && !isBookCategory && primaryEvent.isPoint) {
+          sublaneIndex = 0;
+          if (tracks.length === 0) tracks.push({ lastX: 0 });
         } else {
-          tracks[sublaneIndex].lastX = visualEndX;
+          const visualWidth = Math.max(
+            rangeWidth,
+            isLowZoomMode ? labelWidth : labelWidthEstimate
+          );
+          const visualEndX = startX + visualWidth + (isLowZoomMode ? 8 : 12);
+          sublaneIndex = tracks.findIndex(track => track.lastX <= startX);
+          if (sublaneIndex === -1) {
+            tracks.push({ lastX: visualEndX });
+            sublaneIndex = tracks.length - 1;
+          } else {
+            tracks[sublaneIndex].lastX = visualEndX;
+          }
         }
 
         positionedClusters.push({
@@ -514,7 +550,9 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           minYear,
           maxYear,
           sublaneIndex,
-          primaryEvent
+          primaryEvent,
+          labelWidth,
+          showLabel
         });
       });
 
@@ -528,7 +566,74 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     });
 
     return lanesMap;
-  }, [finalFilteredEvents, pxPerYear, timelineWidth, minYear, maxYear, categoryColorMap, isLowZoomMode, clusterPixelRadius, enableClustering]);
+  }, [finalFilteredEvents, pxPerYear, timelineWidth, minYear, maxYear, categoryColorMap, isLowZoomMode, clusterPixelRadius, enableClustering, backgroundCategoryNames]);
+
+  const backgroundPeriodItems = useMemo(
+    () =>
+      (Object.values(layoutLanes) as CategoryLane[])
+        .filter(lane => backgroundCategoryNames.has(lane.categoryName))
+        .flatMap(lane => lane.events),
+    [layoutLanes, backgroundCategoryNames]
+  );
+
+  const visibleBackgroundPeriodItems = useMemo(() => {
+    const viewportWidth = viewportX.endX - viewportX.startX;
+    const renderMargin = Math.max(80, viewportWidth * 0.08);
+    const trackEnds: number[] = [];
+
+    return backgroundPeriodItems
+      .filter(
+        item =>
+          item.endX >= viewportX.startX - renderMargin &&
+          item.startX <= viewportX.endX + renderMargin
+      )
+      .sort((left, right) => left.startX - right.startX)
+      .map(item => {
+        const visualEndX = Math.max(item.startX + 24, item.endX) + 6;
+        let visibleTrackIndex = trackEnds.findIndex(endX => endX <= item.startX);
+
+        if (visibleTrackIndex === -1) {
+          visibleTrackIndex = trackEnds.length;
+          trackEnds.push(visualEndX);
+        } else {
+          trackEnds[visibleTrackIndex] = visualEndX;
+        }
+
+        return { ...item, visibleTrackIndex };
+      });
+  }, [backgroundPeriodItems, viewportX.startX, viewportX.endX]);
+
+  const backgroundTrackCount = useMemo(
+    () =>
+      visibleBackgroundPeriodItems.length
+        ? Math.max(
+            ...visibleBackgroundPeriodItems.map(item => item.visibleTrackIndex)
+          ) + 1
+        : 0,
+    [visibleBackgroundPeriodItems]
+  );
+
+  const backgroundRailHeight =
+    backgroundTrackCount > 0 ? 32 + backgroundTrackCount * 28 + 6 : 0;
+  const eventBodyTop = 48 + backgroundRailHeight;
+
+  const centeredBackgroundPeriodId = useMemo(() => {
+    if (centerYear === null) return null;
+    return (
+      backgroundPeriodItems
+        .filter(
+          item =>
+            centerYear >= item.minYear &&
+            centerYear <= item.maxYear
+        )
+        .sort(
+          (left, right) =>
+            left.maxYear -
+            left.minYear -
+            (right.maxYear - right.minYear)
+        )[0]?.primaryEvent.id || null
+    );
+  }, [backgroundPeriodItems, centerYear]);
 
   // Mouse Dragging (Panning)
   const handleMouseDown = (e: React.MouseEvent) => {
@@ -707,7 +812,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   ? 'bg-indigo-700 text-white shadow-sm ring-1 ring-indigo-800'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200'
               }`}
-              title="Affichage adaptatif : masque les étiquettes superflues en zoom arrière, les révèle au survol ou à la sélection"
+              title="Affichage adaptatif : conserve les événements sur une ligne et tronque les titres selon l’espace disponible"
             >
               <Sparkles className="w-3 h-3 text-indigo-200" />
               <span>Auto</span>
@@ -719,7 +824,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   ? 'bg-indigo-700 text-white shadow-sm ring-1 ring-indigo-800'
                   : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200'
               }`}
-              title="Mode épuré : affiche uniquement les marqueurs point, survolez un point pour voir son titre"
+              title="Mode épuré : une ligne compacte par catégorie avec titres tronqués"
             >
               Épuré
             </button>
@@ -736,10 +841,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             </button>
           </div>
 
-          {/* Clustering Toggle Button */}
+          {/* Exact collision grouping toggle */}
           <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl border border-slate-200">
             <button
               onClick={() => setEnableClustering(!enableClustering)}
+              aria-pressed={enableClustering}
               className={`px-2.5 py-1 rounded-lg text-xs font-bold transition flex items-center gap-1.5 ${
                 enableClustering
                   ? 'bg-indigo-700 text-white shadow-sm ring-1 ring-indigo-800'
@@ -747,12 +853,12 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               }`}
               title={
                 enableClustering
-                  ? "Regroupement activé : regroupe les événements proches à faible zoom"
-                  : "Regroupement désactivé : affiche chaque événement individuellement"
+                  ? "Collisions regroupées : seuls les événements presque superposés sont réunis"
+                  : "Collisions séparées : chaque événement conserve son marqueur"
               }
             >
-              <Layers className="w-3.5 h-3.5 text-indigo-200" />
-              <span>Regroupement {enableClustering ? 'ON' : 'OFF'}</span>
+              <Layers className={`w-3.5 h-3.5 ${enableClustering ? 'text-indigo-200' : 'text-slate-400'}`} />
+              <span>Collisions {enableClustering ? 'groupées' : 'séparées'}</span>
             </button>
           </div>
 
@@ -782,14 +888,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           <div className="flex items-center gap-2 font-medium truncate">
             <Sparkles className="w-3.5 h-3.5 text-indigo-300 shrink-0 animate-pulse" />
             <span className="truncate">
-              <strong>Vue d'ensemble ({pxPerYear.toFixed(1)} px/an)</strong> : Survolez ou cliquez sur un événement pour révéler ses détails.
+              <strong>Vue d'ensemble ({pxPerYear.toFixed(1)} px/an)</strong> : les événements restent sur leur ligne et les titres s’adaptent à l’espace disponible.
             </span>
           </div>
           <button
             onClick={() => setLabelDisplayMode('full')}
             className="text-[11px] uppercase font-bold underline text-indigo-200 hover:text-white shrink-0 bg-indigo-950/60 px-2 py-0.5 rounded border border-indigo-700/80 transition"
           >
-            Tout afficher
+            Titres complets
           </button>
         </div>
       )}
@@ -939,8 +1045,92 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             })}
           </div>
 
+          {/* BIBLICAL BOOK PERIOD RAIL */}
+          {visibleBackgroundPeriodItems.length > 0 && (
+            <div
+              style={{ height: `${backgroundRailHeight}px` }}
+              className="relative border-b border-indigo-200/70 bg-gradient-to-b from-indigo-50/90 to-white/40 shadow-[inset_0_-1px_0_rgba(99,102,241,0.08)]"
+              aria-label="Périodes des livres bibliques"
+            >
+              <div
+                style={{ left: `${Math.max(8, viewportX.startX + 8)}px` }}
+                className="absolute top-1 z-20 inline-flex h-6 items-center gap-1.5 rounded-lg border border-indigo-200 bg-white/95 px-2 text-[10px] font-extrabold uppercase tracking-wider text-indigo-800 shadow-sm backdrop-blur"
+              >
+                <BookOpen className="size-3.5" />
+                Livres bibliques
+              </div>
+
+              {visibleBackgroundPeriodItems.map(item => {
+                const event = item.primaryEvent;
+                const width = Math.max(24, item.endX - item.startX);
+                const isSelected = selectedEventId === event.id;
+                const isHovered = hoveredEventId === event.id;
+                const isCentered = centeredBackgroundPeriodId === event.id;
+                const isActive = isSelected || isHovered || isCentered;
+                const desiredLeft =
+                  Math.max(viewportX.startX - item.startX, 0) + 8;
+                const labelLeft = Math.max(
+                  4,
+                  Math.min(Math.max(4, width - 28), desiredLeft)
+                );
+                const remainingVisibleWidth =
+                  viewportX.endX - (item.startX + labelLeft) - 8;
+                const labelWidth = Math.max(
+                  20,
+                  Math.min(360, width - labelLeft - 4, remainingVisibleWidth)
+                );
+
+                return (
+                  <button
+                    key={`book-rail-${event.id}`}
+                    type="button"
+                    style={{
+                      left: `${item.startX}px`,
+                      top: `${32 + item.visibleTrackIndex * 28}px`,
+                      width: `${width}px`
+                    }}
+                    onClick={clickEvent => {
+                      clickEvent.stopPropagation();
+                      onSelectEvent(event);
+                    }}
+                    onMouseEnter={() => setHoveredEventId(event.id)}
+                    onMouseLeave={() => setHoveredEventId(null)}
+                    className={`absolute h-6 overflow-hidden rounded-lg border text-left transition-all ${
+                      isActive
+                        ? 'z-20 border-indigo-500 bg-indigo-600 text-white shadow-md ring-2 ring-indigo-300/70'
+                        : 'z-10 border-indigo-200 bg-white/90 text-indigo-950 hover:border-indigo-400 hover:bg-indigo-100'
+                    }`}
+                    aria-label={`${event.text}, ${formatDateFrench(event.startYear)} à ${formatDateFrench(event.endYear)}`}
+                    title={`${event.text} (${formatDateFrench(event.startYear)} → ${formatDateFrench(event.endYear)})`}
+                  >
+                    <span
+                      style={{
+                        marginLeft: `${labelLeft}px`,
+                        width: `${labelWidth}px`
+                      }}
+                      className="flex h-full min-w-0 items-center gap-1 px-1.5"
+                    >
+                      <BookOpen className="size-3 shrink-0 opacity-80" />
+                      <span className="min-w-0 flex-1 truncate text-[10px] font-bold sm:text-[11px]">
+                        {event.text}
+                      </span>
+                      {labelWidth >= 280 && !isLowZoomMode && (
+                        <span className={`shrink-0 font-mono text-[9px] ${isActive ? 'text-indigo-100' : 'text-indigo-500'}`}>
+                          {formatDateFrench(event.startYear)} → {formatDateFrench(event.endYear)}
+                        </span>
+                      )}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
           {/* VERTICAL GRID LINES */}
-          <div className="absolute top-20 bottom-0 left-0 right-0 pointer-events-none z-0">
+          <div
+            style={{ top: `${eventBodyTop}px` }}
+            className="absolute bottom-0 left-0 right-0 pointer-events-none z-0"
+          >
             {ticks.map((year) => {
               const x = getXFromYear(year);
               return (
@@ -951,102 +1141,59 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                 />
               );
             })}
-                 {/* VIEWPORT CENTER GUIDE LINE */}
-          <div
-            style={{ left: `${(viewportX.startX + viewportX.endX) / 2}px` }}
-            className="absolute top-0 bottom-0 w-[2px] bg-indigo-600/50 pointer-events-none z-30"
-          >
-            <div className="sticky top-2 -translate-x-1/2 w-max max-w-[90vw] px-4 py-1.5 bg-indigo-700 text-white text-xs sm:text-sm font-extrabold rounded-xl shadow-xl border-2 border-indigo-300 whitespace-nowrap text-center z-40 pointer-events-auto font-mono tracking-tight ring-2 ring-indigo-900/20">
-              {centerYear !== null ? formatDateFrench(centerYear) : 'Centre'}
+            {/* VIEWPORT CENTER GUIDE LINE */}
+            <div
+              style={{ left: `${(viewportX.startX + viewportX.endX) / 2}px` }}
+              className="absolute top-0 bottom-0 w-[2px] bg-indigo-600/50 pointer-events-none z-30"
+            >
+              <div className="sticky top-2 hidden sm:block -translate-x-1/2 w-max max-w-[90vw] px-4 py-1.5 bg-indigo-700 text-white text-xs sm:text-sm font-extrabold rounded-xl shadow-xl border-2 border-indigo-300 whitespace-nowrap text-center z-40 pointer-events-auto font-mono tracking-tight ring-2 ring-indigo-900/20">
+                {centerYear !== null ? formatDateFrench(centerYear) : 'Centre'}
+              </div>
             </div>
           </div>
 
-          {/* BIBLICAL BOOK PERIODS BACKGROUND OVERLAY LAYER (HABILLAGE DE FOND) */}
-          <div className="absolute top-20 bottom-0 left-0 right-0 pointer-events-none z-0">
-            {(Object.values(layoutLanes) as CategoryLane[])
-              .filter((lane) =>
-                lane.categoryName.toLowerCase().includes('livre biblique') ||
-                lane.categoryName.toLowerCase().includes('période livre') ||
-                lane.categoryName.toLowerCase().includes('periode livre')
-              )
-              .flatMap((lane) => lane.events)
-              .map(({ primaryEvent: ev, startX, endX, sublaneIndex }) => {
-                const width = Math.max(32, endX - startX);
-                const isSelected = selectedEventId === ev.id;
-                const isClosest = closestEventId === ev.id;
-                const isHovered = hoveredEventId === ev.id;
+          {/* SUBTLE TEMPORAL FRAMES BEHIND EVENT LANES */}
+          <div className="absolute inset-0 pointer-events-none z-[1]">
+            {backgroundPeriodItems.map(item => {
+              const event = item.primaryEvent;
+              const width = Math.max(24, item.endX - item.startX);
+              const isActive =
+                selectedEventId === event.id ||
+                hoveredEventId === event.id ||
+                centeredBackgroundPeriodId === event.id;
 
-                // Color palette variants for overlapping book periods
-                const gradients = [
-                  'from-indigo-100/70 via-indigo-50/40 to-indigo-50/20 border-indigo-300/80',
-                  'from-indigo-100/70 via-indigo-50/40 to-indigo-50/20 border-indigo-300/80',
-                  'from-fuchsia-100/70 via-indigo-50/40 to-fuchsia-50/20 border-fuchsia-300/80',
-                  'from-violet-100/70 via-indigo-50/40 to-violet-50/20 border-violet-300/80',
-                ];
-                const gradientStyle = gradients[sublaneIndex % gradients.length];
-
-                // Sticky label horizontal offset within the book period span
-                const viewportCenterX = (viewportX.startX + viewportX.endX) / 2;
-                const relCenterX = viewportCenterX - startX;
-                const labelOffsetX = Math.max(8, Math.min(width - 160, relCenterX - 40));
-
-                // Vertical offset when book periods overlap
-                const topOffset = sublaneIndex * 32;
-
-                return (
-                  <div
-                    key={`bg-book-${ev.id}`}
-                    style={{
-                      left: `${startX}px`,
-                      width: `${width}px`,
-                      top: `${topOffset}px`,
-                      bottom: '4px',
-                    }}
-                    onMouseEnter={() => setHoveredEventId(ev.id)}
-                    onMouseLeave={() => setHoveredEventId(null)}
-                    className={`absolute rounded-2xl border-2 transition-all duration-200 pointer-events-none group bg-gradient-to-b ${gradientStyle} ${
-                      isSelected || isClosest
-                        ? 'ring-2 ring-indigo-600 border-indigo-600 shadow-lg z-5 bg-indigo-100/90'
-                        : 'hover:border-indigo-500 hover:shadow-md z-0'
-                    }`}
-                    title={`Période du livre biblique : ${ev.text} (${formatDateFrench(ev.startYear)} – ${formatDateFrench(ev.endYear)})`}
-                  >
-                    {/* STICKY HEADER BADGE FOR THE BOOK PERIOD BACKGROUND CARD (CLICKABLE) */}
-                    <div
-                      style={{ transform: `translateX(${labelOffsetX}px)` }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectEvent(ev);
-                      }}
-                      className="sticky top-10 left-2 inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/95 backdrop-blur-sm border border-indigo-300 shadow-md rounded-lg text-indigo-950 font-extrabold text-[11px] sm:text-xs z-1 transition-transform duration-75 whitespace-nowrap hover:border-indigo-600 hover:bg-indigo-100 pointer-events-auto cursor-pointer"
-                    >
-                      <BookOpen className="w-3.5 h-3.5 text-indigo-700 shrink-0" />
-                      <span className="font-serif tracking-tight font-bold">{ev.text}</span>
-                      <span className="text-[10px] font-mono text-indigo-800 bg-indigo-100 px-1.5 py-0.5 rounded border border-indigo-200 shrink-0">
-                        {formatDateFrench(ev.startYear)} → {formatDateFrench(ev.endYear)}
-                      </span>
-                    </div>
-
-                    {/* BOTTOM WATERMARK NAME */}
-                    <div className="absolute bottom-2 left-3 right-3 pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity">
-                      <span className="text-xl sm:text-2xl font-serif font-black text-indigo-900 tracking-wider uppercase block truncate">
-                        {ev.text}
-                      </span>
-                    </div>
-                  </div>
-                );
-              })}
+              return (
+                <div
+                  key={`book-frame-${event.id}`}
+                  style={{
+                    left: `${item.startX}px`,
+                    top: `${eventBodyTop}px`,
+                    width: `${width}px`,
+                    bottom: '4px',
+                    background: isActive
+                      ? 'linear-gradient(to bottom, rgba(99,102,241,0.10), rgba(99,102,241,0.035))'
+                      : isLowZoomMode
+                        ? 'linear-gradient(to bottom, rgba(99,102,241,0.012), rgba(99,102,241,0.004))'
+                        : 'linear-gradient(to bottom, rgba(99,102,241,0.035), rgba(99,102,241,0.012))',
+                    boxShadow: isActive
+                      ? 'inset 2px 0 rgba(79,70,229,0.5), inset -2px 0 rgba(79,70,229,0.5)'
+                      : isLowZoomMode
+                        ? 'none'
+                        : 'inset 1px 0 rgba(99,102,241,0.14), inset -1px 0 rgba(99,102,241,0.14)'
+                  }}
+                  className="absolute rounded-b-2xl transition-all duration-200"
+                />
+              );
+            })}
           </div>
 
           {/* 3. EVENT LANES & MARKS (Sublane Stacking) */}
-          <div className="mt-8 space-y-1 px-3 relative z-20">
+          <div className="relative z-20 mt-2 space-y-1 px-3">
             {(Object.values(layoutLanes) as CategoryLane[])
               .filter(
                 (lane) =>
                   lane.events.length > 0 &&
-                  !lane.categoryName.toLowerCase().includes('livre biblique') &&
-                  !lane.categoryName.toLowerCase().includes('période livre') &&
-                  !lane.categoryName.toLowerCase().includes('periode livre')
+                  !backgroundCategoryNames.has(lane.categoryName)
               )
               .map((lane) => {
                 const isManuallyCollapsed = collapsedCategories.has(lane.categoryName);
@@ -1242,9 +1389,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                     title={`${ev.text} (${formatDateFrench(ev.startYear)})`}
                                   />
                                   
-                                  {/* Text Label next to point event (Always shown in full mode, or on hover/select/closest in low zoom mode) */}
-                                  {(!isLowZoomMode || isSelected || isClosest || isHovered) && (
-                                    <div className="flex items-center gap-1 pointer-events-none whitespace-nowrap">
+                                  {/* Adaptive point label: truncated in overview, expanded on interaction. */}
+                                  {(!isLowZoomMode || clusterItem.showLabel || isSelected || isClosest || isHovered) && (
+                                    <div
+                                      style={
+                                        isLowZoomMode && !isSelected && !isClosest && !isHovered
+                                          ? { width: `${clusterItem.labelWidth}px` }
+                                          : undefined
+                                      }
+                                      className="flex min-w-0 items-center gap-1 pointer-events-none"
+                                    >
                                       {ev.icon && (
                                         <img
                                           src={`data:image/png;base64,${ev.icon}`}
@@ -1253,7 +1407,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                         />
                                       )}
                                       <span
-                                        className={`text-[10px] sm:text-[11px] font-bold text-slate-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)] ${
+                                        className={`block min-w-0 truncate text-[10px] sm:text-[11px] font-bold text-slate-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)] ${
                                           isClosest || isSelected
                                             ? 'text-indigo-900 text-xs font-extrabold bg-indigo-100/90 px-1.5 py-0.5 rounded shadow-sm border border-indigo-300'
                                             : isHovered && isLowZoomMode
@@ -1300,10 +1454,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                     title={`${ev.text} (${formatDateFrench(ev.startYear)} - ${formatDateFrench(ev.endYear)}) ${ev.fuzzyStart ? '[Début incertain]' : ''} ${ev.fuzzyEnd ? '[Fin incertaine]' : ''}`}
                                   >
                                     {/* WHITE TEXT LABEL ON THE BAR */}
-                                    {(!isLowZoomMode || width >= 70 || isSelected || isClosest || isHovered) && (
+                                    {(!isLowZoomMode || clusterItem.showLabel || isSelected || isClosest || isHovered) && (
                                       <div
                                         style={{ transform: `translateX(${labelOffsetX}px)` }}
-                                        className="absolute left-0 top-0 bottom-0 flex items-center gap-1 px-1.5 text-white font-bold text-[10px] sm:text-[11px] drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] whitespace-nowrap pointer-events-none transition-transform duration-75"
+                                        className="absolute left-0 top-0 bottom-0 flex min-w-0 items-center gap-1 overflow-hidden px-1.5 text-white font-bold text-[10px] sm:text-[11px] drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] pointer-events-none transition-transform duration-75"
                                       >
                                         {ev.icon && (
                                           <img
@@ -1312,7 +1466,15 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                             className="w-3.5 h-3.5 object-contain rounded bg-white/60 p-0.5 border border-slate-200/60 shrink-0"
                                           />
                                         )}
-                                        <span className={isClosest || isSelected ? 'text-indigo-100 font-extrabold' : ''}>
+                                        <span
+                                          style={{
+                                            maxWidth: `${Math.max(
+                                              20,
+                                              width - labelOffsetX - (ev.icon ? 28 : 10)
+                                            )}px`
+                                          }}
+                                          className={`block min-w-0 truncate ${isClosest || isSelected ? 'text-indigo-100 font-extrabold' : ''}`}
+                                        >
                                           {ev.text}
                                         </span>
                                       </div>
@@ -1345,7 +1507,6 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   </div>
                 );
               })}
-          </div>
           </div>
 
         </div>

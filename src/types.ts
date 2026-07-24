@@ -35,6 +35,7 @@ export interface CategoryData {
   color: string; // RGB string "0,128,255"
   hexColor: string;
   parent?: string;
+  displayMode?: 'lane' | 'background-period';
   progressColor?: string;
   doneColor?: string;
   fontColor?: string;

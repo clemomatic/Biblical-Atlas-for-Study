@@ -48,7 +48,7 @@ const rawCategories = [
   { name: "Rétablissement de Jérusalem", color: "16,185,129", parent: "Événements marquants" },
   { name: "Voyages de Paul", color: "5,150,105", parent: "Événements marquants" },
   { name: "Chronologie biblique", color: "37,99,235" },
-  { name: "Période des livres bibliques", color: "99,102,241", parent: "Chronologie biblique" },
+  { name: "Période des livres bibliques", color: "99,102,241", parent: "Chronologie biblique", displayMode: "background-period" as const },
   { name: "Rédaction d’un livre biblique", color: "13,148,136", parent: "Chronologie biblique" }
 ];
 
@@ -58,6 +58,7 @@ export const CATEGORIES: CategoryData[] = rawCategories.map(c => {
   id: createCategoryId(name),
   name,
   color: c.color,
-  hexColor: rgbToHex(c.color),
-  parent: c.parent ? normalizeCategoryName(c.parent) : undefined
+    hexColor: rgbToHex(c.color),
+    parent: c.parent ? normalizeCategoryName(c.parent) : undefined,
+    displayMode: c.displayMode
 }});
