@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import {
+  BiblicalMapCategory,
   BiblicalPlace,
   BiblicalRoute,
   BiblicalTerritory,
@@ -96,6 +97,106 @@ const createBaseMapLayer = (baseMap: BaseMapId): L.TileLayer => {
   );
 };
 
+const MAP_MARKER_STYLES: Record<
+  BiblicalMapCategory,
+  { label: string; symbol: string; color: string; background: string }
+> = {
+  'levitical-city': {
+    label: 'Ville lévitique',
+    symbol: '▲',
+    color: '#0f172a',
+    background: '#ffffff'
+  },
+  'refuge-city': {
+    label: 'Ville de refuge',
+    symbol: '▲',
+    color: '#dc2626',
+    background: '#fff7ed'
+  },
+  'hebrew-scriptures': {
+    label: 'Écritures hébraïques',
+    symbol: '●',
+    color: '#0f172a',
+    background: '#ffffff'
+  },
+  'greek-scriptures': {
+    label: 'Écritures grecques',
+    symbol: '●',
+    color: '#d97706',
+    background: '#fffbeb'
+  },
+  'both-scriptures': {
+    label: 'Écritures hébraïques et grecques',
+    symbol: '■',
+    color: '#0f172a',
+    background: '#ffffff'
+  },
+  summit: {
+    label: 'Sommet',
+    symbol: '✚',
+    color: '#7c2d12',
+    background: '#fff7ed'
+  },
+  wadi: {
+    label: 'Oued',
+    symbol: '≈',
+    color: '#0284c7',
+    background: '#f0f9ff'
+  },
+  'body-of-water': {
+    label: 'Étendue d’eau',
+    symbol: '◉',
+    color: '#0369a1',
+    background: '#e0f2fe'
+  },
+  river: {
+    label: 'Fleuve',
+    symbol: '≈',
+    color: '#0369a1',
+    background: '#e0f2fe'
+  },
+  spring: {
+    label: 'Source ou puits',
+    symbol: '◆',
+    color: '#0891b2',
+    background: '#ecfeff'
+  }
+};
+
+const MAP_LEGEND = Object.entries(MAP_MARKER_STYLES) as [
+  BiblicalMapCategory,
+  (typeof MAP_MARKER_STYLES)[BiblicalMapCategory]
+][];
+
+const OVERVIEW_CATEGORIES = new Set<BiblicalMapCategory>([
+  'refuge-city',
+  'both-scriptures',
+  'summit',
+  'body-of-water',
+  'river'
+]);
+
+const STUDY_CATEGORIES = new Set<BiblicalMapCategory>([
+  ...OVERVIEW_CATEGORIES,
+  'levitical-city',
+  'greek-scriptures',
+  'spring'
+]);
+
+const OVERVIEW_PLACE_IDS = new Set([
+  'jerusalem',
+  'hebron',
+  'beersheba',
+  'bethel',
+  'shechem',
+  'samaria',
+  'bethlehem',
+  'nazareth',
+  'capernaum',
+  'caesarea',
+  'dan'
+]);
+
 export const MapView: React.FC<MapViewProps> = ({
   places,
   routes,
@@ -120,6 +221,7 @@ export const MapView: React.FC<MapViewProps> = ({
   const [showRoutes, setShowRoutes] = useState(true);
   const [showTerritories, setShowTerritories] = useState(true);
   const [baseMap, setBaseMap] = useState<BaseMapId>(getInitialBaseMap);
+  const [mapZoom, setMapZoom] = useState(7);
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
@@ -136,10 +238,13 @@ export const MapView: React.FC<MapViewProps> = ({
     territoryLayerRef.current = L.layerGroup().addTo(map);
     routeLayerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
+    const handleZoomEnd = () => setMapZoom(map.getZoom());
+    map.on('zoomend', handleZoomEnd);
 
     window.setTimeout(() => map.invalidateSize(), 0);
 
     return () => {
+      map.off('zoomend', handleZoomEnd);
       markerLayerRef.current?.clearLayers();
       routeLayerRef.current?.clearLayers();
       territoryLayerRef.current?.clearLayers();
@@ -204,45 +309,92 @@ export const MapView: React.FC<MapViewProps> = ({
       ) {
         return false;
       }
+      if (
+        mapZoom < 9 &&
+        !query &&
+        selectedPlace?.id !== place.id &&
+        !OVERVIEW_PLACE_IDS.has(place.id) &&
+        (!place.mapCategory ||
+          !(mapZoom < 8
+            ? OVERVIEW_CATEGORIES
+            : STUDY_CATEGORIES
+          ).has(place.mapCategory))
+      ) {
+        return false;
+      }
       if (!query) return true;
       return (
         place.name.toLowerCase().includes(query) ||
         place.description.toLowerCase().includes(query) ||
         place.territory?.toLowerCase().includes(query) ||
+        place.category?.toLowerCase().includes(query) ||
+        place.alternateNames?.some(name =>
+          name.toLowerCase().includes(query)
+        ) ||
+        place.biblicalReferences.some(reference =>
+          reference.toLowerCase().includes(query)
+        ) ||
+        place.mapReferences?.some(reference =>
+          reference.toLowerCase().includes(query)
+        ) ||
         false
       );
     });
 
-    filteredPlaces.forEach(place => {
+    filteredPlaces
+      .sort((left, right) => {
+        if (left.id === selectedPlace?.id) return 1;
+        if (right.id === selectedPlace?.id) return -1;
+        return 0;
+      })
+      .forEach(place => {
       const isHighlighted =
         selectedPlace?.id === place.id ||
         selectedEvent?.associatedLocationIds?.includes(place.id);
+      const markerStyle = place.mapCategory
+        ? MAP_MARKER_STYLES[place.mapCategory]
+        : {
+            label: 'Lieu biblique',
+            symbol: '●',
+            color: '#4338ca',
+            background: '#ffffff'
+          };
+      const showLabel = mapZoom >= 12 || isHighlighted;
       const markerHtml = `
         <div class="relative flex items-center justify-center">
-          <div class="w-8 h-8 rounded-full flex items-center justify-center shadow-lg transition-transform ${
-            isHighlighted
-              ? 'bg-indigo-600 text-white scale-125 ring-4 ring-cyan-400/40'
-              : 'bg-white text-indigo-700 border border-indigo-200 hover:scale-110'
-          }">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
+          <div
+            class="flex h-4 w-4 items-center justify-center rounded-full border border-white/90 text-[11px] font-black leading-none shadow-sm transition-transform ${
+              isHighlighted
+                ? 'scale-150 ring-2 ring-cyan-400/60'
+                : 'hover:scale-125'
+            }"
+            style="color:${markerStyle.color};background:${markerStyle.background}"
+            title="${escapeHtml(markerStyle.label)}"
+          >
+            ${markerStyle.symbol}
           </div>
-          <span class="absolute -bottom-5 whitespace-nowrap text-[11px] font-bold px-1.5 py-0.5 rounded bg-white/90 text-slate-900 border border-slate-200 shadow">
-            ${escapeHtml(place.name)}
-          </span>
+          ${
+            showLabel
+              ? `<span class="absolute -bottom-5 whitespace-nowrap rounded border border-slate-200 bg-white/95 px-1.5 py-0.5 text-[11px] font-bold text-slate-900 shadow">
+                  ${escapeHtml(place.name)}
+                </span>`
+              : ''
+          }
         </div>`;
 
       const marker = L.marker(place.coordinates, {
         icon: L.divIcon({
           html: markerHtml,
           className: 'custom-div-icon',
-          iconSize: [32, 32],
-          iconAnchor: [16, 16]
+          iconSize: [16, 16],
+          iconAnchor: [8, 8]
         })
       });
       marker.on('click', () => onSelectPlace(place));
+      marker.bindTooltip(escapeHtml(place.name), {
+        direction: 'top',
+        offset: [0, -8]
+      });
       marker.addTo(markerLayer);
       markersRef.current[place.id] = marker;
     });
@@ -309,13 +461,14 @@ export const MapView: React.FC<MapViewProps> = ({
     searchQuery,
     showRoutes,
     showTerritories,
+    mapZoom,
     onSelectPlace,
     onSelectRoute
   ]);
 
   useEffect(() => {
     if (selectedPlace && mapRef.current && markersRef.current[selectedPlace.id]) {
-      mapRef.current.flyTo(selectedPlace.coordinates, 10, { duration: 1.2 });
+      mapRef.current.flyTo(selectedPlace.coordinates, 11, { duration: 1.2 });
     }
   }, [selectedPlace]);
 
@@ -392,6 +545,56 @@ export const MapView: React.FC<MapViewProps> = ({
               </button>
             </div>
           </fieldset>
+
+          <div className="h-px bg-slate-100" />
+
+          <details className="group rounded-xl border border-slate-100 bg-white/70">
+            <summary className="cursor-pointer list-none px-2.5 py-2 font-semibold text-slate-700 marker:content-none">
+              <span className="flex items-center justify-between gap-3">
+                <span>Légende des lieux</span>
+                <span
+                  aria-hidden="true"
+                  className="text-slate-400 transition group-open:rotate-180"
+                >
+                  ▾
+                </span>
+              </span>
+            </summary>
+            <div className="grid grid-cols-2 gap-x-3 gap-y-2 border-t border-slate-100 px-2.5 py-2.5">
+              {MAP_LEGEND.map(([category, style]) => {
+                const count = places.filter(
+                  place => place.mapCategory === category
+                ).length;
+                if (count === 0) return null;
+                return (
+                  <div
+                    key={category}
+                    className="flex min-w-0 items-center gap-2 text-[10px] leading-tight text-slate-600"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="flex size-4 shrink-0 items-center justify-center rounded-full border border-slate-200 font-black"
+                      style={{
+                        color: style.color,
+                        backgroundColor: style.background
+                      }}
+                    >
+                      {style.symbol}
+                    </span>
+                    <span className="min-w-0">
+                      {style.label}{' '}
+                      <span className="text-slate-400">({count})</span>
+                    </span>
+                  </div>
+                );
+              })}
+            </div>
+            <p className="border-t border-slate-100 px-2.5 py-2 text-[10px] leading-relaxed text-slate-500">
+              Les repères majeurs restent visibles au niveau général. Tous les
+              lieux apparaissent progressivement, puis intégralement à partir
+              du zoom 9.
+            </p>
+          </details>
 
           <div className="h-px bg-slate-100" />
 

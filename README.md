@@ -50,6 +50,9 @@ pnpm check
 - groupes Leaflet indépendants pour les lieux, itinéraires et territoires ;
 - nettoyage des groupes à chaque mise à jour pour éviter les doublons ;
 - commandes indépendantes et accessibles pour les itinéraires et territoires ;
+- fond « Relief naturel » par défaut et fond clair CARTO mémorisé localement ;
+- légende des lieux conforme aux catégories des cartes documentaires ;
+- libellés détaillés à partir du niveau de zoom d’étude pour préserver la lisibilité ;
 - filtrage temporel lorsque les dates d’une entité sont connues ;
 - sélection et mise en valeur d’un itinéraire ;
 - navigation dans les deux sens entre carte, frise et fiches documentaires.
@@ -80,6 +83,26 @@ Relations principales :
 - `BiblicalRoute.associatedPlaceIds`, `associatedEventIds`, `associatedCharacterIds`.
 
 Les anciens champs textuels `associatedEvents` et `associatedCharacters` restent lisibles. Ils sont convertis en relations par ID lorsque la correspondance exacte existe.
+
+### Provenance du corpus cartographique
+
+Le fichier `src/data/promisedLandPlaces.ts` intègre les lieux relevés dans les
+documents « La Terre promise » et « Les environs de Jérusalem ». Les références
+de grille et les catégories de la légende originale sont conservées dans
+`mapReferences` et `mapCategory`.
+
+Les coordonnées ont été croisées avec
+[Bible Geocoding Data d’OpenBible.info](https://github.com/openbibleinfo/Bible-Geocoding-Data),
+distribué sous licence
+[Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/).
+Le champ `certainty` restitue le degré de confiance de l’identification retenue.
+Les points qui représentent un cours d’eau ou une étendue, ainsi que les
+positions seulement reportées depuis la carte, sont signalés par
+`coordinatePrecision` afin de ne pas donner une fausse impression de précision.
+
+Cette intégration n’ajoute aucun outil d’importation dans l’application : le
+corpus reste statique, versionné et relisible. Elle ne modifie aucune date de la
+frise.
 
 ## Organisation du code
 
