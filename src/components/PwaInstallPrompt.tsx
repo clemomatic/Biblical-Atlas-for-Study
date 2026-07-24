@@ -105,18 +105,18 @@ export function PwaInstallPrompt() {
 
   return (
     <aside
-      className="fixed bottom-20 right-3 z-[1200] w-[min(23rem,calc(100vw-1.5rem))] overflow-hidden rounded-2xl border border-white/10 bg-slate-950 text-white shadow-2xl shadow-slate-950/35 md:bottom-4 md:right-4"
+      className="atlas-enter fixed bottom-20 right-3 z-[1200] w-[min(23rem,calc(100vw-1.5rem))] overflow-hidden rounded-[var(--radius-lg)] border border-[var(--color-stone-light)] bg-[var(--color-paper)] text-[var(--color-ink)] shadow-[var(--shadow-3)] md:bottom-4 md:right-4"
       aria-live="polite"
       aria-label="Installer l’Atlas biblique interactif"
     >
       <div className="flex items-start gap-3 p-4">
-        <span className="grid size-11 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-indigo-500 to-cyan-500 shadow-lg shadow-indigo-950/40">
+        <span className="grid size-11 shrink-0 place-items-center rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] text-[var(--color-paper)]">
           <Smartphone className="size-5" />
         </span>
 
         <div className="min-w-0 flex-1">
-          <p className="text-sm font-extrabold">Installer l’Atlas biblique</p>
-          <p className="mt-1 text-xs leading-relaxed text-slate-300">
+          <p className="text-sm font-bold">Installer l’Atlas biblique</p>
+          <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-soft)]">
             {isIosFallback
               ? 'Dans Safari, touchez Partager puis « Sur l’écran d’accueil ».'
               : 'Accédez plus vite à l’atlas et retrouvez la frise hors connexion.'}
@@ -126,16 +126,16 @@ export function PwaInstallPrompt() {
         <button
           type="button"
           onClick={dismiss}
-          className="grid size-8 shrink-0 place-items-center rounded-lg text-slate-400 transition hover:bg-white/10 hover:text-white"
+          className="atlas-icon-button size-8 shrink-0"
           aria-label="Masquer la proposition d’installation"
         >
           <X className="size-4" />
         </button>
       </div>
 
-      <div className="border-t border-white/10 bg-white/[0.04] px-4 py-3">
+      <div className="border-t border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] px-4 py-3">
         {isIosFallback ? (
-          <div className="flex items-center gap-2 text-xs font-semibold text-cyan-200">
+          <div className="flex items-center gap-2 text-xs font-semibold text-[var(--color-mineral)]">
             <Share2 className="size-4" />
             Partager → Sur l’écran d’accueil
           </div>
@@ -143,7 +143,7 @@ export function PwaInstallPrompt() {
           <button
             type="button"
             onClick={() => void install()}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-white px-4 py-2.5 text-sm font-extrabold text-slate-950 transition hover:bg-cyan-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+            className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] px-4 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary)]"
           >
             <Download className="size-4" />
             Installer l’application

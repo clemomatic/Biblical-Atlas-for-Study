@@ -17,7 +17,7 @@ import {
   Mountain
 } from 'lucide-react';
 import { formatDateFrench } from '../utils/dateUtils';
-import { StatusNotice } from './ui/AtlasUi';
+import { EmptyState, StatusNotice } from './ui/AtlasUi';
 
 interface MapViewProps {
   places: BiblicalPlace[];
@@ -222,6 +222,7 @@ export const MapView: React.FC<MapViewProps> = ({
   const [mapZoom, setMapZoom] = useState(7);
   const [isBaseMapLoading, setIsBaseMapLoading] = useState(true);
   const [mapNotice, setMapNotice] = useState<string | null>(null);
+  const [visiblePlaceCount, setVisiblePlaceCount] = useState(0);
   const [isLayerPanelOpen, setIsLayerPanelOpen] = useState(
     getInitialLayerPanelOpen
   );
@@ -353,6 +354,7 @@ export const MapView: React.FC<MapViewProps> = ({
         false
       );
     });
+    setVisiblePlaceCount(filteredPlaces.length);
 
     filteredPlaces
       .sort((left, right) => {
@@ -819,6 +821,18 @@ export const MapView: React.FC<MapViewProps> = ({
         >
           <span className="block h-full w-1/3 animate-[atlas-map-load_1.2s_ease-in-out_infinite] bg-[var(--color-mineral)]" />
           <span className="sr-only">Chargement du fond de carte</span>
+        </div>
+      )}
+
+      {visiblePlaceCount === 0 && (
+        <div className="pointer-events-none absolute inset-0 z-[400] grid place-items-center p-5">
+          <div className="w-full max-w-md bg-[var(--color-paper)]/94 shadow-[var(--shadow-2)] backdrop-blur">
+            <EmptyState
+              icon={<MapIcon className="size-5" />}
+              title="Aucun lieu pour cette période"
+              message="Élargissez la période visible dans la frise ou retirez le contexte de l’événement sélectionné."
+            />
+          </div>
         </div>
       )}
 

@@ -127,7 +127,7 @@ const ReferenceList = ({
           ) : (
             <span
               key={reference}
-              className="block rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700"
+              className="block border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] px-3 py-2 text-xs font-medium text-[var(--color-ink-soft)]"
             >
               {reference}
             </span>
@@ -149,8 +149,10 @@ const JwReferenceRow = ({
   accent?: 'indigo' | 'slate';
 }) => (
   <div
-    className={`flex overflow-hidden rounded-xl border bg-white ${
-      accent === 'indigo' ? 'border-indigo-100' : 'border-slate-200'
+    className={`flex overflow-hidden border-l-2 bg-[var(--color-paper-muted)] ${
+      accent === 'indigo'
+        ? 'border-[var(--color-primary)]'
+        : 'border-[var(--color-stone)]'
     }`}
   >
     <a
@@ -158,19 +160,21 @@ const JwReferenceRow = ({
       target="_blank"
       rel="noreferrer"
       title="Ouvrir avec JW Library si disponible"
-      className={`group flex min-w-0 flex-1 items-center gap-2 px-3 py-2 text-xs font-semibold transition ${
+      className={`group flex min-w-0 flex-1 items-center gap-2 px-3 py-2.5 text-xs font-semibold transition-colors ${
         accent === 'indigo'
-          ? 'text-indigo-950 hover:bg-indigo-50'
-          : 'text-slate-800 hover:bg-slate-50'
+          ? 'text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-soft)]'
+          : 'text-[var(--color-ink)] hover:bg-[var(--color-stone-light)]'
       }`}
     >
       <BookOpen
         className={`size-4 shrink-0 ${
-          accent === 'indigo' ? 'text-indigo-600' : 'text-slate-500'
+          accent === 'indigo'
+            ? 'text-[var(--color-primary)]'
+            : 'text-[var(--color-ink-muted)]'
         }`}
       />
       <span className="min-w-0 flex-1">{label}</span>
-      <span className="hidden shrink-0 rounded-md bg-slate-950 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white sm:inline">
+      <span className="hidden shrink-0 bg-[var(--color-primary-dark)] px-1.5 py-0.5 text-xs font-semibold text-white sm:inline">
         JW Library
       </span>
       <ExternalLink className="size-3.5 shrink-0 opacity-50 transition group-hover:opacity-100" />
@@ -181,7 +185,7 @@ const JwReferenceRow = ({
       rel="noreferrer"
       title="Ouvrir directement dans la Bibliothèque en ligne"
       aria-label={`${label} sur WOL`}
-      className="grid shrink-0 place-items-center border-l border-slate-200 px-3 text-[10px] font-bold uppercase tracking-wide text-slate-500 transition hover:bg-slate-100 hover:text-indigo-700"
+      className="grid min-w-12 shrink-0 place-items-center border-l border-[var(--color-stone-light)] px-3 text-xs font-semibold text-[var(--color-ink-muted)] transition-colors hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)]"
     >
       WOL
     </a>
@@ -200,11 +204,11 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
             : null;
           const content = (
             <>
-              <span className="block text-sm font-semibold text-slate-900">
+              <span className="block text-sm font-semibold text-[var(--color-ink)]">
                 {source.label}
               </span>
               {source.citation && (
-                <span className="mt-0.5 block text-xs text-slate-500">
+                <span className="mt-0.5 block text-xs text-[var(--color-ink-muted)]">
                   {source.citation}
                 </span>
               )}
@@ -213,7 +217,7 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
           return jwTarget ? (
             <div
               key={source.id}
-              className="flex overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:border-indigo-200 hover:shadow-sm"
+              className="flex overflow-hidden border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] transition-colors hover:border-[var(--color-primary)]"
             >
               <a
                 href={jwTarget.finderUrl}
@@ -223,7 +227,7 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
                 className="group flex min-w-0 flex-1 items-center gap-3 p-3"
               >
                 <span className="min-w-0 flex-1">{content}</span>
-                <ExternalLink className="size-4 shrink-0 text-slate-400 transition group-hover:text-indigo-600" />
+                <ExternalLink className="size-4 shrink-0 text-[var(--color-ink-muted)] transition group-hover:text-[var(--color-primary)]" />
               </a>
               <a
                 href={jwTarget.wolUrl}
@@ -231,7 +235,7 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
                 rel="noreferrer"
                 title="Ouvrir directement dans la Bibliothèque en ligne"
                 aria-label={`${source.label} sur WOL`}
-                className="grid shrink-0 place-items-center border-l border-slate-200 px-3 text-[10px] font-bold uppercase tracking-wide text-slate-500 hover:bg-slate-100 hover:text-indigo-700"
+                className="grid min-w-12 shrink-0 place-items-center border-l border-[var(--color-stone-light)] px-3 text-xs font-semibold text-[var(--color-ink-muted)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)]"
               >
                 WOL
               </a>
@@ -242,14 +246,14 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
               href={source.url}
               target="_blank"
               rel="noreferrer"
-              className="block rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-indigo-200 hover:shadow-sm"
+              className="block border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] p-3 transition-colors hover:border-[var(--color-primary)]"
             >
               {content}
             </a>
           ) : (
             <div
               key={source.id}
-              className="rounded-2xl border border-slate-200 bg-white p-3"
+              className="border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] p-3"
             >
               {content}
             </div>
@@ -288,14 +292,14 @@ const EncyclopediaReferences = ({
 
           const content = (
             <>
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-800">
+              <span className="grid size-10 shrink-0 place-items-center text-[var(--color-bronze)]">
                 <BookOpen className="size-5" />
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-sm font-semibold text-slate-950">
+                <span className="block text-sm font-semibold text-[var(--color-ink)]">
                   {reference.articleTitle}
                 </span>
-                <span className="mt-0.5 block text-xs text-slate-500">
+                <span className="mt-0.5 block text-xs text-[var(--color-ink-muted)]">
                   {reference.work === 'wol'
                     ? 'Documentation WOL complémentaire'
                     : reference.matchType === 'article-mention'
@@ -305,14 +309,14 @@ const EncyclopediaReferences = ({
                         : 'Article encyclopédique correspondant'}
                 </span>
               </span>
-              <ExternalLink className="size-4 shrink-0 text-amber-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <ExternalLink className="size-4 shrink-0 text-[var(--color-bronze)] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </>
           );
 
           return jwTarget ? (
             <div
               key={reference.id}
-              className="flex overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white transition hover:border-amber-300 hover:shadow-sm"
+              className="flex overflow-hidden border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/65 transition-colors hover:bg-[var(--color-bronze-soft)]"
             >
               <a
                 href={jwTarget.finderUrl}
@@ -329,7 +333,7 @@ const EncyclopediaReferences = ({
                 rel="noreferrer"
                 title="Ouvrir directement dans la Bibliothèque en ligne"
                 aria-label={`${reference.articleTitle} sur WOL`}
-                className="grid shrink-0 place-items-center border-l border-amber-200 px-3 text-[10px] font-bold uppercase tracking-wide text-amber-800 hover:bg-amber-100"
+                className="grid min-w-12 shrink-0 place-items-center border-l border-[var(--color-bronze)]/25 px-3 text-xs font-semibold text-[var(--color-bronze)] hover:bg-[var(--color-paper)]/45"
               >
                 WOL
               </a>
@@ -340,7 +344,7 @@ const EncyclopediaReferences = ({
               href={reference.url}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-3 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-3 transition hover:border-amber-300 hover:shadow-sm"
+              className="group flex items-center gap-3 border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/65 p-3 transition-colors hover:bg-[var(--color-bronze-soft)]"
             >
               {content}
             </a>
@@ -564,7 +568,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               En bref
             </SectionTitle>
             {selectedEvent && (
-              <div className="flex items-center gap-2 rounded-2xl border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm font-semibold text-indigo-900">
+              <div className="flex items-center gap-2 border-l-2 border-[var(--color-primary)] bg-[var(--color-primary-soft)] px-4 py-3 text-sm font-semibold text-[var(--color-primary-dark)]">
                 <Calendar className="size-4 shrink-0" />
                 {formatEventSpan(
                   selectedEvent.startYear,
@@ -577,18 +581,18 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             )}
 
             {selectedPlace?.periodDescription && (
-              <div className="flex items-start gap-3 rounded-2xl border border-cyan-100 bg-cyan-50 p-4">
-                <Calendar className="mt-0.5 size-4 shrink-0 text-cyan-700" />
-                <p className="text-sm leading-relaxed text-cyan-950">
+              <div className="flex items-start gap-3 border-l-2 border-[var(--color-mineral)] bg-[var(--color-mineral-soft)] p-4">
+                <Calendar className="mt-0.5 size-4 shrink-0 text-[var(--color-mineral)]" />
+                <p className="text-sm leading-relaxed text-[var(--color-ink)]">
                   {selectedPlace.periodDescription}
                 </p>
               </div>
             )}
 
             {selectedRoute && (
-              <div className="flex items-center gap-3 rounded-2xl border border-amber-100 bg-amber-50 p-4">
-                <Navigation className="size-4 shrink-0 text-amber-700" />
-                <p className="text-sm font-semibold text-amber-950">
+              <div className="flex items-center gap-3 border-l-2 border-[var(--color-olive)] bg-[var(--color-olive-soft)] p-4">
+                <Navigation className="size-4 shrink-0 text-[var(--color-olive)]" />
+                <p className="text-sm font-semibold text-[var(--color-ink)]">
                   {selectedRoute.points.length} étapes
                   {selectedRoute.startYear !== undefined &&
                     ` · ${selectedRoute.startYear} à ${selectedRoute.endYear}`}
@@ -597,13 +601,13 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             )}
 
             {selectedPlace?.alternateNames?.length ? (
-              <p className="text-xs italic text-slate-500">
+              <p className="text-xs italic text-[var(--color-ink-muted)]">
                 Aussi nommé : {selectedPlace.alternateNames.join(', ')}
               </p>
             ) : null}
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-4">
-              <p className="text-sm leading-7 text-slate-700">
+            <div className="bg-[var(--color-paper-muted)] p-4">
+              <p className="text-[15px] leading-7 text-[var(--color-ink-soft)]">
                 {description || 'Aucune présentation détaillée disponible.'}
               </p>
             </div>

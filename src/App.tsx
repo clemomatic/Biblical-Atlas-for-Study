@@ -314,7 +314,9 @@ export default function App() {
           return (
             <button
               key={item.tab}
+              type="button"
               onClick={() => setActiveTab(item.tab)}
+              aria-pressed={isActive}
               className={`flex flex-col items-center justify-center gap-1 text-xs font-semibold ${
                 isActive
                   ? 'text-[var(--color-primary)]'
@@ -327,7 +329,9 @@ export default function App() {
           );
         })}
         <button
+          type="button"
           onClick={() => setIsSearchOpen(true)}
+          aria-label="Ouvrir la recherche globale"
           className="flex flex-col items-center justify-center gap-1 text-xs font-semibold text-[var(--color-ink-muted)]"
         >
           <Search className="size-5" />

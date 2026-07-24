@@ -123,7 +123,7 @@ export function EmptyState({
         <span className="mx-auto grid size-12 place-items-center rounded-full bg-[var(--color-paper-muted)] text-[var(--color-ink-muted)]">
           {icon || <Minus className="size-5" />}
         </span>
-        <h3 className="mt-4 font-serif text-xl font-semibold text-[var(--color-ink)]">
+        <h3 className="mt-4 font-[var(--font-editorial)] text-xl font-semibold text-[var(--color-ink)]">
           {title}
         </h3>
         <p className="mt-2 text-sm leading-relaxed text-[var(--color-ink-soft)]">

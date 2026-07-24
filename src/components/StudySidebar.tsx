@@ -69,8 +69,10 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
 
       <aside
         className={`${
-          isOpen ? 'flex' : 'hidden'
-        } fixed inset-y-0 left-0 z-50 w-[min(88vw,320px)] flex-col bg-[var(--color-paper)] shadow-[var(--shadow-high)] transition-[width] duration-200 lg:static lg:z-auto lg:flex lg:shrink-0 lg:border-r lg:border-[var(--color-stone)] lg:shadow-none ${
+          isOpen
+            ? 'translate-y-0'
+            : 'pointer-events-none translate-y-full'
+        } fixed inset-x-0 bottom-0 z-50 flex max-h-[78dvh] w-full flex-col rounded-t-[var(--radius-xl)] bg-[var(--color-paper)] shadow-[var(--shadow-high)] transition-[width,transform] duration-200 lg:static lg:z-auto lg:max-h-none lg:shrink-0 lg:translate-y-0 lg:rounded-none lg:border-r lg:border-[var(--color-stone)] lg:shadow-none lg:pointer-events-auto ${
           isCollapsed ? 'lg:w-[72px]' : 'lg:w-[280px]'
         }`}
         aria-label="Légende et filtres de consultation"
