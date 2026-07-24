@@ -35,5 +35,8 @@ jobs:
       - name: Contrôler TypeScript
         run: pnpm run typecheck
 
+      - name: Vérifier la provenance cartographique
+        run: pnpm run map:sources:check
+
       - name: Construire l’application
         run: pnpm run build
