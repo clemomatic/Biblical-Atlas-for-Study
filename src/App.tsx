@@ -17,6 +17,7 @@ import { MapView } from './components/MapView';
 import { DetailPanel } from './components/DetailPanel';
 import { SearchPanel } from './components/SearchPanel';
 import { StudySidebar } from './components/StudySidebar';
+import { PwaInstallPrompt } from './components/PwaInstallPrompt';
 import { normalizeDataRelations } from './utils/dataRelations';
 import {
   BookOpen,
@@ -390,6 +391,8 @@ export default function App() {
         onSelectPlace={handleSelectPlace}
         onSelectRoute={handleSelectRoute}
       />
+
+      <PwaInstallPrompt />
     </div>
   );
 }

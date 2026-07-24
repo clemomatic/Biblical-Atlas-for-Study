@@ -18,6 +18,26 @@ pnpm dev
 
 L’application est ensuite disponible sur `http://localhost:3000`.
 
+### Installation comme application
+
+Le build de production est une Progressive Web App (PWA). Sur Chrome et Edge,
+une proposition d’installation apparaît dans l’application dès que le navigateur
+la juge installable. Sur Safari pour iPhone ou iPad, utilisez **Partager**, puis
+**Sur l’écran d’accueil**.
+
+Une fois installée, l’application s’ouvre dans une fenêtre autonome. La frise,
+les données et l’interface sont disponibles hors connexion. Les zones de carte
+déjà consultées sont conservées temporairement ; une connexion reste nécessaire
+pour charger de nouvelles tuiles cartographiques.
+
+Les icônes sont générées depuis `public/favicon.svg` :
+
+```bash
+pnpm pwa:assets
+pnpm build
+pnpm pwa:check
+```
+
 ## Vérifications
 
 ```bash
@@ -161,4 +181,6 @@ src/
 └── types.ts          modèles de données
 ```
 
-Les tuiles de fond sont fournies par CARTO et OpenStreetMap ; une connexion réseau est nécessaire pour afficher le fond cartographique.
+Les tuiles de fond sont fournies par CARTO, Stadia Maps, Stamen et
+OpenStreetMap. Leur premier chargement nécessite une connexion réseau ; les
+zones déjà visitées peuvent ensuite être relues depuis le cache hors ligne.
