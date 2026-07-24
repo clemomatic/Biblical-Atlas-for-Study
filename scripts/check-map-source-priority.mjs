@@ -42,7 +42,7 @@ const positionDeclaration = positionSource.indexOf(
   'export const PROMISED_LAND_MAP_POSITIONS'
 );
 const positionStart = positionSource.indexOf('= {', positionDeclaration) + 2;
-const positionEnd = positionSource.lastIndexOf(';\n');
+const positionEnd = positionSource.lastIndexOf('};') + 1;
 const positions = JSON.parse(positionSource.slice(positionStart, positionEnd));
 
 if (places.length !== 294) {
