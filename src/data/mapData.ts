@@ -312,6 +312,8 @@ const mergePlaceCorpus = (
     placesById.set(importedPlace.id, {
       ...importedPlace,
       ...existingPlace,
+      // A documented map corpus has priority over legacy core coordinates.
+      coordinates: importedPlace.coordinates,
       alternateNames: uniqueValues([
         ...(existingPlace.alternateNames || []),
         ...(importedPlace.alternateNames || [])
@@ -336,7 +338,8 @@ const mergePlaceCorpus = (
         ...(existingPlace.mapReferences || []),
         ...(importedPlace.mapReferences || [])
       ]),
-      coordinatePrecision: importedPlace.coordinatePrecision
+      coordinatePrecision: importedPlace.coordinatePrecision,
+      coordinateSource: importedPlace.coordinateSource
     });
   });
 

@@ -79,8 +79,8 @@ Champs documentaires communs :
 
 Le corpus de la Terre promise conserve un lien direct vers la carte documentaire
 [« La Terre promise », dans *Voyez le bon pays*, p. 18-19](https://wol.jw.org/fr/wol/d/r30/lp-f/1102003103).
-Les coordonnées identifiées sont croisées séparément avec
-[OpenBible.info Bible Geocoding Data](https://github.com/openbibleinfo/Bible-Geocoding-Data).
+Les positions affichées sont géoréférencées depuis les symboles de cette carte
+et de son encart « Les environs de Jérusalem ».
 
 Relations principales :
 
@@ -137,14 +137,14 @@ grille et les catégories documentaires sont conservées dans `mapReferences` et
 `mapCategory`. Les tracés et polygones territoriaux ne sont pas affichés tant
 qu’un corpus géographique suffisamment fiable n’est pas disponible.
 
-Les coordonnées ont été croisées avec
-[Bible Geocoding Data d’OpenBible.info](https://github.com/openbibleinfo/Bible-Geocoding-Data),
-distribué sous licence
-[Creative Commons Attribution 4.0](https://creativecommons.org/licenses/by/4.0/).
-Le champ `certainty` restitue le degré de confiance de l’identification retenue.
-Les points qui représentent un cours d’eau ou une étendue, ainsi que les
-positions seulement reportées depuis la carte, sont signalés par
-`coordinatePrecision` afin de ne pas donner une fausse impression de précision.
+Les coordonnées de la Terre promise sont dérivées du centre des symboles visibles
+sur les cartes fournies, puis géoréférencées pour Leaflet. Le champ
+`coordinateSource` conserve la carte utilisée, la position dans l’image, ses
+dimensions et la méthode de report. La valeur `cartographic` de
+`coordinatePrecision` signifie que le point reproduit la position publiée sur
+la carte ; elle ne constitue pas une affirmation archéologique supplémentaire.
+Les cours d’eau, reliefs et étendues conservent une précision
+`representative`.
 
 Cette intégration n’ajoute aucun outil d’importation dans l’application : le
 corpus reste statique, versionné et relisible. Elle ne modifie aucune date de la

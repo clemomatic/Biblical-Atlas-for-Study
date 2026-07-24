@@ -1751,15 +1751,6 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
-  "obi-arimathea-d10": [
-    {
-      "id": "insight-obi-arimathea-d10-1200003630",
-      "work": "insight",
-      "articleTitle": "Rama",
-      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003630",
-      "matchType": "dedicated-article"
-    }
-  ],
   "obi-aroer-1": [
     {
       "id": "insight-obi-aroer-1-1200000382",
@@ -2541,15 +2532,6 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "work": "insight",
       "articleTitle": "Gaza",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001622",
-      "matchType": "dedicated-article"
-    }
-  ],
-  "obi-geba-4-d10": [
-    {
-      "id": "insight-obi-geba-4-d10-1200001627",
-      "work": "insight",
-      "articleTitle": "Guéba",
-      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001627",
       "matchType": "dedicated-article"
     }
   ],

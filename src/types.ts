@@ -129,7 +129,19 @@ export interface BiblicalPlace extends EntityMetadata {
   /** Références de grille conservées depuis les documents cartographiques. */
   mapReferences?: string[];
   /** Nature de la coordonnée affichée, distincte du degré de certitude. */
-  coordinatePrecision?: 'site' | 'representative' | 'approximate';
+  coordinatePrecision?: 'site' | 'cartographic' | 'representative' | 'approximate';
+  /** Provenance vérifiable de la position utilisée par Leaflet. */
+  coordinateSource?: {
+    sourceId: string;
+    sourceMapIds?: string[];
+    mapReference?: string;
+    sourcePixel?: [number, number];
+    sourceImageSize?: [number, number];
+    method:
+      | 'source-symbol-georeferenced'
+      | 'source-symbol-georeferenced-from-inset'
+      | 'source-feature-representative-position';
+  };
   /** Niveau de zoom à partir duquel le nom du lieu est affiché en permanence. */
   mapLabelLevel?: MapLabelLevel;
 }
