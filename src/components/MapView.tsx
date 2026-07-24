@@ -8,7 +8,7 @@ import {
   EventData,
   TimelinePeriod
 } from '../types';
-import { Layers, Info } from 'lucide-react';
+import { Layers, Info, Map as MapIcon, Mountain } from 'lucide-react';
 import { formatDateFrench } from '../utils/dateUtils';
 
 delete (L.Icon.Default.prototype as { _getIconUrl?: unknown })._getIconUrl;
@@ -56,6 +56,46 @@ const escapeHtml = (value: string): string =>
       })[character] || character
   );
 
+type BaseMapId = 'natural-relief' | 'light-map';
+
+const BASE_MAP_STORAGE_KEY = 'atlas-base-map';
+
+const getInitialBaseMap = (): BaseMapId => {
+  if (typeof window === 'undefined') return 'natural-relief';
+
+  try {
+    const storedValue = window.localStorage.getItem(BASE_MAP_STORAGE_KEY);
+    return storedValue === 'light-map' || storedValue === 'natural-relief'
+      ? storedValue
+      : 'natural-relief';
+  } catch {
+    return 'natural-relief';
+  }
+};
+
+const createBaseMapLayer = (baseMap: BaseMapId): L.TileLayer => {
+  if (baseMap === 'light-map') {
+    return L.tileLayer(
+      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+      {
+        attribution:
+          '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank">CARTO</a>',
+        subdomains: 'abcd',
+        maxZoom: 19
+      }
+    );
+  }
+
+  return L.tileLayer(
+    'https://tiles.stadiamaps.com/tiles/stamen_terrain_background/{z}/{x}/{y}{r}.png',
+    {
+      attribution:
+        '&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a> &copy; <a href="https://stamen.com/" target="_blank">Stamen Design</a> &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>',
+      maxZoom: 20
+    }
+  );
+};
+
 export const MapView: React.FC<MapViewProps> = ({
   places,
   routes,
@@ -71,6 +111,7 @@ export const MapView: React.FC<MapViewProps> = ({
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
+  const baseMapLayerRef = useRef<L.TileLayer | null>(null);
   const markerLayerRef = useRef<L.LayerGroup | null>(null);
   const routeLayerRef = useRef<L.LayerGroup | null>(null);
   const territoryLayerRef = useRef<L.LayerGroup | null>(null);
@@ -78,6 +119,7 @@ export const MapView: React.FC<MapViewProps> = ({
 
   const [showRoutes, setShowRoutes] = useState(true);
   const [showTerritories, setShowTerritories] = useState(true);
+  const [baseMap, setBaseMap] = useState<BaseMapId>(getInitialBaseMap);
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
@@ -88,15 +130,6 @@ export const MapView: React.FC<MapViewProps> = ({
       zoomControl: false
     });
 
-    L.tileLayer(
-      'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-      {
-        attribution:
-          '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>',
-        subdomains: 'abcd',
-        maxZoom: 19
-      }
-    ).addTo(map);
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     markerLayerRef.current = L.layerGroup().addTo(map);
@@ -111,6 +144,7 @@ export const MapView: React.FC<MapViewProps> = ({
       routeLayerRef.current?.clearLayers();
       territoryLayerRef.current?.clearLayers();
       markersRef.current = {};
+      baseMapLayerRef.current = null;
       map.remove();
       mapRef.current = null;
       markerLayerRef.current = null;
@@ -118,6 +152,26 @@ export const MapView: React.FC<MapViewProps> = ({
       territoryLayerRef.current = null;
     };
   }, []);
+
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    if (baseMapLayerRef.current) {
+      map.removeLayer(baseMapLayerRef.current);
+    }
+
+    const nextLayer = createBaseMapLayer(baseMap);
+    nextLayer.addTo(map);
+    nextLayer.bringToBack();
+    baseMapLayerRef.current = nextLayer;
+
+    try {
+      window.localStorage.setItem(BASE_MAP_STORAGE_KEY, baseMap);
+    } catch {
+      // The map remains usable when storage is unavailable.
+    }
+  }, [baseMap]);
 
   useEffect(() => {
     if (!isActive || !mapRef.current) return;
@@ -287,6 +341,59 @@ export const MapView: React.FC<MapViewProps> = ({
             <Layers className="size-3.5" />
             <span>Couches de la carte</span>
           </div>
+
+          <fieldset className="space-y-1.5">
+            <legend className="px-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+              Fond de carte
+            </legend>
+            <div
+              role="radiogroup"
+              aria-label="Fond de carte"
+              className="grid grid-cols-2 gap-1 rounded-xl bg-slate-100 p-1"
+            >
+              <button
+                type="button"
+                role="radio"
+                aria-checked={baseMap === 'natural-relief'}
+                onClick={() => setBaseMap('natural-relief')}
+                className={`flex min-w-0 flex-col items-start gap-0.5 rounded-lg px-2.5 py-2 text-left transition ${
+                  baseMap === 'natural-relief'
+                    ? 'bg-white text-emerald-900 shadow-sm ring-1 ring-emerald-200'
+                    : 'text-slate-500 hover:bg-white/70 hover:text-slate-800'
+                }`}
+              >
+                <span className="flex items-center gap-1.5 font-bold">
+                  <Mountain className="size-3.5 shrink-0" />
+                  <span>Relief naturel</span>
+                </span>
+                <span className="text-[10px] font-medium opacity-70">
+                  Sans routes ni étiquettes
+                </span>
+              </button>
+
+              <button
+                type="button"
+                role="radio"
+                aria-checked={baseMap === 'light-map'}
+                onClick={() => setBaseMap('light-map')}
+                className={`flex min-w-0 flex-col items-start gap-0.5 rounded-lg px-2.5 py-2 text-left transition ${
+                  baseMap === 'light-map'
+                    ? 'bg-white text-indigo-900 shadow-sm ring-1 ring-indigo-200'
+                    : 'text-slate-500 hover:bg-white/70 hover:text-slate-800'
+                }`}
+              >
+                <span className="flex items-center gap-1.5 font-bold">
+                  <MapIcon className="size-3.5 shrink-0" />
+                  <span>Carte claire</span>
+                </span>
+                <span className="text-[10px] font-medium opacity-70">
+                  Fond CartoDB
+                </span>
+              </button>
+            </div>
+          </fieldset>
+
+          <div className="h-px bg-slate-100" />
 
           <button
             type="button"
