@@ -113,6 +113,21 @@ Alep et Ébla, qui ne disposent pas d’une entrée autonome dans l’encyclopé
 sont reliées à une documentation WOL spécifique et clairement signalée comme
 complémentaire dans l’interface.
 
+### Ouverture dans JW Library
+
+Dans l’onglet **Références** d’une fiche, les références bibliques utilisent le
+format officiel de partage `jw.org/finder`. Sur un appareil qui prend ce type de
+lien en charge, la référence peut s’ouvrir dans JW Library ; un bouton **WOL**
+reste toujours disponible pour accéder directement à la Bibliothèque en ligne.
+
+Le même fonctionnement est appliqué aux articles d’*Étude perspicace*, aux
+cartes actuelles de *Voyez le bon pays* et aux appendices B2/B3 de la Bible
+d’étude. Toute nouvelle source WOL possédant un identifiant de document peut
+réutiliser automatiquement ce mécanisme.
+
+La commande `pnpm run references:jw` vérifie que toutes les références bibliques
+actuellement déclarées peuvent produire un lien JW Finder et un lien WOL.
+
 ### Provenance du corpus cartographique
 
 Les fichiers `src/data/promisedLandPlaces.ts` et
