@@ -32,6 +32,7 @@ import {
   User,
   X
 } from 'lucide-react';
+import { MediaHeader } from './MediaHeader';
 
 type DetailSection = 'overview' | 'relations' | 'references';
 
@@ -57,8 +58,8 @@ const SectionTitle = ({
   icon: React.ReactNode;
   children: React.ReactNode;
 }) => (
-  <h3 className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-    <span className="text-indigo-600">{icon}</span>
+  <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-[var(--color-ink)]">
+    <span className="text-[var(--color-bronze)]">{icon}</span>
     {children}
   </h3>
 );
@@ -77,22 +78,22 @@ const RelationButton = ({
 }) => (
   <button
     onClick={onClick}
-    className="group flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 text-left transition hover:border-indigo-200 hover:shadow-sm"
+    className="group flex min-h-14 w-full items-center gap-3 border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] p-3 text-left transition-colors hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-soft)]"
   >
-    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-slate-100 text-indigo-600">
+    <span className="grid size-9 shrink-0 place-items-center text-[var(--color-primary)]">
       {icon}
     </span>
     <span className="min-w-0 flex-1">
-      <span className="block truncate text-sm font-semibold text-slate-900">
+      <span className="block truncate text-sm font-semibold text-[var(--color-ink)]">
         {title}
       </span>
       {meta && (
-        <span className="mt-0.5 block truncate text-xs text-slate-500">
+        <span className="mt-0.5 block truncate text-xs text-[var(--color-ink-muted)]">
           {meta}
         </span>
       )}
     </span>
-    <ArrowRight className="size-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-indigo-600" />
+    <ArrowRight className="size-4 text-[var(--color-stone)] transition group-hover:translate-x-0.5 group-hover:text-[var(--color-primary)]" />
   </button>
 );
 
@@ -378,6 +379,14 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     setActiveSection('overview');
   }, [selectedEvent?.id, selectedPlace?.id, selectedRoute?.id]);
 
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
+
   const linkedEvents = useMemo(() => {
     if (!selectedPlace) return [];
     return (selectedPlace.associatedEventIds || [])
@@ -469,11 +478,33 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     ? (selectedEvent.associatedLocationIds || [])
         .map(id => places.find(place => place.id === id))
         .filter((place): place is BiblicalPlace => Boolean(place))
-    : [];
+      : [];
+  const media =
+    selectedEvent?.media || selectedPlace?.media || selectedRoute?.media;
 
   return (
-    <aside className="fixed inset-x-0 bottom-16 z-50 flex max-h-[78dvh] flex-col overflow-hidden rounded-t-[28px] border-t border-slate-200 bg-slate-50 shadow-2xl md:bottom-0 lg:static lg:z-auto lg:h-full lg:max-h-none lg:w-[380px] lg:shrink-0 lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-none">
-      <div className="border-b border-slate-200 bg-white px-5 pb-4 pt-5">
+    <aside
+      aria-label={`Fiche documentaire : ${title}`}
+      className="atlas-enter fixed inset-x-0 bottom-16 z-50 flex max-h-[82dvh] flex-col overflow-hidden rounded-t-[var(--radius-xl)] border-t border-[var(--color-stone-light)] bg-[var(--color-paper)] shadow-[var(--shadow-3)] md:bottom-0 lg:static lg:z-auto lg:h-full lg:max-h-none lg:w-[440px] lg:shrink-0 lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-none xl:w-[460px]"
+    >
+      <div className="relative shrink-0">
+        <MediaHeader
+          title={title}
+          type={type}
+          media={media}
+          coordinates={selectedPlace?.coordinates}
+          accentColor={category?.hexColor}
+        />
+        <button
+          onClick={onClose}
+          className="atlas-icon-button absolute right-4 top-4 border-white/20 bg-[var(--color-ink)]/45 text-white hover:bg-[var(--color-ink)]/70"
+          aria-label="Fermer la fiche"
+        >
+          <X className="size-5" />
+        </button>
+      </div>
+
+      <div className="hidden">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
@@ -526,9 +557,12 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         </div>
       </div>
 
-      <div className="flex-1 space-y-6 overflow-y-auto p-5">
-        {activeSection === 'overview' && (
+      <div className="flex-1 space-y-8 overflow-y-auto bg-[var(--color-paper)] p-5 sm:p-6">
+        {true && (
           <>
+            <SectionTitle icon={<FileText className="size-4" />}>
+              En bref
+            </SectionTitle>
             {selectedEvent && (
               <div className="flex items-center gap-2 rounded-2xl border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm font-semibold text-indigo-900">
                 <Calendar className="size-4 shrink-0" />
@@ -600,8 +634,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           </>
         )}
 
-        {activeSection === 'relations' && (
+        {true && (
           <div className="space-y-6">
+            <SectionTitle icon={<Network className="size-4" />}>
+              Personnes, lieux et événements liés
+            </SectionTitle>
             {relatedPlaces.length > 0 && (
               <section>
                 <SectionTitle icon={<MapPin className="size-4" />}>
@@ -730,8 +767,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           </div>
         )}
 
-        {activeSection === 'references' && (
+        {true && (
           <div className="space-y-6">
+            <SectionTitle icon={<Library className="size-4" />}>
+              Références et sources
+            </SectionTitle>
             <ReferenceList
               title="Références bibliques"
               values={biblicalReferences}
@@ -756,11 +796,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         )}
       </div>
 
-      <div className="border-t border-slate-200 bg-white p-4">
+      <div className="border-t border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] p-4">
         {selectedEvent ? (
           <button
             onClick={() => onSwitchTab('timeline')}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-700"
+            className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary)]"
           >
             <Calendar className="size-4" />
             Voir dans la frise
@@ -768,7 +808,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         ) : (
           <button
             onClick={() => onSwitchTab('map')}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-700"
+            className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary)]"
           >
             <MapPin className="size-4" />
             Voir sur la carte
