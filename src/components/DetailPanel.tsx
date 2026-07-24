@@ -29,10 +29,24 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   if (!selectedEvent && !selectedPlace) return null;
 
   // Helper to resolve category color
-  const getCategoryColor = (categoryName: string) => {
-    const cat = categories.find(c => c.name === categoryName);
+  const getCategoryColor = (event: EventData) => {
+    const cat = categories.find(
+      category =>
+        category.id === event.categoryId || category.name === event.category
+    );
     return cat ? cat.hexColor : '#0080ff';
   };
+
+  const linkedPlaceEvents = selectedPlace
+    ? (selectedPlace.associatedEventIds || [])
+        .map(eventId => events.find(event => event.id === eventId))
+        .filter((event): event is EventData => Boolean(event))
+    : [];
+  const linkedPlaceCharacters = selectedPlace
+    ? (selectedPlace.associatedCharacterIds || [])
+        .map(eventId => events.find(event => event.id === eventId))
+        .filter((event): event is EventData => Boolean(event))
+    : [];
 
   return (
     <div className="fixed bottom-0 right-0 sm:top-16 sm:bottom-0 sm:w-96 w-full max-h-[85vh] sm:max-h-none z-40 bg-white border-t sm:border-t-0 sm:border-l border-stone-200 shadow-2xl flex flex-col text-stone-900 transition-all duration-300">
@@ -43,7 +57,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           {selectedEvent ? (
             <span
               className="w-3 h-3 rounded-full shrink-0"
-              style={{ backgroundColor: getCategoryColor(selectedEvent.category) }}
+              style={{ backgroundColor: getCategoryColor(selectedEvent) }}
             />
           ) : (
             <MapPin className="w-4 h-4 text-purple-600 shrink-0" />
@@ -110,6 +124,26 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
                 Aucune description supplémentaire spécifiée pour cet élément dans la chronologie.
               </p>
             )}
+
+            {selectedEvent.biblicalReferences &&
+              selectedEvent.biblicalReferences.length > 0 && (
+                <div className="pt-2 border-t border-stone-200">
+                  <h4 className="text-xs font-bold uppercase tracking-wider text-purple-700/80 mb-2 flex items-center gap-1.5">
+                    <Book className="w-3.5 h-3.5" />
+                    <span>Références bibliques</span>
+                  </h4>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedEvent.biblicalReferences.map(reference => (
+                      <span
+                        key={reference}
+                        className="text-xs px-2.5 py-1 bg-stone-100 border border-stone-200 rounded-lg text-stone-700 font-mono"
+                      >
+                        {reference}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              )}
 
             {/* Associated Places on Map */}
             {selectedEvent.associatedLocationIds && selectedEvent.associatedLocationIds.length > 0 && (
@@ -219,38 +253,50 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             )}
 
-            {/* Associated Timeline Characters & Events */}
-            {selectedPlace.associatedCharacters && selectedPlace.associatedCharacters.length > 0 && (
+            {linkedPlaceEvents.length > 0 && (
+              <div className="pt-2 border-t border-stone-200">
+                <h4 className="text-xs font-bold uppercase tracking-wider text-purple-700/80 mb-2 flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5" />
+                  <span>Événements associés</span>
+                </h4>
+                <div className="flex flex-wrap gap-1.5">
+                  {linkedPlaceEvents.map(event => (
+                    <button
+                      key={event.id}
+                      onClick={() => {
+                        onSelectEvent(event);
+                        onSwitchTab('timeline');
+                      }}
+                      className="text-xs px-2.5 py-1 rounded-lg border transition bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100"
+                    >
+                      {event.text}
+                      <span className="ml-1 text-[10px] text-purple-600">➔ Frise</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {linkedPlaceCharacters.length > 0 && (
               <div className="pt-2 border-t border-stone-200">
                 <h4 className="text-xs font-bold uppercase tracking-wider text-purple-700/80 mb-2 flex items-center gap-1.5">
                   <User className="w-3.5 h-3.5" />
                   <span>Personnages associés</span>
                 </h4>
                 <div className="flex flex-wrap gap-1.5">
-                  {selectedPlace.associatedCharacters.map((charName, idx) => {
-                    const matchEvent = events.find(
-                      e => e.text.toLowerCase().includes(charName.toLowerCase())
-                    );
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => {
-                          if (matchEvent) {
-                            onSelectEvent(matchEvent);
-                            onSwitchTab('timeline');
-                          }
-                        }}
-                        className={`text-xs px-2.5 py-1 rounded-lg border transition ${
-                          matchEvent
-                            ? 'bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100'
-                            : 'bg-stone-100 border-stone-200 text-stone-500 cursor-default'
-                        }`}
-                      >
-                        {charName}
-                        {matchEvent && <span className="ml-1 text-[10px] text-purple-600">➔ Frise</span>}
-                      </button>
-                    );
-                  })}
+                  {linkedPlaceCharacters.map(character => (
+                    <button
+                      key={character.id}
+                      onClick={() => {
+                        onSelectEvent(character);
+                        onSwitchTab('timeline');
+                      }}
+                      className="text-xs px-2.5 py-1 rounded-lg border transition bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100"
+                    >
+                      {character.text}
+                      <span className="ml-1 text-[10px] text-purple-600">➔ Frise</span>
+                    </button>
+                  ))}
                 </div>
               </div>
             )}

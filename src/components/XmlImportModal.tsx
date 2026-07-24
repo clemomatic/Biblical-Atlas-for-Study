@@ -22,7 +22,16 @@ export const XmlImportModal: React.FC<XmlImportModalProps> = ({
   const handleFileUpload = (file: File) => {
     setError(null);
     setSuccessInfo(null);
-    
+
+    if (!/\.(timeline|xml)$/i.test(file.name)) {
+      setError('Format non pris en charge. Sélectionnez un fichier .timeline ou .xml.');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      setError('Le fichier dépasse la taille maximale de 10 Mo.');
+      return;
+    }
+
     const reader = new FileReader();
     reader.onload = (e) => {
       const text = e.target?.result as string;
@@ -50,8 +59,9 @@ export const XmlImportModal: React.FC<XmlImportModalProps> = ({
       );
       setError(null);
       return parsed;
-    } catch (err: any) {
-      setError(`Erreur de parsing XML: ${err?.message || 'Structure invalide'}`);
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Structure invalide.';
+      setError(`Importation impossible : ${message}`);
       setSuccessInfo(null);
       return null;
     }
@@ -130,7 +140,12 @@ export const XmlImportModal: React.FC<XmlImportModalProps> = ({
             value={xmlContent}
             onChange={(e) => {
               setXmlContent(e.target.value);
-              if (e.target.value) tryParseAndValidate(e.target.value);
+              if (e.target.value.trim()) {
+                tryParseAndValidate(e.target.value);
+              } else {
+                setError(null);
+                setSuccessInfo(null);
+              }
             }}
             placeholder="<?xml version='1.0' encoding='utf-8'?>&#10;<timeline>...</timeline>"
             className="w-full bg-stone-50 border border-stone-200 rounded-lg p-3 text-xs font-mono text-stone-800 focus:outline-none focus:border-purple-400"
@@ -141,7 +156,7 @@ export const XmlImportModal: React.FC<XmlImportModalProps> = ({
         {error && (
           <div className="flex items-center gap-2 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-xs mb-4">
             <AlertCircle className="w-4 h-4 shrink-0" />
-            <span>{error}</span>
+            <span className="whitespace-pre-line">{error}</span>
           </div>
         )}
 

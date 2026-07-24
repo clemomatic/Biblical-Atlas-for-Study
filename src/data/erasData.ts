@@ -1,5 +1,7 @@
 import { EraData, CategoryData } from '../types';
 import { parseTimelineDate, rgbToHex } from '../utils/dateUtils';
+import { createCategoryId } from '../utils/stableIds';
+import { normalizeCategoryName } from '../utils/dataVocabulary';
 
 const rawEras = [
   { id: 'era_1', name: "De la création d'Adam au Déluge", start: "-4025-01-01 00:00:00", end: "-2369-01-01 00:00:00", color: "210,215,225" },
@@ -36,23 +38,26 @@ const rawCategories = [
   { name: "Prophètes (ou période de ministère)", color: "124,58,237", parent: "Personnage" },
   { name: "Règnes", color: "225,29,72", parent: "Personnage" },
   { name: "Roi de Juda", color: "190,18,60", parent: "Règnes" },
-  { name: "Roi d'Israel", color: "234,88,12", parent: "Règnes" },
+  { name: "Roi d’Israël", color: "234,88,12", parent: "Règnes" },
   { name: "Fils de Jacob", color: "109,40,217", parent: "Personnage" },
   { name: "Fils de Léa", color: "14,116,144", parent: "Fils de Jacob" },
   { name: "Fils de Bila", color: "147,51,234", parent: "Fils de Jacob" },
   { name: "Fils de Zilpa", color: "67,56,202", parent: "Fils de Jacob" },
-  { name: "FIls de Rachel", color: "2,132,199", parent: "Fils de Jacob" },
-  { name: "Événements Marquants", color: "168,85,247" },
-  { name: "Rétablissement de Jérusalem", color: "16,185,129", parent: "Événements Marquants" },
-  { name: "Voyages de Paul", color: "5,150,105", parent: "Événements Marquants" },
-  { name: "Chronologie Bilique", color: "37,99,235" },
-  { name: "Periode Livre Biblique", color: "99,102,241", parent: "Chronologie Bilique" },
-  { name: "Rédaction livre biblique", color: "13,148,136", parent: "Chronologie Bilique" }
+  { name: "Fils de Rachel", color: "2,132,199", parent: "Fils de Jacob" },
+  { name: "Événements marquants", color: "168,85,247" },
+  { name: "Rétablissement de Jérusalem", color: "16,185,129", parent: "Événements marquants" },
+  { name: "Voyages de Paul", color: "5,150,105", parent: "Événements marquants" },
+  { name: "Chronologie biblique", color: "37,99,235" },
+  { name: "Période des livres bibliques", color: "99,102,241", parent: "Chronologie biblique" },
+  { name: "Rédaction d’un livre biblique", color: "13,148,136", parent: "Chronologie biblique" }
 ];
 
-export const CATEGORIES: CategoryData[] = rawCategories.map(c => ({
-  name: c.name,
+export const CATEGORIES: CategoryData[] = rawCategories.map(c => {
+  const name = normalizeCategoryName(c.name);
+  return {
+  id: createCategoryId(name),
+  name,
   color: c.color,
   hexColor: rgbToHex(c.color),
-  parent: c.parent
-}));
+  parent: c.parent ? normalizeCategoryName(c.parent) : undefined
+}});

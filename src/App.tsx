@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { ActiveTab, EventData, BiblicalPlace, EraData, CategoryData, BiblicalRoute, BiblicalTerritory } from './types';
+import React, { useCallback, useMemo, useState } from 'react';
+import {
+  ActiveTab,
+  EventData,
+  BiblicalPlace,
+  EraData,
+  CategoryData,
+  TimelinePeriod
+} from './types';
 import { ERAS, CATEGORIES } from './data/erasData';
 import { EVENTS } from './data/timelineEvents';
 import { BIBLICAL_PLACES, BIBLICAL_ROUTES, BIBLICAL_TERRITORIES } from './data/mapData';
@@ -8,6 +15,7 @@ import { MapView } from './components/MapView';
 import { DetailPanel } from './components/DetailPanel';
 import { XmlImportModal } from './components/XmlImportModal';
 import { ParsedTimelineData } from './utils/xmlParser';
+import { normalizeDataRelations } from './utils/dataRelations';
 import { Clock, Map as MapIcon, Upload, Search } from 'lucide-react';
 
 export default function App() {
@@ -18,10 +26,11 @@ export default function App() {
   const [categories, setCategories] = useState<CategoryData[]>(CATEGORIES);
   const [events, setEvents] = useState<EventData[]>(EVENTS);
 
-  // Map Data
-  const [places] = useState<BiblicalPlace[]>(BIBLICAL_PLACES);
-  const [routes] = useState<BiblicalRoute[]>(BIBLICAL_ROUTES);
-  const [territories] = useState<BiblicalTerritory[]>(BIBLICAL_TERRITORIES);
+  const { events: linkedEvents, places, routes } = useMemo(
+    () => normalizeDataRelations(events, BIBLICAL_PLACES, BIBLICAL_ROUTES),
+    [events]
+  );
+  const [visiblePeriod, setVisiblePeriod] = useState<TimelinePeriod | null>(null);
 
   // Selections & Filters
   const [selectedEvent, setSelectedEvent] = useState<EventData | null>(null);
@@ -54,6 +63,19 @@ export default function App() {
     setSelectedEvent(null);
     setSelectedPlace(null);
   };
+
+  const handleVisiblePeriodChange = useCallback((period: TimelinePeriod) => {
+    setVisiblePeriod(previous => {
+      if (
+        previous &&
+        Math.abs(previous.startYear - period.startYear) < 0.01 &&
+        Math.abs(previous.endYear - period.endYear) < 0.01
+      ) {
+        return previous;
+      }
+      return period;
+    });
+  }, []);
 
   const NavItem = ({ tab, icon: Icon, label }: { tab: ActiveTab; icon: any; label: string }) => (
     <button
@@ -109,18 +131,20 @@ export default function App() {
           <TimelineView
             eras={eras}
             categories={categories}
-            events={events}
+            events={linkedEvents}
             selectedEventId={selectedEvent?.id || null}
             onSelectEvent={handleSelectEvent}
+            onVisiblePeriodChange={handleVisiblePeriodChange}
             searchQuery={searchQuery}
           />
         ) : (
           <MapView
             places={places}
             routes={routes}
-            territories={territories}
+            territories={BIBLICAL_TERRITORIES}
             selectedPlace={selectedPlace}
             selectedEvent={selectedEvent}
+            visiblePeriod={visiblePeriod}
             onSelectPlace={handleSelectPlace}
             searchQuery={searchQuery}
           />
@@ -131,7 +155,7 @@ export default function App() {
           selectedPlace={selectedPlace}
           categories={categories}
           places={places}
-          events={events}
+          events={linkedEvents}
           onClose={handleCloseDetailPanel}
           onSelectPlace={handleSelectPlace}
           onSelectEvent={handleSelectEvent}

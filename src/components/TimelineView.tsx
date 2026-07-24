@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { EventData, EraData, CategoryData } from '../types';
+import { EventData, EraData, CategoryData, TimelinePeriod } from '../types';
 import { formatDateFrench } from '../utils/dateUtils';
 import {
   ZoomIn,
@@ -28,6 +28,7 @@ interface TimelineViewProps {
   events: EventData[];
   selectedEventId: string | null;
   onSelectEvent: (event: EventData) => void;
+  onVisiblePeriodChange: (period: TimelinePeriod) => void;
   searchQuery: string;
 }
 
@@ -37,6 +38,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   events,
   selectedEventId,
   onSelectEvent,
+  onVisiblePeriodChange,
   searchQuery
 }) => {
   // Category visibility toggle
@@ -86,11 +88,15 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const totalYears = maxYear - minYear;
 
   const timelineWidth = Math.max(1200, totalYears * pxPerYear);
+  const viewportRenderMargin = 240;
 
   // Map year position to X coordinate in pixels
   const getXFromYear = (pos: number) => {
     return ((pos - minYear) / totalYears) * timelineWidth;
   };
+
+  const getYearFromX = (x: number) =>
+    minYear + (Math.max(0, Math.min(timelineWidth, x)) / timelineWidth) * totalYears;
 
   // Track viewport boundaries (scrollLeft to scrollLeft + clientWidth)
   const updateViewport = () => {
@@ -123,6 +129,21 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       window.removeEventListener('resize', updateViewport);
     };
   }, [pxPerYear, timelineWidth]);
+
+  useEffect(() => {
+    setVisibleCategories(new Set(categories.map(category => category.name)));
+    setCollapsedCategories(previous => {
+      const availableNames = new Set(categories.map(category => category.name));
+      return new Set([...previous].filter(name => availableNames.has(name)));
+    });
+  }, [categories]);
+
+  useEffect(() => {
+    onVisiblePeriodChange({
+      startYear: getYearFromX(viewportX.startX),
+      endYear: getYearFromX(viewportX.endX)
+    });
+  }, [viewportX, timelineWidth, onVisiblePeriodChange]);
 
   // Toggle single category
   const toggleCategory = (catName: string) => {
@@ -165,19 +186,37 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     baseFilteredEvents.forEach(e => {
       const startX = getXFromYear(e.startPos);
       const endX = e.isPoint ? startX : getXFromYear(e.endPos);
-      // Include buffer of 80px so items near edges are counted smoothly
-      if (endX >= viewportX.startX - 80 && startX <= viewportX.endX + 80) {
+      if (
+        endX >= viewportX.startX - viewportRenderMargin &&
+        startX <= viewportX.endX + viewportRenderMargin
+      ) {
         set.add(e.category);
       }
     });
     return set;
   }, [baseFilteredEvents, viewportX, timelineWidth, minYear, maxYear]);
 
-  // 3. Final events list filtered by auto-viewport setting if active
+  // 3. Filter each event interval, rather than retaining an entire category.
   const finalFilteredEvents = useMemo(() => {
     if (!autoFilterViewport) return baseFilteredEvents;
-    return baseFilteredEvents.filter(e => categoriesInViewport.has(e.category));
-  }, [baseFilteredEvents, autoFilterViewport, categoriesInViewport]);
+    return baseFilteredEvents.filter(event => {
+      const eventStartX = getXFromYear(event.startPos);
+      const eventEndX = event.isPoint
+        ? eventStartX
+        : getXFromYear(event.endPos);
+      return (
+        eventEndX >= viewportX.startX - viewportRenderMargin &&
+        eventStartX <= viewportX.endX + viewportRenderMargin
+      );
+    });
+  }, [
+    baseFilteredEvents,
+    autoFilterViewport,
+    viewportX,
+    timelineWidth,
+    minYear,
+    maxYear
+  ]);
 
   // Compute event closest to the center of the current viewport
   const closestEventId = useMemo(() => {
@@ -375,6 +414,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     finalFilteredEvents.forEach(e => {
       const isBookPeriod =
         e.category.toLowerCase().includes('livre biblique') ||
+        e.category.toLowerCase().includes('livres bibliques') ||
         e.category.toLowerCase().includes('période livre') ||
         e.category.toLowerCase().includes('periode livre');
 

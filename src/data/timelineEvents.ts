@@ -1,5 +1,7 @@
 import { EventData } from '../types';
 import { parseTimelineDate } from '../utils/dateUtils';
+import { createCategoryId, createEventId } from '../utils/stableIds';
+import { normalizeCategoryName } from '../utils/dataVocabulary';
 
 interface RawEvent {
   text: string;
@@ -145,9 +147,9 @@ const rawEventsData: RawEvent[] = [
   { text: "Jéhovah décrète le Déluge", category: "Événements Marquants", start: "-2489-01-01 00:00:00", end: "-2489-01-01 00:00:00" },
   { text: "Periode Possible Tour de Babel", category: "Événements Marquants", start: "-2268-01-02 00:00:00", end: "-2028-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, description: "Genèse 10:25", associatedLocationIds: ["babylon"] },
   { text: "Alliance avec Abraham", category: "Événements Marquants", start: "-1942-01-01 00:00:00", end: "-1942-01-01 00:00:00", description: "14 Nisan", associatedLocationIds: ["shechem", "hebron"] },
-  { text: "Jacob fuis son frère à Haran", category: "Événements Marquants", start: "-1780-01-01 00:00:00", end: "-1780-01-01 00:00:00", description: "Source : It(2) Rachel", associatedLocationIds: ["beersheba", "bethel", "haran"] },
-  { text: "Retrouvaille avec Joseph", category: "Événements Marquants", start: "-1727-01-01 00:00:00", end: "-1727-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["goshen"] },
-  { text: "Epreuve de Job ?", category: "Événements Marquants", start: "-1656-01-01 00:00:00", end: "-1511-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, description: "L'épreuve de Job s'est déroulée entre la mort de Joseph et le choix de Moïse." },
+  { text: "Jacob fuit son frère à Haran", category: "Événements Marquants", start: "-1780-01-01 00:00:00", end: "-1780-01-01 00:00:00", description: "Source : It(2) Rachel", associatedLocationIds: ["beersheba", "bethel", "haran"] },
+  { text: "Retrouvailles avec Joseph", category: "Événements Marquants", start: "-1727-01-01 00:00:00", end: "-1727-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["goshen"] },
+  { text: "Épreuve de Job ?", category: "Événements Marquants", start: "-1656-01-01 00:00:00", end: "-1511-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, description: "L'épreuve de Job s'est déroulée entre la mort de Joseph et le choix de Moïse." },
   { text: "Sortie d’Égypte", category: "Événements Marquants", start: "-1512-01-01 00:00:00", end: "-1512-01-01 00:00:00", associatedLocationIds: ["ramses", "red_sea", "sinai"] },
   { text: "Alliance de la Loi", category: "Événements Marquants", start: "-1512-01-01 00:00:00", end: "-1512-01-01 00:00:00", associatedLocationIds: ["sinai"] },
   { text: "Entrée en Canaan sous la direction de Josué", category: "Événements Marquants", start: "-1472-01-01 00:00:00", end: "-1472-01-01 00:00:00", associatedLocationIds: ["jordan_river", "jericho", "gilgal"] },
@@ -157,12 +159,12 @@ const rawEventsData: RawEvent[] = [
   { text: "Livre de la loi retrouvé dans le temple", category: "Événements Marquants", start: "-639-01-01 00:00:00", end: "-639-01-01 00:00:00", associatedLocationIds: ["jerusalem"] },
   { text: "Jérusalem tombe sous la domination de Babylone.", category: "Événements Marquants", start: "-619-01-01 00:00:00", end: "-619-01-01 00:00:00", associatedLocationIds: ["jerusalem", "babylon"] },
   { text: "Babylone emmène les premiers captifs de Jérusalem.", category: "Événements Marquants", start: "-616-01-01 00:00:00", end: "-616-01-01 00:00:00", associatedLocationIds: ["jerusalem", "babylon"] },
-  { text: "Déstruction de Jérusalem par les Babyloniens", category: "Événements Marquants", start: "-606-01-01 00:00:00", end: "-606-01-01 00:00:00", associatedLocationIds: ["jerusalem", "babylon"] },
+  { text: "Destruction de Jérusalem par les Babyloniens", category: "Événements Marquants", start: "-606-01-01 00:00:00", end: "-606-01-01 00:00:00", associatedLocationIds: ["jerusalem", "babylon"] },
   { text: "Prise de Babylone par Cyrus", category: "Événements Marquants", start: "-538-01-01 00:00:00", end: "-538-01-01 00:00:00", associatedLocationIds: ["babylon"] },
   { text: "Retour des Juifs à Jérusalem", category: "Événements Marquants", start: "-536-01-01 00:00:00", end: "-536-01-01 00:00:00", description: "Décret de Cyrus de rebâtir le temple.", associatedLocationIds: ["jerusalem", "babylon"] },
   { text: "Alexandre le Grand conquit Jérusalem", category: "Événements Marquants", start: "-331-01-01 00:00:00", end: "-331-01-01 00:00:00", associatedLocationIds: ["jerusalem"] },
-  { text: "Colonie Juive en Egypte", category: "Événements Marquants", start: "-319-01-01 00:00:00", end: "-319-01-01 00:00:00", description: "Ptolémée Ier encouragea les Juifs à venir en Égypte.", associatedLocationIds: ["alexandria"] },
-  { text: "Prise de pouvoir des Séleucide", category: "Événements Marquants", start: "-197-01-01 00:00:00", end: "-197-01-01 00:00:00", associatedLocationIds: ["jerusalem", "sidon"] },
+  { text: "Colonie juive en Égypte", category: "Événements Marquants", start: "-319-01-01 00:00:00", end: "-319-01-01 00:00:00", description: "Ptolémée Ier encouragea les Juifs à venir en Égypte.", associatedLocationIds: ["alexandria"] },
+  { text: "Prise de pouvoir des Séleucides", category: "Événements Marquants", start: "-197-01-01 00:00:00", end: "-197-01-01 00:00:00", associatedLocationIds: ["jerusalem", "sidon"] },
   { text: "Révolte des Maccabées", category: "Événements Marquants", start: "-167-01-01 00:00:00", end: "-167-01-01 00:00:00", description: "Profanation puis redédicace du temple.", associatedLocationIds: ["jerusalem"] },
   { text: "Demande d'aide à Rome", category: "Événements Marquants", start: "-159-01-01 00:00:00", end: "-159-01-01 00:00:00", associatedLocationIds: ["rome", "jerusalem"] },
   { text: "Prise de Jérusalem par Pompée", category: "Événements Marquants", start: "-62-01-01 00:00:00", end: "-62-01-01 00:00:00", description: "Pompée prend Jérusalem et annexa la Judée à l'empire.", associatedLocationIds: ["jerusalem", "rome"] },
@@ -170,7 +172,7 @@ const rawEventsData: RawEvent[] = [
 
   // Restoration of Jerusalem
   { text: "Autel établi ; sacrifices offerts", category: "Rétablissement de Jérusalem", start: "-536-07-01 00:00:00", end: "-536-07-01 00:00:00", description: "Esdras 3:3", associatedLocationIds: ["jerusalem"] },
-  { text: "Fondation posées", category: "Rétablissement de Jérusalem", start: "-535-01-01 00:00:00", end: "-535-01-01 00:00:00", description: "Esdras 3:10,11", associatedLocationIds: ["jerusalem"] },
+  { text: "Fondations posées", category: "Rétablissement de Jérusalem", start: "-535-01-01 00:00:00", end: "-535-01-01 00:00:00", description: "Esdras 3:10,11", associatedLocationIds: ["jerusalem"] },
   { text: "Le roi Artaxerxès fait arrêter la construction", category: "Rétablissement de Jérusalem", start: "-521-01-01 00:00:00", end: "-521-01-01 00:00:00", description: "Esdras 4:23,24", associatedLocationIds: ["jerusalem"] },
   { text: "Zekaria et Haggaï encouragent le peuple à reprendre les travaux", category: "Rétablissement de Jérusalem", start: "-519-01-01 00:00:00", end: "-519-01-01 00:00:00", description: "Esdras 5:1,2", associatedLocationIds: ["jerusalem"] },
   { text: "Temple achevé", category: "Rétablissement de Jérusalem", start: "-514-01-01 00:00:00", end: "-514-01-01 00:00:00", description: "Esdras 6:15", associatedLocationIds: ["jerusalem"] },
@@ -182,19 +184,19 @@ const rawEventsData: RawEvent[] = [
   { text: "Jésus (en tant qu'humain)", category: "Personnage", start: "-1-01-10 00:00:00", end: "33-04-03 00:00:00", associatedLocationIds: ["bethlehem", "nazareth", "capernaum", "jerusalem"] },
   { text: "Jean le Baptiseur", category: "Personnage", start: "-2-01-01 00:00:00", end: "32-01-01 00:00:00", associatedLocationIds: ["jordan_river"] },
   { text: "Paul arrive à Jérusalem (Chrétien)", category: "Événements Marquants", start: "36-06-01 00:00:00", end: "36-06-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["jerusalem", "damascus"] },
-  { text: "Vision du Toisième ciel", category: "Événements Marquants", start: "41-06-01 00:00:00", end: "41-06-01 00:00:00", fuzzy_start: true },
+  { text: "Vision du troisième ciel", category: "Événements Marquants", start: "41-06-01 00:00:00", end: "41-06-01 00:00:00", fuzzy_start: true },
   { text: "Pierre Libéré de prison par un ange", category: "Événements Marquants", start: "44-03-25 00:00:00", end: "44-03-25 00:00:00", fuzzy_start: true, associatedLocationIds: ["jerusalem"] },
   { text: "Mort de Hérode Agrippa 1er", category: "Événements Marquants", start: "44-06-01 00:00:00", end: "44-06-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["caesarea"] },
-  { text: "Famine annoncé par Agabus", category: "Événements Marquants", start: "46-06-01 00:00:00", end: "46-06-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["antioch_syria", "jerusalem"] },
+  { text: "Famine annoncée par Agabus", category: "Événements Marquants", start: "46-06-01 00:00:00", end: "46-06-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["antioch_syria", "jerusalem"] },
   { text: "Question de la circoncision", category: "Événements Marquants", start: "49-04-01 00:00:00", end: "49-04-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["jerusalem", "antioch_syria"] },
 
   // Paul's Journeys
   { text: "1er Voyage missionnaire", category: "Voyages de Paul", start: "47-03-21 00:00:00", end: "48-09-21 00:00:00", fuzzy_start: true, fuzzy_end: true, description: "Voyage à Chypre, Lystre, Iconium, Antioche de Pisidie.", associatedLocationIds: ["antioch_syria", "paphos", "iconium", "lystra", "derbe"] },
-  { text: "2eme Voyage missionnaire", category: "Voyages de Paul", start: "49-06-01 00:00:00", end: "52-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["antioch_syria", "troas", "philippi", "thessalonica", "athens", "corinth"] },
-  { text: "3ème Voyage missionnaire", category: "Voyages de Paul", start: "52-01-01 00:00:00", end: "56-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["ephesus", "corinth", "miletus", "jerusalem"] },
-  { text: "Prison à Césaré", category: "Voyages de Paul", start: "56-06-01 00:00:00", end: "58-06-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["caesarea"] },
+  { text: "2e Voyage missionnaire", category: "Voyages de Paul", start: "49-06-01 00:00:00", end: "52-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["antioch_syria", "troas", "philippi", "thessalonica", "athens", "corinth"] },
+  { text: "3e Voyage missionnaire", category: "Voyages de Paul", start: "52-01-01 00:00:00", end: "56-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["ephesus", "corinth", "miletus", "jerusalem"] },
+  { text: "Prison à Césarée", category: "Voyages de Paul", start: "56-06-01 00:00:00", end: "58-06-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["caesarea"] },
   { text: "Paul est envoyé à Rome", category: "Voyages de Paul", start: "58-06-01 00:00:00", end: "58-06-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["caesarea", "malta", "rome"] },
-  { text: "Prison maison loué", category: "Voyages de Paul", start: "59-01-01 00:00:00", end: "61-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["rome"] },
+  { text: "Détention dans une maison louée", category: "Voyages de Paul", start: "59-01-01 00:00:00", end: "61-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["rome"] },
   { text: "Deuxième emprisonnement à Rome", category: "Voyages de Paul", start: "65-01-01 00:00:00", end: "66-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["rome"] },
 
   // Epistles Writing
@@ -204,7 +206,7 @@ const rawEventsData: RawEvent[] = [
   { text: "1ère Lettre aux Corinthiens", category: "Rédaction livre biblique", start: "55-01-02 00:00:00", end: "55-01-02 00:00:00", fuzzy_start: true, associatedLocationIds: ["ephesus"] },
   { text: "2nde Lettre aux Corinthiens", category: "Rédaction livre biblique", start: "55-06-03 00:00:00", end: "55-06-03 00:00:00", fuzzy_start: true, associatedLocationIds: ["philippi"] },
   { text: "Lettre aux Romains", category: "Rédaction livre biblique", start: "56-01-01 00:00:00", end: "56-01-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["corinth"] },
-  { text: "Lettre aux Ephésiens", category: "Rédaction livre biblique", start: "60-06-02 00:00:00", end: "60-06-02 00:00:00", fuzzy_start: true, associatedLocationIds: ["rome"] },
+  { text: "Lettre aux Éphésiens", category: "Rédaction livre biblique", start: "60-06-02 00:00:00", end: "60-06-02 00:00:00", fuzzy_start: true, associatedLocationIds: ["rome"] },
   { text: "Lettre aux Colossiens", category: "Rédaction livre biblique", start: "60-06-03 00:00:00", end: "60-06-03 00:00:00", fuzzy_start: true, associatedLocationIds: ["rome"] },
   { text: "Lettre à Philémon", category: "Rédaction livre biblique", start: "60-06-03 00:00:00", end: "60-06-03 00:00:00", fuzzy_start: true, associatedLocationIds: ["rome"] },
   { text: "Lettre aux Hébreux", category: "Rédaction livre biblique", start: "61-01-01 00:00:00", end: "61-01-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["rome"] },
@@ -213,22 +215,24 @@ const rawEventsData: RawEvent[] = [
   { text: "2ème Lettre à Timothée", category: "Rédaction livre biblique", start: "65-06-01 00:00:00", end: "65-06-01 00:00:00", fuzzy_start: true, associatedLocationIds: ["rome"] },
 
   { text: "Grand incendie de Rome", category: "Événements Marquants", start: "64-07-01 00:00:00", end: "64-07-01 00:00:00", associatedLocationIds: ["rome"] },
-  { text: "Domotien", category: "Règnes", start: "81-01-01 00:00:00", end: "96-01-01 00:00:00", associatedLocationIds: ["rome"] },
+  { text: "Domitien", category: "Règnes", start: "81-01-01 00:00:00", end: "96-01-01 00:00:00", associatedLocationIds: ["rome"] },
   { text: "Jean", category: "Personnage", start: "0-01-01 00:00:00", end: "99-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["jerusalem", "patmos", "ephesus"] },
-  { text: "Thimotée", category: "Personnage", start: "30-01-01 00:00:00", end: "110-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["lystra", "ephesus"] },
+  { text: "Timothée", category: "Personnage", start: "30-01-01 00:00:00", end: "110-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["lystra", "ephesus"] },
   { text: "Jésus est établi Roi et Berger", category: "Événements Marquants", start: "1914-10-01 00:00:00", end: "1914-10-01 00:00:00" },
   { text: "Nomination de l'esclave fidèle et avisé", category: "Événements Marquants", start: "1919-01-01 00:00:00", end: "1919-01-01 00:00:00" }
 ];
 
-export const EVENTS: EventData[] = rawEventsData.map((ev, idx) => {
+export const EVENTS: EventData[] = rawEventsData.map(ev => {
   const pStart = parseTimelineDate(ev.start);
   const pEnd = parseTimelineDate(ev.end);
   const isPoint = Math.abs(pEnd.position - pStart.position) < 0.01;
+  const category = normalizeCategoryName(ev.category);
 
   return {
-    id: `event_${idx + 1}`,
+    id: createEventId(ev.text, ev.start, category),
     text: ev.text,
-    category: ev.category,
+    categoryId: createCategoryId(category),
+    category,
     startRaw: ev.start,
     endRaw: ev.end,
     startYear: pStart.year,
