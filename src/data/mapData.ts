@@ -1,12 +1,13 @@
 import { BiblicalPlace, BiblicalRoute, BiblicalTerritory } from '../types';
 import { createEventId } from '../utils/stableIds';
+import { PROMISED_LAND_PLACES } from './promisedLandPlaces';
 
 /**
  * BIBLICAL PLACES DATABASE
  * Fully structured database linking biblical locations, coordinates, period of existence,
  * associated biblical events & characters, routes, and scriptures.
  */
-export const BIBLICAL_PLACES: BiblicalPlace[] = [
+const CORE_BIBLICAL_PLACES: BiblicalPlace[] = [
   {
     id: "jerusalem",
     name: "Jérusalem",
@@ -283,6 +284,68 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     category: "Capitale impériale"
   }
 ];
+
+const uniqueValues = <T>(values: T[]): T[] => Array.from(new Set(values));
+
+const mergePlaceCorpus = (
+  corePlaces: BiblicalPlace[],
+  importedPlaces: BiblicalPlace[]
+): BiblicalPlace[] => {
+  const placesById = new Map(
+    corePlaces.map(place => [place.id, place] as const)
+  );
+
+  importedPlaces.forEach(importedPlace => {
+    const existingPlace = placesById.get(importedPlace.id);
+    if (!existingPlace) {
+      placesById.set(importedPlace.id, importedPlace);
+      return;
+    }
+
+    const sourcesByKey = new Map(
+      [...(existingPlace.sources || []), ...(importedPlace.sources || [])].map(
+        source => [`${source.id}:${source.citation || ''}`, source]
+      )
+    );
+
+    placesById.set(importedPlace.id, {
+      ...importedPlace,
+      ...existingPlace,
+      alternateNames: uniqueValues([
+        ...(existingPlace.alternateNames || []),
+        ...(importedPlace.alternateNames || [])
+      ]),
+      biblicalReferences: uniqueValues([
+        ...existingPlace.biblicalReferences,
+        ...importedPlace.biblicalReferences
+      ]),
+      documentaryReferences: uniqueValues([
+        ...(existingPlace.documentaryReferences || []),
+        ...(importedPlace.documentaryReferences || [])
+      ]),
+      sources: Array.from(sourcesByKey.values()),
+      certainty: existingPlace.certainty || importedPlace.certainty,
+      notes: uniqueValues(
+        [existingPlace.notes, importedPlace.notes].filter(
+          (note): note is string => Boolean(note)
+        )
+      ).join(' '),
+      mapCategory: importedPlace.mapCategory,
+      mapReferences: uniqueValues([
+        ...(existingPlace.mapReferences || []),
+        ...(importedPlace.mapReferences || [])
+      ]),
+      coordinatePrecision: importedPlace.coordinatePrecision
+    });
+  });
+
+  return Array.from(placesById.values());
+};
+
+export const BIBLICAL_PLACES = mergePlaceCorpus(
+  CORE_BIBLICAL_PLACES,
+  PROMISED_LAND_PLACES
+);
 
 export const BIBLICAL_ROUTES: BiblicalRoute[] = [
   {

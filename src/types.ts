@@ -1,5 +1,16 @@
 export type CertaintyLevel = 'certain' | 'probable' | 'possible' | 'unknown';
 export type TimelineDisplayLevel = 'overview' | 'study' | 'detail';
+export type BiblicalMapCategory =
+  | 'levitical-city'
+  | 'refuge-city'
+  | 'hebrew-scriptures'
+  | 'greek-scriptures'
+  | 'both-scriptures'
+  | 'summit'
+  | 'wadi'
+  | 'body-of-water'
+  | 'river'
+  | 'spring';
 
 export interface SourceReference {
   id: string;
@@ -90,6 +101,12 @@ export interface BiblicalPlace extends EntityMetadata {
   routeId?: string;
   routeIds?: string[];
   category?: string;
+  /** Classification visuelle provenant d'une légende cartographique. */
+  mapCategory?: BiblicalMapCategory;
+  /** Références de grille conservées depuis les documents cartographiques. */
+  mapReferences?: string[];
+  /** Nature de la coordonnée affichée, distincte du degré de certitude. */
+  coordinatePrecision?: 'site' | 'representative' | 'approximate';
 }
 
 export interface BiblicalRoute extends EntityMetadata {
