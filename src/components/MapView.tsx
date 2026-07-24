@@ -10,19 +10,14 @@ import {
 } from '../types';
 import {
   ChevronDown,
+  X,
   Layers,
   Info,
   Map as MapIcon,
   Mountain
 } from 'lucide-react';
 import { formatDateFrench } from '../utils/dateUtils';
-
-delete (L.Icon.Default.prototype as { _getIconUrl?: unknown })._getIconUrl;
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png'
-});
+import { StatusNotice } from './ui/AtlasUi';
 
 interface MapViewProps {
   places: BiblicalPlace[];
@@ -85,8 +80,7 @@ const getInitialBaseMap = (): BaseMapId => {
 };
 
 const getInitialLayerPanelOpen = (): boolean => {
-  if (typeof window === 'undefined') return true;
-  return !window.matchMedia('(max-width: 639px)').matches;
+  return false;
 };
 
 const createBaseMapLayer = (baseMap: BaseMapId): L.TileLayer => {
@@ -222,9 +216,12 @@ export const MapView: React.FC<MapViewProps> = ({
   const baseMapLayerRef = useRef<L.TileLayer | null>(null);
   const markerLayerRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<Record<string, L.Marker>>({});
+  const hasReliefFallbackRef = useRef(false);
 
   const [baseMap, setBaseMap] = useState<BaseMapId>(getInitialBaseMap);
   const [mapZoom, setMapZoom] = useState(7);
+  const [isBaseMapLoading, setIsBaseMapLoading] = useState(true);
+  const [mapNotice, setMapNotice] = useState<string | null>(null);
   const [isLayerPanelOpen, setIsLayerPanelOpen] = useState(
     getInitialLayerPanelOpen
   );
@@ -267,6 +264,23 @@ export const MapView: React.FC<MapViewProps> = ({
     }
 
     const nextLayer = createBaseMapLayer(baseMap);
+    setIsBaseMapLoading(true);
+    const handleLoad = () => setIsBaseMapLoading(false);
+    const handleTileError = () => {
+      setIsBaseMapLoading(false);
+      if (
+        baseMap === 'natural-relief' &&
+        !hasReliefFallbackRef.current
+      ) {
+        hasReliefFallbackRef.current = true;
+        setMapNotice(
+          'Le fond de relief est momentanément indisponible. La carte claire a été affichée à la place.'
+        );
+        setBaseMap('light-map');
+      }
+    };
+    nextLayer.once('load', handleLoad);
+    nextLayer.once('tileerror', handleTileError);
     nextLayer.addTo(map);
     nextLayer.bringToBack();
     baseMapLayerRef.current = nextLayer;
@@ -276,6 +290,11 @@ export const MapView: React.FC<MapViewProps> = ({
     } catch {
       // The map remains usable when storage is unavailable.
     }
+
+    return () => {
+      nextLayer.off('load', handleLoad);
+      nextLayer.off('tileerror', handleTileError);
+    };
   }, [baseMap]);
 
   useEffect(() => {
@@ -356,26 +375,43 @@ export const MapView: React.FC<MapViewProps> = ({
       const labelLevel = place.mapLabelLevel || 'local';
       const showLabel =
         mapZoom >= MAP_LABEL_MIN_ZOOM[labelLevel] || isHighlighted;
+      const markerShape =
+        place.mapCategory === 'levitical-city' ||
+        place.mapCategory === 'refuge-city' ||
+        place.mapCategory === 'summit'
+          ? 'triangle'
+          : place.mapCategory === 'both-scriptures' ||
+              place.mapCategory === 'ancient-city'
+            ? 'square'
+            : place.mapCategory === 'exodus-stage' ||
+                place.mapCategory === 'spring'
+              ? 'diamond'
+              : place.mapCategory === 'wadi' ||
+                  place.mapCategory === 'river' ||
+                  place.mapCategory === 'body-of-water'
+                ? 'natural'
+                : 'circle';
+      const isNaturalLabel =
+        place.mapCategory === 'wadi' ||
+        place.mapCategory === 'river' ||
+        place.mapCategory === 'body-of-water' ||
+        place.mapCategory === 'summit';
       const markerHtml = `
-        <div class="relative flex items-center justify-center">
+        <div class="atlas-map-marker-host">
           <div
-            class="flex h-4 w-4 items-center justify-center rounded-full border border-white/90 text-[11px] font-black leading-none shadow-sm transition-transform ${
-              isHighlighted
-                ? 'scale-150 ring-2 ring-cyan-400/60'
-                : 'hover:scale-125'
+            class="atlas-map-marker atlas-map-marker--${markerShape} ${
+              isHighlighted ? 'atlas-map-marker--selected' : ''
             }"
-            style="color:${markerStyle.color};background:${markerStyle.background}"
+            style="--marker-color:${markerStyle.color};--marker-fill:${markerStyle.background}"
             title="${escapeHtml(markerStyle.label)}"
           >
-            ${markerStyle.symbol}
+            <span class="sr-only">${escapeHtml(markerStyle.symbol)}</span>
           </div>
           ${
             showLabel
-              ? `<span class="absolute left-1/2 -bottom-5 -translate-x-1/2 whitespace-nowrap rounded border ${
-                  labelLevel === 'major'
-                    ? 'border-indigo-300 bg-indigo-50/95 text-[12px] font-extrabold text-indigo-950 shadow-md'
-                    : 'border-slate-200 bg-white/95 text-[11px] font-bold text-slate-900 shadow'
-                } px-1.5 py-0.5">
+              ? `<span class="map-label map-label--${labelLevel} ${
+                  isNaturalLabel ? 'map-label--natural' : ''
+                }">
                   ${escapeHtml(place.name)}
                 </span>`
               : ''
@@ -385,9 +421,9 @@ export const MapView: React.FC<MapViewProps> = ({
       const marker = L.marker(place.coordinates, {
         icon: L.divIcon({
           html: markerHtml,
-          className: 'custom-div-icon',
-          iconSize: [16, 16],
-          iconAnchor: [8, 8]
+          className: 'map-label-host',
+          iconSize: [18, 18],
+          iconAnchor: [9, 9]
         })
       });
       marker.on('click', () => onSelectPlace(place));
@@ -416,8 +452,171 @@ export const MapView: React.FC<MapViewProps> = ({
   }, [selectedPlace]);
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-slate-50">
-      <div className="absolute left-3 top-3 z-[400] flex w-[min(21rem,calc(100vw-1.5rem))] flex-col gap-2 sm:left-4 sm:top-4 sm:w-auto sm:max-w-[calc(100%-2rem)]">
+    <div className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">
+      <div className="absolute left-3 top-3 z-[420] flex max-w-[calc(100%-1.5rem)] flex-col items-start gap-2 sm:left-4 sm:top-4">
+        <button
+          type="button"
+          aria-expanded={isLayerPanelOpen}
+          aria-controls="atlas-map-layer-menu"
+          onClick={() => setIsLayerPanelOpen(current => !current)}
+          className="atlas-control min-h-11 gap-2 bg-[var(--color-paper)]/94 px-3.5 shadow-[var(--shadow-2)] backdrop-blur"
+        >
+          {baseMap === 'natural-relief' ? (
+            <Mountain className="size-4 text-[var(--color-mineral)]" />
+          ) : (
+            <MapIcon className="size-4 text-[var(--color-primary)]" />
+          )}
+          <span>
+            {baseMap === 'natural-relief' ? 'Relief naturel' : 'Carte claire'}
+          </span>
+          <ChevronDown
+            aria-hidden="true"
+            className={`size-4 text-[var(--color-ink-muted)] transition-transform ${
+              isLayerPanelOpen ? 'rotate-180' : ''
+            }`}
+          />
+        </button>
+
+        {visiblePeriod && (
+          <p className="rounded-[var(--radius-sm)] bg-[var(--color-paper)]/90 px-3 py-2 text-xs text-[var(--color-ink-soft)] shadow-[var(--shadow-1)] backdrop-blur">
+            <span className="font-semibold text-[var(--color-ink)]">
+              Période visible
+            </span>{' '}
+            <span className="tabular-nums">
+              {formatDateFrench(Math.round(visiblePeriod.startYear))} à{' '}
+              {formatDateFrench(Math.round(visiblePeriod.endYear))}
+            </span>
+          </p>
+        )}
+      </div>
+
+      {isLayerPanelOpen && (
+        <>
+          <button
+            type="button"
+            aria-label="Fermer les couches de la carte"
+            className="fixed inset-0 z-[430] bg-[var(--color-ink)]/18 sm:hidden"
+            onClick={() => setIsLayerPanelOpen(false)}
+          />
+          <section
+            id="atlas-map-layer-menu"
+            aria-label="Couches de la carte"
+            className="fixed inset-x-0 bottom-0 z-[440] max-h-[78dvh] overflow-y-auto rounded-t-[var(--radius-xl)] bg-[var(--color-paper)] p-5 shadow-[var(--shadow-3)] sm:absolute sm:bottom-auto sm:left-4 sm:right-auto sm:top-[4.5rem] sm:w-[22rem] sm:rounded-[var(--radius-lg)] sm:border sm:border-[var(--color-stone-light)]"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div>
+                <p className="atlas-kicker">Cartographie</p>
+                <h2 className="mt-1 text-base font-bold text-[var(--color-ink)]">
+                  Couches de la carte
+                </h2>
+              </div>
+              <button
+                type="button"
+                aria-label="Fermer"
+                onClick={() => setIsLayerPanelOpen(false)}
+                className="atlas-icon-button"
+              >
+                <X className="size-4" />
+              </button>
+            </div>
+
+            <fieldset className="mt-5">
+              <legend className="text-sm font-semibold text-[var(--color-ink)]">
+                Fond de carte
+              </legend>
+              <div
+                role="radiogroup"
+                aria-label="Fond de carte"
+                className="mt-2 grid grid-cols-2 gap-2"
+              >
+                {([
+                  [
+                    'natural-relief',
+                    'Relief naturel',
+                    'Sans routes modernes',
+                    Mountain
+                  ],
+                  ['light-map', 'Carte claire', 'Fond CartoDB', MapIcon]
+                ] as const).map(([id, label, description, Icon]) => (
+                  <button
+                    key={id}
+                    type="button"
+                    role="radio"
+                    aria-checked={baseMap === id}
+                    onClick={() => {
+                      if (id === 'natural-relief') {
+                        hasReliefFallbackRef.current = false;
+                      }
+                      setBaseMap(id);
+                    }}
+                    className={`min-h-20 border-l-2 px-3 py-2.5 text-left transition-colors ${
+                      baseMap === id
+                        ? 'border-[var(--color-primary)] bg-[var(--color-primary-soft)]'
+                        : 'border-[var(--color-stone)] hover:bg-[var(--color-paper-muted)]'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2 text-sm font-semibold text-[var(--color-ink)]">
+                      <Icon className="size-4" />
+                      {label}
+                    </span>
+                    <span className="mt-1 block text-xs text-[var(--color-ink-muted)]">
+                      {description}
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </fieldset>
+
+            <details className="mt-5 border-t border-[var(--color-stone-light)] pt-4">
+              <summary className="cursor-pointer text-sm font-semibold text-[var(--color-ink)]">
+                Légende des lieux
+              </summary>
+              <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
+                {MAP_LEGEND.map(([category, style]) => {
+                  const count = places.filter(
+                    place =>
+                      place.mapCategory === category &&
+                      overlapsPeriod(
+                        place.startYear,
+                        place.endYear,
+                        visiblePeriod
+                      ) &&
+                      mapZoom >=
+                        MAP_LABEL_MIN_ZOOM[place.mapLabelLevel || 'local']
+                  ).length;
+                  if (count === 0) return null;
+                  return (
+                    <div
+                      key={category}
+                      className="flex min-w-0 items-center gap-2 text-xs leading-snug text-[var(--color-ink-soft)]"
+                    >
+                      <span
+                        aria-hidden="true"
+                        className="grid size-4 shrink-0 place-items-center text-xs font-bold"
+                        style={{ color: style.color }}
+                      >
+                        {style.symbol}
+                      </span>
+                      <span>
+                        {style.label}{' '}
+                        <span className="tabular-nums text-[var(--color-ink-muted)]">
+                          {count}
+                        </span>
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+              <p className="mt-4 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                Les lieux apparaissent progressivement selon leur importance et
+                le niveau de zoom.
+              </p>
+            </details>
+          </section>
+        </>
+      )}
+
+      <div className="hidden">
         <div className="rounded-2xl border border-white/70 bg-white/90 p-2.5 text-xs text-slate-800 shadow-xl shadow-slate-900/10 backdrop-blur-xl">
           <button
             type="button"
@@ -575,6 +774,53 @@ export const MapView: React.FC<MapViewProps> = ({
           </div>
         )}
       </div>
+
+      <div className="pointer-events-none absolute inset-x-3 bottom-20 z-[410] flex flex-col items-end gap-2 sm:inset-x-auto sm:bottom-4 sm:right-16 sm:w-[22rem]">
+        {mapNotice && (
+          <div className="pointer-events-auto w-full shadow-[var(--shadow-2)]">
+            <StatusNotice
+              title="Fond de carte remplacé"
+              message={mapNotice}
+              variant="warning"
+              action={
+                <button
+                  type="button"
+                  aria-label="Fermer la notification"
+                  onClick={() => setMapNotice(null)}
+                  className="atlas-icon-button size-8"
+                >
+                  <X className="size-4" />
+                </button>
+              }
+            />
+          </div>
+        )}
+
+        {selectedEvent && (
+          <div className="pointer-events-auto w-full border-l-2 border-[var(--color-bronze)] bg-[var(--color-paper)]/94 px-4 py-3 text-xs shadow-[var(--shadow-2)] backdrop-blur">
+            <p className="flex items-center gap-2 font-semibold text-[var(--color-bronze)]">
+              <Info className="size-4 shrink-0" />
+              Contexte de l’événement
+            </p>
+            <p className="mt-1.5 font-semibold text-[var(--color-ink)]">
+              {selectedEvent.text}
+            </p>
+            <p className="mt-1 text-[var(--color-ink-soft)]">
+              Seuls les lieux associés sont affichés.
+            </p>
+          </div>
+        )}
+      </div>
+
+      {isBaseMapLoading && (
+        <div
+          role="status"
+          className="pointer-events-none absolute inset-x-0 top-0 z-[405] h-0.5 overflow-hidden bg-[var(--color-stone-light)]"
+        >
+          <span className="block h-full w-1/3 animate-[atlas-map-load_1.2s_ease-in-out_infinite] bg-[var(--color-mineral)]" />
+          <span className="sr-only">Chargement du fond de carte</span>
+        </div>
+      )}
 
       <div ref={mapContainerRef} className="w-full h-full z-0" />
     </div>

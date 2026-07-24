@@ -276,7 +276,78 @@ textarea {
   border: 0 !important;
 }
 
+.atlas-map-marker-host {
+  position: relative;
+  display: grid;
+  width: 18px;
+  height: 18px;
+  place-items: center;
+}
+
+.atlas-map-marker {
+  width: 10px;
+  height: 10px;
+  border: 1.5px solid var(--color-paper);
+  background: var(--marker-color);
+  box-shadow: 0 0 0 1px rgb(23 32 51 / 28%);
+  transition:
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.atlas-map-marker-host:hover .atlas-map-marker {
+  transform: scale(1.16);
+}
+
+.atlas-map-marker--circle {
+  border-radius: 50%;
+}
+
+.atlas-map-marker--square {
+  border-radius: 1px;
+}
+
+.atlas-map-marker--triangle {
+  width: 12px;
+  height: 11px;
+  border: 0;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.atlas-map-marker--diamond {
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+.atlas-map-marker-host:hover .atlas-map-marker--diamond {
+  transform: rotate(45deg) scale(1.16);
+}
+
+.atlas-map-marker--natural {
+  width: 13px;
+  height: 4px;
+  border: 0;
+  border-radius: 999px;
+}
+
+.atlas-map-marker--selected {
+  transform: scale(1.34);
+  box-shadow:
+    0 0 0 2px var(--color-paper),
+    0 0 0 4px var(--color-primary);
+}
+
+.atlas-map-marker--diamond.atlas-map-marker--selected {
+  transform: rotate(45deg) scale(1.34);
+}
+
 .map-label {
+  position: absolute;
+  top: 19px;
+  left: 50%;
+  width: max-content;
+  max-width: 180px;
+  transform: translateX(-50%);
   color: var(--color-ink);
   font-family: var(--font-ui);
   font-size: 12px;
@@ -310,6 +381,15 @@ textarea {
   font-family: var(--font-editorial);
   font-style: italic;
   font-weight: 500;
+}
+
+@keyframes atlas-map-load {
+  from {
+    transform: translateX(-110%);
+  }
+  to {
+    transform: translateX(410%);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
