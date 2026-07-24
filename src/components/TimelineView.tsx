@@ -455,6 +455,40 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     return map;
   }, [categories]);
 
+  const categoryNamesByRoot = useMemo(() => {
+    const categoriesByName = new Map<string, CategoryData>(
+      categories.map(category => [category.name, category] as const)
+    );
+
+    const belongsTo = (categoryName: string, rootName: string): boolean => {
+      let currentName: string | undefined = categoryName;
+      const visited = new Set<string>();
+
+      while (currentName && !visited.has(currentName)) {
+        if (currentName === rootName) return true;
+        visited.add(currentName);
+        currentName = categoriesByName.get(currentName)?.parent;
+      }
+
+      return false;
+    };
+
+    return {
+      characters: new Set(
+        categories
+          .filter(category => belongsTo(category.name, 'Personnage'))
+          .map(category => category.name)
+      ),
+      events: new Set(
+        categories
+          .filter(category =>
+            belongsTo(category.name, 'Événements marquants')
+          )
+          .map(category => category.name)
+      )
+    };
+  }, [categories]);
+
   // Helper for fuzzy date bar styling (gradient fade for uncertain dates)
   const getEventBarStyle = (ev: EventData, baseColor: string) => {
     const colorStr = ev.defaultColor
@@ -512,10 +546,18 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     finalFilteredEvents.forEach(e => {
       const isBookPeriod = backgroundCategoryNames.has(e.category);
 
-      if (e.isPoint && !isBookPeriod) {
-        const pointCatName = 'Événements';
-        if (!eventsByCat[pointCatName]) eventsByCat[pointCatName] = [];
-        eventsByCat[pointCatName].push(e);
+      if (!isBookPeriod && categoryNamesByRoot.events.has(e.category)) {
+        if (!eventsByCat['Événements']) eventsByCat['Événements'] = [];
+        eventsByCat['Événements'].push(e);
+      } else if (
+        !isBookPeriod &&
+        categoryNamesByRoot.characters.has(e.category)
+      ) {
+        if (!eventsByCat['Personnages']) eventsByCat['Personnages'] = [];
+        eventsByCat['Personnages'].push(e);
+      } else if (e.isPoint && !isBookPeriod) {
+        if (!eventsByCat['Événements']) eventsByCat['Événements'] = [];
+        eventsByCat['Événements'].push(e);
       } else {
         if (!eventsByCat[e.category]) eventsByCat[e.category] = [];
         eventsByCat[e.category].push(e);
@@ -526,6 +568,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     const categoryKeys = Object.keys(eventsByCat).sort((a, b) => {
       if (a === 'Événements') return -1;
       if (b === 'Événements') return 1;
+      if (a === 'Personnages') return -1;
+      if (b === 'Personnages') return 1;
       return a.localeCompare(b);
     });
 
@@ -534,6 +578,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       const sortedEvents = [...catEvents].sort((a, b) => a.startPos - b.startPos);
 
       const isBookCategory = backgroundCategoryNames.has(catName);
+      const isEventLane = catName === 'Événements';
+      const isCharacterLane = catName === 'Personnages';
       const tracks: { lastX: number }[] = [];
       const positionedEvents: PositionedEvent[] = [];
       const eventStartXs = sortedEvents.map(event => getXFromYear(event.startPos));
@@ -564,21 +610,46 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         const lowZoomLabelWidth = primaryEvent.isPoint
           ? Math.min(112, availableBeforeNext)
           : Math.min(140, Math.max(0, rangeWidth - 10));
-        const labelWidth = isLowZoomMode && !isBookCategory
-          ? lowZoomLabelWidth
-          : labelWidthEstimate;
+        const eventLaneLabelWidth = Math.max(
+          28,
+          Math.min(
+            360,
+            labelWidthEstimate,
+            Number.isFinite(nextStartX)
+              ? Math.max(28, nextStartX - startX - 18)
+              : labelWidthEstimate
+          )
+        );
+        const labelWidth = isEventLane
+          ? eventLaneLabelWidth
+          : isLowZoomMode && !isBookCategory
+            ? lowZoomLabelWidth
+            : labelWidthEstimate;
         const showLabel =
+          isEventLane ||
           !isLowZoomMode ||
           isBookCategory ||
           labelWidth >= 30;
 
         let sublaneIndex: number;
-        if (isLowZoomMode && !isBookCategory && primaryEvent.isPoint) {
+        if (isBookCategory || isEventLane) {
+          sublaneIndex = 0;
+          if (tracks.length === 0) tracks.push({ lastX: Number.POSITIVE_INFINITY });
+        } else if (isLowZoomMode && primaryEvent.isPoint) {
           // Only markers that would physically overlap are offset vertically.
           // They remain independent and selectable.
           const markerVisualEndX = startX + 12;
           sublaneIndex = tracks.findIndex(track => track.lastX <= startX);
-          if (sublaneIndex === -1) {
+          if (sublaneIndex === -1 && isCharacterLane && tracks.length >= 3) {
+            sublaneIndex = tracks.reduce(
+              (earliestTrack, track, trackIndex) =>
+                track.lastX < tracks[earliestTrack].lastX
+                  ? trackIndex
+                  : earliestTrack,
+              0
+            );
+            tracks[sublaneIndex].lastX = markerVisualEndX;
+          } else if (sublaneIndex === -1) {
             tracks.push({ lastX: markerVisualEndX });
             sublaneIndex = tracks.length - 1;
           } else {
@@ -591,7 +662,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           );
           const visualEndX = startX + visualWidth + (isLowZoomMode ? 8 : 12);
           sublaneIndex = tracks.findIndex(track => track.lastX <= startX);
-          if (sublaneIndex === -1) {
+          if (sublaneIndex === -1 && isCharacterLane && tracks.length >= 3) {
+            sublaneIndex = tracks.reduce(
+              (earliestTrack, track, trackIndex) =>
+                track.lastX < tracks[earliestTrack].lastX
+                  ? trackIndex
+                  : earliestTrack,
+              0
+            );
+            tracks[sublaneIndex].lastX = visualEndX;
+          } else if (sublaneIndex === -1) {
             tracks.push({ lastX: visualEndX });
             sublaneIndex = tracks.length - 1;
           } else {
@@ -614,7 +694,13 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
       lanesMap[catName] = {
         categoryName: catName,
-        catColor: categoryColorMap[catName] || (catName === 'Événements' ? '#2563eb' : '#0080ff'),
+        catColor:
+          categoryColorMap[catName] ||
+          (catName === 'Événements'
+            ? '#2563eb'
+            : catName === 'Personnages'
+              ? categoryColorMap.Personnage || '#2563eb'
+              : '#0080ff'),
         events: positionedEvents,
         numSublanes: tracks.length,
         totalEventsCount: catEvents.length
@@ -627,7 +713,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     timelineWidth,
     categoryColorMap,
     isLowZoomMode,
-    backgroundCategoryNames
+    backgroundCategoryNames,
+    categoryNamesByRoot
   ]);
 
   const backgroundPeriodItems = useMemo(
@@ -668,7 +755,6 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const visibleBackgroundPeriodItems = useMemo(() => {
     const viewportWidth = viewportX.endX - viewportX.startX;
     const renderMargin = Math.max(80, viewportWidth * 0.08);
-    const trackEnds: number[] = [];
 
     return backgroundPeriodItems
       .filter(
@@ -676,34 +762,18 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           item.endX >= viewportX.startX - renderMargin &&
           item.startX <= viewportX.endX + renderMargin
       )
-      .sort((left, right) => left.startX - right.startX)
-      .map(item => {
-        const visualEndX = Math.max(item.startX + 24, item.endX) + 6;
-        let visibleTrackIndex = trackEnds.findIndex(endX => endX <= item.startX);
-
-        if (visibleTrackIndex === -1) {
-          visibleTrackIndex = trackEnds.length;
-          trackEnds.push(visualEndX);
-        } else {
-          trackEnds[visibleTrackIndex] = visualEndX;
-        }
-
-        return { ...item, visibleTrackIndex };
-      });
+      .sort(
+        (left, right) =>
+          right.maxYear -
+            right.minYear -
+            (left.maxYear - left.minYear) ||
+          left.startX - right.startX
+      )
+      .map(item => ({ ...item, visibleTrackIndex: 0 }));
   }, [backgroundPeriodItems, viewportX.startX, viewportX.endX]);
 
-  const backgroundTrackCount = useMemo(
-    () =>
-      visibleBackgroundPeriodItems.length
-        ? Math.max(
-            ...visibleBackgroundPeriodItems.map(item => item.visibleTrackIndex)
-          ) + 1
-        : 0,
-    [visibleBackgroundPeriodItems]
-  );
-
   const backgroundRailHeight =
-    backgroundTrackCount > 0 ? 32 + backgroundTrackCount * 28 + 6 : 0;
+    visibleBackgroundPeriodItems.length > 0 ? 66 : 0;
   const eventBodyTop = 48 + backgroundRailHeight;
 
   const centeredBackgroundPeriodId = useMemo(() => {
@@ -1287,6 +1357,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                 const isHovered = hoveredEventId === event.id;
                 const isCentered = centeredBackgroundPeriodId === event.id;
                 const isActive = isSelected || isHovered || isCentered;
+                const duration = Math.max(1, item.maxYear - item.minYear);
+                const nestingZIndex = Math.max(
+                  10,
+                  40 - Math.round(Math.log10(duration + 1) * 5)
+                );
                 const desiredLeft =
                   Math.max(viewportX.startX - item.startX, 0) + 8;
                 const labelLeft = Math.max(
@@ -1307,7 +1382,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                     style={{
                       left: `${item.startX}px`,
                       top: `${32 + item.visibleTrackIndex * 28}px`,
-                      width: `${width}px`
+                      width: `${width}px`,
+                      zIndex: isActive ? 50 : nestingZIndex
                     }}
                     onClick={clickEvent => {
                       clickEvent.stopPropagation();
@@ -1317,8 +1393,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                     onMouseLeave={() => setHoveredEventId(null)}
                     className={`absolute h-6 overflow-hidden rounded-lg border text-left transition-all ${
                       isActive
-                        ? 'z-20 border-indigo-500 bg-indigo-600 text-white shadow-md ring-2 ring-indigo-300/70'
-                        : 'z-10 border-indigo-200 bg-white/90 text-indigo-950 hover:border-indigo-400 hover:bg-indigo-100'
+                        ? 'border-indigo-500 bg-indigo-600 text-white shadow-md ring-2 ring-indigo-300/70'
+                        : 'border-indigo-200 bg-white/90 text-indigo-950 hover:border-indigo-400 hover:bg-indigo-100'
                     }`}
                     aria-label={`${event.text}, ${formatDateFrench(event.startYear)} à ${formatDateFrench(event.endYear)}`}
                     title={`${event.text} (${formatDateFrench(event.startYear)} → ${formatDateFrench(event.endYear)})`}
@@ -1416,7 +1492,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   !backgroundCategoryNames.has(lane.categoryName)
               )
               .map((lane) => {
-                const isManuallyCollapsed = collapsedCategories.has(lane.categoryName);
+                const isEventLane = lane.categoryName === 'Événements';
+                const isManuallyCollapsed =
+                  !isEventLane &&
+                  collapsedCategories.has(lane.categoryName);
                 const effectiveSublanes = isManuallyCollapsed ? 0 : lane.numSublanes;
                 const SUBLANE_HEIGHT = 24;
                 const laneHeight = effectiveSublanes * SUBLANE_HEIGHT;
@@ -1425,16 +1504,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                 return (
                   <div
                     key={lane.categoryName}
-                    className="relative py-1 border-b border-slate-200/80 transition-all duration-200 my-1"
+                    className={`relative my-1 border-b py-1 transition-all duration-200 ${
+                      isEventLane
+                        ? 'border-blue-200 bg-gradient-to-r from-blue-50/80 via-white/90 to-blue-50/30 shadow-[inset_0_1px_0_rgba(59,130,246,0.08)]'
+                        : 'border-slate-200/80'
+                    }`}
                   >
                     {/* Category Name Sticky Badge with Collapse Toggle */}
-                    {lane.categoryName === 'Événements' ? (
-                      <button
-                        type="button"
-                        onClick={() => toggleCollapseCategory(lane.categoryName)}
-                        style={{ left: `${Math.max(8, viewportX.startX + 8)}px` }}
-                        className="sticky left-2 inline-flex items-center gap-1.5 px-3 py-1 rounded-lg border shadow-md text-[10px] sm:text-[11px] font-extrabold z-35 cursor-pointer mb-1.5 transition-all group/badge bg-blue-700 text-white border-blue-800 hover:bg-blue-800 ring-2 ring-blue-500/20"
-                        title={isManuallyCollapsed ? "Cliquer pour déplier la ligne des événements" : "Cliquer pour replier la ligne des événements"}
+                    {isEventLane ? (
+                      <div
+                        className="sticky left-2 z-35 mb-1.5 inline-flex items-center gap-1.5 rounded-lg border border-blue-800 bg-blue-700 px-3 py-1 text-[10px] font-extrabold text-white shadow-md ring-2 ring-blue-500/20 sm:text-[11px]"
                       >
                         <Sparkles className="w-3.5 h-3.5 text-blue-200 shrink-0" />
                         <span className="text-white uppercase tracking-wider font-extrabold">
@@ -1443,17 +1522,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                         <span className="text-[9px] px-1.5 py-0.2 rounded-full font-mono border bg-blue-800 text-blue-100 border-blue-600">
                           {lane.totalEventsCount} ev.
                         </span>
-                        {isManuallyCollapsed ? (
-                          <ChevronDown className="w-3.5 h-3.5 text-blue-200" />
-                        ) : (
-                          <ChevronUp className="w-3.5 h-3.5 text-blue-200" />
-                        )}
-                      </button>
+                      </div>
                     ) : (
                       <button
                         type="button"
                         onClick={() => toggleCollapseCategory(lane.categoryName)}
-                        style={{ left: `${Math.max(8, viewportX.startX + 8)}px` }}
                         className="sticky left-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border shadow-sm text-[10px] sm:text-[11px] font-bold z-35 cursor-pointer mb-1 transition-all group/badge bg-white border-slate-200 text-slate-700 hover:border-indigo-300"
                         title={isManuallyCollapsed ? "Cliquer pour déplier la catégorie" : "Cliquer pour replier la catégorie"}
                       >
@@ -1484,6 +1557,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                           const isSelected = selectedEventId === ev.id;
                           const isClosest = closestEventId === ev.id;
                           const isHovered = hoveredEventId === ev.id;
+                          const duration = Math.max(
+                            0.01,
+                            ev.endPos - ev.startPos
+                          );
+                          const eventLaneZIndex = Math.max(
+                            20,
+                            45 - Math.round(Math.log10(duration + 1) * 6)
+                          );
 
                           // Calculate label horizontal position aligned to central line
                           const relCenterX = viewportCenterX - startX;
@@ -1493,7 +1574,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                             ? 4
                             : Math.max(4, Math.min(width - 180, relCenterX - 40));
 
-                          const barStyle = getEventBarStyle(ev, lane.catColor);
+                          const barStyle = getEventBarStyle(
+                            ev,
+                            categoryColorMap[ev.category] || lane.catColor
+                          );
 
                           return (
                             <div
@@ -1501,7 +1585,15 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                               style={{
                                 left: `${startX}px`,
                                 top: `${topPos}px`,
-                                width: ev.isPoint ? 'auto' : `${width}px`
+                                width: ev.isPoint ? 'auto' : `${width}px`,
+                                zIndex:
+                                  isSelected || isClosest
+                                    ? 60
+                                    : isHovered
+                                      ? 55
+                                      : isEventLane
+                                        ? eventLaneZIndex
+                                        : undefined
                               }}
                               onClick={(e) => {
                                 e.stopPropagation();
@@ -1538,8 +1630,13 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                   {(!isLowZoomMode || clusterItem.showLabel || isSelected || isClosest || isHovered) && (
                                     <div
                                       style={
-                                        isLowZoomMode && !isSelected && !isClosest && !isHovered
-                                          ? { width: `${clusterItem.labelWidth}px` }
+                                        (isEventLane || isLowZoomMode) &&
+                                        !isSelected &&
+                                        !isClosest &&
+                                        !isHovered
+                                          ? {
+                                              width: `${clusterItem.labelWidth}px`
+                                            }
                                           : undefined
                                       }
                                       className="flex min-w-0 items-center gap-1 pointer-events-none"

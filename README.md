@@ -1,6 +1,6 @@
 # Atlas biblique interactif
 
-Application d’étude en lecture seule permettant d’explorer une frise chronologique et une carte Leaflet synchronisées. Elle est conçue pour la consultation, la recherche simple et la navigation entre événements, lieux, personnages et itinéraires.
+Application d’étude en lecture seule permettant d’explorer une frise chronologique et une carte Leaflet synchronisées. Elle est conçue pour la consultation, la recherche simple et la navigation entre événements, lieux et personnages.
 
 L’application n’intègre aucun outil public d’ajout ou d’importation de données. Le corpus est versionné avec le code afin que son évolution puisse être relue et vérifiée. Les dates et affirmations historiques d’origine sont conservées : aucune datation ne doit être modifiée sans source vérifiable.
 
@@ -32,7 +32,7 @@ pnpm check
 
 ### Recherche et filtres
 
-- recherche globale dans les événements, lieux, personnages et itinéraires ;
+- recherche globale dans les événements, lieux et personnages ;
 - ouverture rapide de la recherche avec la touche `/` ;
 - filtres de catégories persistés localement ;
 - état de navigation partageable dans l’URL ;
@@ -48,14 +48,12 @@ pnpm check
 
 ### Carte
 
-- groupes Leaflet indépendants pour les lieux, itinéraires et territoires ;
-- nettoyage des groupes à chaque mise à jour pour éviter les doublons ;
-- commandes indépendantes et accessibles pour les itinéraires et territoires ;
+- carte volontairement limitée aux points d’intérêt documentés ;
+- nettoyage du groupe de marqueurs à chaque mise à jour pour éviter les doublons ;
 - fond « Relief naturel » par défaut et fond clair CARTO mémorisé localement ;
 - légende des lieux conforme aux catégories des cartes documentaires ;
 - libellés cartographiques progressifs en quatre niveaux : majeur, régional, étude et local ;
 - filtrage temporel lorsque les dates d’une entité sont connues ;
-- sélection et mise en valeur d’un itinéraire ;
 - navigation dans les deux sens entre carte, frise et fiches documentaires.
 
 ### Fiches d’étude
@@ -85,18 +83,19 @@ Les coordonnées identifiées sont croisées séparément avec
 
 Relations principales :
 
-- `EventData.associatedLocationIds`, `associatedRouteIds`, `associatedCharacterIds` ;
-- `BiblicalPlace.associatedEventIds`, `associatedCharacterIds`, `routeIds` ;
-- `BiblicalRoute.associatedPlaceIds`, `associatedEventIds`, `associatedCharacterIds`.
+- `EventData.associatedLocationIds`, `associatedCharacterIds` ;
+- `BiblicalPlace.associatedEventIds`, `associatedCharacterIds`.
 
 Les anciens champs textuels `associatedEvents` et `associatedCharacters` restent lisibles. Ils sont convertis en relations par ID lorsque la correspondance exacte existe.
 
 ### Provenance du corpus cartographique
 
-Le fichier `src/data/promisedLandPlaces.ts` intègre les lieux relevés dans les
-documents « La Terre promise » et « Les environs de Jérusalem ». Les références
-de grille et les catégories de la légende originale sont conservées dans
-`mapReferences` et `mapCategory`.
+Les fichiers `src/data/promisedLandPlaces.ts` et
+`src/data/patriarchAndExodusPlaces.ts` intègrent les villes, lieux, reliefs,
+eaux et étapes relevés dans les documents cartographiques. Les références de
+grille et les catégories documentaires sont conservées dans `mapReferences` et
+`mapCategory`. Les tracés et polygones territoriaux ne sont pas affichés tant
+qu’un corpus géographique suffisamment fiable n’est pas disponible.
 
 Les coordonnées ont été croisées avec
 [Bible Geocoding Data d’OpenBible.info](https://github.com/openbibleinfo/Bible-Geocoding-Data),

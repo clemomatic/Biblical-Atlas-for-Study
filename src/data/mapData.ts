@@ -1,8 +1,6 @@
-import { BiblicalPlace, BiblicalRoute, BiblicalTerritory } from '../types';
-import { createEventId } from '../utils/stableIds';
+import { BiblicalPlace, BiblicalRoute } from '../types';
 import { PROMISED_LAND_PLACES } from './promisedLandPlaces';
 import { PATRIARCH_AND_EXODUS_PLACES } from './patriarchAndExodusPlaces';
-import { PATRIARCH_AND_EXODUS_ROUTES } from './patriarchAndExodusRoutes';
 
 /**
  * BIBLICAL PLACES DATABASE
@@ -349,69 +347,9 @@ export const BIBLICAL_PLACES = mergePlaceCorpus(
   [...PROMISED_LAND_PLACES, ...PATRIARCH_AND_EXODUS_PLACES]
 );
 
-export const BIBLICAL_ROUTES: BiblicalRoute[] = [
-  ...PATRIARCH_AND_EXODUS_ROUTES,
-  {
-    id: "route_paul_1",
-    name: "1er Voyage Missionnaire de Paul",
-    description: "Vers 47-48 de n. è. De Antioche de Syrie à Chypre puis en Asie Mineure (Galatie) avant de revenir à Antioche.",
-    color: "#13a30c",
-    routeCategory: "missionary",
-    startYear: 47,
-    endYear: 48,
-    biblicalReferences: ["Actes 13:1 - 14:28"],
-    associatedEventIds: [
-      createEventId(
-        "1er Voyage missionnaire",
-        "47-03-21 00:00:00",
-        "Voyages de Paul"
-      )
-    ],
-    associatedCharacters: ["Paul", "Barnabas", "Jean Marc"],
-    points: [
-      { stepNumber: 1, name: "Antioche de Syrie", coordinates: [36.2021, 36.1604], description: "Départ poussé par l'esprit saint" },
-      { stepNumber: 2, name: "Sleucie", coordinates: [36.1264, 35.9222], description: "Port d'embarquement" },
-      { stepNumber: 3, name: "Salamine (Chypre)", coordinates: [35.1853, 33.9014], description: "Prédication dans les synagogues" },
-      { stepNumber: 4, name: "Paphos (Chypre)", coordinates: [34.7720, 32.4297], description: "Rencontre avec le proconsul Sergius Paulus" },
-      { stepNumber: 5, name: "Pergé (Pamphylie)", coordinates: [36.9614, 30.8522], description: "Séparation de Jean Marc" },
-      { stepNumber: 6, name: "Antioche de Pisidie", coordinates: [38.3056, 31.1878], description: "Grand discours à la synagogue" },
-      { stepNumber: 7, name: "Iconium", coordinates: [37.8714, 32.4844], description: "Prédication et opposition" },
-      { stepNumber: 8, name: "Lystre", coordinates: [37.5833, 32.4500], description: "Guérison d'un boiteux, Paul lapidé mais survit" },
-      { stepNumber: 9, name: "Derbe", coordinates: [37.3500, 33.1667], description: "Nombreux disciples faits" },
-      { stepNumber: 10, name: "Retour à Antioche de Syrie", coordinates: [36.2021, 36.1604], description: "Rapport à l'assemblée" }
-    ]
-  }
-];
-
-export const BIBLICAL_TERRITORIES: BiblicalTerritory[] = [
-  {
-    id: "judah_kingdom",
-    name: "Royaume de Juda",
-    color: "#bd0437",
-    period: "996 av. n. è. à 607/606 av. n. è.",
-    startYear: -996,
-    endYear: -606,
-    description: "Royaume du Sud composé des tribus de Juda et Benjamin, avec Jérusalem comme capitale.",
-    bounds: [
-      [31.85, 34.80],
-      [31.85, 35.50],
-      [31.10, 35.40],
-      [31.10, 34.60]
-    ]
-  },
-  {
-    id: "israel_kingdom",
-    name: "Royaume d'Israël (Nord)",
-    color: "#ff4000",
-    period: "996 av. n. è. à 740/739 av. n. è.",
-    startYear: -996,
-    endYear: -739,
-    description: "Royaume du Nord composé des 10 tribus révoltées après la mort de Salomon. Capitale Samarie.",
-    bounds: [
-      [33.30, 35.10],
-      [33.30, 35.80],
-      [31.85, 35.50],
-      [31.85, 34.80]
-    ]
-  }
-];
+/**
+ * Les tracés et territoires sont volontairement désactivés tant qu'un corpus
+ * géographique vérifié n'est pas disponible. La carte reste centrée sur les
+ * points d'intérêt documentés.
+ */
+export const BIBLICAL_ROUTES: BiblicalRoute[] = [];
