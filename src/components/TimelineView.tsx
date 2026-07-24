@@ -5,13 +5,21 @@ import {
   ZoomIn,
   ZoomOut,
   Eye,
+  CalendarRange,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   ChevronUp,
+  Crown,
+  Flag,
+  Landmark,
   SlidersHorizontal,
   Sparkles,
   Layers,
   BookOpen,
-  Compass
+  Compass,
+  ScrollText,
+  UserRound
 } from 'lucide-react';
 
 interface TimelineViewProps {
@@ -32,6 +40,8 @@ const ZOOM_SLIDER_STEPS = 1000;
 const INITIAL_CENTER_YEAR = -1000;
 const MAX_CHARACTER_SUBLANES = 10;
 const CHARACTER_SUBLANE_HEIGHT = 22;
+const ERA_RAIL_HEIGHT = 60;
+const YEAR_RULER_HEIGHT = 30;
 const MONTH_LABELS = [
   'janv.',
   'févr.',
@@ -78,6 +88,28 @@ const formatTimelineTick = (position: number, interval: number): string => {
 
 const formatZoomScale = (scale: number): string =>
   scale >= 10 ? Math.round(scale).toString() : scale.toFixed(1);
+
+const getCategoryIcon = (categoryName: string) => {
+  if (categoryName.includes('Roi') || categoryName === 'Règnes') {
+    return Crown;
+  }
+  if (categoryName.includes('Prophète')) return ScrollText;
+  if (
+    categoryName === 'Personnage' ||
+    categoryName === 'Personnages' ||
+    categoryName.startsWith('Fils de')
+  ) {
+    return UserRound;
+  }
+  if (categoryName.includes('livre biblique')) return BookOpen;
+  if (
+    categoryName.includes('Événement') ||
+    categoryName === 'Événements'
+  ) {
+    return Flag;
+  }
+  return Layers;
+};
 
 export const TimelineView: React.FC<TimelineViewProps> = ({
   eras,
@@ -365,6 +397,18 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     return eras.find(e => centerYear >= e.startYear && centerYear <= e.endYear) || null;
   }, [centerYear, eras]);
 
+  const visibleYearRange = useMemo(
+    () => ({
+      start: Math.round(
+        minYear + (viewportX.startX / timelineWidth) * totalYears
+      ),
+      end: Math.round(
+        minYear + (viewportX.endX / timelineWidth) * totalYears
+      )
+    }),
+    [viewportX.startX, viewportX.endX, timelineWidth, minYear, totalYears]
+  );
+
   const handleProgressBarClick = (e: React.MouseEvent<HTMLDivElement>) => {
     if (!containerRef.current || !timelineWidth) return;
     const rect = e.currentTarget.getBoundingClientRect();
@@ -496,22 +540,38 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     const colorStr = ev.defaultColor
       ? (ev.defaultColor.startsWith('#') || ev.defaultColor.startsWith('rgb') ? ev.defaultColor : `rgb(${ev.defaultColor})`)
       : baseColor;
+    const certaintyStyle =
+      ev.certainty === 'possible' || ev.certainty === 'unknown'
+        ? {
+            outline: '1px dashed rgba(15, 23, 42, 0.55)',
+            outlineOffset: '1px'
+          }
+        : ev.certainty === 'probable'
+          ? {
+              outline: '1px dotted rgba(15, 23, 42, 0.4)',
+              outlineOffset: '1px'
+            }
+          : {};
 
     if (ev.fuzzyStart && ev.fuzzyEnd) {
       return {
-        backgroundImage: `linear-gradient(to right, transparent 0%, ${colorStr} 30%, ${colorStr} 70%, transparent 100%)`
+        backgroundImage: `linear-gradient(to right, transparent 0%, ${colorStr} 30%, ${colorStr} 70%, transparent 100%)`,
+        ...certaintyStyle
       };
     } else if (ev.fuzzyStart) {
       return {
-        backgroundImage: `linear-gradient(to right, transparent 0%, ${colorStr} 35%)`
+        backgroundImage: `linear-gradient(to right, transparent 0%, ${colorStr} 35%)`,
+        ...certaintyStyle
       };
     } else if (ev.fuzzyEnd) {
       return {
-        backgroundImage: `linear-gradient(to right, ${colorStr} 65%, transparent 100%)`
+        backgroundImage: `linear-gradient(to right, ${colorStr} 65%, transparent 100%)`,
+        ...certaintyStyle
       };
     }
     return {
-      backgroundColor: colorStr
+      backgroundColor: colorStr,
+      ...certaintyStyle
     };
   };
 
@@ -787,7 +847,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
   const backgroundRailHeight =
     visibleBackgroundPeriodItems.length > 0 ? 66 : 0;
-  const eventBodyTop = 48 + backgroundRailHeight;
+  const eventBodyTop =
+    ERA_RAIL_HEIGHT + YEAR_RULER_HEIGHT + backgroundRailHeight;
 
   const centeredBackgroundPeriodId = useMemo(() => {
     if (centerYear === null) return null;
@@ -1206,14 +1267,18 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       <div className="bg-slate-900/95 backdrop-blur-md text-slate-200 text-xs border-b border-slate-800 z-30 shrink-0 px-3 sm:px-4 py-1.5 flex items-center justify-between gap-3 shadow-md select-none">
         {/* Current position badge */}
         <div className="flex items-center gap-2 font-mono text-[11px] shrink-0">
-          <Compass className="w-3.5 h-3.5 text-indigo-400 shrink-0 animate-pulse" />
+          <Compass className="w-3.5 h-3.5 text-indigo-300 shrink-0" />
           <span className="font-sans font-medium text-slate-400 hidden sm:inline text-[11px]">Position :</span>
           <span className="font-bold text-white bg-indigo-900/80 px-2 py-0.5 rounded border border-indigo-600/60 shadow-sm text-[11px] sm:text-xs">
             {centerYear !== null ? formatDateFrench(centerYear) : '—'}
           </span>
           {currentEra && (
-            <span className="text-slate-300 text-[10px] sm:text-[11px] font-sans truncate max-w-[150px] sm:max-w-[260px] hidden md:inline">
-              · {currentEra.name}
+            <span className="hidden max-w-[280px] items-center gap-1.5 truncate font-sans text-[10px] text-slate-300 md:flex sm:text-[11px]">
+              <span
+                className="size-2 shrink-0 rounded-full ring-1 ring-white/40"
+                style={{ backgroundColor: currentEra.hexColor }}
+              />
+              {currentEra.name}
             </span>
           )}
         </div>
@@ -1274,10 +1339,19 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           )}
         </div>
 
-        {/* Global timeline span & percentage readout */}
-        <div className="flex items-center gap-1.5 font-mono text-[10px] sm:text-[11px] text-slate-400 shrink-0">
-          <span className="font-bold text-indigo-300">{Math.round(centerPercent)}%</span>
-          <span className="hidden lg:inline text-slate-500 text-[10px]">(-4100 → 2050)</span>
+        {/* Visible range and global progress */}
+        <div className="flex shrink-0 items-center gap-2 font-mono text-[10px] text-slate-400 sm:text-[11px]">
+          <span
+            className="hidden items-center gap-1 rounded-md border border-slate-700 bg-slate-800/80 px-2 py-0.5 text-slate-200 lg:flex"
+            title="Période actuellement visible dans la frise"
+          >
+            <CalendarRange className="size-3 text-indigo-300" />
+            {formatDateFrench(visibleYearRange.start)} →{' '}
+            {formatDateFrench(visibleYearRange.end)}
+          </span>
+          <span className="font-bold text-indigo-300">
+            {Math.round(centerPercent)}%
+          </span>
         </div>
       </div>
 
@@ -1299,38 +1373,162 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       >
         <div
           style={{ width: `${timelineWidth}px` }}
-          className="min-h-full relative pb-20 pt-4"
+          className="min-h-full relative pb-20"
         >
-          {/* 1. ERAS BACKGROUND BANNERS */}
-          <div className="absolute top-0 left-0 right-0 h-12 flex z-0 border-b border-slate-200/60">
+          {/* 1. HISTORICAL ERA CHAPTER RAIL */}
+          <div
+            style={{ height: `${ERA_RAIL_HEIGHT}px` }}
+            className="relative z-[6] overflow-hidden border-b border-slate-300 bg-slate-100 shadow-[inset_0_-1px_0_rgba(15,23,42,0.06)]"
+            aria-label="Ères historiques"
+          >
             {eras.map((era) => {
               const left = getXFromYear(era.startPos);
               const width = Math.max(2, getXFromYear(era.endPos) - left);
+              const eraEndX = left + width;
+              const visibleStartX = Math.max(left, viewportX.startX);
+              const visibleEndX = Math.min(eraEndX, viewportX.endX);
+              const visibleWidth = Math.max(0, visibleEndX - visibleStartX);
+              const isCurrent = currentEra?.id === era.id;
+              const labelInset = Math.max(
+                8,
+                Math.min(
+                  Math.max(8, width - 64),
+                  visibleStartX - left + 10
+                )
+              );
+              const labelMaxWidth = Math.max(
+                52,
+                Math.min(
+                  440,
+                  eraEndX - (left + labelInset) - 8,
+                  visibleEndX - (left + labelInset) - 8
+                )
+              );
+              const showPersistentLabel =
+                visibleWidth >= 76 && (isCurrent || visibleWidth >= 110);
+
               return (
                 <div
                   key={era.id}
                   style={{
                     left: `${left}px`,
                     width: `${width}px`,
-                    backgroundColor: `rgba(${era.color}, 0.1)`,
-                    borderLeft: `1px solid rgba(${era.color}, 0.3)`
+                    backgroundImage: `linear-gradient(115deg, rgba(${era.color}, ${
+                      isCurrent ? 0.62 : 0.42
+                    }), rgba(${era.color}, ${isCurrent ? 0.26 : 0.14}))`,
+                    borderTop: `3px solid rgba(${era.color}, 0.98)`,
+                    borderLeft: `1px solid rgba(${era.color}, 0.8)`,
+                    boxShadow: isCurrent
+                      ? `inset 0 -3px 0 rgba(${era.color}, 0.95)`
+                      : 'none'
                   }}
-                  className="absolute top-0 bottom-0 px-2 py-1 flex items-center overflow-hidden transition-all"
+                  className="absolute inset-y-0 overflow-hidden transition-[filter,box-shadow] duration-200"
                   title={`${era.name} (${formatDateFrench(era.startYear)} → ${formatDateFrench(era.endYear)})`}
                 >
-                  <span
-                    className="text-[11px] font-semibold tracking-tight whitespace-nowrap overflow-hidden text-ellipsis"
-                    style={{ color: '#444' }}
-                  >
-                    {era.name}
-                  </span>
+                  {showPersistentLabel && (
+                    <div
+                      style={{
+                        left: `${labelInset}px`,
+                        width: `${labelMaxWidth}px`
+                      }}
+                      className={`absolute top-2.5 flex h-10 min-w-0 items-center gap-2 rounded-xl border px-2.5 shadow-sm backdrop-blur-md transition-all ${
+                        isCurrent
+                          ? 'border-slate-700/70 bg-slate-950/90 text-white shadow-slate-950/20'
+                          : 'border-white/80 bg-white/80 text-slate-800'
+                      }`}
+                    >
+                      <span
+                        className={`flex size-6 shrink-0 items-center justify-center rounded-lg border ${
+                          isCurrent
+                            ? 'border-white/20 bg-white/10'
+                            : 'border-slate-200 bg-white/80'
+                        }`}
+                      >
+                        <Landmark
+                          className={`size-3.5 ${
+                            isCurrent ? 'text-indigo-200' : 'text-slate-600'
+                          }`}
+                        />
+                      </span>
+                      <span className="min-w-0 flex-1">
+                        <span
+                          className={`block text-[8px] font-black uppercase tracking-[0.2em] ${
+                            isCurrent ? 'text-indigo-200' : 'text-slate-500'
+                          }`}
+                        >
+                          Ère
+                        </span>
+                        <span className="block truncate text-[10px] font-extrabold leading-tight sm:text-[11px]">
+                          {era.name}
+                        </span>
+                      </span>
+                      {labelMaxWidth >= 330 && !isLowZoomMode && (
+                        <span
+                          className={`shrink-0 font-mono text-[9px] ${
+                            isCurrent ? 'text-slate-300' : 'text-slate-500'
+                          }`}
+                        >
+                          {formatDateFrench(era.startYear)} →{' '}
+                          {formatDateFrench(era.endYear)}
+                        </span>
+                      )}
+                    </div>
+                  )}
                 </div>
               );
             })}
+
+            {currentEra &&
+              getXFromYear(currentEra.endPos) -
+                getXFromYear(currentEra.startPos) <
+                260 &&
+              (() => {
+                const overlayWidth = Math.min(
+                  300,
+                  Math.max(210, viewportX.endX - viewportX.startX - 24)
+                );
+                const centeredLeft =
+                  (viewportX.startX + viewportX.endX) / 2 -
+                  overlayWidth / 2;
+                const overlayLeft = Math.max(
+                  viewportX.startX + 8,
+                  Math.min(
+                    viewportX.endX - overlayWidth - 8,
+                    centeredLeft
+                  )
+                );
+
+                return (
+                  <div
+                    style={{
+                      left: `${overlayLeft}px`,
+                      width: `${overlayWidth}px`
+                    }}
+                    className="absolute top-2.5 z-30 flex h-10 items-center gap-2 rounded-xl border border-slate-700 bg-slate-950/95 px-2.5 text-white shadow-xl shadow-slate-950/20 ring-2 ring-white/30 backdrop-blur-md"
+                    title={`${currentEra.name} (${formatDateFrench(currentEra.startYear)} → ${formatDateFrench(currentEra.endYear)})`}
+                  >
+                    <span className="flex size-6 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/10">
+                      <Landmark className="size-3.5 text-indigo-200" />
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className="block text-[8px] font-black uppercase tracking-[0.2em] text-indigo-200">
+                        Ère active
+                      </span>
+                      <span className="block truncate text-[10px] font-extrabold leading-tight sm:text-[11px]">
+                        {currentEra.name}
+                      </span>
+                    </span>
+                  </div>
+                );
+              })()}
           </div>
 
           {/* 2. YEAR TICKS & RULER */}
-          <div className="sticky top-12 left-0 right-0 h-8 bg-white/90 border-b border-slate-200 z-10 flex items-center">
+          <div
+            style={{ height: `${YEAR_RULER_HEIGHT}px` }}
+            className="sticky top-0 z-10 flex items-center border-b border-slate-200 bg-white/95 shadow-[0_1px_0_rgba(15,23,42,0.04)] backdrop-blur"
+            aria-label="Règle chronologique"
+          >
             {ticks.map(tick => {
               const x = getXFromYear(tick.position);
               return (
@@ -1357,10 +1555,13 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             >
               <div
                 style={{ left: `${Math.max(8, viewportX.startX + 8)}px` }}
-                className="absolute top-1 z-20 inline-flex h-6 items-center gap-1.5 rounded-lg border border-indigo-200 bg-white/95 px-2 text-[10px] font-extrabold uppercase tracking-wider text-indigo-800 shadow-sm backdrop-blur"
+                className="absolute top-1 z-20 inline-flex h-6 items-center gap-1.5 rounded-lg border border-indigo-800 bg-indigo-950/95 px-2 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-md shadow-indigo-950/10 backdrop-blur"
               >
-                <BookOpen className="size-3.5" />
+                <BookOpen className="size-3.5 text-indigo-200" />
                 Livres bibliques
+                <span className="rounded-full border border-indigo-600 bg-indigo-800 px-1.5 font-mono text-[9px] text-indigo-100">
+                  {visibleBackgroundPeriodItems.length}
+                </span>
               </div>
 
               {visibleBackgroundPeriodItems.map(item => {
@@ -1435,6 +1636,35 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             </div>
           )}
 
+          {/* ERA COLOR WASHES THROUGH THE STUDY LANES */}
+          <div
+            style={{ top: `${eventBodyTop}px` }}
+            className="pointer-events-none absolute inset-x-0 bottom-0 z-0"
+            aria-hidden="true"
+          >
+            {eras.map(era => {
+              const left = getXFromYear(era.startPos);
+              const width = Math.max(2, getXFromYear(era.endPos) - left);
+              const isCurrent = currentEra?.id === era.id;
+              return (
+                <div
+                  key={`era-wash-${era.id}`}
+                  style={{
+                    left: `${left}px`,
+                    width: `${width}px`,
+                    background: `linear-gradient(to bottom, rgba(${era.color}, ${
+                      isCurrent ? 0.13 : 0.07
+                    }), rgba(${era.color}, 0.015) 70%)`,
+                    borderLeft: `1px solid rgba(${era.color}, ${
+                      isCurrent ? 0.45 : 0.22
+                    })`
+                  }}
+                  className="absolute inset-y-0"
+                />
+              );
+            })}
+          </div>
+
           {/* VERTICAL GRID LINES */}
           <div
             style={{ top: `${eventBodyTop}px` }}
@@ -1453,12 +1683,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             {/* VIEWPORT CENTER GUIDE LINE */}
             <div
               style={{ left: `${(viewportX.startX + viewportX.endX) / 2}px` }}
-              className="absolute top-0 bottom-0 w-[2px] bg-indigo-600/50 pointer-events-none z-30"
-            >
-              <div className="sticky top-2 hidden sm:block -translate-x-1/2 w-max max-w-[90vw] px-4 py-1.5 bg-indigo-700 text-white text-xs sm:text-sm font-extrabold rounded-xl shadow-xl border-2 border-indigo-300 whitespace-nowrap text-center z-40 pointer-events-auto font-mono tracking-tight ring-2 ring-indigo-900/20">
-                {centerYear !== null ? formatDateFrench(centerYear) : 'Centre'}
-              </div>
-            </div>
+              className="pointer-events-none absolute inset-y-0 z-30 w-[2px] bg-gradient-to-b from-indigo-700/90 via-indigo-500/55 to-indigo-400/15"
+            />
           </div>
 
           {/* SUBTLE TEMPORAL FRAMES BEHIND EVENT LANES */}
@@ -1516,14 +1742,17 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   : 24;
                 const laneHeight = effectiveSublanes * SUBLANE_HEIGHT;
                 const viewportCenterX = (viewportX.startX + viewportX.endX) / 2;
+                const LaneIcon = getCategoryIcon(lane.categoryName);
 
                 return (
                   <div
                     key={lane.categoryName}
                     className={`relative my-1 border-b py-1 transition-all duration-200 ${
                       isEventLane
-                        ? 'border-blue-200 bg-gradient-to-r from-blue-50/80 via-white/90 to-blue-50/30 shadow-[inset_0_1px_0_rgba(59,130,246,0.08)]'
-                        : 'border-slate-200/80'
+                        ? 'border-blue-200 bg-gradient-to-r from-blue-50/90 via-white/90 to-blue-50/30 shadow-[inset_3px_0_0_#2563eb]'
+                        : isCharacterLane
+                          ? 'border-slate-200 bg-gradient-to-r from-slate-100/90 via-white/90 to-slate-50/30 shadow-[inset_3px_0_0_#475569]'
+                          : 'border-slate-200/80'
                     }`}
                   >
                     {/* Category Name Sticky Badge with Collapse Toggle */}
@@ -1531,32 +1760,67 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                       <div
                         className="sticky left-2 z-35 mb-1.5 inline-flex items-center gap-1.5 rounded-lg border border-blue-800 bg-blue-700 px-3 py-1 text-[10px] font-extrabold text-white shadow-md ring-2 ring-blue-500/20 sm:text-[11px]"
                       >
-                        <Sparkles className="w-3.5 h-3.5 text-blue-200 shrink-0" />
+                        <Flag className="w-3.5 h-3.5 text-blue-200 shrink-0" />
                         <span className="text-white uppercase tracking-wider font-extrabold">
                           Événements
                         </span>
                         <span className="text-[9px] px-1.5 py-0.2 rounded-full font-mono border bg-blue-800 text-blue-100 border-blue-600">
-                          {lane.totalEventsCount} ev.
+                          {lane.totalEventsCount}
                         </span>
                       </div>
                     ) : (
                       <button
                         type="button"
                         onClick={() => toggleCollapseCategory(lane.categoryName)}
-                        className="sticky left-2 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg border shadow-sm text-[10px] sm:text-[11px] font-bold z-35 cursor-pointer mb-1 transition-all group/badge bg-white border-slate-200 text-slate-700 hover:border-indigo-300"
+                        className={`sticky left-2 z-35 mb-1 inline-flex cursor-pointer items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-bold shadow-sm transition-all group/badge sm:text-[11px] ${
+                          isCharacterLane
+                            ? 'border-slate-300 bg-slate-900 text-white hover:border-indigo-300 hover:bg-slate-800'
+                            : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300'
+                        }`}
                         title={isManuallyCollapsed ? "Cliquer pour déplier la catégorie" : "Cliquer pour replier la catégorie"}
                       >
-                        <span className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: lane.catColor }} />
-                        <span className="text-slate-700 uppercase tracking-wider group-hover/badge:text-indigo-700">
+                        <LaneIcon
+                          className={`size-3.5 shrink-0 ${
+                            isCharacterLane
+                              ? 'text-blue-300'
+                              : 'text-slate-500'
+                          }`}
+                        />
+                        <span
+                          className={`uppercase tracking-wider ${
+                            isCharacterLane
+                              ? 'text-white'
+                              : 'text-slate-700 group-hover/badge:text-indigo-700'
+                          }`}
+                        >
                           {lane.categoryName}
                         </span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded-full font-mono border bg-slate-100 text-slate-500 border-slate-200">
-                          {lane.totalEventsCount} ev.
+                        <span
+                          className={`rounded-full border px-1.5 py-0.2 font-mono text-[9px] ${
+                            isCharacterLane
+                              ? 'border-slate-600 bg-slate-800 text-slate-200'
+                              : 'border-slate-200 bg-slate-100 text-slate-500'
+                          }`}
+                        >
+                          {lane.totalEventsCount}{' '}
+                          {isCharacterLane ? 'pers.' : 'él.'}
                         </span>
                         {isManuallyCollapsed ? (
-                          <ChevronDown className="w-3 h-3 text-indigo-600" />
+                          <ChevronDown
+                            className={`size-3 ${
+                              isCharacterLane
+                                ? 'text-blue-300'
+                                : 'text-indigo-600'
+                            }`}
+                          />
                         ) : (
-                          <ChevronUp className="w-3 h-3 text-slate-400 group-hover/badge:text-indigo-600" />
+                          <ChevronUp
+                            className={`size-3 ${
+                              isCharacterLane
+                                ? 'text-slate-300'
+                                : 'text-slate-400 group-hover/badge:text-indigo-600'
+                            }`}
+                          />
                         )}
                       </button>
                     )}
@@ -1573,6 +1837,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                           const isSelected = selectedEventId === ev.id;
                           const isClosest = closestEventId === ev.id;
                           const isHovered = hoveredEventId === ev.id;
+                          const continuesBeforeViewport =
+                            !ev.isPoint &&
+                            startX < viewportX.startX &&
+                            endX >= viewportX.startX;
+                          const continuesAfterViewport =
+                            !ev.isPoint &&
+                            endX > viewportX.endX &&
+                            startX <= viewportX.endX;
                           const duration = Math.max(
                             0.01,
                             ev.endPos - ev.startPos
@@ -1737,6 +2009,39 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                         </span>
                                       </div>
                                     )}
+
+                                    {continuesBeforeViewport && (
+                                      <span
+                                        style={{
+                                          left: `${Math.max(
+                                            2,
+                                            viewportX.startX - startX + 2
+                                          )}px`
+                                        }}
+                                        className="pointer-events-none absolute top-1/2 z-20 flex size-4 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-slate-950/75 text-white shadow"
+                                        title="Cette période commence avant la zone visible"
+                                      >
+                                        <ChevronLeft className="size-3" />
+                                      </span>
+                                    )}
+
+                                    {continuesAfterViewport && (
+                                      <span
+                                        style={{
+                                          left: `${Math.max(
+                                            2,
+                                            Math.min(
+                                              width - 18,
+                                              viewportX.endX - startX - 18
+                                            )
+                                          )}px`
+                                        }}
+                                        className="pointer-events-none absolute top-1/2 z-20 flex size-4 -translate-y-1/2 items-center justify-center rounded-full border border-white/50 bg-slate-950/75 text-white shadow"
+                                        title="Cette période continue après la zone visible"
+                                      >
+                                        <ChevronRight className="size-3" />
+                                      </span>
+                                    )}
                                   </div>
 
                                   {/* FLOATING HOVER TOOLTIP FOR NARROW BARS IN LOW ZOOM MODE */}
@@ -1788,17 +2093,23 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
           {legendCategories.map((cat) => {
             const catEventsCount = legendCategoryCounts.get(cat.name) || 0;
+            const CategoryIcon = getCategoryIcon(cat.name);
             return (
               <button
                 key={cat.name}
                 onClick={() => toggleCategory(cat.name)}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-900 transition hover:border-indigo-300"
+                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-900 shadow-sm transition hover:border-indigo-300 hover:bg-indigo-50/40"
                 title={`${cat.name} (${catEventsCount} événement${catEventsCount > 1 ? 's' : ''} dans la période visible)`}
               >
                 <span
-                  className="w-2.5 h-2.5 rounded-full shrink-0"
-                  style={{ backgroundColor: cat.hexColor }}
-                />
+                  className="flex size-5 shrink-0 items-center justify-center rounded-full"
+                  style={{ backgroundColor: `${cat.hexColor}18` }}
+                >
+                  <CategoryIcon
+                    className="size-3"
+                    style={{ color: cat.hexColor }}
+                  />
+                </span>
                 <span>{cat.name}</span>
                 <span className="rounded-full bg-indigo-100 px-1.5 py-0.1 text-[10px] font-bold text-indigo-700">
                   {catEventsCount}
@@ -1809,7 +2120,17 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         </div>
 
         {/* Viewport Filter Status Indicator */}
-        <div className="flex items-center gap-2 shrink-0 text-slate-500 text-[11px]">
+        <div className="flex shrink-0 items-center gap-3 text-[11px] text-slate-500">
+          <span className="hidden items-center gap-2 xl:flex">
+            <span className="inline-flex items-center gap-1">
+              <span className="h-2.5 w-5 rounded bg-slate-700" />
+              Date établie
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <span className="h-2.5 w-5 rounded border border-dashed border-slate-600 bg-gradient-to-r from-transparent via-slate-500 to-transparent" />
+              Datation incertaine
+            </span>
+          </span>
           <span>
             {autoFilterViewport ? (
               <span className="text-indigo-700 font-semibold flex items-center gap-1">
