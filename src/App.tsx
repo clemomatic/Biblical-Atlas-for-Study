@@ -95,11 +95,11 @@ export default function App() {
       {/* Header */}
       <header className="sticky top-0 z-30 bg-white border-b border-stone-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-          <h1 className="text-xl font-bold text-stone-950">Atlas Biblique</h1>
+          <h1 className="text-xl font-bold text-stone-950">Atlas biblique interactif</h1>
           
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-2">
-            <NavItem tab="timeline" icon={Clock} label="Timeline" />
+            <NavItem tab="timeline" icon={Clock} label="Frise" />
             <NavItem tab="map" icon={MapIcon} label="Carte" />
           </nav>
 
@@ -167,7 +167,7 @@ export default function App() {
       <nav className="md:hidden border-t border-stone-200 bg-white p-2 flex justify-around sticky bottom-0 z-30 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
         <button onClick={() => setActiveTab('timeline')} className={`p-3 rounded-xl flex flex-col items-center gap-1 ${activeTab === 'timeline' ? 'text-purple-600' : 'text-stone-500'}`}>
           <Clock className="w-6 h-6" />
-          <span className="text-[10px] font-medium">Timeline</span>
+          <span className="text-[10px] font-medium">Frise</span>
         </button>
         <button onClick={() => setActiveTab('map')} className={`p-3 rounded-xl flex flex-col items-center gap-1 ${activeTab === 'map' ? 'text-purple-600' : 'text-stone-500'}`}>
           <MapIcon className="w-6 h-6" />
@@ -175,7 +175,7 @@ export default function App() {
         </button>
         <button onClick={() => setIsImportModalOpen(true)} className="p-3 rounded-xl flex flex-col items-center gap-1 text-stone-500">
           <Upload className="w-6 h-6" />
-          <span className="text-[10px] font-medium">Upload</span>
+          <span className="text-[10px] font-medium">Importer</span>
         </button>
       </nav>
 

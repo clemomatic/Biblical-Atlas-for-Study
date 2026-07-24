@@ -276,6 +276,8 @@ export function parseTimelineXML(xmlString: string): ParsedTimelineData {
     ['name', 'nom', 'color', 'couleur'].includes(child.tagName.toLowerCase())
   ));
 
+  const usedCategoryIds = new Set<string>();
+  const usedCategoryNames = new Set<string>();
   categoryNodes.forEach((node, index) => {
     const name = getDirectText(node, ['name', 'nom']);
     if (!name) {
@@ -283,8 +285,15 @@ export function parseTimelineXML(xmlString: string): ParsedTimelineData {
       return;
     }
     const color = getDirectText(node, ['color', 'couleur']) || '0,128,255';
+    const id = getEntityId(node) || createCategoryId(name);
+    if (usedCategoryIds.has(id) || usedCategoryNames.has(name)) {
+      issues.push(`Catégorie ${index + 1} « ${name} » : définition dupliquée.`);
+      return;
+    }
+    usedCategoryIds.add(id);
+    usedCategoryNames.add(name);
     categories.push({
-      id: getEntityId(node) || createCategoryId(name),
+      id,
       name,
       color,
       hexColor: rgbToHex(color),
@@ -292,6 +301,9 @@ export function parseTimelineXML(xmlString: string): ParsedTimelineData {
     });
   });
 
+  const categoryIdsByName = new Map(
+    categories.map(category => [category.name, category.id])
+  );
   const usedEventIds = new Set<string>();
   Array.from(xmlDoc.getElementsByTagName('event')).forEach((node, index) => {
     const label = `Événement ${index + 1}`;
@@ -321,7 +333,7 @@ export function parseTimelineXML(xmlString: string): ParsedTimelineData {
     events.push({
       id,
       text,
-      categoryId: createCategoryId(category),
+      categoryId: categoryIdsByName.get(category) || createCategoryId(category),
       category,
       startRaw,
       endRaw,
