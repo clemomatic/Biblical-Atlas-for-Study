@@ -30,6 +30,8 @@ const MAX_PX_PER_YEAR = 720;
 const DEFAULT_PX_PER_YEAR = 1.2;
 const ZOOM_SLIDER_STEPS = 1000;
 const INITIAL_CENTER_YEAR = -1000;
+const MAX_CHARACTER_SUBLANES = 10;
+const CHARACTER_SUBLANE_HEIGHT = 22;
 const MONTH_LABELS = [
   'janv.',
   'févr.',
@@ -640,7 +642,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           // They remain independent and selectable.
           const markerVisualEndX = startX + 12;
           sublaneIndex = tracks.findIndex(track => track.lastX <= startX);
-          if (sublaneIndex === -1 && isCharacterLane && tracks.length >= 3) {
+          if (
+            sublaneIndex === -1 &&
+            isCharacterLane &&
+            tracks.length >= MAX_CHARACTER_SUBLANES
+          ) {
             sublaneIndex = tracks.reduce(
               (earliestTrack, track, trackIndex) =>
                 track.lastX < tracks[earliestTrack].lastX
@@ -656,13 +662,20 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             tracks[sublaneIndex].lastX = markerVisualEndX;
           }
         } else {
-          const visualWidth = Math.max(
-            rangeWidth,
-            isLowZoomMode ? labelWidth : labelWidthEstimate
-          );
+          const visualWidth =
+            isCharacterLane && !primaryEvent.isPoint
+              ? Math.max(16, rangeWidth)
+              : Math.max(
+                  rangeWidth,
+                  isLowZoomMode ? labelWidth : labelWidthEstimate
+                );
           const visualEndX = startX + visualWidth + (isLowZoomMode ? 8 : 12);
           sublaneIndex = tracks.findIndex(track => track.lastX <= startX);
-          if (sublaneIndex === -1 && isCharacterLane && tracks.length >= 3) {
+          if (
+            sublaneIndex === -1 &&
+            isCharacterLane &&
+            tracks.length >= MAX_CHARACTER_SUBLANES
+          ) {
             sublaneIndex = tracks.reduce(
               (earliestTrack, track, trackIndex) =>
                 track.lastX < tracks[earliestTrack].lastX
@@ -1493,11 +1506,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               )
               .map((lane) => {
                 const isEventLane = lane.categoryName === 'Événements';
+                const isCharacterLane = lane.categoryName === 'Personnages';
                 const isManuallyCollapsed =
                   !isEventLane &&
                   collapsedCategories.has(lane.categoryName);
                 const effectiveSublanes = isManuallyCollapsed ? 0 : lane.numSublanes;
-                const SUBLANE_HEIGHT = 24;
+                const SUBLANE_HEIGHT = isCharacterLane
+                  ? CHARACTER_SUBLANE_HEIGHT
+                  : 24;
                 const laneHeight = effectiveSublanes * SUBLANE_HEIGHT;
                 const viewportCenterX = (viewportX.startX + viewportX.endX) / 2;
 
