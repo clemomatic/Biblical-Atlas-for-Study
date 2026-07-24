@@ -1,4 +1,5 @@
 export type CertaintyLevel = 'certain' | 'probable' | 'possible' | 'unknown';
+export type TimelineDisplayLevel = 'overview' | 'study' | 'detail';
 
 export interface SourceReference {
   id: string;
@@ -58,6 +59,11 @@ export interface EventData extends EntityMetadata {
   description?: string;
   icon?: string; // base64 string
   defaultColor?: string;
+  /**
+   * Controls progressive disclosure on the timeline.
+   * Existing events default to "study"; background periods stay visible in overview.
+   */
+  timelineLevel?: TimelineDisplayLevel;
   // Relations use stable IDs. Legacy title/name fields remain supported on map entities.
   associatedLocationIds?: string[];
   associatedRouteIds?: string[];

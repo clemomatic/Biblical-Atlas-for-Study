@@ -1,4 +1,4 @@
-import { EventData } from '../types';
+import { EventData, TimelineDisplayLevel } from '../types';
 import { parseTimelineDate } from '../utils/dateUtils';
 import { createCategoryId, createEventId } from '../utils/stableIds';
 import { normalizeCategoryName } from '../utils/dataVocabulary';
@@ -13,6 +13,7 @@ interface RawEvent {
   fuzzy_start?: boolean;
   fuzzy_end?: boolean;
   default_color?: string;
+  timelineLevel?: TimelineDisplayLevel;
   associatedLocationIds?: string[];
 }
 
@@ -245,6 +246,7 @@ export const EVENTS: EventData[] = rawEventsData.map(ev => {
     description: ev.description,
     icon: ev.icon,
     defaultColor: ev.default_color,
+    timelineLevel: ev.timelineLevel || 'study',
     associatedLocationIds: ev.associatedLocationIds || []
   };
 });
