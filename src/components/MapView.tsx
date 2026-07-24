@@ -39,9 +39,18 @@ const overlapsPeriod = (
   endYear: number | undefined,
   period: TimelinePeriod | null
 ): boolean => {
-  if (!period || (startYear === undefined && endYear === undefined)) return true;
-  const start = startYear ?? Number.NEGATIVE_INFINITY;
-  const end = endYear ?? Number.POSITIVE_INFINITY;
+  if (!period) return true;
+
+  const hasKnownStart =
+    typeof startYear === 'number' && Number.isFinite(startYear);
+  const hasKnownEnd =
+    typeof endYear === 'number' && Number.isFinite(endYear);
+
+  // Sans datation exploitable, le lieu n'est pas limité par la frise.
+  if (!hasKnownStart && !hasKnownEnd) return true;
+
+  const start = hasKnownStart ? startYear : Number.NEGATIVE_INFINITY;
+  const end = hasKnownEnd ? endYear : Number.POSITIVE_INFINITY;
   return end >= period.startYear && start <= period.endYear;
 };
 
