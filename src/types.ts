@@ -1,3 +1,21 @@
+export type CertaintyLevel = 'certain' | 'probable' | 'possible' | 'unknown';
+
+export interface SourceReference {
+  id: string;
+  label: string;
+  url?: string;
+  citation?: string;
+}
+
+export interface EntityMetadata {
+  biblicalReferences?: string[];
+  documentaryReferences?: string[];
+  sources?: SourceReference[];
+  certainty?: CertaintyLevel;
+  notes?: string;
+  lastVerified?: string;
+}
+
 export interface EraData {
   id: string;
   name: string;
@@ -12,6 +30,7 @@ export interface EraData {
 }
 
 export interface CategoryData {
+  id: string;
   name: string;
   color: string; // RGB string "0,128,255"
   hexColor: string;
@@ -21,9 +40,10 @@ export interface CategoryData {
   fontColor?: string;
 }
 
-export interface EventData {
+export interface EventData extends EntityMetadata {
   id: string;
   text: string;
+  categoryId: string;
   category: string;
   startRaw: string;
   endRaw: string;
@@ -37,11 +57,13 @@ export interface EventData {
   description?: string;
   icon?: string; // base64 string
   defaultColor?: string;
-  // Associated map place IDs or route IDs for cross-linking
+  // Relations use stable IDs. Legacy title/name fields remain supported on map entities.
   associatedLocationIds?: string[];
+  associatedRouteIds?: string[];
+  associatedCharacterIds?: string[];
 }
 
-export interface BiblicalPlace {
+export interface BiblicalPlace extends EntityMetadata {
   id: string;
   name: string;
   alternateNames?: string[];
@@ -51,36 +73,55 @@ export interface BiblicalPlace {
   periodDescription?: string;
   description: string;
   biblicalReferences: string[];
-  documentaryReferences?: string[];
-  associatedEvents?: string[]; // IDs or titles of events
-  associatedCharacters?: string[]; // IDs or names of characters
+  associatedEventIds?: string[];
+  associatedCharacterIds?: string[];
+  /** @deprecated Compatibility with existing data; normalized to associatedEventIds. */
+  associatedEvents?: string[];
+  /** @deprecated Compatibility with existing data; normalized to associatedCharacterIds. */
+  associatedCharacters?: string[];
   territory?: string;
   routeId?: string;
+  routeIds?: string[];
   category?: string;
 }
 
-export interface BiblicalRoute {
+export interface BiblicalRoute extends EntityMetadata {
   id: string;
   name: string;
   description: string;
   color: string;
+  startYear?: number;
+  endYear?: number;
   points: {
+    id?: string;
+    placeId?: string;
     name: string;
     coordinates: [number, number];
     stepNumber: number;
     description?: string;
   }[];
   biblicalReferences: string[];
+  associatedPlaceIds?: string[];
+  associatedEventIds?: string[];
+  associatedCharacterIds?: string[];
+  /** @deprecated Compatibility with existing data; normalized to associatedCharacterIds. */
   associatedCharacters?: string[];
 }
 
-export interface BiblicalTerritory {
+export interface BiblicalTerritory extends EntityMetadata {
   id: string;
   name: string;
   color: string;
   bounds: [number, number][]; // Polygon coordinates
   period: string;
+  startYear?: number;
+  endYear?: number;
   description: string;
+}
+
+export interface TimelinePeriod {
+  startYear: number;
+  endYear: number;
 }
 
 export type ActiveTab = 'timeline' | 'map';

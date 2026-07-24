@@ -1,4 +1,5 @@
 import { BiblicalPlace, BiblicalRoute, BiblicalTerritory } from '../types';
+import { createEventId } from '../utils/stableIds';
 
 /**
  * BIBLICAL PLACES DATABASE
@@ -17,7 +18,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     description: "Ville sainte centrale de l'histoire biblique. Capitale du royaume de David et Salomon, site du Temple de Jéhovah, lieu de la mort et résurrection de Jésus.",
     biblicalReferences: ["Genèse 14:18", "2 Samuel 5:6-9", "1 Rois 6:1", "Psaume 122", "Matthieu 21:1-11", "Actes 1:8"],
     documentaryReferences: ["Lettres d'Amarna", "Stèle de Tel Dan", "Annales de Sennachérib"],
-    associatedEvents: ["Construction du Temple", "Déstruction de Jérusalem par les Babyloniens", "Retour des Juifs à Jérusalem", "Reconstruction des murs", "Mort de Jésus"],
+    associatedEvents: ["Construction du Temple", "Destruction de Jérusalem par les Babyloniens", "Retour des Juifs à Jérusalem", "Reconstruction des murs", "Mort de Jésus"],
     associatedCharacters: ["David", "Salomon", "Isaïe", "Jérémie", "Ezéchias", "Jésus", "Pierre", "Paul"],
     territory: "Juda / Benjamin",
     category: "Capitale"
@@ -30,7 +31,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     startYear: -2200,
     endYear: 2050,
     periodDescription: "Lieu de résidence des patriarches et première capitale de David",
-    description: "Cite antique de Juda où Abraham acheta la grotte de Makpéla pour y enterrer Sara. Première capitale du roi David pendant 7 ans et demi.",
+    description: "Cité antique de Juda où Abraham acheta la grotte de Makpéla pour y enterrer Sara. Première capitale du roi David pendant 7 ans et demi.",
     biblicalReferences: ["Genèse 13:18", "Genèse 23:2", "2 Samuel 2:1-4"],
     documentaryReferences: ["Textes d'exécration égyptiens"],
     associatedEvents: ["Alliance avec Abraham", "Règne de David à Hébron"],
@@ -64,7 +65,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     periodDescription: "Centre caravanier de Haute-Mésopotamie",
     description: "Lieu d'étape de la famille de Téra. Jacob y vécut 20 ans chez Laban et s'y maria.",
     biblicalReferences: ["Genèse 11:31", "Genèse 28:10", "Genèse 29:4"],
-    associatedEvents: ["Départ d'Abraham pour Canaan", "Jacob fuis son frère à Haran"],
+    associatedEvents: ["Départ d'Abraham pour Canaan", "Jacob fuit son frère à Haran"],
     associatedCharacters: ["Téra", "Abraham", "Jacob", "Laban", "Rachel", "Léa"],
     territory: "Paddan-Aram",
     category: "Ville caravanière"
@@ -77,7 +78,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     startYear: -2000,
     endYear: -100,
     periodDescription: "Lieu saint du centre de Canaan",
-    description: "Où Jacob vit en songe l'échelle céleste reaching les cieux. Plus tard, Jéroboam y installa un veau d'or.",
+    description: "Où Jacob vit en songe l'échelle céleste atteignant les cieux. Plus tard, Jéroboam y installa un veau d'or.",
     biblicalReferences: ["Genèse 12:8", "Genèse 28:19", "1 Rois 12:28-29"],
     associatedEvents: ["Vision de l'échelle de Jacob", "Instauration du culte du veau d'or"],
     associatedCharacters: ["Abraham", "Jacob", "Jéroboam"],
@@ -141,7 +142,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     description: "Cité de la Tour de Babel et capitale de Neboukadnetsar. Lieu de l'exil des Juifs de 607 à 537 av. n. è.",
     biblicalReferences: ["Genèse 11:9", "2 Rois 25:1-11", "Daniel 1:1-6", "Psaume 137"],
     documentaryReferences: ["Cylindre de Cyrus", "Chronique de Nabonide", "Porte d'Ishtar"],
-    associatedEvents: ["Tour de Babel", "Déstruction de Jérusalem par les Babyloniens", "Prise de Babylone par Cyrus"],
+    associatedEvents: ["Tour de Babel", "Destruction de Jérusalem par les Babyloniens", "Prise de Babylone par Cyrus"],
     associatedCharacters: ["Neboukadnetsar", "Daniel", "Cyrus", "Ézéchiel"],
     territory: "Chaldée",
     category: "Capitale impériale"
@@ -217,7 +218,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     description: "Une des plus anciennes villes habitées. Conversion de Saul de Tarse sur la route de Damas.",
     biblicalReferences: ["Genèse 14:15", "1 Rois 11:24", "Actes 9:1-19"],
     associatedEvents: ["Conversion de Paul"],
-    associatedCharacters: ["Abraham", "ÉliÉzer", "Ben-Hadad", "Paul", "Ananie"],
+    associatedCharacters: ["Abraham", "Éliézer", "Ben-Hadad", "Paul", "Ananie"],
     territory: "Aram / Syrie",
     category: "Capitale"
   },
@@ -231,7 +232,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     periodDescription: "Troisième métropole de l'Empire romain",
     description: "Base de départ des voyages missionnaires de Paul. C'est là que les disciples furent appelés 'chrétiens' pour la première fois.",
     biblicalReferences: ["Actes 11:26", "Actes 13:1-3", "Actes 15:35"],
-    associatedEvents: ["1er Voyage missionnaire", "2eme Voyage missionnaire", "3ème Voyage missionnaire"],
+    associatedEvents: ["1er Voyage missionnaire", "2e Voyage missionnaire", "3e Voyage missionnaire"],
     associatedCharacters: ["Paul", "Barnabas", "Pierre"],
     territory: "Syrie romaine",
     category: "Centre missionnaire"
@@ -246,7 +247,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     periodDescription: "Grande métropole d'Asie Mineure",
     description: "Ville du grand temple d'Artémis. Paul y prêcha pendant près de 3 ans. Destinataire d'une des 7 lettres de la Révélation.",
     biblicalReferences: ["Actes 19:1-41", "Éphésiens 1:1", "Révélation 2:1"],
-    associatedEvents: ["3ème Voyage missionnaire", "Rédaction de lettres de Paul"],
+    associatedEvents: ["3e Voyage missionnaire", "Rédaction de lettres de Paul"],
     associatedCharacters: ["Paul", "Timothée", "Jean", "Aquila", "Priscille"],
     territory: "Proconsulat d'Asie",
     category: "Métropole antique"
@@ -261,7 +262,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     periodDescription: "Capitale commerciale de la province romaine d'Achaïe",
     description: "Centre commercial stratégique. Paul y passa 18 mois lors de son 2e voyage et y rédigea plusieurs lettres.",
     biblicalReferences: ["Actes 18:1-18", "1 Corinthiens 1:2", "2 Corinthiens 1:1"],
-    associatedEvents: ["2eme Voyage missionnaire", "Rédaction des lettres aux Thessaloniciens et aux Romains"],
+    associatedEvents: ["2e Voyage missionnaire", "Rédaction des lettres aux Thessaloniciens et aux Romains"],
     associatedCharacters: ["Paul", "Gallion", "Aquila", "Priscille"],
     territory: "Achaïe",
     category: "Port stratégique"
@@ -276,7 +277,7 @@ export const BIBLICAL_PLACES: BiblicalPlace[] = [
     periodDescription: "Capitale de l'Empire Romain",
     description: "Centre du monde méditerranéen antique. Paul y fut emprisonné à deux reprises et y rédigea ses lettres de captivité.",
     biblicalReferences: ["Actes 28:16", "Romains 1:7", "2 Timothée 1:17"],
-    associatedEvents: ["Paul est envoyé à Rome", "Prison maison loué", "Grand incendie de Rome"],
+    associatedEvents: ["Paul est envoyé à Rome", "Détention dans une maison louée", "Grand incendie de Rome"],
     associatedCharacters: ["Paul", "Néron", "Luc", "Timothée"],
     territory: "Italie",
     category: "Capitale impériale"
@@ -289,7 +290,16 @@ export const BIBLICAL_ROUTES: BiblicalRoute[] = [
     name: "1er Voyage Missionnaire de Paul",
     description: "Vers 47-48 de n. è. De Antioche de Syrie à Chypre puis en Asie Mineure (Galatie) avant de revenir à Antioche.",
     color: "#13a30c",
+    startYear: 47,
+    endYear: 48,
     biblicalReferences: ["Actes 13:1 - 14:28"],
+    associatedEventIds: [
+      createEventId(
+        "1er Voyage missionnaire",
+        "47-03-21 00:00:00",
+        "Voyages de Paul"
+      )
+    ],
     associatedCharacters: ["Paul", "Barnabas", "Jean Marc"],
     points: [
       { stepNumber: 1, name: "Antioche de Syrie", coordinates: [36.2021, 36.1604], description: "Départ poussé par l'esprit saint" },
@@ -309,7 +319,16 @@ export const BIBLICAL_ROUTES: BiblicalRoute[] = [
     name: "Itinéraire de l'Exode",
     description: "De Ramsès en Égypte jusqu'au Sinaï puis vers la Terre Promise.",
     color: "#d57a15",
+    startYear: -1512,
+    endYear: -1472,
     biblicalReferences: ["Exode 12:37", "Nombres 33:1-49"],
+    associatedEventIds: [
+      createEventId(
+        "Sortie d’Égypte",
+        "-1512-01-01 00:00:00",
+        "Événements marquants"
+      )
+    ],
     associatedCharacters: ["Moïse", "Aaron"],
     points: [
       { stepNumber: 1, name: "Ramsès (Égypte)", coordinates: [30.7877, 31.8347], description: "Départ d'Égypte" },
@@ -329,6 +348,8 @@ export const BIBLICAL_TERRITORIES: BiblicalTerritory[] = [
     name: "Royaume de Juda",
     color: "#bd0437",
     period: "996 av. n. è. à 607/606 av. n. è.",
+    startYear: -996,
+    endYear: -606,
     description: "Royaume du Sud composé des tribus de Juda et Benjamin, avec Jérusalem comme capitale.",
     bounds: [
       [31.85, 34.80],
@@ -342,6 +363,8 @@ export const BIBLICAL_TERRITORIES: BiblicalTerritory[] = [
     name: "Royaume d'Israël (Nord)",
     color: "#ff4000",
     period: "996 av. n. è. à 740/739 av. n. è.",
+    startYear: -996,
+    endYear: -739,
     description: "Royaume du Nord composé des 10 tribus révoltées après la mort de Salomon. Capitale Samarie.",
     bounds: [
       [33.30, 35.10],
