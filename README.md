@@ -71,6 +71,7 @@ Champs documentaires communs :
 | `biblicalReferences` | Références bibliques |
 | `documentaryReferences` | Références documentaires ou archéologiques |
 | `sources` | Sources structurées avec ID, libellé, URL et citation optionnelles |
+| `encyclopediaReferences` | Articles correspondants dans *Étude perspicace* ou documentation WOL complémentaire |
 | `certainty` | `certain`, `probable`, `possible` ou `unknown` |
 | `notes` | Notes éditoriales |
 | `lastVerified` | Date de dernière vérification au format `AAAA-MM-JJ` |
@@ -87,6 +88,30 @@ Relations principales :
 - `BiblicalPlace.associatedEventIds`, `associatedCharacterIds`.
 
 Les anciens champs textuels `associatedEvents` et `associatedCharacters` restent lisibles. Ils sont convertis en relations par ID lorsque la correspondance exacte existe.
+
+### Liens vers Étude perspicace
+
+Chaque personnage de la frise et chaque lieu de la carte possède une référence
+vers l’article correspondant dans
+[*Étude perspicace des Écritures*](https://wol.jw.org/fr/wol/library/r30/lp-f/toutes-les-publications/%C3%A9tude-perspicace).
+Le nom affiché dans l’application reste celui couramment employé dans la
+*Traduction du monde nouveau* révisée, tandis que `linkedName` conserve la
+correspondance avec l’ancien intitulé Rbi8 lorsque les deux formes diffèrent.
+
+Les références générées sont versionnées dans
+`src/data/insightReferences.generated.ts`. Pour les mettre à jour ou les
+contrôler :
+
+```bash
+pnpm references:insight
+pnpm references:check
+pnpm references:check:online
+```
+
+La dernière commande vérifie également l’accessibilité des pages officielles.
+Alep et Ébla, qui ne disposent pas d’une entrée autonome dans l’encyclopédie,
+sont reliées à une documentation WOL spécifique et clairement signalée comme
+complémentaire dans l’interface.
 
 ### Provenance du corpus cartographique
 

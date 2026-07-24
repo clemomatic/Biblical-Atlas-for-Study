@@ -30,10 +30,22 @@ export interface SourceReference {
   citation?: string;
 }
 
+export interface EncyclopediaReference {
+  id: string;
+  work: 'insight' | 'wol';
+  articleTitle: string;
+  url: string;
+  /** Nom actuel affiché dans l’application lorsqu’il diffère du titre Rbi8. */
+  linkedName?: string;
+  /** Un article peut traiter l’entité sans lui être entièrement consacré. */
+  matchType?: 'dedicated-article' | 'article-mention';
+}
+
 export interface EntityMetadata {
   biblicalReferences?: string[];
   documentaryReferences?: string[];
   sources?: SourceReference[];
+  encyclopediaReferences?: EncyclopediaReference[];
   certainty?: CertaintyLevel;
   notes?: string;
   lastVerified?: string;

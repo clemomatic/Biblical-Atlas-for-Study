@@ -10,6 +10,9 @@
     "lint": "tsc --noEmit",
     "build": "vite build",
     "check": "tsc --noEmit && vite build",
+    "references:insight": "node scripts/generate-insight-references.mjs",
+    "references:check": "node scripts/check-insight-references.mjs",
+    "references:check:online": "node scripts/check-insight-references.mjs --online",
     "preview": "vite preview",
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\""
   },

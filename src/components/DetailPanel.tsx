@@ -5,6 +5,7 @@ import {
   BiblicalRoute,
   CategoryData,
   CertaintyLevel,
+  EncyclopediaReference,
   EventData,
   SourceReference
 } from '../types';
@@ -15,6 +16,7 @@ import {
   Calendar,
   CheckCircle2,
   Compass,
+  ExternalLink,
   FileText,
   HelpCircle,
   Library,
@@ -156,6 +158,62 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
   );
 };
 
+const EncyclopediaReferences = ({
+  references
+}: {
+  references: EncyclopediaReference[];
+}) => {
+  if (!references.length) return null;
+
+  return (
+    <section>
+      <SectionTitle icon={<Library className="size-4" />}>
+        {references.some(reference => reference.work === 'wol')
+          ? 'Étude perspicace et WOL'
+          : 'Étude perspicace'}
+      </SectionTitle>
+      <div className="space-y-2">
+        {references.map(reference => {
+          const usesConvertedName =
+            reference.linkedName &&
+            reference.linkedName.localeCompare(reference.articleTitle, 'fr', {
+              sensitivity: 'base'
+            }) !== 0;
+
+          return (
+            <a
+              key={reference.id}
+              href={reference.url}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center gap-3 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-3 transition hover:border-amber-300 hover:shadow-sm"
+            >
+              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-800">
+                <BookOpen className="size-5" />
+              </span>
+              <span className="min-w-0 flex-1">
+                <span className="block text-sm font-semibold text-slate-950">
+                  {reference.articleTitle}
+                </span>
+                <span className="mt-0.5 block text-xs text-slate-500">
+                  {reference.work === 'wol'
+                    ? 'Documentation WOL complémentaire'
+                    : reference.matchType === 'article-mention'
+                      ? 'Article d’Étude perspicace contenant ce lieu'
+                      : usesConvertedName
+                        ? `Correspondance de « ${reference.linkedName} » dans l’édition Rbi8`
+                        : 'Article encyclopédique correspondant'}
+                </span>
+              </span>
+              <ExternalLink className="size-4 shrink-0 text-amber-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  );
+};
+
 const certaintyLabels: Record<CertaintyLevel, string> = {
   certain: 'Établi',
   probable: 'Probable',
@@ -231,6 +289,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     selectedEvent?.sources ||
     selectedPlace?.sources ||
     selectedRoute?.sources ||
+    [];
+  const encyclopediaReferences =
+    selectedEvent?.encyclopediaReferences ||
+    selectedPlace?.encyclopediaReferences ||
+    selectedRoute?.encyclopediaReferences ||
     [];
   const category = selectedEvent
     ? categories.find(
@@ -541,9 +604,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               title="Références documentaires"
               values={documentaryReferences}
             />
+            <EncyclopediaReferences references={encyclopediaReferences} />
             <SourcesList sources={sources} />
             {!biblicalReferences.length &&
               !documentaryReferences.length &&
+              !encyclopediaReferences.length &&
               !sources.length && (
                 <p className="rounded-2xl border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
                   Aucune référence structurée disponible pour cette fiche.

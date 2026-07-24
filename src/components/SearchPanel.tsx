@@ -106,7 +106,11 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         event.text,
         event.category,
         event.description,
-        ...(event.biblicalReferences || [])
+        ...(event.biblicalReferences || []),
+        ...(event.encyclopediaReferences || []).flatMap(reference => [
+          reference.articleTitle,
+          reference.linkedName
+        ])
       ])
     );
 
@@ -125,7 +129,11 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
             place.category,
             place.territory,
             ...(place.alternateNames || []),
-            ...place.biblicalReferences
+            ...place.biblicalReferences,
+            ...(place.encyclopediaReferences || []).flatMap(reference => [
+              reference.articleTitle,
+              reference.linkedName
+            ])
           ])
         )
         .slice(0, 8),
