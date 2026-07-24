@@ -11,6 +11,12 @@ import {
 } from '../types';
 import { formatEventSpan } from '../utils/dateUtils';
 import {
+  getBibleReferenceTarget,
+  getDocumentaryReferenceTarget,
+  getJwDocumentTarget,
+  JwReferenceTarget
+} from '../utils/jwLinks';
+import {
   ArrowRight,
   BookOpen,
   Calendar,
@@ -92,28 +98,94 @@ const RelationButton = ({
 
 const ReferenceList = ({
   title,
-  values
+  values,
+  kind
 }: {
   title: string;
   values: string[];
+  kind: 'bible' | 'documentary';
 }) => {
   if (!values.length) return null;
   return (
     <section>
       <SectionTitle icon={<BookOpen className="size-4" />}>{title}</SectionTitle>
-      <div className="flex flex-wrap gap-2">
-        {values.map(reference => (
-          <span
-            key={reference}
-            className="rounded-xl border border-indigo-100 bg-indigo-50 px-3 py-2 text-xs font-medium text-indigo-900"
-          >
-            {reference}
-          </span>
-        ))}
+      <div className="space-y-2">
+        {values.map(reference => {
+          const target =
+            kind === 'bible'
+              ? getBibleReferenceTarget(reference)
+              : getDocumentaryReferenceTarget(reference);
+
+          return target ? (
+            <JwReferenceRow
+              key={reference}
+              label={reference}
+              target={target}
+              accent={kind === 'bible' ? 'indigo' : 'slate'}
+            />
+          ) : (
+            <span
+              key={reference}
+              className="block rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700"
+            >
+              {reference}
+            </span>
+          );
+        })}
       </div>
     </section>
   );
 };
+
+const JwReferenceRow = ({
+  label,
+  target,
+  accent = 'indigo'
+}: {
+  key?: React.Key;
+  label: string;
+  target: JwReferenceTarget;
+  accent?: 'indigo' | 'slate';
+}) => (
+  <div
+    className={`flex overflow-hidden rounded-xl border bg-white ${
+      accent === 'indigo' ? 'border-indigo-100' : 'border-slate-200'
+    }`}
+  >
+    <a
+      href={target.finderUrl}
+      target="_blank"
+      rel="noreferrer"
+      title="Ouvrir avec JW Library si disponible"
+      className={`group flex min-w-0 flex-1 items-center gap-2 px-3 py-2 text-xs font-semibold transition ${
+        accent === 'indigo'
+          ? 'text-indigo-950 hover:bg-indigo-50'
+          : 'text-slate-800 hover:bg-slate-50'
+      }`}
+    >
+      <BookOpen
+        className={`size-4 shrink-0 ${
+          accent === 'indigo' ? 'text-indigo-600' : 'text-slate-500'
+        }`}
+      />
+      <span className="min-w-0 flex-1">{label}</span>
+      <span className="hidden shrink-0 rounded-md bg-slate-950 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white sm:inline">
+        JW Library
+      </span>
+      <ExternalLink className="size-3.5 shrink-0 opacity-50 transition group-hover:opacity-100" />
+    </a>
+    <a
+      href={target.wolUrl}
+      target="_blank"
+      rel="noreferrer"
+      title="Ouvrir directement dans la Bibliothèque en ligne"
+      aria-label={`${label} sur WOL`}
+      className="grid shrink-0 place-items-center border-l border-slate-200 px-3 text-[10px] font-bold uppercase tracking-wide text-slate-500 transition hover:bg-slate-100 hover:text-indigo-700"
+    >
+      WOL
+    </a>
+  </div>
+);
 
 const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
   if (!sources.length) return null;
@@ -122,6 +194,9 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
       <SectionTitle icon={<Library className="size-4" />}>Sources</SectionTitle>
       <div className="space-y-2">
         {sources.map(source => {
+          const jwTarget = source.url
+            ? getJwDocumentTarget(source.url)
+            : null;
           const content = (
             <>
               <span className="block text-sm font-semibold text-slate-900">
@@ -134,7 +209,33 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
               )}
             </>
           );
-          return source.url ? (
+          return jwTarget ? (
+            <div
+              key={source.id}
+              className="flex overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:border-indigo-200 hover:shadow-sm"
+            >
+              <a
+                href={jwTarget.finderUrl}
+                target="_blank"
+                rel="noreferrer"
+                title="Ouvrir avec JW Library si disponible"
+                className="group flex min-w-0 flex-1 items-center gap-3 p-3"
+              >
+                <span className="min-w-0 flex-1">{content}</span>
+                <ExternalLink className="size-4 shrink-0 text-slate-400 transition group-hover:text-indigo-600" />
+              </a>
+              <a
+                href={jwTarget.wolUrl}
+                target="_blank"
+                rel="noreferrer"
+                title="Ouvrir directement dans la Bibliothèque en ligne"
+                aria-label={`${source.label} sur WOL`}
+                className="grid shrink-0 place-items-center border-l border-slate-200 px-3 text-[10px] font-bold uppercase tracking-wide text-slate-500 hover:bg-slate-100 hover:text-indigo-700"
+              >
+                WOL
+              </a>
+            </div>
+          ) : source.url ? (
             <a
               key={source.id}
               href={source.url}
@@ -174,20 +275,18 @@ const EncyclopediaReferences = ({
       </SectionTitle>
       <div className="space-y-2">
         {references.map(reference => {
+          const jwTarget = getJwDocumentTarget(
+            reference.url,
+            reference.work === 'insight' ? 'insight' : 'publication'
+          );
           const usesConvertedName =
             reference.linkedName &&
             reference.linkedName.localeCompare(reference.articleTitle, 'fr', {
               sensitivity: 'base'
             }) !== 0;
 
-          return (
-            <a
-              key={reference.id}
-              href={reference.url}
-              target="_blank"
-              rel="noreferrer"
-              className="group flex items-center gap-3 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-3 transition hover:border-amber-300 hover:shadow-sm"
-            >
+          const content = (
+            <>
               <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-800">
                 <BookOpen className="size-5" />
               </span>
@@ -206,6 +305,43 @@ const EncyclopediaReferences = ({
                 </span>
               </span>
               <ExternalLink className="size-4 shrink-0 text-amber-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </>
+          );
+
+          return jwTarget ? (
+            <div
+              key={reference.id}
+              className="flex overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white transition hover:border-amber-300 hover:shadow-sm"
+            >
+              <a
+                href={jwTarget.finderUrl}
+                target="_blank"
+                rel="noreferrer"
+                title="Ouvrir avec JW Library si disponible"
+                className="group flex min-w-0 flex-1 items-center gap-3 p-3"
+              >
+                {content}
+              </a>
+              <a
+                href={jwTarget.wolUrl}
+                target="_blank"
+                rel="noreferrer"
+                title="Ouvrir directement dans la Bibliothèque en ligne"
+                aria-label={`${reference.articleTitle} sur WOL`}
+                className="grid shrink-0 place-items-center border-l border-amber-200 px-3 text-[10px] font-bold uppercase tracking-wide text-amber-800 hover:bg-amber-100"
+              >
+                WOL
+              </a>
+            </div>
+          ) : (
+            <a
+              key={reference.id}
+              href={reference.url}
+              target="_blank"
+              rel="noreferrer"
+              className="group flex items-center gap-3 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-3 transition hover:border-amber-300 hover:shadow-sm"
+            >
+              {content}
             </a>
           );
         })}
@@ -599,10 +735,12 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             <ReferenceList
               title="Références bibliques"
               values={biblicalReferences}
+              kind="bible"
             />
             <ReferenceList
               title="Références documentaires"
               values={documentaryReferences}
+              kind="documentary"
             />
             <EncyclopediaReferences references={encyclopediaReferences} />
             <SourcesList sources={sources} />
