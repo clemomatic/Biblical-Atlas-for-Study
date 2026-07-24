@@ -1,6 +1,7 @@
 import { BiblicalPlace, BiblicalRoute } from '../types';
 import { PROMISED_LAND_PLACES } from './promisedLandPlaces';
 import { PATRIARCH_AND_EXODUS_PLACES } from './patriarchAndExodusPlaces';
+import { INSIGHT_PLACE_REFERENCES } from './insightReferences.generated';
 
 /**
  * BIBLICAL PLACES DATABASE
@@ -345,7 +346,10 @@ const mergePlaceCorpus = (
 export const BIBLICAL_PLACES = mergePlaceCorpus(
   CORE_BIBLICAL_PLACES,
   [...PROMISED_LAND_PLACES, ...PATRIARCH_AND_EXODUS_PLACES]
-);
+).map(place => ({
+  ...place,
+  encyclopediaReferences: INSIGHT_PLACE_REFERENCES[place.id] || []
+}));
 
 /**
  * Les tracés et territoires sont volontairement désactivés tant qu'un corpus

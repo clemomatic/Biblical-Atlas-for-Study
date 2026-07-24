@@ -2,8 +2,10 @@ import { EventData, TimelineDisplayLevel } from '../types';
 import { parseTimelineDate } from '../utils/dateUtils';
 import { createCategoryId, createEventId } from '../utils/stableIds';
 import { normalizeCategoryName } from '../utils/dataVocabulary';
+import { INSIGHT_EVENT_REFERENCES } from './insightReferences.generated';
 
 interface RawEvent {
+  id?: string;
   text: string;
   category: string;
   start: string;
@@ -59,7 +61,7 @@ const rawEventsData: RawEvent[] = [
   { text: "Haran", category: "Personnage", start: "-2077-01-01 00:00:00", end: "-1999-01-01 00:00:00", description: "Frère aîné d'Abraham", associatedLocationIds: ["ur", "haran"] },
   { text: "Abraham", category: "Personnage", start: "-2017-01-01 00:00:00", end: "-1842-01-01 00:00:00", associatedLocationIds: ["ur", "haran", "hebron", "beersheba", "shechem"] },
   { text: "Sara", category: "Personnage", start: "-2007-01-01 00:00:00", end: "-1880-01-01 00:00:00", associatedLocationIds: ["hebron"] },
-  { text: "Lot ?", category: "Personnage", start: "-2037-01-01 00:00:00", end: "-1880-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["sodom"] },
+  { id: "event-lot-jwbl2i", text: "Loth", category: "Personnage", start: "-2037-01-01 00:00:00", end: "-1880-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["sodom"] },
   { text: "Isaac", category: "Personnage", start: "-1917-01-01 00:00:00", end: "-1737-01-01 00:00:00", associatedLocationIds: ["beersheba", "hebron"] },
   { text: "Jacob", category: "Personnage", start: "-1857-01-01 00:00:00", end: "-1710-01-01 00:00:00", associatedLocationIds: ["bethel", "haran", "penuel", "hebron", "goshen"] },
   { text: "Joseph", category: "FIls de Rachel", start: "-1766-01-01 00:00:00", end: "-1656-01-01 00:00:00", associatedLocationIds: ["hebron", "shechem", "dothan", "memphis", "goshen"] },
@@ -228,9 +230,10 @@ export const EVENTS: EventData[] = rawEventsData.map(ev => {
   const pEnd = parseTimelineDate(ev.end);
   const isPoint = Math.abs(pEnd.position - pStart.position) < 0.01;
   const category = normalizeCategoryName(ev.category);
+  const id = ev.id || createEventId(ev.text, ev.start, category);
 
   return {
-    id: createEventId(ev.text, ev.start, category),
+    id,
     text: ev.text,
     categoryId: createCategoryId(category),
     category,
@@ -247,6 +250,7 @@ export const EVENTS: EventData[] = rawEventsData.map(ev => {
     icon: ev.icon,
     defaultColor: ev.default_color,
     timelineLevel: ev.timelineLevel || 'study',
-    associatedLocationIds: ev.associatedLocationIds || []
+    associatedLocationIds: ev.associatedLocationIds || [],
+    encyclopediaReferences: INSIGHT_EVENT_REFERENCES[id] || []
   };
 });
