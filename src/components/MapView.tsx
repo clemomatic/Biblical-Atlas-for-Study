@@ -8,7 +8,13 @@ import {
   MapLabelLevel,
   TimelinePeriod
 } from '../types';
-import { Layers, Info, Map as MapIcon, Mountain } from 'lucide-react';
+import {
+  ChevronDown,
+  Layers,
+  Info,
+  Map as MapIcon,
+  Mountain
+} from 'lucide-react';
 import { formatDateFrench } from '../utils/dateUtils';
 
 delete (L.Icon.Default.prototype as { _getIconUrl?: unknown })._getIconUrl;
@@ -67,6 +73,11 @@ const getInitialBaseMap = (): BaseMapId => {
   } catch {
     return 'natural-relief';
   }
+};
+
+const getInitialLayerPanelOpen = (): boolean => {
+  if (typeof window === 'undefined') return true;
+  return !window.matchMedia('(max-width: 639px)').matches;
 };
 
 const createBaseMapLayer = (baseMap: BaseMapId): L.TileLayer => {
@@ -205,6 +216,9 @@ export const MapView: React.FC<MapViewProps> = ({
 
   const [baseMap, setBaseMap] = useState<BaseMapId>(getInitialBaseMap);
   const [mapZoom, setMapZoom] = useState(7);
+  const [isLayerPanelOpen, setIsLayerPanelOpen] = useState(
+    getInitialLayerPanelOpen
+  );
 
   useEffect(() => {
     if (!mapContainerRef.current || mapRef.current) return;
@@ -394,14 +408,32 @@ export const MapView: React.FC<MapViewProps> = ({
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden bg-slate-50">
-      <div className="absolute left-3 top-3 z-[400] flex max-w-[calc(100%-1.5rem)] flex-col gap-2 sm:left-4 sm:top-4">
-        <div className="space-y-2 rounded-2xl border border-white/70 bg-white/90 p-2.5 text-xs text-slate-800 shadow-xl shadow-slate-900/10 backdrop-blur-xl">
-          <div className="flex items-center gap-1.5 border-b border-slate-100 px-1 pb-2 font-bold uppercase tracking-wider text-indigo-700">
+      <div className="absolute left-3 top-3 z-[400] flex w-[min(21rem,calc(100vw-1.5rem))] flex-col gap-2 sm:left-4 sm:top-4 sm:w-auto sm:max-w-[calc(100%-2rem)]">
+        <div className="rounded-2xl border border-white/70 bg-white/90 p-2.5 text-xs text-slate-800 shadow-xl shadow-slate-900/10 backdrop-blur-xl">
+          <button
+            type="button"
+            aria-expanded={isLayerPanelOpen}
+            aria-controls="map-layer-panel-content"
+            onClick={() => setIsLayerPanelOpen(current => !current)}
+            className={`flex w-full items-center gap-1.5 px-1 font-bold uppercase tracking-wider text-indigo-700 sm:pointer-events-none ${
+              isLayerPanelOpen ? 'border-b border-slate-100 pb-2' : ''
+            }`}
+          >
             <Layers className="size-3.5" />
-            <span>Couches de la carte</span>
-          </div>
+            <span className="flex-1 text-left">Couches de la carte</span>
+            <ChevronDown
+              aria-hidden="true"
+              className={`size-4 transition-transform sm:hidden ${
+                isLayerPanelOpen ? 'rotate-180' : ''
+              }`}
+            />
+          </button>
 
-          <fieldset className="space-y-1.5">
+          <div
+            id="map-layer-panel-content"
+            className={`${isLayerPanelOpen ? 'block' : 'hidden'} space-y-2 pt-2 sm:block`}
+          >
+            <fieldset className="space-y-1.5">
             <legend className="px-1 text-[10px] font-bold uppercase tracking-wider text-slate-500">
               Fond de carte
             </legend>
@@ -450,11 +482,11 @@ export const MapView: React.FC<MapViewProps> = ({
                 </span>
               </button>
             </div>
-          </fieldset>
+            </fieldset>
 
-          <div className="h-px bg-slate-100" />
+            <div className="h-px bg-slate-100" />
 
-          <details className="group rounded-xl border border-slate-100 bg-white/70">
+            <details className="group rounded-xl border border-slate-100 bg-white/70">
             <summary className="cursor-pointer list-none px-2.5 py-2 font-semibold text-slate-700 marker:content-none">
               <span className="flex items-center justify-between gap-3">
                 <span>Légende des lieux</span>
@@ -508,8 +540,8 @@ export const MapView: React.FC<MapViewProps> = ({
               centres régionaux, lieux d’étude puis repères locaux apparaissent
               progressivement jusqu’au zoom 10.
             </p>
-          </details>
-
+            </details>
+          </div>
         </div>
 
         {visiblePeriod && (
@@ -529,7 +561,7 @@ export const MapView: React.FC<MapViewProps> = ({
             </div>
             <p className="font-semibold text-slate-950">{selectedEvent.text}</p>
             <p className="mt-1 text-[11px] text-indigo-800/80">
-              Seuls les lieux et itinéraires associés sont affichés.
+              Seuls les lieux associés sont affichés.
             </p>
           </div>
         )}
