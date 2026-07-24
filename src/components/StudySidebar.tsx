@@ -1,38 +1,50 @@
 import React from 'react';
 import {
-  CategoryData,
-  EventData,
-  TimelinePeriod
-} from '../types';
-import {
   CalendarRange,
-  Check,
-  Filter,
+  PanelLeftClose,
+  PanelLeftOpen,
   RotateCcw,
   Search,
   X
 } from 'lucide-react';
+import { CategoryData, EventData, TimelinePeriod } from '../types';
 import { formatDateFrench } from '../utils/dateUtils';
+import { IconButton, SectionHeading } from './ui/AtlasUi';
 
 interface StudySidebarProps {
   isOpen: boolean;
+  isCollapsed: boolean;
   categories: CategoryData[];
   events: EventData[];
   activeCategoryIds: Set<string>;
   visiblePeriod: TimelinePeriod | null;
   onClose: () => void;
+  onToggleCollapse: () => void;
   onOpenSearch: () => void;
   onToggleCategory: (categoryId: string) => void;
   onResetCategories: () => void;
 }
 
+const categoryShape = (category: CategoryData) => {
+  const normalized = category.name.toLowerCase();
+  if (category.displayMode === 'background-period') return 'rounded-[2px] w-4 h-2';
+  if (normalized.includes('événement')) return 'rotate-45 rounded-[2px]';
+  if (normalized.includes('personnage') || normalized.includes('fils de'))
+    return 'rounded-full';
+  if (normalized.includes('règne') || normalized.includes('roi'))
+    return 'rounded-[2px]';
+  return 'rounded-sm';
+};
+
 export const StudySidebar: React.FC<StudySidebarProps> = ({
   isOpen,
+  isCollapsed,
   categories,
   events,
   activeCategoryIds,
   visiblePeriod,
   onClose,
+  onToggleCollapse,
   onOpenSearch,
   onToggleCategory,
   onResetCategories
@@ -50,7 +62,7 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
       {isOpen && (
         <button
           aria-label="Fermer les filtres"
-          className="fixed inset-0 z-40 bg-slate-950/30 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-[rgb(23_32_51/28%)] backdrop-blur-sm lg:hidden"
           onClick={onClose}
         />
       )}
@@ -58,107 +70,167 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
       <aside
         className={`${
           isOpen ? 'flex' : 'hidden'
-        } fixed inset-y-0 left-0 z-50 w-[min(88vw,320px)] flex-col border-r border-slate-200 bg-white shadow-2xl lg:static lg:z-auto lg:flex lg:w-72 lg:shrink-0 lg:shadow-none`}
-        aria-label="Filtres de consultation"
+        } fixed inset-y-0 left-0 z-50 w-[min(88vw,320px)] flex-col bg-[var(--color-paper)] shadow-[var(--shadow-high)] transition-[width] duration-200 lg:static lg:z-auto lg:flex lg:shrink-0 lg:border-r lg:border-[var(--color-stone)] lg:shadow-none ${
+          isCollapsed ? 'lg:w-[72px]' : 'lg:w-[280px]'
+        }`}
+        aria-label="Légende et filtres de consultation"
       >
-        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
-          <div>
-            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-indigo-600">
-              Consultation
-            </p>
-            <h2 className="mt-0.5 text-base font-bold text-slate-950">
-              Filtres d’étude
+        <div
+          className={`flex h-16 shrink-0 items-center border-b border-[var(--color-stone-light)] ${
+            isCollapsed ? 'lg:justify-center lg:px-2' : 'justify-between px-4'
+          }`}
+        >
+          <div className={isCollapsed ? 'lg:hidden' : ''}>
+            <p className="atlas-kicker">Consultation</p>
+            <h2 className="mt-1 text-[15px] font-bold text-[var(--color-ink)]">
+              Légende de l’atlas
             </h2>
           </div>
-          <button
+
+          <IconButton
+            label="Fermer les filtres"
             onClick={onClose}
-            className="grid size-10 place-items-center rounded-xl text-slate-500 hover:bg-slate-100 lg:hidden"
-            aria-label="Fermer les filtres"
+            className="lg:hidden"
           >
             <X className="size-5" />
-          </button>
+          </IconButton>
+          <IconButton
+            label={isCollapsed ? 'Déployer la légende' : 'Replier la légende'}
+            onClick={onToggleCollapse}
+            className="hidden lg:grid"
+          >
+            {isCollapsed ? (
+              <PanelLeftOpen className="size-4.5" />
+            ) : (
+              <PanelLeftClose className="size-4.5" />
+            )}
+          </IconButton>
         </div>
 
-        <div className="flex-1 space-y-6 overflow-y-auto px-4 py-5">
+        <div
+          className={`flex-1 overflow-y-auto ${
+            isCollapsed ? 'lg:px-2 lg:py-3' : 'px-4 py-5'
+          }`}
+        >
           <button
+            type="button"
             onClick={onOpenSearch}
-            className="flex w-full items-center gap-3 rounded-2xl border border-indigo-100 bg-gradient-to-r from-indigo-50 to-cyan-50 px-4 py-3 text-left text-sm font-semibold text-indigo-950 transition hover:border-indigo-200 hover:shadow-sm"
+            className={`flex min-h-11 w-full items-center text-left text-sm font-semibold text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-soft)] ${
+              isCollapsed
+                ? 'lg:justify-center lg:rounded-[var(--radius-md)] lg:px-0'
+                : 'gap-3 rounded-[var(--radius-md)] bg-[var(--color-paper-muted)] px-3'
+            }`}
+            aria-label="Rechercher dans l’atlas"
           >
-            <span className="grid size-9 place-items-center rounded-xl bg-white text-indigo-600 shadow-sm">
-              <Search className="size-4" />
-            </span>
-            <span className="flex-1">
-              Rechercher
-              <span className="mt-0.5 block text-xs font-normal text-slate-500">
-                Lieux, événements, personnages…
-              </span>
+            <Search className="size-4.5 shrink-0" />
+            <span className={isCollapsed ? 'lg:hidden' : ''}>
+              Rechercher dans l’atlas
             </span>
           </button>
 
           {visiblePeriod && (
-            <section className="rounded-2xl border border-slate-200 bg-slate-50 p-4">
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-500">
-                <CalendarRange className="size-4 text-cyan-600" />
-                Période visible
+            <section
+              className={`mt-5 ${
+                isCollapsed
+                  ? 'lg:flex lg:justify-center lg:border-y lg:border-[var(--color-stone-light)] lg:py-3'
+                  : 'border-y border-[var(--color-stone-light)] py-4'
+              }`}
+              title={`${formatDateFrench(
+                Math.round(visiblePeriod.startYear)
+              )} — ${formatDateFrench(Math.round(visiblePeriod.endYear))}`}
+            >
+              <div
+                className={`flex items-center ${
+                  isCollapsed ? 'lg:justify-center' : 'gap-2'
+                }`}
+              >
+                <CalendarRange className="size-4 shrink-0 text-[var(--color-bronze)]" />
+                <span
+                  className={`atlas-kicker text-[var(--color-ink-muted)] ${
+                    isCollapsed ? 'lg:hidden' : ''
+                  }`}
+                >
+                  Période visible
+                </span>
               </div>
-              <p className="mt-2 text-sm font-semibold leading-relaxed text-slate-800">
+              <p
+                className={`mt-2 text-[13px] font-medium leading-relaxed text-[var(--color-ink)] tabular-nums ${
+                  isCollapsed ? 'lg:hidden' : ''
+                }`}
+              >
                 {formatDateFrench(Math.round(visiblePeriod.startYear))}
-                <span className="mx-1.5 text-slate-400">—</span>
+                <span className="mx-1.5 text-[var(--color-ink-muted)]">—</span>
                 {formatDateFrench(Math.round(visiblePeriod.endYear))}
               </p>
             </section>
           )}
 
-          <section>
-            <div className="mb-3 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Filter className="size-4 text-indigo-600" />
-                <h3 className="text-xs font-bold uppercase tracking-wider text-slate-700">
-                  Catégories
-                </h3>
-              </div>
-              <button
-                onClick={onResetCategories}
-                className="flex items-center gap-1 text-xs font-semibold text-indigo-600 hover:text-indigo-800"
-                title="Afficher toutes les catégories"
-              >
-                <RotateCcw className="size-3.5" />
-                Tout afficher
-              </button>
+          <section className="mt-5">
+            <div className={isCollapsed ? 'lg:hidden' : ''}>
+              <SectionHeading
+                title="Catégories visibles"
+                action={
+                  <button
+                    type="button"
+                    onClick={onResetCategories}
+                    className="flex min-h-10 items-center gap-1.5 text-xs font-semibold text-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
+                    title="Afficher toutes les catégories"
+                  >
+                    <RotateCcw className="size-3.5" />
+                    Réinitialiser
+                  </button>
+                }
+              />
             </div>
 
-            <div className="space-y-1.5">
+            <div className={`${isCollapsed ? 'lg:mt-0' : 'mt-3'} space-y-0.5`}>
               {categories.map(category => {
                 const isActive = activeCategoryIds.has(category.id);
+                const count = countsByCategory.get(category.id) || 0;
                 return (
                   <button
                     key={category.id}
+                    type="button"
                     onClick={() => onToggleCategory(category.id)}
-                    className={`flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition ${
+                    className={`group flex min-h-11 w-full items-center text-left ${
+                      isCollapsed
+                        ? 'lg:justify-center lg:rounded-[var(--radius-md)] lg:px-0'
+                        : 'gap-3 rounded-[var(--radius-sm)] px-2'
+                    } ${
                       isActive
-                        ? 'border-slate-200 bg-white text-slate-900 shadow-sm'
-                        : 'border-transparent bg-slate-50 text-slate-400'
-                    }`}
+                        ? 'text-[var(--color-ink)]'
+                        : 'text-[var(--color-ink-muted)] opacity-55'
+                    } hover:bg-[var(--color-paper-muted)] hover:opacity-100`}
                     aria-pressed={isActive}
+                    aria-label={`${category.name}, ${count} éléments, ${
+                      isActive ? 'affichée' : 'masquée'
+                    }`}
+                    title={isCollapsed ? `${category.name} · ${count}` : undefined}
                   >
                     <span
-                      className="size-2.5 shrink-0 rounded-full"
-                      style={{ backgroundColor: category.hexColor }}
+                      className={`size-3 shrink-0 ${categoryShape(category)} ${
+                        isActive ? '' : 'ring-1 ring-current ring-inset'
+                      }`}
+                      style={{
+                        backgroundColor: isActive
+                          ? category.hexColor
+                          : 'transparent'
+                      }}
+                      aria-hidden="true"
                     />
-                    <span className="min-w-0 flex-1 truncate text-xs font-semibold">
-                      {category.name}
-                    </span>
-                    <span className="text-[11px] tabular-nums text-slate-400">
-                      {countsByCategory.get(category.id) || 0}
-                    </span>
                     <span
-                      className={`grid size-5 place-items-center rounded-md ${
-                        isActive
-                          ? 'bg-indigo-600 text-white'
-                          : 'border border-slate-300 bg-white'
+                      className={`min-w-0 flex-1 truncate text-[13px] font-medium ${
+                        isCollapsed ? 'lg:hidden' : ''
                       }`}
                     >
-                      {isActive && <Check className="size-3" />}
+                      {category.name}
+                    </span>
+                    <span
+                      className={`text-xs font-medium tabular-nums text-[var(--color-ink-muted)] ${
+                        isCollapsed ? 'lg:hidden' : ''
+                      }`}
+                    >
+                      {count}
                     </span>
                   </button>
                 );
@@ -167,12 +239,19 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
           </section>
         </div>
 
-        <div className="border-t border-slate-200 px-5 py-4 text-xs text-slate-500">
-          <span className="font-semibold text-slate-800">
+        <div
+          className={`shrink-0 border-t border-[var(--color-stone-light)] py-3 text-xs text-[var(--color-ink-muted)] ${
+            isCollapsed ? 'lg:px-2 lg:text-center' : 'px-5'
+          }`}
+        >
+          <span className="font-semibold text-[var(--color-ink)]">
             {activeCategoryIds.size}
-          </span>{' '}
-          catégorie{activeCategoryIds.size > 1 ? 's' : ''} affichée
-          {activeCategoryIds.size > 1 ? 's' : ''}
+          </span>
+          <span className={isCollapsed ? 'lg:hidden' : ''}>
+            {' '}
+            catégorie{activeCategoryIds.size > 1 ? 's' : ''} affichée
+            {activeCategoryIds.size > 1 ? 's' : ''}
+          </span>
         </div>
       </aside>
     </>
