@@ -180,3 +180,22 @@ test('représente les précisions jour, mois, saison, limite et plage', () => {
     'entre 12 av. n. è. et 10 av. n. è.'
   );
 });
+
+test('conserve un jour du calendrier hébreu sans conversion grégorienne', () => {
+  const boundary: TemporalBoundary = {
+    yearMin: 33,
+    yearMax: 33,
+    calendar: 'hebrew',
+    calendarMonth: 'nisan',
+    day: 14,
+    precision: 'day',
+    certainty: 'certain'
+  };
+
+  validateTemporalBoundary(boundary);
+  assert.equal(
+    formatTemporalBoundaryFrench(boundary),
+    '14 nisan 33 de n. è.'
+  );
+  assert.equal(boundary.month, undefined);
+});

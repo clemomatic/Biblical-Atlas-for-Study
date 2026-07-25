@@ -150,9 +150,25 @@ export function validateTemporalBoundary(boundary: TemporalBoundary): void {
   }
   if (
     boundary.precision === 'day' &&
-    (boundary.month === undefined || boundary.day === undefined)
+    (
+      boundary.day === undefined ||
+      (
+        boundary.month === undefined &&
+        boundary.calendarMonth === undefined
+      )
+    )
   ) {
-    throw new RangeError('Une date précise nécessite un mois et un jour.');
+    throw new RangeError(
+      'Une date précise nécessite un mois numérique ou un mois de calendrier, ainsi qu’un jour.'
+    );
+  }
+  if (
+    boundary.calendarMonth !== undefined &&
+    boundary.calendar !== 'hebrew'
+  ) {
+    throw new RangeError(
+      'Un mois biblique nécessite le calendrier hébraïque.'
+    );
   }
   if (boundary.precision === 'season' && boundary.season === undefined) {
     throw new RangeError('Une précision saisonnière nécessite une saison.');
@@ -381,6 +397,9 @@ const formatSingleYearBoundary = (boundary: TemporalBoundary): string => {
 
   const formattedYear = formatHistoricalYearFrench(year);
   if (boundary.precision === 'day') {
+    if (boundary.calendar === 'hebrew' && boundary.calendarMonth) {
+      return `${boundary.day} ${boundary.calendarMonth} ${formattedYear}`;
+    }
     return `${boundary.day} ${MONTH_NAMES[(boundary.month ?? 1) - 1]} ${formattedYear}`;
   }
   if (boundary.precision === 'month') {

@@ -1,0 +1,2042 @@
+[
+  {
+    "id": "claim-event-a7-g-arrivee-bethanie-six-jours-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-arrivee-bethanie-six-jours"
+    },
+    "eventId": "event-a7-g-arrivee-bethanie-six-jours",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 8
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 8
+      },
+      "displayLabel": "8 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-arrivee-bethanie-six-jours-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-g-arrivee-bethanie-six-jours",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 8
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 8
+      },
+      "displayLabel": "8 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-autorite-contestee-deux-fils-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-autorite-contestee-deux-fils"
+    },
+    "eventId": "event-a7-g-autorite-contestee-deux-fils",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-autorite-contestee-deux-fils-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-autorite-contestee-deux-fils",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-christ-fils-david-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-christ-fils-david"
+    },
+    "eventId": "event-a7-g-christ-fils-david",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 11.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-christ-fils-david-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-christ-fils-david",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 11.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-complot-chefs-juifs-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-complot-chefs-juifs"
+    },
+    "eventId": "event-a7-g-complot-chefs-juifs",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "displayLabel": "12 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 16.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-complot-chefs-juifs-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-complot-chefs-juifs",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "displayLabel": "12 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 16.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-complot-pretres-scribes-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-complot-pretres-scribes"
+    },
+    "eventId": "event-a7-g-complot-pretres-scribes",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "displayLabel": "10 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-complot-pretres-scribes-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-complot-pretres-scribes",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "displayLabel": "10 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-condamnation-scribes-pharisiens-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-condamnation-scribes-pharisiens"
+    },
+    "eventId": "event-a7-g-condamnation-scribes-pharisiens",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 12.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-condamnation-scribes-pharisiens-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-condamnation-scribes-pharisiens",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 12.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-cultivateurs-repas-mariage-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-cultivateurs-repas-mariage"
+    },
+    "eventId": "event-a7-g-cultivateurs-repas-mariage",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-cultivateurs-repas-mariage-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-cultivateurs-repas-mariage",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-derniere-paque-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-derniere-paque"
+    },
+    "eventId": "event-a7-g-derniere-paque",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 19.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-derniere-paque-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-derniere-paque",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 19.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-dix-vierges-talents-brebis-chevres-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-dix-vierges-talents-brebis-chevres"
+    },
+    "eventId": "event-a7-g-dix-vierges-talents-brebis-chevres",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 15.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-dix-vierges-talents-brebis-chevres-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-dix-vierges-talents-brebis-chevres",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 15.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-entree-jerusalem-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-entree-jerusalem"
+    },
+    "eventId": "event-a7-g-entree-jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-entree-jerusalem-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-entree-jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-entree-jerusalem-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-g-entree-jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-entree-jerusalem-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethphage",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethphage",
+    "eventId": "event-a7-g-entree-jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-figuier-purification-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-figuier-purification-temple"
+    },
+    "eventId": "event-a7-g-figuier-purification-temple",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "displayLabel": "10 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-figuier-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-figuier-purification-temple",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "displayLabel": "10 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-figuier-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-g-figuier-purification-temple",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "displayLabel": "10 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-judas-negocie-livraison-participation-person-a7-judas-iscariote",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-judas-iscariote"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-judas-negocie-livraison"
+    },
+    "eventId": "event-a7-g-judas-negocie-livraison",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "displayLabel": "12 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-judas-negocie-livraison-presence-person-a7-judas-iscariote-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-judas-iscariote"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-judas-negocie-livraison",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 12
+      },
+      "displayLabel": "12 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-lavement-pieds-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-lavement-pieds"
+    },
+    "eventId": "event-a7-g-lavement-pieds",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 20.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-lavement-pieds-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-lavement-pieds",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 20.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-lecon-figuier-desseche-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-lecon-figuier-desseche"
+    },
+    "eventId": "event-a7-g-lecon-figuier-desseche",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-lecon-figuier-desseche-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-lecon-figuier-desseche",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-lecon-figuier-desseche-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-g-lecon-figuier-desseche",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-marie-huile-jesus-interaction-person-a7-marie-bethanie-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-bethanie"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "eventId": "event-a7-g-marie-huile-jesus",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-marie-huile-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-marie-huile-jesus"
+    },
+    "eventId": "event-a7-g-marie-huile-jesus",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-marie-huile-jesus-participation-person-a7-marie-bethanie",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-bethanie"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-marie-huile-jesus"
+    },
+    "eventId": "event-a7-g-marie-huile-jesus",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-marie-huile-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-g-marie-huile-jesus",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-marie-huile-jesus-presence-person-a7-marie-bethanie-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-bethanie"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-g-marie-huile-jesus",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 9
+      },
+      "displayLabel": "9 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-offrande-veuve-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-offrande-veuve"
+    },
+    "eventId": "event-a7-g-offrande-veuve",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 13.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-offrande-veuve-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-offrande-veuve",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 13.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-preparatifs-derniere-paque-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-preparatifs-derniere-paque"
+    },
+    "eventId": "event-a7-g-preparatifs-derniere-paque",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 13
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 13
+      },
+      "displayLabel": "13 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-preparatifs-derniere-paque-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-preparatifs-derniere-paque",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 13
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 13
+      },
+      "displayLabel": "13 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-questions-cesar-resurrection-commandement-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-questions-cesar-resurrection-commandement"
+    },
+    "eventId": "event-a7-g-questions-cesar-resurrection-commandement",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-questions-cesar-resurrection-commandement-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-questions-cesar-resurrection-commandement",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-signe-presence-future-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-signe-presence-future"
+    },
+    "eventId": "event-a7-g-signe-presence-future",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 14.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-signe-presence-future-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-signe-presence-future",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 11
+      },
+      "displayLabel": "11 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 14.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-voix-divine-prediction-mort-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-g-voix-divine-prediction-mort"
+    },
+    "eventId": "event-a7-g-voix-divine-prediction-mort",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "displayLabel": "10 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-g-voix-divine-prediction-mort-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-g-voix-divine-prediction-mort",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 10
+      },
+      "displayLabel": "10 nisan 33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-g",
+        "shortReference": "Appendice A7-G, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]

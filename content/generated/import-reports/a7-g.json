@@ -1,0 +1,20 @@
+{
+  "appendix": "Appendice A7-G",
+  "sourceId": "source-nwtsty-a7-g",
+  "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-final-jesus-la-cene/",
+  "reviewedAt": "2026-07-25",
+  "counts": {
+    "stagingRecords": 20,
+    "reviewedEvents": 20,
+    "explicitPeople": 3,
+    "identifiedPlaces": 3,
+    "biblicalReferences": 52,
+    "claims": 47,
+    "presences": 25,
+    "directInteractions": 1,
+    "unresolvedItems": 0
+  },
+  "unresolvedItems": [],
+  "routeId": "route-a7-g-chronologie",
+  "derivedRelationsGeneratedSeparately": true
+}

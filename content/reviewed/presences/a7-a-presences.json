@@ -1,0 +1,1078 @@
+[
+  {
+    "id": "presence-event-a7-a-annonce-bergers-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-annonce-bergers"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-annonce-bergers-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-annonce-bergers-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-annonce-bergers"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-annonce-bergers-presence-person-a7-joseph-pere-adoptif-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-annonce-bergers-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-annonce-bergers"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-annonce-bergers-presence-person-a7-marie-mere-jesus-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-annonce-naissance-jean-person-a7-gabriel-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-gabriel",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "3 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-annonce-naissance-jean"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-annonce-naissance-jean-presence-person-a7-gabriel-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-annonce-naissance-jean-person-a7-zacharie-pretre-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-zacharie-pretre",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "3 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-annonce-naissance-jean"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-annonce-naissance-jean-presence-person-a7-zacharie-pretre-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-annonce-naissance-jesus-visite-elisabeth-person-a7-gabriel-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-gabriel",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-presence-person-a7-gabriel-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-annonce-naissance-jesus-visite-elisabeth-person-a7-marie-mere-jesus-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-presence-person-a7-marie-mere-jesus-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-herode-le-grand-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-herode-le-grand",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "reign-seat",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-herode-le-grand-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-joseph-pere-adoptif-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-joseph-pere-adoptif-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-marie-mere-jesus-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-marie-mere-jesus-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-circoncision-presentation-temple-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-circoncision-presentation-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-circoncision-presentation-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-circoncision-presentation-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-circoncision-presentation-temple-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-joseph-pere-adoptif-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-circoncision-presentation-temple-person-a7-joseph-pere-adoptif-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-joseph-pere-adoptif-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-circoncision-presentation-temple-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-marie-mere-jesus-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-circoncision-presentation-temple-person-a7-marie-mere-jesus-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-marie-mere-jesus-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-debut-ministere-jean-event-jean-le-baptiseur-dvgl2c-jordan_river",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jean-le-baptiseur-dvgl2c",
+    "placeId": "jordan_river",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Printemps 29 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-debut-ministere-jean"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-debut-ministere-jean-presence-event-jean-le-baptiseur-dvgl2c-jordan_river"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-jesus-douze-ans-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-jesus-douze-ans-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-jesus-douze-ans-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-jesus-douze-ans-temple-person-a7-joseph-pere-adoptif-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-jesus-douze-ans-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-jesus-douze-ans-temple-presence-person-a7-joseph-pere-adoptif-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-jesus-douze-ans-temple-person-a7-marie-mere-jesus-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-jesus-douze-ans-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-jesus-douze-ans-temple-presence-person-a7-marie-mere-jesus-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-naissance-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-naissance-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-naissance-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-naissance-jesus-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-naissance-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-naissance-jesus-presence-person-a7-joseph-pere-adoptif-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-naissance-jesus-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "bethlehem",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-naissance-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-naissance-jesus-presence-person-a7-marie-mere-jesus-bethlehem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-vie-nazareth-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "presenceType": "resident",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-vie-nazareth"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-vie-nazareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-vie-nazareth-person-a7-joseph-pere-adoptif-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-joseph-pere-adoptif",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "presenceType": "resident",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-vie-nazareth"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-vie-nazareth-presence-person-a7-joseph-pere-adoptif-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-a-vie-nazareth-person-a7-marie-mere-jesus-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-mere-jesus",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "presenceType": "resident",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-a-vie-nazareth"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-a-vie-nazareth-presence-person-a7-marie-mere-jesus-nazareth"
+    ]
+  }
+]

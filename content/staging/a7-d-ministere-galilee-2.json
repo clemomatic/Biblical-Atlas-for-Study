@@ -1,0 +1,1482 @@
+[
+  {
+    "id": "staging-a7-d-01-exemples-royaume",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 1.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Région de Capharnaüm",
+      "eventText": "Jésus enseigne par des exemples concernant le Royaume",
+      "biblicalReferences": [
+        "Matthieu 13:1-53",
+        "Marc 4:1-34",
+        "Luc 8:4-18"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 1.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-exemples-royaume",
+          "name": "Jésus enseigne par des exemples concernant le Royaume",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 1,
+          "category": "Événements Marquants",
+          "description": "Jésus enseigne par des exemples concernant le Royaume",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Région de Capharnaüm",
+              "placeId": "capernaum",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "capernaum",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-02-tempete-calmee",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 2.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Mer de Galilée",
+      "eventText": "Jésus calme une tempête depuis un bateau",
+      "biblicalReferences": [
+        "Matthieu 8:18",
+        "Matthieu 8:23-27",
+        "Marc 4:35-41",
+        "Luc 8:22-25"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 2.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-tempete-calmee",
+          "name": "Jésus calme une tempête depuis un bateau",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 2,
+          "category": "Événements Marquants",
+          "description": "Jésus calme une tempête depuis un bateau",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Mer de Galilée",
+              "placeId": "obi-sea-of-galilee",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-sea-of-galilee",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-03-demons-porcs-gadara",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 3.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Région de Gadara",
+      "eventText": "Jésus chasse des démons qui entrent dans des porcs",
+      "biblicalReferences": [
+        "Matthieu 8:28-34",
+        "Marc 5:1-20",
+        "Luc 8:26-39"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 3.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-demons-porcs-gadara",
+          "name": "Jésus chasse des démons qui entrent dans des porcs",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 3,
+          "category": "Événements Marquants",
+          "description": "Jésus chasse des démons qui entrent dans des porcs",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Région de Gadara",
+              "placeId": "obi-gadara",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-gadara",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-04-femme-pertes-sang-fille-jaire",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 4.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Probablement Capharnaüm",
+      "eventText": "Jésus guérit une femme et ressuscite la fille de Jaïre",
+      "biblicalReferences": [
+        "Matthieu 9:18-26",
+        "Marc 5:21-43",
+        "Luc 8:40-56"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 4.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-femme-pertes-sang-fille-jaire",
+          "name": "Jésus guérit une femme et ressuscite la fille de Jaïre",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 4,
+          "category": "Événements Marquants",
+          "description": "Jésus guérit une femme et ressuscite la fille de Jaïre",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement Capharnaüm",
+              "placeId": "capernaum",
+              "granularity": "point",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Jaïre",
+              "personId": "person-a7-jaire",
+              "certainty": "certain"
+            },
+            {
+              "label": "une femme malade",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-jaire",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "capernaum",
+            "presenceType": "ministry",
+            "certainty": "probable"
+          },
+          {
+            "personId": "person-a7-jaire",
+            "placeId": "capernaum",
+            "presenceType": "visitor",
+            "certainty": "probable"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "objectPersonId": "person-a7-jaire",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-05-deux-aveugles-muet",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 5.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Capharnaüm ?",
+      "eventText": "Jésus guérit deux aveugles et un homme muet",
+      "biblicalReferences": [
+        "Matthieu 9:27-34"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 5.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-deux-aveugles-muet",
+          "name": "Jésus guérit deux aveugles et un homme muet",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 5,
+          "category": "Événements Marquants",
+          "description": "Jésus guérit deux aveugles et un homme muet",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Capharnaüm ?",
+              "placeId": "capernaum",
+              "granularity": "point",
+              "certainty": "possible"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "capernaum",
+            "presenceType": "ministry",
+            "certainty": "possible"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-06-nouveau-rejet-nazareth",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 6.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Nazareth",
+      "eventText": "Jésus est de nouveau rejeté à Nazareth",
+      "biblicalReferences": [
+        "Matthieu 13:54-58",
+        "Marc 6:1-5"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 6.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-nouveau-rejet-nazareth",
+          "name": "Jésus est de nouveau rejeté à Nazareth",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 6,
+          "category": "Événements Marquants",
+          "description": "Jésus est de nouveau rejeté à Nazareth",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Nazareth",
+              "placeId": "nazareth",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "nazareth",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-07-troisieme-tournee-envoi-apotres",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 7.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Galilée",
+      "eventText": "Troisième tournée en Galilée et envoi des apôtres",
+      "biblicalReferences": [
+        "Matthieu 9:35-11:1",
+        "Marc 6:6-13",
+        "Luc 9:1-6"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 7.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-troisieme-tournee-envoi-apotres",
+          "name": "Troisième tournée en Galilée et envoi des apôtres",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 7,
+          "category": "Événements Marquants",
+          "description": "Troisième tournée en Galilée et envoi des apôtres",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Galilée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les apôtres",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-08-mort-jean-herode",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 8.",
+    "payload": {
+      "dateText": "31 ou 32 de n. è.",
+      "placeText": "Tibériade",
+      "eventText": "Hérode fait décapiter Jean le Baptiseur",
+      "biblicalReferences": [
+        "Matthieu 14:1-12",
+        "Marc 6:14-29",
+        "Luc 9:7-9"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 31,
+          "yearMax": 32,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "31 ou 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 8.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-mort-jean-herode",
+          "name": "Hérode fait décapiter Jean le Baptiseur",
+          "period": {
+            "start": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 31,
+              "yearMax": 32,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "31 ou 32 de n. è."
+          },
+          "sourceOrder": 8,
+          "category": "Événements Marquants",
+          "description": "Hérode fait décapiter Jean le Baptiseur",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Tibériade",
+              "placeId": "obi-tiberias",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Hérode Antipas",
+              "personId": "person-a7-herode-antipas",
+              "certainty": "certain"
+            },
+            {
+              "label": "Jean le Baptiseur",
+              "personId": "event-jean-le-baptiseur-dvgl2c",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "person-a7-herode-antipas",
+            "certainty": "certain"
+          },
+          {
+            "personId": "event-jean-le-baptiseur-dvgl2c",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "person-a7-herode-antipas",
+            "placeId": "obi-tiberias",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          },
+          {
+            "personId": "event-jean-le-baptiseur-dvgl2c",
+            "placeId": "obi-tiberias",
+            "presenceType": "imprisonment",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "person-a7-herode-antipas",
+            "objectPersonId": "event-jean-le-baptiseur-dvgl2c",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-09-retour-apotres-nourrit-cinq-mille",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 9.",
+    "payload": {
+      "dateText": "Vers la Pâque 32 de n. è.",
+      "placeText": "Capharnaüm ? ; Rive nord-est de la mer de Galilée",
+      "eventText": "Les apôtres reviennent et Jésus nourrit cinq mille hommes",
+      "biblicalReferences": [
+        "Matthieu 14:13-21",
+        "Marc 6:30-44",
+        "Luc 9:10-17",
+        "Jean 6:1-13"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "probable",
+          "approximate": true,
+          "season": "spring"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "probable",
+          "approximate": true,
+          "season": "spring"
+        },
+        "displayLabel": "Vers la Pâque 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 9.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-retour-apotres-nourrit-cinq-mille",
+          "name": "Les apôtres reviennent et Jésus nourrit cinq mille hommes",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "season",
+              "certainty": "probable",
+              "approximate": true,
+              "season": "spring"
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "season",
+              "certainty": "probable",
+              "approximate": true,
+              "season": "spring"
+            },
+            "displayLabel": "Vers la Pâque 32 de n. è."
+          },
+          "sourceOrder": 9,
+          "category": "Événements Marquants",
+          "description": "Les apôtres reviennent et Jésus nourrit cinq mille hommes",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Capharnaüm ?",
+              "placeId": "capernaum",
+              "granularity": "point",
+              "certainty": "possible"
+            },
+            {
+              "label": "Rive nord-est de la mer de Galilée",
+              "placeId": "obi-sea-of-galilee",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les apôtres",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "capernaum",
+            "presenceType": "ministry",
+            "certainty": "possible"
+          },
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-sea-of-galilee",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-10-marche-eau-guerisons-genesareth",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 10.",
+    "payload": {
+      "dateText": "Vers la Pâque 32 de n. è.",
+      "placeText": "Rive nord-est de la mer de Galilée ; Génésareth",
+      "eventText": "Jésus marche sur l’eau puis accomplit des guérisons",
+      "biblicalReferences": [
+        "Matthieu 14:22-36",
+        "Marc 6:45-56",
+        "Jean 6:14-21"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "probable",
+          "approximate": true,
+          "season": "spring"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "probable",
+          "approximate": true,
+          "season": "spring"
+        },
+        "displayLabel": "Vers la Pâque 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 10.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-marche-eau-guerisons-genesareth",
+          "name": "Jésus marche sur l’eau puis accomplit des guérisons",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "season",
+              "certainty": "probable",
+              "approximate": true,
+              "season": "spring"
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "season",
+              "certainty": "probable",
+              "approximate": true,
+              "season": "spring"
+            },
+            "displayLabel": "Vers la Pâque 32 de n. è."
+          },
+          "sourceOrder": 10,
+          "category": "Événements Marquants",
+          "description": "Jésus marche sur l’eau puis accomplit des guérisons",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Rive nord-est de la mer de Galilée",
+              "placeId": "obi-sea-of-galilee",
+              "granularity": "area",
+              "certainty": "certain"
+            },
+            {
+              "label": "Génésareth",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les disciples",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-sea-of-galilee",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      },
+      "unresolvedItems": [
+        "Aucun point cartographique distinct et vérifié n’est attribué à Génésareth."
+      ]
+    }
+  },
+  {
+    "id": "staging-a7-d-11-pain-de-vie",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 11.",
+    "payload": {
+      "dateText": "Vers la Pâque 32 de n. è.",
+      "placeText": "Capharnaüm",
+      "eventText": "Jésus se présente comme le pain de vie",
+      "biblicalReferences": [
+        "Jean 6:22-71"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "probable",
+          "approximate": true,
+          "season": "spring"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "probable",
+          "approximate": true,
+          "season": "spring"
+        },
+        "displayLabel": "Vers la Pâque 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 11.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-pain-de-vie",
+          "name": "Jésus se présente comme le pain de vie",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "season",
+              "certainty": "probable",
+              "approximate": true,
+              "season": "spring"
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "season",
+              "certainty": "probable",
+              "approximate": true,
+              "season": "spring"
+            },
+            "displayLabel": "Vers la Pâque 32 de n. è."
+          },
+          "sourceOrder": 11,
+          "category": "Événements Marquants",
+          "description": "Jésus se présente comme le pain de vie",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Capharnaüm",
+              "placeId": "capernaum",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "capernaum",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-12-traditions-humaines",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 12.",
+    "payload": {
+      "dateText": "Après la Pâque 32 de n. è.",
+      "placeText": "Probablement Capharnaüm",
+      "eventText": "Jésus dénonce des traditions humaines",
+      "biblicalReferences": [
+        "Matthieu 15:1-20",
+        "Marc 7:1-23",
+        "Jean 7:1"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 12.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-traditions-humaines",
+          "name": "Jésus dénonce des traditions humaines",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "displayLabel": "Après la Pâque 32 de n. è."
+          },
+          "sourceOrder": 12,
+          "category": "Événements Marquants",
+          "description": "Jésus dénonce des traditions humaines",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement Capharnaüm",
+              "placeId": "capernaum",
+              "granularity": "point",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "capernaum",
+            "presenceType": "ministry",
+            "certainty": "probable"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-13-syrophenicienne-quatre-mille",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 13.",
+    "payload": {
+      "dateText": "Après la Pâque 32 de n. è.",
+      "placeText": "Phénicie ; Décapole",
+      "eventText": "Jésus guérit la fille d’une Syro-Phénicienne et nourrit quatre mille hommes",
+      "biblicalReferences": [
+        "Matthieu 15:21-38",
+        "Marc 7:24-8:9"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 13.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-syrophenicienne-quatre-mille",
+          "name": "Jésus guérit la fille d’une Syro-Phénicienne et nourrit quatre mille hommes",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "displayLabel": "Après la Pâque 32 de n. è."
+          },
+          "sourceOrder": 13,
+          "category": "Événements Marquants",
+          "description": "Jésus guérit la fille d’une Syro-Phénicienne et nourrit quatre mille hommes",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Phénicie",
+              "granularity": "region",
+              "certainty": "certain"
+            },
+            {
+              "label": "Décapole",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "une femme syro-phénicienne",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-d-14-signe-jonas-magadan",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-d"
+    ],
+    "extractionNotes": "Appendice A7-D, tableau, ligne 14.",
+    "payload": {
+      "dateText": "Après la Pâque 32 de n. è.",
+      "placeText": "Magadân",
+      "eventText": "À Magadân, Jésus refuse de donner un signe autre que celui de Jonas",
+      "biblicalReferences": [
+        "Matthieu 15:39-16:4",
+        "Marc 8:10-12"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-D, tableau, ligne 14.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-d-signe-jonas-magadan",
+          "name": "À Magadân, Jésus refuse de donner un signe autre que celui de Jonas",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 32,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "displayLabel": "Après la Pâque 32 de n. è."
+          },
+          "sourceOrder": 14,
+          "category": "Événements Marquants",
+          "description": "À Magadân, Jésus refuse de donner un signe autre que celui de Jonas",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Magadân",
+              "placeId": "obi-magadan",
+              "granularity": "point",
+              "certainty": "possible"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-D."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-magadan",
+            "presenceType": "ministry",
+            "certainty": "possible"
+          }
+        ]
+      }
+    }
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "appendix": "Appendice A7-E",
+  "sourceId": "source-nwtsty-a7-e",
+  "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-de-jesus-en-judee/",
+  "reviewedAt": "2026-07-25",
+  "counts": {
+    "stagingRecords": 18,
+    "reviewedEvents": 18,
+    "explicitPeople": 3,
+    "identifiedPlaces": 8,
+    "biblicalReferences": 31,
+    "claims": 36,
+    "presences": 14,
+    "directInteractions": 2,
+    "unresolvedItems": 0
+  },
+  "unresolvedItems": [],
+  "routeId": "route-a7-e-chronologie",
+  "derivedRelationsGeneratedSeparately": true
+}

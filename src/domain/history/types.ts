@@ -34,6 +34,10 @@ export interface TemporalBoundary {
   yearMax?: HistoricalYear;
   month?: number;
   day?: number;
+  /** Calendrier explicite lorsque la source ne donne pas une date grégorienne. */
+  calendar?: 'gregorian' | 'hebrew';
+  /** Mois biblique conservé sans conversion spéculative vers le calendrier grégorien. */
+  calendarMonth?: 'nisan' | 'iyar';
   season?: HistoricalSeason;
   precision: TemporalPrecision;
   approximate?: boolean;

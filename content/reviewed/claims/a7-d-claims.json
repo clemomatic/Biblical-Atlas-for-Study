@@ -1,0 +1,1324 @@
+[
+  {
+    "id": "claim-event-a7-d-demons-porcs-gadara-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-demons-porcs-gadara"
+    },
+    "eventId": "event-a7-d-demons-porcs-gadara",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-demons-porcs-gadara-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-gadara",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-gadara",
+    "eventId": "event-a7-d-demons-porcs-gadara",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-deux-aveugles-muet-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-deux-aveugles-muet"
+    },
+    "eventId": "event-a7-d-deux-aveugles-muet",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-deux-aveugles-muet-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-d-deux-aveugles-muet",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-exemples-royaume-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-exemples-royaume"
+    },
+    "eventId": "event-a7-d-exemples-royaume",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-exemples-royaume-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-d-exemples-royaume",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-femme-pertes-sang-fille-jaire-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-jaire",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-jaire"
+    },
+    "eventId": "event-a7-d-femme-pertes-sang-fille-jaire",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-femme-pertes-sang-fille-jaire-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-femme-pertes-sang-fille-jaire"
+    },
+    "eventId": "event-a7-d-femme-pertes-sang-fille-jaire",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-femme-pertes-sang-fille-jaire-participation-person-a7-jaire",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-jaire"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-femme-pertes-sang-fille-jaire"
+    },
+    "eventId": "event-a7-d-femme-pertes-sang-fille-jaire",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-femme-pertes-sang-fille-jaire-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-d-femme-pertes-sang-fille-jaire",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-femme-pertes-sang-fille-jaire-presence-person-a7-jaire-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-jaire"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-d-femme-pertes-sang-fille-jaire",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-marche-eau-guerisons-genesareth-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-marche-eau-guerisons-genesareth"
+    },
+    "eventId": "event-a7-d-marche-eau-guerisons-genesareth",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-marche-eau-guerisons-genesareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-d-marche-eau-guerisons-genesareth",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-mort-jean-herode-interaction-person-a7-herode-antipas-event-jean-le-baptiseur-dvgl2c",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-herode-antipas"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "eventId": "event-a7-d-mort-jean-herode",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-mort-jean-herode-participation-event-jean-le-baptiseur-dvgl2c",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-mort-jean-herode"
+    },
+    "eventId": "event-a7-d-mort-jean-herode",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-mort-jean-herode-participation-person-a7-herode-antipas",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-herode-antipas"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-mort-jean-herode"
+    },
+    "eventId": "event-a7-d-mort-jean-herode",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-mort-jean-herode-presence-event-jean-le-baptiseur-dvgl2c-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "presence",
+    "placeId": "obi-tiberias",
+    "eventId": "event-a7-d-mort-jean-herode",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-mort-jean-herode-presence-person-a7-herode-antipas-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-herode-antipas"
+    },
+    "predicate": "presence",
+    "placeId": "obi-tiberias",
+    "eventId": "event-a7-d-mort-jean-herode",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-nouveau-rejet-nazareth-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-nouveau-rejet-nazareth"
+    },
+    "eventId": "event-a7-d-nouveau-rejet-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-nouveau-rejet-nazareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-d-nouveau-rejet-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-pain-de-vie-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-pain-de-vie"
+    },
+    "eventId": "event-a7-d-pain-de-vie",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 11.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-pain-de-vie-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-d-pain-de-vie",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 11.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-retour-apotres-nourrit-cinq-mille-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-retour-apotres-nourrit-cinq-mille"
+    },
+    "eventId": "event-a7-d-retour-apotres-nourrit-cinq-mille",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-retour-apotres-nourrit-cinq-mille-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-d-retour-apotres-nourrit-cinq-mille",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-retour-apotres-nourrit-cinq-mille-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-d-retour-apotres-nourrit-cinq-mille",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-signe-jonas-magadan-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-signe-jonas-magadan"
+    },
+    "eventId": "event-a7-d-signe-jonas-magadan",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 14.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-signe-jonas-magadan-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-magadan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-magadan",
+    "eventId": "event-a7-d-signe-jonas-magadan",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 14.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-syrophenicienne-quatre-mille-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-syrophenicienne-quatre-mille"
+    },
+    "eventId": "event-a7-d-syrophenicienne-quatre-mille",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 13.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-tempete-calmee-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-tempete-calmee"
+    },
+    "eventId": "event-a7-d-tempete-calmee",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-tempete-calmee-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-d-tempete-calmee",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-traditions-humaines-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-traditions-humaines"
+    },
+    "eventId": "event-a7-d-traditions-humaines",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 12.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-traditions-humaines-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-d-traditions-humaines",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 12.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-d-troisieme-tournee-envoi-apotres-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-d-troisieme-tournee-envoi-apotres"
+    },
+    "eventId": "event-a7-d-troisieme-tournee-envoi-apotres",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-d",
+        "shortReference": "Appendice A7-D, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]

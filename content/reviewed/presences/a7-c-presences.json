@@ -1,0 +1,650 @@
+[
+  {
+    "id": "presence-event-a7-c-appel-matthieu-question-jeune-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-appel-matthieu-question-jeune"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-appel-matthieu-question-jeune-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-appel-matthieu-question-jeune-person-a7-matthieu-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-matthieu",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-appel-matthieu-question-jeune"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-appel-matthieu-question-jeune-presence-person-a7-matthieu-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-appel-quatre-disciples-event-jean-e4vx5j-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jean-e4vx5j",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-appel-quatre-disciples"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-appel-quatre-disciples-presence-event-jean-e4vx5j-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-appel-quatre-disciples-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-appel-quatre-disciples"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-appel-quatre-disciples-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-appel-quatre-disciples-person-a7-andre-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-andre",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-appel-quatre-disciples"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-appel-quatre-disciples-presence-person-a7-andre-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-appel-quatre-disciples-person-a7-jacques-fils-zebedee-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-jacques-fils-zebedee",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-appel-quatre-disciples"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-appel-quatre-disciples-presence-person-a7-jacques-fils-zebedee-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-appel-quatre-disciples-person-a7-pierre-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-pierre",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-appel-quatre-disciples"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-appel-quatre-disciples-presence-person-a7-pierre-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-choix-douze-apotres-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-choix-douze-apotres"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-choix-douze-apotres-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-disciples-jean-interrogent-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-nain",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-c-disciples-jean-interrogent-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-disciples-jean-interrogent-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-disciples-jean-interrogent-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-tiberias",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-disciples-jean-interrogent-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-disciples-jean-interrogent-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-tiberias"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-guerison-bethzata-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-guerison-bethzata"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-guerison-bethzata-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-cana",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-guerison-paralyse-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-guerison-paralyse-capharnaum"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-guerison-paralyse-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-guerison-serviteur-officier-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-guerison-serviteur-officier"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-guerison-serviteur-officier-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-guerisons-capharnaum-belle-mere-pierre-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-guerisons-capharnaum-belle-mere-pierre"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-guerisons-capharnaum-belle-mere-pierre-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-main-guerie-sabbat-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-main-guerie-sabbat"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-main-guerie-sabbat-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-pecheresse-huile-pieds-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-nain",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-c-pecheresse-huile-pieds"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-pecheresse-huile-pieds-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-resurrection-fils-veuve-nain-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-nain",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-resurrection-fils-veuve-nain"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-resurrection-fils-veuve-nain-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain"
+    ]
+  },
+  {
+    "id": "presence-event-a7-c-sermon-montagne-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-c-sermon-montagne"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-c-sermon-montagne-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  }
+]

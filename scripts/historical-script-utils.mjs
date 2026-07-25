@@ -12,18 +12,18 @@ export async function loadKnownApplicationEntities() {
   try {
     const [
       { BIBLICAL_PEOPLE },
-      { TIMELINE_EVENTS },
+      { EVENTS },
       { BIBLICAL_PLACES, BIBLICAL_ROUTES }
     ] = await Promise.all([
       server.ssrLoadModule('/src/data/biblicalPeople.ts'),
-      server.ssrLoadModule('/src/data/historicalData.ts'),
+      server.ssrLoadModule('/src/data/timelineEvents.ts'),
       server.ssrLoadModule('/src/data/mapData.ts')
     ]);
 
     return {
       personIds: BIBLICAL_PEOPLE.map(person => person.id),
       placeIds: BIBLICAL_PLACES.map(place => place.id),
-      eventIds: TIMELINE_EVENTS.map(event => event.id),
+      eventIds: EVENTS.map(event => event.id),
       routeIds: BIBLICAL_ROUTES.map(route => route.id),
       territoryIds: []
     };

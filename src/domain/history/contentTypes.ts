@@ -150,6 +150,8 @@ export interface ReviewedEventRecord {
     supportingClaimIds?: string[];
     placeMentions?: HistoricalPlaceMention[];
     participantMentions?: HistoricalParticipantMention[];
+    /** Anciennes lignes remplacées uniquement après rapprochement documenté. */
+    supersedesLegacyEventIds?: string[];
     notes?: string;
   };
 }
@@ -185,6 +187,24 @@ export interface ReviewedPlaceRecord {
     regionIds?: string[];
     certainty?: CertaintyLevel;
     notes?: string;
+  };
+}
+
+export interface ReviewedRouteRecord {
+  workflowStatus: 'reviewed';
+  sourceIds: string[];
+  route: {
+    id: string;
+    name: string;
+    description: string;
+    period?: TemporalSpan;
+    placeIds: string[];
+    associatedEventIds: string[];
+    biblicalReferences: string[];
+    certainty: CertaintyLevel;
+    geometryPrecision: 'schematic';
+    notForExactNavigation: true;
+    notes: string;
   };
 }
 
@@ -273,6 +293,7 @@ export interface HistoricalDataset {
   people: ReviewedPersonRecord[];
   events: ReviewedEventRecord[];
   places: ReviewedPlaceRecord[];
+  routes: ReviewedRouteRecord[];
   claims: HistoricalClaim[];
   presences: PresenceEpisode[];
 }

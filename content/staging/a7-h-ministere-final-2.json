@@ -1,0 +1,1857 @@
+[
+  {
+    "id": "staging-a7-h-01-judas-identifie-congedie",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 1.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Jésus désigne Judas comme traître et le congédie",
+      "biblicalReferences": [
+        "Matthieu 26:21-25",
+        "Marc 14:18-21",
+        "Luc 22:21-23",
+        "Jean 13:21-30"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 1.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-judas-identifie-congedie",
+          "name": "Jésus désigne Judas comme traître et le congédie",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 1,
+          "category": "Événements Marquants",
+          "description": "Jésus désigne Judas comme traître et le congédie",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Judas Iscariote",
+              "personId": "person-a7-judas-iscariote",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-judas-iscariote",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-judas-iscariote",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "objectPersonId": "person-a7-judas-iscariote",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-02-institution-repas-seigneur",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 2.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Jésus institue le Repas du Seigneur",
+      "biblicalReferences": [
+        "Matthieu 26:26-29",
+        "Marc 14:22-25",
+        "Luc 22:19-20",
+        "Luc 22:24-30",
+        "1 Corinthiens 11:23-25"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 2.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-institution-repas-seigneur",
+          "name": "Jésus institue le Repas du Seigneur",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 2,
+          "category": "Événements Marquants",
+          "description": "Jésus institue le Repas du Seigneur",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les apôtres",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-03-prediction-reniements-dispersion",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 3.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Jésus annonce les reniements de Pierre et la dispersion des apôtres",
+      "biblicalReferences": [
+        "Matthieu 26:31-35",
+        "Marc 14:27-31",
+        "Luc 22:31-38",
+        "Jean 13:31-38"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 3.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-prediction-reniements-dispersion",
+          "name": "Jésus annonce les reniements de Pierre et la dispersion des apôtres",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 3,
+          "category": "Événements Marquants",
+          "description": "Jésus annonce les reniements de Pierre et la dispersion des apôtres",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Pierre",
+              "personId": "person-a7-pierre",
+              "certainty": "certain"
+            },
+            {
+              "label": "les apôtres",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-pierre",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-pierre",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "objectPersonId": "person-a7-pierre",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-04-assistant-vigne-amour-priere",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 4.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Jésus promet un assistant et prie avec ses apôtres",
+      "biblicalReferences": [
+        "Jean 14:1-17:26"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 4.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-assistant-vigne-amour-priere",
+          "name": "Jésus promet un assistant et prie avec ses apôtres",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 4,
+          "category": "Événements Marquants",
+          "description": "Jésus promet un assistant et prie avec ses apôtres",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les apôtres",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-05-gethsemani-arrestation",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 5.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Gethsémani",
+      "eventText": "Jésus prie à Gethsémani puis est livré et arrêté",
+      "biblicalReferences": [
+        "Matthieu 26:30",
+        "Matthieu 26:36-56",
+        "Marc 14:26",
+        "Marc 14:32-52",
+        "Luc 22:39-53",
+        "Jean 18:1-12"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 5.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-gethsemani-arrestation",
+          "name": "Jésus prie à Gethsémani puis est livré et arrêté",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 5,
+          "category": "Événements Marquants",
+          "description": "Jésus prie à Gethsémani puis est livré et arrêté",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Gethsémani",
+              "placeId": "jerusalem",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Judas Iscariote",
+              "personId": "person-a7-judas-iscariote",
+              "certainty": "certain"
+            },
+            {
+              "label": "les disciples",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-judas-iscariote",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-judas-iscariote",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "person-a7-judas-iscariote",
+            "objectPersonId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-06-anne-caiphe-sanhedrin-reniement",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 6.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Jésus est interrogé par Anne et jugé par Caïphe ; Pierre le renie",
+      "biblicalReferences": [
+        "Matthieu 26:57-27:1",
+        "Marc 14:53-15:1",
+        "Luc 22:54-71",
+        "Jean 18:13-27"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 6.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-anne-caiphe-sanhedrin-reniement",
+          "name": "Jésus est interrogé par Anne et jugé par Caïphe ; Pierre le renie",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 6,
+          "category": "Événements Marquants",
+          "description": "Jésus est interrogé par Anne et jugé par Caïphe ; Pierre le renie",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Anne",
+              "personId": "person-a7-anne-grand-pretre",
+              "certainty": "certain"
+            },
+            {
+              "label": "Caïphe",
+              "personId": "person-a7-caiphe",
+              "certainty": "certain"
+            },
+            {
+              "label": "Pierre",
+              "personId": "person-a7-pierre",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-anne-grand-pretre",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-caiphe",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-pierre",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-anne-grand-pretre",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-caiphe",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-pierre",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "person-a7-anne-grand-pretre",
+            "objectPersonId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "subjectId": "person-a7-caiphe",
+            "objectPersonId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-07-mort-judas",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 7.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Judas met fin à ses jours",
+      "biblicalReferences": [
+        "Matthieu 27:3-10",
+        "Actes 1:18-19"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 7.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-mort-judas",
+          "name": "Judas met fin à ses jours",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 7,
+          "category": "Événements Marquants",
+          "description": "Judas met fin à ses jours",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Judas Iscariote",
+              "personId": "person-a7-judas-iscariote",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "person-a7-judas-iscariote",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "person-a7-judas-iscariote",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-08-devant-pilate-herode-pilate",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 8.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Jésus comparaît devant Pilate puis Hérode, et de nouveau devant Pilate",
+      "biblicalReferences": [
+        "Matthieu 27:2",
+        "Matthieu 27:11-14",
+        "Marc 15:1-5",
+        "Luc 23:1-12",
+        "Jean 18:28-38"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 8.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-devant-pilate-herode-pilate",
+          "name": "Jésus comparaît devant Pilate puis Hérode, et de nouveau devant Pilate",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 8,
+          "category": "Événements Marquants",
+          "description": "Jésus comparaît devant Pilate puis Hérode, et de nouveau devant Pilate",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Ponce Pilate",
+              "personId": "person-a7-ponce-pilate",
+              "certainty": "certain"
+            },
+            {
+              "label": "Hérode Antipas",
+              "personId": "person-a7-herode-antipas",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-ponce-pilate",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-herode-antipas",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-ponce-pilate",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-herode-antipas",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "person-a7-ponce-pilate",
+            "objectPersonId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "subjectId": "person-a7-herode-antipas",
+            "objectPersonId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-09-barabbas-condamnation",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 9.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Barabbas est réclamé et Jésus est condamné",
+      "biblicalReferences": [
+        "Matthieu 27:15-30",
+        "Marc 15:6-19",
+        "Luc 23:13-25",
+        "Jean 18:39-19:16"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 9.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-barabbas-condamnation",
+          "name": "Barabbas est réclamé et Jésus est condamné",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 9,
+          "category": "Événements Marquants",
+          "description": "Barabbas est réclamé et Jésus est condamné",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Ponce Pilate",
+              "personId": "person-a7-ponce-pilate",
+              "certainty": "certain"
+            },
+            {
+              "label": "Barabbas",
+              "personId": "person-a7-barabbas",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-ponce-pilate",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-barabbas",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-ponce-pilate",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-barabbas",
+            "placeId": "jerusalem",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "person-a7-ponce-pilate",
+            "objectPersonId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-10-mort-jesus-golgotha",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 10.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Golgotha",
+      "eventText": "Jésus meurt sur le poteau de supplice vers 15 heures",
+      "biblicalReferences": [
+        "Matthieu 27:31-56",
+        "Marc 15:20-41",
+        "Luc 23:26-49",
+        "Jean 19:16-30"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 10.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-mort-jesus-golgotha",
+          "name": "Jésus meurt sur le poteau de supplice vers 15 heures",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 10,
+          "category": "Événements Marquants",
+          "description": "Jésus meurt sur le poteau de supplice vers 15 heures",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Golgotha",
+              "placeId": "jerusalem",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-11-mise-au-tombeau",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 11.",
+    "payload": {
+      "dateText": "14 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "Le corps de Jésus est placé dans une tombe",
+      "biblicalReferences": [
+        "Matthieu 27:57-61",
+        "Marc 15:42-47",
+        "Luc 23:50-56",
+        "Jean 19:31-42"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 14
+        },
+        "displayLabel": "14 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 11.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-mise-au-tombeau",
+          "name": "Le corps de Jésus est placé dans une tombe",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 14
+            },
+            "displayLabel": "14 nisan 33 de n. è."
+          },
+          "sourceOrder": 11,
+          "category": "Événements Marquants",
+          "description": "Le corps de Jésus est placé dans une tombe",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-12-tombe-scellee-gardee",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 12.",
+    "payload": {
+      "dateText": "15 nisan 33 de n. è.",
+      "placeText": "Jérusalem",
+      "eventText": "La tombe de Jésus est scellée et gardée",
+      "biblicalReferences": [
+        "Matthieu 27:62-66"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 15
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 15
+        },
+        "displayLabel": "15 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 12.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-tombe-scellee-gardee",
+          "name": "La tombe de Jésus est scellée et gardée",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 15
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 15
+            },
+            "displayLabel": "15 nisan 33 de n. è."
+          },
+          "sourceOrder": 12,
+          "category": "Événements Marquants",
+          "description": "La tombe de Jésus est scellée et gardée",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "des prêtres et des pharisiens",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-13-resurrection-apparitions",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 13.",
+    "payload": {
+      "dateText": "16 nisan 33 de n. è.",
+      "placeText": "Jérusalem et ses environs ; Emmaüs",
+      "eventText": "Jésus est ressuscité et apparaît à ses disciples",
+      "biblicalReferences": [
+        "Matthieu 28:1-15",
+        "Marc 16:1-8",
+        "Luc 24:1-49",
+        "Jean 20:1-25"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 16
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "nisan",
+          "day": 16
+        },
+        "displayLabel": "16 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 13.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-resurrection-apparitions",
+          "name": "Jésus est ressuscité et apparaît à ses disciples",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 16
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "nisan",
+              "day": 16
+            },
+            "displayLabel": "16 nisan 33 de n. è."
+          },
+          "sourceOrder": 13,
+          "category": "Événements Marquants",
+          "description": "Jésus est ressuscité et apparaît à ses disciples",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem et ses environs",
+              "placeId": "jerusalem",
+              "granularity": "area",
+              "certainty": "certain"
+            },
+            {
+              "label": "Emmaüs",
+              "placeId": "obi-emmaus",
+              "granularity": "point",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les disciples",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-emmaus",
+            "presenceType": "ministry",
+            "certainty": "probable"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-14-autres-apparitions-mission",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 14.",
+    "payload": {
+      "dateText": "Après le 16 nisan 33 de n. è.",
+      "placeText": "Jérusalem ; Galilée",
+      "eventText": "Jésus apparaît encore aux disciples et leur confie une mission",
+      "biblicalReferences": [
+        "Matthieu 28:16-20",
+        "Jean 20:26-21:25",
+        "1 Corinthiens 15:5-7",
+        "Actes 1:3-8"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après le 16 nisan 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 14.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-autres-apparitions-mission",
+          "name": "Jésus apparaît encore aux disciples et leur confie une mission",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "year",
+              "certainty": "certain",
+              "approximate": true
+            },
+            "displayLabel": "Après le 16 nisan 33 de n. è."
+          },
+          "sourceOrder": 14,
+          "category": "Événements Marquants",
+          "description": "Jésus apparaît encore aux disciples et leur confie une mission",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            },
+            {
+              "label": "Galilée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les disciples",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-h-15-ascension",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-h"
+    ],
+    "extractionNotes": "Appendice A7-H, tableau, ligne 15.",
+    "payload": {
+      "dateText": "25 iyar 33 de n. è.",
+      "placeText": "Mont des Oliviers, près de Béthanie",
+      "eventText": "Jésus monte au ciel quarante jours après sa résurrection",
+      "biblicalReferences": [
+        "Luc 24:50-53",
+        "Actes 1:9-12"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "iyar",
+          "day": 25
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "day",
+          "certainty": "certain",
+          "calendar": "hebrew",
+          "calendarMonth": "iyar",
+          "day": 25
+        },
+        "displayLabel": "25 iyar 33 de n. è."
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-H, tableau, ligne 15.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-h-ascension",
+          "name": "Jésus monte au ciel quarante jours après sa résurrection",
+          "period": {
+            "start": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "iyar",
+              "day": 25
+            },
+            "end": {
+              "yearMin": 33,
+              "yearMax": 33,
+              "precision": "day",
+              "certainty": "certain",
+              "calendar": "hebrew",
+              "calendarMonth": "iyar",
+              "day": 25
+            },
+            "displayLabel": "25 iyar 33 de n. è."
+          },
+          "sourceOrder": 15,
+          "category": "Événements Marquants",
+          "description": "Jésus monte au ciel quarante jours après sa résurrection",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Mont des Oliviers, près de Béthanie",
+              "placeId": "obi-bethany-1",
+              "granularity": "area",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "les disciples",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-H."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-bethany-1",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  }
+]

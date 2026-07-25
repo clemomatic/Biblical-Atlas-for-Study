@@ -10,6 +10,7 @@ import type {
   ReviewedEventRecord,
   ReviewedPersonRecord,
   ReviewedPlaceRecord,
+  ReviewedRouteRecord,
   SourceCatalogEntry,
   StagingHistoricalRecord
 } from './contentTypes.ts';
@@ -45,6 +46,24 @@ const readJsonDirectory = async <T>(directory: string): Promise<T[]> => {
   return values;
 };
 
+const readOptionalJsonDirectory = async <T>(
+  directory: string
+): Promise<T[]> => {
+  try {
+    return await readJsonDirectory<T>(directory);
+  } catch (error) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      error.code === 'ENOENT'
+    ) {
+      return [];
+    }
+    throw error;
+  }
+};
+
 export async function loadHistoricalDataset(
   contentRoot: string
 ): Promise<HistoricalDataset> {
@@ -63,6 +82,9 @@ export async function loadHistoricalDataset(
     ),
     places: await readJsonDirectory<ReviewedPlaceRecord>(
       join(contentRoot, 'reviewed', 'places')
+    ),
+    routes: await readOptionalJsonDirectory<ReviewedRouteRecord>(
+      join(contentRoot, 'reviewed', 'routes')
     ),
     claims: await readJsonDirectory<HistoricalClaim>(
       join(contentRoot, 'reviewed', 'claims')

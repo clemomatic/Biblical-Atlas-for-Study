@@ -1,0 +1,2559 @@
+[
+  {
+    "id": "claim-event-a7-a-annonce-bergers-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-bergers"
+    },
+    "eventId": "event-a7-a-annonce-bergers",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-bergers-participation-person-a7-joseph-pere-adoptif",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-bergers"
+    },
+    "eventId": "event-a7-a-annonce-bergers",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-bergers-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-bergers"
+    },
+    "eventId": "event-a7-a-annonce-bergers",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-bergers-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-annonce-bergers",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-bergers-presence-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-annonce-bergers",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-bergers-presence-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-annonce-bergers",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jean-interaction-person-a7-gabriel-person-a7-zacharie-pretre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-gabriel"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-zacharie-pretre"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "3 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jean-participation-person-a7-gabriel",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-gabriel"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-naissance-jean"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "3 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jean-participation-person-a7-zacharie-pretre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-zacharie-pretre"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-naissance-jean"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "3 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jean-presence-person-a7-gabriel-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-gabriel"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-annonce-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "3 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jean-presence-person-a7-zacharie-pretre-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-zacharie-pretre"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-annonce-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3,
+        "yearMax": -3,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "3 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-interaction-person-a7-gabriel-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-gabriel"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-interaction-person-a7-marie-mere-jesus-person-a7-elisabeth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-elisabeth"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-participation-person-a7-elisabeth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-elisabeth"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-participation-person-a7-gabriel",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-gabriel"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+    },
+    "eventId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-presence-person-a7-gabriel-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-gabriel"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-presence-person-a7-marie-mere-jesus-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Vers 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-astrologues-fuite-egypte-retour"
+    },
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-person-a7-herode-le-grand",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-herode-le-grand"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-astrologues-fuite-egypte-retour"
+    },
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-person-a7-joseph-pere-adoptif",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-astrologues-fuite-egypte-retour"
+    },
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-astrologues-fuite-egypte-retour"
+    },
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-herode-le-grand-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-herode-le-grand"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-astrologues-fuite-egypte-retour",
+    "period": {
+      "start": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -1,
+        "yearMax": 1,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "1 av. n. è. ou 1 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-circoncision-presentation-temple"
+    },
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-participation-person-a7-joseph-pere-adoptif",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-circoncision-presentation-temple"
+    },
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-circoncision-presentation-temple"
+    },
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-joseph-pere-adoptif-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-marie-mere-jesus-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-circoncision-presentation-temple",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-debut-ministere-jean-participation-event-jean-le-baptiseur-dvgl2c",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-debut-ministere-jean"
+    },
+    "eventId": "event-a7-a-debut-ministere-jean",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Printemps 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-debut-ministere-jean-presence-event-jean-le-baptiseur-dvgl2c-jordan_river",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "presence",
+    "placeId": "jordan_river",
+    "eventId": "event-a7-a-debut-ministere-jean",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Printemps 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-jesus-douze-ans-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-jesus-douze-ans-temple"
+    },
+    "eventId": "event-a7-a-jesus-douze-ans-temple",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-jesus-douze-ans-temple-participation-person-a7-joseph-pere-adoptif",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-jesus-douze-ans-temple"
+    },
+    "eventId": "event-a7-a-jesus-douze-ans-temple",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-jesus-douze-ans-temple-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-jesus-douze-ans-temple"
+    },
+    "eventId": "event-a7-a-jesus-douze-ans-temple",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-jesus-douze-ans-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-jesus-douze-ans-temple",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-jesus-douze-ans-temple-presence-person-a7-joseph-pere-adoptif-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-jesus-douze-ans-temple",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-jesus-douze-ans-temple-presence-person-a7-marie-mere-jesus-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-a-jesus-douze-ans-temple",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 12,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 12 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jean-participation-event-jean-le-baptiseur-dvgl2c",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-naissance-jean"
+    },
+    "eventId": "event-a7-a-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jean-participation-person-a7-elisabeth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-elisabeth"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-naissance-jean"
+    },
+    "eventId": "event-a7-a-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jean-participation-person-a7-zacharie-pretre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-zacharie-pretre"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-naissance-jean"
+    },
+    "eventId": "event-a7-a-naissance-jean",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-naissance-jesus"
+    },
+    "eventId": "event-a7-a-naissance-jesus",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jesus-participation-person-a7-joseph-pere-adoptif",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-naissance-jesus"
+    },
+    "eventId": "event-a7-a-naissance-jesus",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jesus-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-naissance-jesus"
+    },
+    "eventId": "event-a7-a-naissance-jesus",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-naissance-jesus",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jesus-presence-person-a7-joseph-pere-adoptif-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-naissance-jesus",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-naissance-jesus-presence-person-a7-marie-mere-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "bethlehem",
+    "eventId": "event-a7-a-naissance-jesus",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "day",
+        "certainty": "probable",
+        "approximate": true,
+        "month": 10,
+        "day": 1
+      },
+      "displayLabel": "Vers le 1er octobre 2 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-vie-nazareth-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-vie-nazareth"
+    },
+    "eventId": "event-a7-a-vie-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-vie-nazareth-participation-person-a7-joseph-pere-adoptif",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-vie-nazareth"
+    },
+    "eventId": "event-a7-a-vie-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-vie-nazareth-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-a-vie-nazareth"
+    },
+    "eventId": "event-a7-a-vie-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-vie-nazareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-vie-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-vie-nazareth-presence-person-a7-joseph-pere-adoptif-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-vie-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-a-vie-nazareth-presence-person-a7-marie-mere-jesus-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-a-vie-nazareth",
+    "period": {
+      "start": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 12,
+        "yearMax": 29,
+        "precision": "range",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "De l’enfance au début du ministère"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-a",
+        "shortReference": "Appendice A7-A, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]

@@ -332,6 +332,64 @@ export function validateHistoricalDataset(
     }
   });
 
+  const validateRelatedIds = (
+    values: string[] | undefined,
+    knownIds: Set<string>,
+    path: string,
+    label: string
+  ): void => {
+    values?.forEach((value, index) => {
+      if (!knownIds.has(value)) {
+        issues.push({
+          path: `${path}[${index}]`,
+          message: `${label} inexistant : ${value}.`
+        });
+      }
+    });
+  };
+
+  dataset.routes.forEach((record, index) => {
+    const path = `reviewed.routes[${index}]`;
+    registerId(record.route.id, `${path}.route.id`);
+    routeIds.add(record.route.id);
+    if (record.workflowStatus !== 'reviewed') {
+      issues.push({
+        path,
+        message: 'L’itinéraire doit avoir le statut reviewed.'
+      });
+    }
+    validateSourceIds(record.sourceIds, `${path}.sourceIds`);
+    validateSpanAt(record.route.period, `${path}.route.period`, issues);
+    if (
+      record.route.geometryPrecision !== 'schematic' ||
+      record.route.notForExactNavigation !== true
+    ) {
+      issues.push({
+        path,
+        message:
+          'Un itinéraire A7 doit être explicitement schématique et impropre à la navigation exacte.'
+      });
+    }
+    if (record.route.placeIds.length < 2) {
+      issues.push({
+        path: `${path}.route.placeIds`,
+        message: 'Un itinéraire doit relier au moins deux lieux.'
+      });
+    }
+    validateRelatedIds(
+      record.route.placeIds,
+      placeIds,
+      `${path}.route.placeIds`,
+      'Lieu'
+    );
+    if (!VALID_CERTAINTY_LEVELS.has(record.route.certainty)) {
+      issues.push({
+        path: `${path}.route.certainty`,
+        message: `Degré de certitude inconnu : ${record.route.certainty}.`
+      });
+    }
+  });
+
   dataset.events.forEach((record, index) => {
     const path = `reviewed.events[${index}]`;
     registerId(record.event.id, `${path}.event.id`);
@@ -419,23 +477,22 @@ export function validateHistoricalDataset(
         });
       }
     });
+    validateRelatedIds(
+      record.event.supersedesLegacyEventIds,
+      eventIds,
+      `${path}.event.supersedesLegacyEventIds`,
+      'Événement remplacé'
+    );
   });
 
-  const validateRelatedIds = (
-    values: string[] | undefined,
-    knownIds: Set<string>,
-    path: string,
-    label: string
-  ): void => {
-    values?.forEach((value, index) => {
-      if (!knownIds.has(value)) {
-        issues.push({
-          path: `${path}[${index}]`,
-          message: `${label} inexistant : ${value}.`
-        });
-      }
-    });
-  };
+  dataset.routes.forEach((record, index) => {
+    validateRelatedIds(
+      record.route.associatedEventIds,
+      eventIds,
+      `reviewed.routes[${index}].route.associatedEventIds`,
+      'Événement'
+    );
+  });
 
   dataset.people.forEach((record, index) => {
     const path = `reviewed.people[${index}].person`;

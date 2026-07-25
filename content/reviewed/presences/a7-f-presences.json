@@ -1,0 +1,226 @@
+[
+  {
+    "id": "presence-event-a7-f-complot-depart-ephraim-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-f-complot-depart-ephraim"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-f-complot-depart-ephraim-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-f-complot-depart-ephraim-event-jesus-en-tant-qu-humain-1f4ceyz-obi-ephraim-2",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-ephraim-2",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-f-complot-depart-ephraim"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-f-complot-depart-ephraim-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-ephraim-2"
+    ]
+  },
+  {
+    "id": "presence-event-a7-f-jericho-aveugles-zachee-mines-event-jesus-en-tant-qu-humain-1f4ceyz-obi-jericho-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-jericho-1",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-f-jericho-aveugles-zachee-mines"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-f-jericho-aveugles-zachee-mines-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-jericho-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-f-jericho-aveugles-zachee-mines-person-a7-zachee-obi-jericho-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-zachee",
+    "placeId": "obi-jericho-1",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-f-jericho-aveugles-zachee-mines"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-f-jericho-aveugles-zachee-mines-presence-person-a7-zachee-obi-jericho-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-f-mort-resurrection-lazare-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-bethany-1",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-f-mort-resurrection-lazare"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-f-mort-resurrection-lazare-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-f-mort-resurrection-lazare-person-a7-lazare-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-lazare",
+    "placeId": "obi-bethany-1",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-f-mort-resurrection-lazare"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-f-mort-resurrection-lazare-presence-person-a7-lazare-obi-bethany-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-f-retour-lieu-bapteme-jean-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-f-retour-lieu-bapteme-jean"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-f-retour-lieu-bapteme-jean-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ]
+  }
+]

@@ -1,0 +1,25 @@
+{
+  "appendix": "Appendice A7-C",
+  "sourceId": "source-nwtsty-a7-c",
+  "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-jesus-galilee/",
+  "reviewedAt": "2026-07-25",
+  "counts": {
+    "stagingRecords": 22,
+    "reviewedEvents": 22,
+    "explicitPeople": 7,
+    "identifiedPlaces": 7,
+    "biblicalReferences": 50,
+    "claims": 55,
+    "presences": 21,
+    "directInteractions": 5,
+    "unresolvedItems": 1
+  },
+  "unresolvedItems": [
+    {
+      "recordId": "staging-a7-c-11-epis-sabbat",
+      "note": "Le tableau présente le lieu du trajet de retour avec un point d’interrogation."
+    }
+  ],
+  "routeId": "route-a7-c-chronologie",
+  "derivedRelationsGeneratedSeparately": true
+}
