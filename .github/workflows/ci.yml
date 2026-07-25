@@ -35,6 +35,12 @@ jobs:
       - name: Contrôler TypeScript
         run: pnpm run typecheck
 
+      - name: Exécuter les tests unitaires
+        run: pnpm run test
+
+      - name: Vérifier la compatibilité historique
+        run: pnpm run historical:check
+
       - name: Vérifier la provenance cartographique
         run: pnpm run map:sources:check
 

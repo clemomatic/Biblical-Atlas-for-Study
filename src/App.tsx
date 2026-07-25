@@ -7,7 +7,7 @@ import {
   TimelinePeriod
 } from './types';
 import { ERAS, CATEGORIES } from './data/erasData';
-import { EVENTS } from './data/timelineEvents';
+import { TIMELINE_EVENTS } from './data/historicalData';
 import {
   BIBLICAL_PLACES,
   BIBLICAL_ROUTES
@@ -90,7 +90,12 @@ export default function App() {
     places,
     routes
   } = useMemo(
-    () => normalizeDataRelations(EVENTS, BIBLICAL_PLACES, BIBLICAL_ROUTES),
+    () =>
+      normalizeDataRelations(
+        TIMELINE_EVENTS,
+        BIBLICAL_PLACES,
+        BIBLICAL_ROUTES
+      ),
     []
   );
 
