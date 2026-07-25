@@ -282,5 +282,21 @@
     "longTextReproductionAllowed": false,
     "imageReproductionAllowed": false,
     "verificationStatus": "reviewed"
+  },
+  {
+    "id": "source-insight-isaac",
+    "title": "Isaac",
+    "publication": "Étude perspicace des Écritures (volume 1)",
+    "chapterOrAppendix": "Article « Isaac »",
+    "pageOrSection": "Âges, naissance des jumeaux et décès",
+    "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002203",
+    "documentType": "encyclopedia",
+    "language": "fr",
+    "accessedAt": "2026-07-25",
+    "notes": "Lot thématique limité aux faits chronologiques courts nécessaires aux calculs. Aucun long extrait ni média n’est reproduit.",
+    "factualDataUseAllowed": true,
+    "longTextReproductionAllowed": false,
+    "imageReproductionAllowed": false,
+    "verificationStatus": "verified"
   }
 ]

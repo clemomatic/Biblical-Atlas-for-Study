@@ -18,7 +18,7 @@ Seules les données factuelles courtes des trois frises sont conservées : noms,
 - 39 personnes avec une durée de vie individuelle sourcée ;
 - 22 personnes conservées seulement dans une fenêtre collective ;
 - 25 évènements relus ;
-- 115 relations de contemporanéité calculées à partir des durées individuelles ;
+- 120 relations de contemporanéité calculées à partir des durées individuelles ;
 - 0 divergence de dates détectée ;
 - 0 relation calculée depuis une barre collective.
 

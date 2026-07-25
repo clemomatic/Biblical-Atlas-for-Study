@@ -1,0 +1,144 @@
+[
+  {
+    "id": "claim-calculated-insight-isaac-birth-from-death",
+    "workflowStatus": "generated",
+    "origin": "generated",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "birth",
+    "period": {
+      "start": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": false
+      },
+      "end": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": false
+      },
+      "displayLabel": "1918 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "Calcul contrôlé depuis la date et l’âge au décès ; Genèse 35:27-29.",
+        "method": "calculated",
+        "inputClaimIds": [
+          "claim-insight-isaac-death-direct",
+          "claim-insight-isaac-age-at-death"
+        ],
+        "calculationExplanation": "Soustraire 180 ans à 1738 av. n. è. sur l’axe historique sans année zéro donne 1918 av. n. è.",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Deuxième contrôle indépendant ; il ne remplace aucune affirmation directe.",
+    "calculation": {
+      "definitionId": "calculation-insight-isaac-birth-from-death",
+      "formula": "subtract-duration-from-date",
+      "inputClaimIds": [
+        "claim-insight-isaac-death-direct",
+        "claim-insight-isaac-age-at-death"
+      ],
+      "explanation": "Soustraire 180 ans à 1738 av. n. è. sur l’axe historique sans année zéro donne 1918 av. n. è.",
+      "result": {
+        "start": {
+          "yearMin": -1918,
+          "yearMax": -1918,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": false
+        },
+        "end": {
+          "yearMin": -1918,
+          "yearMax": -1918,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": false
+        },
+        "displayLabel": "1918 av. n. è."
+      },
+      "uncertaintyYears": 0,
+      "certaintyBeforeConflict": "certain"
+    },
+    "eligibleForCertainRelations": true
+  },
+  {
+    "id": "claim-calculated-insight-isaac-birth-from-twins",
+    "workflowStatus": "generated",
+    "origin": "generated",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "birth",
+    "period": {
+      "start": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": false
+      },
+      "end": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": false
+      },
+      "displayLabel": "1918 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "Calcul contrôlé depuis la naissance des jumeaux et l’âge d’Isaac ; Genèse 25:22-26.",
+        "method": "calculated",
+        "inputClaimIds": [
+          "claim-insight-jacob-birth-direct",
+          "claim-insight-isaac-age-at-twins-birth"
+        ],
+        "calculationExplanation": "Soustraire 60 ans à 1858 av. n. è. sur l’axe historique sans année zéro donne 1918 av. n. è.",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Résultat calculé conservé séparément de la date directement indiquée par l’article.",
+    "calculation": {
+      "definitionId": "calculation-insight-isaac-birth-from-twins",
+      "formula": "subtract-duration-from-date",
+      "inputClaimIds": [
+        "claim-insight-jacob-birth-direct",
+        "claim-insight-isaac-age-at-twins-birth"
+      ],
+      "explanation": "Soustraire 60 ans à 1858 av. n. è. sur l’axe historique sans année zéro donne 1918 av. n. è.",
+      "result": {
+        "start": {
+          "yearMin": -1918,
+          "yearMax": -1918,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": false
+        },
+        "end": {
+          "yearMin": -1918,
+          "yearMax": -1918,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": false
+        },
+        "displayLabel": "1918 av. n. è."
+      },
+      "uncertaintyYears": 0,
+      "certaintyBeforeConflict": "certain"
+    },
+    "eligibleForCertainRelations": true
+  }
+]

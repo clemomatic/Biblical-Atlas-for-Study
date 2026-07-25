@@ -4,6 +4,7 @@ import {
 } from 'node:fs/promises';
 import { join } from 'node:path';
 import type {
+  HistoricalCalculationDefinition,
   HistoricalClaim,
   HistoricalDataset,
   PresenceEpisode,
@@ -96,6 +97,9 @@ export async function loadHistoricalDataset(
     ),
     claims: await readJsonDirectory<HistoricalClaim>(
       join(contentRoot, 'reviewed', 'claims')
+    ),
+    calculations: await readOptionalJsonDirectory<HistoricalCalculationDefinition>(
+      join(contentRoot, 'reviewed', 'calculations')
     ),
     presences: await readJsonDirectory<PresenceEpisode>(
       join(contentRoot, 'reviewed', 'presences')

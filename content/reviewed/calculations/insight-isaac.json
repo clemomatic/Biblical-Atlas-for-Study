@@ -1,0 +1,38 @@
+[
+  {
+    "id": "calculation-insight-isaac-birth-from-twins",
+    "workflowStatus": "reviewed",
+    "outputClaimId": "claim-calculated-insight-isaac-birth-from-twins",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "birth",
+    "formula": "subtract-duration-from-date",
+    "dateInputClaimId": "claim-insight-jacob-birth-direct",
+    "quantityInputClaimId": "claim-insight-isaac-age-at-twins-birth",
+    "sourceId": "source-insight-isaac",
+    "shortReference": "Calcul contrôlé depuis la naissance des jumeaux et l’âge d’Isaac ; Genèse 25:22-26.",
+    "certainty": "certain",
+    "explanation": "Soustraire 60 ans à 1858 av. n. è. sur l’axe historique sans année zéro donne 1918 av. n. è.",
+    "notes": "Résultat calculé conservé séparément de la date directement indiquée par l’article."
+  },
+  {
+    "id": "calculation-insight-isaac-birth-from-death",
+    "workflowStatus": "reviewed",
+    "outputClaimId": "claim-calculated-insight-isaac-birth-from-death",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "birth",
+    "formula": "subtract-duration-from-date",
+    "dateInputClaimId": "claim-insight-isaac-death-direct",
+    "quantityInputClaimId": "claim-insight-isaac-age-at-death",
+    "sourceId": "source-insight-isaac",
+    "shortReference": "Calcul contrôlé depuis la date et l’âge au décès ; Genèse 35:27-29.",
+    "certainty": "certain",
+    "explanation": "Soustraire 180 ans à 1738 av. n. è. sur l’axe historique sans année zéro donne 1918 av. n. è.",
+    "notes": "Deuxième contrôle indépendant ; il ne remplace aucune affirmation directe."
+  }
+]

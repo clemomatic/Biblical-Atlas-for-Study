@@ -1,6 +1,7 @@
 import {
   validateTemporalSpan
 } from './temporal.ts';
+import { findHistoricalCalculationCycle } from './calculatedClaims.ts';
 import type {
   DerivedHistoricalRelation,
   HistoricalClaim,
@@ -30,6 +31,8 @@ export class HistoricalDataValidationError extends Error {
 const VALID_PREDICATES = new Set([
   'birth',
   'death',
+  'age-at-event',
+  'duration',
   'lifespan',
   'timeline-context',
   'historical-event',
@@ -85,6 +88,11 @@ const VALID_EVIDENCE_METHODS = new Set([
   'direct',
   'calculated',
   'inferred'
+]);
+
+const VALID_CALCULATION_FORMULAS = new Set([
+  'subtract-duration-from-date',
+  'add-duration-to-date'
 ]);
 
 const VALID_PRESENCE_TYPES = new Set([
@@ -809,6 +817,47 @@ export function validateHistoricalDataset(
     }
     validateSpanAt(claim.period, `${path}.period`, issues);
 
+    if (claim.quantity) {
+      if (
+        claim.quantity.unit !== 'years' ||
+        !Number.isInteger(claim.quantity.years) ||
+        claim.quantity.years < 0
+      ) {
+        issues.push({
+          path: `${path}.quantity`,
+          message: 'Une quantité historique doit être exprimée en années entières positives ou nulles.'
+        });
+      }
+      if (
+        claim.quantity.uncertaintyYears !== undefined &&
+        (!Number.isInteger(claim.quantity.uncertaintyYears) ||
+          claim.quantity.uncertaintyYears < 0)
+      ) {
+        issues.push({
+          path: `${path}.quantity.uncertaintyYears`,
+          message: 'La marge de la quantité doit être un entier positif ou nul.'
+        });
+      }
+    }
+    if (
+      claim.predicate === 'age-at-event' &&
+      claim.quantity?.kind !== 'age'
+    ) {
+      issues.push({
+        path: `${path}.quantity`,
+        message: 'Une affirmation age-at-event doit fournir une quantité de type age.'
+      });
+    }
+    if (
+      claim.predicate === 'duration' &&
+      claim.quantity?.kind !== 'duration'
+    ) {
+      issues.push({
+        path: `${path}.quantity`,
+        message: 'Une affirmation duration doit fournir une quantité de type duration.'
+      });
+    }
+
     if (!Array.isArray(claim.evidence) || claim.evidence.length === 0) {
       issues.push({
         path: `${path}.evidence`,
@@ -896,6 +945,118 @@ export function validateHistoricalDataset(
       });
     });
   });
+
+  const calculationOutputIds = new Set(
+    dataset.calculations.map(definition => definition.outputClaimId)
+  );
+  dataset.calculations.forEach((definition, index) => {
+    const path = `reviewed.calculations[${index}]`;
+    registerId(definition.id, `${path}.id`);
+    registerId(definition.outputClaimId, `${path}.outputClaimId`);
+    if (definition.workflowStatus !== 'reviewed') {
+      issues.push({
+        path: `${path}.workflowStatus`,
+        message: 'Une recette de calcul doit être relue avant génération.'
+      });
+    }
+    validateEntityReference(definition.subject, `${path}.subject`);
+    if (!VALID_PREDICATES.has(definition.predicate)) {
+      issues.push({
+        path: `${path}.predicate`,
+        message: `Prédicat historique inconnu : ${definition.predicate}.`
+      });
+    }
+    if (
+      definition.predicate === 'age-at-event' ||
+      definition.predicate === 'duration'
+    ) {
+      issues.push({
+        path: `${path}.predicate`,
+        message: 'Une recette temporelle doit produire une date ou une période, pas une quantité.'
+      });
+    }
+    if (!VALID_CALCULATION_FORMULAS.has(definition.formula)) {
+      issues.push({
+        path: `${path}.formula`,
+        message: `Formule de calcul inconnue : ${definition.formula}.`
+      });
+    }
+    if (!VALID_CERTAINTY_LEVELS.has(definition.certainty)) {
+      issues.push({
+        path: `${path}.certainty`,
+        message: `Degré de certitude inconnu : ${definition.certainty}.`
+      });
+    }
+    const source = sourcesById.get(definition.sourceId);
+    if (!source) {
+      issues.push({
+        path: `${path}.sourceId`,
+        message: `Source inexistante : ${definition.sourceId}.`
+      });
+    } else {
+      ensureSourceCanSupportReviewedData(source, `${path}.sourceId`, issues);
+    }
+    if (!definition.shortReference?.trim()) {
+      issues.push({
+        path: `${path}.shortReference`,
+        message: 'Une référence courte est obligatoire pour le calcul.'
+      });
+    } else if (definition.shortReference.length > 280) {
+      issues.push({
+        path: `${path}.shortReference`,
+        message: 'La référence courte du calcul dépasse 280 caractères.'
+      });
+    }
+    if (!definition.explanation?.trim()) {
+      issues.push({
+        path: `${path}.explanation`,
+        message: 'La méthode du calcul doit être expliquée.'
+      });
+    }
+    if (definition.dateInputClaimId === definition.quantityInputClaimId) {
+      issues.push({
+        path,
+        message: 'Les entrées date et quantité doivent être deux affirmations distinctes.'
+      });
+    }
+    [
+      ['dateInputClaimId', definition.dateInputClaimId],
+      ['quantityInputClaimId', definition.quantityInputClaimId]
+    ].forEach(([field, claimId]) => {
+      if (!claimsById.has(claimId) && !calculationOutputIds.has(claimId)) {
+        issues.push({
+          path: `${path}.${field}`,
+          message: `Affirmation d’entrée inexistante : ${claimId}.`
+        });
+      }
+    });
+    const directDateInput = claimsById.get(definition.dateInputClaimId);
+    if (directDateInput && !directDateInput.period) {
+      issues.push({
+        path: `${path}.dateInputClaimId`,
+        message: 'L’affirmation de date doit fournir une période.'
+      });
+    }
+    const directQuantityInput = claimsById.get(
+      definition.quantityInputClaimId
+    );
+    if (directQuantityInput && !directQuantityInput.quantity) {
+      issues.push({
+        path: `${path}.quantityInputClaimId`,
+        message: 'L’affirmation de quantité doit fournir un âge ou une durée.'
+      });
+    }
+  });
+
+  const calculationCycle = findHistoricalCalculationCycle(
+    dataset.calculations
+  );
+  if (calculationCycle) {
+    issues.push({
+      path: 'reviewed.calculations',
+      message: `Boucle entre affirmations calculées : ${calculationCycle.join(' -> ')}.`
+    });
+  }
 
   dataset.presences.forEach((presence, index) => {
     const path = `reviewed.presences[${index}]`;

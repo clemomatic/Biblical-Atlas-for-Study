@@ -1,0 +1,39 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-insight-isaac"
+    ],
+    "person": {
+      "id": "event-isaac-16b1gw1",
+      "name": "Isaac",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré sans modifier sa période héritée. Durée de vie sourcée par les bornes explicites de l’article Perspicace.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-insight-isaac-lifespan-direct"
+      ],
+      "legacyEventId": "event-isaac-16b1gw1",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1918,
+          "yearMax": -1918,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1738,
+          "yearMax": -1738,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "displayLabel": "1918-1738 av. n. è."
+      }
+    }
+  }
+]

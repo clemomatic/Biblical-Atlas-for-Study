@@ -9065,6 +9065,44 @@
     }
   },
   {
+    "id": "derived-relation-lifespan-overlap-11c5m23",
+    "subjectIds": [
+      "event-abraham-mdcznq",
+      "event-isaac-16b1gw1"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1843,
+        "yearMax": -1843,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 1918 av. n. è. à 1843 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-insight-isaac-lifespan-direct",
+      "claim-wcg-1-abraham-mdcznq-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-abraham-mdcznq",
+      "lifespan:event-isaac-16b1gw1"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
     "id": "derived-relation-lifespan-overlap-11oni2e",
     "subjectIds": [
       "event-jean-e4vx5j",
@@ -9209,6 +9247,44 @@
     "generatedFromIds": [
       "lifespan:person-wcg-marie-magdala",
       "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-12tws93",
+    "subjectIds": [
+      "event-isaac-16b1gw1",
+      "event-jacob-a7o7cq"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1858,
+        "yearMax": -1858,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1738,
+        "yearMax": -1738,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 1858 av. n. è. à 1738 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-insight-isaac-lifespan-direct",
+      "claim-wcg-1-jacob-a7o7cq-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-isaac-16b1gw1",
+      "lifespan:event-jacob-a7o7cq"
     ],
     "generatedAt": "2026-07-25T00:00:00.000Z",
     "generator": {
@@ -12754,6 +12830,44 @@
     }
   },
   {
+    "id": "derived-relation-lifespan-overlap-nx7zr8",
+    "subjectIds": [
+      "event-isaac-16b1gw1",
+      "event-sara-1xft3rw"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1881,
+        "yearMax": -1881,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 1918 av. n. è. à 1881 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-insight-isaac-lifespan-direct",
+      "claim-wcg-1-sara-1xft3rw-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-isaac-16b1gw1",
+      "lifespan:event-sara-1xft3rw"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
     "id": "derived-relation-lifespan-overlap-p2yezy",
     "subjectIds": [
       "event-jacob-a7o7cq",
@@ -12906,6 +13020,44 @@
     }
   },
   {
+    "id": "derived-relation-lifespan-overlap-py7ovw",
+    "subjectIds": [
+      "event-isaac-16b1gw1",
+      "event-joseph-11h377b"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1767,
+        "yearMax": -1767,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1738,
+        "yearMax": -1738,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 1767 av. n. è. à 1738 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-insight-isaac-lifespan-direct",
+      "claim-wcg-1-joseph-11h377b-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-isaac-16b1gw1",
+      "lifespan:event-joseph-11h377b"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
     "id": "derived-relation-lifespan-overlap-q1hcwe",
     "subjectIds": [
       "event-jesus-en-tant-qu-humain-1f4ceyz",
@@ -13012,6 +13164,44 @@
     "generatedFromIds": [
       "lifespan:person-a7-marie-bethanie",
       "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-tdspac",
+    "subjectIds": [
+      "event-isaac-16b1gw1",
+      "person-wcg-rebecca"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1900,
+        "yearMax": -1900,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1775,
+        "yearMax": -1775,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1900 av. n. è. à 1775 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-insight-isaac-lifespan-direct",
+      "claim-wcg-1-wcg-rebecca-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-isaac-16b1gw1",
+      "lifespan:person-wcg-rebecca"
     ],
     "generatedAt": "2026-07-25T00:00:00.000Z",
     "generator": {

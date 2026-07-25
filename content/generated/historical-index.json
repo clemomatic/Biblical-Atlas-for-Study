@@ -68,6 +68,19 @@
       ]
     },
     {
+      "id": "lifespan:event-isaac-16b1gw1",
+      "personId": "event-isaac-16b1gw1",
+      "startIndex": -1918,
+      "endIndex": -1738,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-insight-isaac-lifespan-direct"
+      ],
+      "sourceIds": [
+        "source-insight-isaac"
+      ]
+    },
+    {
       "id": "lifespan:person-wcg-rebecca",
       "personId": "person-wcg-rebecca",
       "startIndex": -1900,
@@ -5995,6 +6008,42 @@
       ]
     },
     {
+      "id": "relation:derived-relation-lifespan-overlap-nx7zr8",
+      "relationId": "derived-relation-lifespan-overlap-nx7zr8",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-isaac-16b1gw1",
+        "event-sara-1xft3rw"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1918,
+      "endIndex": -1881,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-insight-isaac-lifespan-direct",
+        "claim-wcg-1-sara-1xft3rw-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-11c5m23",
+      "relationId": "derived-relation-lifespan-overlap-11c5m23",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-abraham-mdcznq",
+        "event-isaac-16b1gw1"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1918,
+      "endIndex": -1843,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-insight-isaac-lifespan-direct",
+        "claim-wcg-1-abraham-mdcznq-lifespan"
+      ]
+    },
+    {
       "id": "relation:derived-relation-lifespan-overlap-5clzhf",
       "relationId": "derived-relation-lifespan-overlap-5clzhf",
       "relationLevel": "lifespan-overlap",
@@ -6027,6 +6076,24 @@
       "certainty": "possible",
       "supportingClaimIds": [
         "claim-wcg-1-abraham-mdcznq-lifespan",
+        "claim-wcg-1-wcg-rebecca-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-tdspac",
+      "relationId": "derived-relation-lifespan-overlap-tdspac",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-isaac-16b1gw1",
+        "person-wcg-rebecca"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1900,
+      "endIndex": -1775,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-insight-isaac-lifespan-direct",
         "claim-wcg-1-wcg-rebecca-lifespan"
       ]
     },
@@ -6064,6 +6131,42 @@
       "supportingClaimIds": [
         "claim-wcg-1-jacob-a7o7cq-lifespan",
         "claim-wcg-1-wcg-rebecca-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-12tws93",
+      "relationId": "derived-relation-lifespan-overlap-12tws93",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-isaac-16b1gw1",
+        "event-jacob-a7o7cq"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1858,
+      "endIndex": -1738,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-insight-isaac-lifespan-direct",
+        "claim-wcg-1-jacob-a7o7cq-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-py7ovw",
+      "relationId": "derived-relation-lifespan-overlap-py7ovw",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-isaac-16b1gw1",
+        "event-joseph-11h377b"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1767,
+      "endIndex": -1738,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-insight-isaac-lifespan-direct",
+        "claim-wcg-1-joseph-11h377b-lifespan"
       ]
     },
     {
@@ -29237,6 +29340,7 @@
       "derived-relation-simultaneous-reigns-j5l4oh"
     ],
     "event-abraham-mdcznq": [
+      "derived-relation-lifespan-overlap-11c5m23",
       "derived-relation-lifespan-overlap-14uc5rg",
       "derived-relation-lifespan-overlap-l8s4rc",
       "derived-relation-lifespan-overlap-xx7k23"
@@ -29498,6 +29602,13 @@
     "event-henoch-5b97vn": [
       "derived-relation-lifespan-overlap-1nifwk2"
     ],
+    "event-isaac-16b1gw1": [
+      "derived-relation-lifespan-overlap-11c5m23",
+      "derived-relation-lifespan-overlap-12tws93",
+      "derived-relation-lifespan-overlap-nx7zr8",
+      "derived-relation-lifespan-overlap-py7ovw",
+      "derived-relation-lifespan-overlap-tdspac"
+    ],
     "event-isaie-90gwjf": [
       "derived-relation-activity-overlap-110w1sc",
       "derived-relation-activity-overlap-14ae3wa",
@@ -29522,6 +29633,7 @@
       "derived-relation-prophet-during-reign-yts6d1"
     ],
     "event-jacob-a7o7cq": [
+      "derived-relation-lifespan-overlap-12tws93",
       "derived-relation-lifespan-overlap-4mwj6",
       "derived-relation-lifespan-overlap-p2yezy",
       "derived-relation-lifespan-overlap-xx7k23"
@@ -30348,7 +30460,8 @@
       "derived-relation-simultaneous-reigns-z64upn"
     ],
     "event-joseph-11h377b": [
-      "derived-relation-lifespan-overlap-p2yezy"
+      "derived-relation-lifespan-overlap-p2yezy",
+      "derived-relation-lifespan-overlap-py7ovw"
     ],
     "event-josias-woei8d": [
       "derived-relation-activity-overlap-1098hl2",
@@ -30594,7 +30707,8 @@
     ],
     "event-sara-1xft3rw": [
       "derived-relation-lifespan-overlap-5clzhf",
-      "derived-relation-lifespan-overlap-l8s4rc"
+      "derived-relation-lifespan-overlap-l8s4rc",
+      "derived-relation-lifespan-overlap-nx7zr8"
     ],
     "event-sedecias-h3ny0i": [
       "derived-relation-activity-overlap-1tqbai1",
@@ -31662,7 +31776,8 @@
     "person-wcg-rebecca": [
       "derived-relation-lifespan-overlap-14uc5rg",
       "derived-relation-lifespan-overlap-4mwj6",
-      "derived-relation-lifespan-overlap-5clzhf"
+      "derived-relation-lifespan-overlap-5clzhf",
+      "derived-relation-lifespan-overlap-tdspac"
     ]
   },
   "presenceIdsByPlace": {

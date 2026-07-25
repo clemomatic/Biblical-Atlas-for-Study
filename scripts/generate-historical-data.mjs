@@ -4,6 +4,7 @@ import {
 } from 'node:fs/promises';
 import { join } from 'node:path';
 import { generateDerivedHistoricalRelations } from '../src/domain/history/contentGeneration.ts';
+import { generateCalculatedHistoricalClaims } from '../src/domain/history/calculatedClaims.ts';
 import { buildHistoricalIndex } from '../src/domain/history/historicalIndex.ts';
 import { loadHistoricalDataset } from '../src/domain/history/contentIO.ts';
 import {
@@ -19,6 +20,10 @@ const contentRoot = join(process.cwd(), 'content');
 const generatedDirectory = join(contentRoot, 'generated');
 const relationsOutputPath = join(generatedDirectory, 'relations.json');
 const indexOutputPath = join(generatedDirectory, 'historical-index.json');
+const calculatedClaimsOutputPath = join(
+  generatedDirectory,
+  'calculated-claims.json'
+);
 
 try {
   const dataset = await loadHistoricalDataset(contentRoot);
@@ -26,11 +31,20 @@ try {
 
   // La génération s’arrête avant toute écriture si reviewed n’est pas valide.
   validateHistoricalDataset(dataset, knownEntities);
+  const calculatedClaims = generateCalculatedHistoricalClaims(
+    dataset.claims,
+    dataset.calculations
+  );
   const relations = generateDerivedHistoricalRelations(dataset);
   validateGeneratedRelations(relations, dataset, knownEntities);
   const historicalIndex = buildHistoricalIndex(dataset, relations);
 
   await mkdir(generatedDirectory, { recursive: true });
+  await writeFile(
+    calculatedClaimsOutputPath,
+    `${JSON.stringify(calculatedClaims, null, 2)}\n`,
+    'utf8'
+  );
   await writeFile(
     relationsOutputPath,
     `${JSON.stringify(relations, null, 2)}\n`,
@@ -42,7 +56,7 @@ try {
     'utf8'
   );
   console.log(
-    `Génération historique terminée : ${relations.length} relation(s), ${historicalIndex.lifespans.length} vie(s), ${historicalIndex.activities.length} activité(s), ${historicalIndex.events.length} événement(s), ${historicalIndex.presences.length} présence(s), staging ignoré.`
+    `Génération historique terminée : ${calculatedClaims.length} affirmation(s) calculée(s), ${relations.length} relation(s), ${historicalIndex.lifespans.length} vie(s), ${historicalIndex.activities.length} activité(s), ${historicalIndex.events.length} événement(s), ${historicalIndex.presences.length} présence(s), staging ignoré.`
   );
 } catch (error) {
   printHistoricalValidationError(error);

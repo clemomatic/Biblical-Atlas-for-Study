@@ -1,0 +1,34 @@
+{
+  "sourceId": "source-insight-isaac",
+  "reviewedDirectClaims": 6,
+  "calculationDefinitions": 2,
+  "generatedClaims": 2,
+  "conflictsRequiringReview": 0,
+  "eligibleForCertainRelations": 2,
+  "calculations": [
+    {
+      "claimId": "claim-calculated-insight-isaac-birth-from-death",
+      "result": "1918 av. n. è.",
+      "method": "calculated",
+      "inputClaimIds": [
+        "claim-insight-isaac-death-direct",
+        "claim-insight-isaac-age-at-death"
+      ],
+      "uncertaintyYears": 0,
+      "certainty": "certain",
+      "conflict": null
+    },
+    {
+      "claimId": "claim-calculated-insight-isaac-birth-from-twins",
+      "result": "1918 av. n. è.",
+      "method": "calculated",
+      "inputClaimIds": [
+        "claim-insight-jacob-birth-direct",
+        "claim-insight-isaac-age-at-twins-birth"
+      ],
+      "uncertaintyYears": 0,
+      "certainty": "certain",
+      "conflict": null
+    }
+  ]
+}

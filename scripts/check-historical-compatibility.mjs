@@ -18,7 +18,7 @@ const server = await createServer({
 try {
   const [
     { EVENTS },
-    { BIBLICAL_PEOPLE },
+    { BIBLICAL_PEOPLE, MIGRATED_PERSON_IDS },
     { HISTORICAL_PERSON_TIMELINE, TIMELINE_EVENTS },
     {
       REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
@@ -34,8 +34,13 @@ try {
       server.ssrLoadModule('/src/data/mapData.ts')
     ]);
 
-  if (BIBLICAL_PEOPLE.length !== 5) {
-    fail(`5 personnes pilotes attendues, ${BIBLICAL_PEOPLE.length} trouvées`);
+  if (BIBLICAL_PEOPLE.length !== MIGRATED_PERSON_IDS.length) {
+    fail(
+      `${MIGRATED_PERSON_IDS.length} personnes migrées attendues, ${BIBLICAL_PEOPLE.length} trouvées`
+    );
+  }
+  if (!BIBLICAL_PEOPLE.some(person => person.id === 'event-isaac-16b1gw1')) {
+    fail('la fiche migrée d’Isaac est absente');
   }
   const supersededLegacyIds = new Set([
     ...REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
