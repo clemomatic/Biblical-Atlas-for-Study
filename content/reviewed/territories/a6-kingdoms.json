@@ -1,0 +1,160 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a",
+      "source-nwt-a6-b"
+    ],
+    "territory": {
+      "id": "territory-kingdom-judah",
+      "name": "Royaume de Juda",
+      "period": {
+        "start": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -607,
+          "yearMax": -607,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "997-607 av. n. è."
+      },
+      "capitalPhases": [
+        {
+          "id": "capital-phase-judah-jerusalem-a6",
+          "placeId": "jerusalem",
+          "period": {
+            "start": {
+              "yearMin": -997,
+              "yearMax": -997,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -607,
+              "yearMax": -607,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "997-607 av. n. è."
+          },
+          "certainty": "certain",
+          "notes": "Capitale administrative ; ce lien ne crée aucun épisode de présence individuel."
+        }
+      ],
+      "certainty": "certain",
+      "geometryStatus": "not-provided",
+      "notes": "Entité temporelle sans polygone : aucune limite territoriale n’est inventée à partir du graphique."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a",
+      "source-nwt-a6-b"
+    ],
+    "territory": {
+      "id": "territory-kingdom-israel",
+      "name": "Royaume d’Israël",
+      "period": {
+        "start": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -740,
+          "yearMax": -740,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "997-740 av. n. è."
+      },
+      "capitalPhases": [
+        {
+          "id": "capital-phase-israel-shechem-a6",
+          "placeId": "shechem",
+          "period": {
+            "start": {
+              "yearMin": -997,
+              "yearMax": -997,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -976,
+              "yearMax": -976,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "Début du règne de Jéroboam"
+          },
+          "certainty": "probable",
+          "notes": "Siège administratif associé ; aucune présence individuelle supplémentaire n’est générée."
+        },
+        {
+          "id": "capital-phase-israel-tirzah-a6",
+          "placeId": "tirzah",
+          "period": {
+            "start": {
+              "yearMin": -976,
+              "yearMax": -976,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -947,
+              "yearMax": -947,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Environ 976-947 av. n. è."
+          },
+          "certainty": "probable",
+          "notes": "Phase administrative conservée comme association, sans déduction de présence."
+        },
+        {
+          "id": "capital-phase-israel-samaria-a6",
+          "placeId": "samaria",
+          "period": {
+            "start": {
+              "yearMin": -947,
+              "yearMax": -947,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -740,
+              "yearMax": -740,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Environ 947-740 av. n. è."
+          },
+          "certainty": "probable",
+          "notes": "Phase administrative conservée comme association, sans déduction de présence."
+        }
+      ],
+      "certainty": "certain",
+      "geometryStatus": "not-provided",
+      "notes": "Entité temporelle sans polygone : aucune limite territoriale n’est inventée à partir du graphique."
+    }
+  }
+]

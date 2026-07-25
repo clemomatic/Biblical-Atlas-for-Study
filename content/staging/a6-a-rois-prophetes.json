@@ -1,0 +1,1218 @@
+[
+  {
+    "id": "staging-source-nwt-a6-a-001",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "997-980 av. n. è.",
+      "name": "Roboam",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -980,
+          "yearMax": -980,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "997-980 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "997-980 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-002",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "980-978 av. n. è.",
+      "name": "Abia",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -980,
+          "yearMax": -980,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -978,
+          "yearMax": -978,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "980-978 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "980-978 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-003",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "978-937 av. n. è.",
+      "name": "Asa",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -978,
+          "yearMax": -978,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -937,
+          "yearMax": -937,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "978-937 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "978-937 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-004",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "937-913 av. n. è.",
+      "name": "Josaphat",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -937,
+          "yearMax": -937,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -913,
+          "yearMax": -913,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "937-913 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "937-913 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-005",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "913-vers 906 av. n. è.",
+      "name": "Joram",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -913,
+          "yearMax": -913,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -906,
+          "yearMax": -906,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "913-vers 906 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "913-vers 906 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-006",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 906-vers 905 av. n. è.",
+      "name": "Ochozias",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -906,
+          "yearMax": -906,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -905,
+          "yearMax": -905,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 906-vers 905 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 906-vers 905 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-007",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 905-898 av. n. è.",
+      "name": "Athalie",
+      "role": "queen",
+      "period": {
+        "start": {
+          "yearMin": -905,
+          "yearMax": -905,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -898,
+          "yearMax": -898,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 905-898 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 905-898 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-008",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "898-858 av. n. è.",
+      "name": "Joas",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -898,
+          "yearMax": -898,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -858,
+          "yearMax": -858,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "898-858 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "898-858 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-009",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "858-829 av. n. è.",
+      "name": "Amazia",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -858,
+          "yearMax": -858,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -829,
+          "yearMax": -829,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "858-829 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "858-829 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-010",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "829-777 av. n. è.",
+      "name": "Ozias",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -829,
+          "yearMax": -829,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -777,
+          "yearMax": -777,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "829-777 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "829-777 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-011",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "997-vers 976 av. n. è.",
+      "name": "Jéroboam",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -976,
+          "yearMax": -976,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "997-vers 976 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "997-vers 976 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-012",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 976-vers 975 av. n. è.",
+      "name": "Nadab",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -976,
+          "yearMax": -976,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -975,
+          "yearMax": -975,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 976-vers 975 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 976-vers 975 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-013",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 975-vers 952 av. n. è.",
+      "name": "Baasa",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -975,
+          "yearMax": -975,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -952,
+          "yearMax": -952,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 975-vers 952 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 975-vers 952 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-014",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 952-vers 951 av. n. è.",
+      "name": "Éla",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -952,
+          "yearMax": -952,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -951,
+          "yearMax": -951,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 952-vers 951 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 952-vers 951 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-015",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "7 jours, vers 951 av. n. è.",
+      "name": "Zimri",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -951,
+          "yearMax": -951,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -951,
+          "yearMax": -951,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "7 jours, vers 951 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "7 jours, vers 951 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-016",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Règne disputé avec Tibni, vers 951-vers 947 av. n. è.",
+      "name": "Omri",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -951,
+          "yearMax": -951,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -947,
+          "yearMax": -947,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Règne disputé avec Tibni, vers 951-vers 947 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Règne disputé avec Tibni, vers 951-vers 947 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-017",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Règne disputé avec Omri, vers 951-vers 947 av. n. è.",
+      "name": "Tibni",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -951,
+          "yearMax": -951,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -947,
+          "yearMax": -947,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Règne disputé avec Omri, vers 951-vers 947 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Règne disputé avec Omri, vers 951-vers 947 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-018",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Omri seul, vers 947-vers 940 av. n. è.",
+      "name": "Omri",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -947,
+          "yearMax": -947,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -940,
+          "yearMax": -940,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Omri seul, vers 947-vers 940 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Omri seul, vers 947-vers 940 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-019",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 940-vers 920 av. n. è.",
+      "name": "Achab",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -940,
+          "yearMax": -940,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -920,
+          "yearMax": -920,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 940-vers 920 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 940-vers 920 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-020",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 920-vers 917 av. n. è.",
+      "name": "Ochozias",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -920,
+          "yearMax": -920,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -917,
+          "yearMax": -917,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 920-vers 917 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 920-vers 917 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-021",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 917-vers 905 av. n. è.",
+      "name": "Joram",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -917,
+          "yearMax": -917,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -905,
+          "yearMax": -905,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 917-vers 905 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 917-vers 905 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-022",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 905-876 av. n. è.",
+      "name": "Jéhu",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -905,
+          "yearMax": -905,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -876,
+          "yearMax": -876,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 905-876 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 905-876 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-023",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "876-vers 862 av. n. è.",
+      "name": "Joachaz",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -876,
+          "yearMax": -876,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -862,
+          "yearMax": -862,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "876-vers 862 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "876-vers 862 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-024",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Corègne avec Joas, vers 862-vers 859 av. n. è.",
+      "name": "Joachaz",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -862,
+          "yearMax": -862,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -859,
+          "yearMax": -859,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Corègne avec Joas, vers 862-vers 859 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Corègne avec Joas, vers 862-vers 859 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-025",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Corègne avec Joachaz, vers 862-vers 859 av. n. è.",
+      "name": "Joas",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -862,
+          "yearMax": -862,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -859,
+          "yearMax": -859,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Corègne avec Joachaz, vers 862-vers 859 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Corègne avec Joachaz, vers 862-vers 859 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-026",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Joas seul, vers 859-vers 844 av. n. è.",
+      "name": "Joas",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -859,
+          "yearMax": -859,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -844,
+          "yearMax": -844,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Joas seul, vers 859-vers 844 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Joas seul, vers 859-vers 844 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-027",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "vers 844-vers 803 av. n. è.",
+      "name": "Jéroboam II",
+      "role": "king",
+      "period": {
+        "start": {
+          "yearMin": -844,
+          "yearMax": -844,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -803,
+          "yearMax": -803,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 844-vers 803 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 844-vers 803 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-028",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Ministère représenté approximativement entre 940 et 850 av. n. è.",
+      "name": "Élie",
+      "role": "prophet",
+      "period": {
+        "start": {
+          "yearMin": -940,
+          "yearMax": -940,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "end": {
+          "yearMin": -850,
+          "yearMax": -850,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "displayLabel": "Ministère représenté approximativement entre 940 et 850 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Ministère représenté approximativement entre 940 et 850 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-029",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Ministère représenté approximativement entre 920 et 850 av. n. è.",
+      "name": "Élisée",
+      "role": "prophet",
+      "period": {
+        "start": {
+          "yearMin": -920,
+          "yearMax": -920,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "end": {
+          "yearMin": -850,
+          "yearMax": -850,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "displayLabel": "Ministère représenté approximativement entre 920 et 850 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Ministère représenté approximativement entre 920 et 850 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-030",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Ministère représenté approximativement entre 860 et 840 av. n. è.",
+      "name": "Jonas",
+      "role": "prophet",
+      "period": {
+        "start": {
+          "yearMin": -860,
+          "yearMax": -860,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "end": {
+          "yearMin": -840,
+          "yearMax": -840,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "displayLabel": "Ministère représenté approximativement entre 860 et 840 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Ministère représenté approximativement entre 860 et 840 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-031",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Ministère représenté approximativement entre 830 et 810 av. n. è.",
+      "name": "Joël",
+      "role": "prophet",
+      "period": {
+        "start": {
+          "yearMin": -830,
+          "yearMax": -830,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "end": {
+          "yearMin": -810,
+          "yearMax": -810,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "displayLabel": "Ministère représenté approximativement entre 830 et 810 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Ministère représenté approximativement entre 830 et 810 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-source-nwt-a6-a-032",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwt-a6-a"
+    ],
+    "extractionNotes": "Ligne factuelle conservée séparément du corpus reviewed.",
+    "payload": {
+      "sourceReference": "Ministère représenté approximativement entre 850 et 800 av. n. è.",
+      "name": "Amos",
+      "role": "prophet",
+      "period": {
+        "start": {
+          "yearMin": -850,
+          "yearMax": -850,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "end": {
+          "yearMin": -800,
+          "yearMax": -800,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "possible"
+        },
+        "displayLabel": "Ministère représenté approximativement entre 850 et 800 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Ministère représenté approximativement entre 850 et 800 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  }
+]

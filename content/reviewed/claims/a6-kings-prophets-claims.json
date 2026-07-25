@@ -1,0 +1,4426 @@
+[
+  {
+    "id": "claim-activity-event-abia-abiyam-2ym9yh-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-abia-abiyam-2ym9yh"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -978,
+        "yearMax": -978,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -978,
+        "yearMax": -978,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "980-978 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 980-978 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-abia-abiyam-2ym9yh-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-abia-abiyam-2ym9yh"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -980,
+        "yearMax": -980,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -980,
+        "yearMax": -980,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "980-978 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 980-978 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-achab-rnxk2l-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-achab-rnxk2l"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -920,
+        "yearMax": -920,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -920,
+        "yearMax": -920,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 940-vers 920 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 940-vers 920 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-achab-rnxk2l-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-achab-rnxk2l"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -940,
+        "yearMax": -940,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -940,
+        "yearMax": -940,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 940-vers 920 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 940-vers 920 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-achaz-3rywka-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-achaz-3rywka"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -746,
+        "yearMax": -746,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -746,
+        "yearMax": -746,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "762-746 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 762-746 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-achaz-3rywka-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-achaz-3rywka"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -762,
+        "yearMax": -762,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -762,
+        "yearMax": -762,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "762-746 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 762-746 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-amazia-4p1grk-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-amazia-4p1grk"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -829,
+        "yearMax": -829,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -829,
+        "yearMax": -829,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "858-829 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 858-829 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-amazia-4p1grk-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-amazia-4p1grk"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -858,
+        "yearMax": -858,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -858,
+        "yearMax": -858,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "858-829 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 858-829 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-amon-1e5ypbs-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-amon-1e5ypbs"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -659,
+        "yearMax": -659,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -659,
+        "yearMax": -659,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "661-659 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 661-659 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-amon-1e5ypbs-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-amon-1e5ypbs"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -661,
+        "yearMax": -661,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -661,
+        "yearMax": -661,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "661-659 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 661-659 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-amos-18vx5fi-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-amos-18vx5fi"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -850,
+        "yearMax": -850,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -800,
+        "yearMax": -800,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 850 et 800 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, barre graphique du ministère de Amos.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-asa-1yoxudp-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-asa-1yoxudp"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "978-937 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 978-937 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-asa-1yoxudp-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-asa-1yoxudp"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -978,
+        "yearMax": -978,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -978,
+        "yearMax": -978,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "978-937 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 978-937 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-athalie-reine-c0zpks-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-athalie-reine-c0zpks"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -898,
+        "yearMax": -898,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -898,
+        "yearMax": -898,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 905-898 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 905-898 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-athalie-reine-c0zpks-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-athalie-reine-c0zpks"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 905-898 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 905-898 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-baasa-1m40vzu-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-baasa-1m40vzu"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -952,
+        "yearMax": -952,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -952,
+        "yearMax": -952,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 975-vers 952 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 975-vers 952 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-baasa-1m40vzu-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-baasa-1m40vzu"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -975,
+        "yearMax": -975,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -975,
+        "yearMax": -975,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 975-vers 952 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 975-vers 952 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-daniel-oyu19r-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-daniel-oyu19r"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -620,
+        "yearMax": -620,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -580,
+        "yearMax": -580,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère commençant vers 620 av. n. è. et se poursuivant après 600 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Daniel.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-ela-1bvkej2-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ela-1bvkej2"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 952-vers 951 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 952-vers 951 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-ela-1bvkej2-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ela-1bvkej2"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -952,
+        "yearMax": -952,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -952,
+        "yearMax": -952,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 952-vers 951 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 952-vers 951 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-elie-1nckpyy-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-elie-1nckpyy"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -940,
+        "yearMax": -940,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -850,
+        "yearMax": -850,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 940 et 850 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, barre graphique du ministère de Élie.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-elisee-1r2p3av-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-elisee-1r2p3av"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -920,
+        "yearMax": -920,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -850,
+        "yearMax": -850,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 920 et 850 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, barre graphique du ministère de Élisée.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-ezechias-1ne958h-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ezechias-1ne958h"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "746-716 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 746-716 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-ezechias-1ne958h-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ezechias-1ne958h"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -746,
+        "yearMax": -746,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -746,
+        "yearMax": -746,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "746-716 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 746-716 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-isaie-90gwjf-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaie-90gwjf"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -780,
+        "yearMax": -780,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -735,
+        "yearMax": -735,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 780 et 735 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Isaïe.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-jehu-1xcnlrg-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jehu-1xcnlrg"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -876,
+        "yearMax": -876,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -876,
+        "yearMax": -876,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 905-876 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 905-876 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-jehu-1xcnlrg-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jehu-1xcnlrg"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 905-876 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 905-876 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-jeremie-14kkv3x-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jeremie-14kkv3x"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -650,
+        "yearMax": -650,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -580,
+        "yearMax": -580,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 650 et 580 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Jérémie.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-jeroboam-ii-pnmqkf-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jeroboam-ii-pnmqkf"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -803,
+        "yearMax": -803,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -803,
+        "yearMax": -803,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 844-vers 803 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 844-vers 803 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-jeroboam-ii-pnmqkf-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jeroboam-ii-pnmqkf"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -844,
+        "yearMax": -844,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -844,
+        "yearMax": -844,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 844-vers 803 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 844-vers 803 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-jeroboam-wbpa60-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jeroboam-wbpa60"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -976,
+        "yearMax": -976,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -976,
+        "yearMax": -976,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "997-vers 976 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 997-vers 976 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-jeroboam-wbpa60-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jeroboam-wbpa60"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -997,
+        "yearMax": -997,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -997,
+        "yearMax": -997,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "997-vers 976 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 997-vers 976 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachaz-1d329mk-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachaz-1d329mk"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -862,
+        "yearMax": -862,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -862,
+        "yearMax": -862,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "876-vers 862 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 876-vers 862 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachaz-1d329mk-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachaz-1d329mk"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -876,
+        "yearMax": -876,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -876,
+        "yearMax": -876,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "876-vers 862 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 876-vers 862 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachaz-n8z9wc-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachaz-n8z9wc"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "3 mois en 628 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 3 mois en 628 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachaz-n8z9wc-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachaz-n8z9wc"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "3 mois en 628 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 3 mois en 628 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachim-os33qa-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachim-os33qa"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -618,
+        "yearMax": -618,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -618,
+        "yearMax": -618,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "628-618 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 628-618 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachim-os33qa-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachim-os33qa"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "628-618 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 628-618 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachin-1jjrc69-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachin-1jjrc69"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -618,
+        "yearMax": -618,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -618,
+        "yearMax": -618,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "3 mois et 10 jours en 618 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 3 mois et 10 jours en 618 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joachin-1jjrc69-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachin-1jjrc69"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -618,
+        "yearMax": -618,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -618,
+        "yearMax": -618,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "3 mois et 10 jours en 618 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 3 mois et 10 jours en 618 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joas-1qmzl7g-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joas-1qmzl7g"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -858,
+        "yearMax": -858,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -858,
+        "yearMax": -858,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "898-858 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 898-858 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joas-1qmzl7g-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joas-1qmzl7g"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -898,
+        "yearMax": -898,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -898,
+        "yearMax": -898,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "898-858 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 898-858 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joel-1n2xkrq-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joel-1n2xkrq"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -830,
+        "yearMax": -830,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -810,
+        "yearMax": -810,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 830 et 810 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, barre graphique du ministère de Joël.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-jonas-159bcqk-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jonas-159bcqk"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -860,
+        "yearMax": -860,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -840,
+        "yearMax": -840,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 860 et 840 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, barre graphique du ministère de Jonas.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-joram-dcjw4c-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joram-dcjw4c"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 917-vers 905 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 917-vers 905 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joram-dcjw4c-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joram-dcjw4c"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -917,
+        "yearMax": -917,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -917,
+        "yearMax": -917,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 917-vers 905 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 917-vers 905 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joram-rv6bw8-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joram-rv6bw8"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -906,
+        "yearMax": -906,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -906,
+        "yearMax": -906,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "913-vers 906 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 913-vers 906 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-joram-rv6bw8-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joram-rv6bw8"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -913,
+        "yearMax": -913,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -913,
+        "yearMax": -913,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "913-vers 906 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 913-vers 906 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-josaphat-180etp4-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-josaphat-180etp4"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -913,
+        "yearMax": -913,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -913,
+        "yearMax": -913,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "937-913 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 937-913 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-josaphat-180etp4-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-josaphat-180etp4"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "937-913 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 937-913 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-josias-woei8d-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-josias-woei8d"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "659-628 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 659-628 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-josias-woei8d-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-josias-woei8d"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -659,
+        "yearMax": -659,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -659,
+        "yearMax": -659,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "659-628 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 659-628 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-jotam-ls65h6-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jotam-ls65h6"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -762,
+        "yearMax": -762,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -762,
+        "yearMax": -762,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "777-762 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 777-762 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-jotam-ls65h6-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jotam-ls65h6"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -777,
+        "yearMax": -777,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -777,
+        "yearMax": -777,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "777-762 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 777-762 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-manasse-1d4ld4r-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-manasse-1d4ld4r"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -661,
+        "yearMax": -661,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -661,
+        "yearMax": -661,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "716-661 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 716-661 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-manasse-1d4ld4r-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-manasse-1d4ld4r"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "716-661 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 716-661 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-menahem-1pxgjh5-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-menahem-1pxgjh5"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -780,
+        "yearMax": -780,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -780,
+        "yearMax": -780,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 791-vers 780 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « vers 791-vers 780 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-menahem-1pxgjh5-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-menahem-1pxgjh5"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -791,
+        "yearMax": -791,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -791,
+        "yearMax": -791,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 791-vers 780 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « vers 791-vers 780 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-michee-idbjq7-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-michee-idbjq7"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -755,
+        "yearMax": -755,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -710,
+        "yearMax": -710,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 755 et 710 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Michée.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-nadab-ef40vw-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-nadab-ef40vw"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -975,
+        "yearMax": -975,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -975,
+        "yearMax": -975,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 976-vers 975 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 976-vers 975 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-nadab-ef40vw-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-nadab-ef40vw"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -976,
+        "yearMax": -976,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -976,
+        "yearMax": -976,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 976-vers 975 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 976-vers 975 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-ochozias-tp5qhy-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ochozias-tp5qhy"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -917,
+        "yearMax": -917,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -917,
+        "yearMax": -917,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 920-vers 917 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 920-vers 917 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-ochozias-tp5qhy-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ochozias-tp5qhy"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -920,
+        "yearMax": -920,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -920,
+        "yearMax": -920,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 920-vers 917 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 920-vers 917 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-ochozias-ydd23t-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ochozias-ydd23t"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 906-vers 905 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « vers 906-vers 905 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-ochozias-ydd23t-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ochozias-ydd23t"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -906,
+        "yearMax": -906,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -906,
+        "yearMax": -906,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 906-vers 905 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « vers 906-vers 905 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-osee-jj56nl-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-osee-jj56nl"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -805,
+        "yearMax": -805,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -745,
+        "yearMax": -745,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 805 et 745 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Osée.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-event-ozias-azarias-z716hd-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ozias-azarias-z716hd"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -777,
+        "yearMax": -777,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -777,
+        "yearMax": -777,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "829-777 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 829-777 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-ozias-azarias-z716hd-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ozias-azarias-z716hd"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -829,
+        "yearMax": -829,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -829,
+        "yearMax": -829,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "829-777 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 829-777 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-peka-gtm9lr-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-peka-gtm9lr"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -758,
+        "yearMax": -758,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -758,
+        "yearMax": -758,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 778-vers 758 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « vers 778-vers 758 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-peka-gtm9lr-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-peka-gtm9lr"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -778,
+        "yearMax": -778,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -778,
+        "yearMax": -778,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 778-vers 758 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « vers 778-vers 758 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-pekaya-wx6x8f-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-pekaya-wx6x8f"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -778,
+        "yearMax": -778,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -778,
+        "yearMax": -778,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 780-vers 778 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « vers 780-vers 778 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-pekaya-wx6x8f-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-pekaya-wx6x8f"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -780,
+        "yearMax": -780,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -780,
+        "yearMax": -780,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 780-vers 778 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « vers 780-vers 778 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-roboam-121uoxd-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-roboam-121uoxd"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -980,
+        "yearMax": -980,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -980,
+        "yearMax": -980,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "997-980 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 997-980 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-roboam-121uoxd-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-roboam-121uoxd"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -997,
+        "yearMax": -997,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -997,
+        "yearMax": -997,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "997-980 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 997-980 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-sedecias-h3ny0i-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-sedecias-h3ny0i"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -607,
+        "yearMax": -607,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -607,
+        "yearMax": -607,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "617-607 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 617-607 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-sedecias-h3ny0i-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-sedecias-h3ny0i"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-judah"
+    },
+    "period": {
+      "start": {
+        "yearMin": -617,
+        "yearMax": -617,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -617,
+        "yearMax": -617,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "617-607 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 617-607 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-shaloum-3hf4d0-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-shaloum-3hf4d0"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -791,
+        "yearMax": -791,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -791,
+        "yearMax": -791,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "1 mois, vers 791 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « 1 mois, vers 791 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-shaloum-3hf4d0-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-shaloum-3hf4d0"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -791,
+        "yearMax": -791,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -791,
+        "yearMax": -791,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "1 mois, vers 791 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « 1 mois, vers 791 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-zimri-1259iez-reign-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-zimri-1259iez"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "7 jours, vers 951 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « 7 jours, vers 951 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-event-zimri-1259iez-reign-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-zimri-1259iez"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "7 jours, vers 951 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « 7 jours, vers 951 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-joachaz-co-reign-a6-a-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachaz-1d329mk"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -859,
+        "yearMax": -859,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -859,
+        "yearMax": -859,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Corègne avec Joas, vers 862-vers 859 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « Corègne avec Joas, vers 862-vers 859 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-joachaz-co-reign-a6-a-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joachaz-1d329mk"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -862,
+        "yearMax": -862,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -862,
+        "yearMax": -862,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Corègne avec Joas, vers 862-vers 859 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « Corègne avec Joas, vers 862-vers 859 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-joas-co-reign-a6-a-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joas-1o337ml"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -859,
+        "yearMax": -859,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -859,
+        "yearMax": -859,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Corègne avec Joachaz, vers 862-vers 859 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « Corègne avec Joachaz, vers 862-vers 859 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-joas-co-reign-a6-a-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joas-1o337ml"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -862,
+        "yearMax": -862,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -862,
+        "yearMax": -862,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Corègne avec Joachaz, vers 862-vers 859 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « Corègne avec Joachaz, vers 862-vers 859 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-joas-established-a6-a-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joas-1o337ml"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -844,
+        "yearMax": -844,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -844,
+        "yearMax": -844,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Joas seul, vers 859-vers 844 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « Joas seul, vers 859-vers 844 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-joas-established-a6-a-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joas-1o337ml"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -859,
+        "yearMax": -859,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -859,
+        "yearMax": -859,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Joas seul, vers 859-vers 844 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « Joas seul, vers 859-vers 844 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-omri-disputed-a6-a-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-omri-seul-ub6jpn"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -947,
+        "yearMax": -947,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -947,
+        "yearMax": -947,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne disputé avec Tibni, vers 951-vers 947 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « Règne disputé avec Tibni, vers 951-vers 947 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-omri-disputed-a6-a-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-omri-seul-ub6jpn"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne disputé avec Tibni, vers 951-vers 947 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « Règne disputé avec Tibni, vers 951-vers 947 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-omri-established-a6-a-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-omri-seul-ub6jpn"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -940,
+        "yearMax": -940,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -940,
+        "yearMax": -940,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Omri seul, vers 947-vers 940 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « Omri seul, vers 947-vers 940 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-omri-established-a6-a-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-omri-seul-ub6jpn"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -947,
+        "yearMax": -947,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -947,
+        "yearMax": -947,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Omri seul, vers 947-vers 940 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « Omri seul, vers 947-vers 940 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-osee-king-established-a6-b-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-osee-q1i1e0"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -740,
+        "yearMax": -740,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -740,
+        "yearMax": -740,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne pleinement établi, vers 748-740 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « Règne pleinement établi, vers 748-740 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-osee-king-established-a6-b-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-osee-q1i1e0"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -748,
+        "yearMax": -748,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -748,
+        "yearMax": -748,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne pleinement établi, vers 748-740 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « Règne pleinement établi, vers 748-740 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-osee-king-limited-a6-b-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-osee-q1i1e0"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -748,
+        "yearMax": -748,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -748,
+        "yearMax": -748,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Commence à régner dans un certain sens vers 758 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « Commence à régner dans un certain sens vers 758 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-osee-king-limited-a6-b-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-osee-q1i1e0"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -758,
+        "yearMax": -758,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -758,
+        "yearMax": -758,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Commence à régner dans un certain sens vers 758 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « Commence à régner dans un certain sens vers 758 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-person-abdias-a6-b-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-abdias-a6-b"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -620,
+        "yearMax": -620,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -605,
+        "yearMax": -605,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement vers 620-605 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Abdias.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-person-ezechiel-a6-b-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-ezechiel-a6-b"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -615,
+        "yearMax": -615,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -590,
+        "yearMax": -590,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement entre 615 et 590 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Ézéchiel.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-person-habacuc-a6-b-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-habacuc-a6-b"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -630,
+        "yearMax": -630,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -615,
+        "yearMax": -615,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement vers 630-615 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Habacuc.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-person-nahum-a6-b-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-nahum-a6-b"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -660,
+        "yearMax": -660,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -650,
+        "yearMax": -650,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement vers 660-650 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Nahum.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-person-sophonie-a6-b-prophetic-ministry",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-sophonie-a6-b"
+    },
+    "predicate": "prophecy",
+    "period": {
+      "start": {
+        "yearMin": -660,
+        "yearMax": -660,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -645,
+        "yearMax": -645,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "possible"
+      },
+      "displayLabel": "Ministère représenté approximativement vers 660-645 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, barre graphique du ministère de Sophonie.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Les extrémités sont une lecture prudente du graphique, pas une date au jour ou à l’année certaine."
+  },
+  {
+    "id": "claim-activity-tibni-disputed-a6-a-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-tibni-a6-a"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -947,
+        "yearMax": -947,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -947,
+        "yearMax": -947,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne disputé avec Omri, vers 951-vers 947 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : fin ou durée de la phase « Règne disputé avec Omri, vers 951-vers 947 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-tibni-disputed-a6-a-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-tibni-a6-a"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -951,
+        "yearMax": -951,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne disputé avec Omri, vers 951-vers 947 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-a",
+        "shortReference": "A6-A, graphique : début de la phase « Règne disputé avec Omri, vers 951-vers 947 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-zacharie-established-a6-b-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-zacharie-1j7fkvy"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -792,
+        "yearMax": -792,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -792,
+        "yearMax": -792,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne pleinement établi pendant 6 mois, vers 792 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « Règne pleinement établi pendant 6 mois, vers 792 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-zacharie-established-a6-b-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-zacharie-1j7fkvy"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -792,
+        "yearMax": -792,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -792,
+        "yearMax": -792,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne pleinement établi pendant 6 mois, vers 792 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « Règne pleinement établi pendant 6 mois, vers 792 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-zacharie-limited-a6-b-end",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-zacharie-1j7fkvy"
+    },
+    "predicate": "reign-end",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -792,
+        "yearMax": -792,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -792,
+        "yearMax": -792,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Commence à régner dans un certain sens vers 803 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : fin ou durée de la phase « Commence à régner dans un certain sens vers 803 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-activity-zacharie-limited-a6-b-start",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-zacharie-1j7fkvy"
+    },
+    "predicate": "reign-start",
+    "object": {
+      "entityType": "territory",
+      "entityId": "territory-kingdom-israel"
+    },
+    "period": {
+      "start": {
+        "yearMin": -803,
+        "yearMax": -803,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -803,
+        "yearMax": -803,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Commence à régner dans un certain sens vers 803 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : début de la phase « Commence à régner dans un certain sens vers 803 av. n. è. ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-interaction-elie-achab",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-elie-1nckpyy"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-achab-rnxk2l"
+    },
+    "period": {
+      "start": {
+        "yearMin": -940,
+        "yearMax": -940,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -920,
+        "yearMax": -920,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1 Rois 17:1"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-1-kings-17",
+        "shortReference": "1 Rois 17:1",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-interaction-elisee-joram",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-elisee-1r2p3av"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-joram-dcjw4c"
+    },
+    "period": {
+      "start": {
+        "yearMin": -917,
+        "yearMax": -917,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2 Rois 3:11-14"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-2-kings-3",
+        "shortReference": "2 Rois 3:11-14",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-interaction-isaie-ezechias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaie-90gwjf"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-ezechias-1ne958h"
+    },
+    "period": {
+      "start": {
+        "yearMin": -746,
+        "yearMax": -746,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2 Rois 19:1-7, 20"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-2-kings-19",
+        "shortReference": "2 Rois 19:1-7, 20",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-interaction-jeremie-sedecias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jeremie-14kkv3x"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-sedecias-h3ny0i"
+    },
+    "period": {
+      "start": {
+        "yearMin": -617,
+        "yearMax": -617,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -607,
+        "yearMax": -607,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "Jérémie 37:17-21"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-jeremiah-37",
+        "shortReference": "Jérémie 37:17-21",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-joram-israel-presence-samaria",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joram-dcjw4c"
+    },
+    "predicate": "presence",
+    "placeId": "samaria",
+    "period": {
+      "start": {
+        "yearMin": -917,
+        "yearMax": -917,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne de Joram à Samarie, vers 917-vers 905 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-2-kings-3",
+        "shortReference": "2 Rois 3:1 : Joram règne à Samarie pendant 12 ans.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-political-destruction-jerusalem-607",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "historical-event-destruction-jerusalem-607"
+    },
+    "predicate": "political-event",
+    "period": {
+      "start": {
+        "yearMin": -607,
+        "yearMax": -607,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -607,
+        "yearMax": -607,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "607 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : Destruction de Jérusalem et déposition de Sédécias.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-political-fall-samaria-740",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "historical-event-fall-samaria-740"
+    },
+    "predicate": "political-event",
+    "period": {
+      "start": {
+        "yearMin": -740,
+        "yearMax": -740,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -740,
+        "yearMax": -740,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "740 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-a6-b",
+        "shortReference": "A6-B, graphique : Prise de Samarie et fin du royaume du Nord.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]

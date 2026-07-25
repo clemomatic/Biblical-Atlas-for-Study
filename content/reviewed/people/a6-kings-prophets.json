@@ -1,0 +1,3362 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-abia-abiyam-2ym9yh",
+      "name": "Abia",
+      "alternateNames": [
+        "Abiyam"
+      ],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-abia-abiyam-2ym9yh-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -980,
+              "yearMax": -980,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -978,
+              "yearMax": -978,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "980-978 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-abia-abiyam-2ym9yh-reign-start",
+            "claim-activity-event-abia-abiyam-2ym9yh-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-abia-abiyam-2ym9yh"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-achab-rnxk2l",
+      "name": "Achab",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-achab-rnxk2l-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -940,
+              "yearMax": -940,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -920,
+              "yearMax": -920,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 940-vers 920 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-achab-rnxk2l-reign-start",
+            "claim-activity-event-achab-rnxk2l-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-achab-rnxk2l"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-achaz-3rywka",
+      "name": "Achaz",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-achaz-3rywka-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -762,
+              "yearMax": -762,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -746,
+              "yearMax": -746,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "762-746 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-achaz-3rywka-reign-start",
+            "claim-activity-event-achaz-3rywka-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-achaz-3rywka"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-amazia-4p1grk",
+      "name": "Amazia",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-amazia-4p1grk-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -858,
+              "yearMax": -858,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -829,
+              "yearMax": -829,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "858-829 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-amazia-4p1grk-reign-start",
+            "claim-activity-event-amazia-4p1grk-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-amazia-4p1grk"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-amon-1e5ypbs",
+      "name": "Amon",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-amon-1e5ypbs-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -661,
+              "yearMax": -661,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -659,
+              "yearMax": -659,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "661-659 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-amon-1e5ypbs-reign-start",
+            "claim-activity-event-amon-1e5ypbs-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-amon-1e5ypbs"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-amos-18vx5fi",
+      "name": "Amos",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-amos-18vx5fi-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -850,
+              "yearMax": -850,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -800,
+              "yearMax": -800,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 850 et 800 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-amos-18vx5fi-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-amos-18vx5fi"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-asa-1yoxudp",
+      "name": "Asa",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-asa-1yoxudp-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -978,
+              "yearMax": -978,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -937,
+              "yearMax": -937,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "978-937 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-asa-1yoxudp-reign-start",
+            "claim-activity-event-asa-1yoxudp-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-asa-1yoxudp"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-athalie-reine-c0zpks",
+      "name": "Athalie",
+      "alternateNames": [],
+      "roles": [
+        "queen"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Reine du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-athalie-reine-c0zpks-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -905,
+              "yearMax": -905,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -898,
+              "yearMax": -898,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 905-898 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-athalie-reine-c0zpks-reign-start",
+            "claim-activity-event-athalie-reine-c0zpks-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-athalie-reine-c0zpks"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-baasa-1m40vzu",
+      "name": "Baasa",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-baasa-1m40vzu-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -975,
+              "yearMax": -975,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -952,
+              "yearMax": -952,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 975-vers 952 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "tirzah",
+          "supportingClaimIds": [
+            "claim-activity-event-baasa-1m40vzu-reign-start",
+            "claim-activity-event-baasa-1m40vzu-reign-end"
+          ],
+          "associatedLocationIds": [
+            "tirzah"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "tirzah"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-baasa-1m40vzu"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-daniel-oyu19r",
+      "name": "Daniel",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-daniel-oyu19r-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -620,
+              "yearMax": -620,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -580,
+              "yearMax": -580,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère commençant vers 620 av. n. è. et se poursuivant après 600 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-daniel-oyu19r-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-daniel-oyu19r"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-ela-1bvkej2",
+      "name": "Éla",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-ela-1bvkej2-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -952,
+              "yearMax": -952,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -951,
+              "yearMax": -951,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 952-vers 951 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "tirzah",
+          "supportingClaimIds": [
+            "claim-activity-event-ela-1bvkej2-reign-start",
+            "claim-activity-event-ela-1bvkej2-reign-end"
+          ],
+          "associatedLocationIds": [
+            "tirzah"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "tirzah"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-ela-1bvkej2"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-elie-1nckpyy",
+      "name": "Élie",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-elie-1nckpyy-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -940,
+              "yearMax": -940,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -850,
+              "yearMax": -850,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 940 et 850 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-elie-1nckpyy-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-elie-1nckpyy"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-elisee-1r2p3av",
+      "name": "Élisée",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-elisee-1r2p3av-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -920,
+              "yearMax": -920,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -850,
+              "yearMax": -850,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 920 et 850 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-elisee-1r2p3av-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-elisee-1r2p3av"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-ezechias-1ne958h",
+      "name": "Ézéchias",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-ezechias-1ne958h-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -746,
+              "yearMax": -746,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -716,
+              "yearMax": -716,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "746-716 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-ezechias-1ne958h-reign-start",
+            "claim-activity-event-ezechias-1ne958h-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-ezechias-1ne958h"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-isaie-90gwjf",
+      "name": "Isaïe",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-isaie-90gwjf-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -780,
+              "yearMax": -780,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -735,
+              "yearMax": -735,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 780 et 735 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-isaie-90gwjf-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-isaie-90gwjf"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-jehu-1xcnlrg",
+      "name": "Jéhu",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-jehu-1xcnlrg-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -905,
+              "yearMax": -905,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -876,
+              "yearMax": -876,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 905-876 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-jehu-1xcnlrg-reign-start",
+            "claim-activity-event-jehu-1xcnlrg-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jehu-1xcnlrg"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-jeremie-14kkv3x",
+      "name": "Jérémie",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-jeremie-14kkv3x-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -650,
+              "yearMax": -650,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -580,
+              "yearMax": -580,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 650 et 580 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-jeremie-14kkv3x-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jeremie-14kkv3x"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-jeroboam-ii-pnmqkf",
+      "name": "Jéroboam II",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-jeroboam-ii-pnmqkf-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -844,
+              "yearMax": -844,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -803,
+              "yearMax": -803,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 844-vers 803 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-jeroboam-ii-pnmqkf-reign-start",
+            "claim-activity-event-jeroboam-ii-pnmqkf-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jeroboam-ii-pnmqkf"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-jeroboam-wbpa60",
+      "name": "Jéroboam",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-jeroboam-wbpa60-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -997,
+              "yearMax": -997,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -976,
+              "yearMax": -976,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "997-vers 976 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "shechem",
+          "supportingClaimIds": [
+            "claim-activity-event-jeroboam-wbpa60-reign-start",
+            "claim-activity-event-jeroboam-wbpa60-reign-end"
+          ],
+          "associatedLocationIds": [
+            "shechem"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "shechem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jeroboam-wbpa60"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-joachaz-1d329mk",
+      "name": "Joachaz",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joachaz-1d329mk-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -876,
+              "yearMax": -876,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -862,
+              "yearMax": -862,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "876-vers 862 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-joachaz-1d329mk-reign-start",
+            "claim-activity-event-joachaz-1d329mk-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        },
+        {
+          "id": "activity-joachaz-co-reign-a6-a",
+          "type": "reign",
+          "phase": "co-reign",
+          "label": "Corègne",
+          "span": {
+            "start": {
+              "yearMin": -862,
+              "yearMax": -862,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -859,
+              "yearMax": -859,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Corègne avec Joas, vers 862-vers 859 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-joachaz-co-reign-a6-a-start",
+            "claim-activity-joachaz-co-reign-a6-a-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joachaz-1d329mk"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-joachaz-n8z9wc",
+      "name": "Joachaz",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joachaz-n8z9wc-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -628,
+              "yearMax": -628,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -628,
+              "yearMax": -628,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "3 mois en 628 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-joachaz-n8z9wc-reign-start",
+            "claim-activity-event-joachaz-n8z9wc-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joachaz-n8z9wc"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-joachim-os33qa",
+      "name": "Joachim",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joachim-os33qa-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -628,
+              "yearMax": -628,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -618,
+              "yearMax": -618,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "628-618 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-joachim-os33qa-reign-start",
+            "claim-activity-event-joachim-os33qa-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joachim-os33qa"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-joachin-1jjrc69",
+      "name": "Joachin",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joachin-1jjrc69-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -618,
+              "yearMax": -618,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -618,
+              "yearMax": -618,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "3 mois et 10 jours en 618 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-joachin-1jjrc69-reign-start",
+            "claim-activity-event-joachin-1jjrc69-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joachin-1jjrc69"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-joas-1o337ml",
+      "name": "Joas",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-joas-co-reign-a6-a",
+          "type": "reign",
+          "phase": "co-reign",
+          "label": "Corègne",
+          "span": {
+            "start": {
+              "yearMin": -862,
+              "yearMax": -862,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -859,
+              "yearMax": -859,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Corègne avec Joachaz, vers 862-vers 859 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-joas-co-reign-a6-a-start",
+            "claim-activity-joas-co-reign-a6-a-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        },
+        {
+          "id": "activity-joas-established-a6-a",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -859,
+              "yearMax": -859,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -844,
+              "yearMax": -844,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Joas seul, vers 859-vers 844 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-joas-established-a6-a-start",
+            "claim-activity-joas-established-a6-a-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joas-1o337ml"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-joas-1qmzl7g",
+      "name": "Joas",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joas-1qmzl7g-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -898,
+              "yearMax": -898,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -858,
+              "yearMax": -858,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "898-858 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-joas-1qmzl7g-reign-start",
+            "claim-activity-event-joas-1qmzl7g-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joas-1qmzl7g"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-joel-1n2xkrq",
+      "name": "Joël",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joel-1n2xkrq-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -830,
+              "yearMax": -830,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -810,
+              "yearMax": -810,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 830 et 810 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-joel-1n2xkrq-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joel-1n2xkrq"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-jonas-159bcqk",
+      "name": "Jonas",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-jonas-159bcqk-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -860,
+              "yearMax": -860,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -840,
+              "yearMax": -840,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 860 et 840 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-jonas-159bcqk-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jonas-159bcqk"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-joram-dcjw4c",
+      "name": "Joram",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joram-dcjw4c-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -917,
+              "yearMax": -917,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -905,
+              "yearMax": -905,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 917-vers 905 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-joram-dcjw4c-reign-start",
+            "claim-activity-event-joram-dcjw4c-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joram-dcjw4c"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-joram-rv6bw8",
+      "name": "Joram",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-joram-rv6bw8-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -913,
+              "yearMax": -913,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -906,
+              "yearMax": -906,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "913-vers 906 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-joram-rv6bw8-reign-start",
+            "claim-activity-event-joram-rv6bw8-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-joram-rv6bw8"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-josaphat-180etp4",
+      "name": "Josaphat",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-josaphat-180etp4-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -937,
+              "yearMax": -937,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -913,
+              "yearMax": -913,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "937-913 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-josaphat-180etp4-reign-start",
+            "claim-activity-event-josaphat-180etp4-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-josaphat-180etp4"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-josias-woei8d",
+      "name": "Josias",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-josias-woei8d-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -659,
+              "yearMax": -659,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -628,
+              "yearMax": -628,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "659-628 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-josias-woei8d-reign-start",
+            "claim-activity-event-josias-woei8d-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-josias-woei8d"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-jotam-ls65h6",
+      "name": "Jotam",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-jotam-ls65h6-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -777,
+              "yearMax": -777,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -762,
+              "yearMax": -762,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "777-762 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-jotam-ls65h6-reign-start",
+            "claim-activity-event-jotam-ls65h6-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jotam-ls65h6"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-manasse-1d4ld4r",
+      "name": "Manassé",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-manasse-1d4ld4r-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -716,
+              "yearMax": -716,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -661,
+              "yearMax": -661,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "716-661 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-manasse-1d4ld4r-reign-start",
+            "claim-activity-event-manasse-1d4ld4r-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-manasse-1d4ld4r"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-menahem-1pxgjh5",
+      "name": "Menahem",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-menahem-1pxgjh5-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -791,
+              "yearMax": -791,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -780,
+              "yearMax": -780,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 791-vers 780 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-menahem-1pxgjh5-reign-start",
+            "claim-activity-event-menahem-1pxgjh5-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-menahem-1pxgjh5"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-michee-idbjq7",
+      "name": "Michée",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-michee-idbjq7-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -755,
+              "yearMax": -755,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -710,
+              "yearMax": -710,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 755 et 710 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-michee-idbjq7-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-michee-idbjq7"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-nadab-ef40vw",
+      "name": "Nadab",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-nadab-ef40vw-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -976,
+              "yearMax": -976,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -975,
+              "yearMax": -975,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 976-vers 975 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "tirzah",
+          "supportingClaimIds": [
+            "claim-activity-event-nadab-ef40vw-reign-start",
+            "claim-activity-event-nadab-ef40vw-reign-end"
+          ],
+          "associatedLocationIds": [
+            "tirzah"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "tirzah"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-nadab-ef40vw"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-ochozias-tp5qhy",
+      "name": "Ochozias",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-ochozias-tp5qhy-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -920,
+              "yearMax": -920,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -917,
+              "yearMax": -917,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 920-vers 917 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-ochozias-tp5qhy-reign-start",
+            "claim-activity-event-ochozias-tp5qhy-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-ochozias-tp5qhy"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-ochozias-ydd23t",
+      "name": "Ochozias",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-ochozias-ydd23t-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -906,
+              "yearMax": -906,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -905,
+              "yearMax": -905,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 906-vers 905 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-ochozias-ydd23t-reign-start",
+            "claim-activity-event-ochozias-ydd23t-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-ochozias-ydd23t"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-omri-seul-ub6jpn",
+      "name": "Omri",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-omri-disputed-a6-a",
+          "type": "reign",
+          "phase": "disputed-reign",
+          "label": "Règne disputé",
+          "span": {
+            "start": {
+              "yearMin": -951,
+              "yearMax": -951,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -947,
+              "yearMax": -947,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Règne disputé avec Tibni, vers 951-vers 947 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "tirzah",
+          "supportingClaimIds": [
+            "claim-activity-omri-disputed-a6-a-start",
+            "claim-activity-omri-disputed-a6-a-end"
+          ],
+          "associatedLocationIds": [
+            "tirzah"
+          ],
+          "certainty": "probable",
+          "notes": "Cette phase ne doit pas être confondue avec le règne d’Omri seul."
+        },
+        {
+          "id": "activity-omri-established-a6-a",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -947,
+              "yearMax": -947,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -940,
+              "yearMax": -940,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Omri seul, vers 947-vers 940 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-omri-established-a6-a-start",
+            "claim-activity-omri-established-a6-a-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "tirzah"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-omri-seul-ub6jpn"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-osee-jj56nl",
+      "name": "Osée",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-osee-jj56nl-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -805,
+              "yearMax": -805,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -745,
+              "yearMax": -745,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 805 et 745 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-event-osee-jj56nl-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-osee-jj56nl"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-osee-q1i1e0",
+      "name": "Osée",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-osee-king-limited-a6-b",
+          "type": "reign",
+          "phase": "limited-reign",
+          "label": "Début de règne dans un sens limité",
+          "span": {
+            "start": {
+              "yearMin": -758,
+              "yearMax": -758,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -748,
+              "yearMax": -748,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Commence à régner dans un certain sens vers 758 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-osee-king-limited-a6-b-start",
+            "claim-activity-osee-king-limited-a6-b-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        },
+        {
+          "id": "activity-osee-king-established-a6-b",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -748,
+              "yearMax": -748,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -740,
+              "yearMax": -740,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Règne pleinement établi, vers 748-740 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-osee-king-established-a6-b-start",
+            "claim-activity-osee-king-established-a6-b-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-osee-q1i1e0"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-ozias-azarias-z716hd",
+      "name": "Ozias",
+      "alternateNames": [
+        "Azarias"
+      ],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-ozias-azarias-z716hd-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -829,
+              "yearMax": -829,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -777,
+              "yearMax": -777,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "829-777 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-ozias-azarias-z716hd-reign-start",
+            "claim-activity-event-ozias-azarias-z716hd-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-ozias-azarias-z716hd"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-peka-gtm9lr",
+      "name": "Péka",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-peka-gtm9lr-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -778,
+              "yearMax": -778,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -758,
+              "yearMax": -758,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 778-vers 758 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-peka-gtm9lr-reign-start",
+            "claim-activity-event-peka-gtm9lr-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-peka-gtm9lr"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-pekaya-wx6x8f",
+      "name": "Pekaya",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-pekaya-wx6x8f-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -780,
+              "yearMax": -780,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -778,
+              "yearMax": -778,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "vers 780-vers 778 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-pekaya-wx6x8f-reign-start",
+            "claim-activity-event-pekaya-wx6x8f-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-pekaya-wx6x8f"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-roboam-121uoxd",
+      "name": "Roboam",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-roboam-121uoxd-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -997,
+              "yearMax": -997,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -980,
+              "yearMax": -980,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "997-980 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-roboam-121uoxd-reign-start",
+            "claim-activity-event-roboam-121uoxd-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-roboam-121uoxd"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-sedecias-h3ny0i",
+      "name": "Sédécias",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-judah"
+      ],
+      "description": "Roi du royaume de Juda.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-sedecias-h3ny0i-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -617,
+              "yearMax": -617,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -607,
+              "yearMax": -607,
+              "precision": "year",
+              "approximate": false,
+              "certainty": "certain"
+            },
+            "displayLabel": "617-607 av. n. è."
+          },
+          "realmId": "territory-kingdom-judah",
+          "capitalPlaceId": "jerusalem",
+          "supportingClaimIds": [
+            "claim-activity-event-sedecias-h3ny0i-reign-start",
+            "claim-activity-event-sedecias-h3ny0i-reign-end"
+          ],
+          "associatedLocationIds": [
+            "jerusalem"
+          ],
+          "certainty": "certain"
+        }
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [],
+      "certainty": "certain",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-sedecias-h3ny0i"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-shaloum-3hf4d0",
+      "name": "Shaloum",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-shaloum-3hf4d0-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -791,
+              "yearMax": -791,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -791,
+              "yearMax": -791,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "1 mois, vers 791 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-event-shaloum-3hf4d0-reign-start",
+            "claim-activity-event-shaloum-3hf4d0-reign-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-shaloum-3hf4d0"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "event-zacharie-1j7fkvy",
+      "name": "Zacharie",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-zacharie-limited-a6-b",
+          "type": "reign",
+          "phase": "limited-reign",
+          "label": "Début de règne dans un sens limité",
+          "span": {
+            "start": {
+              "yearMin": -803,
+              "yearMax": -803,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -792,
+              "yearMax": -792,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Commence à régner dans un certain sens vers 803 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-zacharie-limited-a6-b-start",
+            "claim-activity-zacharie-limited-a6-b-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        },
+        {
+          "id": "activity-zacharie-established-a6-b",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -792,
+              "yearMax": -792,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -792,
+              "yearMax": -792,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Règne pleinement établi pendant 6 mois, vers 792 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "samaria",
+          "supportingClaimIds": [
+            "claim-activity-zacharie-established-a6-b-start",
+            "claim-activity-zacharie-established-a6-b-end"
+          ],
+          "associatedLocationIds": [
+            "samaria"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "samaria"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-zacharie-1j7fkvy"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "event-zimri-1259iez",
+      "name": "Zimri",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-event-zimri-1259iez-reign",
+          "type": "reign",
+          "phase": "fully-established-reign",
+          "label": "Règne pleinement établi",
+          "span": {
+            "start": {
+              "yearMin": -951,
+              "yearMax": -951,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -951,
+              "yearMax": -951,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "7 jours, vers 951 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "tirzah",
+          "supportingClaimIds": [
+            "claim-activity-event-zimri-1259iez-reign-start",
+            "claim-activity-event-zimri-1259iez-reign-end"
+          ],
+          "associatedLocationIds": [
+            "tirzah"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "tirzah"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-zimri-1259iez"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "person-abdias-a6-b",
+      "name": "Abdias",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-person-abdias-a6-b-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -620,
+              "yearMax": -620,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -605,
+              "yearMax": -605,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement vers 620-605 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-person-abdias-a6-b-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "person-abdias-a6-b"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "person-ezechiel-a6-b",
+      "name": "Ézéchiel",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-person-ezechiel-a6-b-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -615,
+              "yearMax": -615,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -590,
+              "yearMax": -590,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement entre 615 et 590 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-person-ezechiel-a6-b-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "person-ezechiel-a6-b"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "person-habacuc-a6-b",
+      "name": "Habacuc",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-person-habacuc-a6-b-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -630,
+              "yearMax": -630,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -615,
+              "yearMax": -615,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement vers 630-615 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-person-habacuc-a6-b-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "person-habacuc-a6-b"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "person-nahum-a6-b",
+      "name": "Nahum",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-person-nahum-a6-b-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -660,
+              "yearMax": -660,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -650,
+              "yearMax": -650,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement vers 660-650 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-person-nahum-a6-b-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "person-nahum-a6-b"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "person": {
+      "id": "person-sophonie-a6-b",
+      "name": "Sophonie",
+      "alternateNames": [],
+      "roles": [
+        "prophet"
+      ],
+      "description": "Prophète dont la période de ministère est représentée dans les appendices A6.",
+      "activityPeriods": [
+        {
+          "id": "activity-person-sophonie-a6-b-prophetic-ministry",
+          "type": "prophecy",
+          "phase": "prophetic-ministry",
+          "label": "Ministère prophétique",
+          "span": {
+            "start": {
+              "yearMin": -660,
+              "yearMax": -660,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "end": {
+              "yearMin": -645,
+              "yearMax": -645,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "possible"
+            },
+            "displayLabel": "Ministère représenté approximativement vers 660-645 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-activity-person-sophonie-a6-b-prophetic-ministry"
+          ],
+          "certainty": "possible"
+        }
+      ],
+      "associatedLocationIds": [],
+      "biblicalReferences": [],
+      "certainty": "possible",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "person-sophonie-a6-b"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-a"
+    ],
+    "person": {
+      "id": "person-tibni-a6-a",
+      "name": "Tibni",
+      "alternateNames": [],
+      "roles": [
+        "king"
+      ],
+      "realmIds": [
+        "territory-kingdom-israel"
+      ],
+      "description": "Roi du royaume d’Israël.",
+      "activityPeriods": [
+        {
+          "id": "activity-tibni-disputed-a6-a",
+          "type": "reign",
+          "phase": "disputed-reign",
+          "label": "Règne disputé",
+          "span": {
+            "start": {
+              "yearMin": -951,
+              "yearMax": -951,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -947,
+              "yearMax": -947,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Règne disputé avec Omri, vers 951-vers 947 av. n. è."
+          },
+          "realmId": "territory-kingdom-israel",
+          "capitalPlaceId": "tirzah",
+          "supportingClaimIds": [
+            "claim-activity-tibni-disputed-a6-a-start",
+            "claim-activity-tibni-disputed-a6-a-end"
+          ],
+          "associatedLocationIds": [
+            "tirzah"
+          ],
+          "certainty": "probable"
+        }
+      ],
+      "associatedLocationIds": [
+        "tirzah"
+      ],
+      "biblicalReferences": [],
+      "certainty": "probable",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-omri-et-tibni-ti47en"
+    }
+  }
+]
