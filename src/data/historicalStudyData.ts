@@ -1,8 +1,10 @@
+import calculatedClaimsJson from '../../content/generated/calculated-claims.json';
 import historicalIndexJson from '../../content/generated/historical-index.json';
 import personLifeResolutionsJson from '../../content/generated/person-life-resolutions.json';
 import relationsJson from '../../content/generated/relations.json';
 import sourceCatalogJson from '../../content/sources/source-catalog.json';
 import type {
+  CalculatedHistoricalClaim,
   DerivedHistoricalRelation,
   HistoricalClaim,
   ReviewedEventRecord,
@@ -73,7 +75,35 @@ export const REVIEWED_HISTORICAL_PEOPLE = reviewedPeople;
 export const REVIEWED_HISTORICAL_EVENTS = reviewedEvents;
 export const REVIEWED_HISTORICAL_PLACES = reviewedPlaces;
 export const REVIEWED_HISTORICAL_CLAIMS = reviewedClaims;
-export const REVIEWED_HISTORICAL_TERRITORIES = reviewedTerritories;
+export const CALCULATED_HISTORICAL_CLAIMS =
+  calculatedClaimsJson as unknown as CalculatedHistoricalClaim[];
+
+export interface HistoricalCalculationDetail {
+  claim: CalculatedHistoricalClaim;
+  inputClaims: HistoricalClaim[];
+  source?: SourceCatalogEntry;
+}
+
+export const getCalculatedDatesForPerson = (
+  personId: string
+): HistoricalCalculationDetail[] =>
+  CALCULATED_HISTORICAL_CLAIMS
+    .filter(
+      claim =>
+        claim.subject.entityType === 'person' &&
+        claim.subject.entityId === personId
+    )
+    .map(claim => ({
+      claim,
+      inputClaims: claim.calculation.inputClaimIds
+        .map(claimId =>
+          REVIEWED_HISTORICAL_CLAIMS.find(candidate => candidate.id === claimId)
+        )
+        .filter((input): input is HistoricalClaim => Boolean(input)),
+      source: HISTORICAL_SOURCE_CATALOG.find(
+        source => source.id === claim.evidence[0]?.sourceId
+      )
+    }));export const REVIEWED_HISTORICAL_TERRITORIES = reviewedTerritories;
 export const DERIVED_HISTORICAL_RELATIONS =
   relationsJson as unknown as DerivedHistoricalRelation[];
 export const HISTORICAL_INDEX =

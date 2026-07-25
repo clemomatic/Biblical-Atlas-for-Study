@@ -13,6 +13,7 @@ import { formatEventSpan } from '../utils/dateUtils';
 import type { BiblicalPerson } from '../domain/history/types';
 import {
   getActiveProphetsDuringReign,
+  getCalculatedDatesForPerson,
   getContemporaryKingsForProphet,
   type HistoricalPersonAssociation
 } from '../data/historicalStudyData';
@@ -40,6 +41,7 @@ import {
   X
 } from 'lucide-react';
 import { GeographicProvenancePanel } from './GeographicProvenancePanel';
+import { HistoricalCalculationPanel } from './HistoricalCalculationPanel';
 import { MediaHeader } from './MediaHeader';
 
 type DetailSection = 'overview' | 'relations' | 'references';
@@ -584,6 +586,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     selectedRoute?.geographicProvenance ||
     selectedPerson?.geographicProvenance ||
     [];
+  const calculatedDates = profilePerson
+    ? getCalculatedDatesForPerson(profilePerson.id)
+    : [];
 
   return (
     <aside
@@ -684,6 +689,10 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
                 <Calendar className="size-4 shrink-0" />
                 {formatTemporalSpanFrench(selectedPerson.lifeSpan)}
               </div>
+            )}
+
+            {calculatedDates.length > 0 && (
+              <HistoricalCalculationPanel items={calculatedDates} />
             )}
 
             {selectedPerson?.sourceTimelineWindows?.map(window => (
