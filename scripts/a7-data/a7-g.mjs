@@ -222,4 +222,3 @@ export const A7_G = {
     )
   ]
 };
-

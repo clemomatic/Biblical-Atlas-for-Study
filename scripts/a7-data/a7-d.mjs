@@ -180,4 +180,3 @@ export const A7_D = {
     )
   ]
 };
-

@@ -224,4 +224,3 @@ export const A7_H = {
     )
   ]
 };
-

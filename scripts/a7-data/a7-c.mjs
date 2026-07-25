@@ -268,4 +268,3 @@ export const A7_C = {
     )
   ]
 };
-
