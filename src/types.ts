@@ -21,7 +21,8 @@ export type BiblicalRouteCategory =
   | 'patriarch-jacob'
   | 'ancient-road'
   | 'exodus'
-  | 'missionary';
+  | 'missionary'
+  | 'jesus-ministry';
 
 export interface SourceReference {
   id: string;
@@ -185,6 +186,10 @@ export interface BiblicalRoute extends EntityMetadata {
   associatedCharacterIds?: string[];
   /** @deprecated Compatibility with existing data; normalized to associatedCharacterIds. */
   associatedCharacters?: string[];
+  /** Le tracé relie des lieux attestés sans prétendre restituer le chemin exact. */
+  geometryPrecision?: 'schematic';
+  /** Empêche toute interprétation du tracé comme donnée de navigation. */
+  notForExactNavigation?: boolean;
 }
 
 export interface BiblicalTerritory extends EntityMetadata {

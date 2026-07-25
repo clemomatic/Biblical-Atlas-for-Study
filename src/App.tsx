@@ -311,11 +311,13 @@ export default function App() {
           >
             <MapView
               places={places}
+              routes={routes}
               selectedPlace={selectedPlace}
               selectedEvent={selectedEvent}
               visiblePeriod={visiblePeriod}
               isActive={activeTab === 'map'}
               onSelectPlace={handleSelectPlace}
+              onSelectRoute={handleSelectRoute}
               searchQuery=""
             />
           </section>

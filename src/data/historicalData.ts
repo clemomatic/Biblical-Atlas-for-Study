@@ -1,6 +1,9 @@
 import { createLegacyTimelineProjection } from '../adapters/legacyPeopleAdapter';
 import { BIBLICAL_PEOPLE } from './biblicalPeople';
-import { REVIEWED_TIMELINE_EVENTS } from './reviewedHistoricalEvents';
+import {
+  REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
+  REVIEWED_TIMELINE_EVENTS
+} from './reviewedHistoricalEvents';
 import { EVENTS } from './timelineEvents';
 
 /**
@@ -15,6 +18,8 @@ const LEGACY_TIMELINE_EVENTS = createLegacyTimelineProjection(
 );
 
 export const TIMELINE_EVENTS = [
-  ...LEGACY_TIMELINE_EVENTS,
+  ...LEGACY_TIMELINE_EVENTS.filter(
+    event => !REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS.has(event.id)
+  ),
   ...REVIEWED_TIMELINE_EVENTS
 ];
