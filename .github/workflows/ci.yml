@@ -40,3 +40,6 @@ jobs:
 
       - name: Construire l’application
         run: pnpm run build
+
+      - name: Vérifier l’installation PWA
+        run: pnpm run pwa:check

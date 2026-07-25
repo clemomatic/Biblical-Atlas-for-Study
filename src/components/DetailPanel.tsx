@@ -32,6 +32,7 @@ import {
   User,
   X
 } from 'lucide-react';
+import { MediaHeader } from './MediaHeader';
 
 type DetailSection = 'overview' | 'relations' | 'references';
 
@@ -57,8 +58,8 @@ const SectionTitle = ({
   icon: React.ReactNode;
   children: React.ReactNode;
 }) => (
-  <h3 className="mb-3 flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-slate-500">
-    <span className="text-indigo-600">{icon}</span>
+  <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-[var(--color-ink)]">
+    <span className="text-[var(--color-bronze)]">{icon}</span>
     {children}
   </h3>
 );
@@ -77,22 +78,22 @@ const RelationButton = ({
 }) => (
   <button
     onClick={onClick}
-    className="group flex w-full items-center gap-3 rounded-2xl border border-slate-200 bg-white p-3 text-left transition hover:border-indigo-200 hover:shadow-sm"
+    className="group flex min-h-14 w-full items-center gap-3 border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] p-3 text-left transition-colors hover:border-[var(--color-primary)] hover:bg-[var(--color-primary-soft)]"
   >
-    <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-slate-100 text-indigo-600">
+    <span className="grid size-9 shrink-0 place-items-center text-[var(--color-primary)]">
       {icon}
     </span>
     <span className="min-w-0 flex-1">
-      <span className="block truncate text-sm font-semibold text-slate-900">
+      <span className="block truncate text-sm font-semibold text-[var(--color-ink)]">
         {title}
       </span>
       {meta && (
-        <span className="mt-0.5 block truncate text-xs text-slate-500">
+        <span className="mt-0.5 block truncate text-xs text-[var(--color-ink-muted)]">
           {meta}
         </span>
       )}
     </span>
-    <ArrowRight className="size-4 text-slate-300 transition group-hover:translate-x-0.5 group-hover:text-indigo-600" />
+    <ArrowRight className="size-4 text-[var(--color-stone)] transition group-hover:translate-x-0.5 group-hover:text-[var(--color-primary)]" />
   </button>
 );
 
@@ -126,7 +127,7 @@ const ReferenceList = ({
           ) : (
             <span
               key={reference}
-              className="block rounded-xl border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700"
+              className="block border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] px-3 py-2 text-xs font-medium text-[var(--color-ink-soft)]"
             >
               {reference}
             </span>
@@ -148,8 +149,10 @@ const JwReferenceRow = ({
   accent?: 'indigo' | 'slate';
 }) => (
   <div
-    className={`flex overflow-hidden rounded-xl border bg-white ${
-      accent === 'indigo' ? 'border-indigo-100' : 'border-slate-200'
+    className={`flex overflow-hidden border-l-2 bg-[var(--color-paper-muted)] ${
+      accent === 'indigo'
+        ? 'border-[var(--color-primary)]'
+        : 'border-[var(--color-stone)]'
     }`}
   >
     <a
@@ -157,19 +160,21 @@ const JwReferenceRow = ({
       target="_blank"
       rel="noreferrer"
       title="Ouvrir avec JW Library si disponible"
-      className={`group flex min-w-0 flex-1 items-center gap-2 px-3 py-2 text-xs font-semibold transition ${
+      className={`group flex min-w-0 flex-1 items-center gap-2 px-3 py-2.5 text-xs font-semibold transition-colors ${
         accent === 'indigo'
-          ? 'text-indigo-950 hover:bg-indigo-50'
-          : 'text-slate-800 hover:bg-slate-50'
+          ? 'text-[var(--color-primary-dark)] hover:bg-[var(--color-primary-soft)]'
+          : 'text-[var(--color-ink)] hover:bg-[var(--color-stone-light)]'
       }`}
     >
       <BookOpen
         className={`size-4 shrink-0 ${
-          accent === 'indigo' ? 'text-indigo-600' : 'text-slate-500'
+          accent === 'indigo'
+            ? 'text-[var(--color-primary)]'
+            : 'text-[var(--color-ink-muted)]'
         }`}
       />
       <span className="min-w-0 flex-1">{label}</span>
-      <span className="hidden shrink-0 rounded-md bg-slate-950 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wide text-white sm:inline">
+      <span className="hidden shrink-0 bg-[var(--color-primary-dark)] px-1.5 py-0.5 text-xs font-semibold text-white sm:inline">
         JW Library
       </span>
       <ExternalLink className="size-3.5 shrink-0 opacity-50 transition group-hover:opacity-100" />
@@ -180,7 +185,7 @@ const JwReferenceRow = ({
       rel="noreferrer"
       title="Ouvrir directement dans la Bibliothèque en ligne"
       aria-label={`${label} sur WOL`}
-      className="grid shrink-0 place-items-center border-l border-slate-200 px-3 text-[10px] font-bold uppercase tracking-wide text-slate-500 transition hover:bg-slate-100 hover:text-indigo-700"
+      className="grid min-w-12 shrink-0 place-items-center border-l border-[var(--color-stone-light)] px-3 text-xs font-semibold text-[var(--color-ink-muted)] transition-colors hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)]"
     >
       WOL
     </a>
@@ -199,11 +204,11 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
             : null;
           const content = (
             <>
-              <span className="block text-sm font-semibold text-slate-900">
+              <span className="block text-sm font-semibold text-[var(--color-ink)]">
                 {source.label}
               </span>
               {source.citation && (
-                <span className="mt-0.5 block text-xs text-slate-500">
+                <span className="mt-0.5 block text-xs text-[var(--color-ink-muted)]">
                   {source.citation}
                 </span>
               )}
@@ -212,7 +217,7 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
           return jwTarget ? (
             <div
               key={source.id}
-              className="flex overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:border-indigo-200 hover:shadow-sm"
+              className="flex overflow-hidden border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] transition-colors hover:border-[var(--color-primary)]"
             >
               <a
                 href={jwTarget.finderUrl}
@@ -222,7 +227,7 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
                 className="group flex min-w-0 flex-1 items-center gap-3 p-3"
               >
                 <span className="min-w-0 flex-1">{content}</span>
-                <ExternalLink className="size-4 shrink-0 text-slate-400 transition group-hover:text-indigo-600" />
+                <ExternalLink className="size-4 shrink-0 text-[var(--color-ink-muted)] transition group-hover:text-[var(--color-primary)]" />
               </a>
               <a
                 href={jwTarget.wolUrl}
@@ -230,7 +235,7 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
                 rel="noreferrer"
                 title="Ouvrir directement dans la Bibliothèque en ligne"
                 aria-label={`${source.label} sur WOL`}
-                className="grid shrink-0 place-items-center border-l border-slate-200 px-3 text-[10px] font-bold uppercase tracking-wide text-slate-500 hover:bg-slate-100 hover:text-indigo-700"
+                className="grid min-w-12 shrink-0 place-items-center border-l border-[var(--color-stone-light)] px-3 text-xs font-semibold text-[var(--color-ink-muted)] hover:bg-[var(--color-primary-soft)] hover:text-[var(--color-primary)]"
               >
                 WOL
               </a>
@@ -241,14 +246,14 @@ const SourcesList = ({ sources }: { sources: SourceReference[] }) => {
               href={source.url}
               target="_blank"
               rel="noreferrer"
-              className="block rounded-2xl border border-slate-200 bg-white p-3 transition hover:border-indigo-200 hover:shadow-sm"
+              className="block border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] p-3 transition-colors hover:border-[var(--color-primary)]"
             >
               {content}
             </a>
           ) : (
             <div
               key={source.id}
-              className="rounded-2xl border border-slate-200 bg-white p-3"
+              className="border-l-2 border-[var(--color-stone)] bg-[var(--color-paper-muted)] p-3"
             >
               {content}
             </div>
@@ -287,14 +292,14 @@ const EncyclopediaReferences = ({
 
           const content = (
             <>
-              <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-amber-100 text-amber-800">
+              <span className="grid size-10 shrink-0 place-items-center text-[var(--color-bronze)]">
                 <BookOpen className="size-5" />
               </span>
               <span className="min-w-0 flex-1">
-                <span className="block text-sm font-semibold text-slate-950">
+                <span className="block text-sm font-semibold text-[var(--color-ink)]">
                   {reference.articleTitle}
                 </span>
-                <span className="mt-0.5 block text-xs text-slate-500">
+                <span className="mt-0.5 block text-xs text-[var(--color-ink-muted)]">
                   {reference.work === 'wol'
                     ? 'Documentation WOL complémentaire'
                     : reference.matchType === 'article-mention'
@@ -304,14 +309,14 @@ const EncyclopediaReferences = ({
                         : 'Article encyclopédique correspondant'}
                 </span>
               </span>
-              <ExternalLink className="size-4 shrink-0 text-amber-700 transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <ExternalLink className="size-4 shrink-0 text-[var(--color-bronze)] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </>
           );
 
           return jwTarget ? (
             <div
               key={reference.id}
-              className="flex overflow-hidden rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white transition hover:border-amber-300 hover:shadow-sm"
+              className="flex overflow-hidden border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/65 transition-colors hover:bg-[var(--color-bronze-soft)]"
             >
               <a
                 href={jwTarget.finderUrl}
@@ -328,7 +333,7 @@ const EncyclopediaReferences = ({
                 rel="noreferrer"
                 title="Ouvrir directement dans la Bibliothèque en ligne"
                 aria-label={`${reference.articleTitle} sur WOL`}
-                className="grid shrink-0 place-items-center border-l border-amber-200 px-3 text-[10px] font-bold uppercase tracking-wide text-amber-800 hover:bg-amber-100"
+                className="grid min-w-12 shrink-0 place-items-center border-l border-[var(--color-bronze)]/25 px-3 text-xs font-semibold text-[var(--color-bronze)] hover:bg-[var(--color-paper)]/45"
               >
                 WOL
               </a>
@@ -339,7 +344,7 @@ const EncyclopediaReferences = ({
               href={reference.url}
               target="_blank"
               rel="noreferrer"
-              className="group flex items-center gap-3 rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-white p-3 transition hover:border-amber-300 hover:shadow-sm"
+              className="group flex items-center gap-3 border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/65 p-3 transition-colors hover:bg-[var(--color-bronze-soft)]"
             >
               {content}
             </a>
@@ -377,6 +382,14 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   useEffect(() => {
     setActiveSection('overview');
   }, [selectedEvent?.id, selectedPlace?.id, selectedRoute?.id]);
+
+  useEffect(() => {
+    const handleEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   const linkedEvents = useMemo(() => {
     if (!selectedPlace) return [];
@@ -469,11 +482,33 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     ? (selectedEvent.associatedLocationIds || [])
         .map(id => places.find(place => place.id === id))
         .filter((place): place is BiblicalPlace => Boolean(place))
-    : [];
+      : [];
+  const media =
+    selectedEvent?.media || selectedPlace?.media || selectedRoute?.media;
 
   return (
-    <aside className="fixed inset-x-0 bottom-16 z-50 flex max-h-[78dvh] flex-col overflow-hidden rounded-t-[28px] border-t border-slate-200 bg-slate-50 shadow-2xl md:bottom-0 lg:static lg:z-auto lg:h-full lg:max-h-none lg:w-[380px] lg:shrink-0 lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-none">
-      <div className="border-b border-slate-200 bg-white px-5 pb-4 pt-5">
+    <aside
+      aria-label={`Fiche documentaire : ${title}`}
+      className="atlas-enter fixed inset-x-0 bottom-16 z-50 flex max-h-[82dvh] flex-col overflow-hidden rounded-t-[var(--radius-xl)] border-t border-[var(--color-stone-light)] bg-[var(--color-paper)] shadow-[var(--shadow-3)] md:bottom-0 lg:static lg:z-auto lg:h-full lg:max-h-none lg:w-[440px] lg:shrink-0 lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-none xl:w-[460px]"
+    >
+      <div className="relative shrink-0">
+        <MediaHeader
+          title={title}
+          type={type}
+          media={media}
+          coordinates={selectedPlace?.coordinates}
+          accentColor={category?.hexColor}
+        />
+        <button
+          onClick={onClose}
+          className="atlas-icon-button absolute right-4 top-4 border-white/20 bg-[var(--color-ink)]/45 text-white hover:bg-[var(--color-ink)]/70"
+          aria-label="Fermer la fiche"
+        >
+          <X className="size-5" />
+        </button>
+      </div>
+
+      <div className="hidden">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="flex items-center gap-2">
@@ -526,11 +561,14 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         </div>
       </div>
 
-      <div className="flex-1 space-y-6 overflow-y-auto p-5">
-        {activeSection === 'overview' && (
+      <div className="flex-1 space-y-8 overflow-y-auto bg-[var(--color-paper)] p-5 sm:p-6">
+        {true && (
           <>
+            <SectionTitle icon={<FileText className="size-4" />}>
+              En bref
+            </SectionTitle>
             {selectedEvent && (
-              <div className="flex items-center gap-2 rounded-2xl border border-indigo-100 bg-indigo-50 px-4 py-3 text-sm font-semibold text-indigo-900">
+              <div className="flex items-center gap-2 border-l-2 border-[var(--color-primary)] bg-[var(--color-primary-soft)] px-4 py-3 text-sm font-semibold text-[var(--color-primary-dark)]">
                 <Calendar className="size-4 shrink-0" />
                 {formatEventSpan(
                   selectedEvent.startYear,
@@ -543,18 +581,18 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             )}
 
             {selectedPlace?.periodDescription && (
-              <div className="flex items-start gap-3 rounded-2xl border border-cyan-100 bg-cyan-50 p-4">
-                <Calendar className="mt-0.5 size-4 shrink-0 text-cyan-700" />
-                <p className="text-sm leading-relaxed text-cyan-950">
+              <div className="flex items-start gap-3 border-l-2 border-[var(--color-mineral)] bg-[var(--color-mineral-soft)] p-4">
+                <Calendar className="mt-0.5 size-4 shrink-0 text-[var(--color-mineral)]" />
+                <p className="text-sm leading-relaxed text-[var(--color-ink)]">
                   {selectedPlace.periodDescription}
                 </p>
               </div>
             )}
 
             {selectedRoute && (
-              <div className="flex items-center gap-3 rounded-2xl border border-amber-100 bg-amber-50 p-4">
-                <Navigation className="size-4 shrink-0 text-amber-700" />
-                <p className="text-sm font-semibold text-amber-950">
+              <div className="flex items-center gap-3 border-l-2 border-[var(--color-olive)] bg-[var(--color-olive-soft)] p-4">
+                <Navigation className="size-4 shrink-0 text-[var(--color-olive)]" />
+                <p className="text-sm font-semibold text-[var(--color-ink)]">
                   {selectedRoute.points.length} étapes
                   {selectedRoute.startYear !== undefined &&
                     ` · ${selectedRoute.startYear} à ${selectedRoute.endYear}`}
@@ -563,13 +601,13 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             )}
 
             {selectedPlace?.alternateNames?.length ? (
-              <p className="text-xs italic text-slate-500">
+              <p className="text-xs italic text-[var(--color-ink-muted)]">
                 Aussi nommé : {selectedPlace.alternateNames.join(', ')}
               </p>
             ) : null}
 
-            <div className="rounded-2xl border border-slate-200 bg-white p-4">
-              <p className="text-sm leading-7 text-slate-700">
+            <div className="bg-[var(--color-paper-muted)] p-4">
+              <p className="text-[15px] leading-7 text-[var(--color-ink-soft)]">
                 {description || 'Aucune présentation détaillée disponible.'}
               </p>
             </div>
@@ -600,8 +638,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           </>
         )}
 
-        {activeSection === 'relations' && (
+        {true && (
           <div className="space-y-6">
+            <SectionTitle icon={<Network className="size-4" />}>
+              Personnes, lieux et événements liés
+            </SectionTitle>
             {relatedPlaces.length > 0 && (
               <section>
                 <SectionTitle icon={<MapPin className="size-4" />}>
@@ -730,8 +771,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           </div>
         )}
 
-        {activeSection === 'references' && (
+        {true && (
           <div className="space-y-6">
+            <SectionTitle icon={<Library className="size-4" />}>
+              Références et sources
+            </SectionTitle>
             <ReferenceList
               title="Références bibliques"
               values={biblicalReferences}
@@ -756,11 +800,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         )}
       </div>
 
-      <div className="border-t border-slate-200 bg-white p-4">
+      <div className="border-t border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] p-4">
         {selectedEvent ? (
           <button
             onClick={() => onSwitchTab('timeline')}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-700"
+            className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary)]"
           >
             <Calendar className="size-4" />
             Voir dans la frise
@@ -768,7 +812,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         ) : (
           <button
             onClick={() => onSwitchTab('map')}
-            className="flex w-full items-center justify-center gap-2 rounded-xl bg-slate-950 px-4 py-3 text-sm font-bold text-white transition hover:bg-indigo-700"
+            className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary)]"
           >
             <MapPin className="size-4" />
             Voir sur la carte

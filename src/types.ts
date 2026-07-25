@@ -41,6 +41,21 @@ export interface EncyclopediaReference {
   matchType?: 'dedicated-article' | 'article-mention';
 }
 
+export interface MediaAsset {
+  id: string;
+  src: string;
+  thumbnailSrc?: string;
+  alt: string;
+  caption?: string;
+  type: 'photo' | 'illustration' | 'reconstruction' | 'map';
+  sourceLabel?: string;
+  sourceUrl?: string;
+  focalPoint?: {
+    x: number;
+    y: number;
+  };
+}
+
 export interface EntityMetadata {
   biblicalReferences?: string[];
   documentaryReferences?: string[];
@@ -49,6 +64,7 @@ export interface EntityMetadata {
   certainty?: CertaintyLevel;
   notes?: string;
   lastVerified?: string;
+  media?: MediaAsset[];
 }
 
 export interface EraData {

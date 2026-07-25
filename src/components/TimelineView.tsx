@@ -38,7 +38,7 @@ const MAX_PX_PER_YEAR = 720;
 const DEFAULT_PX_PER_YEAR = 1.2;
 const ZOOM_SLIDER_STEPS = 1000;
 const INITIAL_CENTER_YEAR = -1000;
-const MAX_CHARACTER_SUBLANES = 10;
+const MAX_CHARACTER_SUBLANES = 15;
 const CHARACTER_SUBLANE_HEIGHT = 22;
 const ERA_RAIL_HEIGHT = 60;
 const YEAR_RULER_HEIGHT = 30;
@@ -147,6 +147,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const [labelDisplayMode, setLabelDisplayMode] = useState<'auto' | 'compact' | 'full'>('auto');
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const [isControlBarCollapsed, setIsControlBarCollapsed] = useState<boolean>(false);
+  const [isDisplayMenuOpen, setIsDisplayMenuOpen] = useState(false);
   const [collapsedCategories, setCollapsedCategories] = useState<Set<string>>(new Set());
 
   const toggleCollapseCategory = (catName: string) => {
@@ -192,6 +193,35 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       ),
     [categories]
   );
+
+  const highlightedEventIds = useMemo(() => {
+    if (!selectedEventId) return null;
+
+    const selectedEvent = events.find(event => event.id === selectedEventId);
+    if (!selectedEvent) return new Set([selectedEventId]);
+
+    const selectedRelations = [
+      ...(selectedEvent.associatedCharacterIds ?? []),
+      ...(selectedEvent.associatedLocationIds ?? []),
+      ...(selectedEvent.associatedRouteIds ?? [])
+    ];
+
+    return new Set(
+      events
+        .filter(event => {
+          if (event.id === selectedEventId) return true;
+          const relations = [
+            ...(event.associatedCharacterIds ?? []),
+            ...(event.associatedLocationIds ?? []),
+            ...(event.associatedRouteIds ?? [])
+          ];
+          return relations.some(relationId =>
+            selectedRelations.includes(relationId)
+          );
+        })
+        .map(event => event.id)
+    );
+  }, [events, selectedEventId]);
 
   // Map year position to X coordinate in pixels
   const getXFromYear = (pos: number) => {
@@ -1028,11 +1058,184 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     }
   }, [selectedEventId]);
 
+  useEffect(() => {
+    if (!isDisplayMenuOpen) return;
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsDisplayMenuOpen(false);
+    };
+    window.addEventListener('keydown', closeOnEscape);
+    return () => window.removeEventListener('keydown', closeOnEscape);
+  }, [isDisplayMenuOpen]);
+
   return (
-    <div className="relative flex h-full flex-col select-none overflow-hidden bg-slate-50 text-slate-900">
+    <div className="relative flex h-full flex-col select-none overflow-hidden bg-[var(--color-paper)] text-[var(--color-ink)]">
+
+      <div className="relative z-30 flex min-h-13 shrink-0 items-center gap-2 border-b border-[var(--color-stone)] bg-[color-mix(in_srgb,var(--color-paper)_95%,transparent)] px-2.5 py-1.5 backdrop-blur-xl sm:px-3">
+        <div className="flex items-center rounded-[var(--radius-md)] bg-[var(--color-paper-muted)] p-0.5">
+          <button
+            type="button"
+            onClick={() =>
+              setZoomAroundAnchor(
+                pxPerYear / 2,
+                (containerRef.current?.clientWidth || 0) / 2
+              )
+            }
+            className="atlas-icon-button min-h-9 min-w-9"
+            title="Zoom arrière"
+            aria-label="Zoom arrière"
+          >
+            <ZoomOut className="size-4" />
+          </button>
+          <input
+            type="range"
+            min="0"
+            max={ZOOM_SLIDER_STEPS}
+            step="1"
+            value={scaleToSliderValue(pxPerYear)}
+            onChange={event =>
+              setZoomAroundAnchor(
+                sliderValueToScale(parseFloat(event.target.value)),
+                (containerRef.current?.clientWidth || 0) / 2
+              )
+            }
+            className="w-20 cursor-pointer accent-[var(--color-primary)] sm:w-24"
+            aria-label="Niveau de zoom de la frise"
+          />
+          <button
+            type="button"
+            onClick={() =>
+              setZoomAroundAnchor(
+                pxPerYear * 2,
+                (containerRef.current?.clientWidth || 0) / 2
+              )
+            }
+            className="atlas-icon-button min-h-9 min-w-9"
+            title="Zoom avant"
+            aria-label="Zoom avant"
+          >
+            <ZoomIn className="size-4" />
+          </button>
+        </div>
+
+        <div className="hidden items-center rounded-[var(--radius-md)] bg-[var(--color-paper-muted)] p-0.5 sm:flex">
+          {[
+            {
+              label: 'Global',
+              scale: MIN_PX_PER_YEAR,
+              active: zoomDisplayLevel === 'overview'
+            },
+            {
+              label: 'Étude',
+              scale: 2.4,
+              active: zoomDisplayLevel === 'study'
+            },
+            {
+              label: 'Détail',
+              scale: 36,
+              active: zoomDisplayLevel === 'detail' && pxPerYear < 360
+            },
+            {
+              label: '1 an',
+              scale: MAX_PX_PER_YEAR,
+              active: pxPerYear >= 360
+            }
+          ].map(preset => (
+            <button
+              key={preset.label}
+              type="button"
+              onClick={() =>
+                setZoomAroundAnchor(
+                  preset.scale,
+                  (containerRef.current?.clientWidth || 0) / 2
+                )
+              }
+              aria-pressed={preset.active}
+              className={`min-h-9 rounded-[7px] px-3 text-xs font-semibold ${
+                preset.active
+                  ? 'bg-[var(--color-paper)] text-[var(--color-primary-dark)] shadow-[var(--shadow-low)]'
+                  : 'text-[var(--color-ink-muted)] hover:text-[var(--color-ink)]'
+              }`}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
+
+        {centerYear !== null && (
+          <span className="ml-auto hidden text-xs font-medium tabular-nums text-[var(--color-ink-soft)] lg:block">
+            Centre · {formatDateFrench(centerYear)}
+          </span>
+        )}
+
+        <button
+          type="button"
+          onClick={() => setIsDisplayMenuOpen(previous => !previous)}
+          aria-expanded={isDisplayMenuOpen}
+          className="atlas-control ml-auto flex items-center gap-2 px-3 lg:ml-0"
+        >
+          <SlidersHorizontal className="size-4" />
+          <span className="hidden sm:inline">Affichage</span>
+          <ChevronDown
+            className={`size-3.5 ${isDisplayMenuOpen ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        {isDisplayMenuOpen && (
+          <div className="atlas-elevated atlas-enter absolute right-2 top-[calc(100%+8px)] z-50 w-[min(22rem,calc(100vw-1rem))] rounded-[var(--radius-lg)] p-4">
+            <div className="flex items-center gap-2 text-sm font-bold">
+              <Eye className="size-4 text-[var(--color-primary)]" />
+              Lisibilité de la frise
+            </div>
+            <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+              Les événements restent distincts ; seuls les titres s’adaptent à
+              l’espace disponible.
+            </p>
+
+            <div className="mt-4 grid grid-cols-3 gap-1 rounded-[var(--radius-md)] bg-[var(--color-paper-muted)] p-1">
+              {[
+                { id: 'auto' as const, label: 'Auto' },
+                { id: 'compact' as const, label: 'Épuré' },
+                { id: 'full' as const, label: 'Complet' }
+              ].map(mode => (
+                <button
+                  key={mode.id}
+                  type="button"
+                  onClick={() => setLabelDisplayMode(mode.id)}
+                  aria-pressed={labelDisplayMode === mode.id}
+                  className={`min-h-10 rounded-[7px] text-xs font-semibold ${
+                    labelDisplayMode === mode.id
+                      ? 'bg-[var(--color-paper)] text-[var(--color-primary-dark)] shadow-[var(--shadow-low)]'
+                      : 'text-[var(--color-ink-muted)]'
+                  }`}
+                >
+                  {mode.label}
+                </button>
+              ))}
+            </div>
+
+            <label className="mt-4 flex min-h-11 cursor-pointer items-center gap-3 border-t border-[var(--color-stone-light)] pt-3 text-sm font-medium text-[var(--color-ink-soft)]">
+              <input
+                type="checkbox"
+                checked={autoFilterViewport}
+                onChange={event => setAutoFilterViewport(event.target.checked)}
+                className="size-4 accent-[var(--color-primary)]"
+              />
+              Adapter la légende à la période visible
+            </label>
+            {hiddenByZoomCount > 0 && (
+              <p className="mt-2 text-xs text-[var(--color-ink-muted)]">
+                {hiddenByZoomCount} élément
+                {hiddenByZoomCount > 1 ? 's' : ''} secondaire
+                {hiddenByZoomCount > 1 ? 's' : ''} masqué
+                {hiddenByZoomCount > 1 ? 's' : ''} à ce niveau de zoom.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
       
       {/* CONTROL BAR (Collapsible & Compact) */}
-      {isControlBarCollapsed ? (
+      {false && (isControlBarCollapsed ? (
         <div className="px-3 py-1.5 bg-white border-b border-slate-200 flex items-center justify-between gap-2 shrink-0 z-20 text-xs shadow-sm">
           <div className="flex items-center gap-2">
             <div className="flex items-center bg-slate-100 rounded-lg border border-slate-200 p-0.5">
@@ -1262,10 +1465,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             <span className="text-[11px] hidden md:inline">Masquer</span>
           </button>
         </div>
-      )}
+      ))}
 
       {/* SEMANTIC OVERVIEW OR READABILITY HELPER */}
-      {zoomDisplayLevel === 'overview' ? (
+      {false && (zoomDisplayLevel === 'overview' ? (
         <div className="bg-indigo-900/95 text-indigo-100 px-3.5 py-1.5 text-xs flex items-center justify-between gap-2 shrink-0 z-20 shadow-sm border-b border-indigo-800 font-sans">
           <div className="flex min-w-0 items-center gap-2 font-medium">
             <BookOpen className="size-3.5 shrink-0 text-indigo-300" />
@@ -1302,19 +1505,19 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             Titres complets
           </button>
         </div>
-      ) : null}
+      ) : null)}
 
       {/* DISCRETE GLOBAL BIBLICAL HISTORY PROGRESS BAR */}
-      <div className="bg-slate-900/95 backdrop-blur-md text-slate-200 text-xs border-b border-slate-800 z-30 shrink-0 px-3 sm:px-4 py-1.5 flex items-center justify-between gap-3 shadow-md select-none">
+      <div className="z-20 flex shrink-0 select-none items-center justify-between gap-3 border-b border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] px-3 py-1.5 text-xs text-[var(--color-ink-soft)] sm:px-4">
         {/* Current position badge */}
         <div className="flex items-center gap-2 font-mono text-[11px] shrink-0">
-          <Compass className="w-3.5 h-3.5 text-indigo-300 shrink-0" />
-          <span className="font-sans font-medium text-slate-400 hidden sm:inline text-[11px]">Position :</span>
-          <span className="font-bold text-white bg-indigo-900/80 px-2 py-0.5 rounded border border-indigo-600/60 shadow-sm text-[11px] sm:text-xs">
+          <Compass className="size-3.5 shrink-0 text-[var(--color-bronze)]" />
+          <span className="hidden text-[11px] font-medium text-[var(--color-ink-muted)] sm:inline">Position</span>
+          <span className="text-[11px] font-semibold tabular-nums text-[var(--color-ink)] sm:text-xs">
             {centerYear !== null ? formatDateFrench(centerYear) : '—'}
           </span>
           {currentEra && (
-            <span className="hidden max-w-[280px] items-center gap-1.5 truncate font-sans text-[10px] text-slate-300 md:flex sm:text-[11px]">
+            <span className="hidden max-w-[280px] items-center gap-1.5 truncate font-serif text-xs text-[var(--color-ink-soft)] md:flex">
               <span
                 className="size-2 shrink-0 rounded-full ring-1 ring-white/40"
                 style={{ backgroundColor: currentEra.hexColor }}
@@ -1329,11 +1532,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           onClick={handleProgressBarClick}
           onMouseMove={handleProgressBarMouseMove}
           onMouseLeave={() => setHoveredProgressInfo(null)}
-          className="flex-1 max-w-lg h-3 sm:h-3.5 bg-slate-800/90 hover:bg-slate-800 rounded-full border border-slate-700/80 relative cursor-pointer overflow-hidden group shadow-inner transition-all"
+          className="group relative h-2.5 max-w-lg flex-1 cursor-pointer overflow-visible rounded-full bg-[var(--color-stone)]"
           title="Cliquer ou survoler pour naviguer rapidement dans l'histoire biblique"
         >
           {/* Mini Eras color background track */}
-          <div className="absolute inset-0 flex opacity-40 group-hover:opacity-60 transition-opacity pointer-events-none">
+          <div className="pointer-events-none absolute inset-0 flex overflow-hidden rounded-full opacity-45 transition-opacity group-hover:opacity-70">
             {eras.map((era) => {
               const eraStartRatio = Math.max(0, (era.startYear - minYear) / totalYears);
               const eraEndRatio = Math.min(1, (era.endYear - minYear) / totalYears);
@@ -1346,7 +1549,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                     width: `${eraWidthRatio * 100}%`,
                     backgroundColor: `rgb(${era.color})`
                   }}
-                  className="absolute top-0 bottom-0 border-r border-slate-900/40"
+                  className="absolute inset-y-0 border-r border-[var(--color-paper)]/60"
                 />
               );
             })}
@@ -1358,22 +1561,22 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               left: `${thumbLeftPercent}%`,
               width: `${Math.max(1.5, thumbWidthPercent)}%`
             }}
-            className="absolute top-0 bottom-0 bg-indigo-500/90 group-hover:bg-indigo-400 rounded-full shadow-md ring-1 ring-white/60 transition-all pointer-events-none"
+            className="pointer-events-none absolute inset-y-[-2px] rounded-full bg-[var(--color-primary)] ring-2 ring-[var(--color-paper)] transition-all"
           />
 
           {/* Center line pin */}
           <div
             style={{ left: `${centerPercent}%` }}
-            className="absolute top-0 bottom-0 w-0.5 bg-white shadow-sm -translate-x-1/2 z-10 pointer-events-none"
+            className="pointer-events-none absolute inset-y-[-3px] z-10 w-px -translate-x-1/2 bg-[var(--color-ink)]"
           />
 
           {/* Hover preview tooltip line */}
           {hoveredProgressInfo && (
             <div
               style={{ left: `${hoveredProgressInfo.xRatio * 100}%` }}
-              className="absolute top-0 bottom-0 w-0.5 bg-indigo-300 -translate-x-1/2 pointer-events-none z-20 shadow-sm"
+              className="pointer-events-none absolute inset-y-[-3px] z-20 w-px -translate-x-1/2 bg-[var(--color-bronze)]"
             >
-              <div className="absolute bottom-full mb-1 left-1/2 -translate-x-1/2 px-2 py-0.5 bg-slate-900 text-indigo-200 border border-indigo-600/80 text-[10px] font-mono rounded shadow-xl whitespace-nowrap">
+              <div className="absolute bottom-full left-1/2 mb-2 -translate-x-1/2 whitespace-nowrap rounded-[var(--radius-sm)] bg-[var(--color-ink)] px-2 py-1 text-[11px] font-medium tabular-nums text-[var(--color-paper)] shadow-[var(--shadow-mid)]">
                 Aller à : {formatDateFrench(hoveredProgressInfo.year)}
               </div>
             </div>
@@ -1381,16 +1584,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         </div>
 
         {/* Visible range and global progress */}
-        <div className="flex shrink-0 items-center gap-2 font-mono text-[10px] text-slate-400 sm:text-[11px]">
+        <div className="flex shrink-0 items-center gap-2 text-[11px] font-medium tabular-nums text-[var(--color-ink-muted)]">
           <span
-            className="hidden items-center gap-1 rounded-md border border-slate-700 bg-slate-800/80 px-2 py-0.5 text-slate-200 lg:flex"
+            className="hidden items-center gap-1 lg:flex"
             title="Période actuellement visible dans la frise"
           >
-            <CalendarRange className="size-3 text-indigo-300" />
+            <CalendarRange className="size-3 text-[var(--color-bronze)]" />
             {formatDateFrench(visibleYearRange.start)} →{' '}
             {formatDateFrench(visibleYearRange.end)}
           </span>
-          <span className="font-bold text-indigo-300">
+          <span className="font-semibold text-[var(--color-primary)]">
             {Math.round(centerPercent)}%
           </span>
         </div>
@@ -1419,7 +1622,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           {/* 1. HISTORICAL ERA CHAPTER RAIL */}
           <div
             style={{ height: `${ERA_RAIL_HEIGHT}px` }}
-            className="relative z-[6] overflow-hidden border-b border-slate-300 bg-slate-100 shadow-[inset_0_-1px_0_rgba(15,23,42,0.06)]"
+            className="relative z-[6] overflow-hidden border-b border-[var(--color-stone)] bg-[var(--color-paper-muted)]"
             aria-label="Ères historiques"
           >
             {eras.map((era) => {
@@ -1455,12 +1658,12 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                     left: `${left}px`,
                     width: `${width}px`,
                     backgroundImage: `linear-gradient(115deg, rgba(${era.color}, ${
-                      isCurrent ? 0.62 : 0.42
-                    }), rgba(${era.color}, ${isCurrent ? 0.26 : 0.14}))`,
-                    borderTop: `3px solid rgba(${era.color}, 0.98)`,
-                    borderLeft: `1px solid rgba(${era.color}, 0.8)`,
+                      isCurrent ? 0.2 : 0.1
+                    }), rgba(${era.color}, ${isCurrent ? 0.09 : 0.035}))`,
+                    borderTop: `2px solid rgba(${era.color}, ${isCurrent ? 0.82 : 0.5})`,
+                    borderLeft: `1px solid rgba(${era.color}, 0.28)`,
                     boxShadow: isCurrent
-                      ? `inset 0 -3px 0 rgba(${era.color}, 0.95)`
+                      ? `inset 0 -2px 0 rgba(${era.color}, 0.58)`
                       : 'none'
                   }}
                   className="absolute inset-y-0 overflow-hidden transition-[filter,box-shadow] duration-200"
@@ -1472,42 +1675,26 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                         left: `${labelInset}px`,
                         width: `${labelMaxWidth}px`
                       }}
-                      className={`absolute top-2.5 flex h-10 min-w-0 items-center gap-2 rounded-xl border px-2.5 shadow-sm backdrop-blur-md transition-all ${
+                      className={`absolute top-2.5 flex h-10 min-w-0 items-center gap-2 border-l-2 px-2.5 transition-all ${
                         isCurrent
-                          ? 'border-slate-700/70 bg-slate-950/90 text-white shadow-slate-950/20'
-                          : 'border-white/80 bg-white/80 text-slate-800'
+                          ? 'border-[var(--color-primary)] bg-[color-mix(in_srgb,var(--color-paper)_82%,transparent)] text-[var(--color-ink)]'
+                          : 'border-[var(--color-stone)] text-[var(--color-ink-soft)]'
                       }`}
                     >
-                      <span
-                        className={`flex size-6 shrink-0 items-center justify-center rounded-lg border ${
-                          isCurrent
-                            ? 'border-white/20 bg-white/10'
-                            : 'border-slate-200 bg-white/80'
-                        }`}
-                      >
-                        <Landmark
-                          className={`size-3.5 ${
-                            isCurrent ? 'text-indigo-200' : 'text-slate-600'
-                          }`}
-                        />
-                      </span>
+                      <Landmark className="size-4 shrink-0 text-[var(--color-bronze)]" />
                       <span className="min-w-0 flex-1">
                         <span
-                          className={`block text-[8px] font-black uppercase tracking-[0.2em] ${
-                            isCurrent ? 'text-indigo-200' : 'text-slate-500'
-                          }`}
+                          className="atlas-kicker block text-[9px]"
                         >
                           Ère
                         </span>
-                        <span className="block truncate text-[10px] font-extrabold leading-tight sm:text-[11px]">
+                        <span className="block truncate font-serif text-[15px] font-semibold leading-tight">
                           {era.name}
                         </span>
                       </span>
                       {labelMaxWidth >= 330 && !isLowZoomMode && (
                         <span
-                          className={`shrink-0 font-mono text-[9px] ${
-                            isCurrent ? 'text-slate-300' : 'text-slate-500'
-                          }`}
+                          className="shrink-0 text-[11px] font-medium tabular-nums text-[var(--color-ink-muted)]"
                         >
                           {formatDateFrench(era.startYear)} →{' '}
                           {formatDateFrench(era.endYear)}
@@ -1545,17 +1732,15 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                       left: `${overlayLeft}px`,
                       width: `${overlayWidth}px`
                     }}
-                    className="absolute top-2.5 z-30 flex h-10 items-center gap-2 rounded-xl border border-slate-700 bg-slate-950/95 px-2.5 text-white shadow-xl shadow-slate-950/20 ring-2 ring-white/30 backdrop-blur-md"
+                    className="absolute top-2.5 z-30 flex h-10 items-center gap-2 border-l-2 border-[var(--color-primary)] bg-[color-mix(in_srgb,var(--color-paper)_94%,transparent)] px-3 text-[var(--color-ink)] shadow-[var(--shadow-low)] backdrop-blur"
                     title={`${currentEra.name} (${formatDateFrench(currentEra.startYear)} → ${formatDateFrench(currentEra.endYear)})`}
                   >
-                    <span className="flex size-6 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/10">
-                      <Landmark className="size-3.5 text-indigo-200" />
-                    </span>
+                    <Landmark className="size-4 shrink-0 text-[var(--color-bronze)]" />
                     <span className="min-w-0 flex-1">
-                      <span className="block text-[8px] font-black uppercase tracking-[0.2em] text-indigo-200">
+                      <span className="atlas-kicker block text-[9px]">
                         Ère active
                       </span>
-                      <span className="block truncate text-[10px] font-extrabold leading-tight sm:text-[11px]">
+                      <span className="block truncate font-serif text-[15px] font-semibold leading-tight">
                         {currentEra.name}
                       </span>
                     </span>
@@ -1567,7 +1752,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           {/* 2. YEAR TICKS & RULER */}
           <div
             style={{ height: `${YEAR_RULER_HEIGHT}px` }}
-            className="sticky top-0 z-10 flex items-center border-b border-slate-200 bg-white/95 shadow-[0_1px_0_rgba(15,23,42,0.04)] backdrop-blur"
+            className="sticky top-0 z-10 flex items-center border-b border-[var(--color-stone-light)] bg-[color-mix(in_srgb,var(--color-paper)_94%,transparent)] backdrop-blur"
             aria-label="Règle chronologique"
           >
             {ticks.map(tick => {
@@ -1576,12 +1761,12 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                 <div
                   key={tick.position}
                   style={{ left: `${x}px` }}
-                  className="absolute top-0 bottom-0 flex flex-col items-center justify-between"
+                  className="absolute inset-y-0 flex flex-col items-center justify-between"
                 >
-                  <span className="text-[10px] text-slate-500 font-mono tracking-tighter whitespace-nowrap pt-0.5">
+                  <span className="whitespace-nowrap pt-1 text-[11px] font-medium tabular-nums text-[var(--color-ink-muted)]">
                     {tick.label}
                   </span>
-                  <div className="w-[1px] h-2 bg-slate-300" />
+                  <div className="h-2 w-px bg-[var(--color-stone)]" />
                 </div>
               );
             })}
@@ -1591,16 +1776,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           {visibleBackgroundPeriodItems.length > 0 && (
             <div
               style={{ height: `${backgroundRailHeight}px` }}
-              className="relative border-b border-indigo-200/70 bg-gradient-to-b from-indigo-50/90 to-white/40 shadow-[inset_0_-1px_0_rgba(99,102,241,0.08)]"
+              className="relative border-b border-[color-mix(in_srgb,var(--color-bronze)_24%,var(--color-stone-light))] bg-[color-mix(in_srgb,var(--color-bronze-soft)_56%,var(--color-paper))]"
               aria-label="Périodes des livres bibliques"
             >
               <div
                 style={{ left: `${Math.max(8, viewportX.startX + 8)}px` }}
-                className="absolute top-1 z-20 inline-flex h-6 items-center gap-1.5 rounded-lg border border-indigo-800 bg-indigo-950/95 px-2 text-[10px] font-extrabold uppercase tracking-wider text-white shadow-md shadow-indigo-950/10 backdrop-blur"
+                className="absolute top-1 z-20 inline-flex h-6 items-center gap-1.5 border-l-2 border-[var(--color-bronze)] bg-[color-mix(in_srgb,var(--color-paper)_90%,transparent)] px-2 text-[11px] font-semibold text-[var(--color-ink)] backdrop-blur"
               >
-                <BookOpen className="size-3.5 text-indigo-200" />
+                <BookOpen className="size-3.5 text-[var(--color-bronze)]" />
                 Livres bibliques
-                <span className="rounded-full border border-indigo-600 bg-indigo-800 px-1.5 font-mono text-[9px] text-indigo-100">
+                <span className="font-medium tabular-nums text-[var(--color-ink-muted)]">
                   {visibleBackgroundPeriodItems.length}
                 </span>
               </div>
@@ -1649,10 +1834,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                     }}
                     onMouseEnter={() => setHoveredEventId(event.id)}
                     onMouseLeave={() => setHoveredEventId(null)}
-                    className={`absolute h-6 overflow-hidden rounded-lg border text-left transition-all ${
+                    className={`absolute h-6 overflow-hidden border-l-2 text-left transition-all ${
                       isActive
-                        ? 'border-indigo-500 bg-indigo-600 text-white shadow-md ring-2 ring-indigo-300/70'
-                        : 'border-indigo-200 bg-white/90 text-indigo-950 hover:border-indigo-400 hover:bg-indigo-100'
+                        ? 'border-[var(--color-primary)] bg-[var(--color-primary)] text-white shadow-[var(--shadow-low)]'
+                        : 'border-[var(--color-bronze)] bg-[color-mix(in_srgb,var(--color-paper)_84%,transparent)] text-[var(--color-ink)] hover:bg-[var(--color-bronze-soft)]'
                     }`}
                     aria-label={`${event.text}, ${formatDateFrench(event.startYear)} à ${formatDateFrench(event.endYear)}`}
                     title={`${event.text} (${formatDateFrench(event.startYear)} → ${formatDateFrench(event.endYear)})`}
@@ -1665,11 +1850,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                       className="flex h-full min-w-0 items-center gap-1 px-1.5"
                     >
                       <BookOpen className="size-3 shrink-0 opacity-80" />
-                      <span className="min-w-0 flex-1 truncate text-[10px] font-bold sm:text-[11px]">
+                      <span className="min-w-0 flex-1 truncate font-serif text-xs font-semibold">
                         {event.text}
                       </span>
                       {labelWidth >= 280 && !isLowZoomMode && (
-                        <span className={`shrink-0 font-mono text-[9px] ${isActive ? 'text-indigo-100' : 'text-indigo-500'}`}>
+                        <span className={`shrink-0 text-[10px] font-medium tabular-nums ${isActive ? 'text-white/80' : 'text-[var(--color-ink-muted)]'}`}>
                           {formatDateFrench(event.startYear)} → {formatDateFrench(event.endYear)}
                         </span>
                       )}
@@ -1720,14 +1905,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                 <div
                   key={tick.position}
                   style={{ left: `${x}px` }}
-                  className="absolute top-0 bottom-0 w-[1px] bg-slate-100 border-r border-dashed border-slate-200"
+                  className="absolute inset-y-0 w-px border-r border-dashed border-[var(--color-stone-light)]"
                 />
               );
             })}
             {/* VIEWPORT CENTER GUIDE LINE */}
             <div
               style={{ left: `${(viewportX.startX + viewportX.endX) / 2}px` }}
-              className="pointer-events-none absolute inset-y-0 z-30 w-[2px] bg-gradient-to-b from-indigo-700/90 via-indigo-500/55 to-indigo-400/15"
+              className="pointer-events-none absolute inset-y-0 z-30 w-px bg-[var(--color-bronze)]/55"
             />
           </div>
 
@@ -1750,15 +1935,15 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                     width: `${width}px`,
                     bottom: '4px',
                     background: isActive
-                      ? 'linear-gradient(to bottom, rgba(99,102,241,0.10), rgba(99,102,241,0.035))'
+                      ? 'linear-gradient(to bottom, rgba(168,111,61,0.11), rgba(168,111,61,0.025))'
                       : isLowZoomMode
-                        ? 'linear-gradient(to bottom, rgba(99,102,241,0.012), rgba(99,102,241,0.004))'
-                        : 'linear-gradient(to bottom, rgba(99,102,241,0.035), rgba(99,102,241,0.012))',
+                        ? 'linear-gradient(to bottom, rgba(168,111,61,0.012), rgba(168,111,61,0.004))'
+                        : 'linear-gradient(to bottom, rgba(168,111,61,0.04), rgba(168,111,61,0.01))',
                     boxShadow: isActive
-                      ? 'inset 2px 0 rgba(79,70,229,0.5), inset -2px 0 rgba(79,70,229,0.5)'
+                      ? 'inset 2px 0 rgba(168,111,61,0.48), inset -2px 0 rgba(168,111,61,0.48)'
                       : isLowZoomMode
                         ? 'none'
-                        : 'inset 1px 0 rgba(99,102,241,0.14), inset -1px 0 rgba(99,102,241,0.14)'
+                        : 'inset 1px 0 rgba(168,111,61,0.14), inset -1px 0 rgba(168,111,61,0.14)'
                   }}
                   className="absolute rounded-b-2xl transition-all duration-200"
                 />
@@ -1791,24 +1976,24 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                 return (
                   <div
                     key={lane.categoryName}
-                    className={`relative my-1 border-b py-1 transition-all duration-200 ${
+                    className={`relative my-1 border-b py-1 transition-[opacity,background-color] duration-200 ${
                       isEventLane
-                        ? 'border-blue-200 bg-gradient-to-r from-blue-50/90 via-white/90 to-blue-50/30 shadow-[inset_3px_0_0_#2563eb]'
+                        ? 'border-[var(--color-bronze-soft)] bg-[var(--color-bronze-soft)]/35 shadow-[inset_3px_0_0_var(--color-bronze)]'
                         : isCharacterLane
-                          ? 'border-slate-200 bg-gradient-to-r from-slate-100/90 via-white/90 to-slate-50/30 shadow-[inset_3px_0_0_#475569]'
-                          : 'border-slate-200/80'
+                          ? 'border-[var(--color-primary-soft)] bg-[var(--color-primary-soft)]/45 shadow-[inset_3px_0_0_var(--color-primary)]'
+                          : 'border-[var(--color-stone-light)]'
                     }`}
                   >
                     {/* Category Name Sticky Badge with Collapse Toggle */}
                     {isEventLane ? (
                       <div
-                        className="sticky left-2 z-35 mb-1.5 inline-flex items-center gap-1.5 rounded-lg border border-blue-800 bg-blue-700 px-3 py-1 text-[10px] font-extrabold text-white shadow-md ring-2 ring-blue-500/20 sm:text-[11px]"
+                        className="sticky left-2 z-35 mb-1.5 inline-flex min-h-8 items-center gap-2 border-l-2 border-[var(--color-bronze)] bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur"
                       >
-                        <Flag className="w-3.5 h-3.5 text-blue-200 shrink-0" />
-                        <span className="text-white uppercase tracking-wider font-extrabold">
+                        <Flag className="size-3.5 shrink-0 text-[var(--color-bronze)]" />
+                        <span>
                           Événements
                         </span>
-                        <span className="text-[9px] px-1.5 py-0.2 rounded-full font-mono border bg-blue-800 text-blue-100 border-blue-600">
+                        <span className="tabular-nums text-xs text-[var(--color-ink-muted)]">
                           {lane.totalEventsCount}
                         </span>
                       </div>
@@ -1816,35 +2001,27 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                       <button
                         type="button"
                         onClick={() => toggleCollapseCategory(lane.categoryName)}
-                        className={`sticky left-2 z-35 mb-1 inline-flex cursor-pointer items-center gap-1.5 rounded-lg border px-2.5 py-1 text-[10px] font-bold shadow-sm transition-all group/badge sm:text-[11px] ${
+                        className={`group/badge sticky left-2 z-35 mb-1 inline-flex min-h-8 cursor-pointer items-center gap-2 border-l-2 bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur transition-colors ${
                           isCharacterLane
-                            ? 'border-slate-300 bg-slate-900 text-white hover:border-indigo-300 hover:bg-slate-800'
-                            : 'border-slate-200 bg-white text-slate-700 hover:border-indigo-300'
+                            ? 'border-[var(--color-primary)] hover:bg-[var(--color-primary-soft)]'
+                            : 'border-[var(--color-mineral)] hover:bg-[var(--color-mineral-soft)]'
                         }`}
                         title={isManuallyCollapsed ? "Cliquer pour déplier la catégorie" : "Cliquer pour replier la catégorie"}
                       >
                         <LaneIcon
                           className={`size-3.5 shrink-0 ${
                             isCharacterLane
-                              ? 'text-blue-300'
-                              : 'text-slate-500'
+                              ? 'text-[var(--color-primary)]'
+                              : 'text-[var(--color-mineral)]'
                           }`}
                         />
                         <span
-                          className={`uppercase tracking-wider ${
-                            isCharacterLane
-                              ? 'text-white'
-                              : 'text-slate-700 group-hover/badge:text-indigo-700'
-                          }`}
+                          className="text-[var(--color-ink)]"
                         >
                           {lane.categoryName}
                         </span>
                         <span
-                          className={`rounded-full border px-1.5 py-0.2 font-mono text-[9px] ${
-                            isCharacterLane
-                              ? 'border-slate-600 bg-slate-800 text-slate-200'
-                              : 'border-slate-200 bg-slate-100 text-slate-500'
-                          }`}
+                          className="tabular-nums text-xs text-[var(--color-ink-muted)]"
                         >
                           {lane.totalEventsCount}{' '}
                           {isCharacterLane ? 'pers.' : 'él.'}
@@ -1853,16 +2030,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                           <ChevronDown
                             className={`size-3 ${
                               isCharacterLane
-                                ? 'text-blue-300'
-                                : 'text-indigo-600'
+                                ? 'text-[var(--color-primary)]'
+                                : 'text-[var(--color-mineral)]'
                             }`}
                           />
                         ) : (
                           <ChevronUp
                             className={`size-3 ${
                               isCharacterLane
-                                ? 'text-slate-300'
-                                : 'text-slate-400 group-hover/badge:text-indigo-600'
+                                ? 'text-[var(--color-primary)]'
+                                : 'text-[var(--color-ink-muted)]'
                             }`}
                           />
                         )}
@@ -1879,6 +2056,9 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                           const endX = clusterItem.endX;
                           const width = Math.max(16, endX - startX);
                           const isSelected = selectedEventId === ev.id;
+                          const isRelated =
+                            !highlightedEventIds ||
+                            highlightedEventIds.has(ev.id);
                           const isClosest = closestEventId === ev.id;
                           const isHovered = hoveredEventId === ev.id;
                           const continuesBeforeViewport =
@@ -1933,26 +2113,26 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                               }}
                               onMouseEnter={() => setHoveredEventId(ev.id)}
                               onMouseLeave={() => setHoveredEventId(null)}
-                              className={`absolute cursor-pointer transition-all duration-150 group pointer-events-auto touch-manipulation ${
+                              className={`group pointer-events-auto absolute cursor-pointer touch-manipulation transition-[opacity,transform] duration-200 ${
                                 isSelected || isClosest
                                   ? 'z-40 scale-[1.01]'
                                   : isHovered
                                   ? 'z-30 scale-[1.005]'
                                   : 'z-20'
-                              }`}
+                              } ${isRelated ? 'opacity-100' : 'opacity-30'}`}
                             >
                               {/* POINT EVENT MARKER OR PERIOD BAR */}
                               {ev.isPoint ? (
                                 <div className="flex items-center gap-1.5 py-0.5 relative">
                                   <div
-                                    className={`w-3.5 h-3.5 rounded-full shrink-0 border-2 shadow-md transition-all ${
+                                    className={`size-3.5 shrink-0 rounded-full border-2 transition-[transform,box-shadow] duration-200 ${
                                       isClosest
-                                        ? 'ring-4 ring-indigo-400/80 scale-125 border-indigo-300 animate-pulse'
+                                        ? 'scale-125 border-[var(--color-paper)] ring-2 ring-[var(--color-primary)]'
                                         : isSelected
-                                        ? 'ring-4 ring-indigo-400/50 scale-125 border-white'
+                                        ? 'scale-125 border-[var(--color-paper)] ring-2 ring-[var(--color-primary)]'
                                         : isHovered
-                                        ? 'ring-2 ring-indigo-300 scale-125 border-white'
-                                        : 'border-white group-hover:scale-125'
+                                        ? 'scale-125 border-[var(--color-paper)] ring-2 ring-[var(--color-primary-soft)]'
+                                        : 'border-[var(--color-paper)] group-hover:scale-110'
                                     }`}
                                     style={barStyle}
                                     title={`${ev.text} (${formatDateFrench(ev.startYear)})`}
@@ -1981,11 +2161,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                         />
                                       )}
                                       <span
-                                        className={`block min-w-0 truncate text-[10px] sm:text-[11px] font-bold text-slate-900 drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)] ${
+                                        className={`block min-w-0 truncate text-xs font-semibold text-[var(--color-ink)] [text-shadow:0_1px_0_var(--color-paper)] ${
                                           isClosest || isSelected
-                                            ? 'text-indigo-900 text-xs font-extrabold bg-indigo-100/90 px-1.5 py-0.5 rounded shadow-sm border border-indigo-300'
+                                            ? 'bg-[var(--color-primary-soft)] px-1.5 py-0.5 text-[var(--color-primary-dark)]'
                                             : isHovered && isLowZoomMode
-                                            ? 'text-indigo-900 text-[11px] font-extrabold bg-white/95 px-1.5 py-0.5 rounded shadow-md border border-indigo-200 z-50'
+                                            ? 'z-50 bg-[var(--color-paper)]/95 px-1.5 py-0.5 text-[var(--color-primary-dark)] shadow-[var(--shadow-1)]'
                                             : ''
                                         }`}
                                       >
@@ -1996,7 +2176,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
                                   {/* FLOATING HOVER TOOLTIP BADGE IN LOW ZOOM MODE */}
                                   {isLowZoomMode && isHovered && !isSelected && !isClosest && (
-                                    <div className="absolute left-0 bottom-full mb-1.5 px-2.5 py-1 bg-slate-900/95 text-white text-[11px] font-sans font-medium rounded-lg shadow-xl border border-slate-700 whitespace-nowrap z-50 pointer-events-none flex items-center gap-1.5 ring-2 ring-indigo-500/30">
+                                    <div className="pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 flex items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-sm)] bg-[var(--color-ink)] px-2.5 py-1.5 text-xs font-medium text-white shadow-[var(--shadow-2)]">
                                       {ev.icon && (
                                         <img
                                           src={`data:image/png;base64,${ev.icon}`}
@@ -2005,7 +2185,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                         />
                                       )}
                                       <span className="font-bold">{ev.text}</span>
-                                      <span className="text-[10px] font-mono text-indigo-300 bg-indigo-950 px-1.5 py-0.2 rounded border border-indigo-800">
+                                      <span className="tabular-nums text-xs text-[var(--color-stone)]">
                                         {formatDateFrench(ev.startYear)}
                                       </span>
                                     </div>
@@ -2018,11 +2198,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                       width: `${width}px`,
                                       ...barStyle
                                     }}
-                                    className={`h-5 rounded-md relative flex items-center overflow-hidden transition-all shadow-sm ${
+                                    className={`relative flex h-5 items-center overflow-hidden rounded-[3px] transition-[opacity,box-shadow] duration-200 ${
                                       isClosest
-                                        ? 'ring-2 ring-indigo-500 ring-offset-1 ring-offset-slate-50 opacity-100'
+                                        ? 'opacity-100 ring-2 ring-[var(--color-primary)] ring-offset-1 ring-offset-[var(--color-paper)]'
                                         : isSelected
-                                        ? 'ring-2 ring-indigo-500 ring-offset-1 ring-offset-slate-50 opacity-100'
+                                        ? 'opacity-100 ring-2 ring-[var(--color-primary)] ring-offset-1 ring-offset-[var(--color-paper)]'
                                         : 'opacity-90 group-hover:opacity-100'
                                     }`}
                                     title={`${ev.text} (${formatDateFrench(ev.startYear)} - ${formatDateFrench(ev.endYear)}) ${ev.fuzzyStart ? '[Début incertain]' : ''} ${ev.fuzzyEnd ? '[Fin incertaine]' : ''}`}
@@ -2031,7 +2211,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                     {(!isLowZoomMode || clusterItem.showLabel || isSelected || isClosest || isHovered) && (
                                       <div
                                         style={{ transform: `translateX(${labelOffsetX}px)` }}
-                                        className="absolute left-0 top-0 bottom-0 flex min-w-0 items-center gap-1 overflow-hidden px-1.5 text-white font-bold text-[10px] sm:text-[11px] drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] pointer-events-none transition-transform duration-75"
+                                        className="pointer-events-none absolute inset-y-0 left-0 flex min-w-0 items-center gap-1 overflow-hidden px-1.5 text-xs font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] transition-transform duration-75"
                                       >
                                         {ev.icon && (
                                           <img
@@ -2090,7 +2270,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
                                   {/* FLOATING HOVER TOOLTIP FOR NARROW BARS IN LOW ZOOM MODE */}
                                   {isLowZoomMode && width < 70 && isHovered && !isSelected && !isClosest && (
-                                    <div className="absolute left-0 bottom-full mb-1.5 px-2.5 py-1 bg-slate-900/95 text-white text-[11px] font-sans font-medium rounded-lg shadow-xl border border-slate-700 whitespace-nowrap z-50 pointer-events-none flex items-center gap-1.5 ring-2 ring-indigo-500/30">
+                                    <div className="pointer-events-none absolute bottom-full left-0 z-50 mb-1.5 flex items-center gap-1.5 whitespace-nowrap rounded-[var(--radius-sm)] bg-[var(--color-ink)] px-2.5 py-1.5 text-xs font-medium text-white shadow-[var(--shadow-2)]">
                                       {ev.icon && (
                                         <img
                                           src={`data:image/png;base64,${ev.icon}`}
@@ -2099,7 +2279,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                         />
                                       )}
                                       <span className="font-bold">{ev.text}</span>
-                                      <span className="text-[10px] font-mono text-indigo-300 bg-indigo-950 px-1.5 py-0.2 rounded border border-indigo-800">
+                                      <span className="tabular-nums text-xs text-[var(--color-stone)]">
                                         {formatDateFrench(ev.startYear)} → {formatDateFrench(ev.endYear)}
                                       </span>
                                     </div>
@@ -2120,17 +2300,17 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       </div>
 
       {/* BOTTOM LEGEND BAR */}
-      <div className="bg-white border-t border-slate-200 px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-xs shrink-0 z-30 shadow-2xl backdrop-blur-md">
+      <div className="z-30 flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] px-4 py-2.5 text-xs">
         
         {/* Category Legend Pills */}
         <div className="flex items-center gap-2 overflow-x-auto py-0.5 max-w-full">
-          <span className="text-slate-500 font-bold uppercase tracking-wider text-[10px] shrink-0 mr-1 flex items-center gap-1">
-            <Layers className="w-3.5 h-3.5 text-indigo-600" />
+          <span className="mr-1 flex shrink-0 items-center gap-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">
+            <Layers className="size-3.5 text-[var(--color-primary)]" />
             Légende des catégories :
           </span>
 
           {legendCategories.length === 0 && (
-            <span className="shrink-0 text-[11px] italic text-slate-400">
+            <span className="shrink-0 text-xs italic text-[var(--color-ink-muted)]">
               Aucune catégorie dans cette période
             </span>
           )}
@@ -2142,11 +2322,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               <button
                 key={cat.name}
                 onClick={() => toggleCategory(cat.name)}
-                className="inline-flex shrink-0 items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-900 shadow-sm transition hover:border-indigo-300 hover:bg-indigo-50/40"
+                className="inline-flex min-h-8 shrink-0 items-center gap-1.5 border-b border-transparent px-1.5 py-1 text-xs font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
                 title={`${cat.name} (${catEventsCount} événement${catEventsCount > 1 ? 's' : ''} dans la période visible)`}
               >
                 <span
-                  className="flex size-5 shrink-0 items-center justify-center rounded-full"
+                  className="flex size-5 shrink-0 items-center justify-center"
                   style={{ backgroundColor: `${cat.hexColor}18` }}
                 >
                   <CategoryIcon
@@ -2155,7 +2335,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   />
                 </span>
                 <span>{cat.name}</span>
-                <span className="rounded-full bg-indigo-100 px-1.5 py-0.1 text-[10px] font-bold text-indigo-700">
+                <span className="tabular-nums text-xs text-[var(--color-ink-muted)]">
                   {catEventsCount}
                 </span>
               </button>
@@ -2164,7 +2344,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         </div>
 
         {/* Viewport Filter Status Indicator */}
-        <div className="flex shrink-0 items-center gap-3 text-[11px] text-slate-500">
+        <div className="flex shrink-0 items-center gap-3 text-xs text-[var(--color-ink-muted)]">
           <span className="hidden items-center gap-2 xl:flex">
             <span className="inline-flex items-center gap-1">
               <span className="h-2.5 w-5 rounded bg-slate-700" />
@@ -2177,8 +2357,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           </span>
           <span>
             {autoFilterViewport ? (
-              <span className="text-indigo-700 font-semibold flex items-center gap-1">
-                <Sparkles className="w-3 h-3 text-indigo-600" />
+              <span className="flex items-center gap-1 font-semibold text-[var(--color-primary)]">
+                <Sparkles className="size-3 text-[var(--color-primary)]" />
                 Catégories de la période visible ({legendCategories.length})
               </span>
             ) : (

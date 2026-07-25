@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActiveTab,
   BiblicalPlace,
@@ -17,14 +17,12 @@ import { MapView } from './components/MapView';
 import { DetailPanel } from './components/DetailPanel';
 import { SearchPanel } from './components/SearchPanel';
 import { StudySidebar } from './components/StudySidebar';
+import { PwaInstallPrompt } from './components/PwaInstallPrompt';
+import { AppHeader } from './components/AppHeader';
 import { normalizeDataRelations } from './utils/dataRelations';
-import {
-  BookOpen,
-  Clock3,
-  Map as MapIcon,
-  PanelLeft,
-  Search
-} from 'lucide-react';
+import { Clock3, Map as MapIcon, Search } from 'lucide-react';
+
+const SIDEBAR_COLLAPSE_KEY = 'atlas-sidebar-collapsed';
 
 const readInitialView = (): ActiveTab => {
   if (typeof window === 'undefined') return 'timeline';
@@ -60,6 +58,11 @@ const readInitialCategories = (): Set<string> => {
   }
 };
 
+const readInitialSidebarState = () => {
+  if (typeof window === 'undefined') return false;
+  return window.localStorage.getItem(SIDEBAR_COLLAPSE_KEY) === 'true';
+};
+
 export default function App() {
   const initialIds = useMemo(readInitialIds, []);
   const [activeTab, setActiveTab] = useState<ActiveTab>(readInitialView);
@@ -78,6 +81,9 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
+    readInitialSidebarState
+  );
 
   const {
     events: linkedEvents,
@@ -112,6 +118,13 @@ export default function App() {
       JSON.stringify([...activeCategoryIds])
     );
   }, [activeCategoryIds]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      SIDEBAR_COLLAPSE_KEY,
+      String(isSidebarCollapsed)
+    );
+  }, [isSidebarCollapsed]);
 
   useEffect(() => {
     const params = new URLSearchParams();
@@ -210,85 +223,27 @@ export default function App() {
     selectedEvent || selectedPlace || selectedRoute
   );
 
-  const NavButton = ({
-    tab,
-    icon: Icon,
-    label
-  }: {
-    tab: ActiveTab;
-    icon: React.ComponentType<{ className?: string }>;
-    label: string;
-  }) => {
-    const isActive = activeTab === tab;
-    return (
-      <button
-        onClick={() => setActiveTab(tab)}
-        className={`relative flex min-h-10 items-center gap-2 rounded-xl px-4 text-sm font-semibold transition ${
-          isActive
-            ? 'bg-slate-950 text-white shadow-sm'
-            : 'text-slate-500 hover:bg-slate-100 hover:text-slate-900'
-        }`}
-        aria-current={isActive ? 'page' : undefined}
-      >
-        <Icon className="size-4" />
-        {label}
-      </button>
-    );
-  };
-
   return (
-    <div className="flex h-dvh min-h-0 flex-col overflow-hidden bg-slate-100 font-sans text-slate-900">
-      <header className="relative z-30 flex h-[72px] shrink-0 items-center border-b border-slate-200/80 bg-white/95 px-3 shadow-sm backdrop-blur-xl sm:px-5">
-        <button
-          onClick={() => setIsFiltersOpen(true)}
-          className="mr-2 grid size-10 place-items-center rounded-xl text-slate-600 hover:bg-slate-100 lg:hidden"
-          aria-label="Afficher les filtres"
-        >
-          <PanelLeft className="size-5" />
-        </button>
-
-        <div className="flex min-w-0 items-center gap-3">
-          <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-gradient-to-br from-indigo-600 to-cyan-500 text-white shadow-lg shadow-indigo-200">
-            <BookOpen className="size-5" />
-          </span>
-          <div className="min-w-0">
-            <h1 className="truncate text-sm font-extrabold tracking-tight text-slate-950 sm:text-base">
-              Atlas biblique interactif
-            </h1>
-            <p className="hidden text-[11px] font-medium text-slate-400 sm:block">
-              Chronologie, géographie et références
-            </p>
-          </div>
-        </div>
-
-        <nav className="ml-6 hidden items-center gap-1 rounded-2xl bg-slate-50 p-1 md:flex">
-          <NavButton tab="timeline" icon={Clock3} label="Frise" />
-          <NavButton tab="map" icon={MapIcon} label="Carte" />
-        </nav>
-
-        <button
-          onClick={() => setIsSearchOpen(true)}
-          className="ml-auto flex h-11 w-11 items-center gap-3 rounded-2xl border border-slate-200 bg-slate-50 px-3 text-left text-sm text-slate-500 transition hover:border-indigo-200 hover:bg-white hover:shadow-sm sm:w-64 lg:w-80"
-          aria-label="Ouvrir la recherche globale"
-        >
-          <Search className="size-4 shrink-0 text-indigo-600" />
-          <span className="hidden flex-1 truncate sm:block">
-            Rechercher dans l’atlas…
-          </span>
-          <span className="hidden rounded-md border border-slate-200 bg-white px-1.5 py-0.5 text-[10px] font-bold text-slate-400 lg:block">
-            /
-          </span>
-        </button>
-      </header>
+    <div className="flex h-dvh min-h-0 flex-col overflow-hidden bg-[var(--color-canvas)] font-sans text-[var(--color-ink)]">
+      <AppHeader
+        activeTab={activeTab}
+        onChangeTab={setActiveTab}
+        onOpenFilters={() => setIsFiltersOpen(true)}
+        onOpenSearch={() => setIsSearchOpen(true)}
+      />
 
       <div className="flex min-h-0 flex-1">
         <StudySidebar
           isOpen={isFiltersOpen}
+          isCollapsed={isSidebarCollapsed}
           categories={CATEGORIES}
           events={linkedEvents}
           activeCategoryIds={activeCategoryIds}
           visiblePeriod={visiblePeriod}
           onClose={() => setIsFiltersOpen(false)}
+          onToggleCollapse={() =>
+            setIsSidebarCollapsed(previous => !previous)
+          }
           onOpenSearch={() => setIsSearchOpen(true)}
           onToggleCategory={toggleCategory}
           onResetCategories={() =>
@@ -298,7 +253,7 @@ export default function App() {
           }
         />
 
-        <main className="relative min-w-0 flex-1 overflow-hidden border-r border-slate-200 bg-white">
+        <main className="relative min-w-0 flex-1 overflow-hidden border-r border-[var(--color-stone)] bg-[var(--color-paper)]">
           <section
             className={activeTab === 'timeline' ? 'h-full' : 'hidden h-full'}
             aria-hidden={activeTab !== 'timeline'}
@@ -349,7 +304,7 @@ export default function App() {
         )}
       </div>
 
-      <nav className="relative z-30 grid h-16 shrink-0 grid-cols-3 border-t border-slate-200 bg-white px-2 md:hidden">
+      <nav className="relative z-40 grid h-16 shrink-0 grid-cols-3 border-t border-[var(--color-stone)] bg-[var(--color-paper)] px-2 md:hidden">
         {[
           { tab: 'timeline' as const, icon: Clock3, label: 'Frise' },
           { tab: 'map' as const, icon: MapIcon, label: 'Carte' }
@@ -359,9 +314,13 @@ export default function App() {
           return (
             <button
               key={item.tab}
+              type="button"
               onClick={() => setActiveTab(item.tab)}
-              className={`flex flex-col items-center justify-center gap-1 text-[11px] font-semibold ${
-                isActive ? 'text-indigo-600' : 'text-slate-400'
+              aria-pressed={isActive}
+              className={`flex flex-col items-center justify-center gap-1 text-xs font-semibold ${
+                isActive
+                  ? 'text-[var(--color-primary)]'
+                  : 'text-[var(--color-ink-muted)]'
               }`}
             >
               <Icon className="size-5" />
@@ -370,8 +329,10 @@ export default function App() {
           );
         })}
         <button
+          type="button"
           onClick={() => setIsSearchOpen(true)}
-          className="flex flex-col items-center justify-center gap-1 text-[11px] font-semibold text-slate-400"
+          aria-label="Ouvrir la recherche globale"
+          className="flex flex-col items-center justify-center gap-1 text-xs font-semibold text-[var(--color-ink-muted)]"
         >
           <Search className="size-5" />
           Recherche
@@ -390,6 +351,8 @@ export default function App() {
         onSelectPlace={handleSelectPlace}
         onSelectRoute={handleSelectRoute}
       />
+
+      <PwaInstallPrompt />
     </div>
   );
 }
