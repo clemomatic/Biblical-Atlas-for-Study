@@ -142,6 +142,8 @@ export interface ReviewedEventRecord {
     id: string;
     name: string;
     period?: TemporalSpan;
+    certainty?: CertaintyLevel;
+    supportingClaimIds?: string[];
     notes?: string;
   };
 }
@@ -152,6 +154,8 @@ export interface ReviewedPlaceRecord {
   place: {
     id: string;
     name: string;
+    /** IDs géographiques explicites ; aucune région n’est déduite du nom. */
+    regionIds?: string[];
     notes?: string;
   };
 }
@@ -168,18 +172,26 @@ export interface StagingHistoricalRecord {
 
 export interface DerivedHistoricalRelation {
   id: string;
+  subjectIds: string[];
   origin: 'generated';
-  relationType: 'co-presence' | 'possible-co-presence';
-  subjectPersonId: string;
-  objectPersonId: string;
-  placeId: string;
-  period?: TemporalSpan;
+  relationLevel:
+    | 'lifespan-overlap'
+    | 'activity-overlap'
+    | 'same-region'
+    | 'same-place'
+    | 'same-event'
+    | 'documented-interaction';
+  temporalOverlap?: TemporalSpan;
+  placeIds?: string[];
+  regionIds?: string[];
+  eventIds?: string[];
   certainty: CertaintyLevel;
-  inputClaimIds: string[];
-  generatedFromPresenceIds: string[];
+  supportingClaimIds: string[];
+  generatedFromIds: string[];
+  generatedAt: string;
   generator: {
-    name: 'historical-presence-overlap';
-    version: '1';
+    name: 'historical-relation-engine';
+    version: '2';
   };
 }
 

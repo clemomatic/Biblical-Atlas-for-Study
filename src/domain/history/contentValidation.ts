@@ -91,6 +91,15 @@ const VALID_PRESENCE_TYPES = new Set([
   'possible-presence'
 ]);
 
+const VALID_RELATION_LEVELS = new Set([
+  'lifespan-overlap',
+  'activity-overlap',
+  'same-region',
+  'same-place',
+  'same-event',
+  'documented-interaction'
+]);
+
 const addIterable = (
   target: Set<string>,
   values: Iterable<string> | undefined
@@ -297,6 +306,14 @@ export function validateHistoricalDataset(
       issues.push({ path, message: 'Le lieu doit avoir le statut reviewed.' });
     }
     validateSourceIds(record.sourceIds, `${path}.sourceIds`);
+    record.place.regionIds?.forEach((regionId, regionIndex) => {
+      if (!regionId.trim()) {
+        issues.push({
+          path: `${path}.place.regionIds[${regionIndex}]`,
+          message: 'Un identifiant de région ne peut pas être vide.'
+        });
+      }
+    });
   });
 
   dataset.events.forEach((record, index) => {
@@ -423,6 +440,40 @@ export function validateHistoricalDataset(
   dataset.claims.forEach((claim, index) => {
     registerId(claim.id, `reviewed.claims[${index}].id`);
     claimsById.set(claim.id, claim);
+  });
+
+  const validateSupportingClaimIds = (
+    claimIds: string[] | undefined,
+    path: string
+  ): void => {
+    claimIds?.forEach((claimId, claimIndex) => {
+      if (!claimsById.has(claimId)) {
+        issues.push({
+          path: `${path}[${claimIndex}]`,
+          message: `Affirmation justificative inexistante : ${claimId}.`
+        });
+      }
+    });
+  };
+
+  dataset.people.forEach((record, personIndex) => {
+    const personPath = `reviewed.people[${personIndex}].person`;
+    validateSupportingClaimIds(
+      record.person.lifeSpanClaimIds,
+      `${personPath}.lifeSpanClaimIds`
+    );
+    record.person.activityPeriods.forEach((activity, activityIndex) => {
+      validateSupportingClaimIds(
+        activity.supportingClaimIds,
+        `${personPath}.activityPeriods[${activityIndex}].supportingClaimIds`
+      );
+    });
+  });
+  dataset.events.forEach((record, eventIndex) => {
+    validateSupportingClaimIds(
+      record.event.supportingClaimIds,
+      `reviewed.events[${eventIndex}].event.supportingClaimIds`
+    );
   });
 
   dataset.claims.forEach((claim, index) => {
@@ -628,14 +679,23 @@ export function validateHistoricalDataset(
 
 export function validateGeneratedRelations(
   relations: DerivedHistoricalRelation[],
-  dataset: HistoricalDataset
+  dataset: HistoricalDataset,
+  known: KnownHistoricalEntities = {}
 ): void {
   const issues: HistoricalValidationIssue[] = [];
   const relationIds = new Set<string>();
-  const claimIds = new Set(dataset.claims.map(claim => claim.id));
+  const claimsById = new Map(
+    dataset.claims.map(claim => [claim.id, claim])
+  );
   const presencesById = new Map(
     dataset.presences.map(presence => [presence.id, presence])
   );
+  const personIds = new Set(dataset.people.map(record => record.person.id));
+  const placeIds = new Set(dataset.places.map(record => record.place.id));
+  const eventIds = new Set(dataset.events.map(record => record.event.id));
+  addIterable(personIds, known.personIds);
+  addIterable(placeIds, known.placeIds);
+  addIterable(eventIds, known.eventIds);
 
   relations.forEach((relation, index) => {
     const path = `generated.relations[${index}]`;
@@ -652,40 +712,154 @@ export function validateGeneratedRelations(
         message: 'Une relation calculée doit avoir l’origine generated.'
       });
     }
-    if (!relation.inputClaimIds.length) {
+    if (!VALID_RELATION_LEVELS.has(relation.relationLevel)) {
       issues.push({
-        path: `${path}.inputClaimIds`,
-        message: 'Une relation générée doit conserver ses claims d’entrée.'
+        path: `${path}.relationLevel`,
+        message: `Niveau de relation inconnu : ${relation.relationLevel}.`
       });
     }
-    relation.inputClaimIds.forEach((claimId, claimIndex) => {
-      if (!claimIds.has(claimId)) {
+    if (
+      relation.subjectIds.length < 2 ||
+      new Set(relation.subjectIds).size !== relation.subjectIds.length
+    ) {
+      issues.push({
+        path: `${path}.subjectIds`,
+        message:
+          'Une relation doit relier au moins deux personnes distinctes.'
+      });
+    }
+    relation.subjectIds.forEach((personId, personIndex) => {
+      if (!personIds.has(personId)) {
         issues.push({
-          path: `${path}.inputClaimIds[${claimIndex}]`,
+          path: `${path}.subjectIds[${personIndex}]`,
+          message: `Personnage généré inexistant : ${personId}.`
+        });
+      }
+    });
+    if (!relation.supportingClaimIds.length) {
+      issues.push({
+        path: `${path}.supportingClaimIds`,
+        message: 'Une relation générée doit conserver ses claims justificatifs.'
+      });
+    }
+    relation.supportingClaimIds.forEach((claimId, claimIndex) => {
+      if (!claimsById.has(claimId)) {
+        issues.push({
+          path: `${path}.supportingClaimIds[${claimIndex}]`,
           message: `Claim d’entrée inexistant : ${claimId}.`
         });
       }
     });
-    relation.generatedFromPresenceIds.forEach(
-      (presenceId, presenceIndex) => {
-        if (!presencesById.has(presenceId)) {
-          issues.push({
-            path: `${path}.generatedFromPresenceIds[${presenceIndex}]`,
-            message: `Présence d’entrée inexistante : ${presenceId}.`
-          });
-        }
+    if (!relation.generatedFromIds.length) {
+      issues.push({
+        path: `${path}.generatedFromIds`,
+        message: 'Les enregistrements ayant produit la relation sont obligatoires.'
+      });
+    }
+    relation.placeIds?.forEach((placeId, placeIndex) => {
+      if (!placeIds.has(placeId)) {
+        issues.push({
+          path: `${path}.placeIds[${placeIndex}]`,
+          message: `Lieu généré inexistant : ${placeId}.`
+        });
       }
-    );
-    const inputPresences = relation.generatedFromPresenceIds
-      .map(presenceId => presencesById.get(presenceId))
+    });
+    relation.eventIds?.forEach((eventId, eventIndex) => {
+      if (!eventIds.has(eventId)) {
+        issues.push({
+          path: `${path}.eventIds[${eventIndex}]`,
+          message: `Événement généré inexistant : ${eventId}.`
+        });
+      }
+    });
+    if (
+      ['lifespan-overlap', 'activity-overlap', 'same-place', 'same-region']
+        .includes(relation.relationLevel) &&
+      !relation.temporalOverlap
+    ) {
+      issues.push({
+        path: `${path}.temporalOverlap`,
+        message: 'Cette relation temporelle nécessite un chevauchement explicite.'
+      });
+    }
+    if (
+      relation.relationLevel === 'same-place' &&
+      relation.placeIds?.length !== 1
+    ) {
+      issues.push({
+        path: `${path}.placeIds`,
+        message: 'Une relation same-place doit cibler un seul lieu précis.'
+      });
+    }
+    if (
+      relation.relationLevel === 'same-region' &&
+      (!relation.regionIds?.length || (relation.placeIds?.length ?? 0) < 2)
+    ) {
+      issues.push({
+        path,
+        message:
+          'Une relation same-region doit conserver la région et les lieux distincts.'
+      });
+    }
+    if (
+      relation.relationLevel === 'same-event' &&
+      !relation.eventIds?.length
+    ) {
+      issues.push({
+        path: `${path}.eventIds`,
+        message: 'Une relation same-event doit citer un événement.'
+      });
+    }
+    const supportingClaims = relation.supportingClaimIds
+      .map(claimId => claimsById.get(claimId))
+      .filter(claim => claim !== undefined);
+    if (
+      relation.relationLevel === 'same-event' &&
+      !supportingClaims.every(
+        claim =>
+          claim.predicate === 'participation' &&
+          claim.evidence.some(evidence => evidence.method === 'direct')
+      )
+    ) {
+      issues.push({
+        path: `${path}.supportingClaimIds`,
+        message:
+          'Une relation same-event nécessite des participations directement documentées.'
+      });
+    }
+    if (
+      relation.certainty === 'certain' &&
+      supportingClaims.some(claim => claim.certainty !== 'certain')
+    ) {
+      issues.push({
+        path: `${path}.certainty`,
+        message:
+          'Une donnée possible ou probable ne peut pas produire une relation certaine.'
+      });
+    }
+    if (relation.relationLevel === 'documented-interaction') {
+      const hasDirectInteractionClaim = supportingClaims.some(
+        claim =>
+          claim.predicate === 'attested-interaction' &&
+          claim.evidence.some(evidence => evidence.method === 'direct')
+      );
+      if (!hasDirectInteractionClaim) {
+        issues.push({
+          path: `${path}.supportingClaimIds`,
+          message:
+            'Une interaction attestée nécessite un claim direct d’interaction.'
+        });
+      }
+    }
+    const inputPresences = relation.generatedFromIds
+      .map(sourceId => presencesById.get(sourceId))
       .filter(presence => presence !== undefined);
     if (
       inputPresences.length > 0 &&
       inputPresences.some(
         presence =>
-          presence.placeId !== relation.placeId ||
-          (presence.personId !== relation.subjectPersonId &&
-            presence.personId !== relation.objectPersonId)
+          !(relation.placeIds ?? []).includes(presence.placeId) ||
+          !relation.subjectIds.includes(presence.personId)
       )
     ) {
       issues.push({
@@ -694,7 +868,17 @@ export function validateGeneratedRelations(
           'Les personnes ou le lieu générés ne correspondent pas aux épisodes d’entrée.'
       });
     }
-    validateSpanAt(relation.period, `${path}.period`, issues);
+    if (!validateIsoDate(relation.generatedAt.slice(0, 10))) {
+      issues.push({
+        path: `${path}.generatedAt`,
+        message: 'generatedAt doit être une date ISO déterministe.'
+      });
+    }
+    validateSpanAt(
+      relation.temporalOverlap,
+      `${path}.temporalOverlap`,
+      issues
+    );
   });
 
   if (issues.length > 0) {

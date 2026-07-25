@@ -70,6 +70,7 @@ export interface PersonActivityPeriod extends EntityMetadata {
   type: PersonActivityType;
   label: string;
   span: TemporalSpan;
+  supportingClaimIds?: string[];
   associatedEventIds?: string[];
   associatedLocationIds?: string[];
   associatedRouteIds?: string[];
@@ -86,6 +87,7 @@ export interface BiblicalPerson extends EntityMetadata {
   alternateNames?: string[];
   description?: string;
   lifeSpan?: TemporalSpan;
+  lifeSpanClaimIds?: string[];
   activityPeriods: PersonActivityPeriod[];
   associatedEventIds?: string[];
   associatedLocationIds?: string[];

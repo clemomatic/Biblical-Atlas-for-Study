@@ -27,7 +27,8 @@ content/
 │   ├── claims/
 │   └── presences/
 ├── generated/
-│   └── relations.json
+│   ├── relations.json
+│   └── historical-index.json
 └── test-fixtures/
     ├── sources/
     ├── staging/
@@ -78,12 +79,20 @@ Une donnée `reviewed` sans source est invalide. Une source `unverified` ou
 1. recharge le catalogue et `reviewed` ;
 2. exécute l’ensemble des validations ;
 3. s’arrête avant toute écriture si une erreur est détectée ;
-4. calcule les relations à partir des épisodes de présence validés ;
+4. calcule les relations à partir des personnes, activités, affirmations et
+   épisodes de présence validés ;
 5. valide les IDs et dépendances de la sortie ;
-6. remplace `content/generated/relations.json`.
+6. construit les index temporels et relationnels compacts ;
+7. remplace `content/generated/relations.json` et
+   `content/generated/historical-index.json`.
 
 Le script ne lit jamais `staging` pour ses calculs. Le résultat est déterministe :
-il ne contient ni date d’exécution ni ordre dépendant du système.
+il ne contient ni date d’exécution dépendant de l’horloge ni ordre dépendant du
+système. Le champ `generatedAt` est dérivé du catalogue des sources et reste donc
+stable tant que les données d’entrée ne changent pas.
+
+Les niveaux de relation, les règles de prudence et le format des index sont
+détaillés dans [historical-relation-engine.md](./historical-relation-engine.md).
 
 Une relation générée conserve :
 

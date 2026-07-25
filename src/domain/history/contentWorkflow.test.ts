@@ -4,16 +4,154 @@ import test from 'node:test';
 import { generateDerivedHistoricalRelations } from './contentGeneration.ts';
 import { loadHistoricalDataset } from './contentIO.ts';
 import {
+  buildHistoricalIndex,
+  findContemporariesForSubject,
+  findDocumentedPresences,
+  findEventsDuring,
+  findPeopleActiveDuring,
+  findPeopleAtPlace,
+  findPeopleLivingDuring
+} from './historicalIndex.ts';
+import {
   HistoricalDataValidationError,
   validateGeneratedRelations,
   validateHistoricalDataset
 } from './contentValidation.ts';
 import type { HistoricalDataset } from './contentTypes.ts';
+import type {
+  HistoricalClaim,
+  ReviewedPlaceRecord
+} from './contentTypes.ts';
+import type { TemporalSpan } from './types.ts';
 
 const fixtureRoot = join(process.cwd(), 'content', 'test-fixtures');
 
 const loadFixture = (): Promise<HistoricalDataset> =>
   loadHistoricalDataset(fixtureRoot);
+
+const exactYearSpan = (year: number): TemporalSpan => ({
+  start: {
+    yearMin: year,
+    yearMax: year,
+    precision: 'year',
+    certainty: 'certain'
+  },
+  end: {
+    yearMin: year,
+    yearMax: year,
+    precision: 'year',
+    certainty: 'certain'
+  },
+  displayLabel: `Année fictive ${year}`
+});
+
+const createDirectClaim = (
+  dataset: HistoricalDataset,
+  input: Pick<
+    HistoricalClaim,
+    'id' | 'subject' | 'predicate' | 'object' | 'eventId' | 'placeId' | 'period'
+  >
+): HistoricalClaim => ({
+  id: input.id,
+  workflowStatus: 'reviewed',
+  origin: 'reviewed',
+  subject: input.subject,
+  predicate: input.predicate,
+  object: input.object,
+  eventId: input.eventId,
+  placeId: input.placeId,
+  period: input.period,
+  certainty: 'certain',
+  evidence: [
+    {
+      sourceId: dataset.sources[0].id,
+      shortReference: `Preuve directe fictive pour ${input.id}.`,
+      method: 'direct',
+      humanReviewStatus: 'reviewed'
+    }
+  ]
+});
+
+const addLifespanClaims = (dataset: HistoricalDataset): void => {
+  dataset.people.forEach(record => {
+    const claimId = `claim-test-lifespan-${record.person.id}`;
+    dataset.claims.push(
+      createDirectClaim(dataset, {
+        id: claimId,
+        subject: {
+          entityType: 'person',
+          entityId: record.person.id
+        },
+        predicate: 'birth',
+        period: record.person.lifeSpan
+      })
+    );
+    record.person.lifeSpanClaimIds = [claimId];
+  });
+};
+
+const addDirectParticipations = (dataset: HistoricalDataset): void => {
+  dataset.people.forEach(record => {
+    dataset.claims.push(
+      createDirectClaim(dataset, {
+        id: `claim-test-participation-${record.person.id}`,
+        subject: {
+          entityType: 'person',
+          entityId: record.person.id
+        },
+        predicate: 'participation',
+        object: {
+          entityType: 'event',
+          entityId: 'event-test-rencontre'
+        },
+        eventId: 'event-test-rencontre'
+      })
+    );
+  });
+};
+
+const addSharedActivities = (dataset: HistoricalDataset): void => {
+  dataset.people.forEach(record => {
+    const claimId = `claim-test-office-${record.person.id}`;
+    const activityId = `activity-test-${record.person.id}`;
+    dataset.claims.push(
+      createDirectClaim(dataset, {
+        id: claimId,
+        subject: {
+          entityType: 'person',
+          entityId: record.person.id
+        },
+        predicate: 'office',
+        period: exactYearSpan(-5)
+      })
+    );
+    record.person.activityPeriods.push({
+      id: activityId,
+      type: 'office',
+      label: 'Fonction fictive',
+      span: exactYearSpan(-5),
+      certainty: 'certain',
+      supportingClaimIds: [claimId]
+    });
+  });
+};
+
+const addSecondPlace = (
+  dataset: HistoricalDataset,
+  regionIds: string[] = []
+): ReviewedPlaceRecord => {
+  const place: ReviewedPlaceRecord = {
+    workflowStatus: 'reviewed',
+    sourceIds: [dataset.sources[0].id],
+    place: {
+      id: 'place-test-beta',
+      name: 'Lieu fictif Bêta',
+      regionIds
+    }
+  };
+  dataset.places.push(place);
+  return place;
+};
 
 const expectInvalid = (
   dataset: HistoricalDataset,
@@ -34,8 +172,8 @@ test('valide le jeu fictif isolé et génère une relation déterministe', async
   const relations = generateDerivedHistoricalRelations(dataset);
   assert.equal(relations.length, 1);
   assert.equal(relations[0].origin, 'generated');
-  assert.equal(relations[0].relationType, 'co-presence');
-  assert.deepEqual(relations[0].generatedFromPresenceIds, [
+  assert.equal(relations[0].relationLevel, 'same-place');
+  assert.deepEqual(relations[0].generatedFromIds, [
     'presence-test-alpha',
     'presence-test-beta'
   ]);
@@ -47,6 +185,181 @@ test('valide le jeu fictif isolé et génère une relation déterministe', async
   assert.doesNotThrow(() =>
     validateGeneratedRelations(relations, dataset)
   );
+  assert.deepEqual(
+    generateDerivedHistoricalRelations(dataset),
+    relations,
+    'deux générations du même corpus doivent être identiques'
+  );
+});
+
+test('distingue des contemporains d’une rencontre attestée', async () => {
+  const dataset = await loadFixture();
+  dataset.presences = [];
+  addLifespanClaims(dataset);
+  validateHistoricalDataset(dataset);
+
+  const relations = generateDerivedHistoricalRelations(dataset);
+  assert.equal(
+    relations.some(
+      relation => relation.relationLevel === 'lifespan-overlap'
+    ),
+    true
+  );
+  assert.equal(
+    relations.some(
+      relation => relation.relationLevel === 'documented-interaction'
+    ),
+    false
+  );
+});
+
+test('ne relie pas deux présences au même lieu à des périodes différentes', async () => {
+  const dataset = await loadFixture();
+  dataset.presences[1].period = exactYearSpan(5);
+
+  assert.equal(generateDerivedHistoricalRelations(dataset).length, 0);
+});
+
+test('ne relie pas deux présences simultanées dans des lieux différents', async () => {
+  const dataset = await loadFixture();
+  addSecondPlace(dataset);
+  dataset.presences[1].placeId = 'place-test-beta';
+
+  assert.equal(generateDerivedHistoricalRelations(dataset).length, 0);
+});
+
+test('distingue la même région du même lieu', async () => {
+  const dataset = await loadFixture();
+  dataset.places[0].place.regionIds = ['region-test-alpha'];
+  addSecondPlace(dataset, ['region-test-alpha']);
+  dataset.presences[1].placeId = 'place-test-beta';
+
+  const relations = generateDerivedHistoricalRelations(dataset);
+  assert.deepEqual(
+    relations.map(relation => relation.relationLevel),
+    ['same-region']
+  );
+  assert.deepEqual(relations[0].placeIds, [
+    'place-test-alpha',
+    'place-test-beta'
+  ]);
+});
+
+test('relie deux participations directes au même événement sans inventer une interaction', async () => {
+  const dataset = await loadFixture();
+  dataset.presences = [];
+  addDirectParticipations(dataset);
+
+  const relations = generateDerivedHistoricalRelations(dataset);
+  assert.equal(
+    relations.some(relation => relation.relationLevel === 'same-event'),
+    true
+  );
+  assert.equal(
+    relations.some(
+      relation => relation.relationLevel === 'documented-interaction'
+    ),
+    false
+  );
+});
+
+test('plafonne à possible une relation issue d’une date approximative', async () => {
+  const dataset = await loadFixture();
+  const approximateBoundary = dataset.presences[1].period.start;
+  assert.ok(approximateBoundary);
+  approximateBoundary.approximate = true;
+  approximateBoundary.uncertaintyYears = 1;
+
+  const relations = generateDerivedHistoricalRelations(dataset);
+  assert.equal(relations[0].relationLevel, 'same-place');
+  assert.equal(relations[0].certainty, 'possible');
+});
+
+test('ne produit aucun chevauchement avec une période inconnue', async () => {
+  const dataset = await loadFixture();
+  dataset.presences[1].period = {
+    start: {
+      precision: 'unknown',
+      certainty: 'unknown'
+    },
+    displayLabel: 'Période fictive inconnue'
+  };
+
+  assert.equal(generateDerivedHistoricalRelations(dataset).length, 0);
+});
+
+test('génère séparément les activités simultanées', async () => {
+  const dataset = await loadFixture();
+  dataset.presences = [];
+  addSharedActivities(dataset);
+  validateHistoricalDataset(dataset);
+
+  const relations = generateDerivedHistoricalRelations(dataset);
+  assert.deepEqual(
+    relations.map(relation => relation.relationLevel),
+    ['activity-overlap']
+  );
+});
+
+test('exige un claim direct pour une interaction attestée', async () => {
+  const dataset = await loadFixture();
+  dataset.presences = [];
+  dataset.claims.push(
+    createDirectClaim(dataset, {
+      id: 'claim-test-interaction-directe',
+      subject: {
+        entityType: 'person',
+        entityId: 'person-test-alpha'
+      },
+      predicate: 'attested-interaction',
+      object: {
+        entityType: 'person',
+        entityId: 'person-test-beta'
+      },
+      eventId: 'event-test-rencontre'
+    })
+  );
+
+  const relations = generateDerivedHistoricalRelations(dataset);
+  assert.deepEqual(
+    relations.map(relation => relation.relationLevel),
+    ['documented-interaction']
+  );
+});
+
+test('construit des index compacts pour les requêtes historiques', async () => {
+  const dataset = await loadFixture();
+  addLifespanClaims(dataset);
+  addSharedActivities(dataset);
+  const relations = generateDerivedHistoricalRelations(dataset);
+  const index = buildHistoricalIndex(dataset, relations);
+  const period = exactYearSpan(-5);
+
+  assert.deepEqual(findPeopleLivingDuring(index, period), [
+    'person-test-alpha',
+    'person-test-beta'
+  ]);
+  assert.deepEqual(findPeopleActiveDuring(index, period), [
+    'person-test-alpha',
+    'person-test-beta'
+  ]);
+  assert.deepEqual(findEventsDuring(index, period), [
+    'event-test-rencontre'
+  ]);
+  assert.equal(findDocumentedPresences(index, period).length, 2);
+  assert.deepEqual(findPeopleAtPlace(index, 'place-test-alpha', period), [
+    'person-test-alpha',
+    'person-test-beta'
+  ]);
+  assert.deepEqual(
+    findContemporariesForSubject(
+      index,
+      relations,
+      'person-test-alpha'
+    ),
+    ['person-test-beta']
+  );
+  assert.deepEqual(buildHistoricalIndex(dataset, relations), index);
 });
 
 test('refuse un identifiant dupliqué', async () => {
