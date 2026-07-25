@@ -1,6 +1,7 @@
 import { BiblicalPlace, BiblicalRoute } from '../types';
 import { PROMISED_LAND_PLACES } from './promisedLandPlaces';
 import { PATRIARCH_AND_EXODUS_PLACES } from './patriarchAndExodusPlaces';
+import { CHRISTIAN_EXPANSION_PLACES } from './christianExpansionPlaces';
 import { INSIGHT_PLACE_REFERENCES } from './insightReferences.generated';
 
 /**
@@ -348,7 +349,11 @@ const mergePlaceCorpus = (
 
 export const BIBLICAL_PLACES = mergePlaceCorpus(
   CORE_BIBLICAL_PLACES,
-  [...PROMISED_LAND_PLACES, ...PATRIARCH_AND_EXODUS_PLACES]
+  [
+    ...PROMISED_LAND_PLACES,
+    ...PATRIARCH_AND_EXODUS_PLACES,
+    ...CHRISTIAN_EXPANSION_PLACES
+  ]
 ).map(place => ({
   ...place,
   encyclopediaReferences: INSIGHT_PLACE_REFERENCES[place.id] || []

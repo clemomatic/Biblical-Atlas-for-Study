@@ -95,6 +95,26 @@ const PLACE_WOL_REFERENCE_OVERRIDES = {
       linkedName: 'Ebla',
       matchType: 'dedicated-article'
     }
+  ],
+  makheloth: [
+    {
+      id: 'wol-1001070223-makheloth',
+      work: 'wol',
+      articleTitle: 'L’Exode',
+      url: `${WOL_BASE}/fr/wol/d/r30/lp-f/1001070223`,
+      linkedName: 'Makéloth',
+      matchType: 'article-mention'
+    }
+  ],
+  moseroth: [
+    {
+      id: 'wol-1001070223-moseroth',
+      work: 'wol',
+      articleTitle: 'L’Exode',
+      url: `${WOL_BASE}/fr/wol/d/r30/lp-f/1001070223`,
+      linkedName: 'Mosséroth',
+      matchType: 'article-mention'
+    }
   ]
 };
 

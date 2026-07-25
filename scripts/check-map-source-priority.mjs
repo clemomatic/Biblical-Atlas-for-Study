@@ -7,7 +7,8 @@ const filesToScan = [
   'README.md',
   'src/data/promisedLandPlaces.ts',
   'src/data/promisedLandMapPositions.generated.ts',
-  'src/data/patriarchAndExodusPlaces.ts'
+  'src/data/patriarchAndExodusPlaces.ts',
+  'src/data/christianExpansionPlaces.ts'
 ];
 const forbiddenPatterns = [
   /openbible/i,
@@ -169,10 +170,97 @@ if (sourcePixelCount < expectedComplementaryPlaceIds.length) {
   );
 }
 
+const christianExpansionSource = scannedFiles.get(
+  'src/data/christianExpansionPlaces.ts'
+);
+const christianExpansionPlaceIds = [
+  'three_taverns',
+  'market_of_appius',
+  'puteoli',
+  'dyrrachium',
+  'apollonia_illyria',
+  'brundisium',
+  'neapolis_macedonia',
+  'philippi',
+  'amphipolis',
+  'thessalonica',
+  'berea',
+  'apollonia_macedonia',
+  'nicopolis',
+  'rhegium',
+  'sicily',
+  'syracuse',
+  'adriatic_sea',
+  'athens',
+  'cenchreae',
+  'malta',
+  'crete',
+  'phoenix_crete',
+  'cauda',
+  'fair_havens',
+  'gulf_syrtis',
+  'cyrene',
+  'black_sea',
+  'samothrace',
+  'troas',
+  'adramyttium',
+  'assos',
+  'pergamum',
+  'mytilene',
+  'thyatira',
+  'chios',
+  'sardis',
+  'smyrna',
+  'philadelphia_asia',
+  'antioch_pisidia',
+  'samos',
+  'laodicea',
+  'colossae',
+  'lystra',
+  'iconium',
+  'patmos',
+  'miletus',
+  'cos',
+  'cnidus',
+  'rhodes',
+  'cape_salmone',
+  'patara',
+  'myra',
+  'attalia',
+  'perga',
+  'derbe',
+  'tarsus',
+  'seleucia_pieria',
+  'salamis_cyprus',
+  'cyprus',
+  'paphos',
+  'alexandria'
+];
+
+for (const placeId of christianExpansionPlaceIds) {
+  if (!christianExpansionSource.includes(`id: '${placeId}'`)) {
+    throw new Error(`Lieu de la carte B13 manquant: ${placeId}`);
+  }
+}
+
+if (
+  !christianExpansionSource.includes(
+    "url: 'https://wol.jw.org/fr/wol/d/r30/lp-f/1001070234'"
+  ) ||
+  !christianExpansionSource.includes(
+    'sans\n * recourir à un service de géocodage externe'
+  )
+) {
+  throw new Error(
+    'La provenance WOL et la méthode de report de la carte B13 doivent être documentées.'
+  );
+}
+
 console.log(
   `Carte vérifiée: ${places.length} éléments, ` +
     `${insetPrimaryPositions} positions issues de l’encart, ` +
     `${representativePositions} positions représentatives, ` +
     `${expectedComplementaryPlaceIds.length} nouveaux repères des cartes B2/B3, ` +
+    `${christianExpansionPlaceIds.length} repères de la carte B13, ` +
     '0 référence OpenBible.'
 );
