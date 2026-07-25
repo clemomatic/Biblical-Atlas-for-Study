@@ -1,0 +1,62 @@
+[
+  {
+    "id": "presence-test-alpha",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-test-alpha",
+    "placeId": "place-test-alpha",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "5 av. n. è. — date fictive"
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-test-rencontre"
+    ],
+    "supportingClaimIds": [
+      "claim-test-presence-alpha"
+    ]
+  },
+  {
+    "id": "presence-test-beta",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-test-beta",
+    "placeId": "place-test-alpha",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "5 av. n. è. — date fictive"
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-test-rencontre"
+    ],
+    "supportingClaimIds": [
+      "claim-test-presence-beta"
+    ]
+  }
+]

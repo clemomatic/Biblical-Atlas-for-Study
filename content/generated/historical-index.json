@@ -1,0 +1,425 @@
+{
+  "version": "1",
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "lifespans": [],
+  "activities": [],
+  "events": [
+    {
+      "id": "event:event-a7b-bapteme-jesus",
+      "eventId": "event-a7b-bapteme-jesus",
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-bapteme-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-bapteme-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-jean-presente-jesus",
+      "eventId": "event-a7b-jean-presente-jesus",
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-jean-presente-jesus-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-jean-presente-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-jean-presente-jesus-presence-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+        "claim-event-a7b-jean-presente-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-premier-miracle-cana",
+      "eventId": "event-a7b-premier-miracle-cana",
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-premier-miracle-cana-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+        "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-tentation-desert",
+      "eventId": "event-a7b-tentation-desert",
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-tentation-desert-interaction-person-a7b-diable-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-tentation-desert-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-tentation-desert-participation-person-a7b-diable",
+        "claim-event-a7b-tentation-desert-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+        "claim-event-a7b-tentation-desert-presence-person-a7b-diable-place-a7b-judean-wilderness"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-emprisonnement-jean",
+      "eventId": "event-a7b-emprisonnement-jean",
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-emprisonnement-jean-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-emprisonnement-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-enseignement-sychar",
+      "eventId": "event-a7b-enseignement-sychar",
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-enseignement-sychar-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-enseignement-sychar-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-entretien-nicodeme",
+      "eventId": "event-a7b-entretien-nicodeme",
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7b-nicodeme",
+        "claim-event-a7b-entretien-nicodeme-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-entretien-nicodeme-participation-person-a7b-nicodeme",
+        "claim-event-a7b-entretien-nicodeme-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+        "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-ministere-judeen",
+      "eventId": "event-a7b-ministere-judeen",
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-ministere-judeen-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-ministere-judeen-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    },
+    {
+      "id": "event:event-a7b-purification-temple",
+      "eventId": "event-a7b-purification-temple",
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-purification-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b"
+      ]
+    }
+  ],
+  "presences": [
+    {
+      "id": "presence-event-a7b-bapteme-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "jordan_river",
+      "regionIds": [],
+      "presenceType": "ministry",
+      "eventIds": [
+        "event-a7b-bapteme-jesus"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-bapteme-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-jean-presente-jesus-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+      "personId": "event-jean-le-baptiseur-dvgl2c",
+      "placeId": "place-a7b-bethany-beyond-jordan",
+      "regionIds": [
+        "region-east-of-jordan"
+      ],
+      "presenceType": "ministry",
+      "eventIds": [
+        "event-a7b-jean-presente-jesus"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-event-a7b-jean-presente-jesus-presence-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-jean-presente-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "place-a7b-bethany-beyond-jordan",
+      "regionIds": [
+        "region-east-of-jordan"
+      ],
+      "presenceType": "ministry",
+      "eventIds": [
+        "event-a7b-jean-presente-jesus"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-event-a7b-jean-presente-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "capernaum",
+      "regionIds": [],
+      "presenceType": "traveler",
+      "eventIds": [
+        "event-a7b-premier-miracle-cana"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "obi-cana",
+      "regionIds": [],
+      "presenceType": "visitor",
+      "eventIds": [
+        "event-a7b-premier-miracle-cana"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-tentation-desert-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "place-a7b-judean-wilderness",
+      "regionIds": [
+        "region-judea"
+      ],
+      "presenceType": "traveler",
+      "eventIds": [
+        "event-a7b-tentation-desert"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-tentation-desert-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-tentation-desert-person-a7b-diable-place-a7b-judean-wilderness",
+      "personId": "person-a7b-diable",
+      "placeId": "place-a7b-judean-wilderness",
+      "regionIds": [
+        "region-judea"
+      ],
+      "presenceType": "visitor",
+      "eventIds": [
+        "event-a7b-tentation-desert"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-tentation-desert-presence-person-a7b-diable-place-a7b-judean-wilderness"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-enseignement-sychar-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "obi-sychar",
+      "regionIds": [],
+      "presenceType": "ministry",
+      "eventIds": [
+        "event-a7b-enseignement-sychar"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-event-a7b-enseignement-sychar-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-entretien-nicodeme-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "jerusalem",
+      "regionIds": [],
+      "presenceType": "visitor",
+      "eventIds": [
+        "event-a7b-entretien-nicodeme"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-entretien-nicodeme-person-a7b-nicodeme-jerusalem",
+      "personId": "person-a7b-nicodeme",
+      "placeId": "jerusalem",
+      "regionIds": [],
+      "presenceType": "visitor",
+      "eventIds": [
+        "event-a7b-entretien-nicodeme"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem"
+      ]
+    },
+    {
+      "id": "presence-event-a7b-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "placeId": "jerusalem",
+      "regionIds": [],
+      "presenceType": "visitor",
+      "eventIds": [
+        "event-a7b-purification-temple"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+      ]
+    }
+  ],
+  "relationIdsBySubject": {
+    "event-jean-le-baptiseur-dvgl2c": [
+      "derived-relation-same-event-1bfuk5n",
+      "derived-relation-same-event-kft4sm",
+      "derived-relation-same-event-wz6r1y",
+      "derived-relation-same-place-trogpq"
+    ],
+    "event-jesus-en-tant-qu-humain-1f4ceyz": [
+      "derived-relation-documented-interaction-1eyxg5e",
+      "derived-relation-documented-interaction-qrg3r8",
+      "derived-relation-same-event-1bfuk5n",
+      "derived-relation-same-event-1ltxhci",
+      "derived-relation-same-event-iqp4e8",
+      "derived-relation-same-event-kft4sm",
+      "derived-relation-same-event-wz6r1y",
+      "derived-relation-same-place-1w4qejk",
+      "derived-relation-same-place-41j03i",
+      "derived-relation-same-place-65m5iv",
+      "derived-relation-same-place-trogpq"
+    ],
+    "person-a7b-diable": [
+      "derived-relation-documented-interaction-qrg3r8",
+      "derived-relation-same-event-1ltxhci",
+      "derived-relation-same-place-1w4qejk"
+    ],
+    "person-a7b-nicodeme": [
+      "derived-relation-documented-interaction-1eyxg5e",
+      "derived-relation-same-event-iqp4e8",
+      "derived-relation-same-place-41j03i",
+      "derived-relation-same-place-65m5iv"
+    ]
+  },
+  "presenceIdsByPlace": {
+    "capernaum": [
+      "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "jerusalem": [
+      "presence-event-a7b-entretien-nicodeme-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7b-entretien-nicodeme-person-a7b-nicodeme-jerusalem",
+      "presence-event-a7b-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "jordan_river": [
+      "presence-event-a7b-bapteme-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river"
+    ],
+    "obi-cana": [
+      "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+    ],
+    "obi-sychar": [
+      "presence-event-a7b-enseignement-sychar-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar"
+    ],
+    "place-a7b-bethany-beyond-jordan": [
+      "presence-event-a7b-jean-presente-jesus-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+      "presence-event-a7b-jean-presente-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "place-a7b-judean-wilderness": [
+      "presence-event-a7b-tentation-desert-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+      "presence-event-a7b-tentation-desert-person-a7b-diable-place-a7b-judean-wilderness"
+    ]
+  },
+  "presenceIdsByRegion": {
+    "region-east-of-jordan": [
+      "presence-event-a7b-jean-presente-jesus-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+      "presence-event-a7b-jean-presente-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "region-judea": [
+      "presence-event-a7b-tentation-desert-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+      "presence-event-a7b-tentation-desert-person-a7b-diable-place-a7b-judean-wilderness"
+    ]
+  },
+  "presenceIdsByEvent": {
+    "event-a7b-bapteme-jesus": [
+      "presence-event-a7b-bapteme-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river"
+    ],
+    "event-a7b-enseignement-sychar": [
+      "presence-event-a7b-enseignement-sychar-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar"
+    ],
+    "event-a7b-entretien-nicodeme": [
+      "presence-event-a7b-entretien-nicodeme-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7b-entretien-nicodeme-person-a7b-nicodeme-jerusalem"
+    ],
+    "event-a7b-jean-presente-jesus": [
+      "presence-event-a7b-jean-presente-jesus-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+      "presence-event-a7b-jean-presente-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "event-a7b-premier-miracle-cana": [
+      "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+      "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+    ],
+    "event-a7b-purification-temple": [
+      "presence-event-a7b-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "event-a7b-tentation-desert": [
+      "presence-event-a7b-tentation-desert-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+      "presence-event-a7b-tentation-desert-person-a7b-diable-place-a7b-judean-wilderness"
+    ]
+  }
+}

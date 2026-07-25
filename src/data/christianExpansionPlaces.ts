@@ -32,6 +32,41 @@ const DOCUMENTARY_REFERENCE =
 const SOURCE_IMAGE_SIZE: [number, number] = [1800, 1300];
 
 /**
+ * Éléments textuels de B13 volontairement non rendus comme marqueurs.
+ * Ils restent inventoriés avec un ID stable afin que l’audit de la source
+ * distingue une exclusion fonctionnelle d’un oubli d’intégration.
+ */
+export const B13_EXCLUDED_NON_POINT_FEATURES = [
+  { id: 'b13-route-via-appia', label: 'Voie Appienne', kind: 'route' },
+  { id: 'b13-region-italy', label: 'Italie', kind: 'territory' },
+  { id: 'b13-region-illyria', label: 'Illyrie', kind: 'territory' },
+  { id: 'b13-region-dalmatia', label: 'Dalmatie', kind: 'territory' },
+  { id: 'b13-region-macedonia', label: 'Macédoine', kind: 'territory' },
+  { id: 'b13-region-greece', label: 'Grèce', kind: 'territory' },
+  { id: 'b13-region-achaia', label: 'Achaïe', kind: 'territory' },
+  { id: 'b13-region-libya', label: 'Libye', kind: 'territory' },
+  { id: 'b13-route-via-egnatia', label: 'Voie Égnatienne', kind: 'route' },
+  { id: 'b13-region-bithynia', label: 'Bithynie', kind: 'territory' },
+  { id: 'b13-region-pontus', label: 'Pont', kind: 'territory' },
+  { id: 'b13-region-mysia', label: 'Mysie', kind: 'territory' },
+  { id: 'b13-region-phrygia', label: 'Phrygie', kind: 'territory' },
+  { id: 'b13-region-galatia', label: 'Galatie', kind: 'territory' },
+  { id: 'b13-region-asia', label: 'Asie', kind: 'territory' },
+  { id: 'b13-region-cappadocia', label: 'Cappadoce', kind: 'territory' },
+  { id: 'b13-region-lycaonia', label: 'Lycaonie', kind: 'territory' },
+  { id: 'b13-region-pisidia', label: 'Pisidie', kind: 'territory' },
+  { id: 'b13-region-lycia', label: 'Lycie', kind: 'territory' },
+  { id: 'b13-region-pamphylia', label: 'Pamphylie', kind: 'territory' },
+  { id: 'b13-region-cilicia', label: 'Cilicie', kind: 'territory' },
+  { id: 'b13-region-syria', label: 'Syrie', kind: 'territory' },
+  { id: 'b13-region-phoenicia', label: 'Phénicie', kind: 'territory' },
+  { id: 'b13-region-egypt', label: 'Égypte', kind: 'territory' },
+  { id: 'b13-region-ethiopia', label: 'Éthiopie', kind: 'territory' },
+  { id: 'b13-region-nabatea', label: 'Nabatène', kind: 'territory' },
+  { id: 'b13-region-arabia', label: 'Arabie', kind: 'territory' }
+] as const;
+
+/**
  * La carte B13 est une carte générale illustrée : une transformation linéaire
  * unique décalait certains ports et certaines îles jusque dans la mer. Les
  * coordonnées ci-dessous alignent chaque symbole B13 sur le site ou l’élément
@@ -39,6 +74,7 @@ const SOURCE_IMAGE_SIZE: [number, number] = [1800, 1300];
  * pour rendre le report depuis la source vérifiable.
  */
 const VERIFIED_COORDINATES: Record<string, [number, number]> = {
+  rome: [41.9028, 12.4964],
   three_taverns: [41.5619, 12.8739],
   market_of_appius: [41.4672, 12.9836],
   puteoli: [40.827, 14.122],
@@ -57,6 +93,7 @@ const VERIFIED_COORDINATES: Record<string, [number, number]> = {
   syracuse: [37.0755, 15.2866],
   adriatic_sea: [41.5, 17.5],
   athens: [37.9838, 23.7275],
+  corinth: [37.9056, 22.8803],
   cenchreae: [37.8842, 22.994],
   malta: [35.8997, 14.5147],
   crete: [35.2401, 24.8093],
@@ -65,6 +102,7 @@ const VERIFIED_COORDINATES: Record<string, [number, number]> = {
   fair_havens: [34.928, 24.808],
   gulf_syrtis: [31.45, 18],
   cyrene: [32.8187, 21.8562],
+  'carte-mermediterranee-b8': [34.3, 18],
   black_sea: [42.5, 31],
   samothrace: [40.468, 25.522],
   troas: [39.753, 26.158],
@@ -79,6 +117,7 @@ const VERIFIED_COORDINATES: Record<string, [number, number]> = {
   philadelphia_asia: [38.35, 28.52],
   antioch_pisidia: [38.305, 31.189],
   samos: [37.754, 26.977],
+  ephesus: [37.9486, 27.368],
   laodicea: [37.835, 29.107],
   colossae: [37.785, 29.259],
   lystra: [37.576, 32.451],
@@ -96,13 +135,27 @@ const VERIFIED_COORDINATES: Record<string, [number, number]> = {
   derbe: [37.348, 33.362],
   tarsus: [36.9177, 34.8929],
   seleucia_pieria: [36.123, 35.921],
+  antioch_syria: [36.2021, 36.1604],
   salamis_cyprus: [35.1793, 33.9029],
   cyprus: [35.1264, 33.4299],
   paphos: [34.758, 32.41],
+  sidon: [33.5633, 35.369],
+  damascus: [33.5138, 36.2765],
+  'obi-tyre': [33.268351, 35.194867],
+  'obi-ptolemais': [32.919599, 35.067823],
+  caesarea: [32.496967, 34.888605],
+  'obi-aphek-2': [32.101122, 34.927554],
+  'carte-pella-f6': [32.450942, 35.618028],
+  joppa: [32.049168, 34.741493],
+  'obi-ashdod': [31.750531, 34.649412],
+  jerusalem: [31.775729, 35.23418],
+  'obi-lod': [31.947746, 34.885838],
+  'obi-gaza': [31.492639, 34.444436],
   alexandria: [31.2001, 29.9187]
 };
 
 const SEEDS: ChristianExpansionPlaceSeed[] = [
+  { id: 'rome', name: 'Rome', alternateNames: ['Roma'], sourcePixel: [107, 317], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Capitale impériale', biblicalReferences: ['Actes 28:16', 'Romains 1:7'], territory: 'Italie' },
   { id: 'three_taverns', name: 'Trois-Auberges', alternateNames: ['Tres Tabernae'], sourcePixel: [128, 338], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Relais de la voie Appienne', biblicalReferences: ['Actes 28:15'], territory: 'Italie' },
   { id: 'market_of_appius', name: 'Marché-d’Appius', alternateNames: ['Forum d’Appius', 'Forum Appii'], sourcePixel: [139, 356], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Relais de la voie Appienne', biblicalReferences: ['Actes 28:15'], territory: 'Italie' },
   { id: 'puteoli', name: 'Puteoli', alternateNames: ['Pouzzoles', 'Puzzoles'], sourcePixel: [201, 411], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 28:13'], territory: 'Italie' },
@@ -121,6 +174,7 @@ const SEEDS: ChristianExpansionPlaceSeed[] = [
   { id: 'syracuse', name: 'Syracuse', sourcePixel: [283, 710], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 28:12'], territory: 'Sicile' },
   { id: 'adriatic_sea', name: 'Mer d’Adria', alternateNames: ['Adria', 'Mer Adriatique'], sourcePixel: [450, 677], mapCategory: 'body-of-water', mapLabelLevel: 'regional', featureType: 'Étendue d’eau', biblicalReferences: ['Actes 27:27'], certainty: 'certain' },
   { id: 'athens', name: 'Athènes', sourcePixel: [796, 620], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Ville antique', biblicalReferences: ['Actes 17:15', 'Actes 17:22'], territory: 'Achaïe' },
+  { id: 'corinth', name: 'Corinthe', alternateNames: ['Korinthos'], sourcePixel: [718, 638], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Ville antique', biblicalReferences: ['Actes 18:1', '1 Corinthiens 1:2'], territory: 'Achaïe' },
   { id: 'cenchreae', name: 'Cenchrées', alternateNames: ['Kenchrées'], sourcePixel: [777, 650], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Ville portuaire', biblicalReferences: ['Actes 18:18', 'Romains 16:1'], territory: 'Achaïe' },
   { id: 'malta', name: 'Malte', sourcePixel: [224, 802], mapCategory: 'biblical-site', mapLabelLevel: 'regional', featureType: 'Île', biblicalReferences: ['Actes 28:1'], territory: 'Méditerranée centrale' },
   { id: 'crete', name: 'Crète', sourcePixel: [817, 842], mapCategory: 'biblical-site', mapLabelLevel: 'regional', featureType: 'Île', biblicalReferences: ['Actes 27:7', 'Tite 1:5'], territory: 'Méditerranée orientale' },
@@ -129,6 +183,7 @@ const SEEDS: ChristianExpansionPlaceSeed[] = [
   { id: 'fair_havens', name: 'Beaux-Ports', alternateNames: ['Beaux Ports'], sourcePixel: [881, 871], mapCategory: 'biblical-site', mapLabelLevel: 'study', featureType: 'Mouillage', biblicalReferences: ['Actes 27:8'], territory: 'Crète' },
   { id: 'gulf_syrtis', name: 'Syrte', alternateNames: ['Grande Syrte'], sourcePixel: [430, 1095], mapCategory: 'body-of-water', mapLabelLevel: 'regional', featureType: 'Golfe', biblicalReferences: ['Actes 27:17'], certainty: 'certain' },
   { id: 'cyrene', name: 'Cyrène', sourcePixel: [692, 1033], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville antique', biblicalReferences: ['Actes 2:10', 'Actes 11:20', 'Actes 13:1'], territory: 'Libye' },
+  { id: 'carte-mermediterranee-b8', name: 'Mer Méditerranée', alternateNames: ['Grande Mer'], sourcePixel: [390, 928], mapCategory: 'body-of-water', mapLabelLevel: 'major', featureType: 'Étendue d’eau', certainty: 'certain' },
   { id: 'black_sea', name: 'Mer Noire', sourcePixel: [1195, 303], mapCategory: 'body-of-water', mapLabelLevel: 'major', featureType: 'Étendue d’eau', certainty: 'certain' },
   { id: 'samothrace', name: 'Samothrace', sourcePixel: [934, 430], mapCategory: 'biblical-site', mapLabelLevel: 'study', featureType: 'Île', biblicalReferences: ['Actes 16:11'], territory: 'Mer Égée' },
   { id: 'troas', name: 'Troas', alternateNames: ['Alexandrie de Troade'], sourcePixel: [968, 496], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 16:8', 'Actes 20:5'], territory: 'Asie Mineure' },
@@ -143,6 +198,7 @@ const SEEDS: ChristianExpansionPlaceSeed[] = [
   { id: 'philadelphia_asia', name: 'Philadelphie', alternateNames: ['Philadelphie d’Asie'], sourcePixel: [1117, 611], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville mentionnée dans la Révélation', biblicalReferences: ['Révélation 3:7'], territory: 'Asie' },
   { id: 'antioch_pisidia', name: 'Antioche de Pisidie', sourcePixel: [1278, 616], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville antique', biblicalReferences: ['Actes 13:14', 'Actes 14:19'], territory: 'Pisidie' },
   { id: 'samos', name: 'Samos', sourcePixel: [1005, 645], mapCategory: 'biblical-site', mapLabelLevel: 'study', featureType: 'Île', biblicalReferences: ['Actes 20:15'], territory: 'Mer Égée' },
+  { id: 'ephesus', name: 'Éphèse', alternateNames: ['Efes'], sourcePixel: [1039, 642], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Ville antique', biblicalReferences: ['Actes 19:1', 'Éphésiens 1:1'], territory: 'Asie' },
   { id: 'laodicea', name: 'Laodicée', sourcePixel: [1152, 650], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville mentionnée dans la Révélation', biblicalReferences: ['Colossiens 4:13', 'Révélation 3:14'], territory: 'Asie' },
   { id: 'colossae', name: 'Colosses', sourcePixel: [1161, 671], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville antique', biblicalReferences: ['Colossiens 1:2'], territory: 'Asie' },
   { id: 'lystra', name: 'Lystre', sourcePixel: [1307, 665], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville antique', biblicalReferences: ['Actes 14:6', 'Actes 16:1'], territory: 'Lycaonie' },
@@ -160,9 +216,22 @@ const SEEDS: ChristianExpansionPlaceSeed[] = [
   { id: 'derbe', name: 'Derbé', sourcePixel: [1389, 700], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville antique', biblicalReferences: ['Actes 14:6', 'Actes 16:1'], territory: 'Lycaonie' },
   { id: 'tarsus', name: 'Tarse', sourcePixel: [1495, 718], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville antique', biblicalReferences: ['Actes 9:11', 'Actes 21:39'], territory: 'Cilicie' },
   { id: 'seleucia_pieria', name: 'Séleucie', alternateNames: ['Séleucie de Piérie'], sourcePixel: [1536, 778], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Ville portuaire', biblicalReferences: ['Actes 13:4'], territory: 'Syrie' },
+  { id: 'antioch_syria', name: 'Antioche de Syrie', alternateNames: ['Antioche (de Syrie)', 'Antakya'], sourcePixel: [1596, 791], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Centre missionnaire', biblicalReferences: ['Actes 11:26', 'Actes 13:1-3'], territory: 'Syrie' },
   { id: 'salamis_cyprus', name: 'Salamine', alternateNames: ['Salamine de Chypre'], sourcePixel: [1453, 888], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 13:5'], territory: 'Chypre' },
   { id: 'cyprus', name: 'Chypre', sourcePixel: [1415, 862], mapCategory: 'biblical-site', mapLabelLevel: 'regional', featureType: 'Île', biblicalReferences: ['Actes 4:36', 'Actes 13:4'], territory: 'Méditerranée orientale' },
   { id: 'paphos', name: 'Paphos', sourcePixel: [1363, 888], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 13:6', 'Actes 13:13'], territory: 'Chypre' },
+  { id: 'sidon', name: 'Sidon', alternateNames: ['Saïda'], sourcePixel: [1548, 973], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 27:3'], territory: 'Phénicie' },
+  { id: 'damascus', name: 'Damas', sourcePixel: [1606, 992], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Ville antique', biblicalReferences: ['Actes 9:2', 'Actes 9:10'], territory: 'Syrie' },
+  { id: 'obi-tyre', name: 'Tyr', alternateNames: ['Tyre'], sourcePixel: [1536, 1001], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 21:3'], territory: 'Phénicie' },
+  { id: 'obi-ptolemais', name: 'Ptolémaïs', alternateNames: ['Acre'], sourcePixel: [1518, 1025], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Ville portuaire', biblicalReferences: ['Actes 21:7'], territory: 'Phénicie' },
+  { id: 'caesarea', name: 'Césarée', alternateNames: ['Caesarea Maritima'], sourcePixel: [1518, 1057], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 10:1', 'Actes 21:8'], territory: 'Judée' },
+  { id: 'obi-aphek-2', name: 'Antipatris', alternateNames: ['Afek', 'Aphek'], sourcePixel: [1509, 1075], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Ville antique', biblicalReferences: ['Actes 23:31'], territory: 'Judée' },
+  { id: 'carte-pella-f6', name: 'Pella', sourcePixel: [1565, 1067], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Ville antique', territory: 'Décapole' },
+  { id: 'joppa', name: 'Joppé', alternateNames: ['Joppa', 'Jaffa'], sourcePixel: [1498, 1097], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville portuaire', biblicalReferences: ['Actes 9:36'], territory: 'Judée' },
+  { id: 'obi-ashdod', name: 'Asdod', alternateNames: ['Ashdod'], sourcePixel: [1491, 1118], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Ville antique', biblicalReferences: ['Actes 8:40'], territory: 'Philistie' },
+  { id: 'jerusalem', name: 'Jérusalem', sourcePixel: [1549, 1105], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Centre du christianisme primitif', biblicalReferences: ['Actes 1:8', 'Actes 2:1'], territory: 'Judée' },
+  { id: 'obi-lod', name: 'Lydda', alternateNames: ['Lod'], sourcePixel: [1535, 1130], mapCategory: 'ancient-city', mapLabelLevel: 'study', featureType: 'Ville antique', biblicalReferences: ['Actes 9:32'], territory: 'Judée' },
+  { id: 'obi-gaza', name: 'Gaza', sourcePixel: [1486, 1140], mapCategory: 'ancient-city', mapLabelLevel: 'regional', featureType: 'Ville antique', biblicalReferences: ['Actes 8:26'], territory: 'Philistie' },
   { id: 'alexandria', name: 'Alexandrie', alternateNames: ['Alexandrie d’Égypte'], sourcePixel: [1202, 1155], mapCategory: 'ancient-city', mapLabelLevel: 'major', featureType: 'Ville portuaire', biblicalReferences: ['Actes 18:24', 'Actes 27:6'], territory: 'Égypte' }
 ];
 

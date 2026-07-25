@@ -1,0 +1,28 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-test-fictive-001"
+    ],
+    "event": {
+      "id": "event-test-rencontre",
+      "name": "Événement fictif de validation",
+      "period": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "displayLabel": "5 av. n. è. — date fictive"
+      },
+      "notes": "Événement exclusivement réservé aux tests."
+    }
+  }
+]

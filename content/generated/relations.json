@@ -1,0 +1,466 @@
+[
+  {
+    "id": "derived-relation-documented-interaction-1eyxg5e",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-nicodeme"
+    ],
+    "origin": "generated",
+    "relationLevel": "documented-interaction",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "eventIds": [
+      "event-a7b-entretien-nicodeme"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-entretien-nicodeme-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7b-nicodeme"
+    ],
+    "generatedFromIds": [
+      "claim-event-a7b-entretien-nicodeme-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7b-nicodeme"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-documented-interaction-qrg3r8",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-diable"
+    ],
+    "origin": "generated",
+    "relationLevel": "documented-interaction",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "eventIds": [
+      "event-a7b-tentation-desert"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-tentation-desert-interaction-person-a7b-diable-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedFromIds": [
+      "claim-event-a7b-tentation-desert-interaction-person-a7b-diable-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-event-1bfuk5n",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-event",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "eventIds": [
+      "event-a7b-emprisonnement-jean"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-emprisonnement-jean-participation-event-jean-le-baptiseur-dvgl2c",
+      "claim-event-a7b-emprisonnement-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedFromIds": [
+      "claim-event-a7b-emprisonnement-jean-participation-event-jean-le-baptiseur-dvgl2c",
+      "claim-event-a7b-emprisonnement-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-event-1ltxhci",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-diable"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-event",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "29 de n. è."
+    },
+    "eventIds": [
+      "event-a7b-tentation-desert"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-tentation-desert-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+      "claim-event-a7b-tentation-desert-participation-person-a7b-diable"
+    ],
+    "generatedFromIds": [
+      "claim-event-a7b-tentation-desert-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+      "claim-event-a7b-tentation-desert-participation-person-a7b-diable"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-event-iqp4e8",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-nicodeme"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-event",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "eventIds": [
+      "event-a7b-entretien-nicodeme"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-entretien-nicodeme-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+      "claim-event-a7b-entretien-nicodeme-participation-person-a7b-nicodeme"
+    ],
+    "generatedFromIds": [
+      "claim-event-a7b-entretien-nicodeme-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+      "claim-event-a7b-entretien-nicodeme-participation-person-a7b-nicodeme"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-event-kft4sm",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-event",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "eventIds": [
+      "event-a7b-ministere-judeen"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-ministere-judeen-participation-event-jean-le-baptiseur-dvgl2c",
+      "claim-event-a7b-ministere-judeen-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedFromIds": [
+      "claim-event-a7b-ministere-judeen-participation-event-jean-le-baptiseur-dvgl2c",
+      "claim-event-a7b-ministere-judeen-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-event-wz6r1y",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-event",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "29 de n. è."
+    },
+    "eventIds": [
+      "event-a7b-jean-presente-jesus"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-jean-presente-jesus-participation-event-jean-le-baptiseur-dvgl2c",
+      "claim-event-a7b-jean-presente-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedFromIds": [
+      "claim-event-a7b-jean-presente-jesus-participation-event-jean-le-baptiseur-dvgl2c",
+      "claim-event-a7b-jean-presente-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-place-1w4qejk",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-diable"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-place",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "29 de n. è."
+    },
+    "placeIds": [
+      "place-a7b-judean-wilderness"
+    ],
+    "eventIds": [
+      "event-a7b-tentation-desert"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-tentation-desert-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+      "claim-event-a7b-tentation-desert-presence-person-a7b-diable-place-a7b-judean-wilderness"
+    ],
+    "generatedFromIds": [
+      "presence-event-a7b-tentation-desert-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+      "presence-event-a7b-tentation-desert-person-a7b-diable-place-a7b-judean-wilderness"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-place-41j03i",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-nicodeme"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-place",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "placeIds": [
+      "jerusalem"
+    ],
+    "eventIds": [
+      "event-a7b-entretien-nicodeme",
+      "event-a7b-purification-temple"
+    ],
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem",
+      "claim-event-a7b-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "generatedFromIds": [
+      "presence-event-a7b-entretien-nicodeme-person-a7b-nicodeme-jerusalem",
+      "presence-event-a7b-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-place-65m5iv",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-nicodeme"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-place",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "placeIds": [
+      "jerusalem"
+    ],
+    "eventIds": [
+      "event-a7b-entretien-nicodeme"
+    ],
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-event-a7b-entretien-nicodeme-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem"
+    ],
+    "generatedFromIds": [
+      "presence-event-a7b-entretien-nicodeme-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7b-entretien-nicodeme-person-a7b-nicodeme-jerusalem"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-same-place-trogpq",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "origin": "generated",
+    "relationLevel": "same-place",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "29 de n. è."
+    },
+    "placeIds": [
+      "place-a7b-bethany-beyond-jordan"
+    ],
+    "eventIds": [
+      "event-a7b-jean-presente-jesus"
+    ],
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-event-a7b-jean-presente-jesus-presence-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+      "claim-event-a7b-jean-presente-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "generatedFromIds": [
+      "presence-event-a7b-jean-presente-jesus-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+      "presence-event-a7b-jean-presente-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  }
+]

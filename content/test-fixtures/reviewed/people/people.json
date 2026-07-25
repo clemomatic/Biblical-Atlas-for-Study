@@ -1,0 +1,60 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-test-fictive-001"
+    ],
+    "person": {
+      "id": "person-test-alpha",
+      "name": "Personne fictive Alpha",
+      "alternateNames": [],
+      "description": "Entité sans valeur historique, créée uniquement pour les tests.",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -10,
+          "yearMax": -10,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 2,
+          "yearMax": 2,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "displayLabel": "Période fictive de test"
+      },
+      "activityPeriods": [],
+      "certainty": "certain"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-test-fictive-001"
+    ],
+    "person": {
+      "id": "person-test-beta",
+      "name": "Personne fictive Bêta",
+      "alternateNames": [],
+      "description": "Entité sans valeur historique, créée uniquement pour les tests.",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -8,
+          "yearMax": -8,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 3,
+          "yearMax": 3,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "displayLabel": "Période fictive de test"
+      },
+      "activityPeriods": [],
+      "certainty": "certain"
+    }
+  }
+]

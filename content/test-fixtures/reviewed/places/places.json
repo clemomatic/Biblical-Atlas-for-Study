@@ -1,0 +1,13 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-test-fictive-001"
+    ],
+    "place": {
+      "id": "place-test-alpha",
+      "name": "Lieu fictif Alpha",
+      "notes": "Lieu sans coordonnées et sans valeur historique."
+    }
+  }
+]

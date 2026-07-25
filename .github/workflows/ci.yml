@@ -35,6 +35,24 @@ jobs:
       - name: Contrôler TypeScript
         run: pnpm run typecheck
 
+      - name: Exécuter les tests unitaires
+        run: pnpm run test
+
+      - name: Valider les données historiques relues
+        run: pnpm run historical:validate
+
+      - name: Vérifier la promotion du staging A7-B
+        run: pnpm run historical:promote -- --verify-output
+
+      - name: Vérifier les données historiques générées
+        run: |
+          pnpm run historical:generate
+          pnpm run historical:report:a7b -- --write
+          git diff --exit-code -- content/generated
+
+      - name: Vérifier la compatibilité historique
+        run: pnpm run historical:check
+
       - name: Vérifier la provenance cartographique
         run: pnpm run map:sources:check
 

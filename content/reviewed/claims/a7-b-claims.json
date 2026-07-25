@@ -1,0 +1,1076 @@
+[
+  {
+    "id": "claim-event-a7b-bapteme-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-bapteme-jesus"
+    },
+    "eventId": "event-a7b-bapteme-jesus",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-bapteme-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jordan_river",
+    "eventId": "event-a7b-bapteme-jesus",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-emprisonnement-jean-participation-event-jean-le-baptiseur-dvgl2c",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-emprisonnement-jean"
+    },
+    "eventId": "event-a7b-emprisonnement-jean",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-emprisonnement-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-emprisonnement-jean"
+    },
+    "eventId": "event-a7b-emprisonnement-jean",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-enseignement-sychar-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-enseignement-sychar"
+    },
+    "eventId": "event-a7b-enseignement-sychar",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-enseignement-sychar-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sychar",
+    "eventId": "event-a7b-enseignement-sychar",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-entretien-nicodeme-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7b-nicodeme",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7b-nicodeme"
+    },
+    "eventId": "event-a7b-entretien-nicodeme",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-entretien-nicodeme-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-entretien-nicodeme"
+    },
+    "eventId": "event-a7b-entretien-nicodeme",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-entretien-nicodeme-participation-person-a7b-nicodeme",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7b-nicodeme"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-entretien-nicodeme"
+    },
+    "eventId": "event-a7b-entretien-nicodeme",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-entretien-nicodeme-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7b-entretien-nicodeme",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7b-nicodeme"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7b-entretien-nicodeme",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-jean-presente-jesus-participation-event-jean-le-baptiseur-dvgl2c",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-jean-presente-jesus"
+    },
+    "eventId": "event-a7b-jean-presente-jesus",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-jean-presente-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-jean-presente-jesus"
+    },
+    "eventId": "event-a7b-jean-presente-jesus",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-jean-presente-jesus-presence-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "presence",
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "eventId": "event-a7b-jean-presente-jesus",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-jean-presente-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "eventId": "event-a7b-jean-presente-jesus",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-ministere-judeen-participation-event-jean-le-baptiseur-dvgl2c",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-ministere-judeen"
+    },
+    "eventId": "event-a7b-ministere-judeen",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-ministere-judeen-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-ministere-judeen"
+    },
+    "eventId": "event-a7b-ministere-judeen",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-premier-miracle-cana-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-premier-miracle-cana"
+    },
+    "eventId": "event-a7b-premier-miracle-cana",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7b-premier-miracle-cana",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-cana",
+    "eventId": "event-a7b-premier-miracle-cana",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-purification-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-purification-temple"
+    },
+    "eventId": "event-a7b-purification-temple",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7b-purification-temple",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-tentation-desert-interaction-person-a7b-diable-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7b-diable"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "eventId": "event-a7b-tentation-desert",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-tentation-desert-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-tentation-desert"
+    },
+    "eventId": "event-a7b-tentation-desert",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-tentation-desert-participation-person-a7b-diable",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7b-diable"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7b-tentation-desert"
+    },
+    "eventId": "event-a7b-tentation-desert",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-tentation-desert-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "place-a7b-judean-wilderness",
+    "eventId": "event-a7b-tentation-desert",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7b-tentation-desert-presence-person-a7b-diable-place-a7b-judean-wilderness",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7b-diable"
+    },
+    "predicate": "presence",
+    "placeId": "place-a7b-judean-wilderness",
+    "eventId": "event-a7b-tentation-desert",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-b",
+        "shortReference": "Appendice A7-B, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]
