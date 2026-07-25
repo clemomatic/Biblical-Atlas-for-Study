@@ -14,10 +14,12 @@ import type { BiblicalPerson } from '../domain/history/types';
 import {
   getActiveProphetsDuringReign,
   getCalculatedDatesForPerson,
+  HISTORICAL_METHODOLOGY_CATALOG,
   getContemporaryKingsForProphet,
   type HistoricalPersonAssociation
 } from '../data/historicalStudyData';
 import { formatTemporalSpanFrench } from '../domain/history/temporal';
+import { buildEntityMethodology } from '../domain/history/entityMethodology';
 import {
   getBibleReferenceTarget,
   getDocumentaryReferenceTarget,
@@ -43,6 +45,7 @@ import {
 import { GeographicProvenancePanel } from './GeographicProvenancePanel';
 import { HistoricalCalculationPanel } from './HistoricalCalculationPanel';
 import { MediaHeader } from './MediaHeader';
+import { SourcesAndMethodPanel } from './SourcesAndMethodPanel';
 
 type DetailSection = 'overview' | 'relations' | 'references';
 
@@ -589,10 +592,25 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   const calculatedDates = profilePerson
     ? getCalculatedDatesForPerson(profilePerson.id)
     : [];
+  const methodologyEntity = (
+    selectedEvent ?? selectedPlace ?? selectedRoute ?? selectedPerson
+  )!;
+  const methodology = buildEntityMethodology(
+    selectedEvent
+      ? 'event'
+      : selectedPlace
+        ? 'place'
+        : selectedRoute
+          ? 'route'
+          : 'person',
+    methodologyEntity,
+    HISTORICAL_METHODOLOGY_CATALOG
+  );
 
   return (
     <aside
       aria-label={`Fiche documentaire : ${title}`}
+      data-testid="detail-panel"
       className="atlas-enter fixed inset-x-0 bottom-16 z-50 flex max-h-[82dvh] flex-col overflow-hidden rounded-t-[var(--radius-xl)] border-t border-[var(--color-stone-light)] bg-[var(--color-paper)] shadow-[var(--shadow-3)] md:bottom-0 lg:static lg:z-auto lg:h-full lg:max-h-none lg:w-[440px] lg:shrink-0 lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-none xl:w-[460px]"
     >
       <div className="relative shrink-0">
@@ -828,6 +846,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             )}
 
             <GeographicProvenancePanel items={geographicProvenance} />
+            <SourcesAndMethodPanel methodology={methodology} />
           </>
         )}
 

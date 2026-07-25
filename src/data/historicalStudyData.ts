@@ -16,6 +16,7 @@ import type {
 } from '../domain/history/contentTypes';
 import type { PersonLifeResolution } from '../domain/history/personClaimResolution';
 import type { HistoricalIndexBundle } from '../domain/history/historicalIndex';
+import type { EntityMethodologyCatalog } from '../domain/history/entityMethodology';
 import {
   createHistoricalSnapshotCatalog,
   mergeReviewedPeople
@@ -103,13 +104,41 @@ export const getCalculatedDatesForPerson = (
       source: HISTORICAL_SOURCE_CATALOG.find(
         source => source.id === claim.evidence[0]?.sourceId
       )
-    }));export const REVIEWED_HISTORICAL_TERRITORIES = reviewedTerritories;
+    }));
+export const REVIEWED_HISTORICAL_TERRITORIES = reviewedTerritories;
 export const DERIVED_HISTORICAL_RELATIONS =
   relationsJson as unknown as DerivedHistoricalRelation[];
 export const HISTORICAL_INDEX =
   historicalIndexJson as unknown as HistoricalIndexBundle;
 export const PERSON_LIFE_RESOLUTIONS =
   personLifeResolutionsJson as unknown as PersonLifeResolution[];
+
+const sourceIdsByRecord = <T extends { sourceIds: string[] }>(
+  records: T[],
+  getId: (record: T) => string
+): Record<string, string[]> =>
+  Object.fromEntries(records.map(record => [getId(record), record.sourceIds]));
+
+export const HISTORICAL_METHODOLOGY_CATALOG: EntityMethodologyCatalog = {
+  claims: REVIEWED_HISTORICAL_CLAIMS,
+  calculatedClaims: CALCULATED_HISTORICAL_CLAIMS,
+  relations: DERIVED_HISTORICAL_RELATIONS,
+  sources: HISTORICAL_SOURCE_CATALOG,
+  sourceIdsByEntity: {
+    person: sourceIdsByRecord(
+      REVIEWED_HISTORICAL_PEOPLE,
+      record => record.person.id
+    ),
+    event: sourceIdsByRecord(
+      REVIEWED_HISTORICAL_EVENTS,
+      record => record.event.id
+    ),
+    place: sourceIdsByRecord(
+      REVIEWED_HISTORICAL_PLACES,
+      record => record.place.id
+    )
+  }
+};
 
 const mergedHistoricalPeople = mergeReviewedPeople(
   BIBLICAL_PEOPLE,
