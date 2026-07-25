@@ -226,6 +226,9 @@ pnpm historical:generate
 pnpm historical:build:a7
 pnpm historical:check:a7
 pnpm historical:report:a7
+pnpm historical:build:wcg
+pnpm historical:report:wcg
+pnpm historical:check:wcg
 pnpm historical:report:a7b
 pnpm test
 pnpm check
@@ -254,6 +257,32 @@ La validation refuse notamment :
 La convention des années reste celle de
 [`historical-temporal-model.md`](historical-temporal-model.md) :
 `-1` signifie 1 av. n. è., `1` signifie 1 de n. è. et `0` est interdit.
+
+## Frises « Marche courageusement avec Dieu »
+
+Chaque partie possède son propre fichier de `staging`. Une ligne individuelle
+peut produire un claim `lifespan`. Une barre commune à plusieurs personnes
+produit exclusivement un claim `timeline-context` et une
+`sourceTimelineWindow` : elle ne peut donc alimenter ni une naissance, ni un
+décès, ni une relation de contemporanéité.
+
+Les claims de durée de vie restent séparés par source. Le fichier généré
+`content/generated/person-life-resolutions.json` sélectionne la donnée la plus
+précise uniquement si toutes les affirmations sont compatibles. Une divergence
+laisse la sélection vide et apparaît dans le rapport de migration.
+
+La vue de contrôle visuel est accessible avec :
+
+```text
+/historical-overlaps
+
+Le paramètre de compatibilité `?control=historical-overlaps` reste également
+accepté.
+```
+
+Elle compare, partie par partie, les durées de vie, les activités, les fenêtres
+collectives et le nombre de contemporains calculés. Elle sert au contrôle
+éditorial et ne modifie aucune donnée.
 
 ## Jeu de test fictif
 

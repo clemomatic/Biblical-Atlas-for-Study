@@ -4,8 +4,8 @@ const fail = message => {
   throw new Error(`Compatibilité historique invalide : ${message}`);
 };
 
-const sameValues = (left = [], right = []) =>
-  JSON.stringify([...left].sort()) === JSON.stringify([...right].sort());
+const containsValues = (values = [], required = []) =>
+  required.every(value => values.includes(value));
 
 const server = await createServer({
   appType: 'custom',
@@ -19,7 +19,7 @@ try {
   const [
     { EVENTS },
     { BIBLICAL_PEOPLE },
-    { TIMELINE_EVENTS },
+    { HISTORICAL_PERSON_TIMELINE, TIMELINE_EVENTS },
     {
       REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
       REVIEWED_TIMELINE_EVENTS
@@ -37,21 +37,35 @@ try {
   if (BIBLICAL_PEOPLE.length !== 5) {
     fail(`5 personnes pilotes attendues, ${BIBLICAL_PEOPLE.length} trouvées`);
   }
+  const supersededLegacyIds = new Set([
+    ...REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
+    ...HISTORICAL_PERSON_TIMELINE.supersededLegacyEventIds
+  ]);
   if (
     TIMELINE_EVENTS.length !==
     EVENTS.length -
-      REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS.size +
+      supersededLegacyIds.size +
+      HISTORICAL_PERSON_TIMELINE.events.length +
       REVIEWED_TIMELINE_EVENTS.length
   ) {
     fail(
       'la projection ne conserve pas toutes les lignes historiques non remplacées et relues'
     );
   }
-  for (const legacyEventId of REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS) {
+  for (const legacyEventId of supersededLegacyIds) {
     if (!EVENTS.some(event => event.id === legacyEventId)) {
       fail(`la ligne legacy remplacée ${legacyEventId} a disparu des données brutes`);
     }
-    if (TIMELINE_EVENTS.some(event => event.id === legacyEventId)) {
+    const replacementWithSameId = TIMELINE_EVENTS.find(
+      event => event.id === legacyEventId
+    );
+    if (
+      replacementWithSameId &&
+      !(
+        replacementWithSameId.historicalPersonId === legacyEventId &&
+        replacementWithSameId.historicalPersonSpanKind === 'lifespan'
+      )
+    ) {
       fail(`la ligne legacy remplacée ${legacyEventId} reste visible en doublon`);
     }
   }
@@ -61,8 +75,11 @@ try {
   ) {
     fail('la projection contient des identifiants dupliqués');
   }
+  const a7TimelineEvents = REVIEWED_TIMELINE_EVENTS.filter(event =>
+    event.sources?.some(source => source.id.includes('source-nwtsty-a7-'))
+  );
   if (
-    REVIEWED_TIMELINE_EVENTS.some(
+    a7TimelineEvents.some(
       event =>
         !event.biblicalReferences?.length ||
         !event.sources?.length ||
@@ -75,13 +92,13 @@ try {
   }
   const mapPlaceIds = new Set(BIBLICAL_PLACES.map(place => place.id));
   const mapReadyPlaceIds = new Set(
-    REVIEWED_TIMELINE_EVENTS.flatMap(event =>
+    a7TimelineEvents.flatMap(event =>
       (event.associatedLocationIds ?? []).filter(placeId =>
         mapPlaceIds.has(placeId)
       )
     )
   );
-  const mapReadyEvents = REVIEWED_TIMELINE_EVENTS.filter(event =>
+  const mapReadyEvents = a7TimelineEvents.filter(event =>
     (event.associatedLocationIds ?? []).some(placeId =>
       mapPlaceIds.has(placeId)
     )
@@ -108,25 +125,35 @@ try {
       fail(`période modifiée pour ${person.id}`);
     }
 
-    for (const field of [
-      'startRaw',
-      'endRaw',
-      'startYear',
-      'endYear',
-      'startPos',
-      'endPos'
-    ]) {
-      if (projected[field] !== legacy[field]) {
-        fail(`${field} modifié pour ${person.id}`);
+    if (projected.historicalPersonId === person.id) {
+      if (
+        projected.historicalPersonSpanKind !== 'lifespan' ||
+        !projected.sources?.length ||
+        !projected.notes?.includes('Durée de vie sourcée')
+      ) {
+        fail(`projection canonique incomplète pour ${person.id}`);
+      }
+    } else {
+      for (const field of [
+        'startRaw',
+        'endRaw',
+        'startYear',
+        'endYear',
+        'startPos',
+        'endPos'
+      ]) {
+        if (projected[field] !== legacy[field]) {
+          fail(`${field} modifié sans source canonique pour ${person.id}`);
+        }
       }
     }
     if (
-      !sameValues(
+      !containsValues(
         projected.associatedLocationIds,
         legacy.associatedLocationIds
       ) ||
-      !sameValues(projected.associatedRouteIds, legacy.associatedRouteIds) ||
-      !sameValues(
+      !containsValues(projected.associatedRouteIds, legacy.associatedRouteIds) ||
+      !containsValues(
         projected.associatedCharacterIds,
         legacy.associatedCharacterIds
       )
@@ -136,7 +163,7 @@ try {
   }
 
   console.log(
-    `Compatibilité historique vérifiée : ${BIBLICAL_PEOPLE.length} personnes pilotes, ${EVENTS.length} lignes legacy brutes conservées, ${REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS.size} substitution(s) déclarée(s), ${REVIEWED_TIMELINE_EVENTS.length} événements relus ajoutés, ${mapReadyPlaceIds.size} lieux A7 prêts pour la carte, aucun doublon.`
+    `Compatibilité historique vérifiée : ${BIBLICAL_PEOPLE.length} personnes pilotes, ${EVENTS.length} lignes legacy brutes intactes, ${supersededLegacyIds.size} substitution(s) canoniques, ${HISTORICAL_PERSON_TIMELINE.events.length} projection(s) de vie ou d’activité, ${REVIEWED_TIMELINE_EVENTS.length} événements relus ajoutés, ${mapReadyPlaceIds.size} lieux A7 prêts pour la carte, aucun doublon.`
   );
 } finally {
   await server.close();
