@@ -3,7 +3,7 @@ import { EncyclopediaReference } from '../types';
 /**
  * Fichier généré depuis l’index officiel Étude perspicace sur WOL.
  * Exécuter `pnpm run references:insight` pour le régénérer.
- * Dernière vérification : 2026-07-24.
+ * Dernière vérification : 2026-07-25.
  */
 export const INSIGHT_EVENT_REFERENCES: Record<
   string,
@@ -916,6 +916,44 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "abronah": [
+    {
+      "id": "insight-abronah-1200000062",
+      "work": "insight",
+      "articleTitle": "Abrona",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000062",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "admah": [
+    {
+      "id": "insight-admah-1200000104",
+      "work": "insight",
+      "articleTitle": "Adma",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000104",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "adramyttium": [
+    {
+      "id": "insight-adramyttium-1200000119",
+      "work": "insight",
+      "articleTitle": "Adramyttium",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000119",
+      "linkedName": "Adramytium",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "adriatic_sea": [
+    {
+      "id": "insight-adriatic_sea-1200000120",
+      "work": "insight",
+      "articleTitle": "Adria",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000120",
+      "linkedName": "Mer d’Adria",
+      "matchType": "dedicated-article"
+    }
+  ],
   "aleppo": [
     {
       "id": "wol-102003090-aleppo",
@@ -926,6 +964,15 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "article-mention"
     }
   ],
+  "alexandria": [
+    {
+      "id": "insight-alexandria-1200000193",
+      "work": "insight",
+      "articleTitle": "Alexandrie",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000193",
+      "matchType": "dedicated-article"
+    }
+  ],
   "alush": [
     {
       "id": "insight-alush-1200000211",
@@ -933,6 +980,25 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Aloush",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000211",
       "matchType": "dedicated-article"
+    }
+  ],
+  "amphipolis": [
+    {
+      "id": "insight-amphipolis-1200000249",
+      "work": "insight",
+      "articleTitle": "Amphipolis",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000249",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "antioch_pisidia": [
+    {
+      "id": "insight-antioch_pisidia-1200003499",
+      "work": "insight",
+      "articleTitle": "Pisidie",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003499?q=Antioche+de+Pisidie&p=par",
+      "linkedName": "Antioche de Pisidie",
+      "matchType": "article-mention"
     }
   ],
   "antioch_syria": [
@@ -945,6 +1011,26 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "apollonia_illyria": [
+    {
+      "id": "insight-apollonia_illyria-1200002148",
+      "work": "insight",
+      "articleTitle": "Illyrie",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002148",
+      "linkedName": "Apollonia (Illyrie)",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "apollonia_macedonia": [
+    {
+      "id": "insight-apollonia_macedonia-1200002815",
+      "work": "insight",
+      "articleTitle": "Macédoine, Macédonien",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002815",
+      "linkedName": "Apollonia (Macédoine)",
+      "matchType": "dedicated-article"
+    }
+  ],
   "asshur": [
     {
       "id": "insight-asshur-1200000442",
@@ -952,6 +1038,53 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Ashour",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000442",
       "linkedName": "Assour",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "assos": [
+    {
+      "id": "insight-assos-1200000446",
+      "work": "insight",
+      "articleTitle": "Assos",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000446",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "athens": [
+    {
+      "id": "insight-athens-1200000459",
+      "work": "insight",
+      "articleTitle": "Athènes",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000459",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "attalia": [
+    {
+      "id": "insight-attalia-1200000466",
+      "work": "insight",
+      "articleTitle": "Attalia",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000466",
+      "linkedName": "Attaleia",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "avith_edom": [
+    {
+      "id": "insight-avith_edom-1200000474",
+      "work": "insight",
+      "articleTitle": "Avith",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000474",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "baal_zephon": [
+    {
+      "id": "insight-baal_zephon-1200000523",
+      "work": "insight",
+      "articleTitle": "Baal-Tsephôn",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000523",
+      "linkedName": "Baal-Zefôn",
       "matchType": "dedicated-article"
     }
   ],
@@ -983,6 +1116,25 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "bene_jaakan": [
+    {
+      "id": "insight-bene_jaakan-1200000635",
+      "work": "insight",
+      "articleTitle": "Bené-Yaaqân",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000635",
+      "linkedName": "Bené-Jaakân",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "berea": [
+    {
+      "id": "insight-berea-1200000657",
+      "work": "insight",
+      "articleTitle": "Bérée",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000657",
+      "matchType": "dedicated-article"
+    }
+  ],
   "bethel": [
     {
       "id": "insight-bethel-1200000682",
@@ -1002,6 +1154,36 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "black_sea": [
+    {
+      "id": "insight-black_sea-1200000423",
+      "work": "insight",
+      "articleTitle": "Ashkenaz",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000423?q=Mer+Noire&p=par",
+      "linkedName": "Mer Noire",
+      "matchType": "article-mention"
+    }
+  ],
+  "bozrah_edom": [
+    {
+      "id": "insight-bozrah_edom-1200000808",
+      "work": "insight",
+      "articleTitle": "Botsra",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000808",
+      "linkedName": "Bozra",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "brundisium": [
+    {
+      "id": "insight-brundisium-1200000314",
+      "work": "insight",
+      "articleTitle": "Appius (Place du Marché d’)",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000314?q=Brundisium&p=par",
+      "linkedName": "Brundisium",
+      "matchType": "article-mention"
+    }
+  ],
   "caesarea": [
     {
       "id": "insight-caesarea-1200000853",
@@ -1017,6 +1199,16 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "work": "insight",
       "articleTitle": "Kalah",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000860",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "cape_salmone": [
+    {
+      "id": "insight-cape_salmone-1200003807",
+      "work": "insight",
+      "articleTitle": "Salmoné",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003807",
+      "linkedName": "Cap Salmoné",
       "matchType": "dedicated-article"
     }
   ],
@@ -1207,12 +1399,96 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "article-mention"
     }
   ],
+  "cauda": [
+    {
+      "id": "insight-cauda-1200000906",
+      "work": "insight",
+      "articleTitle": "Cauda",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000906",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "cenchreae": [
+    {
+      "id": "insight-cenchreae-1200000909",
+      "work": "insight",
+      "articleTitle": "Cenchrées",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000909",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "chios": [
+    {
+      "id": "insight-chios-1200000959",
+      "work": "insight",
+      "articleTitle": "Chios",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000959",
+      "linkedName": "Chio",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "cnidus": [
+    {
+      "id": "insight-cnidus-1200000997",
+      "work": "insight",
+      "articleTitle": "Cnide",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000997",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "colossae": [
+    {
+      "id": "insight-colossae-1200001010",
+      "work": "insight",
+      "articleTitle": "Colosses",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001010",
+      "matchType": "dedicated-article"
+    }
+  ],
   "corinth": [
     {
       "id": "insight-corinth-1200001038",
       "work": "insight",
       "articleTitle": "Corinthe",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001038",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "cos": [
+    {
+      "id": "insight-cos-1200001044",
+      "work": "insight",
+      "articleTitle": "Cos",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001044",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "crete": [
+    {
+      "id": "insight-crete-1200001071",
+      "work": "insight",
+      "articleTitle": "Crète, Crétois",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001071",
+      "linkedName": "Crète",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "cyprus": [
+    {
+      "id": "insight-cyprus-1200001100",
+      "work": "insight",
+      "articleTitle": "Chypre",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001100",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "cyrene": [
+    {
+      "id": "insight-cyrene-1200001101",
+      "work": "insight",
+      "articleTitle": "Cyrène, Cyrénéen",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001101",
+      "linkedName": "Cyrène",
       "matchType": "dedicated-article"
     }
   ],
@@ -1235,6 +1511,24 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "derbe": [
+    {
+      "id": "insight-derbe-1200001158",
+      "work": "insight",
+      "articleTitle": "Derbé",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001158",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "dibon_gad": [
+    {
+      "id": "insight-dibon_gad-1200001173",
+      "work": "insight",
+      "articleTitle": "Dibôn-Gad",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001173",
+      "matchType": "dedicated-article"
+    }
+  ],
   "dophkah": [
     {
       "id": "insight-dophkah-1200001212",
@@ -1253,6 +1547,16 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001215",
       "linkedName": "Dotân",
       "matchType": "dedicated-article"
+    }
+  ],
+  "dyrrachium": [
+    {
+      "id": "insight-dyrrachium-1200002815",
+      "work": "insight",
+      "articleTitle": "Macédoine, Macédonien",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002815?q=Dyrrachium&p=par",
+      "linkedName": "Dyrrachium",
+      "matchType": "article-mention"
     }
   ],
   "ebla": [
@@ -1310,12 +1614,30 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "euphrates_river": [
+    {
+      "id": "insight-euphrates_river-1200001446",
+      "work": "insight",
+      "articleTitle": "Euphrate",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001446",
+      "matchType": "dedicated-article"
+    }
+  ],
   "ezion_geber": [
     {
       "id": "insight-ezion_geber-1200001473",
       "work": "insight",
       "articleTitle": "Étsiôn-Guéber",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001473",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "fair_havens": [
+    {
+      "id": "insight-fair_havens-1200001483",
+      "work": "insight",
+      "articleTitle": "Beaux-Ports",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001483",
       "matchType": "dedicated-article"
     }
   ],
@@ -1328,12 +1650,39 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "gomorrah": [
+    {
+      "id": "insight-gomorrah-1200001741",
+      "work": "insight",
+      "articleTitle": "Gomorrhe",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001741",
+      "matchType": "dedicated-article"
+    }
+  ],
   "goshen": [
     {
       "id": "insight-goshen-1200001745",
       "work": "insight",
       "articleTitle": "Goshèn",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001745",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "gulf_syrtis": [
+    {
+      "id": "insight-gulf_syrtis-1200004287",
+      "work": "insight",
+      "articleTitle": "Syrte",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004287",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "ham_genesis14": [
+    {
+      "id": "insight-ham_genesis14-1200005120",
+      "work": "insight",
+      "articleTitle": "Ham",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200005120",
       "matchType": "dedicated-article"
     }
   ],
@@ -1347,12 +1696,30 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "haradah": [
+    {
+      "id": "insight-haradah-1200001871",
+      "work": "insight",
+      "articleTitle": "Harada",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001871",
+      "matchType": "dedicated-article"
+    }
+  ],
   "haran": [
     {
       "id": "insight-haran-1200001872",
       "work": "insight",
       "articleTitle": "Harân",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001872",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "hashmonah": [
+    {
+      "id": "insight-hashmonah-1200001905",
+      "work": "insight",
+      "articleTitle": "Hashmona",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001905",
       "matchType": "dedicated-article"
     }
   ],
@@ -1390,6 +1757,15 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Goudgoda",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001777",
       "linkedName": "Hor-Haguidgad",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "iconium": [
+    {
+      "id": "insight-iconium-1200002132",
+      "work": "insight",
+      "articleTitle": "Iconium",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002132",
       "matchType": "dedicated-article"
     }
   ],
@@ -1459,6 +1835,16 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "kehelathah": [
+    {
+      "id": "insight-kehelathah-1200002583",
+      "work": "insight",
+      "articleTitle": "Qehélatha",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002583",
+      "linkedName": "Kehélata",
+      "matchType": "dedicated-article"
+    }
+  ],
   "kibroth_hattaavah": [
     {
       "id": "insight-kibroth_hattaavah-1200002601",
@@ -1469,6 +1855,36 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "laodicea": [
+    {
+      "id": "insight-laodicea-1200002681",
+      "work": "insight",
+      "articleTitle": "Laodicée, Laodicéens",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002681",
+      "linkedName": "Laodicée",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "libnah_exodus": [
+    {
+      "id": "insight-libnah_exodus-1200002734",
+      "work": "insight",
+      "articleTitle": "Libna",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002734",
+      "linkedName": "Libna (Exode)",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "lystra": [
+    {
+      "id": "insight-lystra-1200002802",
+      "work": "insight",
+      "articleTitle": "Lystres",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002802?q=Lystre&p=par",
+      "linkedName": "Lystre",
+      "matchType": "dedicated-article"
+    }
+  ],
   "mahanaim": [
     {
       "id": "insight-mahanaim-1200002842",
@@ -1476,6 +1892,25 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Mahanaïm",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002842",
       "linkedName": "Maanaïm",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "makheloth": [
+    {
+      "id": "wol-1001070223-makheloth",
+      "work": "wol",
+      "articleTitle": "L’Exode",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1001070223",
+      "linkedName": "Makéloth",
+      "matchType": "article-mention"
+    }
+  ],
+  "malta": [
+    {
+      "id": "insight-malta-1200002875",
+      "work": "insight",
+      "articleTitle": "Malte",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002875",
       "matchType": "dedicated-article"
     }
   ],
@@ -1497,6 +1932,26 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "market_of_appius": [
+    {
+      "id": "insight-market_of_appius-1200000314",
+      "work": "insight",
+      "articleTitle": "Appius (Place du Marché d’)",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200000314?q=Forum+d%E2%80%99Appius&p=par",
+      "linkedName": "Marché-d’Appius",
+      "matchType": "article-mention"
+    }
+  ],
+  "massah_meribah": [
+    {
+      "id": "insight-massah_meribah-1200002924",
+      "work": "insight",
+      "articleTitle": "Massa",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002924?q=Massa+et+Meriba&p=par",
+      "linkedName": "Massa et Meriba",
+      "matchType": "article-mention"
+    }
+  ],
   "megiddo": [
     {
       "id": "insight-megiddo-1200001700",
@@ -1515,6 +1970,16 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "meribah_kadesh": [
+    {
+      "id": "insight-meribah_kadesh-1200002998",
+      "work": "insight",
+      "articleTitle": "Meriba",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002998",
+      "linkedName": "Meriba (près de Kadèsh)",
+      "matchType": "dedicated-article"
+    }
+  ],
   "migdol_exodus": [
     {
       "id": "insight-migdol_exodus-1200003045",
@@ -1522,6 +1987,35 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Migdol",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003045",
       "matchType": "dedicated-article"
+    }
+  ],
+  "miletus": [
+    {
+      "id": "insight-miletus-1200003057",
+      "work": "insight",
+      "articleTitle": "Milet",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003057",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "mithkah": [
+    {
+      "id": "insight-mithkah-1200003088",
+      "work": "insight",
+      "articleTitle": "Mithqa",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003088",
+      "linkedName": "Mitka",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "moseroth": [
+    {
+      "id": "wol-1001070223-moseroth",
+      "work": "wol",
+      "articleTitle": "L’Exode",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1001070223",
+      "linkedName": "Mosséroth",
+      "matchType": "article-mention"
     }
   ],
   "mount_hor": [
@@ -1534,12 +2028,78 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "mount_moriah": [
+    {
+      "id": "insight-mount_moriah-1200003114",
+      "work": "insight",
+      "articleTitle": "Moria",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003114",
+      "linkedName": "Mont Moria",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "mount_shepher": [
+    {
+      "id": "insight-mount_shepher-1200004015",
+      "work": "insight",
+      "articleTitle": "Shépher (Mont)",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004015",
+      "linkedName": "Mont Shéfèr",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "myra": [
+    {
+      "id": "insight-myra-1200003142",
+      "work": "insight",
+      "articleTitle": "Myre",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003142",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "mytilene": [
+    {
+      "id": "insight-mytilene-1200003091",
+      "work": "insight",
+      "articleTitle": "Mitylène",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003091",
+      "linkedName": "Mytilène",
+      "matchType": "dedicated-article"
+    }
+  ],
   "nazareth": [
     {
       "id": "insight-nazareth-1200003190",
       "work": "insight",
       "articleTitle": "Nazareth",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003190",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "neapolis_macedonia": [
+    {
+      "id": "insight-neapolis_macedonia-1200003193",
+      "work": "insight",
+      "articleTitle": "Néapolis",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003193",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "nicopolis": [
+    {
+      "id": "insight-nicopolis-1200003251",
+      "work": "insight",
+      "articleTitle": "Nicopolis",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003251",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "nile_river": [
+    {
+      "id": "insight-nile_river-1200003255",
+      "work": "insight",
+      "articleTitle": "Nil",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003255",
       "matchType": "dedicated-article"
     }
   ],
@@ -3982,12 +4542,84 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "paphos": [
+    {
+      "id": "insight-paphos-1200003375",
+      "work": "insight",
+      "articleTitle": "Paphos",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003375",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "patara": [
+    {
+      "id": "insight-patara-1200003399",
+      "work": "insight",
+      "articleTitle": "Patara",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003399",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "patmos": [
+    {
+      "id": "insight-patmos-1200003403",
+      "work": "insight",
+      "articleTitle": "Patmos",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003403",
+      "matchType": "dedicated-article"
+    }
+  ],
   "penuel": [
     {
       "id": "insight-penuel-1200003432",
       "work": "insight",
       "articleTitle": "Penouël",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003432",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "perga": [
+    {
+      "id": "insight-perga-1200003442",
+      "work": "insight",
+      "articleTitle": "Pergé",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003442",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "pergamum": [
+    {
+      "id": "insight-pergamum-1200003443",
+      "work": "insight",
+      "articleTitle": "Pergame",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003443",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "philadelphia_asia": [
+    {
+      "id": "insight-philadelphia_asia-1200003462",
+      "work": "insight",
+      "articleTitle": "Philadelphie",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003462",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "philippi": [
+    {
+      "id": "insight-philippi-1200003467",
+      "work": "insight",
+      "articleTitle": "Philippes",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003467",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "phoenix_crete": [
+    {
+      "id": "insight-phoenix_crete-1200003476",
+      "work": "insight",
+      "articleTitle": "Phénix",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003476",
       "matchType": "dedicated-article"
     }
   ],
@@ -3998,6 +4630,16 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Pihahiroth",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003484",
       "linkedName": "Pi-Hahiroth",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "plain_shaveh_kiriathaim": [
+    {
+      "id": "insight-plain_shaveh_kiriathaim-1200003963",
+      "work": "insight",
+      "articleTitle": "Shavé-Qiriathaïm",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003963",
+      "linkedName": "Plaine de Shavé-Kiriataïm",
       "matchType": "dedicated-article"
     }
   ],
@@ -4017,6 +4659,15 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "work": "insight",
       "articleTitle": "Pounôn",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003582",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "puteoli": [
+    {
+      "id": "insight-puteoli-1200003592",
+      "work": "insight",
+      "articleTitle": "Puteoli",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003592",
       "matchType": "dedicated-article"
     }
   ],
@@ -4047,6 +4698,16 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "rehoboth_well": [
+    {
+      "id": "insight-rehoboth_well-1200003681",
+      "work": "insight",
+      "articleTitle": "Rehoboth",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003681",
+      "linkedName": "Puits de Rehoboth",
+      "matchType": "dedicated-article"
+    }
+  ],
   "rephidim": [
     {
       "id": "insight-rephidim-1200003698",
@@ -4054,6 +4715,53 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Rephidim",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003698",
       "linkedName": "Refidim",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "rhegium": [
+    {
+      "id": "insight-rhegium-1200003723",
+      "work": "insight",
+      "articleTitle": "Rhegium",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003723",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "rhodes": [
+    {
+      "id": "insight-rhodes-1200003726",
+      "work": "insight",
+      "articleTitle": "Rhodes",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003726",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "rimmon_perez": [
+    {
+      "id": "insight-rimmon_perez-1200003736",
+      "work": "insight",
+      "articleTitle": "Rimmôn-Pérets",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003736",
+      "linkedName": "Rimôn-Pérez",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "rissah": [
+    {
+      "id": "insight-rissah-1200003743",
+      "work": "insight",
+      "articleTitle": "Rissa",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003743",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "rithmah": [
+    {
+      "id": "insight-rithmah-1200003744",
+      "work": "insight",
+      "articleTitle": "Rithma",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003744",
+      "linkedName": "Ritma",
       "matchType": "dedicated-article"
     }
   ],
@@ -4066,12 +4774,57 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "salamis_cyprus": [
+    {
+      "id": "insight-salamis_cyprus-1200003798",
+      "work": "insight",
+      "articleTitle": "Salamine",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003798",
+      "matchType": "dedicated-article"
+    }
+  ],
   "samaria": [
     {
       "id": "insight-samaria-1200003816",
       "work": "insight",
       "articleTitle": "Samarie",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003816",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "samos": [
+    {
+      "id": "insight-samos-1200003821",
+      "work": "insight",
+      "articleTitle": "Samos",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003821",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "samothrace": [
+    {
+      "id": "insight-samothrace-1200003822",
+      "work": "insight",
+      "articleTitle": "Samothrace",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003822",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "sardis": [
+    {
+      "id": "insight-sardis-1200003839",
+      "work": "insight",
+      "articleTitle": "Sardes",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003839",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "seleucia_pieria": [
+    {
+      "id": "insight-seleucia_pieria-1200003889",
+      "work": "insight",
+      "articleTitle": "Séleucie",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003889",
       "matchType": "dedicated-article"
     }
   ],
@@ -4104,6 +4857,16 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "sicily": [
+    {
+      "id": "insight-sicily-1200003447",
+      "work": "insight",
+      "articleTitle": "Perse, Perses",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200003447?q=Sicile&p=par",
+      "linkedName": "Sicile",
+      "matchType": "article-mention"
+    }
+  ],
   "sidon": [
     {
       "id": "insight-sidon-1200004113",
@@ -4124,6 +4887,15 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "smyrna": [
+    {
+      "id": "insight-smyrna-1200004166",
+      "work": "insight",
+      "articleTitle": "Smyrne",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004166",
+      "matchType": "dedicated-article"
+    }
+  ],
   "succoth_exodus": [
     {
       "id": "insight-succoth_exodus-1200001458",
@@ -4131,6 +4903,15 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Exode",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200001458",
       "linkedName": "Soukkot (Exode)",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "syracuse": [
+    {
+      "id": "insight-syracuse-1200004284",
+      "work": "insight",
+      "articleTitle": "Syracuse",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004284",
       "matchType": "dedicated-article"
     }
   ],
@@ -4152,6 +4933,25 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "tahath": [
+    {
+      "id": "insight-tahath-1200004303",
+      "work": "insight",
+      "articleTitle": "Tahath",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004303",
+      "linkedName": "Taath",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "tarsus": [
+    {
+      "id": "insight-tarsus-1200004326",
+      "work": "insight",
+      "articleTitle": "Tarse",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004326",
+      "matchType": "dedicated-article"
+    }
+  ],
   "tekoa": [
     {
       "id": "insight-tekoa-1200004344",
@@ -4159,6 +4959,63 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "articleTitle": "Teqoa",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004344?q=Tekoa&p=par",
       "linkedName": "Tekoa",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "teman_edom": [
+    {
+      "id": "insight-teman_edom-1200004356",
+      "work": "insight",
+      "articleTitle": "Témân",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004356",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "terah_station": [
+    {
+      "id": "insight-terah_station-1200004368",
+      "work": "insight",
+      "articleTitle": "Térah",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004368",
+      "linkedName": "Téra (étape)",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "thessalonica": [
+    {
+      "id": "insight-thessalonica-1200004379",
+      "work": "insight",
+      "articleTitle": "Thessalonique",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004379",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "three_taverns": [
+    {
+      "id": "insight-three_taverns-1200004388",
+      "work": "insight",
+      "articleTitle": "Trois-Tavernes",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004388?q=Trois-Auberges&p=par",
+      "linkedName": "Trois-Auberges",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "thyatira": [
+    {
+      "id": "insight-thyatira-1200004396",
+      "work": "insight",
+      "articleTitle": "Thyatire",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004396",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "tigris_river": [
+    {
+      "id": "insight-tigris_river-1200002018",
+      "work": "insight",
+      "articleTitle": "Hiddéqel",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200002018",
+      "linkedName": "Hiddékel",
       "matchType": "dedicated-article"
     }
   ],
@@ -4172,6 +5029,15 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "troas": [
+    {
+      "id": "insight-troas-1200004480",
+      "work": "insight",
+      "articleTitle": "Troas",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004480",
+      "matchType": "dedicated-article"
+    }
+  ],
   "ur": [
     {
       "id": "insight-ur-1200004518",
@@ -4182,12 +5048,62 @@ export const INSIGHT_PLACE_REFERENCES: Record<
       "matchType": "dedicated-article"
     }
   ],
+  "valley_siddim": [
+    {
+      "id": "insight-valley_siddim-1200004112",
+      "work": "insight",
+      "articleTitle": "Siddim (Basse plaine de)",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004112?q=Vall%C3%A9e+de+Siddim&p=par",
+      "linkedName": "Vallée de Siddim",
+      "matchType": "article-mention"
+    }
+  ],
+  "wadi_egypt": [
+    {
+      "id": "insight-wadi_egypt-1200004032",
+      "work": "insight",
+      "articleTitle": "Shihor",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004032?q=Oued+d%E2%80%99%C3%89gypte&p=par",
+      "linkedName": "Oued d’Égypte",
+      "matchType": "article-mention"
+    }
+  ],
   "zalmonah": [
     {
       "id": "insight-zalmonah-1200004657",
       "work": "insight",
       "articleTitle": "Tsalmona",
       "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004657",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "zeboiim": [
+    {
+      "id": "insight-zeboiim-1200004676",
+      "work": "insight",
+      "articleTitle": "Tseboïm",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004676",
+      "linkedName": "Zeboïm",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "zered_wadi": [
+    {
+      "id": "insight-zered_wadi-1200004707",
+      "work": "insight",
+      "articleTitle": "Zéred (Ouadi de)",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004707",
+      "linkedName": "Oued Zéred",
+      "matchType": "dedicated-article"
+    }
+  ],
+  "zoar_bela": [
+    {
+      "id": "insight-zoar_bela-1200004755",
+      "work": "insight",
+      "articleTitle": "TSOAR",
+      "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1200004755",
+      "linkedName": "Zoar",
       "matchType": "dedicated-article"
     }
   ]
