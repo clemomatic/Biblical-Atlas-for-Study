@@ -4,12 +4,14 @@ import { getTemporalInterval } from '../domain/history/temporal';
 import {
   BiblicalPlace,
   BiblicalRoute,
+  GeographicProvenance,
   SourceReference
 } from '../types';
 import { PROMISED_LAND_PLACES } from './promisedLandPlaces';
 import { PATRIARCH_AND_EXODUS_PLACES } from './patriarchAndExodusPlaces';
 import { CHRISTIAN_EXPANSION_PLACES } from './christianExpansionPlaces';
 import { INSIGHT_PLACE_REFERENCES } from './insightReferences.generated';
+import { getGeographicProvenance } from './geographicProvenance';
 
 /**
  * BIBLICAL PLACES DATABASE
@@ -393,7 +395,8 @@ export const BIBLICAL_PLACES = mergePlaceCorpus(
   ]
 ).map(place => ({
   ...place,
-  encyclopediaReferences: INSIGHT_PLACE_REFERENCES[place.id] || []
+  encyclopediaReferences: INSIGHT_PLACE_REFERENCES[place.id] || [],
+  geographicProvenance: getGeographicProvenance('place', place.id)
 }));
 
 /**
@@ -469,6 +472,31 @@ export const BIBLICAL_ROUTES: BiblicalRoute[] = reviewedRouteRecords.flatMap(
       }];
     });
 
+    const reviewedGeographicProvenance = getGeographicProvenance(
+      'route',
+      route.id
+    );
+    const geographicProvenance: GeographicProvenance[] =
+      reviewedGeographicProvenance.length > 0
+        ? reviewedGeographicProvenance
+        : record.sourceIds.flatMap(sourceId => {
+            const source = sourcesById.get(sourceId);
+            if (!source) return [];
+            return [{
+              id: `${route.id}-${sourceId}-geography`,
+              sourceId,
+              sourceLabel: source.chapterOrAppendix ?? source.title,
+              sourceUrl: source.url,
+              mapId: source.chapterOrAppendix ?? source.title,
+              mapReference: source.chapterOrAppendix ?? source.title,
+              method: `${route.routeNature}-route` as GeographicProvenance['method'],
+              certainty: route.certainty,
+              sourceMapCertainty: 'unknown',
+              limitations: route.notes,
+              coordinatesChanged: false
+            }];
+          });
+
     return [{
       id: route.id,
       name: route.name,
@@ -481,10 +509,15 @@ export const BIBLICAL_ROUTES: BiblicalRoute[] = reviewedRouteRecords.flatMap(
       biblicalReferences: route.biblicalReferences,
       associatedPlaceIds: [...new Set(points.map(point => point.placeId))],
       associatedEventIds: route.associatedEventIds,
+      associatedCharacterIds: route.personIds,
       sources,
       certainty: route.certainty,
       notes: route.notes,
       geometryPrecision: route.geometryPrecision,
+      routeNature: route.routeNature,
+      tracePrecision: route.tracePrecision,
+      stepOrder: route.stepOrder,
+      geographicProvenance,
       notForExactNavigation: route.notForExactNavigation
     }];
   }

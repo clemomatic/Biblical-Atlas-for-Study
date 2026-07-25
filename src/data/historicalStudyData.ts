@@ -18,8 +18,10 @@ import {
   createHistoricalSnapshotCatalog,
   mergeReviewedPeople
 } from '../domain/history/historicalSnapshot';
+import type { GeographicProvenance } from '../types';
 import { BIBLICAL_PEOPLE } from './biblicalPeople';
-import { BIBLICAL_PLACES } from './mapData';
+import { getGeographicProvenance } from './geographicProvenance';
+import { BIBLICAL_PLACES, BIBLICAL_ROUTES } from './mapData';
 
 const flattenJsonModules = <T>(
   modules: Record<string, unknown>
@@ -98,6 +100,11 @@ reviewedRoutes.forEach(record => {
 const unique = (values: Array<string | undefined>): string[] =>
   [...new Set(values.filter((value): value is string => Boolean(value)))];
 
+const uniqueGeographicProvenance = (
+  values: GeographicProvenance[]
+): GeographicProvenance[] =>
+  [...new Map(values.map(value => [value.id, value])).values()];
+
 /**
  * Les fiches existantes restent la base canonique. Les associations A7
  * explicitement relues sont ajoutées sans écraser leurs métadonnées.
@@ -108,24 +115,44 @@ export const HISTORICAL_PEOPLE = mergedHistoricalPeople.map(person => {
       participant => participant.personId === person.id
     )
   );
+
+  const associatedEventIds = unique([
+    ...(person.associatedEventIds ?? []),
+    ...relatedEvents.map(record => record.event.id)
+  ]);
+  const associatedLocationIds = unique([
+    ...(person.associatedLocationIds ?? []),
+    ...relatedEvents.flatMap(record =>
+      (record.event.placeMentions ?? []).map(mention => mention.placeId)
+    )
+  ]);
+  const associatedRouteIds = unique([
+    ...(person.associatedRouteIds ?? []),
+    ...relatedEvents.flatMap(
+      record => routeIdsByEventId.get(record.event.id) ?? []
+    )
+  ]);
+  const geographicProvenance = uniqueGeographicProvenance([
+    ...(person.geographicProvenance ?? []),
+    ...associatedEventIds.flatMap(eventId =>
+      getGeographicProvenance('event', eventId)
+    ),
+    ...associatedLocationIds.flatMap(placeId =>
+      BIBLICAL_PLACES.find(place => place.id === placeId)
+        ?.geographicProvenance ?? []
+    ),
+    ...associatedRouteIds.flatMap(routeId =>
+      BIBLICAL_ROUTES.find(route => route.id === routeId)
+        ?.geographicProvenance ?? []
+    )
+  ]);
+
   return {
     ...person,
-    associatedEventIds: unique([
-      ...(person.associatedEventIds ?? []),
-      ...relatedEvents.map(record => record.event.id)
-    ]),
-    associatedLocationIds: unique([
-      ...(person.associatedLocationIds ?? []),
-      ...relatedEvents.flatMap(record =>
-        (record.event.placeMentions ?? []).map(mention => mention.placeId)
-      )
-    ]),
-    associatedRouteIds: unique([
-      ...(person.associatedRouteIds ?? []),
-      ...relatedEvents.flatMap(
-        record => routeIdsByEventId.get(record.event.id) ?? []
-      )
-    ])
+    associatedEventIds,
+    associatedLocationIds,
+    associatedRouteIds,
+    geographicProvenance
   };
 });
 

@@ -10,6 +10,7 @@ import type { EventData } from '../types';
 import { parseTimelineDate } from '../utils/dateUtils';
 import { normalizeCategoryName } from '../utils/dataVocabulary';
 import { createCategoryId } from '../utils/stableIds';
+import { getGeographicProvenance } from './geographicProvenance';
 
 const flattenJsonModules = <T>(
   modules: Record<string, unknown>
@@ -204,6 +205,7 @@ export const REVIEWED_TIMELINE_EVENTS: EventData[] =
       ),
       sources,
       certainty: event.certainty,
+      geographicProvenance: getGeographicProvenance('event', event.id),
       notes: [
         `Datation de la source : ${event.period.displayLabel}.`,
         'La position à l’intérieur de l’année est une ancre de rendu et non une conversion ou une datation supplémentaire.',

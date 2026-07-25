@@ -39,6 +39,7 @@ import {
   User,
   X
 } from 'lucide-react';
+import { GeographicProvenancePanel } from './GeographicProvenancePanel';
 import { MediaHeader } from './MediaHeader';
 
 type DetailSection = 'overview' | 'relations' | 'references';
@@ -372,6 +373,21 @@ const certaintyLabels: Record<CertaintyLevel, string> = {
   unknown: 'Non précisé'
 };
 
+const routeNatureLabels: Record<NonNullable<BiblicalRoute['routeNature']>, string> = {
+  documented: 'Déplacement documenté',
+  reconstructed: 'Déplacement reconstitué',
+  schematic: 'Déplacement schématique'
+};
+const routePrecisionLabels: Record<NonNullable<BiblicalRoute['tracePrecision']>, string> = {
+  exact: 'tracé exact',
+  approximate: 'tracé approximatif',
+  'indicative-place-sequence': 'liaison indicative entre lieux connus'
+};
+const routeStepOrderLabels: Record<NonNullable<BiblicalRoute['stepOrder']>, string> = {
+  'source-chronology': 'ordre chronologique de la source',
+  'documented-sequence': 'ordre des étapes explicitement documenté'
+};
+
 const associationStatusLabels: Record<
   HistoricalPersonAssociation['status'],
   string
@@ -562,6 +578,12 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     selectedPlace?.media ||
     selectedRoute?.media ||
     selectedPerson?.media;
+  const geographicProvenance =
+    selectedEvent?.geographicProvenance ||
+    selectedPlace?.geographicProvenance ||
+    selectedRoute?.geographicProvenance ||
+    selectedPerson?.geographicProvenance ||
+    [];
 
   return (
     <aside
@@ -730,13 +752,28 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             )}
 
             {selectedRoute && (
-              <div className="flex items-center gap-3 border-l-2 border-[var(--color-olive)] bg-[var(--color-olive-soft)] p-4">
-                <Navigation className="size-4 shrink-0 text-[var(--color-olive)]" />
-                <p className="text-sm font-semibold text-[var(--color-ink)]">
-                  {selectedRoute.points.length} étapes
-                  {selectedRoute.startYear !== undefined &&
-                    ` · ${selectedRoute.startYear} à ${selectedRoute.endYear}`}
-                </p>
+              <div className="flex items-start gap-3 border-l-2 border-[var(--color-olive)] bg-[var(--color-olive-soft)] p-4">
+                <Navigation className="mt-0.5 size-4 shrink-0 text-[var(--color-olive)]" />
+                <div>
+                  <p className="text-sm font-semibold text-[var(--color-ink)]">
+                    {selectedRoute.points.length} étapes
+                    {selectedRoute.startYear !== undefined &&
+                      ` · ${selectedRoute.startYear} à ${selectedRoute.endYear}`}
+                  </p>
+                  {(selectedRoute.routeNature ||
+                    selectedRoute.tracePrecision ||
+                    selectedRoute.stepOrder) && (
+                    <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                      {[
+                        selectedRoute.routeNature && routeNatureLabels[selectedRoute.routeNature],
+                        selectedRoute.tracePrecision && routePrecisionLabels[selectedRoute.tracePrecision],
+                        selectedRoute.stepOrder && routeStepOrderLabels[selectedRoute.stepOrder]
+                      ]
+                        .filter(Boolean)
+                        .join(' · ')}
+                    </p>
+                  )}
+                </div>
               </div>
             )}
 
@@ -780,6 +817,8 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
                 {notes}
               </div>
             )}
+
+            <GeographicProvenancePanel items={geographicProvenance} />
           </>
         )}
 
