@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import process from 'node:process';
+import { createServer } from 'vite';
 
 const repositoryRoot = process.cwd();
 const filesToScan = [
@@ -174,6 +175,7 @@ const christianExpansionSource = scannedFiles.get(
   'src/data/christianExpansionPlaces.ts'
 );
 const christianExpansionPlaceIds = [
+  'rome',
   'three_taverns',
   'market_of_appius',
   'puteoli',
@@ -192,6 +194,7 @@ const christianExpansionPlaceIds = [
   'syracuse',
   'adriatic_sea',
   'athens',
+  'corinth',
   'cenchreae',
   'malta',
   'crete',
@@ -200,6 +203,7 @@ const christianExpansionPlaceIds = [
   'fair_havens',
   'gulf_syrtis',
   'cyrene',
+  'carte-mermediterranee-b8',
   'black_sea',
   'samothrace',
   'troas',
@@ -214,6 +218,7 @@ const christianExpansionPlaceIds = [
   'philadelphia_asia',
   'antioch_pisidia',
   'samos',
+  'ephesus',
   'laodicea',
   'colossae',
   'lystra',
@@ -231,19 +236,90 @@ const christianExpansionPlaceIds = [
   'derbe',
   'tarsus',
   'seleucia_pieria',
+  'antioch_syria',
   'salamis_cyprus',
   'cyprus',
   'paphos',
+  'sidon',
+  'damascus',
+  'obi-tyre',
+  'obi-ptolemais',
+  'caesarea',
+  'obi-aphek-2',
+  'carte-pella-f6',
+  'joppa',
+  'obi-ashdod',
+  'jerusalem',
+  'obi-lod',
+  'obi-gaza',
   'alexandria'
 ];
 
+const christianExpansionSeedStart =
+  christianExpansionSource.indexOf(
+    'const SEEDS: ChristianExpansionPlaceSeed[]'
+  );
+const christianExpansionSeedEnd =
+  christianExpansionSource.indexOf('\n];', christianExpansionSeedStart) + 3;
+const christianExpansionSeedSource = christianExpansionSource.slice(
+  christianExpansionSeedStart,
+  christianExpansionSeedEnd
+);
+const christianExpansionSeedIds = [
+  ...christianExpansionSeedSource.matchAll(/\bid: '([^']+)'/g)
+].map(match => match[1]);
+const christianExpansionSeedIdSet = new Set(christianExpansionSeedIds);
+
+if (
+  christianExpansionSeedIds.length !== christianExpansionSeedIdSet.size
+) {
+  const duplicateIds = christianExpansionSeedIds.filter(
+    (placeId, index) =>
+      christianExpansionSeedIds.indexOf(placeId) !== index
+  );
+  throw new Error(
+    `Identifiant B13 dupliqué: ${[...new Set(duplicateIds)].join(', ')}`
+  );
+}
+
+const unexpectedChristianExpansionIds = christianExpansionSeedIds.filter(
+  placeId => !christianExpansionPlaceIds.includes(placeId)
+);
+if (
+  christianExpansionSeedIds.length !== christianExpansionPlaceIds.length ||
+  unexpectedChristianExpansionIds.length
+) {
+  throw new Error(
+    `Le manifeste B13 et les seeds divergent: ` +
+      `${christianExpansionSeedIds.length}/${christianExpansionPlaceIds.length}` +
+      (unexpectedChristianExpansionIds.length
+        ? `; IDs inattendus: ${unexpectedChristianExpansionIds.join(', ')}`
+        : '')
+  );
+}
+
 for (const placeId of christianExpansionPlaceIds) {
-  if (!christianExpansionSource.includes(`id: '${placeId}'`)) {
+  if (!christianExpansionSeedIdSet.has(placeId)) {
     throw new Error(`Lieu de la carte B13 manquant: ${placeId}`);
   }
-  if (!christianExpansionSource.includes(`${placeId}: [`)) {
+  if (
+    !christianExpansionSource.includes(`${placeId}: [`) &&
+    !christianExpansionSource.includes(`'${placeId}': [`)
+  ) {
     throw new Error(`Coordonnée B13 vérifiée manquante: ${placeId}`);
   }
+}
+
+const christianExpansionSourcePixelCount = [
+  ...christianExpansionSeedSource.matchAll(/\bsourcePixel:/g)
+].length;
+if (
+  christianExpansionSourcePixelCount !== christianExpansionPlaceIds.length
+) {
+  throw new Error(
+    `Chaque point d’intérêt B13 doit conserver son repère source: ` +
+      `${christianExpansionSourcePixelCount}/${christianExpansionPlaceIds.length}.`
+  );
 }
 
 if (
@@ -265,11 +341,98 @@ if (
   );
 }
 
+const viteServer = await createServer({
+  root: '.',
+  configFile: false,
+  server: { middlewareMode: true },
+  appType: 'custom',
+  logLevel: 'silent'
+});
+
+try {
+  const { BIBLICAL_PLACES } = await viteServer.ssrLoadModule(
+    '/src/data/mapData.ts'
+  );
+  const { B13_EXCLUDED_NON_POINT_FEATURES } =
+    await viteServer.ssrLoadModule(
+      '/src/data/christianExpansionPlaces.ts'
+  );
+  const mergedPlaceIds = BIBLICAL_PLACES.map(place => place.id);
+  const duplicateMergedPlaceIds = mergedPlaceIds.filter(
+    (placeId, index) => mergedPlaceIds.indexOf(placeId) !== index
+  );
+
+  if (duplicateMergedPlaceIds.length) {
+    throw new Error(
+      `Identifiants de lieux fusionnés dupliqués: ` +
+        `${[...new Set(duplicateMergedPlaceIds)].join(', ')}`
+    );
+  }
+
+  const missingMergedB13Places = christianExpansionPlaceIds.filter(
+    placeId => {
+      const place = BIBLICAL_PLACES.find(candidate => candidate.id === placeId);
+      return (
+        !place ||
+        !place.mapReferences?.some(reference =>
+          reference.startsWith('B13 ·')
+        ) ||
+        !place.sources?.some(
+          source => source.id === 'wol-study-bible-map-b13'
+        )
+      );
+    }
+  );
+  if (missingMergedB13Places.length) {
+    throw new Error(
+      `Lieux B13 absents ou privés de leur provenance après fusion: ` +
+        `${missingMergedB13Places.join(', ')}`
+    );
+  }
+
+  const excludedFeatureIds = B13_EXCLUDED_NON_POINT_FEATURES.map(
+    feature => feature.id
+  );
+  if (
+    excludedFeatureIds.length !== 27 ||
+    new Set(excludedFeatureIds).size !== excludedFeatureIds.length
+  ) {
+    throw new Error(
+      'Les 27 routes et territoires B13 exclus doivent conserver un ID stable unique.'
+    );
+  }
+
+  const expectedMajorPlaceIds = [
+    'rome',
+    'athens',
+    'corinth',
+    'ephesus',
+    'antioch_syria',
+    'damascus',
+    'jerusalem',
+    'alexandria'
+  ];
+  const incorrectlyRankedMajorPlaces = expectedMajorPlaceIds.filter(
+    placeId =>
+      BIBLICAL_PLACES.find(place => place.id === placeId)?.mapLabelLevel !==
+      'major'
+  );
+  if (incorrectlyRankedMajorPlaces.length) {
+    throw new Error(
+      `Villes majeures B13 mal hiérarchisées: ` +
+        `${incorrectlyRankedMajorPlaces.join(', ')}`
+    );
+  }
+} finally {
+  await viteServer.close();
+}
+
 console.log(
   `Carte vérifiée: ${places.length} éléments, ` +
     `${insetPrimaryPositions} positions issues de l’encart, ` +
     `${representativePositions} positions représentatives, ` +
     `${expectedComplementaryPlaceIds.length} nouveaux repères des cartes B2/B3, ` +
     `${christianExpansionPlaceIds.length} repères de la carte B13, ` +
+    '27 éléments non ponctuels inventoriés, ' +
     '0 référence OpenBible.'
 );

@@ -289,6 +289,30 @@ const CORE_BIBLICAL_PLACES: BiblicalPlace[] = [
 
 const uniqueValues = <T>(values: T[]): T[] => Array.from(new Set(values));
 
+const MAP_LABEL_PRIORITY = {
+  major: 0,
+  regional: 1,
+  study: 2,
+  local: 3
+} as const;
+
+const getMostProminentMapLabelLevel = (
+  existingPlace: BiblicalPlace,
+  importedPlace: BiblicalPlace
+): BiblicalPlace['mapLabelLevel'] => {
+  const levels = [
+    existingPlace.mapLabelLevel,
+    importedPlace.mapLabelLevel
+  ].filter(
+    (level): level is NonNullable<BiblicalPlace['mapLabelLevel']> =>
+      Boolean(level)
+  );
+
+  return levels.sort(
+    (left, right) => MAP_LABEL_PRIORITY[left] - MAP_LABEL_PRIORITY[right]
+  )[0];
+};
+
 const mergePlaceCorpus = (
   corePlaces: BiblicalPlace[],
   importedPlaces: BiblicalPlace[]
@@ -339,6 +363,12 @@ const mergePlaceCorpus = (
         ...(existingPlace.mapReferences || []),
         ...(importedPlace.mapReferences || [])
       ]),
+      // Une ville majeure sur une carte générale ne doit pas redevenir locale
+      // simplement parce qu'elle existait déjà dans un corpus plus détaillé.
+      mapLabelLevel: getMostProminentMapLabelLevel(
+        existingPlace,
+        importedPlace
+      ),
       coordinatePrecision: importedPlace.coordinatePrecision,
       coordinateSource: importedPlace.coordinateSource
     });
