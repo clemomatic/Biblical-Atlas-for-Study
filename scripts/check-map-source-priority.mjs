@@ -247,8 +247,8 @@ if (
   !christianExpansionSource.includes(
     "url: 'https://wol.jw.org/fr/wol/d/r30/lp-f/1001070234'"
   ) ||
-  !christianExpansionSource.includes(
-    'sans\n * recourir à un service de géocodage externe'
+  !/sans\r?\n \* recourir à un service de géocodage externe/.test(
+    christianExpansionSource
   )
 ) {
   throw new Error(
