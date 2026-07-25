@@ -32,36 +32,74 @@ const DOCUMENTARY_REFERENCE =
 const SOURCE_IMAGE_SIZE: [number, number] = [1800, 1300];
 
 /**
- * Transformation linéaire ajustée sur les repères Rome, Corinthe, Éphèse,
- * Sidon, Tyr, Damas et Jérusalem déjà présents dans l’atlas. Les coordonnées
- * obtenues reproduisent donc la position graphique de la carte B13, sans
- * recourir à un service de géocodage externe.
+ * La carte B13 est une carte générale illustrée : une transformation linéaire
+ * unique décalait certains ports et certaines îles jusque dans la mer. Les
+ * coordonnées ci-dessous alignent chaque symbole B13 sur le site ou l’élément
+ * géographique correspondant. Le pixel original est conservé dans chaque seed
+ * pour rendre le report depuis la source vérifiable.
  */
-const SOURCE_GEOREFERENCE = {
-  longitudePerPixel: 0.015867828283806604,
-  longitudeOrigin: 10.84093248082679,
-  latitudePerPixel: -0.012749079879622725,
-  latitudeOrigin: 46.024083273922976
-};
-
-const coordinatesFromSourcePixel = (
-  sourcePixel: [number, number]
-): [number, number] => {
-  const [x, y] = sourcePixel;
-  return [
-    Number(
-      (
-        SOURCE_GEOREFERENCE.latitudeOrigin +
-        SOURCE_GEOREFERENCE.latitudePerPixel * y
-      ).toFixed(4)
-    ),
-    Number(
-      (
-        SOURCE_GEOREFERENCE.longitudeOrigin +
-        SOURCE_GEOREFERENCE.longitudePerPixel * x
-      ).toFixed(4)
-    )
-  ];
+const VERIFIED_COORDINATES: Record<string, [number, number]> = {
+  three_taverns: [41.5619, 12.8739],
+  market_of_appius: [41.4672, 12.9836],
+  puteoli: [40.827, 14.122],
+  dyrrachium: [41.3236, 19.4565],
+  apollonia_illyria: [40.724, 19.473],
+  brundisium: [40.6383, 17.9464],
+  neapolis_macedonia: [40.936, 24.412],
+  philippi: [41.0139, 24.2864],
+  amphipolis: [40.8233, 23.8478],
+  thessalonica: [40.6401, 22.9444],
+  berea: [40.5244, 22.2024],
+  apollonia_macedonia: [40.641, 23.493],
+  nicopolis: [39.0088, 20.7332],
+  rhegium: [38.1113, 15.647],
+  sicily: [37.5999, 14.0154],
+  syracuse: [37.0755, 15.2866],
+  adriatic_sea: [41.5, 17.5],
+  athens: [37.9838, 23.7275],
+  cenchreae: [37.8842, 22.994],
+  malta: [35.8997, 14.5147],
+  crete: [35.2401, 24.8093],
+  phoenix_crete: [35.201, 24.08],
+  cauda: [34.84, 24.09],
+  fair_havens: [34.928, 24.808],
+  gulf_syrtis: [31.45, 18],
+  cyrene: [32.8187, 21.8562],
+  black_sea: [42.5, 31],
+  samothrace: [40.468, 25.522],
+  troas: [39.753, 26.158],
+  adramyttium: [39.596, 27.024],
+  assos: [39.489, 26.336],
+  pergamum: [39.132, 27.184],
+  mytilene: [39.107, 26.555],
+  thyatira: [38.923, 27.84],
+  chios: [38.37, 26.14],
+  sardis: [38.488, 28.04],
+  smyrna: [38.4237, 27.1428],
+  philadelphia_asia: [38.35, 28.52],
+  antioch_pisidia: [38.305, 31.189],
+  samos: [37.754, 26.977],
+  laodicea: [37.835, 29.107],
+  colossae: [37.785, 29.259],
+  lystra: [37.576, 32.451],
+  iconium: [37.8746, 32.4932],
+  patmos: [37.309, 26.548],
+  miletus: [37.53, 27.28],
+  cos: [36.891, 27.287],
+  cnidus: [36.685, 27.375],
+  rhodes: [36.434, 28.217],
+  cape_salmone: [35.317, 26.31],
+  patara: [36.263, 29.318],
+  myra: [36.26, 29.985],
+  attalia: [36.885, 30.703],
+  perga: [36.962, 30.853],
+  derbe: [37.348, 33.362],
+  tarsus: [36.9177, 34.8929],
+  seleucia_pieria: [36.123, 35.921],
+  salamis_cyprus: [35.1793, 33.9029],
+  cyprus: [35.1264, 33.4299],
+  paphos: [34.758, 32.41],
+  alexandria: [31.2001, 29.9187]
 };
 
 const SEEDS: ChristianExpansionPlaceSeed[] = [
@@ -129,8 +167,9 @@ const SEEDS: ChristianExpansionPlaceSeed[] = [
 ];
 
 export const CHRISTIAN_EXPANSION_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
-  const coordinates = coordinatesFromSourcePixel(seed.sourcePixel);
+  const coordinates = VERIFIED_COORDINATES[seed.id];
   const isPointSymbol = seed.mapCategory === 'ancient-city';
+  const coordinatePrecision = isPointSymbol ? 'site' : 'representative';
 
   return {
     id: seed.id,
@@ -144,13 +183,15 @@ export const CHRISTIAN_EXPANSION_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
     certainty: seed.certainty || 'probable',
     notes:
       seed.notes ||
-      'Position reportée depuis la carte générale B13 ; elle doit être comprise à l’échelle de cette carte.',
+      (isPointSymbol
+        ? 'Le symbole de la carte B13 est conservé comme provenance ; la coordonnée est alignée sur le site géographique correspondant pour éviter les décalages côtiers.'
+        : 'Point représentatif de l’élément géographique nommé sur la carte B13.'),
     lastVerified: '2026-07-25',
     territory: seed.territory,
     category: seed.featureType,
     mapCategory: seed.mapCategory,
     mapReferences: [`B13 · ${seed.name}`],
-    coordinatePrecision: 'representative',
+    coordinatePrecision,
     coordinateSource: {
       sourceId: SOURCE.id,
       sourceMapIds: ['b13'],

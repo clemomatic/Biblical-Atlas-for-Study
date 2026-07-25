@@ -241,18 +241,27 @@ for (const placeId of christianExpansionPlaceIds) {
   if (!christianExpansionSource.includes(`id: '${placeId}'`)) {
     throw new Error(`Lieu de la carte B13 manquant: ${placeId}`);
   }
+  if (!christianExpansionSource.includes(`${placeId}: [`)) {
+    throw new Error(`Coordonnée B13 vérifiée manquante: ${placeId}`);
+  }
 }
 
 if (
   !christianExpansionSource.includes(
     "url: 'https://wol.jw.org/fr/wol/d/r30/lp-f/1001070234'"
   ) ||
-  !/sans\r?\n \* recourir à un service de géocodage externe/.test(
-    christianExpansionSource
-  )
+  !christianExpansionSource.includes('const VERIFIED_COORDINATES')
 ) {
   throw new Error(
     'La provenance WOL et la méthode de report de la carte B13 doivent être documentées.'
+  );
+}
+if (
+  christianExpansionSource.includes('SOURCE_GEOREFERENCE') ||
+  christianExpansionSource.includes('coordinatesFromSourcePixel')
+) {
+  throw new Error(
+    'La projection linéaire B13 ne doit pas être réintroduite : elle décalait des repères côtiers.'
   );
 }
 
