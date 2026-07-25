@@ -6,7 +6,8 @@ const repositoryRoot = process.cwd();
 const filesToScan = [
   'README.md',
   'src/data/promisedLandPlaces.ts',
-  'src/data/promisedLandMapPositions.generated.ts'
+  'src/data/promisedLandMapPositions.generated.ts',
+  'src/data/patriarchAndExodusPlaces.ts'
 ];
 const forbiddenPatterns = [
   /openbible/i,
@@ -111,8 +112,67 @@ if (representativePositions !== 25) {
   );
 }
 
+const complementaryMapSource = scannedFiles.get(
+  'src/data/patriarchAndExodusPlaces.ts'
+);
+const expectedComplementaryPlaceIds = [
+  'ham_genesis14',
+  'rehoboth_well',
+  'bozrah_edom',
+  'teman_edom',
+  'avith_edom',
+  'mount_moriah',
+  'plain_shaveh_kiriathaim',
+  'valley_siddim',
+  'zoar_bela',
+  'gomorrah',
+  'admah',
+  'zeboiim',
+  'euphrates_river',
+  'tigris_river',
+  'wadi_egypt',
+  'nile_river',
+  'baal_zephon',
+  'massah_meribah',
+  'rithmah',
+  'rimmon_perez',
+  'libnah_exodus',
+  'rissah',
+  'kehelathah',
+  'mount_shepher',
+  'haradah',
+  'makheloth',
+  'tahath',
+  'terah_station',
+  'mithkah',
+  'hashmonah',
+  'moseroth',
+  'bene_jaakan',
+  'abronah',
+  'meribah_kadesh',
+  'dibon_gad',
+  'zered_wadi'
+];
+
+for (const placeId of expectedComplementaryPlaceIds) {
+  if (!complementaryMapSource.includes(`id: '${placeId}'`)) {
+    throw new Error(`Lieu complémentaire manquant: ${placeId}`);
+  }
+}
+
+const sourcePixelCount = [
+  ...complementaryMapSource.matchAll(/\bsourcePixel:/g)
+].length;
+if (sourcePixelCount < expectedComplementaryPlaceIds.length) {
+  throw new Error(
+    `Chaque nouveau lieu complémentaire doit conserver son repère dans l’image source: ${sourcePixelCount}/${expectedComplementaryPlaceIds.length}.`
+  );
+}
+
 console.log(
   `Carte vérifiée: ${places.length} éléments, ` +
     `${insetPrimaryPositions} positions issues de l’encart, ` +
-    `${representativePositions} positions représentatives, 0 référence OpenBible.`
+    `${representativePositions} positions représentatives, ` +
+    `${expectedComplementaryPlaceIds.length} nouveaux repères des cartes B2/B3, ` +
+    '0 référence OpenBible.'
 );

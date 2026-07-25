@@ -17,6 +17,8 @@ interface DocumentaryPlaceSeed {
   mapLabelLevel: MapLabelLevel;
   mapReferences: string[];
   sourceMaps: SourceMapId[];
+  coordinateSourceMap?: SourceMapId;
+  sourcePixel?: [number, number];
   certainty: CertaintyLevel;
   coordinatePrecision: 'site' | 'representative' | 'approximate';
   biblicalReferences?: string[];
@@ -53,6 +55,12 @@ const SOURCE_MAPS: Record<
   }
 };
 
+const SOURCE_MAP_IMAGE_SIZES: Record<SourceMapId, [number, number]> = {
+  'map-5': [1320, 835],
+  b2: [648, 468],
+  b3: [1200, 1749]
+};
+
 const CATEGORY_LABELS: Partial<Record<BiblicalMapCategory, string>> = {
   'ancient-city': 'Centre urbain antique',
   'biblical-site': 'Lieu biblique',
@@ -82,6 +90,253 @@ const SEEDS: DocumentaryPlaceSeed[] = [
   { id: 'ramses', name: 'Ramsès', alternateNames: ['Raamsès', 'Pi-Ramsès'], coordinates: [30.793, 31.836], mapCategory: 'ancient-city', mapLabelLevel: 'regional', mapReferences: ['B2 B5', 'B3 C8'], sourceMaps: ['b2', 'b3'], certainty: 'probable', coordinatePrecision: 'representative', biblicalReferences: ['Exode 1:11', 'Exode 12:37', 'Nombres 33:3'], territory: 'Goshèn', notes: 'Coordonnée représentative de la région proposée pour Pi-Ramsès.' },
   { id: 'goshen', name: 'Goshèn', alternateNames: ['Goshen'], coordinates: [30.75, 31.85], mapCategory: 'biblical-site', mapLabelLevel: 'regional', mapReferences: ['5 A4', 'B2 B5', 'B3 B8'], sourceMaps: ['map-5', 'b2', 'b3'], certainty: 'probable', coordinatePrecision: 'representative', biblicalReferences: ['Genèse 45:10', 'Genèse 47:27'], territory: 'Égypte', notes: 'Point représentatif d’une région, et non d’une ville unique.' },
   { id: 'beer_lahai_roi', name: 'Béer-Lahaï-Roï', alternateNames: ['Puits de Lahaï-Roï'], coordinates: [30.74, 34.42], mapCategory: 'spring', mapLabelLevel: 'study', mapReferences: ['B2 B6'], sourceMaps: ['b2'], certainty: 'possible', coordinatePrecision: 'approximate', biblicalReferences: ['Genèse 16:14', 'Genèse 24:62', 'Genèse 25:11'], territory: 'Néguev' },
+  {
+    id: 'ham_genesis14',
+    name: 'Ham',
+    alternateNames: ['Ham de Genèse 14'],
+    coordinates: [32.65, 35.8],
+    mapCategory: 'biblical-site',
+    mapLabelLevel: 'local',
+    mapReferences: ['B2 C4'],
+    sourceMaps: ['b2'],
+    sourcePixel: [213, 290],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 14:5'],
+    territory: 'À l’est du Jourdain'
+  },
+  {
+    id: 'rehoboth_well',
+    name: 'Puits de Rehoboth',
+    alternateNames: ['Rehoboth'],
+    coordinates: [31, 34.55],
+    mapCategory: 'spring',
+    mapLabelLevel: 'study',
+    mapReferences: ['B2 B5'],
+    sourceMaps: ['b2'],
+    sourcePixel: [164, 371],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 26:22'],
+    territory: 'Néguev'
+  },
+  {
+    id: 'bozrah_edom',
+    name: 'Bozra',
+    alternateNames: ['Botsra'],
+    coordinates: [30.734, 35.607],
+    mapCategory: 'ancient-city',
+    mapLabelLevel: 'study',
+    mapReferences: ['B2 C5'],
+    sourceMaps: ['b2'],
+    sourcePixel: [204, 371],
+    certainty: 'probable',
+    coordinatePrecision: 'representative',
+    biblicalReferences: ['Genèse 36:33'],
+    territory: 'Édom'
+  },
+  {
+    id: 'teman_edom',
+    name: 'Témân',
+    alternateNames: ['Téman'],
+    coordinates: [30.2, 35.6],
+    mapCategory: 'biblical-site',
+    mapLabelLevel: 'local',
+    mapReferences: ['B2 C5'],
+    sourceMaps: ['b2'],
+    sourcePixel: [211, 386],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 36:34', 'Jérémie 49:7'],
+    territory: 'Édom'
+  },
+  {
+    id: 'avith_edom',
+    name: 'Avith',
+    coordinates: [29.75, 35.25],
+    mapCategory: 'biblical-site',
+    mapLabelLevel: 'local',
+    mapReferences: ['B2 C6'],
+    sourceMaps: ['b2'],
+    sourcePixel: [196, 400],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 36:35'],
+    territory: 'Édom'
+  },
+  {
+    id: 'mount_moriah',
+    name: 'Mont Moria',
+    alternateNames: ['Moriya'],
+    coordinates: [31.778, 35.235],
+    mapCategory: 'summit',
+    mapLabelLevel: 'regional',
+    mapReferences: ['B2 D5'],
+    sourceMaps: ['map-5', 'b2'],
+    coordinateSourceMap: 'b2',
+    sourcePixel: [403, 337],
+    certainty: 'probable',
+    coordinatePrecision: 'representative',
+    biblicalReferences: ['Genèse 22:2', '2 Chroniques 3:1'],
+    territory: 'Jérusalem'
+  },
+  {
+    id: 'plain_shaveh_kiriathaim',
+    name: 'Plaine de Shavé-Kiriataïm',
+    coordinates: [31.55, 35.65],
+    mapCategory: 'biblical-site',
+    mapLabelLevel: 'local',
+    mapReferences: ['B2 E5'],
+    sourceMaps: ['b2'],
+    sourcePixel: [451, 380],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 14:5'],
+    territory: 'À l’est de la mer Salée'
+  },
+  {
+    id: 'valley_siddim',
+    name: 'Vallée de Siddim',
+    coordinates: [31.2, 35.55],
+    mapCategory: 'biblical-site',
+    mapLabelLevel: 'study',
+    mapReferences: ['B2 E6'],
+    sourceMaps: ['b2'],
+    sourcePixel: [431, 421],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 14:3', 'Genèse 14:8'],
+    territory: 'Région de la mer Salée',
+    notes:
+      'Point représentatif de la vallée figurée sur la carte B2 ; ses limites et son emplacement exact ne sont pas établis.'
+  },
+  {
+    id: 'zoar_bela',
+    name: 'Zoar',
+    alternateNames: ['Béla'],
+    coordinates: [30.92, 35.46],
+    mapCategory: 'ancient-city',
+    mapLabelLevel: 'regional',
+    mapReferences: ['B2 E6'],
+    sourceMaps: ['b2'],
+    sourcePixel: [430, 432],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 14:2', 'Genèse 19:22'],
+    territory: 'Région de la mer Salée'
+  },
+  {
+    id: 'gomorrah',
+    name: 'Gomorrhe',
+    coordinates: [31.17, 35.48],
+    mapCategory: 'ancient-city',
+    mapLabelLevel: 'study',
+    mapReferences: ['B2 E6'],
+    sourceMaps: ['b2'],
+    sourcePixel: [444, 413],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 14:2', 'Genèse 19:24'],
+    territory: 'Région de la mer Salée',
+    notes:
+      'Le point d’interrogation de la carte source est conservé par un degré de certitude « possible ».'
+  },
+  {
+    id: 'admah',
+    name: 'Adma',
+    coordinates: [31.35, 35.55],
+    mapCategory: 'ancient-city',
+    mapLabelLevel: 'local',
+    mapReferences: ['B2 E6'],
+    sourceMaps: ['b2'],
+    sourcePixel: [444, 421],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 14:2', 'Deutéronome 29:23'],
+    territory: 'Région de la mer Salée',
+    notes:
+      'Le point d’interrogation de la carte source est conservé par un degré de certitude « possible ».'
+  },
+  {
+    id: 'zeboiim',
+    name: 'Zeboïm',
+    alternateNames: ['Tseboïm'],
+    coordinates: [31.42, 35.58],
+    mapCategory: 'ancient-city',
+    mapLabelLevel: 'local',
+    mapReferences: ['B2 E6'],
+    sourceMaps: ['b2'],
+    sourcePixel: [444, 429],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Genèse 14:2', 'Deutéronome 29:23'],
+    territory: 'Région de la mer Salée',
+    notes:
+      'Le point d’interrogation de la carte source est conservé par un degré de certitude « possible ».'
+  },
+  {
+    id: 'euphrates_river',
+    name: 'Euphrate',
+    coordinates: [34.3, 40.5],
+    mapCategory: 'river',
+    mapLabelLevel: 'major',
+    mapReferences: ['5 E2', 'B2 E2'],
+    sourceMaps: ['map-5', 'b2'],
+    coordinateSourceMap: 'b2',
+    sourcePixel: [420, 170],
+    certainty: 'certain',
+    coordinatePrecision: 'representative',
+    biblicalReferences: ['Genèse 2:14', 'Genèse 15:18'],
+    notes:
+      'Point représentatif du cours d’eau destiné à son libellé cartographique, et non à représenter toute sa géométrie.'
+  },
+  {
+    id: 'tigris_river',
+    name: 'Hiddékel',
+    alternateNames: ['Tigre'],
+    coordinates: [34.8, 43.3],
+    mapCategory: 'river',
+    mapLabelLevel: 'major',
+    mapReferences: ['5 F2', 'B2 G2'],
+    sourceMaps: ['map-5', 'b2'],
+    coordinateSourceMap: 'b2',
+    sourcePixel: [520, 180],
+    certainty: 'certain',
+    coordinatePrecision: 'representative',
+    biblicalReferences: ['Genèse 2:14', 'Daniel 10:4'],
+    notes:
+      'Point représentatif du cours d’eau destiné à son libellé cartographique, et non à représenter toute sa géométrie.'
+  },
+  {
+    id: 'wadi_egypt',
+    name: 'Oued d’Égypte',
+    alternateNames: ['Torrent d’Égypte'],
+    coordinates: [31, 34.3],
+    mapCategory: 'wadi',
+    mapLabelLevel: 'regional',
+    mapReferences: ['B2 B5'],
+    sourceMaps: ['b2'],
+    sourcePixel: [156, 355],
+    certainty: 'probable',
+    coordinatePrecision: 'representative',
+    biblicalReferences: ['Nombres 34:5', 'Josué 15:4']
+  },
+  {
+    id: 'nile_river',
+    name: 'Nil',
+    coordinates: [30.3, 31.25],
+    mapCategory: 'river',
+    mapLabelLevel: 'major',
+    mapReferences: ['B2 A6', 'B3 A8'],
+    sourceMaps: ['b2', 'b3'],
+    coordinateSourceMap: 'b2',
+    sourcePixel: [34, 410],
+    certainty: 'certain',
+    coordinatePrecision: 'representative',
+    biblicalReferences: ['Genèse 41:1', 'Exode 7:17'],
+    notes:
+      'Point représentatif du cours d’eau destiné à son libellé cartographique, et non à représenter toute sa géométrie.'
+  },
 
   // Étapes et repères de la carte B3. Les points interrogatifs de la source
   // sont conservés comme localisations possibles et coordonnées approximatives.
@@ -110,7 +365,293 @@ const SEEDS: DocumentaryPlaceSeed[] = [
   { id: 'oboth', name: 'Oboth', coordinates: [30.8, 35.48], mapCategory: 'exodus-stage', mapLabelLevel: 'local', mapReferences: ['B3 F4'], sourceMaps: ['b3'], certainty: 'possible', coordinatePrecision: 'approximate', biblicalReferences: ['Nombres 21:10', 'Nombres 33:43'] },
   { id: 'iye_abarim', name: 'Iyé-Abarim', coordinates: [31.02, 35.6], mapCategory: 'exodus-stage', mapLabelLevel: 'local', mapReferences: ['B3 F4'], sourceMaps: ['b3'], certainty: 'possible', coordinatePrecision: 'approximate', biblicalReferences: ['Nombres 21:11', 'Nombres 33:44'] },
   { id: 'plains_moab', name: 'Plaines de Moab', coordinates: [31.82, 35.63], mapCategory: 'biblical-site', mapLabelLevel: 'regional', mapReferences: ['B3 F2'], sourceMaps: ['b3'], certainty: 'certain', coordinatePrecision: 'representative', biblicalReferences: ['Nombres 22:1', 'Nombres 33:48'], territory: 'Moab', notes: 'Point représentatif d’une zone géographique.' },
-  { id: 'abel_shittim', name: 'Abel-Shittim', alternateNames: ['Shittim'], coordinates: [31.86, 35.64], mapCategory: 'exodus-stage', mapLabelLevel: 'study', mapReferences: ['B3 F2'], sourceMaps: ['b3'], certainty: 'possible', coordinatePrecision: 'representative', biblicalReferences: ['Nombres 25:1', 'Nombres 33:49'] }
+  { id: 'abel_shittim', name: 'Abel-Shittim', alternateNames: ['Shittim'], coordinates: [31.86, 35.64], mapCategory: 'exodus-stage', mapLabelLevel: 'study', mapReferences: ['B3 F2'], sourceMaps: ['b3'], certainty: 'possible', coordinatePrecision: 'representative', biblicalReferences: ['Nombres 25:1', 'Nombres 33:49'] },
+  {
+    id: 'baal_zephon',
+    name: 'Baal-Zefôn',
+    alternateNames: ['Baal-Zephon'],
+    coordinates: [29.75, 32.4],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'study',
+    mapReferences: ['B3 B8'],
+    sourceMaps: ['b3'],
+    sourcePixel: [270, 1157],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Exode 14:2', 'Nombres 33:7'],
+    territory: 'Égypte orientale'
+  },
+  {
+    id: 'massah_meribah',
+    name: 'Massa et Meriba',
+    coordinates: [28.68, 33.88],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'study',
+    mapReferences: ['B3 D10'],
+    sourceMaps: ['b3'],
+    sourcePixel: [638, 1387],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Exode 17:7', 'Deutéronome 6:16'],
+    territory: 'Désert du Sinaï'
+  },
+  {
+    id: 'rithmah',
+    name: 'Ritma',
+    alternateNames: ['Rithmah'],
+    coordinates: [29.3, 34.55],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 D9'],
+    sourceMaps: ['b3'],
+    sourcePixel: [779, 1241],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:18']
+  },
+  {
+    id: 'rimmon_perez',
+    name: 'Rimôn-Pérez',
+    alternateNames: ['Rimmon-Pérets'],
+    coordinates: [29.35, 34.75],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E8'],
+    sourceMaps: ['b3'],
+    sourcePixel: [818, 1204],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:19']
+  },
+  {
+    id: 'libnah_exodus',
+    name: 'Libna (Exode)',
+    coordinates: [29.66, 34.8],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E8'],
+    sourceMaps: ['b3'],
+    sourcePixel: [797, 1108],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:20'],
+    notes:
+      'Cette étape de l’Exode est distinguée par son identifiant de la ville de Libna située en Juda.'
+  },
+  {
+    id: 'rissah',
+    name: 'Rissa',
+    coordinates: [29.92, 34.82],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [806, 1051],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:21']
+  },
+  {
+    id: 'kehelathah',
+    name: 'Kehélata',
+    alternateNames: ['Kehelathah'],
+    coordinates: [29.4, 34.68],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [784, 1125],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:22']
+  },
+  {
+    id: 'mount_shepher',
+    name: 'Mont Shéfèr',
+    alternateNames: ['Mont Shépher'],
+    coordinates: [29.49, 34.66],
+    mapCategory: 'summit',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [783, 1105],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:23']
+  },
+  {
+    id: 'haradah',
+    name: 'Harada',
+    alternateNames: ['Haradah'],
+    coordinates: [29.58, 34.64],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [782, 1085],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:24']
+  },
+  {
+    id: 'makheloth',
+    name: 'Makéloth',
+    alternateNames: ['Makheloth'],
+    coordinates: [29.67, 34.62],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [781, 1065],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:25']
+  },
+  {
+    id: 'tahath',
+    name: 'Taath',
+    alternateNames: ['Tahath'],
+    coordinates: [29.76, 34.6],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [780, 1045],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:26']
+  },
+  {
+    id: 'terah_station',
+    name: 'Téra (étape)',
+    alternateNames: ['Térah'],
+    coordinates: [29.85, 34.58],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [779, 1025],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:27'],
+    notes:
+      'L’identifiant distingue cette étape du personnage Téra, père d’Abraham.'
+  },
+  {
+    id: 'mithkah',
+    name: 'Mitka',
+    alternateNames: ['Mithkah'],
+    coordinates: [29.94, 34.56],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [777, 1005],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:28']
+  },
+  {
+    id: 'hashmonah',
+    name: 'Hashmona',
+    alternateNames: ['Hashmonah'],
+    coordinates: [30.03, 34.54],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [775, 985],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:29']
+  },
+  {
+    id: 'moseroth',
+    name: 'Mosséroth',
+    alternateNames: ['Moseroth'],
+    coordinates: [30.12, 34.52],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E7'],
+    sourceMaps: ['b3'],
+    sourcePixel: [773, 965],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:30']
+  },
+  {
+    id: 'bene_jaakan',
+    name: 'Bené-Jaakân',
+    alternateNames: ['Bene-Jaakan'],
+    coordinates: [30.3, 34.6],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E6'],
+    sourceMaps: ['b3'],
+    sourcePixel: [787, 869],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:31', 'Deutéronome 10:6']
+  },
+  {
+    id: 'abronah',
+    name: 'Abrona',
+    alternateNames: ['Abronah'],
+    coordinates: [29.65, 34.93],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'local',
+    mapReferences: ['B3 E8'],
+    sourceMaps: ['b3'],
+    sourcePixel: [884, 1133],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:34']
+  },
+  {
+    id: 'meribah_kadesh',
+    name: 'Meriba (près de Kadèsh)',
+    coordinates: [30.57, 34.43],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'study',
+    mapReferences: ['B3 D6'],
+    sourceMaps: ['b3'],
+    sourcePixel: [765, 940],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 20:13', 'Nombres 20:24'],
+    notes:
+      'Ce lieu est distingué de Massa et Meriba, situé sur la carte près de Refidim.'
+  },
+  {
+    id: 'dibon_gad',
+    name: 'Dibôn-Gad',
+    coordinates: [31.5, 35.8],
+    mapCategory: 'exodus-stage',
+    mapLabelLevel: 'study',
+    mapReferences: ['B3 F4'],
+    sourceMaps: ['b3'],
+    sourcePixel: [1051, 667],
+    certainty: 'possible',
+    coordinatePrecision: 'approximate',
+    biblicalReferences: ['Nombres 33:45', 'Nombres 33:46'],
+    territory: 'Moab'
+  },
+  {
+    id: 'zered_wadi',
+    name: 'Oued Zéred',
+    alternateNames: ['Torrent de Zéred'],
+    coordinates: [30.85, 35.75],
+    mapCategory: 'wadi',
+    mapLabelLevel: 'regional',
+    mapReferences: ['B3 F5'],
+    sourceMaps: ['b3'],
+    sourcePixel: [1040, 794],
+    certainty: 'probable',
+    coordinatePrecision: 'representative',
+    biblicalReferences: ['Nombres 21:12', 'Deutéronome 2:13'],
+    notes:
+      'Point représentatif du cours d’eau destiné à son libellé cartographique, et non à représenter toute sa géométrie.'
+  }
 ];
 
 export const PATRIARCH_AND_EXODUS_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
@@ -142,12 +683,29 @@ export const PATRIARCH_AND_EXODUS_PLACES: BiblicalPlace[] = SEEDS.map(seed => {
       (seed.coordinatePrecision === 'approximate'
         ? 'Position indicative reportée depuis la carte source ; elle ne vaut pas identification archéologique.'
         : undefined),
-    lastVerified: '2026-07-24',
+    lastVerified: '2026-07-25',
     territory: seed.territory,
     category: categoryLabel,
     mapCategory: seed.mapCategory,
     mapReferences: seed.mapReferences,
     coordinatePrecision: seed.coordinatePrecision,
+    coordinateSource: {
+      sourceId: SOURCE_MAPS[
+        seed.coordinateSourceMap || seed.sourceMaps[0]
+      ].id,
+      sourceMapIds: seed.sourceMaps,
+      mapReference: seed.mapReferences[0],
+      sourcePixel: seed.sourcePixel,
+      sourceImageSize: seed.sourcePixel
+        ? SOURCE_MAP_IMAGE_SIZES[
+            seed.coordinateSourceMap || seed.sourceMaps[0]
+          ]
+        : undefined,
+      method:
+        seed.coordinatePrecision === 'site'
+          ? 'source-symbol-georeferenced'
+          : 'source-feature-representative-position'
+    },
     mapLabelLevel: seed.mapLabelLevel
   };
 });
