@@ -19,8 +19,10 @@ import { SearchPanel } from './components/SearchPanel';
 import { StudySidebar } from './components/StudySidebar';
 import { PwaInstallPrompt } from './components/PwaInstallPrompt';
 import { AppHeader } from './components/AppHeader';
+import { AtThisMomentPanel } from './components/AtThisMomentPanel';
 import { normalizeDataRelations } from './utils/dataRelations';
 import { Clock3, Map as MapIcon, Search } from 'lucide-react';
+import { HISTORICAL_PEOPLE } from './data/historicalStudyData';
 
 const SIDEBAR_COLLAPSE_KEY = 'atlas-sidebar-collapsed';
 
@@ -33,13 +35,19 @@ const readInitialView = (): ActiveTab => {
 
 const readInitialIds = () => {
   if (typeof window === 'undefined') {
-    return { eventId: null, placeId: null, routeId: null };
+    return {
+      eventId: null,
+      placeId: null,
+      routeId: null,
+      personId: null
+    };
   }
   const params = new URLSearchParams(window.location.search);
   return {
     eventId: params.get('event'),
     placeId: params.get('place'),
-    routeId: params.get('route')
+    routeId: params.get('route'),
+    personId: params.get('person')
   };
 };
 
@@ -78,9 +86,13 @@ export default function App() {
   const [selectedRouteId, setSelectedRouteId] = useState<string | null>(
     initialIds.routeId
   );
+  const [selectedPersonId, setSelectedPersonId] = useState<string | null>(
+    initialIds.personId
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
+  const [isAtThisMomentOpen, setIsAtThisMomentOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     readInitialSidebarState
   );
@@ -105,6 +117,9 @@ export default function App() {
     places.find(place => place.id === selectedPlaceId) || null;
   const selectedRoute =
     routes.find(route => route.id === selectedRouteId) || null;
+  const selectedPerson =
+    HISTORICAL_PEOPLE.find(person => person.id === selectedPersonId) ||
+    null;
 
   const filteredCategories = useMemo(
     () =>
@@ -137,6 +152,7 @@ export default function App() {
     if (selectedEventId) params.set('event', selectedEventId);
     if (selectedPlaceId) params.set('place', selectedPlaceId);
     if (selectedRouteId) params.set('route', selectedRouteId);
+    if (selectedPersonId) params.set('person', selectedPersonId);
     if (visiblePeriod) {
       params.set('from', String(Math.round(visiblePeriod.startYear)));
       params.set('to', String(Math.round(visiblePeriod.endYear)));
@@ -151,6 +167,7 @@ export default function App() {
     selectedEventId,
     selectedPlaceId,
     selectedRouteId,
+    selectedPersonId,
     visiblePeriod
   ]);
 
@@ -176,12 +193,14 @@ export default function App() {
     setSelectedEventId(null);
     setSelectedPlaceId(null);
     setSelectedRouteId(null);
+    setSelectedPersonId(null);
   }, []);
 
   const handleSelectEvent = useCallback((event: EventData) => {
     setSelectedEventId(event.id);
     setSelectedPlaceId(null);
     setSelectedRouteId(null);
+    setSelectedPersonId(null);
     setActiveTab('timeline');
     setIsSearchOpen(false);
   }, []);
@@ -190,6 +209,7 @@ export default function App() {
     setSelectedPlaceId(place.id);
     setSelectedEventId(null);
     setSelectedRouteId(null);
+    setSelectedPersonId(null);
     setActiveTab('map');
     setIsSearchOpen(false);
   }, []);
@@ -198,7 +218,16 @@ export default function App() {
     setSelectedRouteId(route.id);
     setSelectedEventId(null);
     setSelectedPlaceId(null);
+    setSelectedPersonId(null);
     setActiveTab('map');
+    setIsSearchOpen(false);
+  }, []);
+
+  const handleSelectPerson = useCallback((personId: string) => {
+    setSelectedPersonId(personId);
+    setSelectedEventId(null);
+    setSelectedPlaceId(null);
+    setSelectedRouteId(null);
     setIsSearchOpen(false);
   }, []);
 
@@ -225,7 +254,7 @@ export default function App() {
   };
 
   const hasSelection = Boolean(
-    selectedEvent || selectedPlace || selectedRoute
+    selectedEvent || selectedPlace || selectedRoute || selectedPerson
   );
 
   return (
@@ -271,6 +300,7 @@ export default function App() {
               isActive={activeTab === 'timeline'}
               onSelectEvent={handleSelectEvent}
               onVisiblePeriodChange={handleVisiblePeriodChange}
+              onOpenAtThisMoment={() => setIsAtThisMomentOpen(true)}
               searchQuery=""
             />
           </section>
@@ -296,14 +326,17 @@ export default function App() {
             selectedEvent={selectedEvent}
             selectedPlace={selectedPlace}
             selectedRoute={selectedRoute}
+            selectedPerson={selectedPerson}
             categories={CATEGORIES}
             places={places}
             routes={routes}
             events={linkedEvents}
+            people={HISTORICAL_PEOPLE}
             onClose={clearSelection}
             onSelectPlace={handleSelectPlace}
             onSelectEvent={handleSelectEvent}
             onSelectRoute={handleSelectRoute}
+            onSelectPerson={handleSelectPerson}
             onSwitchTab={setActiveTab}
           />
         )}
@@ -355,6 +388,21 @@ export default function App() {
         onSelectEvent={handleSelectEvent}
         onSelectPlace={handleSelectPlace}
         onSelectRoute={handleSelectRoute}
+      />
+
+      <AtThisMomentPanel
+        isOpen={isAtThisMomentOpen}
+        period={visiblePeriod}
+        onClose={() => setIsAtThisMomentOpen(false)}
+        onSelectPerson={handleSelectPerson}
+        onSelectEvent={eventId => {
+          const event = linkedEvents.find(candidate => candidate.id === eventId);
+          if (event) handleSelectEvent(event);
+        }}
+        onSelectPlace={placeId => {
+          const place = places.find(candidate => candidate.id === placeId);
+          if (place) handleSelectPlace(place);
+        }}
       />
 
       <PwaInstallPrompt />

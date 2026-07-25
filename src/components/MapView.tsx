@@ -448,10 +448,25 @@ export const MapView: React.FC<MapViewProps> = ({
   ]);
 
   useEffect(() => {
-    if (selectedPlace && mapRef.current && markersRef.current[selectedPlace.id]) {
-      mapRef.current.flyTo(selectedPlace.coordinates, 11, { duration: 1.2 });
+    if (
+      !isActive ||
+      !selectedPlace ||
+      !mapRef.current ||
+      !markersRef.current[selectedPlace.id]
+    ) {
+      return;
     }
-  }, [selectedPlace]);
+    const [latitude, longitude] = selectedPlace.coordinates;
+    if (!Number.isFinite(latitude) || !Number.isFinite(longitude)) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const map = mapRef.current;
+      if (!map) return;
+      map.invalidateSize({ pan: false });
+      map.flyTo(selectedPlace.coordinates, 11, { duration: 1.2 });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [selectedPlace, isActive]);
 
   return (
     <div className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">

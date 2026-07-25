@@ -30,6 +30,7 @@ interface TimelineViewProps {
   isActive: boolean;
   onSelectEvent: (event: EventData) => void;
   onVisiblePeriodChange: (period: TimelinePeriod) => void;
+  onOpenAtThisMoment: () => void;
   searchQuery: string;
 }
 
@@ -124,6 +125,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   isActive,
   onSelectEvent,
   onVisiblePeriodChange,
+  onOpenAtThisMoment,
   searchQuery
 }) => {
   // Category visibility toggle
@@ -1160,6 +1162,19 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             </button>
           ))}
         </div>
+
+        <button
+          type="button"
+          onClick={onOpenAtThisMoment}
+          aria-label="À ce moment-là"
+          className="atlas-control flex shrink-0 items-center gap-2 px-2.5 sm:px-3"
+          title="Explorer les personnes, événements et présences de la période visible"
+        >
+          <CalendarRange className="size-4 text-[var(--color-bronze)]" />
+          <span className="hidden whitespace-nowrap md:inline">
+            À ce moment-là
+          </span>
+        </button>
 
         {centerYear !== null && (
           <span className="ml-auto hidden text-xs font-medium tabular-nums text-[var(--color-ink-soft)] lg:block">

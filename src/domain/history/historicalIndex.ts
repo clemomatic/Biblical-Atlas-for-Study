@@ -48,6 +48,14 @@ export interface PresenceIndexEntry extends CompactTemporalEntry {
   eventIds: string[];
 }
 
+export interface RelationIndexEntry extends CompactTemporalEntry {
+  relationId: string;
+  relationLevel: DerivedHistoricalRelation['relationLevel'];
+  subjectIds: string[];
+  placeIds: string[];
+  eventIds: string[];
+}
+
 export interface HistoricalIndexBundle {
   version: '1';
   generatedAt: string;
@@ -55,6 +63,11 @@ export interface HistoricalIndexBundle {
   activities: ActivityIndexEntry[];
   events: EventIndexEntry[];
   presences: PresenceIndexEntry[];
+  /**
+   * Index ajouté de manière additive. Il reste optionnel pour accepter les
+   * fichiers générés avant l’arrivée de la vue « À ce moment-là ».
+   */
+  relations?: RelationIndexEntry[];
   relationIdsBySubject: Record<string, string[]>;
   presenceIdsByPlace: Record<string, string[]>;
   presenceIdsByRegion: Record<string, string[]>;
@@ -203,6 +216,28 @@ export function buildHistoricalIndex(
     })
     .sort(compareTemporalEntries);
 
+  const relationEntries: RelationIndexEntry[] = relations
+    .flatMap(relation => {
+      const bounds = relation.temporalOverlap
+        ? toCompactBounds(relation.temporalOverlap)
+        : undefined;
+      if (!bounds) return [];
+      return [
+        {
+          id: `relation:${relation.id}`,
+          relationId: relation.id,
+          relationLevel: relation.relationLevel,
+          subjectIds: uniqueSorted(relation.subjectIds),
+          placeIds: uniqueSorted(relation.placeIds ?? []),
+          eventIds: uniqueSorted(relation.eventIds ?? []),
+          ...bounds,
+          certainty: relation.certainty,
+          supportingClaimIds: uniqueSorted(relation.supportingClaimIds)
+        }
+      ];
+    })
+    .sort(compareTemporalEntries);
+
   const relationIdsBySubject = new Map<string, string[]>();
   relations.forEach(relation => {
     relation.subjectIds.forEach(subjectId =>
@@ -234,6 +269,7 @@ export function buildHistoricalIndex(
     activities,
     events,
     presences,
+    relations: relationEntries,
     relationIdsBySubject: finalizeReverseIndex(relationIdsBySubject),
     presenceIdsByPlace: finalizeReverseIndex(presenceIdsByPlace),
     presenceIdsByRegion: finalizeReverseIndex(presenceIdsByRegion),
@@ -268,12 +304,30 @@ const queryTemporalEntries = <T extends CompactTemporalEntry>(
   return results;
 };
 
+export const findLifespansDuring = (
+  index: HistoricalIndexBundle,
+  period: TemporalSpan
+): LifespanIndexEntry[] =>
+  queryTemporalEntries(index.lifespans, period);
+
+export const findActivitiesDuring = (
+  index: HistoricalIndexBundle,
+  period: TemporalSpan
+): ActivityIndexEntry[] =>
+  queryTemporalEntries(index.activities, period);
+
+export const findEventEntriesDuring = (
+  index: HistoricalIndexBundle,
+  period: TemporalSpan
+): EventIndexEntry[] =>
+  queryTemporalEntries(index.events, period);
+
 export const findPeopleLivingDuring = (
   index: HistoricalIndexBundle,
   period: TemporalSpan
 ): string[] =>
   uniqueSorted(
-    queryTemporalEntries(index.lifespans, period).map(entry => entry.personId)
+    findLifespansDuring(index, period).map(entry => entry.personId)
   );
 
 export const findPeopleActiveDuring = (
@@ -281,7 +335,7 @@ export const findPeopleActiveDuring = (
   period: TemporalSpan
 ): string[] =>
   uniqueSorted(
-    queryTemporalEntries(index.activities, period).map(entry => entry.personId)
+    findActivitiesDuring(index, period).map(entry => entry.personId)
   );
 
 export const findEventsDuring = (
@@ -289,7 +343,7 @@ export const findEventsDuring = (
   period: TemporalSpan
 ): string[] =>
   uniqueSorted(
-    queryTemporalEntries(index.events, period).map(entry => entry.eventId)
+    findEventEntriesDuring(index, period).map(entry => entry.eventId)
   );
 
 export const findDocumentedPresences = (
@@ -297,6 +351,27 @@ export const findDocumentedPresences = (
   period: TemporalSpan
 ): PresenceIndexEntry[] =>
   queryTemporalEntries(index.presences, period);
+
+export const findRelationsDuring = (
+  index: HistoricalIndexBundle,
+  relations: DerivedHistoricalRelation[],
+  period: TemporalSpan,
+  levels?: DerivedHistoricalRelation['relationLevel'][]
+): DerivedHistoricalRelation[] => {
+  const allowedLevels = levels ? new Set(levels) : undefined;
+  const allowedRelationIds = new Set(
+    queryTemporalEntries(index.relations ?? [], period)
+      .filter(
+        entry =>
+          !allowedLevels || allowedLevels.has(entry.relationLevel)
+      )
+      .map(entry => entry.relationId)
+  );
+
+  return relations
+    .filter(relation => allowedRelationIds.has(relation.id))
+    .sort((left, right) => left.id.localeCompare(right.id));
+};
 
 export const findPeopleAtPlace = (
   index: HistoricalIndexBundle,

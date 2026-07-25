@@ -81,6 +81,8 @@ Chaque intervalle contient un `startIndex` et un `endIndex`. Les recherches s’
 Des index inversés complètent ces intervalles :
 
 - `relationIdsBySubject` ;
+- `relations`, index temporel compact utilisé par la vue
+  « À ce moment-là » ;
 - `presenceIdsByPlace` ;
 - `presenceIdsByRegion` ;
 - `presenceIdsByEvent`.

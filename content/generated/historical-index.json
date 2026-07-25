@@ -326,6 +326,235 @@
       ]
     }
   ],
+  "relations": [
+    {
+      "id": "relation:derived-relation-documented-interaction-qrg3r8",
+      "relationId": "derived-relation-documented-interaction-qrg3r8",
+      "relationLevel": "documented-interaction",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-diable"
+      ],
+      "placeIds": [],
+      "eventIds": [
+        "event-a7b-tentation-desert"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-tentation-desert-interaction-person-a7b-diable-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-event-1ltxhci",
+      "relationId": "derived-relation-same-event-1ltxhci",
+      "relationLevel": "same-event",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-diable"
+      ],
+      "placeIds": [],
+      "eventIds": [
+        "event-a7b-tentation-desert"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-tentation-desert-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-tentation-desert-participation-person-a7b-diable"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-event-wz6r1y",
+      "relationId": "derived-relation-same-event-wz6r1y",
+      "relationLevel": "same-event",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "placeIds": [],
+      "eventIds": [
+        "event-a7b-jean-presente-jesus"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-jean-presente-jesus-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-jean-presente-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-place-1w4qejk",
+      "relationId": "derived-relation-same-place-1w4qejk",
+      "relationLevel": "same-place",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-diable"
+      ],
+      "placeIds": [
+        "place-a7b-judean-wilderness"
+      ],
+      "eventIds": [
+        "event-a7b-tentation-desert"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-tentation-desert-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+        "claim-event-a7b-tentation-desert-presence-person-a7b-diable-place-a7b-judean-wilderness"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-place-trogpq",
+      "relationId": "derived-relation-same-place-trogpq",
+      "relationLevel": "same-place",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "placeIds": [
+        "place-a7b-bethany-beyond-jordan"
+      ],
+      "eventIds": [
+        "event-a7b-jean-presente-jesus"
+      ],
+      "startIndex": 28,
+      "endIndex": 28,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-event-a7b-jean-presente-jesus-presence-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+        "claim-event-a7b-jean-presente-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-documented-interaction-1eyxg5e",
+      "relationId": "derived-relation-documented-interaction-1eyxg5e",
+      "relationLevel": "documented-interaction",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-nicodeme"
+      ],
+      "placeIds": [],
+      "eventIds": [
+        "event-a7b-entretien-nicodeme"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7b-nicodeme"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-event-1bfuk5n",
+      "relationId": "derived-relation-same-event-1bfuk5n",
+      "relationLevel": "same-event",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "placeIds": [],
+      "eventIds": [
+        "event-a7b-emprisonnement-jean"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-emprisonnement-jean-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-emprisonnement-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-event-iqp4e8",
+      "relationId": "derived-relation-same-event-iqp4e8",
+      "relationLevel": "same-event",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-nicodeme"
+      ],
+      "placeIds": [],
+      "eventIds": [
+        "event-a7b-entretien-nicodeme"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-entretien-nicodeme-participation-person-a7b-nicodeme"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-event-kft4sm",
+      "relationId": "derived-relation-same-event-kft4sm",
+      "relationLevel": "same-event",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "placeIds": [],
+      "eventIds": [
+        "event-a7b-ministere-judeen"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-ministere-judeen-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-ministere-judeen-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-place-41j03i",
+      "relationId": "derived-relation-same-place-41j03i",
+      "relationLevel": "same-place",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-nicodeme"
+      ],
+      "placeIds": [
+        "jerusalem"
+      ],
+      "eventIds": [
+        "event-a7b-entretien-nicodeme",
+        "event-a7b-purification-temple"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem",
+        "claim-event-a7b-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-same-place-65m5iv",
+      "relationId": "derived-relation-same-place-65m5iv",
+      "relationLevel": "same-place",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-nicodeme"
+      ],
+      "placeIds": [
+        "jerusalem"
+      ],
+      "eventIds": [
+        "event-a7b-entretien-nicodeme"
+      ],
+      "startIndex": 29,
+      "endIndex": 29,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+        "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem"
+      ]
+    }
+  ],
   "relationIdsBySubject": {
     "event-jean-le-baptiseur-dvgl2c": [
       "derived-relation-same-event-1bfuk5n",
