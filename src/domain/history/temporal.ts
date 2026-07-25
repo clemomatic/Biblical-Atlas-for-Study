@@ -273,6 +273,24 @@ export function getTemporalInterval(
   };
 }
 
+export function validateTemporalSpan(span: TemporalSpan): void {
+  if (span.start) validateTemporalBoundary(span.start);
+  if (span.end) validateTemporalBoundary(span.end);
+
+  const interval = getTemporalInterval(span, {
+    includeUncertainty: false
+  });
+  if (
+    interval.yearMin !== undefined &&
+    interval.yearMax !== undefined &&
+    compareHistoricalYears(interval.yearMin, interval.yearMax) > 0
+  ) {
+    throw new RangeError(
+      'La borne de début de la période doit précéder ou égaler sa borne de fin.'
+    );
+  }
+}
+
 const intervalsIntersect = (
   left: TemporalInterval,
   right: TemporalInterval

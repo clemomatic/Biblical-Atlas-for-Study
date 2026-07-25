@@ -1,0 +1,14 @@
+[
+  {
+    "id": "staging-test-record-001",
+    "entityType": "claim",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-test-fictive-001"
+    ],
+    "extractionNotes": "Donnée fictive non relue ; elle ne doit jamais participer à la génération.",
+    "payload": {
+      "statement": "Exemple volontairement isolé du corpus réel."
+    }
+  }
+]

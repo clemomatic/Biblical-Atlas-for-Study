@@ -1,0 +1,18 @@
+[
+  {
+    "id": "source-test-fictive-001",
+    "title": "Source fictive pour les tests automatisés",
+    "publication": "Jeu de validation interne — aucune valeur historique",
+    "chapterOrAppendix": "Scénario de test",
+    "pageOrSection": "Cas A",
+    "url": "https://example.invalid/historical-test-fixture",
+    "documentType": "dataset",
+    "language": "fr",
+    "accessedAt": "2026-07-25",
+    "notes": "Entrée entièrement fictive, réservée aux tests de la chaîne de validation.",
+    "factualDataUseAllowed": true,
+    "longTextReproductionAllowed": false,
+    "imageReproductionAllowed": false,
+    "verificationStatus": "verified"
+  }
+]

@@ -1,0 +1,103 @@
+[
+  {
+    "id": "claim-test-presence-alpha",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-test-alpha"
+    },
+    "predicate": "presence",
+    "placeId": "place-test-alpha",
+    "eventId": "event-test-rencontre",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "5 av. n. è. — date fictive"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-test-fictive-001",
+        "shortReference": "Référence fictive, cas A.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-test-presence-beta",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-test-beta"
+    },
+    "predicate": "presence",
+    "placeId": "place-test-alpha",
+    "eventId": "event-test-rencontre",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "5 av. n. è. — date fictive"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-test-fictive-001",
+        "shortReference": "Référence fictive, cas A.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-test-participation-calculee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-test-alpha"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-test-rencontre"
+    },
+    "eventId": "event-test-rencontre",
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-test-fictive-001",
+        "shortReference": "Calcul fictif fondé sur les deux présences de test.",
+        "method": "calculated",
+        "inputClaimIds": [
+          "claim-test-presence-alpha",
+          "claim-test-presence-beta"
+        ],
+        "calculationExplanation": "La présence simultanée fictive sert uniquement à vérifier les dépendances entre claims.",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]
