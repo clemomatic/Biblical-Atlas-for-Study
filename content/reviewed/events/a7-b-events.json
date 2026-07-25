@@ -1,0 +1,575 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-bapteme-jesus",
+      "name": "Baptême et onction de Jésus",
+      "period": {
+        "start": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Automne 29 de n. è."
+      },
+      "sourceOrder": 1,
+      "category": "Événements Marquants",
+      "description": "Jésus est baptisé et reçoit l’onction ; le récit rapporte l’approbation de Dieu.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jourdain",
+          "placeId": "jordan_river",
+          "granularity": "area",
+          "certainty": "certain"
+        },
+        {
+          "label": "Béthanie de l’autre côté du Jourdain ou proximité",
+          "placeId": "place-a7b-bethany-beyond-jordan",
+          "granularity": "area",
+          "certainty": "possible"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Jéhovah",
+          "certainty": "certain",
+          "notes": "Mention explicite conservée sans forcer une entité BiblicalPerson."
+        }
+      ],
+      "notes": "Le lieu général du Jourdain est distingué du site précis, seulement possible.",
+      "biblicalReferences": [
+        "Matthieu 3:13-17",
+        "Marc 1:9-11",
+        "Luc 3:21-38"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-bapteme-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-bapteme-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-tentation-desert",
+      "name": "Tentation de Jésus dans le désert",
+      "period": {
+        "start": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Automne 29 de n. è."
+      },
+      "sourceOrder": 2,
+      "category": "Événements Marquants",
+      "description": "Jésus est tenté par le Diable dans le désert de Judée.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Désert de Judée",
+          "placeId": "place-a7b-judean-wilderness",
+          "granularity": "area",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "le Diable",
+          "personId": "person-a7b-diable",
+          "certainty": "certain"
+        }
+      ],
+      "biblicalReferences": [
+        "Matthieu 4:1-11",
+        "Marc 1:12-13",
+        "Luc 4:1-13"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-tentation-desert-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-tentation-desert-participation-person-a7b-diable",
+        "claim-event-a7b-tentation-desert-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+        "claim-event-a7b-tentation-desert-presence-person-a7b-diable-place-a7b-judean-wilderness",
+        "claim-event-a7b-tentation-desert-interaction-person-a7b-diable-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-jean-presente-jesus",
+      "name": "Jean présente Jésus comme l’Agneau de Dieu",
+      "period": {
+        "start": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Automne 29 de n. è."
+      },
+      "sourceOrder": 3,
+      "category": "Événements Marquants",
+      "description": "Jean présente Jésus comme l’Agneau de Dieu et les premiers disciples commencent à le suivre.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Béthanie de l’autre côté du Jourdain",
+          "placeId": "place-a7b-bethany-beyond-jordan",
+          "granularity": "area",
+          "certainty": "possible"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Jean le Baptiseur",
+          "personId": "event-jean-le-baptiseur-dvgl2c",
+          "certainty": "certain"
+        },
+        {
+          "label": "premiers disciples de Jésus",
+          "certainty": "certain",
+          "notes": "Groupe non transformé en personnes nommées par cet import."
+        }
+      ],
+      "biblicalReferences": [
+        "Jean 1:15",
+        "Jean 1:19-51"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-jean-presente-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-jean-presente-jesus-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-jean-presente-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan",
+        "claim-event-a7b-jean-presente-jesus-presence-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-premier-miracle-cana",
+      "name": "Premier miracle de Jésus à Cana",
+      "period": {
+        "start": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "season": "autumn",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Automne 29 de n. è."
+      },
+      "sourceOrder": 4,
+      "category": "Événements Marquants",
+      "description": "Jésus change de l’eau en vin lors d’un mariage à Cana, puis gagne Capharnaüm.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Cana en Galilée",
+          "placeId": "obi-cana",
+          "granularity": "point",
+          "certainty": "probable"
+        },
+        {
+          "label": "Capharnaüm",
+          "placeId": "capernaum",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "biblicalReferences": [
+        "Jean 2:1-12"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-premier-miracle-cana-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana",
+        "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-purification-temple",
+      "name": "Jésus purifie le Temple",
+      "period": {
+        "start": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Pâque 30 de n. è."
+      },
+      "sourceOrder": 5,
+      "category": "Événements Marquants",
+      "description": "À Jérusalem, Jésus fait cesser les activités commerciales dans le Temple.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "biblicalReferences": [
+        "Jean 2:13-25"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-purification-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-entretien-nicodeme",
+      "name": "Entretien de Jésus avec Nicodème",
+      "period": {
+        "start": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Pâque 30 de n. è."
+      },
+      "sourceOrder": 6,
+      "category": "Événements Marquants",
+      "description": "Jésus s’entretient avec Nicodème à Jérusalem.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Nicodème",
+          "personId": "person-a7b-nicodeme",
+          "certainty": "certain"
+        }
+      ],
+      "biblicalReferences": [
+        "Jean 3:1-21"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-entretien-nicodeme-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-entretien-nicodeme-participation-person-a7b-nicodeme",
+        "claim-event-a7b-entretien-nicodeme-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+        "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem",
+        "claim-event-a7b-entretien-nicodeme-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7b-nicodeme"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-ministere-judeen",
+      "name": "Activité en Judée et témoignage de Jean",
+      "period": {
+        "start": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Pâque 30 de n. è."
+      },
+      "sourceOrder": 7,
+      "category": "Événements Marquants",
+      "description": "Jésus se rend dans la campagne judéenne ; ses disciples baptisent et Jean rend un dernier témoignage à son sujet.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Judée",
+          "granularity": "region",
+          "certainty": "certain"
+        },
+        {
+          "label": "Énôn",
+          "placeId": "obi-aenon",
+          "granularity": "point",
+          "certainty": "possible"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Jean le Baptiseur",
+          "personId": "event-jean-le-baptiseur-dvgl2c",
+          "certainty": "certain"
+        },
+        {
+          "label": "disciples de Jésus",
+          "certainty": "certain",
+          "notes": "Groupe non transformé en personnes nommées par cet import."
+        }
+      ],
+      "biblicalReferences": [
+        "Jean 3:22-36"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-ministere-judeen-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-ministere-judeen-participation-event-jean-le-baptiseur-dvgl2c"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-emprisonnement-jean",
+      "name": "Emprisonnement de Jean et départ de Jésus",
+      "period": {
+        "start": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Pâque 30 de n. è."
+      },
+      "sourceOrder": 8,
+      "category": "Événements Marquants",
+      "description": "Jean est emprisonné et Jésus quitte la Judée en direction de la Galilée.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Tibériade",
+          "placeId": "obi-tiberias",
+          "granularity": "point",
+          "certainty": "certain"
+        },
+        {
+          "label": "Judée",
+          "granularity": "region",
+          "certainty": "certain"
+        },
+        {
+          "label": "Galilée",
+          "granularity": "region",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jean le Baptiseur",
+          "personId": "event-jean-le-baptiseur-dvgl2c",
+          "certainty": "certain"
+        },
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "biblicalReferences": [
+        "Matthieu 4:12",
+        "Matthieu 14:3-5",
+        "Marc 6:17-20",
+        "Luc 3:19-20",
+        "Jean 4:1-3"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-emprisonnement-jean-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7b-emprisonnement-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
+    "event": {
+      "id": "event-a7b-enseignement-sychar",
+      "name": "Jésus enseigne à Sychar",
+      "period": {
+        "start": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 30,
+          "yearMax": 30,
+          "season": "spring",
+          "precision": "season",
+          "certainty": "certain"
+        },
+        "displayLabel": "Pâque 30 de n. è."
+      },
+      "sourceOrder": 9,
+      "category": "Événements Marquants",
+      "description": "En traversant la Samarie, Jésus enseigne à Sychar avant de poursuivre vers la Galilée.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Sychar",
+          "placeId": "obi-sychar",
+          "granularity": "point",
+          "certainty": "probable"
+        },
+        {
+          "label": "Samarie",
+          "granularity": "region",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Samaritains",
+          "certainty": "certain",
+          "notes": "Groupe non transformé en personnes nommées par cet import."
+        }
+      ],
+      "biblicalReferences": [
+        "Jean 4:4-43"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7b-enseignement-sychar-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7b-enseignement-sychar-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar"
+      ]
+    }
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": ["source-nwtsty-a7-b"],
+    "place": {
+      "id": "place-a7b-bethany-beyond-jordan",
+      "name": "Béthanie de l’autre côté du Jourdain",
+      "regionIds": ["region-east-of-jordan"],
+      "certainty": "possible",
+      "notes": "Le nom est cité dans A7-B, mais aucune coordonnée ponctuelle n’est ajoutée sans validation cartographique."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": ["source-nwtsty-a7-b"],
+    "place": {
+      "id": "place-a7b-judean-wilderness",
+      "name": "Désert de Judée",
+      "regionIds": ["region-judea"],
+      "certainty": "certain",
+      "notes": "Zone géographique citée dans A7-B ; aucune coordonnée ponctuelle n’est inventée."
+    }
+  }
+]

@@ -256,6 +256,11 @@ const DOCUMENTARY_REFERENCE_TARGETS: {
     matches: reference => /appendice\s+B3\b/i.test(reference),
     documentId: '1001070223',
     kind: 'appendix'
+  },
+  {
+    matches: reference => /appendice\s+A7-B\b/i.test(reference),
+    documentId: '1001070208',
+    kind: 'appendix'
   }
 ];
 

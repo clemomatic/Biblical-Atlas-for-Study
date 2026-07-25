@@ -1,0 +1,354 @@
+[
+  {
+    "id": "presence-event-a7b-bapteme-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jordan_river",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7b-bapteme-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-bapteme-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-enseignement-sychar-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-sychar",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7b-enseignement-sychar"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-enseignement-sychar-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-entretien-nicodeme-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7b-entretien-nicodeme"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-entretien-nicodeme-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-entretien-nicodeme-person-a7b-nicodeme-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7b-nicodeme",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7b-entretien-nicodeme"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-entretien-nicodeme-presence-person-a7b-nicodeme-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-jean-presente-jesus-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jean-le-baptiseur-dvgl2c",
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7b-jean-presente-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-jean-presente-jesus-presence-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-jean-presente-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7b-jean-presente-jesus"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-jean-presente-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7b-premier-miracle-cana"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-cana",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7b-premier-miracle-cana"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-premier-miracle-cana-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "season": "spring",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Pâque 30 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7b-purification-temple"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-purification-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-tentation-desert-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "place-a7b-judean-wilderness",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "presenceType": "traveler",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7b-tentation-desert"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-tentation-desert-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness"
+    ]
+  },
+  {
+    "id": "presence-event-a7b-tentation-desert-person-a7b-diable-place-a7b-judean-wilderness",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7b-diable",
+    "placeId": "place-a7b-judean-wilderness",
+    "period": {
+      "start": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 29,
+        "yearMax": 29,
+        "season": "autumn",
+        "precision": "season",
+        "certainty": "certain"
+      },
+      "displayLabel": "Automne 29 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7b-tentation-desert"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7b-tentation-desert-presence-person-a7b-diable-place-a7b-judean-wilderness"
+    ]
+  }
+]

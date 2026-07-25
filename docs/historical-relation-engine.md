@@ -30,6 +30,11 @@ Une relation `same-region` ne devient pas une relation `same-place`. Le moteur u
 
 Une simple association générale entre une personne et un lieu n’est pas utilisée pour produire une coprésence. Seuls les `PresenceEpisode` validés, datés et justifiés participent à ce calcul.
 
+Deux présences au même lieu mais rattachées à des événements différents ne
+produisent au maximum qu’une relation `possible`, même si elles partagent une
+même période éditoriale. Une relation certaine exige une preuve commune plus
+précise, par exemple le même événement explicitement documenté.
+
 Une participation commune à un événement produit `same-event`, mais pas automatiquement `documented-interaction`. Ce dernier niveau exige sa propre affirmation directe.
 
 ## Périodes et certitude

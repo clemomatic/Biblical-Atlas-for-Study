@@ -12,7 +12,9 @@ import { EVENTS } from './timelineEvents';
 export const MIGRATED_PERSON_IDS = [
   'event-adam-2peny4',
   'event-abraham-mdcznq',
-  'event-david-iixp36'
+  'event-david-iixp36',
+  'event-jesus-en-tant-qu-humain-1f4ceyz',
+  'event-jean-le-baptiseur-dvgl2c'
 ] as const;
 
 const requireLegacyPerson = (id: string) => {

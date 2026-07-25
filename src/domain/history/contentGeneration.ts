@@ -178,7 +178,9 @@ const createTemporalRelation = (
     | 'supportingClaimIds'
     | 'generatedFromIds'
     | 'temporalOverlap'
-  >
+  > & {
+    forcePossible?: boolean;
+  }
 ): DerivedHistoricalRelation | undefined => {
   if (
     first.personId === second.personId ||
@@ -192,7 +194,7 @@ const createTemporalRelation = (
 
   const certainty = combineCertainty(
     [first.certainty, second.certainty],
-    overlap === 'possible'
+    overlap === 'possible' || input.forcePossible === true
   );
   return createRelation({
     ...input,
@@ -354,6 +356,9 @@ const generatePresenceRelations = (
             (regionsByPlace.get(second.placeId) ?? []).includes(regionId)
           );
       if (!samePlace && sharedRegions.length === 0) continue;
+      const sharedEventIds = (first.associatedEventIds ?? []).filter(eventId =>
+        (second.associatedEventIds ?? []).includes(eventId)
+      );
 
       const relation = createTemporalRelation(
         {
@@ -374,6 +379,7 @@ const generatePresenceRelations = (
           relationLevel: samePlace ? 'same-place' : 'same-region',
           placeIds: samePlace ? [first.placeId] : [first.placeId, second.placeId],
           regionIds: sharedRegions,
+          forcePossible: sharedEventIds.length === 0,
           eventIds: uniqueSorted([
             ...(first.associatedEventIds ?? []),
             ...(second.associatedEventIds ?? [])

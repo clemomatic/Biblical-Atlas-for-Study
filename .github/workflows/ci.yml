@@ -41,9 +41,13 @@ jobs:
       - name: Valider les données historiques relues
         run: pnpm run historical:validate
 
+      - name: Vérifier la promotion du staging A7-B
+        run: pnpm run historical:promote -- --verify-output
+
       - name: Vérifier les données historiques générées
         run: |
           pnpm run historical:generate
+          pnpm run historical:report:a7b -- --write
           git diff --exit-code -- content/generated
 
       - name: Vérifier la compatibilité historique

@@ -1,0 +1,117 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": ["source-nwtsty-a7-b"],
+    "person": {
+      "id": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "name": "Jésus",
+      "alternateNames": ["Jésus Christ"],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7b-bapteme-jesus",
+        "event-a7b-tentation-desert",
+        "event-a7b-jean-presente-jesus",
+        "event-a7b-premier-miracle-cana",
+        "event-a7b-purification-temple",
+        "event-a7b-entretien-nicodeme",
+        "event-a7b-ministere-judeen",
+        "event-a7b-emprisonnement-jean",
+        "event-a7b-enseignement-sychar"
+      ],
+      "associatedLocationIds": [
+        "jordan_river",
+        "place-a7b-judean-wilderness",
+        "place-a7b-bethany-beyond-jordan",
+        "obi-cana",
+        "capernaum",
+        "jerusalem",
+        "obi-sychar"
+      ],
+      "biblicalReferences": [
+        "Matthieu 3:13-17",
+        "Jean 1:19-51",
+        "Jean 2:1-25",
+        "Jean 3:1-36",
+        "Jean 4:1-43"
+      ],
+      "certainty": "certain",
+      "notes": "Fiche de liaison A7-B ; aucune nouvelle date de vie n’est ajoutée.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": ["source-nwtsty-a7-b"],
+    "person": {
+      "id": "event-jean-le-baptiseur-dvgl2c",
+      "name": "Jean le Baptiseur",
+      "alternateNames": ["Jean le Baptiste"],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7b-jean-presente-jesus",
+        "event-a7b-ministere-judeen",
+        "event-a7b-emprisonnement-jean"
+      ],
+      "associatedLocationIds": [
+        "place-a7b-bethany-beyond-jordan"
+      ],
+      "biblicalReferences": [
+        "Jean 1:15",
+        "Jean 1:19-51",
+        "Jean 3:22-36",
+        "Matthieu 14:3-5"
+      ],
+      "certainty": "certain",
+      "notes": "Fiche de liaison A7-B ; aucune nouvelle date de vie n’est ajoutée.",
+      "lastVerified": "2026-07-25",
+      "legacyEventId": "event-jean-le-baptiseur-dvgl2c"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": ["source-nwtsty-a7-b"],
+    "person": {
+      "id": "person-a7b-diable",
+      "name": "le Diable",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7b-tentation-desert"
+      ],
+      "associatedLocationIds": [
+        "place-a7b-judean-wilderness"
+      ],
+      "biblicalReferences": [
+        "Matthieu 4:1-11",
+        "Marc 1:12-13",
+        "Luc 4:1-13"
+      ],
+      "certainty": "certain",
+      "notes": "Entité créée uniquement parce qu’elle est explicitement mentionnée dans la ligne A7-B concernée.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": ["source-nwtsty-a7-b"],
+    "person": {
+      "id": "person-a7b-nicodeme",
+      "name": "Nicodème",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7b-entretien-nicodeme"
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Jean 3:1-21"
+      ],
+      "certainty": "certain",
+      "notes": "Entité créée uniquement parce qu’elle est explicitement mentionnée dans la ligne A7-B concernée.",
+      "lastVerified": "2026-07-25"
+    }
+  }
+]

@@ -142,10 +142,37 @@ export interface ReviewedEventRecord {
     id: string;
     name: string;
     period?: TemporalSpan;
+    sourceOrder?: number;
+    category?: string;
+    description?: string;
+    biblicalReferences?: string[];
     certainty?: CertaintyLevel;
     supportingClaimIds?: string[];
+    placeMentions?: HistoricalPlaceMention[];
+    participantMentions?: HistoricalParticipantMention[];
     notes?: string;
   };
+}
+
+export type HistoricalPlaceGranularity =
+  | 'point'
+  | 'area'
+  | 'region'
+  | 'route';
+
+export interface HistoricalPlaceMention {
+  label: string;
+  placeId?: string;
+  granularity: HistoricalPlaceGranularity;
+  certainty: CertaintyLevel;
+  notes?: string;
+}
+
+export interface HistoricalParticipantMention {
+  label: string;
+  personId?: string;
+  certainty: CertaintyLevel;
+  notes?: string;
 }
 
 export interface ReviewedPlaceRecord {
@@ -156,8 +183,53 @@ export interface ReviewedPlaceRecord {
     name: string;
     /** IDs géographiques explicites ; aucune région n’est déduite du nom. */
     regionIds?: string[];
+    certainty?: CertaintyLevel;
     notes?: string;
   };
+}
+
+export interface StagingReviewDecision {
+  status: 'pending' | 'reviewed' | 'rejected';
+  reviewedAt?: string;
+  sourceReference?: string;
+  entityIdsVerified?: boolean;
+}
+
+export interface StagingParticipationCandidate {
+  personId: string;
+  certainty: CertaintyLevel;
+}
+
+export interface StagingPresenceCandidate {
+  personId: string;
+  placeId: string;
+  presenceType: PresenceType;
+  certainty: CertaintyLevel;
+}
+
+export interface StagingInteractionCandidate {
+  subjectId: string;
+  objectPersonId: string;
+  certainty: CertaintyLevel;
+}
+
+export interface StagingEventCandidate {
+  event: Omit<ReviewedEventRecord['event'], 'supportingClaimIds'>;
+  participations: StagingParticipationCandidate[];
+  presences: StagingPresenceCandidate[];
+  interactions?: StagingInteractionCandidate[];
+}
+
+export interface StagingEventPayload {
+  dateText: string;
+  placeText: string;
+  eventText: string;
+  biblicalReferences: string[];
+  certainty: CertaintyLevel;
+  period: TemporalSpan;
+  review: StagingReviewDecision;
+  candidate?: StagingEventCandidate;
+  unresolvedItems?: string[];
 }
 
 export interface StagingHistoricalRecord {

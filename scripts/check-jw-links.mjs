@@ -35,6 +35,29 @@ for (const file of dataFiles) {
   }
 }
 
+const reviewedEventsDirectory = path.join(
+  root,
+  'content',
+  'reviewed',
+  'events'
+);
+const reviewedEventFiles = fs
+  .readdirSync(reviewedEventsDirectory, {
+    recursive: true,
+    withFileTypes: true
+  })
+  .filter(entry => entry.isFile() && entry.name.endsWith('.json'))
+  .map(entry => path.join(entry.parentPath, entry.name));
+
+for (const file of reviewedEventFiles) {
+  const records = JSON.parse(fs.readFileSync(file, 'utf8'));
+  for (const record of records) {
+    for (const reference of record.event?.biblicalReferences ?? []) {
+      references.add(reference);
+    }
+  }
+}
+
 const unresolved = [...references].filter(
   reference => !utility.getBibleReferenceTarget(reference)
 );
@@ -53,7 +76,8 @@ const requiredDocumentaryReferences = [
   'Voyez le bon pays, « Le monde des patriarches », p. 6-7',
   'Carte « La Terre promise », grille D10',
   'Bible d’étude, appendice B2 « La Genèse et les voyages des patriarches »',
-  'Bible d’étude, appendice B3 « L’Exode »'
+  'Bible d’étude, appendice B3 « L’Exode »',
+  'Bible d’étude, appendice A7-B « Début du ministère de Jésus »'
 ];
 
 const unresolvedDocuments = requiredDocumentaryReferences.filter(

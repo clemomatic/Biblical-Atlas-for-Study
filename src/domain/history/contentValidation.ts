@@ -91,6 +91,13 @@ const VALID_PRESENCE_TYPES = new Set([
   'possible-presence'
 ]);
 
+const VALID_PLACE_GRANULARITIES = new Set([
+  'point',
+  'area',
+  'region',
+  'route'
+]);
+
 const VALID_RELATION_LEVELS = new Set([
   'lifespan-overlap',
   'activity-overlap',
@@ -314,6 +321,15 @@ export function validateHistoricalDataset(
         });
       }
     });
+    if (
+      record.place.certainty !== undefined &&
+      !VALID_CERTAINTY_LEVELS.has(record.place.certainty)
+    ) {
+      issues.push({
+        path: `${path}.place.certainty`,
+        message: `Degré de certitude inconnu : ${record.place.certainty}.`
+      });
+    }
   });
 
   dataset.events.forEach((record, index) => {
@@ -328,6 +344,81 @@ export function validateHistoricalDataset(
     }
     validateSourceIds(record.sourceIds, `${path}.sourceIds`);
     validateSpanAt(record.event.period, `${path}.event.period`, issues);
+    if (
+      record.event.sourceOrder !== undefined &&
+      (!Number.isInteger(record.event.sourceOrder) ||
+        record.event.sourceOrder < 1)
+    ) {
+      issues.push({
+        path: `${path}.event.sourceOrder`,
+        message: 'L’ordre dans la source doit être un entier positif.'
+      });
+    }
+    if (
+      record.event.certainty !== undefined &&
+      !VALID_CERTAINTY_LEVELS.has(record.event.certainty)
+    ) {
+      issues.push({
+        path: `${path}.event.certainty`,
+        message: `Degré de certitude inconnu : ${record.event.certainty}.`
+      });
+    }
+    record.event.biblicalReferences?.forEach((reference, referenceIndex) => {
+      if (!reference.trim()) {
+        issues.push({
+          path: `${path}.event.biblicalReferences[${referenceIndex}]`,
+          message: 'Une référence biblique ne peut pas être vide.'
+        });
+      }
+    });
+    record.event.placeMentions?.forEach((mention, mentionIndex) => {
+      const mentionPath = `${path}.event.placeMentions[${mentionIndex}]`;
+      if (!mention.label?.trim()) {
+        issues.push({
+          path: `${mentionPath}.label`,
+          message: 'Le libellé du lieu est obligatoire.'
+        });
+      }
+      if (!VALID_PLACE_GRANULARITIES.has(mention.granularity)) {
+        issues.push({
+          path: `${mentionPath}.granularity`,
+          message: `Granularité géographique inconnue : ${mention.granularity}.`
+        });
+      }
+      if (!VALID_CERTAINTY_LEVELS.has(mention.certainty)) {
+        issues.push({
+          path: `${mentionPath}.certainty`,
+          message: `Degré de certitude inconnu : ${mention.certainty}.`
+        });
+      }
+      if (mention.placeId && !placeIds.has(mention.placeId)) {
+        issues.push({
+          path: `${mentionPath}.placeId`,
+          message: `Lieu inexistant : ${mention.placeId}.`
+        });
+      }
+    });
+    record.event.participantMentions?.forEach((mention, mentionIndex) => {
+      const mentionPath = `${path}.event.participantMentions[${mentionIndex}]`;
+      if (!mention.label?.trim()) {
+        issues.push({
+          path: `${mentionPath}.label`,
+          message: 'Le libellé du participant est obligatoire.'
+        });
+      }
+      if (!VALID_CERTAINTY_LEVELS.has(mention.certainty)) {
+        issues.push({
+          path: `${mentionPath}.certainty`,
+          message: `Degré de certitude inconnu : ${mention.certainty}.`
+        });
+      }
+      if (mention.personId && !personIds.has(mention.personId)) {
+        issues.push({
+          path: `${mentionPath}.personId`,
+          message: `Personnage inexistant : ${mention.personId}.`
+        });
+      }
+    });
   });
 
   const validateRelatedIds = (

@@ -57,6 +57,34 @@ utilisé par `historical:generate`. Un fichier de `staging` marqué `reviewed` o
 Les longs extraits et images de publications ne doivent pas être déposés dans le
 dépôt. Une courte indication permettant de retrouver le passage suffit.
 
+### Promotion explicite d’un fichier staging
+
+La promotion n’est jamais automatique. Un fichier peut être contrôlé sans
+écriture :
+
+```bash
+pnpm historical:promote -- --file content/staging/a7-b-debut-ministere.json
+```
+
+L’option `--write` est nécessaire pour produire les fichiers `events`, `claims`
+et `presences` dans `content/reviewed/`. La commande refuse une ligne relue si
+elle ne possède pas :
+
+- une source existante et relue ;
+- une référence précise ;
+- un degré de certitude ;
+- une période valide ;
+- une date de relecture ;
+- la confirmation explicite que les identifiants ont été vérifiés.
+
+Une ligne dont le statut de relecture reste `pending` est ignorée. Une fois les
+sorties versionnées, l’option `--verify-output` vérifie qu’elles correspondent
+toujours exactement au staging :
+
+```bash
+pnpm historical:promote -- --verify-output
+```
+
 ### 2. Relecture dans `reviewed`
 
 La relecture consiste à :
@@ -191,7 +219,9 @@ Une association générale entre une personne et un lieu ne suffit pas à créer
 
 ```bash
 pnpm historical:validate
+pnpm historical:promote -- --verify-output
 pnpm historical:generate
+pnpm historical:report:a7b
 pnpm test
 pnpm check
 ```

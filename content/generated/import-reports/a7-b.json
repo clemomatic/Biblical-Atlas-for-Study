@@ -1,0 +1,98 @@
+{
+  "sourceId": "source-nwtsty-a7-b",
+  "sourceTitle": "Principaux évènements de la vie terrestre de Jésus : début du ministère de Jésus",
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "counts": {
+    "events": 9,
+    "people": 4,
+    "places": 12,
+    "placesWithStableIds": 9,
+    "mapReadyPlaces": 7,
+    "claims": 27,
+    "presences": 11,
+    "derivedRelations": 11,
+    "stagingRecords": 9,
+    "reviewedStagingRecords": 9,
+    "pendingStagingRecords": 0,
+    "unresolvedItems": 6
+  },
+  "eventIds": [
+    "event-a7b-bapteme-jesus",
+    "event-a7b-emprisonnement-jean",
+    "event-a7b-enseignement-sychar",
+    "event-a7b-entretien-nicodeme",
+    "event-a7b-jean-presente-jesus",
+    "event-a7b-ministere-judeen",
+    "event-a7b-premier-miracle-cana",
+    "event-a7b-purification-temple",
+    "event-a7b-tentation-desert"
+  ],
+  "personIds": [
+    "event-jean-le-baptiseur-dvgl2c",
+    "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "person-a7b-diable",
+    "person-a7b-nicodeme"
+  ],
+  "placeKeys": [
+    "capernaum",
+    "jerusalem",
+    "jordan_river",
+    "label:Galilée",
+    "label:Judée",
+    "label:Samarie",
+    "obi-aenon",
+    "obi-cana",
+    "obi-sychar",
+    "obi-tiberias",
+    "place-a7b-bethany-beyond-jordan",
+    "place-a7b-judean-wilderness"
+  ],
+  "mapReadyPlaceIds": [
+    "capernaum",
+    "jerusalem",
+    "jordan_river",
+    "obi-aenon",
+    "obi-cana",
+    "obi-sychar",
+    "obi-tiberias"
+  ],
+  "relationIds": [
+    "derived-relation-documented-interaction-1eyxg5e",
+    "derived-relation-documented-interaction-qrg3r8",
+    "derived-relation-same-event-1bfuk5n",
+    "derived-relation-same-event-1ltxhci",
+    "derived-relation-same-event-iqp4e8",
+    "derived-relation-same-event-kft4sm",
+    "derived-relation-same-event-wz6r1y",
+    "derived-relation-same-place-1w4qejk",
+    "derived-relation-same-place-41j03i",
+    "derived-relation-same-place-65m5iv",
+    "derived-relation-same-place-trogpq"
+  ],
+  "unresolvedItems": [
+    {
+      "recordId": "staging-a7b-01-bapteme",
+      "note": "Le site ponctuel exact près de Béthanie de l’autre côté du Jourdain n’est pas fixé par la source."
+    },
+    {
+      "recordId": "staging-a7b-01-bapteme",
+      "note": "Jéhovah est explicitement mentionné, mais le modèle BiblicalPerson n’est pas adapté à cette entité."
+    },
+    {
+      "recordId": "staging-a7b-02-tentation",
+      "note": "La source nomme une zone désertique et ne fournit pas de site ponctuel à placer sur Leaflet."
+    },
+    {
+      "recordId": "staging-a7b-03-premiers-disciples",
+      "note": "Le nom biblique est certain dans le tableau, mais son point cartographique précis reste à vérifier."
+    },
+    {
+      "recordId": "staging-a7b-07-jude-enon",
+      "note": "La cellule associe Judée et Énôn à une ligne composée ; aucune présence individuelle ponctuelle n’est générée sans attribution explicite."
+    },
+    {
+      "recordId": "staging-a7b-08-emprisonnement",
+      "note": "Le tableau réunit Tibériade et Judée avec deux actions ; aucune présence individuelle ponctuelle n’est générée sans attribution explicite."
+    }
+  ]
+}
