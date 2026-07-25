@@ -83,13 +83,34 @@ test('construit le parcours A7-B depuis les index générés', async () => {
     ).length,
     11
   );
-  assert.equal(snapshot.peopleLiving.length, 0);
+  assert.ok(
+    snapshot.peopleLiving.some(
+      person =>
+        person.personId === 'event-jesus-en-tant-qu-humain-1f4ceyz'
+    )
+  );
+  assert.ok(
+    snapshot.peopleLiving.some(
+      person => person.personId === 'event-jean-le-baptiseur-dvgl2c'
+    )
+  );
   assert.ok(
     snapshot.peopleActive.some(
       person =>
         person.personId ===
           'event-jesus-en-tant-qu-humain-1f4ceyz' &&
         person.activityType === 'ministry'
+    )
+  );
+});
+
+test('une barre collective WCG ne fabrique pas une personne vivante', async () => {
+  const { catalog } = await loadPilotCatalog();
+  const snapshot = buildHistoricalSnapshot(catalog, exactPeriod(-1200, -1200));
+
+  assert.ok(
+    !snapshot.peopleLiving.some(
+      person => person.personId === 'person-wcg-ruth'
     )
   );
 });

@@ -1,4 +1,5 @@
 import historicalIndexJson from '../../content/generated/historical-index.json';
+import personLifeResolutionsJson from '../../content/generated/person-life-resolutions.json';
 import relationsJson from '../../content/generated/relations.json';
 import sourceCatalogJson from '../../content/sources/source-catalog.json';
 import type {
@@ -11,6 +12,7 @@ import type {
   ReviewedTerritoryRecord,
   SourceCatalogEntry
 } from '../domain/history/contentTypes';
+import type { PersonLifeResolution } from '../domain/history/personClaimResolution';
 import type { HistoricalIndexBundle } from '../domain/history/historicalIndex';
 import {
   createHistoricalSnapshotCatalog,
@@ -74,6 +76,8 @@ export const DERIVED_HISTORICAL_RELATIONS =
   relationsJson as unknown as DerivedHistoricalRelation[];
 export const HISTORICAL_INDEX =
   historicalIndexJson as unknown as HistoricalIndexBundle;
+export const PERSON_LIFE_RESOLUTIONS =
+  personLifeResolutionsJson as unknown as PersonLifeResolution[];
 
 const mergedHistoricalPeople = mergeReviewedPeople(
   BIBLICAL_PEOPLE,

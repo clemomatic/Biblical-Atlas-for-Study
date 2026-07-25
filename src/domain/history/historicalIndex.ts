@@ -4,6 +4,7 @@ import {
   historicalYearToTimelineIndex
 } from './temporal.ts';
 import {
+  conservativeLifespanSpan,
   getDeterministicGenerationTimestamp
 } from './contentGeneration.ts';
 import type {
@@ -135,7 +136,9 @@ export function buildHistoricalIndex(
   const lifespans: LifespanIndexEntry[] = dataset.people
     .flatMap(record => {
       const period = record.person.lifeSpan;
-      const bounds = period ? toCompactBounds(period) : undefined;
+      const bounds = period
+        ? toCompactBounds(conservativeLifespanSpan(period))
+        : undefined;
       if (!period || !bounds) return [];
       return [
         {

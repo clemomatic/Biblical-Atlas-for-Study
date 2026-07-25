@@ -664,6 +664,23 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             )}
 
+            {selectedPerson?.sourceTimelineWindows?.map(window => (
+              <div
+                key={window.id}
+                className="border-l-2 border-dashed border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/45 px-4 py-3"
+              >
+                <p className="text-sm font-semibold text-[var(--color-ink)]">
+                  Fenêtre chronologique collective ·{' '}
+                  {formatTemporalSpanFrench(window.span)}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                  Cette barre situe un groupe dans la frise source. Elle ne
+                  constitue pas une date individuelle de naissance ou de décès
+                  et ne génère aucun contemporain.
+                </p>
+              </div>
+            ))}
+
             {profileActivities.length > 0 && (
               <section className="space-y-2">
                 <SectionTitle icon={<Calendar className="size-4" />}>

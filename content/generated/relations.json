@@ -9027,6 +9027,4379 @@
     }
   },
   {
+    "id": "derived-relation-lifespan-overlap-10xrmky",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-11oni2e",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-a7-elisabeth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-jean-e4vx5j-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-a7-elisabeth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-11zucy8",
+    "subjectIds": [
+      "person-a7-marie-mere-jesus",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-mere-jesus",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-120k3s",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-a7-pierre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-12c7bv5",
+    "subjectIds": [
+      "person-wcg-marie-magdala",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-marie-magdala-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-marie-magdala",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-146c1ln",
+    "subjectIds": [
+      "event-samuel-8qh05i",
+      "person-wcg-mefibosheth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1083,
+        "yearMax": -1083,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1080,
+        "yearMax": -1080,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1083 av. n. è. à 1080 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-samuel-8qh05i-lifespan",
+      "claim-wcg-2-samuel-8qh05i-lifespan",
+      "claim-wcg-2-wcg-mefibosheth-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-samuel-8qh05i",
+      "lifespan:person-wcg-mefibosheth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-14o1ful",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-14uc5rg",
+    "subjectIds": [
+      "event-abraham-mdcznq",
+      "person-wcg-rebecca"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1900,
+        "yearMax": -1900,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1843,
+        "yearMax": -1843,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1900 av. n. è. à 1843 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-abraham-mdcznq-lifespan",
+      "claim-wcg-1-wcg-rebecca-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-abraham-mdcznq",
+      "lifespan:person-wcg-rebecca"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-164tbsp",
+    "subjectIds": [
+      "event-moise-p4dtf4",
+      "person-wcg-rahab"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1500,
+        "yearMax": -1500,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1473,
+        "yearMax": -1473,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1500 av. n. è. à 1473 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-moise-p4dtf4-lifespan",
+      "claim-wcg-1-wcg-rahab-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-moise-p4dtf4",
+      "lifespan:person-wcg-rahab"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-16amq31",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-zacharie-pretre-lifespan",
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-17w9vj2",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-a7-marie-mere-jesus"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-jean-e4vx5j-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-a7-marie-mere-jesus"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-18un7ua",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 65,
+        "yearMax": 65,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 65 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-194kmf",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-zacharie-pretre-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-19acl3x",
+    "subjectIds": [
+      "person-a7-pierre",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 34,
+        "yearMax": 34,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 34 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-pierre",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1a23j0",
+    "subjectIds": [
+      "person-wcg-barnabe",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 55,
+        "yearMax": 55,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 55 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-barnabe-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-barnabe",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1au97hi",
+    "subjectIds": [
+      "person-wcg-etienne",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 34,
+        "yearMax": 34,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 34 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-etienne-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-etienne",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1bzbz5f",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1c1mnly",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-a7-marie-bethanie"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-jean-e4vx5j-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-a7-marie-bethanie"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1dk3wqu",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1dnl2bd",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-a7-joseph-pere-adoptif"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-a7-joseph-pere-adoptif"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1ec1vm0",
+    "subjectIds": [
+      "event-moise-p4dtf4",
+      "person-wcg-caleb"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1552,
+        "yearMax": -1552,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1473,
+        "yearMax": -1473,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1552 av. n. è. à 1473 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-moise-p4dtf4-lifespan",
+      "claim-wcg-1-wcg-caleb-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-moise-p4dtf4",
+      "lifespan:person-wcg-caleb"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1ec4y4m",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 34,
+        "yearMax": 34,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 34 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1egyhjg",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1eq97io",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1f2ako1",
+    "subjectIds": [
+      "person-wcg-barnabe",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 55,
+        "yearMax": 55,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 55 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-barnabe-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-barnabe",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1f2ww6i",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -20,
+        "yearMax": -20,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 20 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-a7-marie-mere-jesus"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1fbns0m",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-marie-bethanie"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-a7-marie-bethanie"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1fy6se6",
+    "subjectIds": [
+      "person-a7-zacharie-pretre",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-zacharie-pretre-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-zacharie-pretre",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1h5cnub",
+    "subjectIds": [
+      "person-a7-marie-mere-jesus",
+      "person-a7-pierre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-a7-pierre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-mere-jesus",
+      "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1ivnudi",
+    "subjectIds": [
+      "person-wcg-barnabe",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-barnabe-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-barnabe",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1j8eo82",
+    "subjectIds": [
+      "person-wcg-jonathan",
+      "person-wcg-mefibosheth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1083,
+        "yearMax": -1083,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1078,
+        "yearMax": -1078,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1083 av. n. è. à 1078 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-wcg-jonathan-lifespan",
+      "claim-wcg-2-wcg-mefibosheth-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-jonathan",
+      "lifespan:person-wcg-mefibosheth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1k6ox4v",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-a7-marie-mere-jesus"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -15,
+        "yearMax": -15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-a7-marie-mere-jesus"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1kyf85y",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -70,
+        "yearMax": -70,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 70 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-a7-zacharie-pretre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1lu44iq",
+    "subjectIds": [
+      "event-ezechias-1ne958h",
+      "event-manasse-1d4ld4r"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -728,
+        "yearMax": -728,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 728 av. n. è. à 716 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-wcg-2-ezechias-1ne958h-lifespan",
+      "claim-wcg-2-manasse-1d4ld4r-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-ezechias-1ne958h",
+      "lifespan:event-manasse-1d4ld4r"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1lynyz8",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1m4vymd",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-a7-marie-bethanie"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -15,
+        "yearMax": -15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-a7-marie-bethanie-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-a7-marie-bethanie"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1mndk7m",
+    "subjectIds": [
+      "person-a7-marie-mere-jesus",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -20,
+        "yearMax": -20,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 20 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-a7-zacharie-pretre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-mere-jesus",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1mxwg4x",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-a7-pierre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-a7-pierre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1nd1wid",
+    "subjectIds": [
+      "event-david-iixp36",
+      "person-wcg-mefibosheth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1083,
+        "yearMax": -1083,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1037,
+        "yearMax": -1037,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1083 av. n. è. à 1037 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-david-iixp36-lifespan",
+      "claim-wcg-2-wcg-mefibosheth-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-david-iixp36",
+      "lifespan:person-wcg-mefibosheth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1ngwgtt",
+    "subjectIds": [
+      "person-a7-marie-mere-jesus",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-mere-jesus",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1nifwk2",
+    "subjectIds": [
+      "event-adam-2peny4",
+      "event-henoch-5b97vn"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -3404,
+        "yearMax": -3404,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3096,
+        "yearMax": -3096,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 3404 av. n. è. à 3096 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-wcg-1-adam-2peny4-lifespan",
+      "claim-wcg-1-henoch-5b97vn-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-adam-2peny4",
+      "lifespan:event-henoch-5b97vn"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1nonuou",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-a7-joseph-pere-adoptif"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -25,
+        "yearMax": -25,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 25 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-a7-joseph-pere-adoptif"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1pevfbe",
+    "subjectIds": [
+      "person-a7-pierre",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 55,
+        "yearMax": 55,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 55 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-pierre",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1pm3ngo",
+    "subjectIds": [
+      "person-a7-zacharie-pretre",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-zacharie-pretre-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-zacharie-pretre",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1qo0ck3",
+    "subjectIds": [
+      "person-a7-pierre",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-pierre",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1rgrih6",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-bethanie"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -15,
+        "yearMax": -15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-a7-marie-bethanie-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-a7-marie-bethanie"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1rt1m7v",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1tepo6e",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1tg382c",
+    "subjectIds": [
+      "event-samuel-8qh05i",
+      "person-wcg-jonathan"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1138,
+        "yearMax": -1138,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1080,
+        "yearMax": -1080,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1138 av. n. è. à 1080 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-samuel-8qh05i-lifespan",
+      "claim-wcg-2-samuel-8qh05i-lifespan",
+      "claim-wcg-2-wcg-jonathan-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-samuel-8qh05i",
+      "lifespan:person-wcg-jonathan"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1uweru2",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-pierre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1vswkay",
+    "subjectIds": [
+      "event-david-iixp36",
+      "person-wcg-jonathan"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1107,
+        "yearMax": -1107,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1078,
+        "yearMax": -1078,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1107 av. n. è. à 1078 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-david-iixp36-lifespan",
+      "claim-wcg-2-wcg-jonathan-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-david-iixp36",
+      "lifespan:person-wcg-jonathan"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1wm5ot1",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 55,
+        "yearMax": 55,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 55 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1wzyvm",
+    "subjectIds": [
+      "event-elisee-1r2p3av",
+      "person-wcg-joad"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -950,
+        "yearMax": -950,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -875,
+        "yearMax": -875,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 950 av. n. è. à 875 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-elisee-1r2p3av-lifespan",
+      "claim-wcg-2-wcg-joad-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-elisee-1r2p3av",
+      "lifespan:person-wcg-joad"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1x0gfff",
+    "subjectIds": [
+      "event-asa-1yoxudp",
+      "person-wcg-mefibosheth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "1000 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-asa-1yoxudp-lifespan",
+      "claim-wcg-2-wcg-mefibosheth-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-asa-1yoxudp",
+      "lifespan:person-wcg-mefibosheth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1x7r30y",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -15,
+        "yearMax": -15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-a7-zacharie-pretre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1x9iao1",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-1yh85ea",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-2s4t8h",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-2wrsnm",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-pierre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-a7-pierre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-3frsxx",
+    "subjectIds": [
+      "person-a7-marie-mere-jesus",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-mere-jesus",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-3neklg",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-4hh54p",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-4lhtua",
+    "subjectIds": [
+      "person-a7-marie-mere-jesus",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-mere-jesus",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-4mwj6",
+    "subjectIds": [
+      "event-jacob-a7o7cq",
+      "person-wcg-rebecca"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1858,
+        "yearMax": -1858,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1775,
+        "yearMax": -1775,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1858 av. n. è. à 1775 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-jacob-a7o7cq-lifespan",
+      "claim-wcg-1-wcg-rebecca-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jacob-a7o7cq",
+      "lifespan:person-wcg-rebecca"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-524g1j",
+    "subjectIds": [
+      "event-moise-p4dtf4",
+      "person-wcg-josue"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1560,
+        "yearMax": -1560,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1473,
+        "yearMax": -1473,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1560 av. n. è. à 1473 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-moise-p4dtf4-lifespan",
+      "claim-wcg-1-wcg-josue-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-moise-p4dtf4",
+      "lifespan:person-wcg-josue"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-5clzhf",
+    "subjectIds": [
+      "event-sara-1xft3rw",
+      "person-wcg-rebecca"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1900,
+        "yearMax": -1900,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1881,
+        "yearMax": -1881,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1900 av. n. è. à 1881 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-sara-1xft3rw-lifespan",
+      "claim-wcg-1-wcg-rebecca-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-sara-1xft3rw",
+      "lifespan:person-wcg-rebecca"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-5ubk9w",
+    "subjectIds": [
+      "person-wcg-caleb",
+      "person-wcg-rahab"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1500,
+        "yearMax": -1500,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1500 av. n. è. à 1450 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-wcg-caleb-lifespan",
+      "claim-wcg-1-wcg-rahab-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-caleb",
+      "lifespan:person-wcg-rahab"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-616tmp",
+    "subjectIds": [
+      "person-wcg-etienne",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-etienne-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-etienne",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-68dtpy",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-6doyrh",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-76lkgz",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "event-jean-le-baptiseur-dvgl2c"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan",
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:event-jean-le-baptiseur-dvgl2c"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-76lyvd",
+    "subjectIds": [
+      "person-a7-zacharie-pretre",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-zacharie-pretre-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-zacharie-pretre",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-82m8wl",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-a7-marie-mere-jesus"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -20,
+        "yearMax": -20,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 20 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-a7-marie-mere-jesus"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-8wgc0g",
+    "subjectIds": [
+      "person-wcg-marc",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-marc-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-marc",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-903vnz",
+    "subjectIds": [
+      "person-wcg-etienne",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 34,
+        "yearMax": 34,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 34 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-etienne-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-etienne",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-93j90x",
+    "subjectIds": [
+      "person-a7-pierre",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 64,
+        "yearMax": 64,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 3 de n. è. à 64 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-pierre",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-aqwqhu",
+    "subjectIds": [
+      "person-wcg-marc",
+      "person-wcg-paul"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 65,
+        "yearMax": 65,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 65 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-marc-lifespan",
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-marc",
+      "lifespan:person-wcg-paul"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-bhczwg",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-a7-elisabeth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-a7-elisabeth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-bn0uir",
+    "subjectIds": [
+      "person-wcg-esther",
+      "person-wcg-nehemie"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -485,
+        "yearMax": -485,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -415,
+        "yearMax": -415,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 485 av. n. è. à 415 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-wcg-esther-lifespan",
+      "claim-wcg-2-wcg-nehemie-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-esther",
+      "lifespan:person-wcg-nehemie"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-d6qud1",
+    "subjectIds": [
+      "event-josias-woei8d",
+      "event-manasse-1d4ld4r"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -667,
+        "yearMax": -667,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -661,
+        "yearMax": -661,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 667 av. n. è. à 661 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-wcg-2-josias-woei8d-lifespan",
+      "claim-wcg-2-manasse-1d4ld4r-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-josias-woei8d",
+      "lifespan:event-manasse-1d4ld4r"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-dae5uf",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-zacharie-pretre-lifespan",
+      "claim-wcg-3-jean-e4vx5j-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-ddclbk",
+    "subjectIds": [
+      "person-wcg-barnabe",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 34,
+        "yearMax": 34,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 34 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-wcg-barnabe-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-barnabe",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-dgmtdq",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-dhila7",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-a7-joseph-pere-adoptif"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-jean-e4vx5j-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-a7-joseph-pere-adoptif"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-dpeb6x",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-flx8lo",
+    "subjectIds": [
+      "person-a7-pierre",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 64,
+        "yearMax": 64,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 64 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-pierre",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-gpjyms",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-h5ud9s",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-idbgfc",
+    "subjectIds": [
+      "event-asa-1yoxudp",
+      "event-elisee-1r2p3av"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -950,
+        "yearMax": -950,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 950 av. n. è. à 937 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-asa-1yoxudp-lifespan",
+      "claim-wcg-2-elisee-1r2p3av-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-asa-1yoxudp",
+      "lifespan:event-elisee-1r2p3av"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-jqa8d6",
+    "subjectIds": [
+      "person-a7-pierre",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-a7-zacharie-pretre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-pierre",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-jsxguf",
+    "subjectIds": [
+      "event-asa-1yoxudp",
+      "person-wcg-joad"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1000 av. n. è. à 937 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-asa-1yoxudp-lifespan",
+      "claim-wcg-2-wcg-joad-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-asa-1yoxudp",
+      "lifespan:person-wcg-joad"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-k250mj",
+    "subjectIds": [
+      "person-a7-marie-mere-jesus",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-mere-jesus",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-k4poiq",
+    "subjectIds": [
+      "person-wcg-caleb",
+      "person-wcg-josue"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1552,
+        "yearMax": -1552,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1552 av. n. è. à 1450 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-wcg-caleb-lifespan",
+      "claim-wcg-1-wcg-josue-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-caleb",
+      "lifespan:person-wcg-josue"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-l8s4rc",
+    "subjectIds": [
+      "event-abraham-mdcznq",
+      "event-sara-1xft3rw"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2008,
+        "yearMax": -2008,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1881,
+        "yearMax": -1881,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 2008 av. n. è. à 1881 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-wcg-1-abraham-mdcznq-lifespan",
+      "claim-wcg-1-sara-1xft3rw-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-abraham-mdcznq",
+      "lifespan:event-sara-1xft3rw"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-mamj0v",
+    "subjectIds": [
+      "event-david-iixp36",
+      "event-samuel-8qh05i"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1107,
+        "yearMax": -1107,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1080,
+        "yearMax": -1080,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1107 av. n. è. à 1080 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-samuel-8qh05i-lifespan",
+      "claim-wcg-2-david-iixp36-lifespan",
+      "claim-wcg-2-samuel-8qh05i-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-david-iixp36",
+      "lifespan:event-samuel-8qh05i"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-n2c2xp",
+    "subjectIds": [
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-zacharie-pretre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -25,
+        "yearMax": -25,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 25 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-a7-zacharie-pretre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-joseph-pere-adoptif",
+      "lifespan:person-a7-zacharie-pretre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-n44fuz",
+    "subjectIds": [
+      "event-elisee-1r2p3av",
+      "person-wcg-petite-fille-israelite"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -925,
+        "yearMax": -925,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -850,
+        "yearMax": -850,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 925 av. n. è. à 850 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-elisee-1r2p3av-lifespan",
+      "claim-wcg-2-wcg-petite-fille-israelite-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-elisee-1r2p3av",
+      "lifespan:person-wcg-petite-fille-israelite"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-nkpdna",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-elisabeth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-a7-elisabeth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-p2yezy",
+    "subjectIds": [
+      "event-jacob-a7o7cq",
+      "event-joseph-11h377b"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1767,
+        "yearMax": -1767,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1711,
+        "yearMax": -1711,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 1767 av. n. è. à 1711 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-wcg-1-jacob-a7o7cq-lifespan",
+      "claim-wcg-1-joseph-11h377b-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jacob-a7o7cq",
+      "lifespan:event-joseph-11h377b"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-pe1j4t",
+    "subjectIds": [
+      "person-wcg-josue",
+      "person-wcg-rahab"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1500,
+        "yearMax": -1500,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1500 av. n. è. à 1450 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-1-wcg-josue-lifespan",
+      "claim-wcg-1-wcg-rahab-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-josue",
+      "lifespan:person-wcg-rahab"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-ph5efb",
+    "subjectIds": [
+      "person-a7-elisabeth",
+      "person-wcg-etienne"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 2 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan",
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-elisabeth",
+      "lifespan:person-wcg-etienne"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-phasgj",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-wcg-marie-magdala"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-wcg-marie-magdala"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-q1hcwe",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-marie-mere-jesus"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-a7-marie-mere-jesus"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-sdagjv",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 65,
+        "yearMax": 65,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 65 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-sqvsyz",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-a7-pierre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-a7-pierre-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-tjg7nk",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-a7-marie-bethanie"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-a7-marie-bethanie"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-tsxk1h",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-wcg-barnabe"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-wcg-barnabe"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-va8imp",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-vemui2",
+    "subjectIds": [
+      "event-jean-e4vx5j",
+      "person-a7-pierre"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 64,
+        "yearMax": 64,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 5 av. n. è. à 64 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan",
+      "claim-wcg-3-jean-e4vx5j-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-e4vx5j",
+      "lifespan:person-a7-pierre"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-w7ddqf",
+    "subjectIds": [
+      "person-wcg-joad",
+      "person-wcg-mefibosheth"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1005,
+        "yearMax": -1005,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 1005 av. n. è. à 1000 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-wcg-joad-lifespan",
+      "claim-wcg-2-wcg-mefibosheth-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-joad",
+      "lifespan:person-wcg-mefibosheth"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-xx7k23",
+    "subjectIds": [
+      "event-abraham-mdcznq",
+      "event-jacob-a7o7cq"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -1858,
+        "yearMax": -1858,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1843,
+        "yearMax": -1843,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "De 1858 av. n. è. à 1843 av. n. è."
+    },
+    "certainty": "certain",
+    "supportingClaimIds": [
+      "claim-wcg-1-abraham-mdcznq-lifespan",
+      "claim-wcg-1-jacob-a7o7cq-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-abraham-mdcznq",
+      "lifespan:event-jacob-a7o7cq"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-y3ncja",
+    "subjectIds": [
+      "person-wcg-joad",
+      "person-wcg-petite-fille-israelite"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -925,
+        "yearMax": -925,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": -875,
+        "yearMax": -875,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 925 av. n. è. à 875 av. n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-2-wcg-joad-lifespan",
+      "claim-wcg-2-wcg-petite-fille-israelite-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-wcg-joad",
+      "lifespan:person-wcg-petite-fille-israelite"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-yt3j1s",
+    "subjectIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-a7-marie-mere-jesus"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 32 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "lifespan:person-a7-marie-mere-jesus"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-ywa1fj",
+    "subjectIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 2 av. n. è. à 11 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifespan:person-a7-joseph-pere-adoptif"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
+    "id": "derived-relation-lifespan-overlap-zqhqio",
+    "subjectIds": [
+      "person-a7-marie-bethanie",
+      "person-wcg-marc"
+    ],
+    "origin": "generated",
+    "relationLevel": "lifespan-overlap",
+    "temporalOverlap": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "possible"
+      },
+      "displayLabel": "De 15 de n. è. à 33 de n. è."
+    },
+    "certainty": "possible",
+    "supportingClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan",
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "generatedFromIds": [
+      "lifespan:person-a7-marie-bethanie",
+      "lifespan:person-wcg-marc"
+    ],
+    "generatedAt": "2026-07-25T00:00:00.000Z",
+    "generator": {
+      "name": "historical-relation-engine",
+      "version": "2"
+    }
+  },
+  {
     "id": "derived-relation-prophet-during-reign-11w4087",
     "subjectIds": [
       "event-elisee-1r2p3av",

@@ -1,7 +1,535 @@
 {
   "version": "1",
   "generatedAt": "2026-07-25T00:00:00.000Z",
-  "lifespans": [],
+  "lifespans": [
+    {
+      "id": "lifespan:event-adam-2peny4",
+      "personId": "event-adam-2peny4",
+      "startIndex": -4026,
+      "endIndex": -3096,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-adam-2peny4-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-henoch-5b97vn",
+      "personId": "event-henoch-5b97vn",
+      "startIndex": -3404,
+      "endIndex": -3039,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-henoch-5b97vn-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-noe-qdkz7y",
+      "personId": "event-noe-qdkz7y",
+      "startIndex": -2970,
+      "endIndex": -2020,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-noe-qdkz7y-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-abraham-mdcznq",
+      "personId": "event-abraham-mdcznq",
+      "startIndex": -2018,
+      "endIndex": -1843,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-abraham-mdcznq-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-sara-1xft3rw",
+      "personId": "event-sara-1xft3rw",
+      "startIndex": -2008,
+      "endIndex": -1881,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-sara-1xft3rw-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-rebecca",
+      "personId": "person-wcg-rebecca",
+      "startIndex": -1900,
+      "endIndex": -1775,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-rebecca-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-jacob-a7o7cq",
+      "personId": "event-jacob-a7o7cq",
+      "startIndex": -1858,
+      "endIndex": -1711,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-jacob-a7o7cq-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-joseph-11h377b",
+      "personId": "event-joseph-11h377b",
+      "startIndex": -1767,
+      "endIndex": -1657,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-joseph-11h377b-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-moise-p4dtf4",
+      "personId": "event-moise-p4dtf4",
+      "startIndex": -1593,
+      "endIndex": -1473,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-moise-p4dtf4-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-josue",
+      "personId": "person-wcg-josue",
+      "startIndex": -1560,
+      "endIndex": -1450,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-josue-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-caleb",
+      "personId": "person-wcg-caleb",
+      "startIndex": -1552,
+      "endIndex": -1450,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-caleb-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-rahab",
+      "personId": "person-wcg-rahab",
+      "startIndex": -1500,
+      "endIndex": -1400,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-rahab-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "lifespan:event-samuel-8qh05i",
+      "personId": "event-samuel-8qh05i",
+      "startIndex": -1180,
+      "endIndex": -1080,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-samuel-8qh05i-lifespan",
+        "claim-wcg-2-samuel-8qh05i-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1",
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-jonathan",
+      "personId": "person-wcg-jonathan",
+      "startIndex": -1138,
+      "endIndex": -1078,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-jonathan-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:event-david-iixp36",
+      "personId": "event-david-iixp36",
+      "startIndex": -1107,
+      "endIndex": -1037,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-david-iixp36-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-mefibosheth",
+      "personId": "person-wcg-mefibosheth",
+      "startIndex": -1083,
+      "endIndex": -1000,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-mefibosheth-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-joad",
+      "personId": "person-wcg-joad",
+      "startIndex": -1005,
+      "endIndex": -875,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-joad-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:event-asa-1yoxudp",
+      "personId": "event-asa-1yoxudp",
+      "startIndex": -1000,
+      "endIndex": -937,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-asa-1yoxudp-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwt-a6-a",
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:event-elisee-1r2p3av",
+      "personId": "event-elisee-1r2p3av",
+      "startIndex": -950,
+      "endIndex": -850,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-elisee-1r2p3av-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwt-a6-a",
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-petite-fille-israelite",
+      "personId": "person-wcg-petite-fille-israelite",
+      "startIndex": -925,
+      "endIndex": -825,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-petite-fille-israelite-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:event-ezechias-1ne958h",
+      "personId": "event-ezechias-1ne958h",
+      "startIndex": -771,
+      "endIndex": -716,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-ezechias-1ne958h-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwt-a6-b",
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:event-manasse-1d4ld4r",
+      "personId": "event-manasse-1d4ld4r",
+      "startIndex": -728,
+      "endIndex": -661,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-manasse-1d4ld4r-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwt-a6-b",
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:event-josias-woei8d",
+      "personId": "event-josias-woei8d",
+      "startIndex": -667,
+      "endIndex": -628,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-josias-woei8d-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwt-a6-b",
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-esther",
+      "personId": "person-wcg-esther",
+      "startIndex": -515,
+      "endIndex": -415,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-esther-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-nehemie",
+      "personId": "person-wcg-nehemie",
+      "startIndex": -485,
+      "endIndex": -385,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-nehemie-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "lifespan:person-a7-elisabeth",
+      "personId": "person-a7-elisabeth",
+      "startIndex": -70,
+      "endIndex": -2,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-a",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-a7-zacharie-pretre",
+      "personId": "person-a7-zacharie-pretre",
+      "startIndex": -70,
+      "endIndex": -2,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-a",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-a7-joseph-pere-adoptif",
+      "personId": "person-a7-joseph-pere-adoptif",
+      "startIndex": -25,
+      "endIndex": 10,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-a",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-a7-marie-mere-jesus",
+      "personId": "person-a7-marie-mere-jesus",
+      "startIndex": -20,
+      "endIndex": 32,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-a",
+        "source-nwtsty-a7-c",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-a7-marie-bethanie",
+      "personId": "person-a7-marie-bethanie",
+      "startIndex": -15,
+      "endIndex": 32,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-e",
+        "source-nwtsty-a7-g",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-marie-magdala",
+      "personId": "person-wcg-marie-magdala",
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-etienne",
+      "personId": "person-wcg-etienne",
+      "startIndex": -5,
+      "endIndex": 33,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-barnabe",
+      "personId": "person-wcg-barnabe",
+      "startIndex": -5,
+      "endIndex": 54,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-a7-pierre",
+      "personId": "person-a7-pierre",
+      "startIndex": -5,
+      "endIndex": 63,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-c",
+        "source-nwtsty-a7-h",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:event-jean-e4vx5j",
+      "personId": "event-jean-e4vx5j",
+      "startIndex": -5,
+      "endIndex": 99,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-c",
+        "source-nwtsty-a7-f",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:event-jean-le-baptiseur-dvgl2c",
+      "personId": "event-jean-le-baptiseur-dvgl2c",
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:event-jesus-en-tant-qu-humain-1f4ceyz",
+      "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ],
+      "sourceIds": [
+        "source-nwtsty-a7-b",
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-paul",
+      "personId": "person-wcg-paul",
+      "startIndex": 2,
+      "endIndex": 64,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-paul-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "lifespan:person-wcg-marc",
+      "personId": "person-wcg-marc",
+      "startIndex": 14,
+      "endIndex": 64,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-marc-lifespan"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    }
+  ],
   "activities": [
     {
       "id": "activity:activity-event-roboam-121uoxd-reign",
@@ -771,6 +1299,162 @@
   ],
   "events": [
     {
+      "id": "event:event-wcg-deluge-2370",
+      "eventId": "event-wcg-deluge-2370",
+      "startIndex": -2370,
+      "endIndex": -2370,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-deluge-2370-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "event:event-wcg-alliance-abrahamique-1943",
+      "eventId": "event-wcg-alliance-abrahamique-1943",
+      "startIndex": -1943,
+      "endIndex": -1943,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-alliance-abrahamique-1943-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "event:event-wcg-jacob-egypte-1728",
+      "eventId": "event-wcg-jacob-egypte-1728",
+      "startIndex": -1728,
+      "endIndex": -1728,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-jacob-egypte-1728-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "event:event-wcg-egypte-puissance-1600",
+      "eventId": "event-wcg-egypte-puissance-1600",
+      "startIndex": -1600,
+      "endIndex": -1600,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-egypte-puissance-1600-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "event:event-wcg-egypte-puissance-1600-part2",
+      "eventId": "event-wcg-egypte-puissance-1600-part2",
+      "startIndex": -1600,
+      "endIndex": -1600,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-egypte-puissance-1600-part2-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-exode-1513",
+      "eventId": "event-wcg-exode-1513",
+      "startIndex": -1513,
+      "endIndex": -1513,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-exode-1513-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "event:event-wcg-entree-canaan-1473",
+      "eventId": "event-wcg-entree-canaan-1473",
+      "startIndex": -1473,
+      "endIndex": -1473,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-entree-canaan-1473-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "event:event-wcg-onction-saul-1117",
+      "eventId": "event-wcg-onction-saul-1117",
+      "startIndex": -1117,
+      "endIndex": -1117,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-onction-saul-1117-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-1"
+      ]
+    },
+    {
+      "id": "event:event-wcg-temple-salomon-1027",
+      "eventId": "event-wcg-temple-salomon-1027",
+      "startIndex": -1027,
+      "endIndex": -1027,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-temple-salomon-1027-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-division-royaumes-997",
+      "eventId": "event-wcg-division-royaumes-997",
+      "startIndex": -997,
+      "endIndex": -997,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-division-royaumes-997-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-assyrie-puissance-apres-874",
+      "eventId": "event-wcg-assyrie-puissance-apres-874",
+      "startIndex": -874,
+      "endIndex": -874,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-assyrie-puissance-apres-874-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-conquete-royaume-dix-tribus-740",
+      "eventId": "event-wcg-conquete-royaume-dix-tribus-740",
+      "startIndex": -740,
+      "endIndex": -740,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-conquete-royaume-dix-tribus-740-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
       "id": "event:historical-event-fall-samaria-740",
       "eventId": "historical-event-fall-samaria-740",
       "startIndex": -740,
@@ -784,6 +1468,32 @@
       ]
     },
     {
+      "id": "event:event-wcg-babylone-puissance-625",
+      "eventId": "event-wcg-babylone-puissance-625",
+      "startIndex": -625,
+      "endIndex": -625,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-babylone-puissance-625-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-destruction-jerusalem-607",
+      "eventId": "event-wcg-destruction-jerusalem-607",
+      "startIndex": -607,
+      "endIndex": -607,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-destruction-jerusalem-607-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
       "id": "event:historical-event-destruction-jerusalem-607",
       "eventId": "historical-event-destruction-jerusalem-607",
       "startIndex": -607,
@@ -794,6 +1504,84 @@
       ],
       "sourceIds": [
         "source-nwt-a6-b"
+      ]
+    },
+    {
+      "id": "event:event-wcg-medo-perse-puissance-539",
+      "eventId": "event-wcg-medo-perse-puissance-539",
+      "startIndex": -539,
+      "endIndex": -539,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-medo-perse-puissance-539-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-liberation-babylone-537",
+      "eventId": "event-wcg-liberation-babylone-537",
+      "startIndex": -537,
+      "endIndex": -537,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-liberation-babylone-537-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-reconstruction-temple-515",
+      "eventId": "event-wcg-reconstruction-temple-515",
+      "startIndex": -515,
+      "endIndex": -515,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-reconstruction-temple-515-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-reconstruction-murailles-455",
+      "eventId": "event-wcg-reconstruction-murailles-455",
+      "startIndex": -455,
+      "endIndex": -455,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-reconstruction-murailles-455-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-2"
+      ]
+    },
+    {
+      "id": "event:event-wcg-grece-puissance-332",
+      "eventId": "event-wcg-grece-puissance-332",
+      "startIndex": -332,
+      "endIndex": -332,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-grece-puissance-332-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "event:event-wcg-rome-puissance-63-30",
+      "eventId": "event-wcg-rome-puissance-63-30",
+      "startIndex": -63,
+      "endIndex": -30,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-rome-puissance-63-30-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
       ]
     },
     {
@@ -2657,6 +3445,71 @@
       "supportingClaimIds": [],
       "sourceIds": [
         "source-nwtsty-a7-h"
+      ]
+    },
+    {
+      "id": "event:event-wcg-pentecote-33",
+      "eventId": "event-wcg-pentecote-33",
+      "startIndex": 32,
+      "endIndex": 32,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-pentecote-33-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "event:event-wcg-premiers-gentils-36",
+      "eventId": "event-wcg-premiers-gentils-36",
+      "startIndex": 35,
+      "endIndex": 35,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-premiers-gentils-36-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "event:event-wcg-matthieu-evangile-41",
+      "eventId": "event-wcg-matthieu-evangile-41",
+      "startIndex": 40,
+      "endIndex": 40,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-matthieu-evangile-41-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "event:event-wcg-destruction-jerusalem-70",
+      "eventId": "event-wcg-destruction-jerusalem-70",
+      "startIndex": 69,
+      "endIndex": 69,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-destruction-jerusalem-70-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
+      ]
+    },
+    {
+      "id": "event:event-wcg-fin-redaction-bible-98",
+      "eventId": "event-wcg-fin-redaction-bible-98",
+      "startIndex": 97,
+      "endIndex": 97,
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-fin-redaction-bible-98-event"
+      ],
+      "sourceIds": [
+        "source-wcg-timeline-part-3"
       ]
     }
   ],
@@ -5106,6 +5959,405 @@
   ],
   "relations": [
     {
+      "id": "relation:derived-relation-lifespan-overlap-1nifwk2",
+      "relationId": "derived-relation-lifespan-overlap-1nifwk2",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-adam-2peny4",
+        "event-henoch-5b97vn"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -3404,
+      "endIndex": -3096,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-adam-2peny4-lifespan",
+        "claim-wcg-1-henoch-5b97vn-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-l8s4rc",
+      "relationId": "derived-relation-lifespan-overlap-l8s4rc",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-abraham-mdcznq",
+        "event-sara-1xft3rw"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2008,
+      "endIndex": -1881,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-abraham-mdcznq-lifespan",
+        "claim-wcg-1-sara-1xft3rw-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-5clzhf",
+      "relationId": "derived-relation-lifespan-overlap-5clzhf",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-sara-1xft3rw",
+        "person-wcg-rebecca"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1900,
+      "endIndex": -1881,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-sara-1xft3rw-lifespan",
+        "claim-wcg-1-wcg-rebecca-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-14uc5rg",
+      "relationId": "derived-relation-lifespan-overlap-14uc5rg",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-abraham-mdcznq",
+        "person-wcg-rebecca"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1900,
+      "endIndex": -1843,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-abraham-mdcznq-lifespan",
+        "claim-wcg-1-wcg-rebecca-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-xx7k23",
+      "relationId": "derived-relation-lifespan-overlap-xx7k23",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-abraham-mdcznq",
+        "event-jacob-a7o7cq"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1858,
+      "endIndex": -1843,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-abraham-mdcznq-lifespan",
+        "claim-wcg-1-jacob-a7o7cq-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-4mwj6",
+      "relationId": "derived-relation-lifespan-overlap-4mwj6",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jacob-a7o7cq",
+        "person-wcg-rebecca"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1858,
+      "endIndex": -1775,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-jacob-a7o7cq-lifespan",
+        "claim-wcg-1-wcg-rebecca-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-p2yezy",
+      "relationId": "derived-relation-lifespan-overlap-p2yezy",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jacob-a7o7cq",
+        "event-joseph-11h377b"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1767,
+      "endIndex": -1711,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-jacob-a7o7cq-lifespan",
+        "claim-wcg-1-joseph-11h377b-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-524g1j",
+      "relationId": "derived-relation-lifespan-overlap-524g1j",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-moise-p4dtf4",
+        "person-wcg-josue"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1560,
+      "endIndex": -1473,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-moise-p4dtf4-lifespan",
+        "claim-wcg-1-wcg-josue-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1ec1vm0",
+      "relationId": "derived-relation-lifespan-overlap-1ec1vm0",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-moise-p4dtf4",
+        "person-wcg-caleb"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1552,
+      "endIndex": -1473,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-moise-p4dtf4-lifespan",
+        "claim-wcg-1-wcg-caleb-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-k4poiq",
+      "relationId": "derived-relation-lifespan-overlap-k4poiq",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-caleb",
+        "person-wcg-josue"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1552,
+      "endIndex": -1450,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-caleb-lifespan",
+        "claim-wcg-1-wcg-josue-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-164tbsp",
+      "relationId": "derived-relation-lifespan-overlap-164tbsp",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-moise-p4dtf4",
+        "person-wcg-rahab"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1500,
+      "endIndex": -1473,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-moise-p4dtf4-lifespan",
+        "claim-wcg-1-wcg-rahab-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-5ubk9w",
+      "relationId": "derived-relation-lifespan-overlap-5ubk9w",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-caleb",
+        "person-wcg-rahab"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1500,
+      "endIndex": -1450,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-caleb-lifespan",
+        "claim-wcg-1-wcg-rahab-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-pe1j4t",
+      "relationId": "derived-relation-lifespan-overlap-pe1j4t",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-josue",
+        "person-wcg-rahab"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1500,
+      "endIndex": -1450,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-josue-lifespan",
+        "claim-wcg-1-wcg-rahab-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1tg382c",
+      "relationId": "derived-relation-lifespan-overlap-1tg382c",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-samuel-8qh05i",
+        "person-wcg-jonathan"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1138,
+      "endIndex": -1080,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-samuel-8qh05i-lifespan",
+        "claim-wcg-2-samuel-8qh05i-lifespan",
+        "claim-wcg-2-wcg-jonathan-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-mamj0v",
+      "relationId": "derived-relation-lifespan-overlap-mamj0v",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-david-iixp36",
+        "event-samuel-8qh05i"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1107,
+      "endIndex": -1080,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-samuel-8qh05i-lifespan",
+        "claim-wcg-2-david-iixp36-lifespan",
+        "claim-wcg-2-samuel-8qh05i-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1vswkay",
+      "relationId": "derived-relation-lifespan-overlap-1vswkay",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-david-iixp36",
+        "person-wcg-jonathan"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1107,
+      "endIndex": -1078,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-david-iixp36-lifespan",
+        "claim-wcg-2-wcg-jonathan-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-146c1ln",
+      "relationId": "derived-relation-lifespan-overlap-146c1ln",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-samuel-8qh05i",
+        "person-wcg-mefibosheth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1083,
+      "endIndex": -1080,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-1-samuel-8qh05i-lifespan",
+        "claim-wcg-2-samuel-8qh05i-lifespan",
+        "claim-wcg-2-wcg-mefibosheth-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1j8eo82",
+      "relationId": "derived-relation-lifespan-overlap-1j8eo82",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-jonathan",
+        "person-wcg-mefibosheth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1083,
+      "endIndex": -1078,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-jonathan-lifespan",
+        "claim-wcg-2-wcg-mefibosheth-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1nd1wid",
+      "relationId": "derived-relation-lifespan-overlap-1nd1wid",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-david-iixp36",
+        "person-wcg-mefibosheth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1083,
+      "endIndex": -1037,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-david-iixp36-lifespan",
+        "claim-wcg-2-wcg-mefibosheth-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-w7ddqf",
+      "relationId": "derived-relation-lifespan-overlap-w7ddqf",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-joad",
+        "person-wcg-mefibosheth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1005,
+      "endIndex": -1000,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-joad-lifespan",
+        "claim-wcg-2-wcg-mefibosheth-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1x0gfff",
+      "relationId": "derived-relation-lifespan-overlap-1x0gfff",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-asa-1yoxudp",
+        "person-wcg-mefibosheth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1000,
+      "endIndex": -1000,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-asa-1yoxudp-lifespan",
+        "claim-wcg-2-wcg-mefibosheth-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-jsxguf",
+      "relationId": "derived-relation-lifespan-overlap-jsxguf",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-asa-1yoxudp",
+        "person-wcg-joad"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -1000,
+      "endIndex": -937,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-asa-1yoxudp-lifespan",
+        "claim-wcg-2-wcg-joad-lifespan"
+      ]
+    },
+    {
       "id": "relation:derived-relation-activity-overlap-19y72me",
       "relationId": "derived-relation-activity-overlap-19y72me",
       "relationLevel": "activity-overlap",
@@ -5906,6 +7158,42 @@
       ]
     },
     {
+      "id": "relation:derived-relation-lifespan-overlap-idbgfc",
+      "relationId": "derived-relation-lifespan-overlap-idbgfc",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-asa-1yoxudp",
+        "event-elisee-1r2p3av"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -950,
+      "endIndex": -937,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-asa-1yoxudp-lifespan",
+        "claim-wcg-2-elisee-1r2p3av-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1wzyvm",
+      "relationId": "derived-relation-lifespan-overlap-1wzyvm",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-elisee-1r2p3av",
+        "person-wcg-joad"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -950,
+      "endIndex": -875,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-elisee-1r2p3av-lifespan",
+        "claim-wcg-2-wcg-joad-lifespan"
+      ]
+    },
+    {
       "id": "relation:derived-relation-activity-overlap-7u343l",
       "relationId": "derived-relation-activity-overlap-7u343l",
       "relationLevel": "activity-overlap",
@@ -6312,6 +7600,42 @@
         "claim-activity-event-elie-1nckpyy-prophetic-ministry",
         "claim-activity-event-josaphat-180etp4-reign-end",
         "claim-activity-event-josaphat-180etp4-reign-start"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-y3ncja",
+      "relationId": "derived-relation-lifespan-overlap-y3ncja",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-joad",
+        "person-wcg-petite-fille-israelite"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -925,
+      "endIndex": -875,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-joad-lifespan",
+        "claim-wcg-2-wcg-petite-fille-israelite-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-n44fuz",
+      "relationId": "derived-relation-lifespan-overlap-n44fuz",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-elisee-1r2p3av",
+        "person-wcg-petite-fille-israelite"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -925,
+      "endIndex": -850,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-elisee-1r2p3av-lifespan",
+        "claim-wcg-2-wcg-petite-fille-israelite-lifespan"
       ]
     },
     {
@@ -10975,6 +12299,24 @@
       ]
     },
     {
+      "id": "relation:derived-relation-lifespan-overlap-1lu44iq",
+      "relationId": "derived-relation-lifespan-overlap-1lu44iq",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-ezechias-1ne958h",
+        "event-manasse-1d4ld4r"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -728,
+      "endIndex": -716,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-ezechias-1ne958h-lifespan",
+        "claim-wcg-2-manasse-1d4ld4r-lifespan"
+      ]
+    },
+    {
       "id": "relation:derived-relation-activity-overlap-zidcgc",
       "relationId": "derived-relation-activity-overlap-zidcgc",
       "relationLevel": "activity-overlap",
@@ -11050,6 +12392,24 @@
         "claim-activity-event-manasse-1d4ld4r-reign-end",
         "claim-activity-event-manasse-1d4ld4r-reign-start",
         "claim-activity-event-michee-idbjq7-prophetic-ministry"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-d6qud1",
+      "relationId": "derived-relation-lifespan-overlap-d6qud1",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-josias-woei8d",
+        "event-manasse-1d4ld4r"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -667,
+      "endIndex": -661,
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-josias-woei8d-lifespan",
+        "claim-wcg-2-manasse-1d4ld4r-lifespan"
       ]
     },
     {
@@ -12342,6 +13702,834 @@
       ]
     },
     {
+      "id": "relation:derived-relation-lifespan-overlap-bn0uir",
+      "relationId": "derived-relation-lifespan-overlap-bn0uir",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-esther",
+        "person-wcg-nehemie"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -485,
+      "endIndex": -415,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-esther-lifespan",
+        "claim-wcg-2-wcg-nehemie-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1kyf85y",
+      "relationId": "derived-relation-lifespan-overlap-1kyf85y",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -70,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1nonuou",
+      "relationId": "derived-relation-lifespan-overlap-1nonuou",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-a7-joseph-pere-adoptif"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -25,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-n2c2xp",
+      "relationId": "derived-relation-lifespan-overlap-n2c2xp",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -25,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1mndk7m",
+      "relationId": "derived-relation-lifespan-overlap-1mndk7m",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-mere-jesus",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -20,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-82m8wl",
+      "relationId": "derived-relation-lifespan-overlap-82m8wl",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-a7-marie-mere-jesus"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -20,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1f2ww6i",
+      "relationId": "derived-relation-lifespan-overlap-1f2ww6i",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-a7-marie-mere-jesus"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -20,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1m4vymd",
+      "relationId": "derived-relation-lifespan-overlap-1m4vymd",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-a7-marie-bethanie"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -15,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-a7-marie-bethanie-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1x7r30y",
+      "relationId": "derived-relation-lifespan-overlap-1x7r30y",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -15,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1rgrih6",
+      "relationId": "derived-relation-lifespan-overlap-1rgrih6",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-a7-marie-bethanie"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -15,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-a7-marie-bethanie-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1k6ox4v",
+      "relationId": "derived-relation-lifespan-overlap-1k6ox4v",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-a7-marie-mere-jesus"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -15,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-11oni2e",
+      "relationId": "derived-relation-lifespan-overlap-11oni2e",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-a7-elisabeth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1dk3wqu",
+      "relationId": "derived-relation-lifespan-overlap-1dk3wqu",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1fy6se6",
+      "relationId": "derived-relation-lifespan-overlap-1fy6se6",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-zacharie-pretre",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1mxwg4x",
+      "relationId": "derived-relation-lifespan-overlap-1mxwg4x",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-a7-pierre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-a7-pierre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1pm3ngo",
+      "relationId": "derived-relation-lifespan-overlap-1pm3ngo",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-zacharie-pretre",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-2s4t8h",
+      "relationId": "derived-relation-lifespan-overlap-2s4t8h",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-76lyvd",
+      "relationId": "derived-relation-lifespan-overlap-76lyvd",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-zacharie-pretre",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-dae5uf",
+      "relationId": "derived-relation-lifespan-overlap-dae5uf",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan",
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-jqa8d6",
+      "relationId": "derived-relation-lifespan-overlap-jqa8d6",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-pierre",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-ph5efb",
+      "relationId": "derived-relation-lifespan-overlap-ph5efb",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-elisabeth",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-10xrmky",
+      "relationId": "derived-relation-lifespan-overlap-10xrmky",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1eq97io",
+      "relationId": "derived-relation-lifespan-overlap-1eq97io",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-2wrsnm",
+      "relationId": "derived-relation-lifespan-overlap-2wrsnm",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-a7-pierre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-a7-pierre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-4hh54p",
+      "relationId": "derived-relation-lifespan-overlap-4hh54p",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-dhila7",
+      "relationId": "derived-relation-lifespan-overlap-dhila7",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-a7-joseph-pere-adoptif"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-17w9vj2",
+      "relationId": "derived-relation-lifespan-overlap-17w9vj2",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-a7-marie-mere-jesus"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1c1mnly",
+      "relationId": "derived-relation-lifespan-overlap-1c1mnly",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-a7-marie-bethanie"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1h5cnub",
+      "relationId": "derived-relation-lifespan-overlap-1h5cnub",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-mere-jesus",
+        "person-a7-pierre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-a7-pierre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1ivnudi",
+      "relationId": "derived-relation-lifespan-overlap-1ivnudi",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-barnabe",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-barnabe-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1ngwgtt",
+      "relationId": "derived-relation-lifespan-overlap-1ngwgtt",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-mere-jesus",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1qo0ck3",
+      "relationId": "derived-relation-lifespan-overlap-1qo0ck3",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-pierre",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1x9iao1",
+      "relationId": "derived-relation-lifespan-overlap-1x9iao1",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1yh85ea",
+      "relationId": "derived-relation-lifespan-overlap-1yh85ea",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-4lhtua",
+      "relationId": "derived-relation-lifespan-overlap-4lhtua",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-mere-jesus",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-616tmp",
+      "relationId": "derived-relation-lifespan-overlap-616tmp",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-etienne",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-etienne-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-h5ud9s",
+      "relationId": "derived-relation-lifespan-overlap-h5ud9s",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-k250mj",
+      "relationId": "derived-relation-lifespan-overlap-k250mj",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-mere-jesus",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-phasgj",
+      "relationId": "derived-relation-lifespan-overlap-phasgj",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-sqvsyz",
+      "relationId": "derived-relation-lifespan-overlap-sqvsyz",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-a7-pierre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-a7-pierre-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-19acl3x",
+      "relationId": "derived-relation-lifespan-overlap-19acl3x",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-pierre",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 33,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1ec4y4m",
+      "relationId": "derived-relation-lifespan-overlap-1ec4y4m",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 33,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-ddclbk",
+      "relationId": "derived-relation-lifespan-overlap-ddclbk",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-barnabe",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 33,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-barnabe-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1pevfbe",
+      "relationId": "derived-relation-lifespan-overlap-1pevfbe",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-pierre",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 54,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1wm5ot1",
+      "relationId": "derived-relation-lifespan-overlap-1wm5ot1",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 54,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-vemui2",
+      "relationId": "derived-relation-lifespan-overlap-vemui2",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-a7-pierre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -5,
+      "endIndex": 63,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ]
+    },
+    {
       "id": "relation:derived-relation-documented-interaction-stc819",
       "relationId": "derived-relation-documented-interaction-stc819",
       "relationLevel": "documented-interaction",
@@ -12438,6 +14626,78 @@
       "certainty": "certain",
       "supportingClaimIds": [
         "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-interaction-person-a7-gabriel-person-a7-marie-mere-jesus"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-16amq31",
+      "relationId": "derived-relation-lifespan-overlap-16amq31",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan",
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-194kmf",
+      "relationId": "derived-relation-lifespan-overlap-194kmf",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-zacharie-pretre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-bhczwg",
+      "relationId": "derived-relation-lifespan-overlap-bhczwg",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-a7-elisabeth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-nkpdna",
+      "relationId": "derived-relation-lifespan-overlap-nkpdna",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-elisabeth"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": -2,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
       ]
     },
     {
@@ -13441,6 +15701,312 @@
       ]
     },
     {
+      "id": "relation:derived-relation-lifespan-overlap-1dnl2bd",
+      "relationId": "derived-relation-lifespan-overlap-1dnl2bd",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-a7-joseph-pere-adoptif"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-ywa1fj",
+      "relationId": "derived-relation-lifespan-overlap-ywa1fj",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-joseph-pere-adoptif"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-120k3s",
+      "relationId": "derived-relation-lifespan-overlap-120k3s",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-a7-pierre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1tepo6e",
+      "relationId": "derived-relation-lifespan-overlap-1tepo6e",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-3neklg",
+      "relationId": "derived-relation-lifespan-overlap-3neklg",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-76lkgz",
+      "relationId": "derived-relation-lifespan-overlap-76lkgz",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "event-jean-le-baptiseur-dvgl2c"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan",
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-dpeb6x",
+      "relationId": "derived-relation-lifespan-overlap-dpeb6x",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-tjg7nk",
+      "relationId": "derived-relation-lifespan-overlap-tjg7nk",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-a7-marie-bethanie"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-va8imp",
+      "relationId": "derived-relation-lifespan-overlap-va8imp",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-yt3j1s",
+      "relationId": "derived-relation-lifespan-overlap-yt3j1s",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-a7-marie-mere-jesus"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1fbns0m",
+      "relationId": "derived-relation-lifespan-overlap-1fbns0m",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-marie-bethanie"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1uweru2",
+      "relationId": "derived-relation-lifespan-overlap-1uweru2",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-pierre"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-6doyrh",
+      "relationId": "derived-relation-lifespan-overlap-6doyrh",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-dgmtdq",
+      "relationId": "derived-relation-lifespan-overlap-dgmtdq",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-wcg-etienne"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-gpjyms",
+      "relationId": "derived-relation-lifespan-overlap-gpjyms",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-q1hcwe",
+      "relationId": "derived-relation-lifespan-overlap-q1hcwe",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-marie-mere-jesus"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-tsxk1h",
+      "relationId": "derived-relation-lifespan-overlap-tsxk1h",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-wcg-barnabe"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": -2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ]
+    },
+    {
       "id": "relation:derived-relation-same-event-112zann",
       "relationId": "derived-relation-same-event-112zann",
       "relationLevel": "same-event",
@@ -13825,6 +16391,186 @@
       ]
     },
     {
+      "id": "relation:derived-relation-lifespan-overlap-1egyhjg",
+      "relationId": "derived-relation-lifespan-overlap-1egyhjg",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-joseph-pere-adoptif",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 10,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1lynyz8",
+      "relationId": "derived-relation-lifespan-overlap-1lynyz8",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-12c7bv5",
+      "relationId": "derived-relation-lifespan-overlap-12c7bv5",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-marie-magdala",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-marie-magdala-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-14o1ful",
+      "relationId": "derived-relation-lifespan-overlap-14o1ful",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-3frsxx",
+      "relationId": "derived-relation-lifespan-overlap-3frsxx",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-mere-jesus",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-68dtpy",
+      "relationId": "derived-relation-lifespan-overlap-68dtpy",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-903vnz",
+      "relationId": "derived-relation-lifespan-overlap-903vnz",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-etienne",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 33,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-etienne-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1a23j0",
+      "relationId": "derived-relation-lifespan-overlap-1a23j0",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-barnabe",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 54,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-barnabe-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-93j90x",
+      "relationId": "derived-relation-lifespan-overlap-93j90x",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-pierre",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 63,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-18un7ua",
+      "relationId": "derived-relation-lifespan-overlap-18un7ua",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 2,
+      "endIndex": 64,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
       "id": "relation:derived-relation-same-event-1j9vm3m",
       "relationId": "derived-relation-same-event-1j9vm3m",
       "relationLevel": "same-event",
@@ -14074,6 +16820,186 @@
       "supportingClaimIds": [
         "claim-event-a7-a-vie-nazareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
         "claim-event-a7-a-vie-nazareth-presence-person-a7-joseph-pere-adoptif-nazareth"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1bzbz5f",
+      "relationId": "derived-relation-lifespan-overlap-1bzbz5f",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 31,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-11zucy8",
+      "relationId": "derived-relation-lifespan-overlap-11zucy8",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-mere-jesus",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1rt1m7v",
+      "relationId": "derived-relation-lifespan-overlap-1rt1m7v",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-8wgc0g",
+      "relationId": "derived-relation-lifespan-overlap-8wgc0g",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-marc",
+        "person-wcg-marie-magdala"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-marc-lifespan",
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-zqhqio",
+      "relationId": "derived-relation-lifespan-overlap-zqhqio",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-marie-bethanie",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 32,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1au97hi",
+      "relationId": "derived-relation-lifespan-overlap-1au97hi",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-etienne",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 33,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-etienne-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-1f2ako1",
+      "relationId": "derived-relation-lifespan-overlap-1f2ako1",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-barnabe",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 54,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-barnabe-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-flx8lo",
+      "relationId": "derived-relation-lifespan-overlap-flx8lo",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-a7-pierre",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 63,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-aqwqhu",
+      "relationId": "derived-relation-lifespan-overlap-aqwqhu",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "person-wcg-marc",
+        "person-wcg-paul"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 64,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-marc-lifespan",
+        "claim-wcg-3-wcg-paul-lifespan"
+      ]
+    },
+    {
+      "id": "relation:derived-relation-lifespan-overlap-sdagjv",
+      "relationId": "derived-relation-lifespan-overlap-sdagjv",
+      "relationLevel": "lifespan-overlap",
+      "subjectIds": [
+        "event-jean-e4vx5j",
+        "person-wcg-marc"
+      ],
+      "placeIds": [],
+      "eventIds": [],
+      "startIndex": 14,
+      "endIndex": 64,
+      "certainty": "possible",
+      "supportingClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan",
+        "claim-wcg-3-wcg-marc-lifespan"
       ]
     },
     {
@@ -26310,6 +29236,11 @@
       "derived-relation-simultaneous-reigns-1v7d2ph",
       "derived-relation-simultaneous-reigns-j5l4oh"
     ],
+    "event-abraham-mdcznq": [
+      "derived-relation-lifespan-overlap-14uc5rg",
+      "derived-relation-lifespan-overlap-l8s4rc",
+      "derived-relation-lifespan-overlap-xx7k23"
+    ],
     "event-achab-rnxk2l": [
       "derived-relation-activity-overlap-16m82zy",
       "derived-relation-activity-overlap-1p1ojns",
@@ -26342,6 +29273,9 @@
       "derived-relation-simultaneous-reigns-sdsxtr",
       "derived-relation-simultaneous-reigns-wrlnga",
       "derived-relation-simultaneous-reigns-y1s5iu"
+    ],
+    "event-adam-2peny4": [
+      "derived-relation-lifespan-overlap-1nifwk2"
     ],
     "event-amazia-4p1grk": [
       "derived-relation-activity-overlap-12jvpi",
@@ -26403,6 +29337,9 @@
       "derived-relation-activity-overlap-rwem3q",
       "derived-relation-activity-overlap-v4hptf",
       "derived-relation-activity-overlap-ws2lw2",
+      "derived-relation-lifespan-overlap-1x0gfff",
+      "derived-relation-lifespan-overlap-idbgfc",
+      "derived-relation-lifespan-overlap-jsxguf",
       "derived-relation-prophet-during-reign-1qxtjl1",
       "derived-relation-simultaneous-reigns-1007509",
       "derived-relation-simultaneous-reigns-16qz0r5",
@@ -26449,6 +29386,11 @@
       "derived-relation-prophet-during-reign-1b16yl7",
       "derived-relation-prophet-during-reign-2wtpg9",
       "derived-relation-prophet-during-reign-z5r4kp"
+    ],
+    "event-david-iixp36": [
+      "derived-relation-lifespan-overlap-1nd1wid",
+      "derived-relation-lifespan-overlap-1vswkay",
+      "derived-relation-lifespan-overlap-mamj0v"
     ],
     "event-ela-1bvkej2": [
       "derived-relation-activity-overlap-1ew1h3y",
@@ -26519,6 +29461,9 @@
       "derived-relation-activity-overlap-xecups",
       "derived-relation-activity-overlap-zl9d22",
       "derived-relation-documented-interaction-29gnam",
+      "derived-relation-lifespan-overlap-1wzyvm",
+      "derived-relation-lifespan-overlap-idbgfc",
+      "derived-relation-lifespan-overlap-n44fuz",
       "derived-relation-prophet-during-reign-11w4087",
       "derived-relation-prophet-during-reign-1b5n99h",
       "derived-relation-prophet-during-reign-1d9gc2p",
@@ -26542,12 +29487,16 @@
       "derived-relation-activity-overlap-wmzxtv",
       "derived-relation-activity-overlap-zidcgc",
       "derived-relation-documented-interaction-to8g5e",
+      "derived-relation-lifespan-overlap-1lu44iq",
       "derived-relation-prophet-during-reign-eu2jrd",
       "derived-relation-prophet-during-reign-fa7kek",
       "derived-relation-prophet-during-reign-m5akqf",
       "derived-relation-simultaneous-reigns-1utt8od",
       "derived-relation-simultaneous-reigns-ffwrbm",
       "derived-relation-simultaneous-reigns-sdsxtr"
+    ],
+    "event-henoch-5b97vn": [
+      "derived-relation-lifespan-overlap-1nifwk2"
     ],
     "event-isaie-90gwjf": [
       "derived-relation-activity-overlap-110w1sc",
@@ -26572,9 +29521,27 @@
       "derived-relation-prophet-during-reign-ytci19",
       "derived-relation-prophet-during-reign-yts6d1"
     ],
+    "event-jacob-a7o7cq": [
+      "derived-relation-lifespan-overlap-4mwj6",
+      "derived-relation-lifespan-overlap-p2yezy",
+      "derived-relation-lifespan-overlap-xx7k23"
+    ],
     "event-jean-e4vx5j": [
       "derived-relation-documented-interaction-1snux1o",
       "derived-relation-documented-interaction-1vfrplr",
+      "derived-relation-lifespan-overlap-11oni2e",
+      "derived-relation-lifespan-overlap-17w9vj2",
+      "derived-relation-lifespan-overlap-18un7ua",
+      "derived-relation-lifespan-overlap-1c1mnly",
+      "derived-relation-lifespan-overlap-1ec4y4m",
+      "derived-relation-lifespan-overlap-1wm5ot1",
+      "derived-relation-lifespan-overlap-6doyrh",
+      "derived-relation-lifespan-overlap-76lkgz",
+      "derived-relation-lifespan-overlap-dae5uf",
+      "derived-relation-lifespan-overlap-dhila7",
+      "derived-relation-lifespan-overlap-h5ud9s",
+      "derived-relation-lifespan-overlap-sdagjv",
+      "derived-relation-lifespan-overlap-vemui2",
       "derived-relation-same-event-112g0u7",
       "derived-relation-same-event-16zzbmp",
       "derived-relation-same-event-1m7l574",
@@ -26588,6 +29555,19 @@
     ],
     "event-jean-le-baptiseur-dvgl2c": [
       "derived-relation-documented-interaction-4590ub",
+      "derived-relation-lifespan-overlap-120k3s",
+      "derived-relation-lifespan-overlap-16amq31",
+      "derived-relation-lifespan-overlap-1bzbz5f",
+      "derived-relation-lifespan-overlap-1dnl2bd",
+      "derived-relation-lifespan-overlap-1lynyz8",
+      "derived-relation-lifespan-overlap-1tepo6e",
+      "derived-relation-lifespan-overlap-3neklg",
+      "derived-relation-lifespan-overlap-76lkgz",
+      "derived-relation-lifespan-overlap-bhczwg",
+      "derived-relation-lifespan-overlap-dpeb6x",
+      "derived-relation-lifespan-overlap-tjg7nk",
+      "derived-relation-lifespan-overlap-va8imp",
+      "derived-relation-lifespan-overlap-yt3j1s",
       "derived-relation-same-event-15y1om9",
       "derived-relation-same-event-17qlt2a",
       "derived-relation-same-event-1bfuk5n",
@@ -26686,6 +29666,19 @@
       "derived-relation-documented-interaction-qrg3r8",
       "derived-relation-documented-interaction-v84wz5",
       "derived-relation-documented-interaction-wjft0m",
+      "derived-relation-lifespan-overlap-194kmf",
+      "derived-relation-lifespan-overlap-1fbns0m",
+      "derived-relation-lifespan-overlap-1rt1m7v",
+      "derived-relation-lifespan-overlap-1uweru2",
+      "derived-relation-lifespan-overlap-68dtpy",
+      "derived-relation-lifespan-overlap-6doyrh",
+      "derived-relation-lifespan-overlap-dgmtdq",
+      "derived-relation-lifespan-overlap-gpjyms",
+      "derived-relation-lifespan-overlap-nkpdna",
+      "derived-relation-lifespan-overlap-q1hcwe",
+      "derived-relation-lifespan-overlap-tsxk1h",
+      "derived-relation-lifespan-overlap-va8imp",
+      "derived-relation-lifespan-overlap-ywa1fj",
       "derived-relation-same-event-108mbjv",
       "derived-relation-same-event-112zann",
       "derived-relation-same-event-13ndun0",
@@ -27354,6 +30347,9 @@
       "derived-relation-simultaneous-reigns-pjncfv",
       "derived-relation-simultaneous-reigns-z64upn"
     ],
+    "event-joseph-11h377b": [
+      "derived-relation-lifespan-overlap-p2yezy"
+    ],
     "event-josias-woei8d": [
       "derived-relation-activity-overlap-1098hl2",
       "derived-relation-activity-overlap-134wbwg",
@@ -27362,6 +30358,7 @@
       "derived-relation-activity-overlap-1q50dhw",
       "derived-relation-activity-overlap-wkmpkc",
       "derived-relation-activity-overlap-wxv91d",
+      "derived-relation-lifespan-overlap-d6qud1",
       "derived-relation-prophet-during-reign-1amh2s7",
       "derived-relation-prophet-during-reign-1wh8atd",
       "derived-relation-prophet-during-reign-1x9o85i",
@@ -27386,6 +30383,8 @@
       "derived-relation-activity-overlap-1fgc5u4",
       "derived-relation-activity-overlap-1qx60r0",
       "derived-relation-activity-overlap-zidcgc",
+      "derived-relation-lifespan-overlap-1lu44iq",
+      "derived-relation-lifespan-overlap-d6qud1",
       "derived-relation-prophet-during-reign-1rsvaqn",
       "derived-relation-simultaneous-reigns-1j9fxpx",
       "derived-relation-simultaneous-reigns-1utt8od"
@@ -27415,6 +30414,11 @@
       "derived-relation-prophet-during-reign-1rsvaqn",
       "derived-relation-prophet-during-reign-1w314za",
       "derived-relation-prophet-during-reign-m5akqf"
+    ],
+    "event-moise-p4dtf4": [
+      "derived-relation-lifespan-overlap-164tbsp",
+      "derived-relation-lifespan-overlap-1ec1vm0",
+      "derived-relation-lifespan-overlap-524g1j"
     ],
     "event-nadab-ef40vw": [
       "derived-relation-activity-overlap-1a2lama",
@@ -27582,6 +30586,15 @@
       "derived-relation-activity-overlap-1je6xrc",
       "derived-relation-simultaneous-reigns-1nj4pj",
       "derived-relation-simultaneous-reigns-1v7d2ph"
+    ],
+    "event-samuel-8qh05i": [
+      "derived-relation-lifespan-overlap-146c1ln",
+      "derived-relation-lifespan-overlap-1tg382c",
+      "derived-relation-lifespan-overlap-mamj0v"
+    ],
+    "event-sara-1xft3rw": [
+      "derived-relation-lifespan-overlap-5clzhf",
+      "derived-relation-lifespan-overlap-l8s4rc"
     ],
     "event-sedecias-h3ny0i": [
       "derived-relation-activity-overlap-1tqbai1",
@@ -27780,6 +30793,17 @@
     ],
     "person-a7-elisabeth": [
       "derived-relation-documented-interaction-474j3k",
+      "derived-relation-lifespan-overlap-11oni2e",
+      "derived-relation-lifespan-overlap-1dk3wqu",
+      "derived-relation-lifespan-overlap-1kyf85y",
+      "derived-relation-lifespan-overlap-1m4vymd",
+      "derived-relation-lifespan-overlap-1mxwg4x",
+      "derived-relation-lifespan-overlap-1nonuou",
+      "derived-relation-lifespan-overlap-2s4t8h",
+      "derived-relation-lifespan-overlap-82m8wl",
+      "derived-relation-lifespan-overlap-bhczwg",
+      "derived-relation-lifespan-overlap-nkpdna",
+      "derived-relation-lifespan-overlap-ph5efb",
       "derived-relation-same-event-17qlt2a",
       "derived-relation-same-event-1ep9oni",
       "derived-relation-same-event-1gr3lkh",
@@ -27882,6 +30906,18 @@
       "derived-relation-same-place-zu9nwd"
     ],
     "person-a7-joseph-pere-adoptif": [
+      "derived-relation-lifespan-overlap-10xrmky",
+      "derived-relation-lifespan-overlap-1dnl2bd",
+      "derived-relation-lifespan-overlap-1egyhjg",
+      "derived-relation-lifespan-overlap-1eq97io",
+      "derived-relation-lifespan-overlap-1f2ww6i",
+      "derived-relation-lifespan-overlap-1nonuou",
+      "derived-relation-lifespan-overlap-1rgrih6",
+      "derived-relation-lifespan-overlap-2wrsnm",
+      "derived-relation-lifespan-overlap-4hh54p",
+      "derived-relation-lifespan-overlap-dhila7",
+      "derived-relation-lifespan-overlap-n2c2xp",
+      "derived-relation-lifespan-overlap-ywa1fj",
       "derived-relation-same-event-16z292p",
       "derived-relation-same-event-1ds5g7t",
       "derived-relation-same-event-1j9vm3m",
@@ -28103,6 +31139,19 @@
     "person-a7-marie-bethanie": [
       "derived-relation-documented-interaction-1oqerr8",
       "derived-relation-documented-interaction-8flayx",
+      "derived-relation-lifespan-overlap-14o1ful",
+      "derived-relation-lifespan-overlap-1c1mnly",
+      "derived-relation-lifespan-overlap-1fbns0m",
+      "derived-relation-lifespan-overlap-1k6ox4v",
+      "derived-relation-lifespan-overlap-1m4vymd",
+      "derived-relation-lifespan-overlap-1rgrih6",
+      "derived-relation-lifespan-overlap-1x7r30y",
+      "derived-relation-lifespan-overlap-1x9iao1",
+      "derived-relation-lifespan-overlap-1yh85ea",
+      "derived-relation-lifespan-overlap-phasgj",
+      "derived-relation-lifespan-overlap-sqvsyz",
+      "derived-relation-lifespan-overlap-tjg7nk",
+      "derived-relation-lifespan-overlap-zqhqio",
       "derived-relation-same-event-1h8vgl6",
       "derived-relation-same-event-8q5r53",
       "derived-relation-same-event-9t9fn6",
@@ -28122,6 +31171,19 @@
     "person-a7-marie-mere-jesus": [
       "derived-relation-documented-interaction-474j3k",
       "derived-relation-documented-interaction-ewcqqj",
+      "derived-relation-lifespan-overlap-11zucy8",
+      "derived-relation-lifespan-overlap-17w9vj2",
+      "derived-relation-lifespan-overlap-1f2ww6i",
+      "derived-relation-lifespan-overlap-1h5cnub",
+      "derived-relation-lifespan-overlap-1k6ox4v",
+      "derived-relation-lifespan-overlap-1mndk7m",
+      "derived-relation-lifespan-overlap-1ngwgtt",
+      "derived-relation-lifespan-overlap-3frsxx",
+      "derived-relation-lifespan-overlap-4lhtua",
+      "derived-relation-lifespan-overlap-82m8wl",
+      "derived-relation-lifespan-overlap-k250mj",
+      "derived-relation-lifespan-overlap-q1hcwe",
+      "derived-relation-lifespan-overlap-yt3j1s",
       "derived-relation-same-event-112zann",
       "derived-relation-same-event-16z292p",
       "derived-relation-same-event-1ep9oni",
@@ -28191,6 +31253,19 @@
     "person-a7-pierre": [
       "derived-relation-documented-interaction-17ztim2",
       "derived-relation-documented-interaction-wjft0m",
+      "derived-relation-lifespan-overlap-120k3s",
+      "derived-relation-lifespan-overlap-19acl3x",
+      "derived-relation-lifespan-overlap-1h5cnub",
+      "derived-relation-lifespan-overlap-1mxwg4x",
+      "derived-relation-lifespan-overlap-1pevfbe",
+      "derived-relation-lifespan-overlap-1qo0ck3",
+      "derived-relation-lifespan-overlap-1uweru2",
+      "derived-relation-lifespan-overlap-2wrsnm",
+      "derived-relation-lifespan-overlap-93j90x",
+      "derived-relation-lifespan-overlap-flx8lo",
+      "derived-relation-lifespan-overlap-jqa8d6",
+      "derived-relation-lifespan-overlap-sqvsyz",
+      "derived-relation-lifespan-overlap-vemui2",
       "derived-relation-same-event-1lbwhij",
       "derived-relation-same-event-1pt6wmo",
       "derived-relation-same-event-1vyc44k",
@@ -28375,6 +31450,17 @@
     ],
     "person-a7-zacharie-pretre": [
       "derived-relation-documented-interaction-stc819",
+      "derived-relation-lifespan-overlap-16amq31",
+      "derived-relation-lifespan-overlap-194kmf",
+      "derived-relation-lifespan-overlap-1fy6se6",
+      "derived-relation-lifespan-overlap-1kyf85y",
+      "derived-relation-lifespan-overlap-1mndk7m",
+      "derived-relation-lifespan-overlap-1pm3ngo",
+      "derived-relation-lifespan-overlap-1x7r30y",
+      "derived-relation-lifespan-overlap-76lyvd",
+      "derived-relation-lifespan-overlap-dae5uf",
+      "derived-relation-lifespan-overlap-jqa8d6",
+      "derived-relation-lifespan-overlap-n2c2xp",
       "derived-relation-same-event-1decw4l",
       "derived-relation-same-event-1gr3lkh",
       "derived-relation-same-event-f8smsb",
@@ -28459,6 +31545,124 @@
       "derived-relation-simultaneous-reigns-1tc6zxu",
       "derived-relation-simultaneous-reigns-7clzke",
       "derived-relation-simultaneous-reigns-ibddq0"
+    ],
+    "person-wcg-barnabe": [
+      "derived-relation-lifespan-overlap-1a23j0",
+      "derived-relation-lifespan-overlap-1dk3wqu",
+      "derived-relation-lifespan-overlap-1f2ako1",
+      "derived-relation-lifespan-overlap-1ivnudi",
+      "derived-relation-lifespan-overlap-1pevfbe",
+      "derived-relation-lifespan-overlap-1wm5ot1",
+      "derived-relation-lifespan-overlap-1yh85ea",
+      "derived-relation-lifespan-overlap-4hh54p",
+      "derived-relation-lifespan-overlap-4lhtua",
+      "derived-relation-lifespan-overlap-76lyvd",
+      "derived-relation-lifespan-overlap-ddclbk",
+      "derived-relation-lifespan-overlap-dpeb6x",
+      "derived-relation-lifespan-overlap-tsxk1h"
+    ],
+    "person-wcg-caleb": [
+      "derived-relation-lifespan-overlap-1ec1vm0",
+      "derived-relation-lifespan-overlap-5ubk9w",
+      "derived-relation-lifespan-overlap-k4poiq"
+    ],
+    "person-wcg-esther": [
+      "derived-relation-lifespan-overlap-bn0uir"
+    ],
+    "person-wcg-etienne": [
+      "derived-relation-lifespan-overlap-19acl3x",
+      "derived-relation-lifespan-overlap-1au97hi",
+      "derived-relation-lifespan-overlap-1ec4y4m",
+      "derived-relation-lifespan-overlap-1eq97io",
+      "derived-relation-lifespan-overlap-1ngwgtt",
+      "derived-relation-lifespan-overlap-1pm3ngo",
+      "derived-relation-lifespan-overlap-1x9iao1",
+      "derived-relation-lifespan-overlap-3neklg",
+      "derived-relation-lifespan-overlap-616tmp",
+      "derived-relation-lifespan-overlap-903vnz",
+      "derived-relation-lifespan-overlap-ddclbk",
+      "derived-relation-lifespan-overlap-dgmtdq",
+      "derived-relation-lifespan-overlap-ph5efb"
+    ],
+    "person-wcg-joad": [
+      "derived-relation-lifespan-overlap-1wzyvm",
+      "derived-relation-lifespan-overlap-jsxguf",
+      "derived-relation-lifespan-overlap-w7ddqf",
+      "derived-relation-lifespan-overlap-y3ncja"
+    ],
+    "person-wcg-jonathan": [
+      "derived-relation-lifespan-overlap-1j8eo82",
+      "derived-relation-lifespan-overlap-1tg382c",
+      "derived-relation-lifespan-overlap-1vswkay"
+    ],
+    "person-wcg-josue": [
+      "derived-relation-lifespan-overlap-524g1j",
+      "derived-relation-lifespan-overlap-k4poiq",
+      "derived-relation-lifespan-overlap-pe1j4t"
+    ],
+    "person-wcg-marc": [
+      "derived-relation-lifespan-overlap-11zucy8",
+      "derived-relation-lifespan-overlap-1au97hi",
+      "derived-relation-lifespan-overlap-1bzbz5f",
+      "derived-relation-lifespan-overlap-1f2ako1",
+      "derived-relation-lifespan-overlap-1rt1m7v",
+      "derived-relation-lifespan-overlap-8wgc0g",
+      "derived-relation-lifespan-overlap-aqwqhu",
+      "derived-relation-lifespan-overlap-flx8lo",
+      "derived-relation-lifespan-overlap-sdagjv",
+      "derived-relation-lifespan-overlap-zqhqio"
+    ],
+    "person-wcg-marie-magdala": [
+      "derived-relation-lifespan-overlap-10xrmky",
+      "derived-relation-lifespan-overlap-12c7bv5",
+      "derived-relation-lifespan-overlap-1fy6se6",
+      "derived-relation-lifespan-overlap-1ivnudi",
+      "derived-relation-lifespan-overlap-1qo0ck3",
+      "derived-relation-lifespan-overlap-1tepo6e",
+      "derived-relation-lifespan-overlap-2s4t8h",
+      "derived-relation-lifespan-overlap-616tmp",
+      "derived-relation-lifespan-overlap-8wgc0g",
+      "derived-relation-lifespan-overlap-gpjyms",
+      "derived-relation-lifespan-overlap-h5ud9s",
+      "derived-relation-lifespan-overlap-k250mj",
+      "derived-relation-lifespan-overlap-phasgj"
+    ],
+    "person-wcg-mefibosheth": [
+      "derived-relation-lifespan-overlap-146c1ln",
+      "derived-relation-lifespan-overlap-1j8eo82",
+      "derived-relation-lifespan-overlap-1nd1wid",
+      "derived-relation-lifespan-overlap-1x0gfff",
+      "derived-relation-lifespan-overlap-w7ddqf"
+    ],
+    "person-wcg-nehemie": [
+      "derived-relation-lifespan-overlap-bn0uir"
+    ],
+    "person-wcg-paul": [
+      "derived-relation-lifespan-overlap-12c7bv5",
+      "derived-relation-lifespan-overlap-14o1ful",
+      "derived-relation-lifespan-overlap-18un7ua",
+      "derived-relation-lifespan-overlap-1a23j0",
+      "derived-relation-lifespan-overlap-1egyhjg",
+      "derived-relation-lifespan-overlap-1lynyz8",
+      "derived-relation-lifespan-overlap-3frsxx",
+      "derived-relation-lifespan-overlap-68dtpy",
+      "derived-relation-lifespan-overlap-903vnz",
+      "derived-relation-lifespan-overlap-93j90x",
+      "derived-relation-lifespan-overlap-aqwqhu"
+    ],
+    "person-wcg-petite-fille-israelite": [
+      "derived-relation-lifespan-overlap-n44fuz",
+      "derived-relation-lifespan-overlap-y3ncja"
+    ],
+    "person-wcg-rahab": [
+      "derived-relation-lifespan-overlap-164tbsp",
+      "derived-relation-lifespan-overlap-5ubk9w",
+      "derived-relation-lifespan-overlap-pe1j4t"
+    ],
+    "person-wcg-rebecca": [
+      "derived-relation-lifespan-overlap-14uc5rg",
+      "derived-relation-lifespan-overlap-4mwj6",
+      "derived-relation-lifespan-overlap-5clzhf"
     ]
   },
   "presenceIdsByPlace": {

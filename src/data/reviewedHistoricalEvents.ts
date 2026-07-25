@@ -125,6 +125,9 @@ const createTechnicalTimelineRaw = (eventId: string): string => {
   ].join('-') + ' 12:00:00';
 };
 
+const createYearTimelineRaw = (year: number, end = false): string =>
+  `${year}-${end ? '12-31' : '01-01'} 12:00:00`;
+
 export const REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS = new Set(
   REVIEWED_EVENT_RECORDS.flatMap(
     record => record.event.supersedesLegacyEventIds ?? []
@@ -139,8 +142,19 @@ export const REVIEWED_TIMELINE_EVENTS: EventData[] =
         `L’événement relu ${event.id} doit fournir une période et un ordre de source.`
       );
     }
-    const startRaw = createTechnicalTimelineRaw(event.id);
-    const parsed = parseTimelineDate(startRaw);
+    const interval = getTemporalInterval(event.period);
+    const spansMultipleYears =
+      interval.yearMin !== undefined &&
+      interval.yearMax !== undefined &&
+      interval.yearMin !== interval.yearMax;
+    const startRaw = spansMultipleYears
+      ? createYearTimelineRaw(interval.yearMin!)
+      : createTechnicalTimelineRaw(event.id);
+    const endRaw = spansMultipleYears
+      ? createYearTimelineRaw(interval.yearMax!, true)
+      : startRaw;
+    const parsedStart = parseTimelineDate(startRaw);
+    const parsedEnd = parseTimelineDate(endRaw);
     const category = normalizeCategoryName(
       event.category ?? 'Événements Marquants'
     );
@@ -169,12 +183,12 @@ export const REVIEWED_TIMELINE_EVENTS: EventData[] =
       categoryId: createCategoryId(category),
       category,
       startRaw,
-      endRaw: startRaw,
-      startYear: parsed.year,
-      endYear: parsed.year,
-      startPos: parsed.position,
-      endPos: parsed.position,
-      isPoint: true,
+      endRaw,
+      startYear: parsedStart.year,
+      endYear: parsedEnd.year,
+      startPos: parsedStart.position,
+      endPos: parsedEnd.position,
+      isPoint: !spansMultipleYears,
       fuzzyStart: isApproximate,
       fuzzyEnd: isApproximate,
       description: event.description,

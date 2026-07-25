@@ -20,6 +20,7 @@ import { StudySidebar } from './components/StudySidebar';
 import { PwaInstallPrompt } from './components/PwaInstallPrompt';
 import { AppHeader } from './components/AppHeader';
 import { AtThisMomentPanel } from './components/AtThisMomentPanel';
+import { HistoricalOverlapControl } from './components/HistoricalOverlapControl';
 import { normalizeDataRelations } from './utils/dataRelations';
 import { Clock3, Map as MapIcon, Search } from 'lucide-react';
 import { HISTORICAL_PEOPLE } from './data/historicalStudyData';
@@ -71,6 +72,15 @@ const readInitialSidebarState = () => {
   return window.localStorage.getItem(SIDEBAR_COLLAPSE_KEY) === 'true';
 };
 
+const readInitialHistoricalControlState = () => {
+  if (typeof window === 'undefined') return false;
+  return (
+    window.location.pathname.endsWith('/historical-overlaps') ||
+    new URLSearchParams(window.location.search).get('control') ===
+      'historical-overlaps'
+  );
+};
+
 export default function App() {
   const initialIds = useMemo(readInitialIds, []);
   const [activeTab, setActiveTab] = useState<ActiveTab>(readInitialView);
@@ -93,6 +103,9 @@ export default function App() {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isAtThisMomentOpen, setIsAtThisMomentOpen] = useState(false);
+  const [isHistoricalControlOpen, setIsHistoricalControlOpen] = useState(
+    readInitialHistoricalControlState
+  );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     readInitialSidebarState
   );
@@ -157,6 +170,9 @@ export default function App() {
       params.set('from', String(Math.round(visiblePeriod.startYear)));
       params.set('to', String(Math.round(visiblePeriod.endYear)));
     }
+    if (isHistoricalControlOpen) {
+      params.set('control', 'historical-overlaps');
+    }
     window.history.replaceState(
       null,
       '',
@@ -168,7 +184,8 @@ export default function App() {
     selectedPlaceId,
     selectedRouteId,
     selectedPersonId,
-    visiblePeriod
+    visiblePeriod,
+    isHistoricalControlOpen
   ]);
 
   useEffect(() => {
@@ -197,6 +214,15 @@ export default function App() {
   }, []);
 
   const handleSelectEvent = useCallback((event: EventData) => {
+    if (event.historicalPersonId) {
+      setSelectedPersonId(event.historicalPersonId);
+      setSelectedEventId(null);
+      setSelectedPlaceId(null);
+      setSelectedRouteId(null);
+      setActiveTab('timeline');
+      setIsSearchOpen(false);
+      return;
+    }
     setSelectedEventId(event.id);
     setSelectedPlaceId(null);
     setSelectedRouteId(null);
@@ -244,6 +270,13 @@ export default function App() {
     });
   }, []);
 
+  const closeHistoricalControl = useCallback(() => {
+    setIsHistoricalControlOpen(false);
+    if (window.location.pathname.endsWith('/historical-overlaps')) {
+      window.history.replaceState(null, '', '/');
+    }
+  }, []);
+
   const toggleCategory = (categoryId: string) => {
     setActiveCategoryIds(previous => {
       const next = new Set(previous);
@@ -256,6 +289,15 @@ export default function App() {
   const hasSelection = Boolean(
     selectedEvent || selectedPlace || selectedRoute || selectedPerson
   );
+
+  if (isHistoricalControlOpen) {
+    return (
+      <HistoricalOverlapControl
+        isOpen
+        onClose={closeHistoricalControl}
+      />
+    );
+  }
 
   return (
     <div className="flex h-dvh min-h-0 flex-col overflow-hidden bg-[var(--color-canvas)] font-sans text-[var(--color-ink)]">

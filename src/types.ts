@@ -119,6 +119,10 @@ export interface EventData extends EntityMetadata {
   associatedLocationIds?: string[];
   associatedRouteIds?: string[];
   associatedCharacterIds?: string[];
+  /** Ouvre la fiche BiblicalPerson plutôt qu'une fiche d'évènement. */
+  historicalPersonId?: string;
+  /** Distingue la durée de vie d'une période d'activité dans la frise. */
+  historicalPersonSpanKind?: 'lifespan' | 'activity';
 }
 
 export interface BiblicalPlace extends EntityMetadata {

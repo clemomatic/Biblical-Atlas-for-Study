@@ -210,6 +210,31 @@ const createTemporalRelation = (
   });
 };
 
+/**
+ * Une borne de décès « après X » prouve seulement que la personne a vécu au
+ * moins jusqu'à X. Pour les relations, on borne donc l'intervalle à X au lieu
+ * de prolonger artificiellement sa vie vers un futur illimité.
+ */
+export const conservativeLifespanSpan = (
+  span: TemporalSpan
+): TemporalSpan => {
+  if (span.end?.precision !== 'after') return span;
+  const endYear = span.end.yearMin ?? span.end.yearMax;
+  if (endYear === undefined) return span;
+  return {
+    ...span,
+    end: {
+      ...span.end,
+      yearMin: endYear,
+      yearMax: endYear,
+      precision: 'year',
+      approximate: true,
+      certainty:
+        span.end.certainty === 'certain' ? 'probable' : span.end.certainty
+    }
+  };
+};
+
 const generateLifespanRelations = (
   dataset: HistoricalDataset,
   generatedAt: string
@@ -238,18 +263,20 @@ const generateLifespanRelations = (
     ) {
       const first = people[firstIndex];
       const second = people[secondIndex];
+      const firstRelationSpan = conservativeLifespanSpan(first.lifeSpan);
+      const secondRelationSpan = conservativeLifespanSpan(second.lifeSpan);
       const relation = createTemporalRelation(
         {
           personId: first.id,
           sourceId: `lifespan:${first.id}`,
-          span: first.lifeSpan,
+          span: firstRelationSpan,
           certainty: first.certainty ?? 'unknown',
           claimIds: first.lifeSpanClaimIds
         },
         {
           personId: second.id,
           sourceId: `lifespan:${second.id}`,
-          span: second.lifeSpan,
+          span: secondRelationSpan,
           certainty: second.certainty ?? 'unknown',
           claimIds: second.lifeSpanClaimIds
         },
