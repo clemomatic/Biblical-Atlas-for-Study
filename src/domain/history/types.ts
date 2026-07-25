@@ -69,11 +69,34 @@ export type PersonActivityType =
   | 'imprisonment'
   | 'other';
 
+export type PersonActivityPhase =
+  | 'standard'
+  | 'co-reign'
+  | 'disputed-reign'
+  | 'limited-reign'
+  | 'fully-established-reign'
+  | 'prophetic-ministry'
+  | 'official-office';
+
+export type BiblicalPersonRole =
+  | 'king'
+  | 'queen'
+  | 'prophet'
+  | 'other';
+
 export interface PersonActivityPeriod extends EntityMetadata {
   id: string;
   type: PersonActivityType;
+  phase?: PersonActivityPhase;
   label: string;
   span: TemporalSpan;
+  /** Royaume ou territoire dans lequel l’activité est exercée. */
+  realmId?: string;
+  /**
+   * Siège administratif associé à l’activité. Ce champ ne constitue pas à lui
+   * seul une preuve de présence : celle-ci exige toujours un PresenceEpisode.
+   */
+  capitalPlaceId?: string;
   supportingClaimIds?: string[];
   associatedEventIds?: string[];
   associatedLocationIds?: string[];
@@ -89,6 +112,8 @@ export interface BiblicalPerson extends EntityMetadata {
   id: string;
   name: string;
   alternateNames?: string[];
+  roles?: BiblicalPersonRole[];
+  realmIds?: string[];
   description?: string;
   lifeSpan?: TemporalSpan;
   lifeSpanClaimIds?: string[];

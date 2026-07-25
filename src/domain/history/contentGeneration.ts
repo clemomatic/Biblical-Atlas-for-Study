@@ -320,7 +320,39 @@ const generateActivityRelations = (
           generatedAt
         }
       );
-      if (relation) relations.push(relation);
+      if (!relation) continue;
+      relations.push(relation);
+
+      const firstIsReign = first.activity.type === 'reign';
+      const secondIsReign = second.activity.type === 'reign';
+      const firstIsProphetic =
+        first.activity.phase === 'prophetic-ministry' ||
+        first.activity.type === 'prophecy' ||
+        first.person.roles?.includes('prophet') === true;
+      const secondIsProphetic =
+        second.activity.phase === 'prophetic-ministry' ||
+        second.activity.type === 'prophecy' ||
+        second.person.roles?.includes('prophet') === true;
+      const specializedLevel =
+        firstIsReign && secondIsReign
+          ? 'simultaneous-reigns'
+          : (firstIsReign && secondIsProphetic) ||
+              (secondIsReign && firstIsProphetic)
+            ? 'prophet-during-reign'
+            : undefined;
+      if (specializedLevel) {
+        relations.push(
+          createRelation({
+            relationLevel: specializedLevel,
+            subjectIds: relation.subjectIds,
+            certainty: relation.certainty,
+            supportingClaimIds: relation.supportingClaimIds,
+            generatedFromIds: relation.generatedFromIds,
+            temporalOverlap: relation.temporalOverlap,
+            generatedAt
+          })
+        );
+      }
     }
   }
   return relations;

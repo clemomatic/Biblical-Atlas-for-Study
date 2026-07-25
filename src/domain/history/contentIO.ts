@@ -11,6 +11,7 @@ import type {
   ReviewedPersonRecord,
   ReviewedPlaceRecord,
   ReviewedRouteRecord,
+  ReviewedTerritoryRecord,
   SourceCatalogEntry,
   StagingHistoricalRecord
 } from './contentTypes.ts';
@@ -85,6 +86,9 @@ export async function loadHistoricalDataset(
     ),
     routes: await readOptionalJsonDirectory<ReviewedRouteRecord>(
       join(contentRoot, 'reviewed', 'routes')
+    ),
+    territories: await readOptionalJsonDirectory<ReviewedTerritoryRecord>(
+      join(contentRoot, 'reviewed', 'territories')
     ),
     claims: await readJsonDirectory<HistoricalClaim>(
       join(contentRoot, 'reviewed', 'claims')

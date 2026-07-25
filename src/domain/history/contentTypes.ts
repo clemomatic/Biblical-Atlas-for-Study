@@ -65,8 +65,11 @@ export type HistoricalPredicate =
   | 'residence'
   | 'travel'
   | 'reign'
+  | 'reign-start'
+  | 'reign-end'
   | 'prophecy'
   | 'office'
+  | 'political-event'
   | 'participation'
   | 'family-relation'
   | 'attested-interaction';
@@ -208,6 +211,28 @@ export interface ReviewedRouteRecord {
   };
 }
 
+export interface ReviewedTerritoryRecord {
+  workflowStatus: 'reviewed';
+  sourceIds: string[];
+  territory: {
+    id: string;
+    name: string;
+    period: TemporalSpan;
+    capitalPhases: Array<{
+      id: string;
+      placeId: string;
+      period: TemporalSpan;
+      certainty: CertaintyLevel;
+      supportingClaimIds?: string[];
+      notes?: string;
+    }>;
+    certainty: CertaintyLevel;
+    /** Les appendices A6 n’autorisent pas à inventer une géométrie. */
+    geometryStatus: 'not-provided';
+    notes?: string;
+  };
+}
+
 export interface StagingReviewDecision {
   status: 'pending' | 'reviewed' | 'rejected';
   reviewedAt?: string;
@@ -269,6 +294,8 @@ export interface DerivedHistoricalRelation {
   relationLevel:
     | 'lifespan-overlap'
     | 'activity-overlap'
+    | 'prophet-during-reign'
+    | 'simultaneous-reigns'
     | 'same-region'
     | 'same-place'
     | 'same-event'
@@ -294,6 +321,7 @@ export interface HistoricalDataset {
   events: ReviewedEventRecord[];
   places: ReviewedPlaceRecord[];
   routes: ReviewedRouteRecord[];
+  territories: ReviewedTerritoryRecord[];
   claims: HistoricalClaim[];
   presences: PresenceEpisode[];
 }

@@ -34,8 +34,11 @@ const VALID_PREDICATES = new Set([
   'residence',
   'travel',
   'reign',
+  'reign-start',
+  'reign-end',
   'prophecy',
   'office',
+  'political-event',
   'participation',
   'family-relation',
   'attested-interaction'
@@ -101,10 +104,22 @@ const VALID_PLACE_GRANULARITIES = new Set([
 const VALID_RELATION_LEVELS = new Set([
   'lifespan-overlap',
   'activity-overlap',
+  'prophet-during-reign',
+  'simultaneous-reigns',
   'same-region',
   'same-place',
   'same-event',
   'documented-interaction'
+]);
+
+const VALID_ACTIVITY_PHASES = new Set([
+  'standard',
+  'co-reign',
+  'disputed-reign',
+  'limited-reign',
+  'fully-established-reign',
+  'prophetic-ministry',
+  'official-office'
 ]);
 
 const addIterable = (
@@ -302,6 +317,12 @@ export function validateHistoricalDataset(
         `${path}.person.activityPeriods[${activityIndex}].span`,
         issues
       );
+      if (activity.phase && !VALID_ACTIVITY_PHASES.has(activity.phase)) {
+        issues.push({
+          path: `${path}.person.activityPeriods[${activityIndex}].phase`,
+          message: `Phase d’activité inconnue : ${activity.phase}.`
+        });
+      }
     });
   });
 
@@ -330,6 +351,44 @@ export function validateHistoricalDataset(
         message: `Degré de certitude inconnu : ${record.place.certainty}.`
       });
     }
+  });
+
+  dataset.territories.forEach((record, index) => {
+    const path = `reviewed.territories[${index}]`;
+    registerId(record.territory.id, `${path}.territory.id`);
+    territoryIds.add(record.territory.id);
+    if (record.workflowStatus !== 'reviewed') {
+      issues.push({
+        path,
+        message: 'Le territoire doit avoir le statut reviewed.'
+      });
+    }
+    validateSourceIds(record.sourceIds, `${path}.sourceIds`);
+    validateSpanAt(record.territory.period, `${path}.territory.period`, issues);
+    if (record.territory.geometryStatus !== 'not-provided') {
+      issues.push({
+        path: `${path}.territory.geometryStatus`,
+        message:
+          'Un territoire A6 ne doit pas recevoir une géométrie non fournie par la source.'
+      });
+    }
+    record.territory.capitalPhases.forEach((phase, phaseIndex) => {
+      const phasePath = `${path}.territory.capitalPhases[${phaseIndex}]`;
+      registerId(phase.id, `${phasePath}.id`);
+      validateSpanAt(phase.period, `${phasePath}.period`, issues);
+      if (!placeIds.has(phase.placeId)) {
+        issues.push({
+          path: `${phasePath}.placeId`,
+          message: `Lieu inexistant : ${phase.placeId}.`
+        });
+      }
+      if (!VALID_CERTAINTY_LEVELS.has(phase.certainty)) {
+        issues.push({
+          path: `${phasePath}.certainty`,
+          message: `Degré de certitude inconnu : ${phase.certainty}.`
+        });
+      }
+    });
   });
 
   const validateRelatedIds = (
@@ -546,6 +605,21 @@ export function validateHistoricalDataset(
         `${activityPath}.associatedPersonIds`,
         'Personnage'
       );
+      if (activity.realmId && !territoryIds.has(activity.realmId)) {
+        issues.push({
+          path: `${activityPath}.realmId`,
+          message: `Territoire inexistant : ${activity.realmId}.`
+        });
+      }
+      if (
+        activity.capitalPlaceId &&
+        !placeIds.has(activity.capitalPlaceId)
+      ) {
+        issues.push({
+          path: `${activityPath}.capitalPlaceId`,
+          message: `Capitale inexistante : ${activity.capitalPlaceId}.`
+        });
+      }
     });
   });
 
@@ -622,6 +696,14 @@ export function validateHistoricalDataset(
       record.event.supportingClaimIds,
       `reviewed.events[${eventIndex}].event.supportingClaimIds`
     );
+  });
+  dataset.territories.forEach((record, territoryIndex) => {
+    record.territory.capitalPhases.forEach((phase, phaseIndex) => {
+      validateSupportingClaimIds(
+        phase.supportingClaimIds,
+        `reviewed.territories[${territoryIndex}].territory.capitalPhases[${phaseIndex}].supportingClaimIds`
+      );
+    });
   });
 
   dataset.claims.forEach((claim, index) => {
@@ -921,7 +1003,14 @@ export function validateGeneratedRelations(
       }
     });
     if (
-      ['lifespan-overlap', 'activity-overlap', 'same-place', 'same-region']
+      [
+        'lifespan-overlap',
+        'activity-overlap',
+        'prophet-during-reign',
+        'simultaneous-reigns',
+        'same-place',
+        'same-region'
+      ]
         .includes(relation.relationLevel) &&
       !relation.temporalOverlap
     ) {
