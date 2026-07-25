@@ -286,15 +286,24 @@ const queryTemporalEntries = <T extends CompactTemporalEntry>(
 ): T[] => {
   const bounds = toCompactBounds(period);
   if (!bounds) return [];
-  const results: T[] = [];
-  for (const entry of entries) {
-    if (
-      bounds.endIndex !== undefined &&
-      entry.startIndex !== undefined &&
-      entry.startIndex > bounds.endIndex
-    ) {
-      break;
+  let upperBound = entries.length;
+  if (bounds.endIndex !== undefined) {
+    let low = 0;
+    let high = entries.length;
+    while (low < high) {
+      const middle = Math.floor((low + high) / 2);
+      const startIndex = entries[middle]?.startIndex;
+      if (startIndex === undefined || startIndex <= bounds.endIndex) {
+        low = middle + 1;
+      } else {
+        high = middle;
+      }
     }
+    upperBound = low;
+  }
+  const results: T[] = [];
+  for (let index = 0; index < upperBound; index += 1) {
+    const entry = entries[index];
     if (
       bounds.startIndex !== undefined &&
       entry.endIndex !== undefined &&

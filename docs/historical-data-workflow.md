@@ -340,3 +340,22 @@ Avant de déplacer une donnée vers `reviewed`, vérifier :
 - [ ] les claims d’entrée et l’explication de tout calcul ;
 - [ ] l’absence de long extrait ou d’image reproduite ;
 - [ ] le retrait de l’ancienne entrée `staging`.
+
+## Contr&ocirc;le de consolidation avant fusion
+
+Apr&egrave;s chaque petit lot relu :
+
+```bash
+pnpm historical:validate
+pnpm historical:generate
+pnpm quality:report
+pnpm test
+pnpm build
+pnpm test:e2e
+pnpm performance:report
+pnpm check
+```
+
+`quality:check` compare le rapport versionn&eacute; au corpus courant. Les lignes en `staging` restent un backlog visible mais ne sont jamais consid&eacute;r&eacute;es comme relues. Une anomalie dans `reviewed`, un ID orphelin, une relation insuffisamment prouv&eacute;e ou un calcul non reproductible bloque la fusion.
+
+Les certitudes `certain`, `probable`, `possible` et `unknown` ne remplacent pas la m&eacute;thode de preuve. `direct`, `calculated` et `inferred` d&eacute;crivent comment une affirmation a &eacute;t&eacute; obtenue ; `generated-overlap` d&eacute;crit une relation calcul&eacute;e. Ces dimensions sont pr&eacute;sent&eacute;es s&eacute;par&eacute;ment dans l'interface.

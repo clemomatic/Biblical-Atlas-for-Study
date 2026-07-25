@@ -184,3 +184,17 @@ src/
 Les tuiles de fond sont fournies par CARTO, Stadia Maps, Stamen et
 OpenStreetMap. Leur premier chargement nécessite une connexion réseau ; les
 zones déjà visitées peuvent ensuite être relues depuis le cache hors ligne.
+
+## Qualit&eacute; et transparence historique
+
+Chaque fiche contient une section **Sources et m&eacute;thode** qui distingue fait directement attest&eacute;, calcul, inf&eacute;rence et relation g&eacute;n&eacute;r&eacute;e. Les limites et la derni&egrave;re v&eacute;rification restent visibles, y compris pour les anciennes fiches dont la provenance n'est pas encore normalis&eacute;e.
+
+```bash
+pnpm quality:report       # inventaire d&eacute;terministe du corpus
+pnpm quality:check        # v&eacute;rification du rapport versionn&eacute;
+pnpm test:e2e             # parcours Chromium desktop et mobile
+pnpm performance:report   # build et mesures locales
+pnpm performance:check    # seuils utilis&eacute;s par la CI
+```
+
+Le bilan courant, la matrice de tests, les mesures et les limites connues sont document&eacute;s dans [`docs/quality-transparency-performance.md`](docs/quality-transparency-performance.md). Le processus d'ajout et de validation d'une source reste d&eacute;crit dans [`docs/historical-data-workflow.md`](docs/historical-data-workflow.md).
