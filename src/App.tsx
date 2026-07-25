@@ -385,11 +385,13 @@ export default function App() {
         events={linkedEvents}
         places={places}
         routes={routes}
+        people={HISTORICAL_PEOPLE}
         onClose={() => setIsSearchOpen(false)}
         onQueryChange={setSearchQuery}
         onSelectEvent={handleSelectEvent}
         onSelectPlace={handleSelectPlace}
         onSelectRoute={handleSelectRoute}
+        onSelectPerson={handleSelectPerson}
       />
 
       <AtThisMomentPanel

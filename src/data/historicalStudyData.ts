@@ -8,6 +8,7 @@ import type {
   ReviewedPersonRecord,
   ReviewedPlaceRecord,
   ReviewedRouteRecord,
+  ReviewedTerritoryRecord,
   SourceCatalogEntry
 } from '../domain/history/contentTypes';
 import type { HistoricalIndexBundle } from '../domain/history/historicalIndex';
@@ -55,6 +56,12 @@ const reviewedRoutes = flattenJsonModules<ReviewedRouteRecord>(
     import: 'default'
   })
 );
+const reviewedTerritories = flattenJsonModules<ReviewedTerritoryRecord>(
+  import.meta.glob('../../content/reviewed/territories/**/*.json', {
+    eager: true,
+    import: 'default'
+  })
+);
 
 export const HISTORICAL_SOURCE_CATALOG =
   sourceCatalogJson as unknown as SourceCatalogEntry[];
@@ -62,6 +69,7 @@ export const REVIEWED_HISTORICAL_PEOPLE = reviewedPeople;
 export const REVIEWED_HISTORICAL_EVENTS = reviewedEvents;
 export const REVIEWED_HISTORICAL_PLACES = reviewedPlaces;
 export const REVIEWED_HISTORICAL_CLAIMS = reviewedClaims;
+export const REVIEWED_HISTORICAL_TERRITORIES = reviewedTerritories;
 export const DERIVED_HISTORICAL_RELATIONS =
   relationsJson as unknown as DerivedHistoricalRelation[];
 export const HISTORICAL_INDEX =
@@ -116,6 +124,100 @@ export const HISTORICAL_PEOPLE = mergedHistoricalPeople.map(person => {
     ])
   };
 });
+
+export type HistoricalPersonAssociationStatus =
+  | 'calculated-overlap'
+  | 'biblically-attested'
+  | 'documented-interaction';
+
+export interface HistoricalPersonAssociation {
+  personId: string;
+  name: string;
+  contextLabel?: string;
+  status: HistoricalPersonAssociationStatus;
+  certainty: DerivedHistoricalRelation['certainty'];
+  periodLabel?: string;
+  supportingClaimIds: string[];
+}
+
+const relationsForPair = (leftId: string, rightId: string) =>
+  DERIVED_HISTORICAL_RELATIONS.filter(
+    relation =>
+      relation.subjectIds.includes(leftId) &&
+      relation.subjectIds.includes(rightId)
+  );
+
+const associationStatus = (
+  relations: DerivedHistoricalRelation[]
+): HistoricalPersonAssociationStatus =>
+  relations.some(
+    relation => relation.relationLevel === 'documented-interaction'
+  )
+    ? 'documented-interaction'
+    : relations.some(relation => relation.relationLevel === 'same-event')
+      ? 'biblically-attested'
+      : 'calculated-overlap';
+
+const associationsForRolePair = (
+  personId: string,
+  ownRoles: Array<'king' | 'queen' | 'prophet'>,
+  otherRole: 'king' | 'queen' | 'prophet'
+): HistoricalPersonAssociation[] => {
+  const person = HISTORICAL_PEOPLE.find(candidate => candidate.id === personId);
+  if (!person || !person.roles?.some(role => ownRoles.includes(role as never))) {
+    return [];
+  }
+  const relationByOtherId = new Map<string, DerivedHistoricalRelation>();
+  DERIVED_HISTORICAL_RELATIONS.filter(
+    relation =>
+      relation.relationLevel === 'prophet-during-reign' &&
+      relation.subjectIds.includes(personId)
+  ).forEach(relation => {
+    const otherId = relation.subjectIds.find(id => id !== personId);
+    if (otherId) relationByOtherId.set(otherId, relation);
+  });
+
+  return [...relationByOtherId.entries()]
+    .flatMap(([otherId, overlapRelation]) => {
+      const other = HISTORICAL_PEOPLE.find(candidate => candidate.id === otherId);
+      if (!other?.roles?.includes(otherRole)) return [];
+      const pairRelations = relationsForPair(personId, otherId);
+      return [
+        {
+          personId: otherId,
+          name: other.name,
+          contextLabel: other.realmIds?.includes('territory-kingdom-judah')
+            ? 'Royaume de Juda'
+            : other.realmIds?.includes('territory-kingdom-israel')
+              ? 'Royaume d’Israël'
+              : other.roles?.includes('prophet')
+                ? 'Ministère prophétique'
+                : undefined,
+          status: associationStatus(pairRelations),
+          certainty: overlapRelation.certainty,
+          periodLabel: overlapRelation.temporalOverlap?.displayLabel,
+          supportingClaimIds: [
+            ...new Set(
+              pairRelations.flatMap(relation => relation.supportingClaimIds)
+            )
+          ]
+        }
+      ];
+    })
+    .sort((left, right) => left.name.localeCompare(right.name));
+};
+
+export const getActiveProphetsDuringReign = (
+  kingId: string
+): HistoricalPersonAssociation[] =>
+  associationsForRolePair(kingId, ['king', 'queen'], 'prophet');
+
+export const getContemporaryKingsForProphet = (
+  prophetId: string
+): HistoricalPersonAssociation[] => [
+  ...associationsForRolePair(prophetId, ['prophet'], 'king'),
+  ...associationsForRolePair(prophetId, ['prophet'], 'queen')
+].sort((left, right) => left.name.localeCompare(right.name));
 
 export const HISTORICAL_SNAPSHOT_CATALOG =
   createHistoricalSnapshotCatalog(

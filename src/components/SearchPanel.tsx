@@ -6,6 +6,8 @@ import React, {
   useState
 } from 'react';
 import { BiblicalPlace, BiblicalRoute, EventData } from '../types';
+import type { BiblicalPerson } from '../domain/history/types';
+import { formatTemporalSpanFrench } from '../domain/history/temporal';
 import {
   ArrowRight,
   Calendar,
@@ -25,11 +27,13 @@ interface SearchPanelProps {
   events: EventData[];
   places: BiblicalPlace[];
   routes: BiblicalRoute[];
+  people: BiblicalPerson[];
   onClose: () => void;
   onQueryChange: (query: string) => void;
   onSelectEvent: (event: EventData) => void;
   onSelectPlace: (place: BiblicalPlace) => void;
   onSelectRoute: (route: BiblicalRoute) => void;
+  onSelectPerson: (personId: string) => void;
 }
 
 type SearchItemKind = 'place' | 'character' | 'event' | 'route';
@@ -181,11 +185,13 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   events,
   places,
   routes,
+  people,
   onClose,
   onQueryChange,
   onSelectEvent,
   onSelectPlace,
-  onSelectRoute
+  onSelectRoute,
+  onSelectPerson
 }) => {
   const deferredQuery = useDeferredValue(query);
   const normalizedQuery = normalize(deferredQuery.trim());
@@ -227,8 +233,36 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         ...(event.biblicalReferences || [])
       ])
     );
-    const characterItems = matchingEvents
-      .filter(event => event.category === 'Personnage')
+    const personIds = new Set(people.map(person => person.id));
+    const personItems = people
+      .filter(person =>
+        includesQuery(normalizedQuery, [
+          person.name,
+          person.description,
+          ...(person.alternateNames ?? []),
+          ...(person.biblicalReferences ?? [])
+        ])
+      )
+      .slice(0, 8)
+      .map(person => ({
+        key: `character-${person.id}`,
+        kind: 'character' as const,
+        title: person.name,
+        meta:
+          person.activityPeriods[0]?.span.displayLabel ??
+          (person.lifeSpan
+            ? formatTemporalSpanFrench(person.lifeSpan)
+            : person.roles?.includes('prophet')
+              ? 'Prophète'
+              : 'Personnage biblique'),
+        description: person.description,
+        onSelect: () => onSelectPerson(person.id)
+      }));
+    const legacyCharacterItems = matchingEvents
+      .filter(
+        event =>
+          event.category === 'Personnage' && !personIds.has(event.id)
+      )
       .slice(0, 6)
       .map(event => ({
         key: `character-${event.id}`,
@@ -245,7 +279,10 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         onSelect: () => onSelectEvent(event)
       }));
     const eventItems = matchingEvents
-      .filter(event => event.category !== 'Personnage')
+      .filter(
+        event =>
+          event.category !== 'Personnage' && !personIds.has(event.id)
+      )
       .slice(0, 8)
       .map(event => ({
         key: `event-${event.id}`,
@@ -273,14 +310,22 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         onSelect: () => onSelectRoute(route)
       }));
 
-    return [...placeItems, ...characterItems, ...eventItems, ...routeItems];
+    return [
+      ...placeItems,
+      ...personItems,
+      ...legacyCharacterItems,
+      ...eventItems,
+      ...routeItems
+    ];
   }, [
     events,
     normalizedQuery,
     onSelectEvent,
     onSelectPlace,
+    onSelectPerson,
     onSelectRoute,
     places,
+    people,
     routes
   ]);
 

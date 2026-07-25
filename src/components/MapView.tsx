@@ -495,7 +495,11 @@ export const MapView: React.FC<MapViewProps> = ({
         polyline.addTo(routeLayer);
       });
 
-    routeLayer.bringToBack();
+    routeLayer.eachLayer(layer => {
+      if ('bringToBack' in layer && typeof layer.bringToBack === 'function') {
+        layer.bringToBack();
+      }
+    });
   }, [
     routes,
     visiblePeriod,

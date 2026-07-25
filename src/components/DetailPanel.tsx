@@ -11,6 +11,11 @@ import {
 } from '../types';
 import { formatEventSpan } from '../utils/dateUtils';
 import type { BiblicalPerson } from '../domain/history/types';
+import {
+  getActiveProphetsDuringReign,
+  getContemporaryKingsForProphet,
+  type HistoricalPersonAssociation
+} from '../data/historicalStudyData';
 import { formatTemporalSpanFrench } from '../domain/history/temporal';
 import {
   getBibleReferenceTarget,
@@ -367,6 +372,15 @@ const certaintyLabels: Record<CertaintyLevel, string> = {
   unknown: 'Non précisé'
 };
 
+const associationStatusLabels: Record<
+  HistoricalPersonAssociation['status'],
+  string
+> = {
+  'calculated-overlap': 'Chevauchement calculé',
+  'biblically-attested': 'Relation bibliquement attestée',
+  'documented-interaction': 'Interaction directement documentée'
+};
+
 export const DetailPanel: React.FC<DetailPanelProps> = ({
   selectedEvent,
   selectedPlace,
@@ -533,6 +547,16 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         .map(id => people.find(person => person.id === id))
         .filter((person): person is BiblicalPerson => Boolean(person))
     : [];
+  const profilePerson =
+    selectedPerson ??
+    people.find(person => person.legacyEventId === selectedEvent?.id);
+  const activeProphets = profilePerson
+    ? getActiveProphetsDuringReign(profilePerson.id)
+    : [];
+  const contemporaryKings = profilePerson
+    ? getContemporaryKingsForProphet(profilePerson.id)
+    : [];
+  const profileActivities = profilePerson?.activityPeriods ?? [];
   const media =
     selectedEvent?.media ||
     selectedPlace?.media ||
@@ -640,6 +664,45 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             )}
 
+            {profileActivities.length > 0 && (
+              <section className="space-y-2">
+                <SectionTitle icon={<Calendar className="size-4" />}>
+                  Périodes d’activité documentées
+                </SectionTitle>
+                {profileActivities.map(activity => {
+                  const capital = activity.capitalPlaceId
+                    ? places.find(place => place.id === activity.capitalPlaceId)
+                    : undefined;
+                  const realm =
+                    activity.realmId === 'territory-kingdom-judah'
+                      ? 'Royaume de Juda'
+                      : activity.realmId === 'territory-kingdom-israel'
+                        ? 'Royaume d’Israël'
+                        : undefined;
+                  return (
+                    <div
+                      key={activity.id}
+                      className="border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/55 p-3"
+                    >
+                      <p className="text-sm font-semibold text-[var(--color-ink)]">
+                        {activity.label} ·{' '}
+                        {formatTemporalSpanFrench(activity.span)}
+                      </p>
+                      {(realm || capital) && (
+                        <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                          {[realm, capital && `siège administratif : ${capital.name}`]
+                            .filter(Boolean)
+                            .join(' · ')}
+                          {capital &&
+                            ' — cette association ne prouve pas à elle seule une présence continue.'}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </section>
+            )}
+
             {selectedPlace?.periodDescription && (
               <div className="flex items-start gap-3 border-l-2 border-[var(--color-mineral)] bg-[var(--color-mineral-soft)] p-4">
                 <Calendar className="mt-0.5 size-4 shrink-0 text-[var(--color-mineral)]" />
@@ -708,6 +771,52 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             <SectionTitle icon={<Network className="size-4" />}>
               Personnes, lieux et événements liés
             </SectionTitle>
+            {activeProphets.length > 0 && (
+              <section>
+                <SectionTitle icon={<User className="size-4" />}>
+                  Prophètes actifs pendant son règne
+                </SectionTitle>
+                <div className="space-y-2">
+                  {activeProphets.map(association => (
+                    <RelationButton
+                      key={association.personId}
+                      title={association.name}
+                      meta={`${association.contextLabel ? `${association.contextLabel} · ` : ''}${associationStatusLabels[association.status]}${association.periodLabel ? ` · ${association.periodLabel}` : ''}`}
+                      icon={<User className="size-4" />}
+                      onClick={() => onSelectPerson(association.personId)}
+                    />
+                  ))}
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                  Un chevauchement de périodes ne prouve ni une rencontre ni
+                  une présence dans la même ville.
+                </p>
+              </section>
+            )}
+
+            {contemporaryKings.length > 0 && (
+              <section>
+                <SectionTitle icon={<User className="size-4" />}>
+                  Rois contemporains
+                </SectionTitle>
+                <div className="space-y-2">
+                  {contemporaryKings.map(association => (
+                    <RelationButton
+                      key={association.personId}
+                      title={association.name}
+                      meta={`${association.contextLabel ? `${association.contextLabel} · ` : ''}${associationStatusLabels[association.status]}${association.periodLabel ? ` · ${association.periodLabel}` : ''}`}
+                      icon={<User className="size-4" />}
+                      onClick={() => onSelectPerson(association.personId)}
+                    />
+                  ))}
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                  Ces contemporanéités sont calculées à partir des périodes
+                  relues. Une interaction n’est indiquée que lorsqu’un passage
+                  la documente directement.
+                </p>
+              </section>
+            )}
             {relatedPlaces.length > 0 && (
               <section>
                 <SectionTitle icon={<MapPin className="size-4" />}>
@@ -852,7 +961,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               !linkedCharacters.length &&
               !relatedPeople.length &&
               !relatedRoutes.length &&
-              !routePlaces.length && (
+              !routePlaces.length &&
+              !activeProphets.length &&
+              !contemporaryKings.length && (
                 <p className="rounded-2xl border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
                   Aucune relation structurée disponible.
                 </p>
