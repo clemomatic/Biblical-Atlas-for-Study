@@ -1,4 +1,7 @@
-import type { CertaintyLevel } from '../../types.ts';
+import type {
+  CertaintyLevel,
+  GeographicProvenanceMethod
+} from '../../types.ts';
 import type {
   BiblicalPerson,
   TemporalSpan
@@ -206,12 +209,36 @@ export interface ReviewedRouteRecord {
     period?: TemporalSpan;
     placeIds: string[];
     associatedEventIds: string[];
+    personIds: string[];
     biblicalReferences: string[];
     certainty: CertaintyLevel;
     geometryPrecision: 'schematic';
+    routeNature: 'documented' | 'reconstructed' | 'schematic';
+    tracePrecision: 'exact' | 'approximate' | 'indicative-place-sequence';
+    stepOrder: 'source-chronology' | 'documented-sequence';
     notForExactNavigation: true;
     notes: string;
   };
+}
+
+export interface ReviewedGeographicLink {
+  id: string;
+  workflowStatus: 'reviewed';
+  origin: 'reviewed';
+  sourceIds: string[];
+  primarySourceId: string;
+  mapId: string;
+  mapReference: string;
+  subject: HistoricalEntityReference;
+  placeId?: string;
+  eventIds?: string[];
+  personIds?: string[];
+  presenceEpisodeIds?: string[];
+  method: GeographicProvenanceMethod;
+  certainty: CertaintyLevel;
+  sourceMapCertainty: CertaintyLevel;
+  coordinatesChanged: false;
+  limitations: string;
 }
 
 export interface ReviewedTerritoryRecord {
@@ -324,6 +351,7 @@ export interface HistoricalDataset {
   events: ReviewedEventRecord[];
   places: ReviewedPlaceRecord[];
   routes: ReviewedRouteRecord[];
+  geography: ReviewedGeographicLink[];
   territories: ReviewedTerritoryRecord[];
   claims: HistoricalClaim[];
   presences: PresenceEpisode[];

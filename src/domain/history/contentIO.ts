@@ -8,6 +8,7 @@ import type {
   HistoricalDataset,
   PresenceEpisode,
   ReviewedEventRecord,
+  ReviewedGeographicLink,
   ReviewedPersonRecord,
   ReviewedPlaceRecord,
   ReviewedRouteRecord,
@@ -86,6 +87,9 @@ export async function loadHistoricalDataset(
     ),
     routes: await readOptionalJsonDirectory<ReviewedRouteRecord>(
       join(contentRoot, 'reviewed', 'routes')
+    ),
+    geography: await readOptionalJsonDirectory<ReviewedGeographicLink>(
+      join(contentRoot, 'reviewed', 'geography')
     ),
     territories: await readOptionalJsonDirectory<ReviewedTerritoryRecord>(
       join(contentRoot, 'reviewed', 'territories')

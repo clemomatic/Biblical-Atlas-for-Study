@@ -125,6 +125,14 @@ const VALID_ACTIVITY_PHASES = new Set([
   'official-office'
 ]);
 
+const VALID_GEOGRAPHIC_METHODS = new Set([
+  'source-map-location',
+  'map-and-event-cross-reference',
+  'documented-route',
+  'reconstructed-route',
+  'schematic-route'
+]);
+
 const addIterable = (
   target: Set<string>,
   values: Iterable<string> | undefined
@@ -432,6 +440,35 @@ export function validateHistoricalDataset(
           'Un itinéraire A7 doit être explicitement schématique et impropre à la navigation exacte.'
       });
     }
+    if (
+      record.route.routeNature !== 'documented' &&
+      record.route.routeNature !== 'reconstructed' &&
+      record.route.routeNature !== 'schematic'
+    ) {
+      issues.push({
+        path: `${path}.route.routeNature`,
+        message: 'La nature documentée, reconstituée ou schématique est obligatoire.'
+      });
+    }
+    if (
+      record.route.tracePrecision !== 'exact' &&
+      record.route.tracePrecision !== 'approximate' &&
+      record.route.tracePrecision !== 'indicative-place-sequence'
+    ) {
+      issues.push({
+        path: `${path}.route.tracePrecision`,
+        message: 'La précision du tracé est obligatoire.'
+      });
+    }
+    if (
+      record.route.stepOrder !== 'source-chronology' &&
+      record.route.stepOrder !== 'documented-sequence'
+    ) {
+      issues.push({
+        path: `${path}.route.stepOrder`,
+        message: 'L’origine de l’ordre des étapes est obligatoire.'
+      });
+    }
     if (record.route.placeIds.length < 2) {
       issues.push({
         path: `${path}.route.placeIds`,
@@ -443,6 +480,12 @@ export function validateHistoricalDataset(
       placeIds,
       `${path}.route.placeIds`,
       'Lieu'
+    );
+    validateRelatedIds(
+      record.route.personIds,
+      personIds,
+      `${path}.route.personIds`,
+      'Personnage'
     );
     if (!VALID_CERTAINTY_LEVELS.has(record.route.certainty)) {
       issues.push({
@@ -915,6 +958,98 @@ export function validateHistoricalDataset(
         }
       });
     }
+  });
+
+  const presenceIds = new Set(dataset.presences.map(presence => presence.id));
+  dataset.geography.forEach((link, index) => {
+    const path = `reviewed.geography[${index}]`;
+    registerId(link.id, `${path}.id`);
+    if (
+      link.workflowStatus !== 'reviewed' ||
+      link.origin !== 'reviewed'
+    ) {
+      issues.push({
+        path,
+        message: 'Une provenance géographique validée doit provenir de reviewed.'
+      });
+    }
+    validateSourceIds(link.sourceIds, `${path}.sourceIds`);
+    if (!link.sourceIds.includes(link.primarySourceId)) {
+      issues.push({
+        path: `${path}.primarySourceId`,
+        message: 'La source cartographique principale doit figurer dans sourceIds.'
+      });
+    }
+    if (!link.mapId?.trim() || !link.mapReference?.trim()) {
+      issues.push({
+        path,
+        message: 'La carte et sa référence courte sont obligatoires.'
+      });
+    }
+    validateEntityReference(link.subject, `${path}.subject`);
+    if (
+      link.subject.entityType !== 'place' &&
+      link.subject.entityType !== 'event' &&
+      link.subject.entityType !== 'route'
+    ) {
+      issues.push({
+        path: `${path}.subject.entityType`,
+        message: 'La provenance géographique concerne un lieu, un événement ou un itinéraire.'
+      });
+    }
+    if (!VALID_GEOGRAPHIC_METHODS.has(link.method)) {
+      issues.push({
+        path: `${path}.method`,
+        message: `Méthode géographique inconnue : ${link.method}.`
+      });
+    }
+    if (
+      !VALID_CERTAINTY_LEVELS.has(link.certainty) ||
+      !VALID_CERTAINTY_LEVELS.has(link.sourceMapCertainty)
+    ) {
+      issues.push({
+        path: `${path}.certainty`,
+        message: 'Les degrés de certitude géographique doivent être explicites.'
+      });
+    }
+    if (link.coordinatesChanged !== false) {
+      issues.push({
+        path: `${path}.coordinatesChanged`,
+        message: 'Ce lot pilote ne doit modifier aucune coordonnée.'
+      });
+    }
+    if (!link.limitations?.trim()) {
+      issues.push({
+        path: `${path}.limitations`,
+        message: 'Les limites de la provenance géographique sont obligatoires.'
+      });
+    }
+    if (link.placeId && !placeIds.has(link.placeId)) {
+      issues.push({
+        path: `${path}.placeId`,
+        message: `Lieu inexistant : ${link.placeId}.`
+      });
+    }
+    validateRelatedIds(
+      link.eventIds,
+      eventIds,
+      `${path}.eventIds`,
+      'Événement'
+    );
+    validateRelatedIds(
+      link.personIds,
+      personIds,
+      `${path}.personIds`,
+      'Personnage'
+    );
+    link.presenceEpisodeIds?.forEach((presenceId, presenceIndex) => {
+      if (!presenceIds.has(presenceId)) {
+        issues.push({
+          path: `${path}.presenceEpisodeIds[${presenceIndex}]`,
+          message: `Épisode de présence inexistant : ${presenceId}.`
+        });
+      }
+    });
   });
 
   if (issues.length > 0) {

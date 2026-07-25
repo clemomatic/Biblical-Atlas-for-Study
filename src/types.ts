@@ -31,6 +31,30 @@ export interface SourceReference {
   citation?: string;
 }
 
+export type GeographicProvenanceMethod =
+  | 'source-map-location'
+  | 'map-and-event-cross-reference'
+  | 'documented-route'
+  | 'reconstructed-route'
+  | 'schematic-route';
+
+export interface GeographicProvenance {
+  id: string;
+  sourceId: string;
+  sourceLabel: string;
+  sourceUrl?: string;
+  mapId: string;
+  mapReference: string;
+  method: GeographicProvenanceMethod;
+  /** Certitude du rapprochement géographique, pas de la date de l’événement. */
+  certainty: CertaintyLevel;
+  /** Certitude portée explicitement par le symbole de la carte source. */
+  sourceMapCertainty: CertaintyLevel;
+  limitations: string;
+  /** Rend explicite qu’une simple association ne réécrit pas les coordonnées. */
+  coordinatesChanged: boolean;
+}
+
 export interface EncyclopediaReference {
   id: string;
   work: 'insight' | 'wol';
@@ -66,6 +90,7 @@ export interface EntityMetadata {
   notes?: string;
   lastVerified?: string;
   media?: MediaAsset[];
+  geographicProvenance?: GeographicProvenance[];
 }
 
 export interface EraData {
@@ -192,6 +217,9 @@ export interface BiblicalRoute extends EntityMetadata {
   associatedCharacters?: string[];
   /** Le tracé relie des lieux attestés sans prétendre restituer le chemin exact. */
   geometryPrecision?: 'schematic';
+  routeNature?: 'documented' | 'reconstructed' | 'schematic';
+  tracePrecision?: 'exact' | 'approximate' | 'indicative-place-sequence';
+  stepOrder?: 'source-chronology' | 'documented-sequence';
   /** Empêche toute interprétation du tracé comme donnée de navigation. */
   notForExactNavigation?: boolean;
 }

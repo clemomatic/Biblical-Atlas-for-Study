@@ -382,11 +382,21 @@ const createRoute = appendix => {
         : {}),
       placeIds,
       associatedEventIds: ordered.map(record => record.event.id),
+      personIds: unique(
+        ordered.flatMap(record =>
+          (record.event.participantMentions ?? []).flatMap(participant =>
+            participant.personId ? [participant.personId] : []
+          )
+        )
+      ),
       biblicalReferences: unique(
         ordered.flatMap(record => record.event.biblicalReferences ?? [])
       ),
       certainty: 'certain',
       geometryPrecision: 'schematic',
+      routeNature: 'schematic',
+      tracePrecision: 'indicative-place-sequence',
+      stepOrder: 'source-chronology',
       notForExactNavigation: true,
       notes:
         'La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts.'
