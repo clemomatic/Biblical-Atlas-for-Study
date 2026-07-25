@@ -10,6 +10,8 @@ import {
   SourceReference
 } from '../types';
 import { formatEventSpan } from '../utils/dateUtils';
+import type { BiblicalPerson } from '../domain/history/types';
+import { formatTemporalSpanFrench } from '../domain/history/temporal';
 import {
   getBibleReferenceTarget,
   getDocumentaryReferenceTarget,
@@ -40,14 +42,17 @@ interface DetailPanelProps {
   selectedEvent: EventData | null;
   selectedPlace: BiblicalPlace | null;
   selectedRoute: BiblicalRoute | null;
+  selectedPerson: BiblicalPerson | null;
   categories: CategoryData[];
   places: BiblicalPlace[];
   routes: BiblicalRoute[];
   events: EventData[];
+  people: BiblicalPerson[];
   onClose: () => void;
   onSelectPlace: (place: BiblicalPlace) => void;
   onSelectEvent: (event: EventData) => void;
   onSelectRoute: (route: BiblicalRoute) => void;
+  onSelectPerson: (personId: string) => void;
   onSwitchTab: (tab: ActiveTab) => void;
 }
 
@@ -366,14 +371,17 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   selectedEvent,
   selectedPlace,
   selectedRoute,
+  selectedPerson,
   categories,
   places,
   routes,
   events,
+  people,
   onClose,
   onSelectPlace,
   onSelectEvent,
   onSelectRoute,
+  onSelectPerson,
   onSwitchTab
 }) => {
   const [activeSection, setActiveSection] =
@@ -381,7 +389,12 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
 
   useEffect(() => {
     setActiveSection('overview');
-  }, [selectedEvent?.id, selectedPlace?.id, selectedRoute?.id]);
+  }, [
+    selectedEvent?.id,
+    selectedPlace?.id,
+    selectedRoute?.id,
+    selectedPerson?.id
+  ]);
 
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
@@ -392,11 +405,13 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   }, [onClose]);
 
   const linkedEvents = useMemo(() => {
-    if (!selectedPlace) return [];
-    return (selectedPlace.associatedEventIds || [])
+    const eventIds = selectedPlace
+      ? selectedPlace.associatedEventIds || []
+      : selectedPerson?.associatedEventIds || [];
+    return eventIds
       .map(id => events.find(event => event.id === id))
       .filter((event): event is EventData => Boolean(event));
-  }, [selectedPlace, events]);
+  }, [selectedPlace, selectedPerson, events]);
 
   const linkedCharacters = useMemo(() => {
     if (!selectedPlace) return [];
@@ -405,44 +420,66 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
       .filter((event): event is EventData => Boolean(event));
   }, [selectedPlace, events]);
 
-  if (!selectedEvent && !selectedPlace && !selectedRoute) return null;
+  if (
+    !selectedEvent &&
+    !selectedPlace &&
+    !selectedRoute &&
+    !selectedPerson
+  ) {
+    return null;
+  }
 
   const title =
-    selectedEvent?.text || selectedPlace?.name || selectedRoute?.name || '';
+    selectedEvent?.text ||
+    selectedPlace?.name ||
+    selectedRoute?.name ||
+    selectedPerson?.name ||
+    '';
   const type = selectedEvent
     ? selectedEvent.category
     : selectedPlace
       ? selectedPlace.category || 'Lieu biblique'
-      : 'Itinéraire';
+      : selectedRoute
+        ? 'Itinéraire'
+        : 'Personnage biblique';
   const description =
     selectedEvent?.description ||
     selectedPlace?.description ||
-    selectedRoute?.description;
+    selectedRoute?.description ||
+    selectedPerson?.description;
   const certainty =
     selectedEvent?.certainty ||
     selectedPlace?.certainty ||
-    selectedRoute?.certainty;
+    selectedRoute?.certainty ||
+    selectedPerson?.certainty;
   const notes =
-    selectedEvent?.notes || selectedPlace?.notes || selectedRoute?.notes;
+    selectedEvent?.notes ||
+    selectedPlace?.notes ||
+    selectedRoute?.notes ||
+    selectedPerson?.notes;
   const biblicalReferences =
     selectedEvent?.biblicalReferences ||
     selectedPlace?.biblicalReferences ||
     selectedRoute?.biblicalReferences ||
+    selectedPerson?.biblicalReferences ||
     [];
   const documentaryReferences =
     selectedEvent?.documentaryReferences ||
     selectedPlace?.documentaryReferences ||
     selectedRoute?.documentaryReferences ||
+    selectedPerson?.documentaryReferences ||
     [];
   const sources =
     selectedEvent?.sources ||
     selectedPlace?.sources ||
     selectedRoute?.sources ||
+    selectedPerson?.sources ||
     [];
   const encyclopediaReferences =
     selectedEvent?.encyclopediaReferences ||
     selectedPlace?.encyclopediaReferences ||
     selectedRoute?.encyclopediaReferences ||
+    selectedPerson?.encyclopediaReferences ||
     [];
   const category = selectedEvent
     ? categories.find(
@@ -476,15 +513,31 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
       ? (selectedPlace.routeIds || [])
           .map(id => routes.find(route => route.id === id))
           .filter((route): route is BiblicalRoute => Boolean(route))
-      : [];
+      : selectedPerson
+        ? (selectedPerson.associatedRouteIds || [])
+            .map(id => routes.find(route => route.id === id))
+            .filter((route): route is BiblicalRoute => Boolean(route))
+        : [];
 
   const relatedPlaces = selectedEvent
     ? (selectedEvent.associatedLocationIds || [])
         .map(id => places.find(place => place.id === id))
         .filter((place): place is BiblicalPlace => Boolean(place))
-      : [];
+      : selectedPerson
+        ? (selectedPerson.associatedLocationIds || [])
+            .map(id => places.find(place => place.id === id))
+            .filter((place): place is BiblicalPlace => Boolean(place))
+        : [];
+  const relatedPeople = selectedPerson
+    ? (selectedPerson.associatedPersonIds || [])
+        .map(id => people.find(person => person.id === id))
+        .filter((person): person is BiblicalPerson => Boolean(person))
+    : [];
   const media =
-    selectedEvent?.media || selectedPlace?.media || selectedRoute?.media;
+    selectedEvent?.media ||
+    selectedPlace?.media ||
+    selectedRoute?.media ||
+    selectedPerson?.media;
 
   return (
     <aside
@@ -580,6 +633,13 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             )}
 
+            {selectedPerson?.lifeSpan && (
+              <div className="flex items-center gap-2 border-l-2 border-[var(--color-primary)] bg-[var(--color-primary-soft)] px-4 py-3 text-sm font-semibold text-[var(--color-primary-dark)]">
+                <Calendar className="size-4 shrink-0" />
+                {formatTemporalSpanFrench(selectedPerson.lifeSpan)}
+              </div>
+            )}
+
             {selectedPlace?.periodDescription && (
               <div className="flex items-start gap-3 border-l-2 border-[var(--color-mineral)] bg-[var(--color-mineral-soft)] p-4">
                 <Calendar className="mt-0.5 size-4 shrink-0 text-[var(--color-mineral)]" />
@@ -603,6 +663,11 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             {selectedPlace?.alternateNames?.length ? (
               <p className="text-xs italic text-[var(--color-ink-muted)]">
                 Aussi nommé : {selectedPlace.alternateNames.join(', ')}
+              </p>
+            ) : null}
+            {selectedPerson?.alternateNames?.length ? (
+              <p className="text-xs italic text-[var(--color-ink-muted)]">
+                Aussi nommé : {selectedPerson.alternateNames.join(', ')}
               </p>
             ) : null}
 
@@ -715,6 +780,29 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </section>
             )}
 
+            {relatedPeople.length > 0 && (
+              <section>
+                <SectionTitle icon={<User className="size-4" />}>
+                  Personnes associées
+                </SectionTitle>
+                <div className="space-y-2">
+                  {relatedPeople.map(person => (
+                    <RelationButton
+                      key={person.id}
+                      title={person.name}
+                      meta={
+                        person.lifeSpan
+                          ? formatTemporalSpanFrench(person.lifeSpan)
+                          : 'Période de vie non précisée'
+                      }
+                      icon={<User className="size-4" />}
+                      onClick={() => onSelectPerson(person.id)}
+                    />
+                  ))}
+                </div>
+              </section>
+            )}
+
             {relatedRoutes.length > 0 && (
               <section>
                 <SectionTitle icon={<Navigation className="size-4" />}>
@@ -762,6 +850,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             {!relatedPlaces.length &&
               !linkedEvents.length &&
               !linkedCharacters.length &&
+              !relatedPeople.length &&
               !relatedRoutes.length &&
               !routePlaces.length && (
                 <p className="rounded-2xl border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
@@ -809,6 +898,31 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             <Calendar className="size-4" />
             Voir dans la frise
           </button>
+        ) : selectedPerson ? (
+          selectedPerson.legacyEventId &&
+          events.find(event => event.id === selectedPerson.legacyEventId) ? (
+            <button
+              onClick={() => {
+                const legacyEvent = events.find(
+                  event => event.id === selectedPerson.legacyEventId
+                );
+                if (legacyEvent) onSelectEvent(legacyEvent);
+                onSwitchTab('timeline');
+              }}
+              className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary)]"
+            >
+              <Calendar className="size-4" />
+              Voir sa période dans la frise
+            </button>
+          ) : (
+            <button
+              onClick={onClose}
+              className="flex min-h-11 w-full items-center justify-center gap-2 rounded-[var(--radius-sm)] bg-[var(--color-primary-dark)] px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary)]"
+            >
+              <User className="size-4" />
+              Fermer la fiche
+            </button>
+          )
         ) : (
           <button
             onClick={() => onSwitchTab('map')}

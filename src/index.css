@@ -218,6 +218,34 @@ textarea {
   color: var(--color-white);
 }
 
+.atlas-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  border: 1px solid var(--color-stone-light);
+  border-radius: var(--radius-pill);
+  background: var(--color-paper-muted);
+  padding: var(--space-2) var(--space-3);
+  color: var(--color-ink-soft);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.atlas-chip:hover {
+  border-color: color-mix(in srgb, var(--color-primary) 42%, var(--color-stone));
+  background: var(--color-primary-soft);
+  color: var(--color-primary-dark);
+}
+
+.atlas-empty-row {
+  border-left: 2px solid var(--color-stone);
+  background: var(--color-paper-muted);
+  padding: var(--space-3) var(--space-4);
+  color: var(--color-ink-muted);
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
 .atlas-divider {
   border-color: color-mix(in srgb, var(--color-stone) 78%, transparent);
 }
