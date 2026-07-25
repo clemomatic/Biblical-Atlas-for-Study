@@ -100,6 +100,7 @@ const SOURCE_PLACES = [
 ].map(([label, kind]) => ({ label, kind }));
 
 const PLACE_OVERRIDES = {
+  'Capharnaüm': 'capernaum',
   'Mt Hermon': 'obi-mount-hermon',
   'Ptolémaïs (Akko)': 'obi-ptolemais',
   'Mer de Galilée': 'obi-sea-of-galilee',
@@ -113,10 +114,15 @@ const PLACE_OVERRIDES = {
   'Lydda (Lod)': 'obi-lod',
   'Philadelphie (Raba)': 'obi-rabbah-1',
   'Asdod, Azoth': 'obi-ashdod',
-  Qumran: 'obi-secacah',
+  'Bethléem': 'bethlehem',
+  'Bersabée': 'beersheba',
   'Désert de Judée': 'place-a7b-judean-wilderness',
   'Mer Salée (Mer Morte)': 'obi-salt-sea'
 };
+
+const BLOCKED_AMBIGUOUS_LABELS = new Map([
+  ['Qumran', 'Le corpus actuel associe Qumran à Sekaka comme nom alternatif, sans identifiant propre suffisamment démontré.']
+]);
 
 const sourceEntry = {
   id: SOURCE_ID,
@@ -142,10 +148,13 @@ const sourceCatalogPath = join(
   'source-catalog.json'
 );
 const sourceCatalog = JSON.parse(await readFile(sourceCatalogPath, 'utf8'));
-const nextSourceCatalog = [
-  ...sourceCatalog.filter(source => source.id !== SOURCE_ID),
-  sourceEntry
-].sort((left, right) => left.id.localeCompare(right.id));
+const existingSourceIndex = sourceCatalog.findIndex(
+  source => source.id === SOURCE_ID
+);
+const nextSourceCatalog = [...sourceCatalog];
+if (existingSourceIndex >= 0) nextSourceCatalog[existingSourceIndex] = sourceEntry;
+else nextSourceCatalog.push(sourceEntry);
+await writeFile(sourceCatalogPath, serialize(nextSourceCatalog), 'utf8');
 
 const dataset = await loadHistoricalDataset(CONTENT_ROOT);
 const server = await createServer({
@@ -199,9 +208,14 @@ allPlaces.forEach(place => {
 
 const inventory = SOURCE_PLACES.map((sourcePlace, sourceOrder) => {
   const overrideId = PLACE_OVERRIDES[sourcePlace.label];
-  const candidates = overrideId
+  const ambiguityNote = BLOCKED_AMBIGUOUS_LABELS.get(sourcePlace.label);
+  const candidates = ambiguityNote
+    ? []
+    : overrideId
     ? [overrideId]
-    : unique(normalizedNames.get(normalize(sourcePlace.label)) ?? []);
+    : sourcePlace.kind === 'region'
+      ? []
+      : unique(normalizedNames.get(normalize(sourcePlace.label)) ?? []);
   const placeId =
     candidates.length === 1 && placesById.has(candidates[0])
       ? candidates[0]
@@ -223,9 +237,10 @@ const inventory = SOURCE_PLACES.map((sourcePlace, sourceOrder) => {
       : {
           matchMethod: 'none',
           reviewNote:
-            sourcePlace.kind === 'region'
+            ambiguityNote ??
+            (sourcePlace.kind === 'region'
               ? 'Région cartographique non modélisée comme point.'
-              : 'Aucun identifiant suffisamment démontré dans le corpus actuel.'
+              : 'Aucun identifiant suffisamment démontré dans le corpus actuel.')
         })
   };
 });
@@ -263,9 +278,22 @@ const placeLinks = inventory.flatMap(item => {
 const a7Events = dataset.events.filter(record =>
   record.sourceIds.some(sourceId => /^source-nwtsty-a7-[a-h]$/.test(sourceId))
 );
-const eventLinks = a7Events.flatMap(record =>
-  (record.event.placeMentions ?? []).flatMap(mention => {
-    if (!mention.placeId) return [];
+const eventLinks = a7Events.flatMap(record => {
+  const certaintyOrder = ['unknown', 'possible', 'probable', 'certain'];
+  const mentionsByPlaceId = new Map();
+  for (const mention of record.event.placeMentions ?? []) {
+    if (!mention.placeId) continue;
+    const existing = mentionsByPlaceId.get(mention.placeId);
+    if (
+      !existing ||
+      certaintyOrder.indexOf(mention.certainty) <
+        certaintyOrder.indexOf(existing.certainty)
+    ) {
+      mentionsByPlaceId.set(mention.placeId, mention);
+    }
+  }
+
+  return [...mentionsByPlaceId.values()].flatMap(mention => {
     const inventoryItem = inventoryByPlaceId.get(mention.placeId);
     if (!inventoryItem) return [];
     const presences = dataset.presences.filter(
@@ -296,8 +324,8 @@ const eventLinks = a7Events.flatMap(record =>
       limitations:
         'B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux.'
     }];
-  })
-);
+  });
+});
 
 const geographicLinks = [...placeLinks, ...eventLinks].sort((left, right) =>
   left.id.localeCompare(right.id)
@@ -363,7 +391,6 @@ await mkdir(join(CONTENT_ROOT, 'reviewed', 'geography'), {
   recursive: true
 });
 await mkdir(join(CONTENT_ROOT, 'generated'), { recursive: true });
-await writeFile(sourceCatalogPath, serialize(nextSourceCatalog), 'utf8');
 await writeFile(
   join(CONTENT_ROOT, 'staging', 'b10-israel-temps-jesus.json'),
   serialize(staging),

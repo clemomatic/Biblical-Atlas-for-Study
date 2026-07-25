@@ -47,6 +47,16 @@
         "event-a7-a-vie-nazareth",
         "event-a7-a-debut-ministere-jean"
       ],
+      "personIds": [
+        "person-a7-gabriel",
+        "person-a7-zacharie-pretre",
+        "person-a7-marie-mere-jesus",
+        "person-a7-elisabeth",
+        "event-jean-le-baptiseur-dvgl2c",
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-joseph-pere-adoptif",
+        "person-a7-herode-le-grand"
+      ],
       "biblicalReferences": [
         "Luc 1:5-25",
         "Luc 1:26-56",
@@ -69,6 +79,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }
@@ -122,6 +135,12 @@
         "event-a7b-emprisonnement-jean",
         "event-a7b-enseignement-sychar"
       ],
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7b-diable",
+        "event-jean-le-baptiseur-dvgl2c",
+        "person-a7b-nicodeme"
+      ],
       "biblicalReferences": [
         "Matthieu 3:13-17",
         "Marc 1:9-11",
@@ -144,6 +163,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }
@@ -210,6 +232,15 @@
         "event-a7-c-signe-jonas",
         "event-a7-c-mere-freres-jesus"
       ],
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-pierre",
+        "person-a7-andre",
+        "person-a7-jacques-fils-zebedee",
+        "event-jean-e4vx5j",
+        "person-a7-matthieu",
+        "person-a7-marie-mere-jesus"
+      ],
       "biblicalReferences": [
         "Matthieu 4:17",
         "Marc 1:14-15",
@@ -264,6 +295,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }
@@ -322,6 +356,12 @@
         "event-a7-d-syrophenicienne-quatre-mille",
         "event-a7-d-signe-jonas-magadan"
       ],
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-jaire",
+        "person-a7-herode-antipas",
+        "event-jean-le-baptiseur-dvgl2c"
+      ],
       "biblicalReferences": [
         "Matthieu 13:1-53",
         "Marc 4:1-34",
@@ -363,6 +403,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }
@@ -426,6 +469,11 @@
         "event-a7-e-infirme-sabbat-graine-levain",
         "event-a7-e-excellent-berger-depart-bethanie-jourdain"
       ],
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-marthe",
+        "person-a7-marie-bethanie"
+      ],
       "biblicalReferences": [
         "Matthieu 16:5-12",
         "Marc 8:13-26",
@@ -461,6 +509,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }
@@ -518,6 +569,13 @@
         "event-a7-f-demande-jacques-jean",
         "event-a7-f-jericho-aveugles-zachee-mines"
       ],
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-lazare",
+        "person-a7-jacques-fils-zebedee",
+        "event-jean-e4vx5j",
+        "person-a7-zachee"
+      ],
       "biblicalReferences": [
         "Jean 10:40-42",
         "Luc 13:22",
@@ -550,6 +608,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }
@@ -615,6 +676,11 @@
         "event-a7-g-derniere-paque",
         "event-a7-g-lavement-pieds"
       ],
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-marie-bethanie",
+        "person-a7-judas-iscariote"
+      ],
       "biblicalReferences": [
         "Jean 11:55-12:1",
         "Matthieu 26:6-13",
@@ -671,6 +737,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }
@@ -727,6 +796,16 @@
         "event-a7-h-resurrection-apparitions",
         "event-a7-h-autres-apparitions-mission",
         "event-a7-h-ascension"
+      ],
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz",
+        "person-a7-judas-iscariote",
+        "person-a7-pierre",
+        "person-a7-anne-grand-pretre",
+        "person-a7-caiphe",
+        "person-a7-ponce-pilate",
+        "person-a7-herode-antipas",
+        "person-a7-barabbas"
       ],
       "biblicalReferences": [
         "Matthieu 26:21-25",
@@ -786,6 +865,9 @@
       ],
       "certainty": "certain",
       "geometryPrecision": "schematic",
+      "routeNature": "schematic",
+      "tracePrecision": "indicative-place-sequence",
+      "stepOrder": "source-chronology",
       "notForExactNavigation": true,
       "notes": "La publication précise que les flèches indiquent seulement les directions prises et non des itinéraires exacts."
     }

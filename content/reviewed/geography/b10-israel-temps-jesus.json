@@ -1,0 +1,4413 @@
+[
+  {
+    "id": "geo-b10-event-event-a7-a-annonce-bergers-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethléem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-bergers"
+    },
+    "placeId": "bethlehem",
+    "eventIds": [
+      "event-a7-a-annonce-bergers"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-annonce-bergers-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+      "presence-event-a7-a-annonce-bergers-person-a7-joseph-pere-adoptif-bethlehem",
+      "presence-event-a7-a-annonce-bergers-person-a7-marie-mere-jesus-bethlehem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-annonce-naissance-jean-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-naissance-jean"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-a-annonce-naissance-jean"
+    ],
+    "personIds": [
+      "person-a7-gabriel",
+      "person-a7-zacharie-pretre"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-annonce-naissance-jean-person-a7-gabriel-jerusalem",
+      "presence-event-a7-a-annonce-naissance-jean-person-a7-zacharie-pretre-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-annonce-naissance-jesus-visite-elisabeth-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Nazareth",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+    },
+    "placeId": "nazareth",
+    "eventIds": [
+      "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+    ],
+    "personIds": [
+      "person-a7-gabriel",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-annonce-naissance-jesus-visite-elisabeth-person-a7-gabriel-nazareth",
+      "presence-event-a7-a-annonce-naissance-jesus-visite-elisabeth-person-a7-marie-mere-jesus-nazareth"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-astrologues-fuite-egypte-retour-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethléem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-astrologues-fuite-egypte-retour"
+    },
+    "placeId": "bethlehem",
+    "eventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-joseph-pere-adoptif-bethlehem",
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-marie-mere-jesus-bethlehem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-astrologues-fuite-egypte-retour-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-astrologues-fuite-egypte-retour"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-herode-le-grand",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-herode-le-grand-jerusalem",
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-joseph-pere-adoptif-jerusalem",
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-marie-mere-jesus-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-astrologues-fuite-egypte-retour-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Nazareth",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-astrologues-fuite-egypte-retour"
+    },
+    "placeId": "nazareth",
+    "eventIds": [
+      "event-a7-a-astrologues-fuite-egypte-retour"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-joseph-pere-adoptif-nazareth",
+      "presence-event-a7-a-astrologues-fuite-egypte-retour-person-a7-marie-mere-jesus-nazareth"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-circoncision-presentation-temple-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethléem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-circoncision-presentation-temple"
+    },
+    "placeId": "bethlehem",
+    "eventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-circoncision-presentation-temple-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+      "presence-event-a7-a-circoncision-presentation-temple-person-a7-joseph-pere-adoptif-bethlehem",
+      "presence-event-a7-a-circoncision-presentation-temple-person-a7-marie-mere-jesus-bethlehem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-circoncision-presentation-temple-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-circoncision-presentation-temple"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-a-circoncision-presentation-temple"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-circoncision-presentation-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-a-circoncision-presentation-temple-person-a7-joseph-pere-adoptif-jerusalem",
+      "presence-event-a7-a-circoncision-presentation-temple-person-a7-marie-mere-jesus-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-debut-ministere-jean-jordan_river",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jourdain",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-debut-ministere-jean"
+    },
+    "placeId": "jordan_river",
+    "eventIds": [
+      "event-a7-a-debut-ministere-jean"
+    ],
+    "personIds": [
+      "event-jean-le-baptiseur-dvgl2c"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-debut-ministere-jean-event-jean-le-baptiseur-dvgl2c-jordan_river"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-jesus-douze-ans-temple-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-jesus-douze-ans-temple"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-a-jesus-douze-ans-temple"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-jesus-douze-ans-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-a-jesus-douze-ans-temple-person-a7-joseph-pere-adoptif-jerusalem",
+      "presence-event-a7-a-jesus-douze-ans-temple-person-a7-marie-mere-jesus-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-naissance-jesus-bethlehem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethléem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-naissance-jesus"
+    },
+    "placeId": "bethlehem",
+    "eventIds": [
+      "event-a7-a-naissance-jesus"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-naissance-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+      "presence-event-a7-a-naissance-jesus-person-a7-joseph-pere-adoptif-bethlehem",
+      "presence-event-a7-a-naissance-jesus-person-a7-marie-mere-jesus-bethlehem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-a-vie-nazareth-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-a"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Nazareth",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-a-vie-nazareth"
+    },
+    "placeId": "nazareth",
+    "eventIds": [
+      "event-a7-a-vie-nazareth"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-joseph-pere-adoptif",
+      "person-a7-marie-mere-jesus"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-a-vie-nazareth-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+      "presence-event-a7-a-vie-nazareth-person-a7-joseph-pere-adoptif-nazareth",
+      "presence-event-a7-a-vie-nazareth-person-a7-marie-mere-jesus-nazareth"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-appel-matthieu-question-jeune-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-matthieu-question-jeune"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-c-appel-matthieu-question-jeune"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-matthieu"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-appel-matthieu-question-jeune-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+      "presence-event-a7-c-appel-matthieu-question-jeune-person-a7-matthieu-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-appel-quatre-disciples-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer de Galilée",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-quatre-disciples"
+    },
+    "placeId": "obi-sea-of-galilee",
+    "eventIds": [
+      "event-a7-c-appel-quatre-disciples"
+    ],
+    "personIds": [
+      "event-jean-e4vx5j",
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-andre",
+      "person-a7-jacques-fils-zebedee",
+      "person-a7-pierre"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-appel-quatre-disciples-event-jean-e4vx5j-obi-sea-of-galilee",
+      "presence-event-a7-c-appel-quatre-disciples-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+      "presence-event-a7-c-appel-quatre-disciples-person-a7-andre-obi-sea-of-galilee",
+      "presence-event-a7-c-appel-quatre-disciples-person-a7-jacques-fils-zebedee-obi-sea-of-galilee",
+      "presence-event-a7-c-appel-quatre-disciples-person-a7-pierre-obi-sea-of-galilee"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-choix-douze-apotres-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-choix-douze-apotres"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-c-choix-douze-apotres"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-choix-douze-apotres-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-disciples-jean-interrogent-jesus-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Naïn",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-disciples-jean-interrogent-jesus"
+    },
+    "placeId": "obi-nain",
+    "eventIds": [
+      "event-a7-c-disciples-jean-interrogent-jesus"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-disciples-jean-interrogent-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-disciples-jean-interrogent-jesus-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Tibériade",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-disciples-jean-interrogent-jesus"
+    },
+    "placeId": "obi-tiberias",
+    "eventIds": [
+      "event-a7-c-disciples-jean-interrogent-jesus"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-disciples-jean-interrogent-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-obi-tiberias"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-guerison-bethzata-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-bethzata"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-c-guerison-bethzata"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-guerison-bethzata-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Nazareth",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    },
+    "placeId": "nazareth",
+    "eventIds": [
+      "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-obi-cana",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Cana",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    },
+    "placeId": "obi-cana",
+    "eventIds": [
+      "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-guerison-paralyse-capharnaum-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-paralyse-capharnaum"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-c-guerison-paralyse-capharnaum"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-guerison-paralyse-capharnaum-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-guerison-serviteur-officier-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-serviteur-officier"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-c-guerison-serviteur-officier"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-guerison-serviteur-officier-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-guerisons-capharnaum-belle-mere-pierre-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerisons-capharnaum-belle-mere-pierre"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-c-guerisons-capharnaum-belle-mere-pierre"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-guerisons-capharnaum-belle-mere-pierre-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-main-guerie-sabbat-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer de Galilée",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-main-guerie-sabbat"
+    },
+    "placeId": "obi-sea-of-galilee",
+    "eventIds": [
+      "event-a7-c-main-guerie-sabbat"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-main-guerie-sabbat-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-pecheresse-huile-pieds-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Naïn",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-pecheresse-huile-pieds"
+    },
+    "placeId": "obi-nain",
+    "eventIds": [
+      "event-a7-c-pecheresse-huile-pieds"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-pecheresse-huile-pieds-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-resurrection-fils-veuve-nain-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Naïn",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-resurrection-fils-veuve-nain"
+    },
+    "placeId": "obi-nain",
+    "eventIds": [
+      "event-a7-c-resurrection-fils-veuve-nain"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-resurrection-fils-veuve-nain-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-c-sermon-montagne-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-c"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-c-sermon-montagne"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-c-sermon-montagne"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-c-sermon-montagne-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-demons-porcs-gadara-obi-gadara",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Gadara",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-demons-porcs-gadara"
+    },
+    "placeId": "obi-gadara",
+    "eventIds": [
+      "event-a7-d-demons-porcs-gadara"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-demons-porcs-gadara-event-jesus-en-tant-qu-humain-1f4ceyz-obi-gadara"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-deux-aveugles-muet-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-deux-aveugles-muet"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-d-deux-aveugles-muet"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-deux-aveugles-muet-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-exemples-royaume-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-exemples-royaume"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-d-exemples-royaume"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-exemples-royaume-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-femme-pertes-sang-fille-jaire-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-femme-pertes-sang-fille-jaire"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-d-femme-pertes-sang-fille-jaire"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-jaire"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-femme-pertes-sang-fille-jaire-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+      "presence-event-a7-d-femme-pertes-sang-fille-jaire-person-a7-jaire-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-marche-eau-guerisons-genesareth-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer de Galilée",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-marche-eau-guerisons-genesareth"
+    },
+    "placeId": "obi-sea-of-galilee",
+    "eventIds": [
+      "event-a7-d-marche-eau-guerisons-genesareth"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-marche-eau-guerisons-genesareth-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-mort-jean-herode-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Tibériade",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-mort-jean-herode"
+    },
+    "placeId": "obi-tiberias",
+    "eventIds": [
+      "event-a7-d-mort-jean-herode"
+    ],
+    "personIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "person-a7-herode-antipas"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-mort-jean-herode-event-jean-le-baptiseur-dvgl2c-obi-tiberias",
+      "presence-event-a7-d-mort-jean-herode-person-a7-herode-antipas-obi-tiberias"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-nouveau-rejet-nazareth-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Nazareth",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-nouveau-rejet-nazareth"
+    },
+    "placeId": "nazareth",
+    "eventIds": [
+      "event-a7-d-nouveau-rejet-nazareth"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-nouveau-rejet-nazareth-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-pain-de-vie-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-pain-de-vie"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-d-pain-de-vie"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-pain-de-vie-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-retour-apotres-nourrit-cinq-mille-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-retour-apotres-nourrit-cinq-mille"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-d-retour-apotres-nourrit-cinq-mille"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-retour-apotres-nourrit-cinq-mille-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-retour-apotres-nourrit-cinq-mille-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer de Galilée",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-retour-apotres-nourrit-cinq-mille"
+    },
+    "placeId": "obi-sea-of-galilee",
+    "eventIds": [
+      "event-a7-d-retour-apotres-nourrit-cinq-mille"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-retour-apotres-nourrit-cinq-mille-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-signe-jonas-magadan-obi-magadan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Magadân",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-signe-jonas-magadan"
+    },
+    "placeId": "obi-magadan",
+    "eventIds": [
+      "event-a7-d-signe-jonas-magadan"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-signe-jonas-magadan-event-jesus-en-tant-qu-humain-1f4ceyz-obi-magadan"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-tempete-calmee-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer de Galilée",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-tempete-calmee"
+    },
+    "placeId": "obi-sea-of-galilee",
+    "eventIds": [
+      "event-a7-d-tempete-calmee"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-tempete-calmee-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-d-traditions-humaines-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-d"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-d-traditions-humaines"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-d-traditions-humaines"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-d-traditions-humaines-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-bon-samaritain-marie-marthe-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-bon-samaritain-marie-marthe"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-e-bon-samaritain-marie-marthe"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-marie-bethanie",
+      "person-a7-marthe"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-bon-samaritain-marie-marthe-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+      "presence-event-a7-e-bon-samaritain-marie-marthe-person-a7-marie-bethanie-obi-bethany-1",
+      "presence-event-a7-e-bon-samaritain-marie-marthe-person-a7-marthe-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-cles-royaume-premiere-prediction-mort-obi-caesarea-philippi",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Césarée de Philippe",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-cles-royaume-premiere-prediction-mort"
+    },
+    "placeId": "obi-caesarea-philippi",
+    "eventIds": [
+      "event-a7-e-cles-royaume-premiere-prediction-mort"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-cles-royaume-premiere-prediction-mort-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-enseignement-fete-tabernacles-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-enseignement-fete-tabernacles"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-e-enseignement-fete-tabernacles"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-enseignement-fete-tabernacles-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-excellent-berger-depart-bethanie-jourdain-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-excellent-berger-depart-bethanie-jourdain"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-e-excellent-berger-depart-bethanie-jourdain"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-excellent-berger-depart-bethanie-jourdain-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-excellent-berger-depart-bethanie-jourdain-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie de l’autre côté du Jourdain ?",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-excellent-berger-depart-bethanie-jourdain"
+    },
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "eventIds": [
+      "event-a7-e-excellent-berger-depart-bethanie-jourdain"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-excellent-berger-depart-bethanie-jourdain-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-guerison-garcon-possede-obi-caesarea-philippi",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Césarée de Philippe",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-guerison-garcon-possede"
+    },
+    "placeId": "obi-caesarea-philippi",
+    "eventIds": [
+      "event-a7-e-guerison-garcon-possede"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-guerison-garcon-possede-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-impot-piece-poisson-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-impot-piece-poisson"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-e-impot-piece-poisson"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-impot-piece-poisson-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-levain-pharisiens-aveugle-bethsaide-obi-bethsaida-2",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethsaïde",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-levain-pharisiens-aveugle-bethsaide"
+    },
+    "placeId": "obi-bethsaida-2",
+    "eventIds": [
+      "event-a7-e-levain-pharisiens-aveugle-bethsaide"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-levain-pharisiens-aveugle-bethsaide-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethsaida-2"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-levain-pharisiens-aveugle-bethsaide-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer de Galilée",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-levain-pharisiens-aveugle-bethsaide"
+    },
+    "placeId": "obi-sea-of-galilee",
+    "eventIds": [
+      "event-a7-e-levain-pharisiens-aveugle-bethsaide"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-levain-pharisiens-aveugle-bethsaide-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-lumiere-monde-aveugle-naissance-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-lumiere-monde-aveugle-naissance"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-e-lumiere-monde-aveugle-naissance"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-lumiere-monde-aveugle-naissance-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-plus-grand-royaume-exemples-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-plus-grand-royaume-exemples"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7-e-plus-grand-royaume-exemples"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-plus-grand-royaume-exemples-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-e-transfiguration-obi-mount-hermon",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-e"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mt Hermon",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-e-transfiguration"
+    },
+    "placeId": "obi-mount-hermon",
+    "eventIds": [
+      "event-a7-e-transfiguration"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-e-transfiguration-event-jesus-en-tant-qu-humain-1f4ceyz-obi-mount-hermon"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-f-complot-depart-ephraim-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-f"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-f-complot-depart-ephraim"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-f-complot-depart-ephraim"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-f-complot-depart-ephraim-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-f-jericho-aveugles-zachee-mines-obi-jericho-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-f"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jéricho",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-f-jericho-aveugles-zachee-mines"
+    },
+    "placeId": "obi-jericho-1",
+    "eventIds": [
+      "event-a7-f-jericho-aveugles-zachee-mines"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-zachee"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-f-jericho-aveugles-zachee-mines-event-jesus-en-tant-qu-humain-1f4ceyz-obi-jericho-1",
+      "presence-event-a7-f-jericho-aveugles-zachee-mines-person-a7-zachee-obi-jericho-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-f-mort-resurrection-lazare-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-f"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-f-mort-resurrection-lazare"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-f-mort-resurrection-lazare"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-lazare"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-f-mort-resurrection-lazare-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+      "presence-event-a7-f-mort-resurrection-lazare-person-a7-lazare-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-f-retour-lieu-bapteme-jean-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-f"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie de l’autre côté du Jourdain ?",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-f-retour-lieu-bapteme-jean"
+    },
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "eventIds": [
+      "event-a7-f-retour-lieu-bapteme-jean"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-f-retour-lieu-bapteme-jean-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-arrivee-bethanie-six-jours-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-arrivee-bethanie-six-jours"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-g-arrivee-bethanie-six-jours"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-arrivee-bethanie-six-jours-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-autorite-contestee-deux-fils-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-autorite-contestee-deux-fils"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-autorite-contestee-deux-fils"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-autorite-contestee-deux-fils-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-christ-fils-david-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-christ-fils-david"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-christ-fils-david"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-christ-fils-david-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-complot-chefs-juifs-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-complot-chefs-juifs"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-complot-chefs-juifs"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-complot-chefs-juifs-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-complot-pretres-scribes-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-complot-pretres-scribes"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-complot-pretres-scribes"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-complot-pretres-scribes-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-condamnation-scribes-pharisiens-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-condamnation-scribes-pharisiens"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-condamnation-scribes-pharisiens"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-condamnation-scribes-pharisiens-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-cultivateurs-repas-mariage-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-cultivateurs-repas-mariage"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-cultivateurs-repas-mariage"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-cultivateurs-repas-mariage-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-derniere-paque-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-derniere-paque"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-derniere-paque"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-derniere-paque-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-dix-vierges-talents-brebis-chevres-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-dix-vierges-talents-brebis-chevres"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-dix-vierges-talents-brebis-chevres"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-dix-vierges-talents-brebis-chevres-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-entree-jerusalem-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-entree-jerusalem"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-entree-jerusalem"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-entree-jerusalem-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-entree-jerusalem-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-entree-jerusalem"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-g-entree-jerusalem"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-entree-jerusalem-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-entree-jerusalem-obi-bethphage",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethphagé",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-entree-jerusalem"
+    },
+    "placeId": "obi-bethphage",
+    "eventIds": [
+      "event-a7-g-entree-jerusalem"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-entree-jerusalem-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethphage"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-figuier-purification-temple-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-figuier-purification-temple"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-figuier-purification-temple"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-figuier-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-figuier-purification-temple-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-figuier-purification-temple"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-g-figuier-purification-temple"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-figuier-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-judas-negocie-livraison-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-judas-negocie-livraison"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-judas-negocie-livraison"
+    ],
+    "personIds": [
+      "person-a7-judas-iscariote"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-judas-negocie-livraison-person-a7-judas-iscariote-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-lavement-pieds-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-lavement-pieds"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-lavement-pieds"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-lavement-pieds-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-lecon-figuier-desseche-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-lecon-figuier-desseche"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-lecon-figuier-desseche"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-lecon-figuier-desseche-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-lecon-figuier-desseche-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-lecon-figuier-desseche"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-g-lecon-figuier-desseche"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-lecon-figuier-desseche-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-marie-huile-jesus-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-marie-huile-jesus"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-g-marie-huile-jesus"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-marie-bethanie"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-marie-huile-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+      "presence-event-a7-g-marie-huile-jesus-person-a7-marie-bethanie-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-offrande-veuve-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-offrande-veuve"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-offrande-veuve"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-offrande-veuve-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-preparatifs-derniere-paque-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-preparatifs-derniere-paque"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-preparatifs-derniere-paque"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-preparatifs-derniere-paque-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-questions-cesar-resurrection-commandement-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-questions-cesar-resurrection-commandement"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-questions-cesar-resurrection-commandement"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-questions-cesar-resurrection-commandement-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-signe-presence-future-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-signe-presence-future"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-signe-presence-future"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-signe-presence-future-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-g-voix-divine-prediction-mort-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-g"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-g-voix-divine-prediction-mort"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-g-voix-divine-prediction-mort"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-g-voix-divine-prediction-mort-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-anne-caiphe-sanhedrin-reniement-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-anne-caiphe-sanhedrin-reniement"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-anne-caiphe-sanhedrin-reniement"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-anne-grand-pretre",
+      "person-a7-caiphe",
+      "person-a7-pierre"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-person-a7-anne-grand-pretre-jerusalem",
+      "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-person-a7-caiphe-jerusalem",
+      "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-person-a7-pierre-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-ascension-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-ascension"
+    },
+    "placeId": "obi-bethany-1",
+    "eventIds": [
+      "event-a7-h-ascension"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-ascension-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-assistant-vigne-amour-priere-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-assistant-vigne-amour-priere"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-assistant-vigne-amour-priere"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-assistant-vigne-amour-priere-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-autres-apparitions-mission-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-autres-apparitions-mission"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-autres-apparitions-mission"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-autres-apparitions-mission-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-barabbas-condamnation-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-barabbas-condamnation"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-barabbas-condamnation"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-barabbas",
+      "person-a7-ponce-pilate"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-barabbas-condamnation-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-h-barabbas-condamnation-person-a7-barabbas-jerusalem",
+      "presence-event-a7-h-barabbas-condamnation-person-a7-ponce-pilate-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-devant-pilate-herode-pilate-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-devant-pilate-herode-pilate"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-devant-pilate-herode-pilate"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-herode-antipas",
+      "person-a7-ponce-pilate"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-devant-pilate-herode-pilate-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-h-devant-pilate-herode-pilate-person-a7-herode-antipas-jerusalem",
+      "presence-event-a7-h-devant-pilate-herode-pilate-person-a7-ponce-pilate-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-gethsemani-arrestation-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-gethsemani-arrestation"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-gethsemani-arrestation"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-judas-iscariote"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-gethsemani-arrestation-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-h-gethsemani-arrestation-person-a7-judas-iscariote-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-institution-repas-seigneur-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-institution-repas-seigneur"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-institution-repas-seigneur"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-institution-repas-seigneur-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-judas-identifie-congedie-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-judas-identifie-congedie"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-judas-identifie-congedie"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-judas-iscariote"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-judas-identifie-congedie-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-h-judas-identifie-congedie-person-a7-judas-iscariote-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-mise-au-tombeau-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-mise-au-tombeau"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-mise-au-tombeau"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-mise-au-tombeau-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-mort-jesus-golgotha-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-mort-jesus-golgotha"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-mort-jesus-golgotha"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-mort-jesus-golgotha-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-mort-judas-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-mort-judas"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-mort-judas"
+    ],
+    "personIds": [
+      "person-a7-judas-iscariote"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-mort-judas-person-a7-judas-iscariote-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-prediction-reniements-dispersion-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-prediction-reniements-dispersion"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-prediction-reniements-dispersion"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7-pierre"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-prediction-reniements-dispersion-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7-h-prediction-reniements-dispersion-person-a7-pierre-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-resurrection-apparitions-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-resurrection-apparitions"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-resurrection-apparitions"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-resurrection-apparitions-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-resurrection-apparitions-obi-emmaus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Emmaüs",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-resurrection-apparitions"
+    },
+    "placeId": "obi-emmaus",
+    "eventIds": [
+      "event-a7-h-resurrection-apparitions"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7-h-resurrection-apparitions-event-jesus-en-tant-qu-humain-1f4ceyz-obi-emmaus"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7-h-tombe-scellee-gardee-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-h"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7-h-tombe-scellee-gardee"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7-h-tombe-scellee-gardee"
+    ],
+    "personIds": [],
+    "presenceEpisodeIds": [],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-bapteme-jesus-jordan_river",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jourdain",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-bapteme-jesus"
+    },
+    "placeId": "jordan_river",
+    "eventIds": [
+      "event-a7b-bapteme-jesus"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-bapteme-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-jordan_river"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-bapteme-jesus-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie de l’autre côté du Jourdain ?",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-bapteme-jesus"
+    },
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "eventIds": [
+      "event-a7b-bapteme-jesus"
+    ],
+    "personIds": [],
+    "presenceEpisodeIds": [],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-emprisonnement-jean-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Tibériade",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-emprisonnement-jean"
+    },
+    "placeId": "obi-tiberias",
+    "eventIds": [
+      "event-a7b-emprisonnement-jean"
+    ],
+    "personIds": [],
+    "presenceEpisodeIds": [],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-enseignement-sychar-obi-sychar",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Sychar",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-enseignement-sychar"
+    },
+    "placeId": "obi-sychar",
+    "eventIds": [
+      "event-a7b-enseignement-sychar"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-enseignement-sychar-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sychar"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-entretien-nicodeme-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-entretien-nicodeme"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7b-entretien-nicodeme"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-nicodeme"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-entretien-nicodeme-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+      "presence-event-a7b-entretien-nicodeme-person-a7b-nicodeme-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-jean-presente-jesus-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie de l’autre côté du Jourdain ?",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-jean-presente-jesus"
+    },
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "eventIds": [
+      "event-a7b-jean-presente-jesus"
+    ],
+    "personIds": [
+      "event-jean-le-baptiseur-dvgl2c",
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-jean-presente-jesus-event-jean-le-baptiseur-dvgl2c-place-a7b-bethany-beyond-jordan",
+      "presence-event-a7b-jean-presente-jesus-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-ministere-judeen-obi-aenon",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Énôn",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-ministere-judeen"
+    },
+    "placeId": "obi-aenon",
+    "eventIds": [
+      "event-a7b-ministere-judeen"
+    ],
+    "personIds": [],
+    "presenceEpisodeIds": [],
+    "method": "map-and-event-cross-reference",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-premier-miracle-cana-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-premier-miracle-cana"
+    },
+    "placeId": "capernaum",
+    "eventIds": [
+      "event-a7b-premier-miracle-cana"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-premier-miracle-cana-obi-cana",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Cana",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-premier-miracle-cana"
+    },
+    "placeId": "obi-cana",
+    "eventIds": [
+      "event-a7b-premier-miracle-cana"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-premier-miracle-cana-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-purification-temple-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-purification-temple"
+    },
+    "placeId": "jerusalem",
+    "eventIds": [
+      "event-a7b-purification-temple"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-purification-temple-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-event-event-a7b-tentation-desert-place-a7b-judean-wilderness",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10",
+      "source-nwtsty-a7-b"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Désert de Judée",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-a7b-tentation-desert"
+    },
+    "placeId": "place-a7b-judean-wilderness",
+    "eventIds": [
+      "event-a7b-tentation-desert"
+    ],
+    "personIds": [
+      "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "person-a7b-diable"
+    ],
+    "presenceEpisodeIds": [
+      "presence-event-a7b-tentation-desert-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-judean-wilderness",
+      "presence-event-a7b-tentation-desert-person-a7b-diable-place-a7b-judean-wilderness"
+    ],
+    "method": "map-and-event-cross-reference",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 documente le lieu ; la période, l’événement et les présences proviennent des appendices A7 correspondants. Ce rapprochement ne prouve aucun chemin entre deux lieux."
+  },
+  {
+    "id": "geo-b10-place-beersheba-73",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bersabée",
+    "subject": {
+      "entityType": "place",
+      "entityId": "beersheba"
+    },
+    "placeId": "beersheba",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-bethlehem-60",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethléem",
+    "subject": {
+      "entityType": "place",
+      "entityId": "bethlehem"
+    },
+    "placeId": "bethlehem",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-caesarea-32",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Césarée",
+    "subject": {
+      "entityType": "place",
+      "entityId": "caesarea"
+    },
+    "placeId": "caesarea",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-capernaum-15",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Capharnaüm",
+    "subject": {
+      "entityType": "place",
+      "entityId": "capernaum"
+    },
+    "placeId": "capernaum",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-carte-pella-f6-35",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Pella",
+    "subject": {
+      "entityType": "place",
+      "entityId": "carte-pella-f6"
+    },
+    "placeId": "carte-pella-f6",
+    "method": "source-map-location",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-damascus-3",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Damas",
+    "subject": {
+      "entityType": "place",
+      "entityId": "damascus"
+    },
+    "placeId": "damascus",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-hebron-67",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Hébron",
+    "subject": {
+      "entityType": "place",
+      "entityId": "hebron"
+    },
+    "placeId": "hebron",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-jerusalem-57",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jérusalem",
+    "subject": {
+      "entityType": "place",
+      "entityId": "jerusalem"
+    },
+    "placeId": "jerusalem",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-joppa-46",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Joppé",
+    "subject": {
+      "entityType": "place",
+      "entityId": "joppa"
+    },
+    "placeId": "joppa",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-jordan_river-51",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jourdain",
+    "subject": {
+      "entityType": "place",
+      "entityId": "jordan_river"
+    },
+    "placeId": "jordan_river",
+    "method": "source-map-location",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-nazareth-25",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Nazareth",
+    "subject": {
+      "entityType": "place",
+      "entityId": "nazareth"
+    },
+    "placeId": "nazareth",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-aenon-37",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Énôn",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-aenon"
+    },
+    "placeId": "obi-aenon",
+    "method": "source-map-location",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-aphek-2-44",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Antipatris (Afek)",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-aphek-2"
+    },
+    "placeId": "obi-aphek-2",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-arimathea-c8-48",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Arimathie",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-arimathea-c8"
+    },
+    "placeId": "obi-arimathea-c8",
+    "method": "source-map-location",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-ashdod-59",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Asdod, Azoth",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-ashdod"
+    },
+    "placeId": "obi-ashdod",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-ashkelon-63",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Ascalon",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-ashkelon"
+    },
+    "placeId": "obi-ashkelon",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-beth-shan-33",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Scythopolis (Beth-Shéân)",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-beth-shan"
+    },
+    "placeId": "obi-beth-shan",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-bethany-1-61",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-bethany-1"
+    },
+    "placeId": "obi-bethany-1",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-bethphage-58",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethphagé",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-bethphage"
+    },
+    "placeId": "obi-bethphage",
+    "method": "source-map-location",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-bethsaida-2-14",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Bethsaïde",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-bethsaida-2"
+    },
+    "placeId": "obi-bethsaida-2",
+    "method": "source-map-location",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-caesarea-philippi-8",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Césarée de Philippe",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-caesarea-philippi"
+    },
+    "placeId": "obi-caesarea-philippi",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-cana-16",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Cana",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-cana"
+    },
+    "placeId": "obi-cana",
+    "method": "source-map-location",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-chorazin-13",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Korazîn",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-chorazin"
+    },
+    "placeId": "obi-chorazin",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-dor-28",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Dor",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-dor"
+    },
+    "placeId": "obi-dor",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-emmaus-56",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Emmaüs",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-emmaus"
+    },
+    "placeId": "obi-emmaus",
+    "method": "source-map-location",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-gadara-30",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Gadara",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-gadara"
+    },
+    "placeId": "obi-gadara",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-gaza-66",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Gaza",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-gaza"
+    },
+    "placeId": "obi-gaza",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-gerasa-40",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Gerasa",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-gerasa"
+    },
+    "placeId": "obi-gerasa",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-jericho-1-55",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Jéricho",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-jericho-1"
+    },
+    "placeId": "obi-jericho-1",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-lod-49",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Lydda (Lod)",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-lod"
+    },
+    "placeId": "obi-lod",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-magadan-17",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Magadân",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-magadan"
+    },
+    "placeId": "obi-magadan",
+    "method": "source-map-location",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-mount-gerizim-42",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mt Garizim",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-mount-gerizim"
+    },
+    "placeId": "obi-mount-gerizim",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-mount-hermon-5",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mt Hermon",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-mount-hermon"
+    },
+    "placeId": "obi-mount-hermon",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-nain-29",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Naïn",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-nain"
+    },
+    "placeId": "obi-nain",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-ptolemais-11",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Ptolémaïs (Akko)",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-ptolemais"
+    },
+    "placeId": "obi-ptolemais",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-rabbah-1-52",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Philadelphie (Raba)",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-rabbah-1"
+    },
+    "placeId": "obi-rabbah-1",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-salim-38",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Salim",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-salim"
+    },
+    "placeId": "obi-salim",
+    "method": "source-map-location",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-salt-sea-69",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer Salée (Mer Morte)",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-salt-sea"
+    },
+    "placeId": "obi-salt-sea",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-sea-of-galilee-18",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Mer de Galilée",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-sea-of-galilee"
+    },
+    "placeId": "obi-sea-of-galilee",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-sychar-41",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Sychar",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-sychar"
+    },
+    "placeId": "obi-sychar",
+    "method": "source-map-location",
+    "certainty": "probable",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-tiberias-22",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Tibériade",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-tiberias"
+    },
+    "placeId": "obi-tiberias",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-tyre-7",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Tyr",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-tyre"
+    },
+    "placeId": "obi-tyre",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-obi-zarephath-4",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Sarepta",
+    "subject": {
+      "entityType": "place",
+      "entityId": "obi-zarephath"
+    },
+    "placeId": "obi-zarephath",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-place-a7b-bethany-beyond-jordan-34",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Béthanie de l’autre côté du Jourdain ?",
+    "subject": {
+      "entityType": "place",
+      "entityId": "place-a7b-bethany-beyond-jordan"
+    },
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "method": "source-map-location",
+    "certainty": "possible",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-place-a7b-judean-wilderness-68",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Désert de Judée",
+    "subject": {
+      "entityType": "place",
+      "entityId": "place-a7b-judean-wilderness"
+    },
+    "placeId": "place-a7b-judean-wilderness",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-samaria-39",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Sébaste (Samarie)",
+    "subject": {
+      "entityType": "place",
+      "entityId": "samaria"
+    },
+    "placeId": "samaria",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  },
+  {
+    "id": "geo-b10-place-sidon-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-b10"
+    ],
+    "primarySourceId": "source-nwtsty-b10",
+    "mapId": "B10",
+    "mapReference": "B10 · Sidon",
+    "subject": {
+      "entityType": "place",
+      "entityId": "sidon"
+    },
+    "placeId": "sidon",
+    "method": "source-map-location",
+    "certainty": "certain",
+    "sourceMapCertainty": "unknown",
+    "coordinatesChanged": false,
+    "limitations": "B10 confirme que le lieu figure sur la carte. Le texte numérique ne restitue pas le symbole de certitude ; aucune coordonnée existante n’a été modifiée."
+  }
+]

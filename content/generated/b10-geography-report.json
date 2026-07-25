@@ -1,0 +1,764 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "sourceId": "source-nwtsty-b10",
+  "mapId": "B10",
+  "policy": {
+    "imageCopied": false,
+    "coordinatesChanged": false,
+    "routesCreated": 0,
+    "sourceMapCertainty": "unknown lorsque le symbole cartographique n’est pas exposé dans le texte numérique"
+  },
+  "counts": {
+    "sourceLabels": 75,
+    "matchedLabels": 47,
+    "missingLabels": 28,
+    "matchedWithoutCoordinates": 2,
+    "placeLinks": 47,
+    "eventLinks": 108,
+    "presenceEpisodesReused": 150,
+    "routesCreated": 0
+  },
+  "inventory": [
+    {
+      "sourceOrder": 1,
+      "label": "Sidon",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "sidon",
+      "canonicalName": "Sidon",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 2,
+      "label": "ABILÈNE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 3,
+      "label": "Damas",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "damascus",
+      "canonicalName": "Damas",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 4,
+      "label": "Sarepta",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-zarephath",
+      "canonicalName": "Sarepta",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 5,
+      "label": "Mt Hermon",
+      "kind": "natural-feature",
+      "status": "matched",
+      "placeId": "obi-mount-hermon",
+      "canonicalName": "Mt Hermon",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 6,
+      "label": "PHÉNICIE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 7,
+      "label": "Tyr",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-tyre",
+      "canonicalName": "Tyr",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 8,
+      "label": "Césarée de Philippe",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-caesarea-philippi",
+      "canonicalName": "Césarée de Philippe",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 9,
+      "label": "ITURÉE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 10,
+      "label": "TRACHONITIDE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 11,
+      "label": "Ptolémaïs (Akko)",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-ptolemais",
+      "canonicalName": "Ptolémaïs",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 12,
+      "label": "GALILÉE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 13,
+      "label": "Korazîn",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-chorazin",
+      "canonicalName": "Korazîn",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 14,
+      "label": "Bethsaïde",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-bethsaida-2",
+      "canonicalName": "Bethsaïde",
+      "hasCoordinates": true,
+      "certainty": "probable",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 15,
+      "label": "Capharnaüm",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "capernaum",
+      "canonicalName": "Capernaüm",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 16,
+      "label": "Cana",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-cana",
+      "canonicalName": "Cana",
+      "hasCoordinates": true,
+      "certainty": "probable",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 17,
+      "label": "Magadân",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-magadan",
+      "canonicalName": "Magadân",
+      "hasCoordinates": true,
+      "certainty": "possible",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 18,
+      "label": "Mer de Galilée",
+      "kind": "natural-feature",
+      "status": "matched",
+      "placeId": "obi-sea-of-galilee",
+      "canonicalName": "Mer de Galilée",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 19,
+      "label": "Gergésa",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 20,
+      "label": "Raphana",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 21,
+      "label": "Sepphoris",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 22,
+      "label": "Tibériade",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-tiberias",
+      "canonicalName": "Tibériade",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 23,
+      "label": "Hippos",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 24,
+      "label": "Dion",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 25,
+      "label": "Nazareth",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "nazareth",
+      "canonicalName": "Nazareth",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 26,
+      "label": "GADARA",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 27,
+      "label": "Abila",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 28,
+      "label": "Dor",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-dor",
+      "canonicalName": "Dor",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 29,
+      "label": "Naïn",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-nain",
+      "canonicalName": "Naïn",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 30,
+      "label": "Gadara",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-gadara",
+      "canonicalName": "Gadara",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 31,
+      "label": "DÉCAPOLE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 32,
+      "label": "Césarée",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "caesarea",
+      "canonicalName": "Césarée",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 33,
+      "label": "Scythopolis (Beth-Shéân)",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-beth-shan",
+      "canonicalName": "Beth-Shéân (Beth-Shân) (Scythopolis)",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 34,
+      "label": "Béthanie de l’autre côté du Jourdain ?",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "place-a7b-bethany-beyond-jordan",
+      "canonicalName": "Béthanie de l’autre côté du Jourdain",
+      "hasCoordinates": false,
+      "certainty": "possible",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 35,
+      "label": "Pella",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "carte-pella-f6",
+      "canonicalName": "Pella",
+      "hasCoordinates": true,
+      "certainty": "possible",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 36,
+      "label": "SAMARIE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 37,
+      "label": "Énôn",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-aenon",
+      "canonicalName": "Énôn",
+      "hasCoordinates": true,
+      "certainty": "possible",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 38,
+      "label": "Salim",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-salim",
+      "canonicalName": "Salim",
+      "hasCoordinates": true,
+      "certainty": "possible",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 39,
+      "label": "Sébaste (Samarie)",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "samaria",
+      "canonicalName": "Samarie",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 40,
+      "label": "Gerasa",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-gerasa",
+      "canonicalName": "Gérasa (Djérash)",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 41,
+      "label": "Sychar",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-sychar",
+      "canonicalName": "Sychar",
+      "hasCoordinates": true,
+      "certainty": "probable",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 42,
+      "label": "Mt Garizim",
+      "kind": "natural-feature",
+      "status": "matched",
+      "placeId": "obi-mount-gerizim",
+      "canonicalName": "Mt Garizim",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 43,
+      "label": "Puits de Jacob",
+      "kind": "natural-feature",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 44,
+      "label": "Antipatris (Afek)",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-aphek-2",
+      "canonicalName": "Afek (Antipatris)",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 45,
+      "label": "PÉRÉE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 46,
+      "label": "Joppé",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "joppa",
+      "canonicalName": "Joppé",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 47,
+      "label": "Plaine du Saron",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 48,
+      "label": "Arimathie",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-arimathea-c8",
+      "canonicalName": "Rama (Arimathie)",
+      "hasCoordinates": true,
+      "certainty": "possible",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 49,
+      "label": "Lydda (Lod)",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-lod",
+      "canonicalName": "Lod (Lydda)",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 50,
+      "label": "Éphraïm",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 51,
+      "label": "Jourdain",
+      "kind": "natural-feature",
+      "status": "matched",
+      "placeId": "jordan_river",
+      "canonicalName": "Jourdain",
+      "hasCoordinates": true,
+      "certainty": "possible",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 52,
+      "label": "Philadelphie (Raba)",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-rabbah-1",
+      "canonicalName": "Raba (Philadelphie)",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 53,
+      "label": "Jamnia (Jabné)",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 54,
+      "label": "Rama",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 55,
+      "label": "Jéricho",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-jericho-1",
+      "canonicalName": "Jéricho",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 56,
+      "label": "Emmaüs",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-emmaus",
+      "canonicalName": "Emmaüs",
+      "hasCoordinates": true,
+      "certainty": "probable",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 57,
+      "label": "Jérusalem",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "jerusalem",
+      "canonicalName": "Jérusalem",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 58,
+      "label": "Bethphagé",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-bethphage",
+      "canonicalName": "Bethphagé",
+      "hasCoordinates": true,
+      "certainty": "probable",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 59,
+      "label": "Asdod, Azoth",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-ashdod",
+      "canonicalName": "Asdod",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 60,
+      "label": "Bethléem",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "bethlehem",
+      "canonicalName": "Bethléem",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 61,
+      "label": "Béthanie",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-bethany-1",
+      "canonicalName": "Béthanie",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 62,
+      "label": "Qumran",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Le corpus actuel associe Qumran à Sekaka comme nom alternatif, sans identifiant propre suffisamment démontré."
+    },
+    {
+      "sourceOrder": 63,
+      "label": "Ascalon",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-ashkelon",
+      "canonicalName": "Ascalon",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 64,
+      "label": "JUDÉE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 65,
+      "label": "Hérodium",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 66,
+      "label": "Gaza",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "obi-gaza",
+      "canonicalName": "Gaza",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 67,
+      "label": "Hébron",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "hebron",
+      "canonicalName": "Hébron",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "exact-name"
+    },
+    {
+      "sourceOrder": 68,
+      "label": "Désert de Judée",
+      "kind": "region",
+      "status": "matched",
+      "placeId": "place-a7b-judean-wilderness",
+      "canonicalName": "Désert de Judée",
+      "hasCoordinates": false,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 69,
+      "label": "Mer Salée (Mer Morte)",
+      "kind": "natural-feature",
+      "status": "matched",
+      "placeId": "obi-salt-sea",
+      "canonicalName": "Mer Salée (Mer Morte)",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 70,
+      "label": "Macheronte",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 71,
+      "label": "IDUMÉE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 72,
+      "label": "Massada",
+      "kind": "place",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Aucun identifiant suffisamment démontré dans le corpus actuel."
+    },
+    {
+      "sourceOrder": 73,
+      "label": "Bersabée",
+      "kind": "place",
+      "status": "matched",
+      "placeId": "beersheba",
+      "canonicalName": "Beer-Sheva",
+      "hasCoordinates": true,
+      "certainty": "certain",
+      "matchMethod": "explicit-id"
+    },
+    {
+      "sourceOrder": 74,
+      "label": "NABATÈNE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    },
+    {
+      "sourceOrder": 75,
+      "label": "ARABIE",
+      "kind": "region",
+      "status": "missing",
+      "matchMethod": "none",
+      "reviewNote": "Région cartographique non modélisée comme point."
+    }
+  ]
+}

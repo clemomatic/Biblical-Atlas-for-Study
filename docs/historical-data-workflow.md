@@ -226,6 +226,9 @@ pnpm historical:generate
 pnpm historical:build:a7
 pnpm historical:check:a7
 pnpm historical:report:a7
+pnpm historical:build:b10
+pnpm historical:report:b10
+pnpm historical:check:b10
 pnpm historical:build:wcg
 pnpm historical:report:wcg
 pnpm historical:check:wcg
@@ -284,6 +287,30 @@ Elle compare, partie par partie, les durées de vie, les activités, les fenêtr
 collectives et le nombre de contemporains calculés. Elle sert au contrôle
 éditorial et ne modifie aucune donnée.
 
+## Provenance géographique des appendices B
+
+Une carte des appendices B est traitée comme une source géographique, jamais
+comme une image à republier. Chaque petit lot doit produire :
+
+- une entrée du catalogue ;
+- un inventaire exhaustif dans `staging` ;
+- des rapprochements relus dans `reviewed/geography` ;
+- un rapport machine sous `generated` ;
+- une liste explicite des lieux ou régions encore sans ID.
+
+`ReviewedGeographicLink` conserve la carte, la référence, la méthode, la
+certitude et les limites. Un rapprochement cartographique ne modifie jamais une
+coordonnée par lui-même. Une coordonnée ne peut être changée que dans un lot
+distinct, avec justification documentée.
+
+Une présence n’est pas créée parce qu’un nom figure sur une carte. Les liens
+vers un événement réutilisent uniquement des `PresenceEpisode` déjà relus. De
+même, une route exige un déplacement explicite et un ordre de lieux documenté.
+Sa nature (`documented`, `reconstructed` ou `schematic`), sa précision et
+l’origine de l’ordre des étapes doivent être indiquées.
+
+Le pilote B10 et ses limites sont documentés dans
+[`historical-b10-geography.md`](historical-b10-geography.md).
 ## Jeu de test fictif
 
 `content/test-fixtures` contient :

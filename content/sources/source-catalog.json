@@ -266,5 +266,21 @@
     "longTextReproductionAllowed": false,
     "imageReproductionAllowed": false,
     "verificationStatus": "verified"
+  },
+  {
+    "id": "source-nwtsty-b10",
+    "title": "Israël au temps de Jésus",
+    "publication": "La Bible. Traduction du monde nouveau (édition d’étude)",
+    "chapterOrAppendix": "B10",
+    "pageOrSection": "Lieux indiqués sur la carte",
+    "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1001070230",
+    "documentType": "map",
+    "language": "fr",
+    "accessedAt": "2026-07-25",
+    "notes": "Données factuelles et références cartographiques uniquement. Aucune image n’est copiée dans le dépôt.",
+    "factualDataUseAllowed": true,
+    "longTextReproductionAllowed": false,
+    "imageReproductionAllowed": false,
+    "verificationStatus": "reviewed"
   }
 ]

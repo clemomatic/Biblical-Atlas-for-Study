@@ -1,0 +1,1671 @@
+[
+  {
+    "id": "staging-b10-place-1",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Sidon"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 1,
+      "label": "Sidon",
+      "kind": "place",
+      "matchedPlaceId": "sidon",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Sidon",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-2",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · ABILÈNE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 2,
+      "label": "ABILÈNE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · ABILÈNE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-3",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Damas"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 3,
+      "label": "Damas",
+      "kind": "place",
+      "matchedPlaceId": "damascus",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Damas",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-4",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Sarepta"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 4,
+      "label": "Sarepta",
+      "kind": "place",
+      "matchedPlaceId": "obi-zarephath",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Sarepta",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-5",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Mt Hermon"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 5,
+      "label": "Mt Hermon",
+      "kind": "natural-feature",
+      "matchedPlaceId": "obi-mount-hermon",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Mt Hermon",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-6",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · PHÉNICIE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 6,
+      "label": "PHÉNICIE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · PHÉNICIE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-7",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Tyr"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 7,
+      "label": "Tyr",
+      "kind": "place",
+      "matchedPlaceId": "obi-tyre",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Tyr",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-8",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Césarée de Philippe"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 8,
+      "label": "Césarée de Philippe",
+      "kind": "place",
+      "matchedPlaceId": "obi-caesarea-philippi",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Césarée de Philippe",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-9",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · ITURÉE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 9,
+      "label": "ITURÉE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · ITURÉE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-10",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · TRACHONITIDE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 10,
+      "label": "TRACHONITIDE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · TRACHONITIDE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-11",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Ptolémaïs (Akko)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 11,
+      "label": "Ptolémaïs (Akko)",
+      "kind": "place",
+      "matchedPlaceId": "obi-ptolemais",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Ptolémaïs (Akko)",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-12",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · GALILÉE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 12,
+      "label": "GALILÉE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · GALILÉE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-13",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Korazîn"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 13,
+      "label": "Korazîn",
+      "kind": "place",
+      "matchedPlaceId": "obi-chorazin",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Korazîn",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-14",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Bethsaïde"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 14,
+      "label": "Bethsaïde",
+      "kind": "place",
+      "matchedPlaceId": "obi-bethsaida-2",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Bethsaïde",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-15",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Capharnaüm"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 15,
+      "label": "Capharnaüm",
+      "kind": "place",
+      "matchedPlaceId": "capernaum",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Capharnaüm",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-16",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Cana"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 16,
+      "label": "Cana",
+      "kind": "place",
+      "matchedPlaceId": "obi-cana",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Cana",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-17",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Magadân"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 17,
+      "label": "Magadân",
+      "kind": "place",
+      "matchedPlaceId": "obi-magadan",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Magadân",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-18",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Mer de Galilée"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 18,
+      "label": "Mer de Galilée",
+      "kind": "natural-feature",
+      "matchedPlaceId": "obi-sea-of-galilee",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Mer de Galilée",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-19",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Gergésa"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 19,
+      "label": "Gergésa",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Gergésa",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-20",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Raphana"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 20,
+      "label": "Raphana",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Raphana",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-21",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Sepphoris"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 21,
+      "label": "Sepphoris",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Sepphoris",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-22",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Tibériade"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 22,
+      "label": "Tibériade",
+      "kind": "place",
+      "matchedPlaceId": "obi-tiberias",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Tibériade",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-23",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Hippos"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 23,
+      "label": "Hippos",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Hippos",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-24",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Dion"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 24,
+      "label": "Dion",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Dion",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-25",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Nazareth"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 25,
+      "label": "Nazareth",
+      "kind": "place",
+      "matchedPlaceId": "nazareth",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Nazareth",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-26",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · GADARA"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 26,
+      "label": "GADARA",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · GADARA",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-27",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Abila"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 27,
+      "label": "Abila",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Abila",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-28",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Dor"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 28,
+      "label": "Dor",
+      "kind": "place",
+      "matchedPlaceId": "obi-dor",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Dor",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-29",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Naïn"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 29,
+      "label": "Naïn",
+      "kind": "place",
+      "matchedPlaceId": "obi-nain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Naïn",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-30",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Gadara"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 30,
+      "label": "Gadara",
+      "kind": "place",
+      "matchedPlaceId": "obi-gadara",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Gadara",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-31",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · DÉCAPOLE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 31,
+      "label": "DÉCAPOLE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · DÉCAPOLE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-32",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Césarée"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 32,
+      "label": "Césarée",
+      "kind": "place",
+      "matchedPlaceId": "caesarea",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Césarée",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-33",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Scythopolis (Beth-Shéân)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 33,
+      "label": "Scythopolis (Beth-Shéân)",
+      "kind": "place",
+      "matchedPlaceId": "obi-beth-shan",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Scythopolis (Beth-Shéân)",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-34",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Béthanie de l’autre côté du Jourdain ?"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 34,
+      "label": "Béthanie de l’autre côté du Jourdain ?",
+      "kind": "place",
+      "matchedPlaceId": "place-a7b-bethany-beyond-jordan",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Béthanie de l’autre côté du Jourdain ?",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-35",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Pella"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 35,
+      "label": "Pella",
+      "kind": "place",
+      "matchedPlaceId": "carte-pella-f6",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Pella",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-36",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · SAMARIE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 36,
+      "label": "SAMARIE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · SAMARIE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-37",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Énôn"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 37,
+      "label": "Énôn",
+      "kind": "place",
+      "matchedPlaceId": "obi-aenon",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Énôn",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-38",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Salim"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 38,
+      "label": "Salim",
+      "kind": "place",
+      "matchedPlaceId": "obi-salim",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Salim",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-39",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Sébaste (Samarie)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 39,
+      "label": "Sébaste (Samarie)",
+      "kind": "place",
+      "matchedPlaceId": "samaria",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Sébaste (Samarie)",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-40",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Gerasa"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 40,
+      "label": "Gerasa",
+      "kind": "place",
+      "matchedPlaceId": "obi-gerasa",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Gerasa",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-41",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Sychar"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 41,
+      "label": "Sychar",
+      "kind": "place",
+      "matchedPlaceId": "obi-sychar",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Sychar",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-42",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Mt Garizim"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 42,
+      "label": "Mt Garizim",
+      "kind": "natural-feature",
+      "matchedPlaceId": "obi-mount-gerizim",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Mt Garizim",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-43",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Puits de Jacob"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 43,
+      "label": "Puits de Jacob",
+      "kind": "natural-feature",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Puits de Jacob",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-44",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Antipatris (Afek)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 44,
+      "label": "Antipatris (Afek)",
+      "kind": "place",
+      "matchedPlaceId": "obi-aphek-2",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Antipatris (Afek)",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-45",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · PÉRÉE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 45,
+      "label": "PÉRÉE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · PÉRÉE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-46",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Joppé"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 46,
+      "label": "Joppé",
+      "kind": "place",
+      "matchedPlaceId": "joppa",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Joppé",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-47",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Plaine du Saron"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 47,
+      "label": "Plaine du Saron",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Plaine du Saron",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-48",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Arimathie"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 48,
+      "label": "Arimathie",
+      "kind": "place",
+      "matchedPlaceId": "obi-arimathea-c8",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Arimathie",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-49",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Lydda (Lod)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 49,
+      "label": "Lydda (Lod)",
+      "kind": "place",
+      "matchedPlaceId": "obi-lod",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Lydda (Lod)",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-50",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Éphraïm"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 50,
+      "label": "Éphraïm",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Éphraïm",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-51",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Jourdain"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 51,
+      "label": "Jourdain",
+      "kind": "natural-feature",
+      "matchedPlaceId": "jordan_river",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Jourdain",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-52",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Philadelphie (Raba)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 52,
+      "label": "Philadelphie (Raba)",
+      "kind": "place",
+      "matchedPlaceId": "obi-rabbah-1",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Philadelphie (Raba)",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-53",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Jamnia (Jabné)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 53,
+      "label": "Jamnia (Jabné)",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Jamnia (Jabné)",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-54",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Rama"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 54,
+      "label": "Rama",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Rama",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-55",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Jéricho"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 55,
+      "label": "Jéricho",
+      "kind": "place",
+      "matchedPlaceId": "obi-jericho-1",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Jéricho",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-56",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Emmaüs"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 56,
+      "label": "Emmaüs",
+      "kind": "place",
+      "matchedPlaceId": "obi-emmaus",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Emmaüs",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-57",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Jérusalem"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 57,
+      "label": "Jérusalem",
+      "kind": "place",
+      "matchedPlaceId": "jerusalem",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Jérusalem",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-58",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Bethphagé"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 58,
+      "label": "Bethphagé",
+      "kind": "place",
+      "matchedPlaceId": "obi-bethphage",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Bethphagé",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-59",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Asdod, Azoth"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 59,
+      "label": "Asdod, Azoth",
+      "kind": "place",
+      "matchedPlaceId": "obi-ashdod",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Asdod, Azoth",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-60",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Bethléem"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 60,
+      "label": "Bethléem",
+      "kind": "place",
+      "matchedPlaceId": "bethlehem",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Bethléem",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-61",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Béthanie"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 61,
+      "label": "Béthanie",
+      "kind": "place",
+      "matchedPlaceId": "obi-bethany-1",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Béthanie",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-62",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Qumran"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 62,
+      "label": "Qumran",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Qumran",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-63",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Ascalon"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 63,
+      "label": "Ascalon",
+      "kind": "place",
+      "matchedPlaceId": "obi-ashkelon",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Ascalon",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-64",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · JUDÉE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 64,
+      "label": "JUDÉE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · JUDÉE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-65",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Hérodium"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 65,
+      "label": "Hérodium",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Hérodium",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-66",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Gaza"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 66,
+      "label": "Gaza",
+      "kind": "place",
+      "matchedPlaceId": "obi-gaza",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Gaza",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-67",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Hébron"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 67,
+      "label": "Hébron",
+      "kind": "place",
+      "matchedPlaceId": "hebron",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Hébron",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-68",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Désert de Judée"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 68,
+      "label": "Désert de Judée",
+      "kind": "region",
+      "matchedPlaceId": "place-a7b-judean-wilderness",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Désert de Judée",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-69",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Mer Salée (Mer Morte)"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 69,
+      "label": "Mer Salée (Mer Morte)",
+      "kind": "natural-feature",
+      "matchedPlaceId": "obi-salt-sea",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Mer Salée (Mer Morte)",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-70",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Macheronte"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 70,
+      "label": "Macheronte",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Macheronte",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-71",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · IDUMÉE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 71,
+      "label": "IDUMÉE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · IDUMÉE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-72",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Massada"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 72,
+      "label": "Massada",
+      "kind": "place",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · Massada",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-73",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · Bersabée"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 73,
+      "label": "Bersabée",
+      "kind": "place",
+      "matchedPlaceId": "beersheba",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "B10 · Bersabée",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-74",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · NABATÈNE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 74,
+      "label": "NABATÈNE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · NABATÈNE",
+        "entityIdsVerified": false
+      }
+    }
+  },
+  {
+    "id": "staging-b10-place-75",
+    "entityType": "place",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-b10",
+      "B10 · ARABIE"
+    ],
+    "extractionNotes": "Libellé factuel de la liste numérique de B10 ; aucune image ni coordonnée n’est extraite.",
+    "payload": {
+      "mapId": "B10",
+      "sourceOrder": 75,
+      "label": "ARABIE",
+      "kind": "region",
+      "review": {
+        "status": "pending",
+        "sourceReference": "B10 · ARABIE",
+        "entityIdsVerified": false
+      }
+    }
+  }
+]
