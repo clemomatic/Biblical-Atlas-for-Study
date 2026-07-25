@@ -1070,7 +1070,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   }, [isDisplayMenuOpen]);
 
   return (
-    <div className="relative flex h-full flex-col select-none overflow-hidden bg-[var(--color-paper)] text-[var(--color-ink)]">
+    <div data-testid="timeline-view" className="relative flex h-full flex-col select-none overflow-hidden bg-[var(--color-paper)] text-[var(--color-ink)]">
 
       <div className="relative z-30 flex min-h-13 shrink-0 items-center gap-2 border-b border-[var(--color-stone)] bg-[color-mix(in_srgb,var(--color-paper)_95%,transparent)] px-2.5 py-1.5 backdrop-blur-xl sm:px-3">
         <div className="flex items-center rounded-[var(--radius-md)] bg-[var(--color-paper-muted)] p-0.5">

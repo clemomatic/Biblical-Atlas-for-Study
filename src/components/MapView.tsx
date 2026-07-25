@@ -530,7 +530,7 @@ export const MapView: React.FC<MapViewProps> = ({
   }, [selectedPlace, isActive]);
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">
+    <div data-testid="map-view" className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">
       <div className="absolute left-3 top-3 z-[420] flex max-w-[calc(100%-1.5rem)] flex-col items-start gap-2 sm:left-4 sm:top-4">
         <button
           type="button"

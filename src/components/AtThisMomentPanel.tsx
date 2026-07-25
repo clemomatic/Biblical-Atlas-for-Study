@@ -288,6 +288,7 @@ export function AtThisMomentPanel({
         role="dialog"
         aria-modal="true"
         aria-labelledby="at-this-moment-title"
+        data-testid="at-this-moment-panel"
         className="atlas-enter relative z-10 flex max-h-[86dvh] w-full flex-col overflow-hidden rounded-t-[var(--radius-xl)] border border-[var(--color-stone-light)] bg-[var(--color-paper)] shadow-[var(--shadow-3)] md:h-full md:max-h-none md:w-[min(480px,46vw)] md:rounded-none md:border-y-0 md:border-r-0"
       >
         <header className="shrink-0 border-b border-[var(--color-stone-light)] bg-[var(--color-paper)] px-5 pb-4 pt-5 sm:px-6">
