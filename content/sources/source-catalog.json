@@ -218,5 +218,53 @@
     "longTextReproductionAllowed": false,
     "imageReproductionAllowed": false,
     "verificationStatus": "verified"
+  },
+  {
+    "id": "source-wcg-timeline-part-1",
+    "title": "Frise chronologique de la partie 1",
+    "publication": "Marche courageusement avec Dieu",
+    "chapterOrAppendix": "Partie 1 — Des patriarches aux juges",
+    "pageOrSection": "pages 14-15",
+    "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1102025962",
+    "documentType": "timeline",
+    "language": "fr",
+    "accessedAt": "2026-07-25",
+    "notes": "Extraction limitée aux noms, barres chronologiques et évènements factuels. Les barres collectives restent des fenêtres de contexte et non des durées de vie individuelles.",
+    "factualDataUseAllowed": true,
+    "longTextReproductionAllowed": false,
+    "imageReproductionAllowed": false,
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "source-wcg-timeline-part-2",
+    "title": "Frise chronologique de la partie 2",
+    "publication": "Marche courageusement avec Dieu",
+    "chapterOrAppendix": "Partie 2 — Des rois à la reconstruction de Jérusalem",
+    "pageOrSection": "pages 104-105",
+    "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1102025964",
+    "documentType": "timeline",
+    "language": "fr",
+    "accessedAt": "2026-07-25",
+    "notes": "Extraction limitée aux noms, barres chronologiques et évènements factuels. Aucune illustration ni texte explicatif n’est reproduit.",
+    "factualDataUseAllowed": true,
+    "longTextReproductionAllowed": false,
+    "imageReproductionAllowed": false,
+    "verificationStatus": "verified"
+  },
+  {
+    "id": "source-wcg-timeline-part-3",
+    "title": "Frise chronologique de la partie 3",
+    "publication": "Marche courageusement avec Dieu",
+    "chapterOrAppendix": "Partie 3 — Les débuts du christianisme",
+    "pageOrSection": "pages 186-187",
+    "url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1102025966",
+    "documentType": "timeline",
+    "language": "fr",
+    "accessedAt": "2026-07-25",
+    "notes": "Extraction limitée aux noms, barres chronologiques et évènements factuels. « apr. » est conservé comme borne ouverte après la date indiquée.",
+    "factualDataUseAllowed": true,
+    "longTextReproductionAllowed": false,
+    "imageReproductionAllowed": false,
+    "verificationStatus": "verified"
   }
 ]

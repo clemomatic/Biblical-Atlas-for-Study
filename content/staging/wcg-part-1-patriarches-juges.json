@@ -1,0 +1,939 @@
+[
+  {
+    "id": "staging-wcg-1-person-001",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-adam-2peny4"
+      ],
+      "names": [
+        "Adam"
+      ],
+      "historicalCategory": "Avant le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -4026,
+          "yearMax": -4026,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -3096,
+          "yearMax": -3096,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "4026-3096 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "4026-3096 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-002",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-henoch-5b97vn"
+      ],
+      "names": [
+        "Hénoch"
+      ],
+      "historicalCategory": "Avant le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -3404,
+          "yearMax": -3404,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -3039,
+          "yearMax": -3039,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "3404-3039 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "3404-3039 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-003",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-noe-qdkz7y"
+      ],
+      "names": [
+        "Noé"
+      ],
+      "historicalCategory": "Avant le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -2970,
+          "yearMax": -2970,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -2020,
+          "yearMax": -2020,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2970-2020 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "2970-2020 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-004",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-abraham-mdcznq"
+      ],
+      "names": [
+        "Abraham"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -2018,
+          "yearMax": -2018,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1843,
+          "yearMax": -1843,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2018-1843 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "2018-1843 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-005",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-sara-1xft3rw"
+      ],
+      "names": [
+        "Sara"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -2008,
+          "yearMax": -2008,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1881,
+          "yearMax": -1881,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2008-1881 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "2008-1881 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-006",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-rebecca"
+      ],
+      "names": [
+        "Rébecca"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1900,
+          "yearMax": -1900,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1775,
+          "yearMax": -1775,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1900-vers 1775 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1900-vers 1775 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-007",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-jacob-a7o7cq"
+      ],
+      "names": [
+        "Jacob"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1858,
+          "yearMax": -1858,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1711,
+          "yearMax": -1711,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1858-1711 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1858-1711 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-008",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-joseph-11h377b"
+      ],
+      "names": [
+        "Joseph"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1767,
+          "yearMax": -1767,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1657,
+          "yearMax": -1657,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1767-1657 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1767-1657 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-009",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-moise-p4dtf4"
+      ],
+      "names": [
+        "Moïse"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1593,
+          "yearMax": -1593,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1473,
+          "yearMax": -1473,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1593-1473 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1593-1473 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-010",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-caleb"
+      ],
+      "names": [
+        "Caleb"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1552,
+          "yearMax": -1552,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1450,
+          "yearMax": -1450,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "1552-vers 1450 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1552-vers 1450 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-011",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-josue"
+      ],
+      "names": [
+        "Josué"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1560,
+          "yearMax": -1560,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1450,
+          "yearMax": -1450,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1560-vers 1450 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1560-vers 1450 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-012",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-rahab"
+      ],
+      "names": [
+        "Rahab"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1500,
+          "yearMax": -1500,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1400,
+          "yearMax": -1400,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1500-vers 1400 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1500-vers 1400 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-person-013",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-samuel-8qh05i"
+      ],
+      "names": [
+        "Samuel"
+      ],
+      "historicalCategory": "Époque des juges",
+      "period": {
+        "start": {
+          "yearMin": -1180,
+          "yearMax": -1180,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1080,
+          "yearMax": -1080,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1180-vers 1080 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1180-vers 1080 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-collective-001",
+    "entityType": "claim",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Barre collective conservée comme contexte ; elle ne décrit pas les vies individuelles.",
+    "payload": {
+      "recordKind": "collective-context",
+      "label": "Shifra, Poua, Amram, Jokébed et Miriam",
+      "personIds": [
+        "person-wcg-shifra",
+        "person-wcg-poua",
+        "person-wcg-amram",
+        "person-wcg-jokebed",
+        "person-wcg-miriam"
+      ],
+      "names": [
+        "Shifra",
+        "Poua",
+        "Amram",
+        "Jokébed",
+        "Miriam"
+      ],
+      "historicalCategory": "Après le Déluge",
+      "period": {
+        "start": {
+          "yearMin": -1645,
+          "yearMax": -1645,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1474,
+          "yearMax": -1474,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Fenêtre collective vers 1645-vers 1474 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-collective-002",
+    "entityType": "claim",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Barre collective conservée comme contexte ; elle ne décrit pas les vies individuelles.",
+    "payload": {
+      "recordKind": "collective-context",
+      "label": "Personnages de l’époque des juges",
+      "personIds": [
+        "person-wcg-noemi",
+        "person-wcg-ruth",
+        "person-wcg-deborah",
+        "person-wcg-barak",
+        "person-wcg-jael",
+        "person-wcg-gedeon",
+        "person-wcg-samson",
+        "person-wcg-jephte",
+        "person-wcg-fille-jephte"
+      ],
+      "names": [
+        "Noémi",
+        "Ruth",
+        "Déborah",
+        "Barak",
+        "Jael",
+        "Gédéon",
+        "Samson",
+        "Jephté",
+        "Fille de Jephté"
+      ],
+      "historicalCategory": "Époque des juges",
+      "period": {
+        "start": {
+          "yearMin": -1450,
+          "yearMax": -1450,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1120,
+          "yearMax": -1120,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Fenêtre collective vers 1450-vers 1120 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-event-001",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-deluge-2370",
+      "name": "Déluge",
+      "period": {
+        "start": {
+          "yearMin": -2370,
+          "yearMax": -2370,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -2370,
+          "yearMax": -2370,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2370 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "2370 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-event-002",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-alliance-abrahamique-1943",
+      "name": "Entrée en vigueur de l’alliance abrahamique",
+      "period": {
+        "start": {
+          "yearMin": -1943,
+          "yearMax": -1943,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1943,
+          "yearMax": -1943,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1943 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1943 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-event-003",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-jacob-egypte-1728",
+      "name": "Arrivée de Jacob et de sa famille en Égypte",
+      "period": {
+        "start": {
+          "yearMin": -1728,
+          "yearMax": -1728,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1728,
+          "yearMax": -1728,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1728 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1728 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-event-004",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-egypte-puissance-1600",
+      "name": "Égypte, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1600 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1600 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-event-005",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-exode-1513",
+      "name": "Exode",
+      "period": {
+        "start": {
+          "yearMin": -1513,
+          "yearMax": -1513,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1513,
+          "yearMax": -1513,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1513 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1513 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-event-006",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-entree-canaan-1473",
+      "name": "Entrée d’Israël en Canaan",
+      "period": {
+        "start": {
+          "yearMin": -1473,
+          "yearMax": -1473,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1473,
+          "yearMax": -1473,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1473 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1473 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-1-event-007",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-1"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-onction-saul-1117",
+      "name": "Onction de Saül par Samuel",
+      "period": {
+        "start": {
+          "yearMin": -1117,
+          "yearMax": -1117,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1117,
+          "yearMax": -1117,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1117 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1117 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  }
+]

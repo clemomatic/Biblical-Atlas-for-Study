@@ -1,11 +1,16 @@
 [
   {
     "workflowStatus": "reviewed",
-    "sourceIds": ["source-nwtsty-a7-b"],
+    "sourceIds": [
+      "source-nwtsty-a7-b",
+      "source-wcg-timeline-part-3"
+    ],
     "person": {
       "id": "event-jesus-en-tant-qu-humain-1f4ceyz",
       "name": "Jésus",
-      "alternateNames": ["Jésus Christ"],
+      "alternateNames": [
+        "Jésus Christ"
+      ],
       "activityPeriods": [],
       "associatedEventIds": [
         "event-a7b-bapteme-jesus",
@@ -35,18 +40,46 @@
         "Jean 4:1-43"
       ],
       "certainty": "certain",
-      "notes": "Fiche de liaison A7-B ; aucune nouvelle date de vie n’est ajoutée.",
+      "notes": "Fiche de liaison A7-B ; aucune nouvelle date de vie n’est ajoutée. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+      "legacyEventId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2 av. n. è.-33 de n. è."
+      }
     }
   },
   {
     "workflowStatus": "reviewed",
-    "sourceIds": ["source-nwtsty-a7-b"],
+    "sourceIds": [
+      "source-nwtsty-a7-b",
+      "source-wcg-timeline-part-3"
+    ],
     "person": {
       "id": "event-jean-le-baptiseur-dvgl2c",
       "name": "Jean le Baptiseur",
-      "alternateNames": ["Jean le Baptiste"],
+      "alternateNames": [
+        "Jean le Baptiste"
+      ],
       "activityPeriods": [],
       "associatedEventIds": [
         "event-a7b-jean-presente-jesus",
@@ -63,14 +96,39 @@
         "Matthieu 14:3-5"
       ],
       "certainty": "certain",
-      "notes": "Fiche de liaison A7-B ; aucune nouvelle date de vie n’est ajoutée.",
+      "notes": "Fiche de liaison A7-B ; aucune nouvelle date de vie n’est ajoutée. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-jean-le-baptiseur-dvgl2c"
+      "legacyEventId": "event-jean-le-baptiseur-dvgl2c",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "2 av. n. è.-vers 32 de n. è."
+      }
     }
   },
   {
     "workflowStatus": "reviewed",
-    "sourceIds": ["source-nwtsty-a7-b"],
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
     "person": {
       "id": "person-a7b-diable",
       "name": "le Diable",
@@ -94,7 +152,9 @@
   },
   {
     "workflowStatus": "reviewed",
-    "sourceIds": ["source-nwtsty-a7-b"],
+    "sourceIds": [
+      "source-nwtsty-a7-b"
+    ],
     "person": {
       "id": "person-a7b-nicodeme",
       "name": "Nicodème",

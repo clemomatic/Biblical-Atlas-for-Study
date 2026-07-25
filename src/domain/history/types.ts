@@ -113,10 +113,17 @@ export interface BiblicalPerson extends EntityMetadata {
   name: string;
   alternateNames?: string[];
   roles?: BiblicalPersonRole[];
+  historicalCategories?: string[];
   realmIds?: string[];
   description?: string;
   lifeSpan?: TemporalSpan;
   lifeSpanClaimIds?: string[];
+  /**
+   * Fenêtres dessinées par une source qui situent une personne sans prétendre
+   * représenter sa naissance et sa mort. Elles ne participent jamais au calcul
+   * automatique des contemporains.
+   */
+  sourceTimelineWindows?: SourceTimelineWindow[];
   activityPeriods: PersonActivityPeriod[];
   associatedEventIds?: string[];
   associatedLocationIds?: string[];
@@ -127,6 +134,16 @@ export interface BiblicalPerson extends EntityMetadata {
    * lorsque la frise consommera directement les personnes.
    */
   legacyEventId?: string;
+}
+
+export interface SourceTimelineWindow {
+  id: string;
+  sourceId: string;
+  kind: 'collective-context';
+  label: string;
+  span: TemporalSpan;
+  supportingClaimIds: string[];
+  notes: string;
 }
 
 export type TemporalOverlap = 'definite' | 'possible' | 'none' | 'unknown';

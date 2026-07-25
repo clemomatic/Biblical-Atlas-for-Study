@@ -1,0 +1,3196 @@
+[
+  {
+    "id": "claim-wcg-1-abraham-mdcznq-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-abraham-mdcznq"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -2018,
+        "yearMax": -2018,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1843,
+        "yearMax": -1843,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2018-1843 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Abraham » : 2018-1843 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-adam-2peny4-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-adam-2peny4"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -4026,
+        "yearMax": -4026,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3096,
+        "yearMax": -3096,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "4026-3096 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Adam » : 4026-3096 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-henoch-5b97vn-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-henoch-5b97vn"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -3404,
+        "yearMax": -3404,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3039,
+        "yearMax": -3039,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "3404-3039 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Hénoch » : 3404-3039 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-jacob-a7o7cq-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jacob-a7o7cq"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1858,
+        "yearMax": -1858,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1711,
+        "yearMax": -1711,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1858-1711 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Jacob » : 1858-1711 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-joseph-11h377b-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-joseph-11h377b"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1767,
+        "yearMax": -1767,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1657,
+        "yearMax": -1657,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1767-1657 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Joseph » : 1767-1657 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-moise-p4dtf4-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-moise-p4dtf4"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1593,
+        "yearMax": -1593,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1473,
+        "yearMax": -1473,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1593-1473 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Moïse » : 1593-1473 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-noe-qdkz7y-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-noe-qdkz7y"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -2970,
+        "yearMax": -2970,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -2020,
+        "yearMax": -2020,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2970-2020 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Noé » : 2970-2020 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-samuel-8qh05i-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-samuel-8qh05i"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1180,
+        "yearMax": -1180,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1080,
+        "yearMax": -1080,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1180-vers 1080 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Samuel » : vers 1180-vers 1080 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-sara-1xft3rw-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-sara-1xft3rw"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -2008,
+        "yearMax": -2008,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1881,
+        "yearMax": -1881,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2008-1881 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Sara » : 2008-1881 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-wcg-alliance-abrahamique-1943-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-alliance-abrahamique-1943"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1943,
+        "yearMax": -1943,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1943,
+        "yearMax": -1943,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1943 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, évènement « Entrée en vigueur de l’alliance abrahamique » : 1943 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-1-wcg-amram-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-amram"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1645,
+        "yearMax": -1645,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1474,
+        "yearMax": -1474,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Shifra, Poua, Amram, Jokébed et Miriam ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-barak-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-barak"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-caleb-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-caleb"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1552,
+        "yearMax": -1552,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "1552-vers 1450 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Caleb » : 1552-vers 1450 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-wcg-deborah-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-deborah"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-deluge-2370-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-deluge-2370"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -2370,
+        "yearMax": -2370,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -2370,
+        "yearMax": -2370,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2370 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, évènement « Déluge » : 2370 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-1-wcg-egypte-puissance-1600-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-egypte-puissance-1600"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1600,
+        "yearMax": -1600,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1600,
+        "yearMax": -1600,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1600 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, évènement « Égypte, puissance mondiale » : vers 1600 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-1-wcg-entree-canaan-1473-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-entree-canaan-1473"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1473,
+        "yearMax": -1473,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1473,
+        "yearMax": -1473,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1473 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, évènement « Entrée d’Israël en Canaan » : 1473 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-1-wcg-exode-1513-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-exode-1513"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1513,
+        "yearMax": -1513,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1513,
+        "yearMax": -1513,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1513 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, évènement « Exode » : 1513 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-1-wcg-fille-jephte-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-fille-jephte"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-gedeon-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-gedeon"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-jacob-egypte-1728-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-jacob-egypte-1728"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1728,
+        "yearMax": -1728,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1728,
+        "yearMax": -1728,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1728 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, évènement « Arrivée de Jacob et de sa famille en Égypte » : 1728 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-1-wcg-jael-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-jael"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-jephte-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-jephte"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-jokebed-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-jokebed"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1645,
+        "yearMax": -1645,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1474,
+        "yearMax": -1474,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Shifra, Poua, Amram, Jokébed et Miriam ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-josue-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-josue"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1560,
+        "yearMax": -1560,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1560-vers 1450 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Josué » : vers 1560-vers 1450 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-wcg-miriam-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-miriam"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1645,
+        "yearMax": -1645,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1474,
+        "yearMax": -1474,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Shifra, Poua, Amram, Jokébed et Miriam ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-noemi-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-noemi"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-onction-saul-1117-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-onction-saul-1117"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1117,
+        "yearMax": -1117,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1117,
+        "yearMax": -1117,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1117 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, évènement « Onction de Saül par Samuel » : 1117 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-1-wcg-poua-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-poua"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1645,
+        "yearMax": -1645,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1474,
+        "yearMax": -1474,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Shifra, Poua, Amram, Jokébed et Miriam ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-rahab-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-rahab"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1500,
+        "yearMax": -1500,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1400,
+        "yearMax": -1400,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1500-vers 1400 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Rahab » : vers 1500-vers 1400 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-wcg-rebecca-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-rebecca"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1900,
+        "yearMax": -1900,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1775,
+        "yearMax": -1775,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1900-vers 1775 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, ligne « Rébecca » : vers 1900-vers 1775 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-1-wcg-ruth-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-ruth"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-samson-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-samson"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1120,
+        "yearMax": -1120,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Personnages de l’époque des juges ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-1-wcg-shifra-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-shifra"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1645,
+        "yearMax": -1645,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1474,
+        "yearMax": -1474,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-1",
+        "shortReference": "pages 14-15, barre collective « Shifra, Poua, Amram, Jokébed et Miriam ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-asa-1yoxudp-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-asa-1yoxudp"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 1000-937 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Asa » : vers 1000-937 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-daniel-oyu19r-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-daniel-oyu19r"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -635,
+        "yearMax": -635,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -535,
+        "yearMax": -535,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Daniel, Hanania, Mishael et Azarias ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-david-iixp36-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-david-iixp36"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1107,
+        "yearMax": -1107,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1037,
+        "yearMax": -1037,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1107-1037 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « David » : 1107-1037 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-elie-1nckpyy-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-elie-1nckpyy"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -970,
+        "yearMax": -970,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -900,
+        "yearMax": -900,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 970-vers 900 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Élie et la veuve de Sarepta ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-elisee-1r2p3av-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-elisee-1r2p3av"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -950,
+        "yearMax": -950,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -850,
+        "yearMax": -850,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 950-vers 850 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Élisée » : vers 950-vers 850 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-ezechias-1ne958h-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-ezechias-1ne958h"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -771,
+        "yearMax": -771,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "771-716 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Ézéchias » : 771-716 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-josias-woei8d-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-josias-woei8d"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -667,
+        "yearMax": -667,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "667-628 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Josias » : 667-628 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-manasse-1d4ld4r-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-manasse-1d4ld4r"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -728,
+        "yearMax": -728,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -661,
+        "yearMax": -661,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "728-661 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Manassé » : 728-661 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-samuel-8qh05i-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-samuel-8qh05i"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1180,
+        "yearMax": -1180,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1080,
+        "yearMax": -1080,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1180-vers 1080 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Samuel » : vers 1180-vers 1080 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-wcg-abigail-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-abigail"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1100,
+        "yearMax": -1100,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1100-vers 1000 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Abigaïl et Nathan ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-wcg-assyrie-puissance-apres-874-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-assyrie-puissance-apres-874"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -874,
+        "yearMax": -874,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -874,
+        "yearMax": -874,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Après 874 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Assyrie, puissance mondiale » : Après 874 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-azarias-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-azarias"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -635,
+        "yearMax": -635,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -535,
+        "yearMax": -535,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Daniel, Hanania, Mishael et Azarias ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-wcg-babylone-puissance-625-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-babylone-puissance-625"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -625,
+        "yearMax": -625,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -625,
+        "yearMax": -625,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "625 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Babylone, puissance mondiale » : 625 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-conquete-royaume-dix-tribus-740-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-conquete-royaume-dix-tribus-740"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -740,
+        "yearMax": -740,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -740,
+        "yearMax": -740,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "740 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Conquête du royaume des dix tribus par l’Assyrie » : 740 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-destruction-jerusalem-607-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-destruction-jerusalem-607"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -607,
+        "yearMax": -607,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -607,
+        "yearMax": -607,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "607 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Destruction de Jérusalem par Nabuchodonosor » : 607 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-division-royaumes-997-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-division-royaumes-997"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -997,
+        "yearMax": -997,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -997,
+        "yearMax": -997,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "997 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Division du pays d’Israël en deux royaumes » : 997 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-egypte-puissance-1600-part2-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-egypte-puissance-1600-part2"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1600,
+        "yearMax": -1600,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1600,
+        "yearMax": -1600,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1600 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Égypte, puissance mondiale » : vers 1600 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-esther-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-esther"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -515,
+        "yearMax": -515,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -415,
+        "yearMax": -415,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 515-vers 415 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Esther » : vers 515-vers 415 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-wcg-hanania-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-hanania"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -635,
+        "yearMax": -635,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -535,
+        "yearMax": -535,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Daniel, Hanania, Mishael et Azarias ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-wcg-joad-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-joad"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1005,
+        "yearMax": -1005,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -875,
+        "yearMax": -875,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1005-vers 875 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Joad » : vers 1005-vers 875 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-wcg-jonathan-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-jonathan"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1138,
+        "yearMax": -1138,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1078,
+        "yearMax": -1078,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1138-vers 1078 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Jonathan » : vers 1138-vers 1078 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-wcg-liberation-babylone-537-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-liberation-babylone-537"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -537,
+        "yearMax": -537,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -537,
+        "yearMax": -537,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "537 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Libération des Juifs de Babylone » : 537 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-medo-perse-puissance-539-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-medo-perse-puissance-539"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -539,
+        "yearMax": -539,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -539,
+        "yearMax": -539,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "539 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Empire médo-perse, puissance mondiale » : 539 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-mefibosheth-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-mefibosheth"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1083,
+        "yearMax": -1083,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1083-vers 1000 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Mefibosheth » : vers 1083-vers 1000 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-wcg-mishael-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-mishael"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -635,
+        "yearMax": -635,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -535,
+        "yearMax": -535,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Daniel, Hanania, Mishael et Azarias ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-wcg-nathan-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-nathan"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -1100,
+        "yearMax": -1100,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 1100-vers 1000 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Abigaïl et Nathan ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-2-wcg-nehemie-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-nehemie"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -485,
+        "yearMax": -485,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -385,
+        "yearMax": -385,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 485-vers 385 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « Néhémie » : vers 485-vers 385 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-wcg-petite-fille-israelite-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-petite-fille-israelite"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -925,
+        "yearMax": -925,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -825,
+        "yearMax": -825,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 925-vers 825 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, ligne « La petite fille israélite » : vers 925-vers 825 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-2-wcg-reconstruction-murailles-455-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-reconstruction-murailles-455"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -455,
+        "yearMax": -455,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -455,
+        "yearMax": -455,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "455 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Fin de la reconstruction des murailles de Jérusalem » : 455 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-reconstruction-temple-515-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-reconstruction-temple-515"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -515,
+        "yearMax": -515,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -515,
+        "yearMax": -515,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "515 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Reconstruction du temple de Jérusalem » : 515 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-temple-salomon-1027-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-temple-salomon-1027"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -1027,
+        "yearMax": -1027,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1027,
+        "yearMax": -1027,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1027 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, évènement « Fin de la construction du temple de Salomon » : 1027 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-2-wcg-veuve-sarepta-timeline-context",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-veuve-sarepta"
+    },
+    "predicate": "timeline-context",
+    "period": {
+      "start": {
+        "yearMin": -970,
+        "yearMax": -970,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -900,
+        "yearMax": -900,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Fenêtre collective vers 970-vers 900 av. n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-2",
+        "shortReference": "pages 104-105, barre collective « Élie et la veuve de Sarepta ».",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Cette fenêtre collective ne constitue ni une date de naissance ni une date de décès et ne génère aucun contemporain."
+  },
+  {
+    "id": "claim-wcg-3-a7-elisabeth-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-elisabeth"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -70,
+        "yearMax": -70,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Élisabeth » : vers 70 av. n. è.-après 2 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-joseph-pere-adoptif"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -25,
+        "yearMax": -25,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 25 av. n. è.-après 11 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Joseph » : vers 25 av. n. è.-après 11 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-a7-marie-bethanie-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-bethanie"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -15,
+        "yearMax": -15,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 15 av. n. è.-après 33 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Marie de Béthanie » : vers 15 av. n. è.-après 33 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -20,
+        "yearMax": -20,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 20 av. n. è.-après 33 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Marie » : vers 20 av. n. è.-après 33 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-a7-pierre-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-pierre"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 64,
+        "yearMax": 64,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 5 av. n. è.-après 64 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Pierre » : vers 5 av. n. è.-après 64 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-a7-zacharie-pretre-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-zacharie-pretre"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -70,
+        "yearMax": -70,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Zacharie » : vers 70 av. n. è.-après 2 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-jean-e4vx5j-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-e4vx5j"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 100,
+        "yearMax": 100,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 5 av. n. è.-vers 100 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Jean » : vers 5 av. n. è.-vers 100 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-le-baptiseur-dvgl2c"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "2 av. n. è.-vers 32 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Jean le Baptiseur » : 2 av. n. è.-vers 32 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2 av. n. è.-33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Jésus » : 2 av. n. è.-33 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-wcg-barnabe-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-barnabe"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 55,
+        "yearMax": 55,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 5 av. n. è.-après 55 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Barnabé » : vers 5 av. n. è.-après 55 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-wcg-destruction-jerusalem-70-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-destruction-jerusalem-70"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": 70,
+        "yearMax": 70,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 70,
+        "yearMax": 70,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "70 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, évènement « Destruction de Jérusalem et du Temple » : 70 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-3-wcg-etienne-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-etienne"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 34,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 5 av. n. è.-vers 33/34 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Étienne » : vers 5 av. n. è.-vers 33/34 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-wcg-fin-redaction-bible-98-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-fin-redaction-bible-98"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": 98,
+        "yearMax": 98,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 98,
+        "yearMax": 98,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 98 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, évènement « Fin de la rédaction de la Bible » : vers 98 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-3-wcg-grece-puissance-332-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-grece-puissance-332"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -332,
+        "yearMax": -332,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -332,
+        "yearMax": -332,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 332 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, évènement « Grèce, puissance mondiale » : vers 332 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-3-wcg-marc-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-marc"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 65,
+        "yearMax": 65,
+        "precision": "after",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 15 de n. è.-après vers 65 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Marc » : vers 15 de n. è.-après vers 65 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-wcg-marie-magdala-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-marie-magdala"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 5 av. n. è.-après 33 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Marie de Magdala » : vers 5 av. n. è.-après 33 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-wcg-matthieu-evangile-41-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-matthieu-evangile-41"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": 41,
+        "yearMax": 41,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 41,
+        "yearMax": 41,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 41 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, évènement « Matthieu écrit le premier Évangile » : vers 41 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-3-wcg-paul-lifespan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-wcg-paul"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 65,
+        "yearMax": 65,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 3-vers 65 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, ligne « Paul » : vers 3-vers 65 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "La barre est interprétée comme une durée de vie individuelle parce que la source la présente explicitement ainsi."
+  },
+  {
+    "id": "claim-wcg-3-wcg-pentecote-33-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-pentecote-33"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "33 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, évènement « Effusion de l’esprit saint à la Pentecôte » : 33 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-3-wcg-premiers-gentils-36-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-premiers-gentils-36"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": 36,
+        "yearMax": 36,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 36,
+        "yearMax": 36,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "36 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, évènement « Baptême des premiers Gentils incirconcis » : 36 de n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-wcg-3-wcg-rome-puissance-63-30-event",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "event",
+      "entityId": "event-wcg-rome-puissance-63-30"
+    },
+    "predicate": "historical-event",
+    "period": {
+      "start": {
+        "yearMin": -63,
+        "yearMax": -63,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -30,
+        "yearMax": -30,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 63-vers 30 av. n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-wcg-timeline-part-3",
+        "shortReference": "pages 186-187, évènement « Rome, puissance mondiale » : vers 63-vers 30 av. n. è..",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]

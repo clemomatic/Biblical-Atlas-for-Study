@@ -3,14 +3,16 @@
     "workflowStatus": "reviewed",
     "sourceIds": [
       "source-nwtsty-a7-c",
-      "source-nwtsty-a7-f"
+      "source-nwtsty-a7-f",
+      "source-wcg-timeline-part-3"
     ],
     "person": {
       "id": "event-jean-e4vx5j",
       "name": "Jean",
       "alternateNames": [
         "Fils de Zébédée",
-        "Jean l’apôtre"
+        "Jean l’apôtre",
+        "Apôtre Jean"
       ],
       "activityPeriods": [],
       "associatedEventIds": [
@@ -28,8 +30,32 @@
         "Marc 10:35-45"
       ],
       "certainty": "certain",
-      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
-      "lastVerified": "2026-07-25"
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "legacyEventId": "event-jean-e4vx5j",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 100,
+          "yearMax": 100,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 5 av. n. è.-vers 100 de n. è."
+      }
     }
   },
   {
@@ -145,7 +171,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwtsty-a7-a"
+      "source-nwtsty-a7-a",
+      "source-wcg-timeline-part-3"
     ],
     "person": {
       "id": "person-a7-elisabeth",
@@ -164,8 +191,31 @@
         "Luc 1:57-80"
       ],
       "certainty": "certain",
-      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
-      "lastVerified": "2026-07-25"
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -70,
+          "yearMax": -70,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+      }
     }
   },
   {
@@ -317,7 +367,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwtsty-a7-a"
+      "source-nwtsty-a7-a",
+      "source-wcg-timeline-part-3"
     ],
     "person": {
       "id": "person-a7-joseph-pere-adoptif",
@@ -353,8 +404,31 @@
         "Luc 2:51-52"
       ],
       "certainty": "certain",
-      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
-      "lastVerified": "2026-07-25"
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -25,
+          "yearMax": -25,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 11,
+          "yearMax": 11,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 25 av. n. è.-après 11 de n. è."
+      }
     }
   },
   {
@@ -427,12 +501,15 @@
     "workflowStatus": "reviewed",
     "sourceIds": [
       "source-nwtsty-a7-e",
-      "source-nwtsty-a7-g"
+      "source-nwtsty-a7-g",
+      "source-wcg-timeline-part-3"
     ],
     "person": {
       "id": "person-a7-marie-bethanie",
       "name": "Marie de Béthanie",
-      "alternateNames": [],
+      "alternateNames": [
+        "Marie, sœur de Lazare"
+      ],
       "activityPeriods": [],
       "associatedEventIds": [
         "event-a7-e-bon-samaritain-marie-marthe",
@@ -448,21 +525,46 @@
         "Jean 12:2-11"
       ],
       "certainty": "certain",
-      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
-      "lastVerified": "2026-07-25"
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -15,
+          "yearMax": -15,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 15 av. n. è.-après 33 de n. è."
+      }
     }
   },
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
       "source-nwtsty-a7-a",
-      "source-nwtsty-a7-c"
+      "source-nwtsty-a7-c",
+      "source-wcg-timeline-part-3"
     ],
     "person": {
       "id": "person-a7-marie-mere-jesus",
       "name": "Marie",
       "alternateNames": [
-        "Mère de Jésus"
+        "Mère de Jésus",
+        "Marie, mère de Jésus"
       ],
       "activityPeriods": [],
       "associatedEventIds": [
@@ -498,8 +600,31 @@
         "Luc 8:19-21"
       ],
       "certainty": "certain",
-      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
-      "lastVerified": "2026-07-25"
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -20,
+          "yearMax": -20,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 20 av. n. è.-après 33 de n. è."
+      }
     }
   },
   {
@@ -558,7 +683,8 @@
     "workflowStatus": "reviewed",
     "sourceIds": [
       "source-nwtsty-a7-c",
-      "source-nwtsty-a7-h"
+      "source-nwtsty-a7-h",
+      "source-wcg-timeline-part-3"
     ],
     "person": {
       "id": "person-a7-pierre",
@@ -596,8 +722,31 @@
         "Jean 18:13-27"
       ],
       "certainty": "certain",
-      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
-      "lastVerified": "2026-07-25"
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 64,
+          "yearMax": 64,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 5 av. n. è.-après 64 de n. è."
+      }
     }
   },
   {
@@ -638,7 +787,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwtsty-a7-a"
+      "source-nwtsty-a7-a",
+      "source-wcg-timeline-part-3"
     ],
     "person": {
       "id": "person-a7-zacharie-pretre",
@@ -659,8 +809,31 @@
         "Luc 1:57-80"
       ],
       "certainty": "certain",
-      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
-      "lastVerified": "2026-07-25"
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -70,
+          "yearMax": -70,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+      }
     }
   },
   {

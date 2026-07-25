@@ -359,7 +359,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwt-a6-a"
+      "source-nwt-a6-a",
+      "source-wcg-timeline-part-2"
     ],
     "person": {
       "id": "event-asa-1yoxudp",
@@ -412,9 +413,32 @@
       ],
       "biblicalReferences": [],
       "certainty": "certain",
-      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-asa-1yoxudp"
+      "legacyEventId": "event-asa-1yoxudp",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-asa-1yoxudp-lifespan"
+      ],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1000,
+          "yearMax": -1000,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -937,
+          "yearMax": -937,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 1000-937 av. n. è."
+      }
     }
   },
   {
@@ -542,7 +566,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwt-a6-b"
+      "source-nwt-a6-b",
+      "source-wcg-timeline-part-2"
     ],
     "person": {
       "id": "event-daniel-oyu19r",
@@ -586,7 +611,39 @@
       "certainty": "possible",
       "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-daniel-oyu19r"
+      "legacyEventId": "event-daniel-oyu19r",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-daniel-oyu19r",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Daniel, Hanania, Mishael et Azarias",
+          "span": {
+            "start": {
+              "yearMin": -635,
+              "yearMax": -635,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -535,
+              "yearMax": -535,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-daniel-oyu19r-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ],
+      "historicalCategories": [
+        "Exil à Babylone"
+      ]
     }
   },
   {
@@ -653,7 +710,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwt-a6-a"
+      "source-nwt-a6-a",
+      "source-wcg-timeline-part-2"
     ],
     "person": {
       "id": "event-elie-1nckpyy",
@@ -697,13 +755,46 @@
       "certainty": "possible",
       "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-elie-1nckpyy"
+      "legacyEventId": "event-elie-1nckpyy",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-elie-1nckpyy",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Élie et la veuve de Sarepta",
+          "span": {
+            "start": {
+              "yearMin": -970,
+              "yearMax": -970,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -900,
+              "yearMax": -900,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 970-vers 900 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-elie-1nckpyy-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ],
+      "historicalCategories": [
+        "Royaume divisé"
+      ]
     }
   },
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwt-a6-a"
+      "source-nwt-a6-a",
+      "source-wcg-timeline-part-2"
     ],
     "person": {
       "id": "event-elisee-1r2p3av",
@@ -745,15 +836,39 @@
       "associatedLocationIds": [],
       "biblicalReferences": [],
       "certainty": "possible",
-      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain.",
+      "notes": "La barre A6 donne une période générale. Elle ne prouve ni une localisation continue ni une rencontre avec chaque roi contemporain. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-elisee-1r2p3av"
+      "legacyEventId": "event-elisee-1r2p3av",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-elisee-1r2p3av-lifespan"
+      ],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -950,
+          "yearMax": -950,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -850,
+          "yearMax": -850,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 950-vers 850 av. n. è."
+      }
     }
   },
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwt-a6-b"
+      "source-nwt-a6-b",
+      "source-wcg-timeline-part-2"
     ],
     "person": {
       "id": "event-ezechias-1ne958h",
@@ -806,9 +921,32 @@
       ],
       "biblicalReferences": [],
       "certainty": "certain",
-      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-ezechias-1ne958h"
+      "legacyEventId": "event-ezechias-1ne958h",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-ezechias-1ne958h-lifespan"
+      ],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -771,
+          "yearMax": -771,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -716,
+          "yearMax": -716,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "771-716 av. n. è."
+      }
     }
   },
   {
@@ -1812,7 +1950,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwt-a6-b"
+      "source-nwt-a6-b",
+      "source-wcg-timeline-part-2"
     ],
     "person": {
       "id": "event-josias-woei8d",
@@ -1865,9 +2004,32 @@
       ],
       "biblicalReferences": [],
       "certainty": "certain",
-      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-josias-woei8d"
+      "legacyEventId": "event-josias-woei8d",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-josias-woei8d-lifespan"
+      ],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -667,
+          "yearMax": -667,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -628,
+          "yearMax": -628,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "667-628 av. n. è."
+      }
     }
   },
   {
@@ -1934,7 +2096,8 @@
   {
     "workflowStatus": "reviewed",
     "sourceIds": [
-      "source-nwt-a6-b"
+      "source-nwt-a6-b",
+      "source-wcg-timeline-part-2"
     ],
     "person": {
       "id": "event-manasse-1d4ld4r",
@@ -1987,9 +2150,32 @@
       ],
       "biblicalReferences": [],
       "certainty": "certain",
-      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement.",
+      "notes": "Les phases A6 sont séparées des anciennes lignes de compatibilité de la frise ; aucune rencontre n’est déduite d’un simple chevauchement. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
-      "legacyEventId": "event-manasse-1d4ld4r"
+      "legacyEventId": "event-manasse-1d4ld4r",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-manasse-1d4ld4r-lifespan"
+      ],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -728,
+          "yearMax": -728,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -661,
+          "yearMax": -661,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "728-661 av. n. è."
+      }
     }
   },
   {

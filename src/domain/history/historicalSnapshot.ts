@@ -601,10 +601,21 @@ export const mergeReviewedPeople = (
     people.set(record.person.id, {
       ...existing,
       ...record.person,
-      alternateNames: uniqueSorted([
-        ...(existing?.alternateNames ?? []),
-        ...(record.person.alternateNames ?? [])
-      ]),
+        alternateNames: uniqueSorted([
+          ...(existing?.alternateNames ?? []),
+          ...(record.person.alternateNames ?? [])
+        ]),
+        historicalCategories: uniqueSorted([
+          ...(existing?.historicalCategories ?? []),
+          ...(record.person.historicalCategories ?? [])
+        ]),
+        sourceTimelineWindows: [
+          ...(existing?.sourceTimelineWindows ?? []),
+          ...(record.person.sourceTimelineWindows ?? [])
+        ].filter(
+          (window, index, values) =>
+            values.findIndex(candidate => candidate.id === window.id) === index
+        ),
       activityPeriods: record.person.activityPeriods.length
         ? record.person.activityPeriods
         : existing?.activityPeriods ?? [],

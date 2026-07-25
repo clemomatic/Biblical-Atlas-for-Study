@@ -30,6 +30,9 @@ export class HistoricalDataValidationError extends Error {
 const VALID_PREDICATES = new Set([
   'birth',
   'death',
+  'lifespan',
+  'timeline-context',
+  'historical-event',
   'presence',
   'residence',
   'travel',
@@ -689,6 +692,18 @@ export function validateHistoricalDataset(
         activity.supportingClaimIds,
         `${personPath}.activityPeriods[${activityIndex}].supportingClaimIds`
       );
+    });
+    record.person.sourceTimelineWindows?.forEach((window, windowIndex) => {
+      validateSupportingClaimIds(
+        window.supportingClaimIds,
+        `${personPath}.sourceTimelineWindows[${windowIndex}].supportingClaimIds`
+      );
+      if (!sourcesById.has(window.sourceId)) {
+        issues.push({
+          path: `${personPath}.sourceTimelineWindows[${windowIndex}].sourceId`,
+          message: `Source inexistante : ${window.sourceId}.`
+        });
+      }
     });
   });
   dataset.events.forEach((record, eventIndex) => {

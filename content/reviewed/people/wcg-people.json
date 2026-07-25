@@ -1,0 +1,1909 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-abraham-mdcznq",
+      "name": "Abraham",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-abraham-mdcznq-lifespan"
+      ],
+      "legacyEventId": "event-abraham-mdcznq",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -2018,
+          "yearMax": -2018,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1843,
+          "yearMax": -1843,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2018-1843 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-adam-2peny4",
+      "name": "Adam",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Avant le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-adam-2peny4-lifespan"
+      ],
+      "legacyEventId": "event-adam-2peny4",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -4026,
+          "yearMax": -4026,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -3096,
+          "yearMax": -3096,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "4026-3096 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "event-david-iixp36",
+      "name": "David",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume uni"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-david-iixp36-lifespan"
+      ],
+      "legacyEventId": "event-david-iixp36",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1107,
+          "yearMax": -1107,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1037,
+          "yearMax": -1037,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1107-1037 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-henoch-5b97vn",
+      "name": "Hénoch",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Avant le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-henoch-5b97vn-lifespan"
+      ],
+      "legacyEventId": "event-henoch-5b97vn",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -3404,
+          "yearMax": -3404,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -3039,
+          "yearMax": -3039,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "3404-3039 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-jacob-a7o7cq",
+      "name": "Jacob",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-jacob-a7o7cq-lifespan"
+      ],
+      "legacyEventId": "event-jacob-a7o7cq",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1858,
+          "yearMax": -1858,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1711,
+          "yearMax": -1711,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1858-1711 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-joseph-11h377b",
+      "name": "Joseph",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-joseph-11h377b-lifespan"
+      ],
+      "legacyEventId": "event-joseph-11h377b",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1767,
+          "yearMax": -1767,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1657,
+          "yearMax": -1657,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1767-1657 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-moise-p4dtf4",
+      "name": "Moïse",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-moise-p4dtf4-lifespan"
+      ],
+      "legacyEventId": "event-moise-p4dtf4",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1593,
+          "yearMax": -1593,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1473,
+          "yearMax": -1473,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1593-1473 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-noe-qdkz7y",
+      "name": "Noé",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Avant le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-noe-qdkz7y-lifespan"
+      ],
+      "legacyEventId": "event-noe-qdkz7y",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -2970,
+          "yearMax": -2970,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -2020,
+          "yearMax": -2020,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2970-2020 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1",
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "event-samuel-8qh05i",
+      "name": "Samuel",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges",
+        "Royaume uni"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-samuel-8qh05i-lifespan",
+        "claim-wcg-2-samuel-8qh05i-lifespan"
+      ],
+      "legacyEventId": "event-samuel-8qh05i",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1180,
+          "yearMax": -1180,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1080,
+          "yearMax": -1080,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1180-vers 1080 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "event-sara-1xft3rw",
+      "name": "Sara",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-sara-1xft3rw-lifespan"
+      ],
+      "legacyEventId": "event-sara-1xft3rw",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -2008,
+          "yearMax": -2008,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1881,
+          "yearMax": -1881,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2008-1881 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-abigail",
+      "name": "Abigaïl",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume uni"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-wcg-abigail",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Abigaïl et Nathan",
+          "span": {
+            "start": {
+              "yearMin": -1100,
+              "yearMax": -1100,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1000,
+              "yearMax": -1000,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1100-vers 1000 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-wcg-abigail-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-amram",
+      "name": "Amram",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-amram",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Shifra, Poua, Amram, Jokébed et Miriam",
+          "span": {
+            "start": {
+              "yearMin": -1645,
+              "yearMax": -1645,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1474,
+              "yearMax": -1474,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-amram-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-azarias",
+      "name": "Azarias",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Exil à Babylone"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-wcg-azarias",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Daniel, Hanania, Mishael et Azarias",
+          "span": {
+            "start": {
+              "yearMin": -635,
+              "yearMax": -635,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -535,
+              "yearMax": -535,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-wcg-azarias-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-barak",
+      "name": "Barak",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-barak",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-barak-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-wcg-barnabe",
+      "name": "Barnabé",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-wcg-barnabe-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 55,
+          "yearMax": 55,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 5 av. n. è.-après 55 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-caleb",
+      "name": "Caleb",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-wcg-caleb-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1552,
+          "yearMax": -1552,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1450,
+          "yearMax": -1450,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "1552-vers 1450 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-deborah",
+      "name": "Déborah",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-deborah",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-deborah-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-esther",
+      "name": "Esther",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après l’Exil"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-wcg-esther-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -515,
+          "yearMax": -515,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -415,
+          "yearMax": -415,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 515-vers 415 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-wcg-etienne",
+      "name": "Étienne",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-wcg-etienne-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 34,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 5 av. n. è.-vers 33/34 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-fille-jephte",
+      "name": "Fille de Jephté",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-fille-jephte",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-fille-jephte-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-gedeon",
+      "name": "Gédéon",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-gedeon",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-gedeon-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-hanania",
+      "name": "Hanania",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Exil à Babylone"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-wcg-hanania",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Daniel, Hanania, Mishael et Azarias",
+          "span": {
+            "start": {
+              "yearMin": -635,
+              "yearMax": -635,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -535,
+              "yearMax": -535,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-wcg-hanania-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-jael",
+      "name": "Jael",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-jael",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-jael-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-jephte",
+      "name": "Jephté",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-jephte",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-jephte-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-joad",
+      "name": "Joad",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-wcg-joad-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1005,
+          "yearMax": -1005,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -875,
+          "yearMax": -875,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1005-vers 875 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-jokebed",
+      "name": "Jokébed",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-jokebed",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Shifra, Poua, Amram, Jokébed et Miriam",
+          "span": {
+            "start": {
+              "yearMin": -1645,
+              "yearMax": -1645,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1474,
+              "yearMax": -1474,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-jokebed-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-jonathan",
+      "name": "Jonathan",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume uni"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-wcg-jonathan-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1138,
+          "yearMax": -1138,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1078,
+          "yearMax": -1078,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1138-vers 1078 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-josue",
+      "name": "Josué",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-wcg-josue-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1560,
+          "yearMax": -1560,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1450,
+          "yearMax": -1450,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1560-vers 1450 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-wcg-marc",
+      "name": "Marc",
+      "alternateNames": [
+        "Jean Marc"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-wcg-marc-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": 15,
+          "yearMax": 15,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 65,
+          "yearMax": 65,
+          "precision": "after",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 15 de n. è.-après vers 65 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-wcg-marie-magdala",
+      "name": "Marie de Magdala",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-wcg-marie-magdala-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 5 av. n. è.-après 33 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-mefibosheth",
+      "name": "Mefibosheth",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume uni"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-wcg-mefibosheth-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1083,
+          "yearMax": -1083,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1000,
+          "yearMax": -1000,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1083-vers 1000 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-miriam",
+      "name": "Miriam",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-miriam",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Shifra, Poua, Amram, Jokébed et Miriam",
+          "span": {
+            "start": {
+              "yearMin": -1645,
+              "yearMax": -1645,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1474,
+              "yearMax": -1474,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-miriam-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-mishael",
+      "name": "Mishael",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Exil à Babylone"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-wcg-mishael",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Daniel, Hanania, Mishael et Azarias",
+          "span": {
+            "start": {
+              "yearMin": -635,
+              "yearMax": -635,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -535,
+              "yearMax": -535,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-wcg-mishael-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-nathan",
+      "name": "Nathan",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume uni"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-wcg-nathan",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Abigaïl et Nathan",
+          "span": {
+            "start": {
+              "yearMin": -1100,
+              "yearMax": -1100,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1000,
+              "yearMax": -1000,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1100-vers 1000 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-wcg-nathan-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-nehemie",
+      "name": "Néhémie",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après l’Exil"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-wcg-nehemie-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -485,
+          "yearMax": -485,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -385,
+          "yearMax": -385,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 485-vers 385 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-noemi",
+      "name": "Noémi",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-noemi",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-noemi-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-wcg-paul",
+      "name": "Paul",
+      "alternateNames": [
+        "Saul de Tarse"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-wcg-paul-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": 3,
+          "yearMax": 3,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 65,
+          "yearMax": 65,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 3-vers 65 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-petite-fille-israelite",
+      "name": "La petite fille israélite",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-2-wcg-petite-fille-israelite-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -925,
+          "yearMax": -925,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -825,
+          "yearMax": -825,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 925-vers 825 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-poua",
+      "name": "Poua",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-poua",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Shifra, Poua, Amram, Jokébed et Miriam",
+          "span": {
+            "start": {
+              "yearMin": -1645,
+              "yearMax": -1645,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1474,
+              "yearMax": -1474,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-poua-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-rahab",
+      "name": "Rahab",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-wcg-rahab-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1500,
+          "yearMax": -1500,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1400,
+          "yearMax": -1400,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1500-vers 1400 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-rebecca",
+      "name": "Rébecca",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-1-wcg-rebecca-lifespan"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -1900,
+          "yearMax": -1900,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1775,
+          "yearMax": -1775,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1900-vers 1775 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-ruth",
+      "name": "Ruth",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-ruth",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-ruth-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-samson",
+      "name": "Samson",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Époque des juges"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-samson",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Personnages de l’époque des juges",
+          "span": {
+            "start": {
+              "yearMin": -1450,
+              "yearMax": -1450,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1120,
+              "yearMax": -1120,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1450-vers 1120 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-samson-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "person": {
+      "id": "person-wcg-shifra",
+      "name": "Shifra",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Après le Déluge"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-1-wcg-shifra",
+          "sourceId": "source-wcg-timeline-part-1",
+          "kind": "collective-context",
+          "label": "Shifra, Poua, Amram, Jokébed et Miriam",
+          "span": {
+            "start": {
+              "yearMin": -1645,
+              "yearMax": -1645,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -1474,
+              "yearMax": -1474,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 1645-vers 1474 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-1-wcg-shifra-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "person": {
+      "id": "person-wcg-veuve-sarepta",
+      "name": "Veuve de Sarepta",
+      "alternateNames": [],
+      "historicalCategories": [
+        "Royaume divisé"
+      ],
+      "activityPeriods": [],
+      "certainty": "certain",
+      "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication.",
+      "lastVerified": "2026-07-25",
+      "sourceTimelineWindows": [
+        {
+          "id": "timeline-window-wcg-2-wcg-veuve-sarepta",
+          "sourceId": "source-wcg-timeline-part-2",
+          "kind": "collective-context",
+          "label": "Élie et la veuve de Sarepta",
+          "span": {
+            "start": {
+              "yearMin": -970,
+              "yearMax": -970,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "end": {
+              "yearMin": -900,
+              "yearMax": -900,
+              "precision": "year",
+              "approximate": true,
+              "certainty": "probable"
+            },
+            "displayLabel": "Fenêtre collective vers 970-vers 900 av. n. è."
+          },
+          "supportingClaimIds": [
+            "claim-wcg-2-wcg-veuve-sarepta-timeline-context"
+          ],
+          "notes": "Fenêtre de contexte collective ; aucune durée de vie individuelle ne peut en être déduite."
+        }
+      ]
+    }
+  }
+]

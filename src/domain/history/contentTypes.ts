@@ -61,6 +61,9 @@ export type HistoricalClaimObject =
 export type HistoricalPredicate =
   | 'birth'
   | 'death'
+  | 'lifespan'
+  | 'timeline-context'
+  | 'historical-event'
   | 'presence'
   | 'residence'
   | 'travel'
