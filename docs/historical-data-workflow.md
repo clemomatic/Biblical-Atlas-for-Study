@@ -8,10 +8,11 @@ Cette chaîne sépare trois états qui ne doivent jamais être confondus :
 2. `reviewed` contient uniquement des données relues et sourcées ;
 3. `generated` contient des relations recalculables produites par un script.
 
-Le corpus historique actuel de l’application n’est pas déplacé par ce lot. Les
-nouveaux dossiers réels sont volontairement vides. Le seul contenu démonstratif
-se trouve sous `content/test-fixtures` et porte partout des IDs et libellés
-fictifs.
+Le corpus historique existant reste compatible avec la frise. Le premier corpus
+réel relu couvre les appendices A7-A à A7-H ; son processus et sa couverture
+sont détaillés dans
+[`imports/a7-calendar.md`](./imports/a7-calendar.md). Le contenu
+`content/test-fixtures` reste strictement fictif et isolé des données réelles.
 
 ## Organisation
 
@@ -24,6 +25,7 @@ content/
 │   ├── people/
 │   ├── events/
 │   ├── places/
+│   ├── routes/
 │   ├── claims/
 │   └── presences/
 ├── generated/
@@ -221,6 +223,9 @@ Une association générale entre une personne et un lieu ne suffit pas à créer
 pnpm historical:validate
 pnpm historical:promote -- --verify-output
 pnpm historical:generate
+pnpm historical:build:a7
+pnpm historical:check:a7
+pnpm historical:report:a7
 pnpm historical:report:a7b
 pnpm test
 pnpm check

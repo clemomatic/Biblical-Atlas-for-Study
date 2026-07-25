@@ -20,7 +20,10 @@ try {
     { EVENTS },
     { BIBLICAL_PEOPLE },
     { TIMELINE_EVENTS },
-    { REVIEWED_TIMELINE_EVENTS },
+    {
+      REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
+      REVIEWED_TIMELINE_EVENTS
+    },
     { BIBLICAL_PLACES }
   ] =
     await Promise.all([
@@ -36,11 +39,21 @@ try {
   }
   if (
     TIMELINE_EVENTS.length !==
-    EVENTS.length + REVIEWED_TIMELINE_EVENTS.length
+    EVENTS.length -
+      REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS.size +
+      REVIEWED_TIMELINE_EVENTS.length
   ) {
     fail(
-      'la projection ne conserve pas toutes les lignes historiques et relues'
+      'la projection ne conserve pas toutes les lignes historiques non remplacées et relues'
     );
+  }
+  for (const legacyEventId of REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS) {
+    if (!EVENTS.some(event => event.id === legacyEventId)) {
+      fail(`la ligne legacy remplacée ${legacyEventId} a disparu des données brutes`);
+    }
+    if (TIMELINE_EVENTS.some(event => event.id === legacyEventId)) {
+      fail(`la ligne legacy remplacée ${legacyEventId} reste visible en doublon`);
+    }
   }
   if (
     new Set(TIMELINE_EVENTS.map(event => event.id)).size !==
@@ -57,7 +70,7 @@ try {
     )
   ) {
     fail(
-      'un événement A7-B a perdu ses références ou sa datation documentaire'
+      'un événement A7 a perdu ses références ou sa datation documentaire'
     );
   }
   const mapPlaceIds = new Set(BIBLICAL_PLACES.map(place => place.id));
@@ -73,9 +86,9 @@ try {
       mapPlaceIds.has(placeId)
     )
   );
-  if (mapReadyPlaceIds.size !== 7 || mapReadyEvents.length !== 7) {
+  if (mapReadyPlaceIds.size < 7 || mapReadyEvents.length < 7) {
     fail(
-      `7 événements et 7 lieux cartographiques A7-B attendus, ${mapReadyEvents.length} événements et ${mapReadyPlaceIds.size} lieux trouvés`
+      `au moins 7 événements et 7 lieux cartographiques A7 attendus, ${mapReadyEvents.length} événements et ${mapReadyPlaceIds.size} lieux trouvés`
     );
   }
 
@@ -123,7 +136,7 @@ try {
   }
 
   console.log(
-    `Compatibilité historique vérifiée : ${BIBLICAL_PEOPLE.length} personnes pilotes, ${EVENTS.length} lignes historiques conservées, ${REVIEWED_TIMELINE_EVENTS.length} événements relus ajoutés, ${mapReadyPlaceIds.size} lieux A7-B prêts pour la carte, aucun doublon.`
+    `Compatibilité historique vérifiée : ${BIBLICAL_PEOPLE.length} personnes pilotes, ${EVENTS.length} lignes legacy brutes conservées, ${REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS.size} substitution(s) déclarée(s), ${REVIEWED_TIMELINE_EVENTS.length} événements relus ajoutés, ${mapReadyPlaceIds.size} lieux A7 prêts pour la carte, aucun doublon.`
   );
 } finally {
   await server.close();

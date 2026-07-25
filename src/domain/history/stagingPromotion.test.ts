@@ -120,7 +120,11 @@ test('génère les relations A7-B sans transformer une période commune en renco
   assert.equal(crossEventPresence?.certainty, 'possible');
   assert.equal(
     relations.filter(
-      relation => relation.relationLevel === 'documented-interaction'
+      relation =>
+        relation.relationLevel === 'documented-interaction' &&
+        relation.supportingClaimIds.some(claimId =>
+          claimId.startsWith('claim-event-a7b-')
+        )
     ).length,
     2
   );
