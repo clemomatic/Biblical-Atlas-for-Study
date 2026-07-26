@@ -7,8 +7,18 @@ import {
   Search,
   X
 } from 'lucide-react';
-import { CategoryData, EventData, TimelinePeriod } from '../types';
+import {
+  CategoryData,
+  EventData,
+  HistoricalPersonLaneId,
+  TimelinePeriod
+} from '../types';
 import { formatDateFrench } from '../utils/dateUtils';
+import {
+  BIOGRAPHY_LANES,
+  getBiographyLaneIdForEvent
+} from '../domain/history/timelineBiography';
+import { ACTIVITY_VISUALS } from '../domain/history/activityVisuals';
 import { IconButton, SectionHeading } from './ui/AtlasUi';
 
 interface StudySidebarProps {
@@ -17,11 +27,13 @@ interface StudySidebarProps {
   categories: CategoryData[];
   events: EventData[];
   activeCategoryIds: Set<string>;
+  activeBiographyLaneIds: Set<HistoricalPersonLaneId>;
   visiblePeriod: TimelinePeriod | null;
   onClose: () => void;
   onToggleCollapse: () => void;
   onOpenSearch: () => void;
   onToggleCategory: (categoryId: string) => void;
+  onToggleBiographyLane: (laneId: HistoricalPersonLaneId) => void;
   onResetCategories: () => void;
 }
 
@@ -42,11 +54,13 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
   categories,
   events,
   activeCategoryIds,
+  activeBiographyLaneIds,
   visiblePeriod,
   onClose,
   onToggleCollapse,
   onOpenSearch,
   onToggleCategory,
+  onToggleBiographyLane,
   onResetCategories
 }) => {
   const countsByCategory = React.useMemo(() => {
@@ -56,6 +70,77 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
     });
     return counts;
   }, [events]);
+
+  const categoryStructure = React.useMemo(() => {
+    const byName = new Map(
+      categories.map(category => [category.name, category] as const)
+    );
+    const descendantsOf = (rootName: string): CategoryData[] => {
+      const result: CategoryData[] = [];
+      const visit = (name: string) => {
+        categories
+          .filter(category => category.parent === name)
+          .forEach(category => {
+            result.push(category);
+            visit(category.name);
+          });
+      };
+      visit(rootName);
+      return result;
+    };
+    return categories
+      .filter(category => !category.parent || !byName.has(category.parent))
+      .map(root => ({
+        root,
+        descendants: descendantsOf(root.name)
+      }));
+  }, [categories]);
+
+  const biographyCounts = React.useMemo(() => {
+    const peopleByLane = new Map<
+      HistoricalPersonLaneId,
+      Set<string>
+    >(BIOGRAPHY_LANES.map(lane => [lane.id, new Set<string>()]));
+    const byName = new Map(
+      categories.map(category => [category.name, category] as const)
+    );
+    events.forEach(event => {
+      let category = categories.find(
+        candidate => candidate.id === event.categoryId
+      );
+      let isPerson = false;
+      const visited = new Set<string>();
+      while (category && !visited.has(category.name)) {
+        if (category.name === 'Personnage') {
+          isPerson = true;
+          break;
+        }
+        visited.add(category.name);
+        category = category.parent
+          ? byName.get(category.parent)
+          : undefined;
+      }
+      if (!isPerson) return;
+      const laneId = getBiographyLaneIdForEvent(event);
+      peopleByLane
+        .get(laneId)
+        ?.add(event.historicalPersonId ?? event.id);
+    });
+    return new Map(
+      [...peopleByLane].map(([laneId, ids]) => [laneId, ids.size])
+    );
+  }, [categories, events]);
+
+  const groupCount = (root: CategoryData, descendants: CategoryData[]) => {
+    if (root.name === 'Personnage') {
+      return [...biographyCounts.values()].reduce(
+        (total, count) => total + count,
+        0
+      );
+    }
+    const ids = new Set([root.id, ...descendants.map(item => item.id)]);
+    return events.filter(event => ids.has(event.categoryId)).length;
+  };
 
   return (
     <>
@@ -170,7 +255,7 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
           <section className="mt-5">
             <div className={isCollapsed ? 'lg:hidden' : ''}>
               <SectionHeading
-                title="Catégories visibles"
+                title="Contenu visible"
                 action={
                   <button
                     type="button"
@@ -185,56 +270,160 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
               />
             </div>
 
-            <div className={`${isCollapsed ? 'lg:mt-0' : 'mt-3'} space-y-0.5`}>
-              {categories.map(category => {
-                const isActive = activeCategoryIds.has(category.id);
-                const count = countsByCategory.get(category.id) || 0;
+            <div className={`${isCollapsed ? 'lg:mt-0' : 'mt-3'} space-y-3`}>
+              {categoryStructure.map(({ root, descendants }) => {
+                const categoryIds = [
+                  root.id,
+                  ...descendants.map(category => category.id)
+                ];
+                const isActive = categoryIds.every(id =>
+                  activeCategoryIds.has(id)
+                );
+                const count = groupCount(root, descendants);
                 return (
-                  <button
-                    key={category.id}
-                    type="button"
-                    onClick={() => onToggleCategory(category.id)}
-                    className={`group flex min-h-11 w-full items-center text-left ${
-                      isCollapsed
-                        ? 'lg:justify-center lg:rounded-[var(--radius-md)] lg:px-0'
-                        : 'gap-3 rounded-[var(--radius-sm)] px-2'
-                    } ${
-                      isActive
-                        ? 'text-[var(--color-ink)]'
-                        : 'text-[var(--color-ink-muted)] opacity-55'
-                    } hover:bg-[var(--color-paper-muted)] hover:opacity-100`}
-                    aria-pressed={isActive}
-                    aria-label={`${category.name}, ${count} éléments, ${
-                      isActive ? 'affichée' : 'masquée'
-                    }`}
-                    title={isCollapsed ? `${category.name} · ${count}` : undefined}
+                  <section
+                    key={root.id}
+                    className="border-b border-[var(--color-stone-light)] pb-3 last:border-b-0"
                   >
-                    <span
-                      className={`size-3 shrink-0 ${categoryShape(category)} ${
-                        isActive ? '' : 'ring-1 ring-current ring-inset'
+                    <button
+                      type="button"
+                      onClick={() => onToggleCategory(root.id)}
+                      className={`group flex min-h-11 w-full items-center text-left ${
+                        isCollapsed
+                          ? 'lg:justify-center lg:rounded-[var(--radius-md)] lg:px-0'
+                          : 'gap-3 rounded-[var(--radius-sm)] px-2'
+                      } ${
+                        isActive
+                          ? 'text-[var(--color-ink)]'
+                          : 'text-[var(--color-ink-muted)] opacity-55'
+                      } hover:bg-[var(--color-paper-muted)] hover:opacity-100`}
+                      aria-pressed={isActive}
+                      aria-label={`${root.name}, ${count} éléments, ${
+                        isActive ? 'affichés' : 'masqués'
                       }`}
-                      style={{
-                        backgroundColor: isActive
-                          ? category.hexColor
-                          : 'transparent'
-                      }}
-                      aria-hidden="true"
-                    />
-                    <span
-                      className={`min-w-0 flex-1 truncate text-[13px] font-medium ${
-                        isCollapsed ? 'lg:hidden' : ''
-                      }`}
+                      title={isCollapsed ? `${root.name} · ${count}` : undefined}
                     >
-                      {category.name}
-                    </span>
-                    <span
-                      className={`text-xs font-medium tabular-nums text-[var(--color-ink-muted)] ${
-                        isCollapsed ? 'lg:hidden' : ''
-                      }`}
-                    >
-                      {count}
-                    </span>
-                  </button>
+                      <span
+                        className={`size-3 shrink-0 ${categoryShape(root)} ${
+                          isActive ? '' : 'ring-1 ring-current ring-inset'
+                        }`}
+                        style={{
+                          backgroundColor: isActive
+                            ? root.hexColor
+                            : 'transparent'
+                        }}
+                        aria-hidden="true"
+                      />
+                      <span
+                        className={`min-w-0 flex-1 truncate text-[13px] font-semibold ${
+                          isCollapsed ? 'lg:hidden' : ''
+                        }`}
+                      >
+                        {root.name}
+                      </span>
+                      <span
+                        className={`text-xs font-medium tabular-nums text-[var(--color-ink-muted)] ${
+                          isCollapsed ? 'lg:hidden' : ''
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    </button>
+
+                    {!isCollapsed && root.name === 'Personnage' && (
+                      <div className="mt-1 space-y-0.5 pl-3">
+                        {BIOGRAPHY_LANES.map(lane => {
+                          const laneActive = activeBiographyLaneIds.has(lane.id);
+                          const laneCount = biographyCounts.get(lane.id) ?? 0;
+                          return (
+                            <button
+                              key={lane.id}
+                              type="button"
+                              onClick={() => onToggleBiographyLane(lane.id)}
+                              className={`flex min-h-10 w-full items-center gap-2.5 rounded-[var(--radius-sm)] px-2 text-left text-xs transition-colors hover:bg-[var(--color-paper-muted)] ${
+                                laneActive
+                                  ? 'text-[var(--color-ink)]'
+                                  : 'text-[var(--color-ink-muted)] opacity-50'
+                              }`}
+                              aria-pressed={laneActive}
+                              title={lane.description}
+                            >
+                              <span
+                                className="h-2.5 w-5 shrink-0 rounded-[2px] border"
+                                style={{
+                                  borderColor: lane.color,
+                                  backgroundColor: laneActive
+                                    ? lane.softColor
+                                    : 'transparent',
+                                  boxShadow: laneActive
+                                    ? `inset 0 -3px ${lane.color}`
+                                    : undefined
+                                }}
+                              />
+                              <span className="min-w-0 flex-1 truncate font-medium">
+                                {lane.label}
+                              </span>
+                              <span className="tabular-nums text-[var(--color-ink-muted)]">
+                                {laneCount}
+                              </span>
+                            </button>
+                          );
+                        })}
+                        <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 px-2 text-[11px] text-[var(--color-ink-muted)]">
+                          {(['lifespan', 'reign', 'prophecy'] as const).map(type => (
+                            <span key={type} className="inline-flex items-center gap-1.5">
+                              <span
+                                className="h-1.5 w-4 rounded-full"
+                                style={{ background: ACTIVITY_VISUALS[type].color }}
+                              />
+                              {ACTIVITY_VISUALS[type].label}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+
+                    {!isCollapsed &&
+                      root.name !== 'Personnage' &&
+                      descendants.length > 0 && (
+                        <div className="mt-1 space-y-0.5 pl-5">
+                          {descendants.map(category => {
+                            const childActive = activeCategoryIds.has(category.id);
+                            const childCount =
+                              countsByCategory.get(category.id) || 0;
+                            return (
+                              <button
+                                key={category.id}
+                                type="button"
+                                onClick={() => onToggleCategory(category.id)}
+                                className={`flex min-h-9 w-full items-center gap-2 rounded-[var(--radius-sm)] px-2 text-left text-xs hover:bg-[var(--color-paper-muted)] ${
+                                  childActive
+                                    ? 'text-[var(--color-ink-soft)]'
+                                    : 'text-[var(--color-ink-muted)] opacity-50'
+                                }`}
+                                aria-pressed={childActive}
+                              >
+                                <span
+                                  className={`size-2.5 shrink-0 ${categoryShape(category)}`}
+                                  style={{
+                                    backgroundColor: childActive
+                                      ? category.hexColor
+                                      : 'transparent',
+                                    border: `1px solid ${category.hexColor}`
+                                  }}
+                                />
+                                <span className="min-w-0 flex-1 truncate">
+                                  {category.name}
+                                </span>
+                                <span className="tabular-nums text-[var(--color-ink-muted)]">
+                                  {childCount}
+                                </span>
+                              </button>
+                            );
+                          })}
+                        </div>
+                      )}
+                  </section>
                 );
               })}
             </div>
@@ -247,12 +436,13 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
           }`}
         >
           <span className="font-semibold text-[var(--color-ink)]">
-            {activeCategoryIds.size}
+            {activeBiographyLaneIds.size}
           </span>
           <span className={isCollapsed ? 'lg:hidden' : ''}>
             {' '}
-            catégorie{activeCategoryIds.size > 1 ? 's' : ''} affichée
-            {activeCategoryIds.size > 1 ? 's' : ''}
+            groupe{activeBiographyLaneIds.size > 1 ? 's' : ''} biographique
+            {activeBiographyLaneIds.size > 1 ? 's' : ''} affiché
+            {activeBiographyLaneIds.size > 1 ? 's' : ''}
           </span>
         </div>
       </aside>
