@@ -1,3 +1,8 @@
+import type {
+  PersonActivityPeriod,
+  TemporalSpan
+} from './domain/history/types.ts';
+
 export type CertaintyLevel = 'certain' | 'probable' | 'possible' | 'unknown';
 export type TimelineDisplayLevel = 'overview' | 'study' | 'detail';
 export type MapLabelLevel = 'major' | 'regional' | 'study' | 'local';
@@ -148,6 +153,10 @@ export interface EventData extends EntityMetadata {
   historicalPersonId?: string;
   /** Distingue la durée de vie d'une période d'activité dans la frise. */
   historicalPersonSpanKind?: 'lifespan' | 'activity';
+  /** Période sourcée utilisée pour les calculs, distincte de l’ancre de rendu. */
+  temporalSpan?: TemporalSpan;
+  /** Activités intégrées au ruban de vie sans supprimer leur projection héritée. */
+  historicalActivityPeriods?: PersonActivityPeriod[];
 }
 
 export interface BiblicalPlace extends EntityMetadata {

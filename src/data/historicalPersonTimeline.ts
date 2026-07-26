@@ -86,7 +86,10 @@ const projectSpan = (
     lastVerified: person.lastVerified,
     media: person.media,
     historicalPersonId: person.id,
-    historicalPersonSpanKind: kind
+    historicalPersonSpanKind: kind,
+    temporalSpan: span,
+    historicalActivityPeriods:
+      kind === 'lifespan' ? person.activityPeriods : undefined
   };
 };
 

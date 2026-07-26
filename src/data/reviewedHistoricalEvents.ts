@@ -205,6 +205,7 @@ export const REVIEWED_TIMELINE_EVENTS: EventData[] =
       ),
       sources,
       certainty: event.certainty,
+      temporalSpan: event.period,
       geographicProvenance: getGeographicProvenance('event', event.id),
       notes: [
         `Datation de la source : ${event.period.displayLabel}.`,
