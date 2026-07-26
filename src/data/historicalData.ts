@@ -19,7 +19,10 @@ const LEGACY_TIMELINE_EVENTS = createLegacyTimelineProjection(
   BIBLICAL_PEOPLE
 );
 export const HISTORICAL_PERSON_TIMELINE =
-  createHistoricalPersonTimelineProjection(HISTORICAL_PEOPLE);
+  createHistoricalPersonTimelineProjection(
+    HISTORICAL_PEOPLE,
+    LEGACY_TIMELINE_EVENTS
+  );
 
 export const TIMELINE_EVENTS = [
   ...LEGACY_TIMELINE_EVENTS.filter(

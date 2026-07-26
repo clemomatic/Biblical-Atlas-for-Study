@@ -5,6 +5,12 @@ import type {
 
 export type CertaintyLevel = 'certain' | 'probable' | 'possible' | 'unknown';
 export type TimelineDisplayLevel = 'overview' | 'study' | 'detail';
+export type HistoricalPersonLaneId =
+  | 'united-monarchy'
+  | 'judah-kings'
+  | 'israel-kings'
+  | 'prophets'
+  | 'people';
 export type MapLabelLevel = 'major' | 'regional' | 'study' | 'local';
 export type BiblicalMapCategory =
   | 'levitical-city'
@@ -157,6 +163,8 @@ export interface EventData extends EntityMetadata {
   temporalSpan?: TemporalSpan;
   /** Activités intégrées au ruban de vie sans supprimer leur projection héritée. */
   historicalActivityPeriods?: PersonActivityPeriod[];
+  /** Bande sémantique stable utilisée pour organiser les biographies. */
+  historicalPersonLaneId?: HistoricalPersonLaneId;
 }
 
 export interface BiblicalPlace extends EntityMetadata {

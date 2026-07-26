@@ -3,6 +3,10 @@ import {
   getTemporalInterval,
   historicalYearToTimelineIndex
 } from '../domain/history/temporal.ts';
+import {
+  getBiographyLaneId,
+  mergeLegacyActivitiesIntoBiographies
+} from '../domain/history/timelineBiography.ts';
 import type {
   BiblicalPerson,
   PersonActivityPeriod,
@@ -38,6 +42,57 @@ const categoryForActivity = (
   return 'Personnage';
 };
 
+const categoryForActivities = (
+  person: BiblicalPerson,
+  activities: readonly PersonActivityPeriod[]
+): string => {
+  const representative =
+    activities.find(activity => activity.type === 'reign') ??
+    activities.find(activity => activity.type === 'prophecy') ??
+    activities[0];
+  return representative
+    ? categoryForActivity(person, representative)
+    : 'Personnage';
+};
+
+const activityEnvelopeSpan = (
+  activities: readonly PersonActivityPeriod[]
+): TemporalSpan | undefined => {
+  const projectable = activities
+    .map(activity => ({
+      activity,
+      interval: getTemporalInterval(activity.span)
+    }))
+    .filter(
+      (
+        item
+      ): item is typeof item & {
+        interval: { yearMin: number; yearMax: number; unknown: false };
+      } =>
+        !item.interval.unknown &&
+        item.interval.yearMin !== undefined &&
+        item.interval.yearMax !== undefined
+    );
+
+  if (projectable.length === 0) return undefined;
+
+  const earliest = projectable.reduce((left, right) =>
+    left.interval.yearMin <= right.interval.yearMin ? left : right
+  );
+  const latest = projectable.reduce((left, right) =>
+    left.interval.yearMax >= right.interval.yearMax ? left : right
+  );
+
+  return {
+    start: earliest.activity.span.start,
+    end: latest.activity.span.end,
+    displayLabel:
+      projectable.length === 1
+        ? projectable[0].activity.span.displayLabel
+        : `${projectable.length} périodes d’activité documentées`
+  };
+};
+
 const projectSpan = (
   person: BiblicalPerson,
   id: string,
@@ -45,7 +100,8 @@ const projectSpan = (
   span: TemporalSpan,
   category: string,
   kind: EventData['historicalPersonSpanKind'],
-  description?: string
+  description?: string,
+  displayActivities: PersonActivityPeriod[] = person.activityPeriods
 ): EventData | undefined => {
   const interval = getTemporalInterval(span);
   const startYear = interval.yearMin;
@@ -89,21 +145,33 @@ const projectSpan = (
     historicalPersonSpanKind: kind,
     temporalSpan: span,
     historicalActivityPeriods:
-      kind === 'lifespan' ? person.activityPeriods : undefined
+      displayActivities.length > 0 ? displayActivities : undefined,
+    historicalPersonLaneId: getBiographyLaneId(
+      person,
+      displayActivities.length > 0 ? displayActivities : person.activityPeriods
+    )
   };
 };
 
 export const createHistoricalPersonTimelineProjection = (
-  people: readonly BiblicalPerson[]
+  people: readonly BiblicalPerson[],
+  legacyEvents: readonly EventData[] = []
 ): {
   events: EventData[];
   supersededLegacyEventIds: Set<string>;
 } => {
   const events: EventData[] = [];
   const supersededLegacyEventIds = new Set<string>();
+  const legacyMerge = mergeLegacyActivitiesIntoBiographies(
+    people,
+    legacyEvents
+  );
 
   people.forEach(person => {
     let projected = false;
+    const displayActivities =
+      legacyMerge.activitiesByPersonId.get(person.id) ??
+      person.activityPeriods;
     if (person.lifeSpan) {
       const conservativeSpan = conservativeLifespanSpan(person.lifeSpan);
       const lifeEvent = projectSpan(
@@ -113,40 +181,78 @@ export const createHistoricalPersonTimelineProjection = (
         conservativeSpan,
         'Personnage',
         'lifespan',
-        person.description
+        person.description,
+        displayActivities
       );
       if (lifeEvent) {
         events.push(lifeEvent);
         projected = true;
       }
-    }
-
-    person.activityPeriods.forEach(activity => {
-      const activityEvent = projectSpan(
-        person,
-        activity.id,
-        `${person.name} — ${activity.label}`,
-        activity.span,
-        categoryForActivity(person, activity),
-        'activity',
-        person.description
-      );
-      if (activityEvent) {
-        activityEvent.certainty = activity.certainty ?? person.certainty;
-        activityEvent.associatedLocationIds = [
-          ...new Set([
-            ...(activity.associatedLocationIds ?? []),
-            ...(person.associatedLocationIds ?? [])
-          ])
-        ];
-        events.push(activityEvent);
-        projected = true;
+      person.activityPeriods.forEach(activity => {
+        const activityEvent = projectSpan(
+          person,
+          activity.id,
+          `${person.name} — ${activity.label}`,
+          activity.span,
+          categoryForActivity(person, activity),
+          'activity',
+          person.description,
+          [activity]
+        );
+        if (activityEvent) {
+          activityEvent.certainty = activity.certainty ?? person.certainty;
+          activityEvent.associatedLocationIds = [
+            ...new Set([
+              ...(activity.associatedLocationIds ?? []),
+              ...(person.associatedLocationIds ?? [])
+            ])
+          ];
+          activityEvent.historicalPersonLaneId = getBiographyLaneId(person, [
+            activity
+          ]);
+          events.push(activityEvent);
+          projected = true;
+        }
+      });
+    } else {
+      const envelope = activityEnvelopeSpan(displayActivities);
+      if (envelope) {
+        const activityEvent = projectSpan(
+          person,
+          `biography-${person.id}`,
+          person.name,
+          envelope,
+          categoryForActivities(person, displayActivities),
+          'activity',
+          person.description,
+          displayActivities
+        );
+        if (activityEvent) {
+          activityEvent.associatedLocationIds = [
+            ...new Set([
+              ...displayActivities.flatMap(
+                activity => activity.associatedLocationIds ?? []
+              ),
+              ...(person.associatedLocationIds ?? [])
+            ])
+          ];
+          activityEvent.historicalPersonLaneId = getBiographyLaneId(
+            person,
+            displayActivities
+          );
+          events.push(activityEvent);
+          projected = true;
+        }
       }
-    });
+    }
 
     if (projected && person.legacyEventId) {
       supersededLegacyEventIds.add(person.legacyEventId);
     }
+  });
+
+  legacyMerge.supersededLegacyEventIds.forEach(eventId => {
+    supersededLegacyEventIds.add(eventId);
   });
 
   return {
