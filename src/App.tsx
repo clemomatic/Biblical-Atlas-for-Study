@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActiveTab,
   BiblicalPlace,
@@ -23,7 +23,14 @@ import { AtThisMomentPanel } from './components/AtThisMomentPanel';
 import { HistoricalOverlapControl } from './components/HistoricalOverlapControl';
 import { normalizeDataRelations } from './utils/dataRelations';
 import { Clock3, Map as MapIcon, Search } from 'lucide-react';
-import { HISTORICAL_PEOPLE } from './data/historicalStudyData';
+import {
+  HISTORICAL_PEOPLE,
+  HISTORICAL_SOURCE_CATALOG
+} from './data/historicalStudyData';
+
+const LocalDataEditor = __ATLAS_EDITOR_ENABLED__
+  ? lazy(() => import('./components/editor/LocalDataEditor'))
+  : null;
 
 const SIDEBAR_COLLAPSE_KEY = 'atlas-sidebar-collapsed';
 
@@ -290,6 +297,29 @@ export default function App() {
     selectedEvent || selectedPlace || selectedRoute || selectedPerson
   );
 
+  if (
+    __ATLAS_EDITOR_ENABLED__ &&
+    LocalDataEditor &&
+    window.location.pathname.endsWith('/edition')
+  ) {
+    return (
+      <Suspense
+        fallback={
+          <div className="flex min-h-screen items-center justify-center bg-[var(--color-canvas)] text-sm text-[var(--color-ink-soft)]">
+            Chargement de l’éditeur local…
+          </div>
+        }
+      >
+        <LocalDataEditor
+          people={HISTORICAL_PEOPLE}
+          events={linkedEvents}
+          places={places}
+          sources={HISTORICAL_SOURCE_CATALOG}
+        />
+      </Suspense>
+    );
+  }
+
   if (isHistoricalControlOpen) {
     return (
       <HistoricalOverlapControl
@@ -338,6 +368,8 @@ export default function App() {
               eras={ERAS}
               categories={filteredCategories}
               events={filteredEvents}
+              people={HISTORICAL_PEOPLE}
+              places={places}
               selectedEventId={selectedEvent?.id || null}
               isActive={activeTab === 'timeline'}
               onSelectEvent={handleSelectEvent}

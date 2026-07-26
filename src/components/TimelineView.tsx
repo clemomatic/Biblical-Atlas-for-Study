@@ -1,6 +1,11 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
-import { EventData, EraData, CategoryData, TimelinePeriod } from '../types';
+import { BiblicalPlace, EventData, EraData, CategoryData, TimelinePeriod } from '../types';
 import { formatDateFrench } from '../utils/dateUtils';
+import type { BiblicalPerson } from '../domain/history/types';
+import { calculateEventParticipants } from '../domain/history/eventChronology';
+import { ACTIVITY_VISUALS } from '../domain/history/activityVisuals';
+import { BiographicalRibbon } from './BiographicalRibbon';
+import { EventContextPreview } from './EventContextPreview';
 import {
   ZoomIn,
   ZoomOut,
@@ -26,6 +31,8 @@ interface TimelineViewProps {
   eras: EraData[];
   categories: CategoryData[];
   events: EventData[];
+  people: readonly BiblicalPerson[];
+  places: readonly BiblicalPlace[];
   selectedEventId: string | null;
   isActive: boolean;
   onSelectEvent: (event: EventData) => void;
@@ -121,6 +128,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   eras,
   categories,
   events,
+  people,
+  places,
   selectedEventId,
   isActive,
   onSelectEvent,
@@ -148,6 +157,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   // Label display mode: 'auto' (adaptive by zoom) vs 'compact' vs 'full'
   const [labelDisplayMode, setLabelDisplayMode] = useState<'auto' | 'compact' | 'full'>('auto');
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
+  const [pinnedPreviewEventId, setPinnedPreviewEventId] = useState<string | null>(null);
   const [isControlBarCollapsed, setIsControlBarCollapsed] = useState<boolean>(false);
   const [isDisplayMenuOpen, setIsDisplayMenuOpen] = useState(false);
   const [collapsedCategories, setCollapsedCategories] = useState<Set<string>>(new Set());
@@ -195,35 +205,6 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       ),
     [categories]
   );
-
-  const highlightedEventIds = useMemo(() => {
-    if (!selectedEventId) return null;
-
-    const selectedEvent = events.find(event => event.id === selectedEventId);
-    if (!selectedEvent) return new Set([selectedEventId]);
-
-    const selectedRelations = [
-      ...(selectedEvent.associatedCharacterIds ?? []),
-      ...(selectedEvent.associatedLocationIds ?? []),
-      ...(selectedEvent.associatedRouteIds ?? [])
-    ];
-
-    return new Set(
-      events
-        .filter(event => {
-          if (event.id === selectedEventId) return true;
-          const relations = [
-            ...(event.associatedCharacterIds ?? []),
-            ...(event.associatedLocationIds ?? []),
-            ...(event.associatedRouteIds ?? [])
-          ];
-          return relations.some(relationId =>
-            selectedRelations.includes(relationId)
-          );
-        })
-        .map(event => event.id)
-    );
-  }, [events, selectedEventId]);
 
   // Map year position to X coordinate in pixels
   const getXFromYear = (pos: number) => {
@@ -380,18 +361,72 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     backgroundCategoryNames
   ]);
 
+  // Activity projections remain available to search and detail views, but a
+  // person's activities are drawn inside the life ribbon when that ribbon exists.
+  const timelineDisplayEvents = useMemo(() => {
+    const peopleWithLifeRibbon = new Set(
+      finalFilteredEvents
+        .filter(
+          event =>
+            event.historicalPersonId &&
+            event.historicalPersonSpanKind === 'lifespan'
+        )
+        .map(event => event.historicalPersonId as string)
+    );
+
+    return finalFilteredEvents.filter(
+      event =>
+        !(
+          event.historicalPersonSpanKind === 'activity' &&
+          event.historicalPersonId &&
+          peopleWithLifeRibbon.has(event.historicalPersonId)
+        )
+    );
+  }, [finalFilteredEvents]);
+
   const hiddenByZoomCount =
     viewportFilteredEvents.length - finalFilteredEvents.length;
 
+  const selectedTimelineEvent = useMemo(
+    () => events.find(event => event.id === selectedEventId) ?? null,
+    [events, selectedEventId]
+  );
+
+  const previewEvent = useMemo(() => {
+    const previewId = pinnedPreviewEventId ?? hoveredEventId;
+    if (!previewId) return null;
+    const event = events.find(candidate => candidate.id === previewId) ?? null;
+    return event?.historicalPersonId ? null : event;
+  }, [events, hoveredEventId, pinnedPreviewEventId]);
+
+  const selectedParticipantCalculations = useMemo(
+    () =>
+      new Map(
+        selectedTimelineEvent && !selectedTimelineEvent.historicalPersonId
+          ? calculateEventParticipants(selectedTimelineEvent, people).map(
+              calculation => [calculation.person.id, calculation] as const
+            )
+          : []
+      ),
+    [people, selectedTimelineEvent]
+  );
+
+  const selectedEventMarkerX =
+    selectedTimelineEvent && !selectedTimelineEvent.historicalPersonId
+      ? getXFromYear(
+          (selectedTimelineEvent.startPos + selectedTimelineEvent.endPos) / 2
+        )
+      : null;
+
   // Compute event closest to the center of the current viewport
   const closestEventId = useMemo(() => {
-    if (finalFilteredEvents.length === 0) return null;
+    if (timelineDisplayEvents.length === 0) return null;
     const viewportCenterX = (viewportX.startX + viewportX.endX) / 2;
 
     let minDistance = Infinity;
     let closestId: string | null = null;
 
-    finalFilteredEvents.forEach(e => {
+    timelineDisplayEvents.forEach(e => {
       const eventX = getXFromYear(e.startPos);
       const dist = Math.abs(eventX - viewportCenterX);
       if (dist < minDistance) {
@@ -401,7 +436,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     });
 
     return closestId;
-  }, [finalFilteredEvents, viewportX, timelineWidth, minYear, maxYear]);
+  }, [timelineDisplayEvents, viewportX, timelineWidth, minYear, maxYear]);
 
   // Compute year corresponding to the center of the current viewport
   const centerYear = useMemo(() => {
@@ -642,7 +677,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     const lanesMap: { [cat: string]: CategoryLane } = {};
 
     const eventsByCat: { [cat: string]: EventData[] } = {};
-    finalFilteredEvents.forEach(e => {
+    timelineDisplayEvents.forEach(e => {
       const isBookPeriod = backgroundCategoryNames.has(e.category);
 
       if (!isBookPeriod && categoryNamesByRoot.events.has(e.category)) {
@@ -819,7 +854,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
     return lanesMap;
   }, [
-    finalFilteredEvents,
+    timelineDisplayEvents,
     timelineWidth,
     categoryColorMap,
     isLowZoomMode,
@@ -1038,8 +1073,13 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     if (selectedEventId && containerRef.current) {
       const ev = events.find(e => e.id === selectedEventId);
       if (ev) {
+        const needsDetailScale =
+          ev.timelineLevel === 'detail' &&
+          pxPerYear < detailMinPxPerYear;
         const targetScale =
-          pxPerYear < overviewMaxPxPerYear &&
+          needsDetailScale
+            ? 12
+            : pxPerYear < overviewMaxPxPerYear &&
           !backgroundCategoryNames.has(ev.category)
             ? 12
             : pxPerYear;
@@ -1059,6 +1099,17 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       }
     }
   }, [selectedEventId]);
+
+  useEffect(() => {
+    if (!previewEvent) return;
+    const closePreview = (event: KeyboardEvent) => {
+      if (event.key !== 'Escape') return;
+      setPinnedPreviewEventId(null);
+      setHoveredEventId(null);
+    };
+    window.addEventListener('keydown', closePreview);
+    return () => window.removeEventListener('keydown', closePreview);
+  }, [previewEvent]);
 
   useEffect(() => {
     if (!isDisplayMenuOpen) return;
@@ -1227,6 +1278,35 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                 </button>
               ))}
             </div>
+
+            <section className="mt-4 border-t border-[var(--color-stone-light)] pt-3" aria-label="Légende des rubans biographiques">
+              <h3 className="text-xs font-bold text-[var(--color-ink)]">
+                Rubans biographiques
+              </h3>
+              <div className="mt-2 grid grid-cols-2 gap-x-3 gap-y-2">
+                {Object.values(ACTIVITY_VISUALS).map(visual => (
+                  <span
+                    key={visual.label}
+                    className="flex items-center gap-2 text-xs text-[var(--color-ink-soft)]"
+                  >
+                    <span
+                      className="h-1.5 w-7 rounded-full"
+                      style={{
+                        background:
+                          visual.pattern === 'solid'
+                            ? visual.color
+                            : `repeating-linear-gradient(90deg, ${visual.color} 0 5px, transparent 5px 8px)`
+                      }}
+                      aria-hidden="true"
+                    />
+                    {visual.label}
+                  </span>
+                ))}
+              </div>
+              <p className="mt-2 text-[11px] leading-relaxed text-[var(--color-ink-muted)]">
+                Fondu : borne approximative · contour pointillé : période possible.
+              </p>
+            </section>
 
             <label className="mt-4 flex min-h-11 cursor-pointer items-center gap-3 border-t border-[var(--color-stone-light)] pt-3 text-sm font-medium text-[var(--color-ink-soft)]">
               <input
@@ -1925,6 +2005,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               );
             })}
             {/* VIEWPORT CENTER GUIDE LINE */}
+            {selectedEventMarkerX !== null && (
+              <div
+                style={{ left: `${selectedEventMarkerX}px` }}
+                className="pointer-events-none absolute inset-y-0 z-40 w-px bg-[var(--color-primary)] shadow-[0_0_0_1px_color-mix(in_srgb,var(--color-paper)_80%,transparent)]"
+                aria-hidden="true"
+                data-testid="selected-event-marker"
+              >
+                <span className="absolute left-1/2 top-0 size-2 -translate-x-1/2 rotate-45 bg-[var(--color-primary)]" />
+              </div>
+            )}
             <div
               style={{ left: `${(viewportX.startX + viewportX.endX) / 2}px` }}
               className="pointer-events-none absolute inset-y-0 z-30 w-px bg-[var(--color-bronze)]/55"
@@ -1982,7 +2072,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   collapsedCategories.has(lane.categoryName);
                 const effectiveSublanes = isManuallyCollapsed ? 0 : lane.numSublanes;
                 const SUBLANE_HEIGHT = isCharacterLane
-                  ? CHARACTER_SUBLANE_HEIGHT
+                  ? 30
                   : 24;
                 const laneHeight = effectiveSublanes * SUBLANE_HEIGHT;
                 const viewportCenterX = (viewportX.startX + viewportX.endX) / 2;
@@ -2071,9 +2161,6 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                           const endX = clusterItem.endX;
                           const width = Math.max(16, endX - startX);
                           const isSelected = selectedEventId === ev.id;
-                          const isRelated =
-                            !highlightedEventIds ||
-                            highlightedEventIds.has(ev.id);
                           const isClosest = closestEventId === ev.id;
                           const isHovered = hoveredEventId === ev.id;
                           const continuesBeforeViewport =
@@ -2092,6 +2179,13 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                             20,
                             45 - Math.round(Math.log10(duration + 1) * 6)
                           );
+                          const participantCalculation = ev.historicalPersonId
+                            ? selectedParticipantCalculations.get(
+                                ev.historicalPersonId
+                              )
+                            : undefined;
+                          const isLifeRibbon =
+                            ev.historicalPersonSpanKind === 'lifespan';
 
                           // Calculate label horizontal position aligned to central line
                           const relCenterX = viewportCenterX - startX;
@@ -2107,7 +2201,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                           );
 
                           return (
-                            <div
+                            <button
+                              type="button"
                               key={ev.id}
                               style={{
                                 left: `${startX}px`,
@@ -2124,17 +2219,33 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                               }}
                               onClick={(e) => {
                                 e.stopPropagation();
+                                const isTouchFirst =
+                                  !ev.historicalPersonId &&
+                                  window.matchMedia('(hover: none)').matches &&
+                                  pinnedPreviewEventId !== ev.id;
+                                if (isTouchFirst) {
+                                  setPinnedPreviewEventId(ev.id);
+                                  setHoveredEventId(ev.id);
+                                  return;
+                                }
                                 onSelectEvent(ev);
                               }}
                               onMouseEnter={() => setHoveredEventId(ev.id)}
-                              onMouseLeave={() => setHoveredEventId(null)}
+                              onMouseLeave={() => {
+                                if (pinnedPreviewEventId !== ev.id) setHoveredEventId(null);
+                              }}
+                              onFocus={() => setHoveredEventId(ev.id)}
+                              onBlur={() => {
+                                if (pinnedPreviewEventId !== ev.id) setHoveredEventId(null);
+                              }}
+                              aria-label={`${ev.text}, ${formatDateFrench(ev.startYear)}${ev.endYear !== ev.startYear ? ` à ${formatDateFrench(ev.endYear)}` : ''}`}
                               className={`group pointer-events-auto absolute cursor-pointer touch-manipulation transition-[opacity,transform] duration-200 ${
                                 isSelected || isClosest
                                   ? 'z-40 scale-[1.01]'
                                   : isHovered
                                   ? 'z-30 scale-[1.005]'
                                   : 'z-20'
-                              } ${isRelated ? 'opacity-100' : 'opacity-30'}`}
+                              } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]`}
                             >
                               {/* POINT EVENT MARKER OR PERIOD BAR */}
                               {ev.isPoint ? (
@@ -2208,6 +2319,19 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                 </div>
                               ) : (
                                 <div className="relative">
+                                  {isLifeRibbon ? (
+                                    <BiographicalRibbon
+                                      event={ev}
+                                      width={width}
+                                      isActive={isSelected || isClosest}
+                                      markerOffset={
+                                        participantCalculation && selectedEventMarkerX !== null
+                                          ? selectedEventMarkerX - startX
+                                          : undefined
+                                      }
+                                      calculation={participantCalculation}
+                                    />
+                                  ) : (
                                   <div
                                     style={{
                                       width: `${width}px`,
@@ -2282,6 +2406,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                       </span>
                                     )}
                                   </div>
+                                  )}
 
                                   {/* FLOATING HOVER TOOLTIP FOR NARROW BARS IN LOW ZOOM MODE */}
                                   {isLowZoomMode && width < 70 && isHovered && !isSelected && !isClosest && (
@@ -2301,7 +2426,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                   )}
                                 </div>
                               )}
-                            </div>
+                            </button>
                           );
                         })}
                       </div>
@@ -2312,6 +2437,21 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           </div>
 
         </div>
+        {previewEvent && (
+          <EventContextPreview
+            event={previewEvent}
+            people={people}
+            places={places}
+            onOpenDetails={() => {
+              setPinnedPreviewEventId(null);
+              onSelectEvent(previewEvent);
+            }}
+            onClose={() => {
+              setPinnedPreviewEventId(null);
+              setHoveredEventId(null);
+            }}
+          />
+        )}
       </div>
 
       {/* BOTTOM LEGEND BAR */}
