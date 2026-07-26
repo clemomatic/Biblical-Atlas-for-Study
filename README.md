@@ -18,6 +18,25 @@ pnpm dev
 
 L’application est ensuite disponible sur `http://localhost:3000`.
 
+### Éditeur historique local
+
+L’application publique reste strictement en lecture seule. Pour préparer un
+petit lot de données en développement :
+
+```powershell
+$env:VITE_ENABLE_EDITOR='true'
+pnpm dev
+```
+
+Ouvrez ensuite `http://localhost:3000/edition`. L’éditeur écrit uniquement dans
+`content/staging/editor`, propose un export JSON de secours et ne peut jamais
+promouvoir lui-même une donnée dans `reviewed`. Le build public retire le
+composant et l’API locale ; `pnpm editor:check-public` le vérifie après
+`pnpm build`.
+
+Le format des propositions, les contrôles et la procédure de relecture sont
+décrits dans [`docs/local-historical-editor.md`](docs/local-historical-editor.md).
+
 ### Installation comme application
 
 Le build de production est une Progressive Web App (PWA). Sur Chrome et Edge,
@@ -60,6 +79,9 @@ pnpm check
 
 ### Frise
 
+- rubans biographiques segmentés distinguant vie, règne, prophétie, ministère,
+  fonction, voyage, résidence et emprisonnement ;
+- âge et activité des participants calculés lors de la sélection d’un événement ;
 - zoom logarithmique, déplacement horizontal et vue annuelle avec repères mensuels ;
 - événements toujours distincts, sans fusion visuelle ;
 - modes de densité pour ajuster la quantité de texte affichée ;
