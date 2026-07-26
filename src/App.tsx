@@ -4,6 +4,7 @@ import {
   BiblicalPlace,
   BiblicalRoute,
   EventData,
+  HistoricalPersonLaneId,
   TimelinePeriod
 } from './types';
 import { ERAS, CATEGORIES } from './data/erasData';
@@ -27,12 +28,56 @@ import {
   HISTORICAL_PEOPLE,
   HISTORICAL_SOURCE_CATALOG
 } from './data/historicalStudyData';
+import {
+  BIOGRAPHY_LANES,
+  getBiographyLaneIdForEvent
+} from './domain/history/timelineBiography';
 
 const LocalDataEditor = __ATLAS_EDITOR_ENABLED__
   ? lazy(() => import('./components/editor/LocalDataEditor'))
   : null;
 
 const SIDEBAR_COLLAPSE_KEY = 'atlas-sidebar-collapsed';
+const BIOGRAPHY_LANES_KEY = 'atlas-visible-biography-lanes';
+
+const categoryIdsForRoot = (rootName: string): string[] => {
+  const descendants = new Set<string>();
+  const visit = (name: string) => {
+    CATEGORIES.filter(category => category.parent === name).forEach(category => {
+      descendants.add(category.id);
+      visit(category.name);
+    });
+  };
+  const root = CATEGORIES.find(category => category.name === rootName);
+  if (root) descendants.add(root.id);
+  visit(rootName);
+  return [...descendants];
+};
+
+const CATEGORY_GROUP_IDS = new Map(
+  CATEGORIES.map(category => [
+    category.id,
+    categoryIdsForRoot(category.name)
+  ])
+);
+const PERSON_CATEGORY_IDS = new Set(categoryIdsForRoot('Personnage'));
+
+const readInitialBiographyLanes = (): Set<HistoricalPersonLaneId> => {
+  const all = BIOGRAPHY_LANES.map(lane => lane.id);
+  if (typeof window === 'undefined') return new Set(all);
+  try {
+    const saved = window.localStorage.getItem(BIOGRAPHY_LANES_KEY);
+    if (!saved) return new Set(all);
+    const available = new Set(all);
+    return new Set(
+      (JSON.parse(saved) as HistoricalPersonLaneId[]).filter(id =>
+        available.has(id)
+      )
+    );
+  } catch {
+    return new Set(all);
+  }
+};
 
 const readInitialView = (): ActiveTab => {
   if (typeof window === 'undefined') return 'timeline';
@@ -93,6 +138,8 @@ export default function App() {
   const [activeTab, setActiveTab] = useState<ActiveTab>(readInitialView);
   const [activeCategoryIds, setActiveCategoryIds] =
     useState<Set<string>>(readInitialCategories);
+  const [activeBiographyLaneIds, setActiveBiographyLaneIds] =
+    useState<Set<HistoricalPersonLaneId>>(readInitialBiographyLanes);
   const [visiblePeriod, setVisiblePeriod] = useState<TimelinePeriod | null>(null);
   const [selectedEventId, setSelectedEventId] = useState<string | null>(
     initialIds.eventId
@@ -148,8 +195,14 @@ export default function App() {
   );
   const filteredEvents = useMemo(
     () =>
-      linkedEvents.filter(event => activeCategoryIds.has(event.categoryId)),
-    [linkedEvents, activeCategoryIds]
+      linkedEvents.filter(event => {
+        if (!activeCategoryIds.has(event.categoryId)) return false;
+        if (!PERSON_CATEGORY_IDS.has(event.categoryId)) return true;
+        return activeBiographyLaneIds.has(
+          getBiographyLaneIdForEvent(event)
+        );
+      }),
+    [linkedEvents, activeCategoryIds, activeBiographyLaneIds]
   );
 
   useEffect(() => {
@@ -158,6 +211,13 @@ export default function App() {
       JSON.stringify([...activeCategoryIds])
     );
   }, [activeCategoryIds]);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      BIOGRAPHY_LANES_KEY,
+      JSON.stringify([...activeBiographyLaneIds])
+    );
+  }, [activeBiographyLaneIds]);
 
   useEffect(() => {
     window.localStorage.setItem(
@@ -287,8 +347,21 @@ export default function App() {
   const toggleCategory = (categoryId: string) => {
     setActiveCategoryIds(previous => {
       const next = new Set(previous);
-      if (next.has(categoryId)) next.delete(categoryId);
-      else next.add(categoryId);
+      const groupIds = CATEGORY_GROUP_IDS.get(categoryId) ?? [categoryId];
+      const groupIsActive = groupIds.every(id => next.has(id));
+      groupIds.forEach(id => {
+        if (groupIsActive) next.delete(id);
+        else next.add(id);
+      });
+      return next;
+    });
+  };
+
+  const toggleBiographyLane = (laneId: HistoricalPersonLaneId) => {
+    setActiveBiographyLaneIds(previous => {
+      const next = new Set(previous);
+      if (next.has(laneId)) next.delete(laneId);
+      else next.add(laneId);
       return next;
     });
   };
@@ -345,6 +418,7 @@ export default function App() {
           categories={CATEGORIES}
           events={linkedEvents}
           activeCategoryIds={activeCategoryIds}
+          activeBiographyLaneIds={activeBiographyLaneIds}
           visiblePeriod={visiblePeriod}
           onClose={() => setIsFiltersOpen(false)}
           onToggleCollapse={() =>
@@ -352,11 +426,15 @@ export default function App() {
           }
           onOpenSearch={() => setIsSearchOpen(true)}
           onToggleCategory={toggleCategory}
-          onResetCategories={() =>
+          onToggleBiographyLane={toggleBiographyLane}
+          onResetCategories={() => {
             setActiveCategoryIds(
               new Set(CATEGORIES.map(category => category.id))
-            )
-          }
+            );
+            setActiveBiographyLaneIds(
+              new Set(BIOGRAPHY_LANES.map(lane => lane.id))
+            );
+          }}
         />
 
         <main className="relative min-w-0 flex-1 overflow-hidden border-r border-[var(--color-stone)] bg-[var(--color-paper)]">

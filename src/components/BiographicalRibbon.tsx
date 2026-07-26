@@ -1,5 +1,9 @@
 import type { CSSProperties } from 'react';
 import { ACTIVITY_VISUALS } from '../domain/history/activityVisuals.ts';
+import {
+  BIOGRAPHY_LANE_BY_ID,
+  getBiographyLaneIdForEvent
+} from '../domain/history/timelineBiography.ts';
 import type { PersonAtEventCalculation } from '../domain/history/eventChronology.ts';
 import {
   getTemporalInterval,
@@ -12,6 +16,9 @@ interface BiographicalRibbonProps {
   event: EventData;
   width: number;
   isActive: boolean;
+  label: string;
+  labelOffset: number;
+  labelWidth: number;
   markerOffset?: number;
   calculation?: PersonAtEventCalculation;
 }
@@ -89,10 +96,17 @@ export function BiographicalRibbon({
   event,
   width,
   isActive,
+  label,
+  labelOffset,
+  labelWidth,
   markerOffset,
   calculation
 }: BiographicalRibbonProps) {
   const segments = layoutActivities(event);
+  const lane = BIOGRAPHY_LANE_BY_ID.get(
+    getBiographyLaneIdForEvent(event)
+  );
+  const hasLifeSpan = event.historicalPersonSpanKind === 'lifespan';
   const markerLabel = calculation
     ? [
         calculation.age.label,
@@ -104,19 +118,38 @@ export function BiographicalRibbon({
   return (
     <div
       style={{ width: `${width}px` }}
-      className={`relative h-9 overflow-visible rounded-[4px] border border-[var(--color-stone)] bg-[var(--color-stone-light)] transition-shadow ${
+      className={`relative h-11 overflow-visible rounded-[4px] transition-shadow ${
         isActive
           ? 'ring-2 ring-[var(--color-primary)] ring-offset-1 ring-offset-[var(--color-paper)]'
           : ''
       }`}
-      aria-label={`${event.text}, ruban de vie avec ${segments.length} période${segments.length === 1 ? '' : 's'} d’activité`}
+      aria-label={`${label}, ${hasLifeSpan ? 'ruban de vie' : 'période d’activité'} avec ${segments.length} période${segments.length === 1 ? '' : 's'} d’activité`}
       data-testid="biographical-ribbon"
     >
-      <div className="absolute inset-x-0 top-2 h-3 rounded-[2px] bg-[var(--color-stone)]" />
+      <div
+        className="absolute inset-x-0 top-[22px] h-3 rounded-[3px] border"
+        style={{
+          backgroundColor: hasLifeSpan
+            ? ACTIVITY_VISUALS.lifespan.softColor
+            : lane?.softColor ?? ACTIVITY_VISUALS.other.softColor,
+          borderColor: hasLifeSpan
+            ? ACTIVITY_VISUALS.lifespan.color
+            : lane?.color ?? ACTIVITY_VISUALS.other.color,
+          opacity: event.certainty === 'possible' ? 0.72 : 1,
+          borderStyle:
+            event.certainty === 'possible' || event.certainty === 'unknown'
+              ? 'dashed'
+              : 'solid',
+          maskImage:
+            event.fuzzyStart || event.fuzzyEnd
+              ? `linear-gradient(to right, ${event.fuzzyStart ? 'transparent, black 10%,' : ''} black ${event.fuzzyEnd ? '90%, transparent' : '100%'})`
+              : undefined
+        }}
+      />
       {segments.map(segment => {
         const visual = ACTIVITY_VISUALS[segment.activity.type];
         const height = segment.track === 0 ? 10 : 4;
-        const top = segment.track === 0 ? 9 : 24 + (segment.track - 1) * 5;
+        const top = segment.track === 0 ? 23 : 36 + (segment.track - 1) * 5;
         const background =
           visual.pattern === 'solid'
             ? visual.color
@@ -141,8 +174,17 @@ export function BiographicalRibbon({
           />
         );
       })}
-      <span className="pointer-events-none absolute left-1.5 top-1/2 max-w-[calc(100%-12px)] -translate-y-1/2 truncate text-[11px] font-semibold text-[var(--color-ink)] [text-shadow:0_1px_var(--color-paper)]">
-        {event.text}
+      <span
+        style={{
+          left: `${Math.max(2, labelOffset)}px`,
+          width: `${labelWidth}px`,
+          borderColor: lane?.color ?? 'var(--color-ink-muted)'
+        }}
+        className="pointer-events-none absolute top-0 z-30 flex h-5 items-center truncate border-l-2 bg-[rgb(255_253_248/92%)] px-1.5 text-[11px] font-bold text-[var(--color-ink)] shadow-[0_1px_2px_rgb(23_32_51/10%)] backdrop-blur-sm"
+        title={`${label} · ${event.temporalSpan?.displayLabel ?? `${event.startYear}–${event.endYear}`}`}
+        data-testid="biographical-label"
+      >
+        <span className="truncate">{label}</span>
       </span>
       {markerOffset !== undefined && markerLabel && (
         <span

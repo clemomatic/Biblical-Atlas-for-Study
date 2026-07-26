@@ -29,6 +29,70 @@ test('affiche le ruban, le repère et l’aperçu contextuel au clavier', async 
   await expect(preview).toHaveCount(0);
 });
 
+test('regroupe les vies et fonctions dans des bandes lisibles', async ({
+  page
+}) => {
+  await page.goto('/');
+
+  await expect(
+    page.locator('[data-biography-lane="united-monarchy"]')
+  ).toBeVisible();
+  await expect(
+    page.locator('[data-biography-lane="judah-kings"]')
+  ).toBeVisible();
+  await expect(
+    page.locator('[data-biography-lane="israel-kings"]')
+  ).toBeVisible();
+  await expect(
+    page.locator('[data-biography-lane="prophets"]')
+  ).toBeVisible();
+
+  const davidLabel = page
+    .getByTestId('biographical-label')
+    .filter({ hasText: /^David$/ });
+  await expect(davidLabel).toHaveCount(1);
+  await expect(davidLabel).toBeVisible();
+  await expect(
+    page.getByRole('button', { name: /David - Israel \(12 Tribus\)/ })
+  ).toHaveCount(0);
+
+  const israelKings = page.locator(
+    '[data-biography-lane="israel-kings"]'
+  );
+  await expect(
+    israelKings.getByTestId('biographical-label').filter({ hasText: /^Omri$/ })
+  ).toHaveCount(1);
+  await expect(
+    israelKings.getByTestId('biographical-label').filter({
+      hasText: /^Joachaz et Joas$/
+    })
+  ).toHaveCount(0);
+
+  const scroller = page.getByTestId('timeline-scroll-container');
+  const labelBox = await davidLabel.boundingBox();
+  const scrollerBox = await scroller.boundingBox();
+  expect(labelBox).not.toBeNull();
+  expect(scrollerBox).not.toBeNull();
+  await scroller.evaluate(
+    (element, delta) => {
+      element.scrollLeft += delta;
+      element.dispatchEvent(new Event('scroll'));
+    },
+    Math.max(0, (labelBox?.x ?? 0) - (scrollerBox?.x ?? 0) + 20)
+  );
+  await expect(davidLabel).toBeVisible();
+  const movedLabelBox = await davidLabel.boundingBox();
+  expect((movedLabelBox?.x ?? 0) + (movedLabelBox?.width ?? 0)).toBeGreaterThan(
+    scrollerBox?.x ?? 0
+  );
+
+  const sidebar = page.getByLabel('Légende et filtres de consultation');
+  await expect(sidebar).toContainText('Rois des dix tribus');
+  await expect(page.getByTestId('timeline-view')).toContainText(
+    'Lecture d’un ruban'
+  );
+});
+
 test.describe('interaction tactile', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 

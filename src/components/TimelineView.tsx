@@ -1,9 +1,17 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { BiblicalPlace, EventData, EraData, CategoryData, TimelinePeriod } from '../types';
 import { formatDateFrench } from '../utils/dateUtils';
-import type { BiblicalPerson } from '../domain/history/types';
+import type {
+  BiblicalPerson,
+  PersonActivityType
+} from '../domain/history/types';
 import { calculateEventParticipants } from '../domain/history/eventChronology';
 import { ACTIVITY_VISUALS } from '../domain/history/activityVisuals';
+import {
+  BIOGRAPHY_LANES,
+  BIOGRAPHY_LANE_BY_ID,
+  getBiographyLaneIdForEvent
+} from '../domain/history/timelineBiography';
 import { BiographicalRibbon } from './BiographicalRibbon';
 import { EventContextPreview } from './EventContextPreview';
 import {
@@ -46,7 +54,6 @@ const MAX_PX_PER_YEAR = 720;
 const DEFAULT_PX_PER_YEAR = 1.2;
 const ZOOM_SLIDER_STEPS = 1000;
 const INITIAL_CENTER_YEAR = -1000;
-const MAX_CHARACTER_SUBLANES = 15;
 const CHARACTER_SUBLANE_HEIGHT = 22;
 const ERA_RAIL_HEIGHT = 60;
 const YEAR_RULER_HEIGHT = 30;
@@ -662,6 +669,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   interface CategoryLane {
     categoryName: string;
     catColor: string;
+    biographyLaneId?: EventData['historicalPersonLaneId'];
     events: PositionedEvent[];
     numSublanes: number;
     totalEventsCount: number;
@@ -687,8 +695,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         !isBookPeriod &&
         categoryNamesByRoot.characters.has(e.category)
       ) {
-        if (!eventsByCat['Personnages']) eventsByCat['Personnages'] = [];
-        eventsByCat['Personnages'].push(e);
+        const laneId = getBiographyLaneIdForEvent(e);
+        const laneKey = `biography:${laneId}`;
+        if (!eventsByCat[laneKey]) eventsByCat[laneKey] = [];
+        eventsByCat[laneKey].push(e);
       } else if (e.isPoint && !isBookPeriod) {
         if (!eventsByCat['Événements']) eventsByCat['Événements'] = [];
         eventsByCat['Événements'].push(e);
@@ -698,12 +708,22 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       }
     });
 
-    // Ensure 'Événements' comes first if it exists
     const categoryKeys = Object.keys(eventsByCat).sort((a, b) => {
       if (a === 'Événements') return -1;
       if (b === 'Événements') return 1;
-      if (a === 'Personnages') return -1;
-      if (b === 'Personnages') return 1;
+      const leftLane = a.startsWith('biography:')
+        ? BIOGRAPHY_LANE_BY_ID.get(
+            a.replace('biography:', '') as NonNullable<EventData['historicalPersonLaneId']>
+          )
+        : undefined;
+      const rightLane = b.startsWith('biography:')
+        ? BIOGRAPHY_LANE_BY_ID.get(
+            b.replace('biography:', '') as NonNullable<EventData['historicalPersonLaneId']>
+          )
+        : undefined;
+      if (leftLane || rightLane) {
+        return (leftLane?.order ?? 999) - (rightLane?.order ?? 999);
+      }
       return a.localeCompare(b);
     });
 
@@ -713,7 +733,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
       const isBookCategory = backgroundCategoryNames.has(catName);
       const isEventLane = catName === 'Événements';
-      const isCharacterLane = catName === 'Personnages';
+      const biographyLaneId = catName.startsWith('biography:')
+        ? (catName.replace(
+            'biography:',
+            ''
+          ) as NonNullable<EventData['historicalPersonLaneId']>)
+        : undefined;
+      const biographyLane = biographyLaneId
+        ? BIOGRAPHY_LANE_BY_ID.get(biographyLaneId)
+        : undefined;
+      const isCharacterLane = Boolean(biographyLane);
       const tracks: { lastX: number }[] = [];
       const positionedEvents: PositionedEvent[] = [];
       const eventStartXs = sortedEvents.map(event => getXFromYear(event.startPos));
@@ -730,6 +759,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         const nextStartX =
           eventStartXs[eventIndex + 1] ?? Number.POSITIVE_INFINITY;
 
+        const biographyName = primaryEvent.historicalPersonId
+          ? people.find(person => person.id === primaryEvent.historicalPersonId)
+              ?.name ?? primaryEvent.text.split(' — ')[0]
+          : primaryEvent.text;
+        const biographyLabelWidth = Math.min(
+          168,
+          Math.max(72, biographyName.length * 7 + 22)
+        );
         const labelWidthEstimate = isLowZoomMode
           ? primaryEvent.isPoint
             ? 18
@@ -754,13 +791,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               : labelWidthEstimate
           )
         );
-        const labelWidth = isEventLane
+        const labelWidth = isCharacterLane
+          ? biographyLabelWidth
+          : isEventLane
           ? eventLaneLabelWidth
           : isLowZoomMode && !isBookCategory
             ? lowZoomLabelWidth
             : labelWidthEstimate;
         const showLabel =
           isEventLane ||
+          isCharacterLane ||
           !isLowZoomMode ||
           isBookCategory ||
           labelWidth >= 30;
@@ -774,20 +814,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           // They remain independent and selectable.
           const markerVisualEndX = startX + 12;
           sublaneIndex = tracks.findIndex(track => track.lastX <= startX);
-          if (
-            sublaneIndex === -1 &&
-            isCharacterLane &&
-            tracks.length >= MAX_CHARACTER_SUBLANES
-          ) {
-            sublaneIndex = tracks.reduce(
-              (earliestTrack, track, trackIndex) =>
-                track.lastX < tracks[earliestTrack].lastX
-                  ? trackIndex
-                  : earliestTrack,
-              0
-            );
-            tracks[sublaneIndex].lastX = markerVisualEndX;
-          } else if (sublaneIndex === -1) {
+          if (sublaneIndex === -1) {
             tracks.push({ lastX: markerVisualEndX });
             sublaneIndex = tracks.length - 1;
           } else {
@@ -796,27 +823,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         } else {
           const visualWidth =
             isCharacterLane && !primaryEvent.isPoint
-              ? Math.max(16, rangeWidth)
+              ? Math.max(16, rangeWidth, biographyLabelWidth + 10)
               : Math.max(
                   rangeWidth,
                   isLowZoomMode ? labelWidth : labelWidthEstimate
                 );
           const visualEndX = startX + visualWidth + (isLowZoomMode ? 8 : 12);
           sublaneIndex = tracks.findIndex(track => track.lastX <= startX);
-          if (
-            sublaneIndex === -1 &&
-            isCharacterLane &&
-            tracks.length >= MAX_CHARACTER_SUBLANES
-          ) {
-            sublaneIndex = tracks.reduce(
-              (earliestTrack, track, trackIndex) =>
-                track.lastX < tracks[earliestTrack].lastX
-                  ? trackIndex
-                  : earliestTrack,
-              0
-            );
-            tracks[sublaneIndex].lastX = visualEndX;
-          } else if (sublaneIndex === -1) {
+          if (sublaneIndex === -1) {
             tracks.push({ lastX: visualEndX });
             sublaneIndex = tracks.length - 1;
           } else {
@@ -838,14 +852,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       });
 
       lanesMap[catName] = {
-        categoryName: catName,
+        categoryName: biographyLane?.label ?? catName,
         catColor:
+          biographyLane?.color ||
           categoryColorMap[catName] ||
           (catName === 'Événements'
             ? '#2563eb'
-            : catName === 'Personnages'
-              ? categoryColorMap.Personnage || '#2563eb'
-              : '#0080ff'),
+            : '#0080ff'),
+        biographyLaneId,
         events: positionedEvents,
         numSublanes: tracks.length,
         totalEventsCount: catEvents.length
@@ -859,7 +873,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     categoryColorMap,
     isLowZoomMode,
     backgroundCategoryNames,
-    categoryNamesByRoot
+    categoryNamesByRoot,
+    people
   ]);
 
   const backgroundPeriodItems = useMemo(
@@ -902,17 +917,12 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       });
   }, [backgroundPeriodItems]);
 
-  const legendCategoryCounts = useMemo(() => {
-    const counts = new Map<string, number>();
-
-    finalFilteredEvents.forEach(event => {
+  const exactViewportEvents = useMemo(() => {
+    return finalFilteredEvents.filter(event => {
       const startX = getXFromYear(event.startPos);
       const endX = event.isPoint ? startX : getXFromYear(event.endPos);
-      if (endX < viewportX.startX || startX > viewportX.endX) return;
-      counts.set(event.category, (counts.get(event.category) || 0) + 1);
+      return endX >= viewportX.startX && startX <= viewportX.endX;
     });
-
-    return counts;
   }, [
     finalFilteredEvents,
     viewportX.startX,
@@ -920,13 +930,64 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     timelineWidth
   ]);
 
+  const legendCategoryCounts = useMemo(() => {
+    const counts = new Map<string, number>();
+    exactViewportEvents.forEach(event => {
+      counts.set(event.category, (counts.get(event.category) || 0) + 1);
+    });
+    return counts;
+  }, [exactViewportEvents]);
+
+  const visibleBiographyLanes = useMemo(() => {
+    const identities = new Map(
+      BIOGRAPHY_LANES.map(lane => [lane.id, new Set<string>()])
+    );
+    exactViewportEvents.forEach(event => {
+      if (!categoryNamesByRoot.characters.has(event.category)) return;
+      identities
+        .get(getBiographyLaneIdForEvent(event))
+        ?.add(event.historicalPersonId ?? event.id);
+    });
+    return BIOGRAPHY_LANES
+      .map(lane => ({
+        ...lane,
+        count: identities.get(lane.id)?.size ?? 0
+      }))
+      .filter(lane => lane.count > 0);
+  }, [categoryNamesByRoot.characters, exactViewportEvents]);
+
+  const visibleActivityTypes = useMemo(() => {
+    const counts = new Map<PersonActivityType, number>();
+    exactViewportEvents.forEach(event => {
+      if (!categoryNamesByRoot.characters.has(event.category)) return;
+      (event.historicalActivityPeriods ?? []).forEach(activity => {
+        counts.set(activity.type, (counts.get(activity.type) ?? 0) + 1);
+      });
+    });
+    return (
+      Object.keys(ACTIVITY_VISUALS) as Array<PersonActivityType | 'lifespan'>
+    )
+      .filter((type): type is PersonActivityType => type !== 'lifespan')
+      .map(type => ({ type, count: counts.get(type) ?? 0 }))
+      .filter(item => item.count > 0);
+  }, [categoryNamesByRoot.characters, exactViewportEvents]);
+
   const legendCategories = useMemo(
     () =>
       categories.filter(category => {
         const count = legendCategoryCounts.get(category.name) || 0;
-        return visibleCategories.has(category.name) && count > 0;
+        return (
+          !categoryNamesByRoot.characters.has(category.name) &&
+          visibleCategories.has(category.name) &&
+          count > 0
+        );
       }),
-    [categories, legendCategoryCounts, visibleCategories]
+    [
+      categories,
+      categoryNamesByRoot.characters,
+      legendCategoryCounts,
+      visibleCategories
+    ]
   );
 
   const visibleBackgroundPeriodItems = useMemo(() => {
@@ -1697,6 +1758,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       {/* TIMELINE SCROLL CANVAS CONTAINER */}
       <div
         ref={containerRef}
+        data-testid="timeline-scroll-container"
         style={{ touchAction: 'pan-x pan-y' }}
         onMouseDown={handleMouseDown}
         onMouseLeave={handleMouseLeaveOrUp}
@@ -2066,26 +2128,40 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
               )
               .map((lane) => {
                 const isEventLane = lane.categoryName === 'Événements';
-                const isCharacterLane = lane.categoryName === 'Personnages';
+                const isCharacterLane = Boolean(lane.biographyLaneId);
                 const isManuallyCollapsed =
                   !isEventLane &&
                   collapsedCategories.has(lane.categoryName);
                 const effectiveSublanes = isManuallyCollapsed ? 0 : lane.numSublanes;
                 const SUBLANE_HEIGHT = isCharacterLane
-                  ? 30
+                  ? 48
                   : 24;
                 const laneHeight = effectiveSublanes * SUBLANE_HEIGHT;
                 const viewportCenterX = (viewportX.startX + viewportX.endX) / 2;
-                const LaneIcon = getCategoryIcon(lane.categoryName);
+                const LaneIcon = lane.biographyLaneId === 'prophets'
+                  ? ScrollText
+                  : lane.biographyLaneId && lane.biographyLaneId !== 'people'
+                    ? Crown
+                    : getCategoryIcon(lane.categoryName);
 
                 return (
                   <div
                     key={lane.categoryName}
+                    data-biography-lane={lane.biographyLaneId}
+                    style={
+                      isCharacterLane
+                        ? {
+                            borderColor: `color-mix(in srgb, ${lane.catColor} 28%, transparent)`,
+                            backgroundColor: `color-mix(in srgb, ${lane.catColor} 7%, var(--color-paper))`,
+                            boxShadow: `inset 3px 0 0 ${lane.catColor}`
+                          }
+                        : undefined
+                    }
                     className={`relative my-1 border-b py-1 transition-[opacity,background-color] duration-200 ${
                       isEventLane
                         ? 'border-[var(--color-bronze-soft)] bg-[var(--color-bronze-soft)]/35 shadow-[inset_3px_0_0_var(--color-bronze)]'
                         : isCharacterLane
-                          ? 'border-[var(--color-primary-soft)] bg-[var(--color-primary-soft)]/45 shadow-[inset_3px_0_0_var(--color-primary)]'
+                          ? ''
                           : 'border-[var(--color-stone-light)]'
                     }`}
                   >
@@ -2106,19 +2182,21 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                       <button
                         type="button"
                         onClick={() => toggleCollapseCategory(lane.categoryName)}
-                        className={`group/badge sticky left-2 z-35 mb-1 inline-flex min-h-8 cursor-pointer items-center gap-2 border-l-2 bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur transition-colors ${
-                          isCharacterLane
-                            ? 'border-[var(--color-primary)] hover:bg-[var(--color-primary-soft)]'
-                            : 'border-[var(--color-mineral)] hover:bg-[var(--color-mineral-soft)]'
-                        }`}
+                        style={{
+                          borderColor: isCharacterLane
+                            ? lane.catColor
+                            : 'var(--color-mineral)'
+                        }}
+                        className="group/badge sticky left-2 z-35 mb-1 inline-flex min-h-8 cursor-pointer items-center gap-2 border-l-2 bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur transition-colors hover:bg-[var(--color-paper-muted)]"
                         title={isManuallyCollapsed ? "Cliquer pour déplier la catégorie" : "Cliquer pour replier la catégorie"}
                       >
                         <LaneIcon
-                          className={`size-3.5 shrink-0 ${
-                            isCharacterLane
-                              ? 'text-[var(--color-primary)]'
-                              : 'text-[var(--color-mineral)]'
-                          }`}
+                          className="size-3.5 shrink-0"
+                          style={{
+                            color: isCharacterLane
+                              ? lane.catColor
+                              : 'var(--color-mineral)'
+                          }}
                         />
                         <span
                           className="text-[var(--color-ink)]"
@@ -2133,19 +2211,13 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                         </span>
                         {isManuallyCollapsed ? (
                           <ChevronDown
-                            className={`size-3 ${
-                              isCharacterLane
-                                ? 'text-[var(--color-primary)]'
-                                : 'text-[var(--color-mineral)]'
-                            }`}
+                            className="size-3"
+                            style={{ color: lane.catColor }}
                           />
                         ) : (
                           <ChevronUp
-                            className={`size-3 ${
-                              isCharacterLane
-                                ? 'text-[var(--color-primary)]'
-                                : 'text-[var(--color-ink-muted)]'
-                            }`}
+                            className="size-3"
+                            style={{ color: lane.catColor }}
                           />
                         )}
                       </button>
@@ -2184,8 +2256,20 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                 ev.historicalPersonId
                               )
                             : undefined;
-                          const isLifeRibbon =
-                            ev.historicalPersonSpanKind === 'lifespan';
+                          const isBiographicalRibbon =
+                            isCharacterLane && !ev.isPoint;
+                          const biographyLabel = ev.historicalPersonId
+                            ? people.find(
+                                person => person.id === ev.historicalPersonId
+                              )?.name ?? ev.text.split(' — ')[0]
+                            : ev.text.split(/\s[-—]\s/)[0];
+                          const persistentLabelOffset = Math.max(
+                            4,
+                            Math.min(
+                              Math.max(4, width - clusterItem.labelWidth),
+                              Math.max(4, viewportX.startX - startX + 14)
+                            )
+                          );
 
                           // Calculate label horizontal position aligned to central line
                           const relCenterX = viewportCenterX - startX;
@@ -2319,11 +2403,14 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                 </div>
                               ) : (
                                 <div className="relative">
-                                  {isLifeRibbon ? (
+                                  {isBiographicalRibbon ? (
                                     <BiographicalRibbon
                                       event={ev}
                                       width={width}
                                       isActive={isSelected || isClosest}
+                                      label={biographyLabel}
+                                      labelOffset={persistentLabelOffset}
+                                      labelWidth={clusterItem.labelWidth}
                                       markerOffset={
                                         participantCalculation && selectedEventMarkerX !== null
                                           ? selectedEventMarkerX - startX
@@ -2454,34 +2541,61 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
         )}
       </div>
 
-      {/* BOTTOM LEGEND BAR */}
-      <div className="z-30 flex shrink-0 flex-wrap items-center justify-between gap-3 border-t border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] px-4 py-2.5 text-xs">
-        
-        {/* Category Legend Pills */}
-        <div className="flex items-center gap-2 overflow-x-auto py-0.5 max-w-full">
-          <span className="mr-1 flex shrink-0 items-center gap-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">
+      {/* Légende contextuelle du viewport */}
+      <div className="z-30 shrink-0 border-t border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] px-4 py-2 text-xs">
+        <div className="flex items-center gap-2 overflow-x-auto py-0.5">
+          <span className="mr-1 flex shrink-0 items-center gap-1.5 font-semibold text-[var(--color-ink-soft)]">
             <Layers className="size-3.5 text-[var(--color-primary)]" />
-            Légende des catégories :
+            Dans la période :
           </span>
 
-          {legendCategories.length === 0 && (
-            <span className="shrink-0 text-xs italic text-[var(--color-ink-muted)]">
-              Aucune catégorie dans cette période
-            </span>
-          )}
+          {visibleBiographyLanes.length === 0 &&
+            legendCategories.length === 0 && (
+              <span className="shrink-0 italic text-[var(--color-ink-muted)]">
+                Aucun élément dans cette période
+              </span>
+            )}
 
-          {legendCategories.map((cat) => {
+          {visibleBiographyLanes.map(lane => {
+            const LaneIcon =
+              lane.id === 'prophets'
+                ? ScrollText
+                : lane.id === 'people'
+                  ? UserRound
+                  : Crown;
+            return (
+              <span
+                key={lane.id}
+                className="inline-flex min-h-8 shrink-0 items-center gap-1.5 border-b px-1.5 py-1 font-medium text-[var(--color-ink)]"
+                style={{ borderColor: lane.color }}
+                title={`${lane.description} ${lane.count} personne${lane.count > 1 ? 's' : ''} visible${lane.count > 1 ? 's' : ''}.`}
+              >
+                <span
+                  className="flex size-5 items-center justify-center rounded-[2px]"
+                  style={{ backgroundColor: lane.softColor }}
+                >
+                  <LaneIcon className="size-3" style={{ color: lane.color }} />
+                </span>
+                <span>{lane.shortLabel}</span>
+                <span className="tabular-nums text-[var(--color-ink-muted)]">
+                  {lane.count}
+                </span>
+              </span>
+            );
+          })}
+
+          {legendCategories.map(cat => {
             const catEventsCount = legendCategoryCounts.get(cat.name) || 0;
             const CategoryIcon = getCategoryIcon(cat.name);
             return (
               <button
                 key={cat.name}
                 onClick={() => toggleCategory(cat.name)}
-                className="inline-flex min-h-8 shrink-0 items-center gap-1.5 border-b border-transparent px-1.5 py-1 text-xs font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
-                title={`${cat.name} (${catEventsCount} événement${catEventsCount > 1 ? 's' : ''} dans la période visible)`}
+                className="inline-flex min-h-8 shrink-0 items-center gap-1.5 border-b border-transparent px-1.5 py-1 font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
+                title={`${cat.name} (${catEventsCount} élément${catEventsCount > 1 ? 's' : ''} dans la période visible)`}
               >
                 <span
-                  className="flex size-5 shrink-0 items-center justify-center"
+                  className="flex size-5 items-center justify-center"
                   style={{ backgroundColor: `${cat.hexColor}18` }}
                 >
                   <CategoryIcon
@@ -2490,7 +2604,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   />
                 </span>
                 <span>{cat.name}</span>
-                <span className="tabular-nums text-xs text-[var(--color-ink-muted)]">
+                <span className="tabular-nums text-[var(--color-ink-muted)]">
                   {catEventsCount}
                 </span>
               </button>
@@ -2498,30 +2612,48 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           })}
         </div>
 
-        {/* Viewport Filter Status Indicator */}
-        <div className="flex shrink-0 items-center gap-3 text-xs text-[var(--color-ink-muted)]">
-          <span className="hidden items-center gap-2 xl:flex">
-            <span className="inline-flex items-center gap-1">
-              <span className="h-2.5 w-5 rounded bg-slate-700" />
-              Date établie
+        {visibleBiographyLanes.length > 0 && (
+          <div className="mt-1.5 flex items-center gap-3 overflow-x-auto border-t border-[var(--color-stone-light)] pt-1.5 text-[11px] text-[var(--color-ink-muted)]">
+            <span className="shrink-0 font-semibold text-[var(--color-ink-soft)]">
+              Lecture d’un ruban :
             </span>
-            <span className="inline-flex items-center gap-1">
-              <span className="h-2.5 w-5 rounded border border-dashed border-slate-600 bg-gradient-to-r from-transparent via-slate-500 to-transparent" />
+            <span className="inline-flex shrink-0 items-center gap-1.5">
+              <span className="h-2 w-5 rounded-[2px] border border-[var(--color-stone)] bg-[var(--color-stone-light)]" />
+              Vie connue
+            </span>
+            {visibleActivityTypes.map(({ type }) => {
+              const visual = ACTIVITY_VISUALS[type];
+              const background =
+                visual.pattern === 'solid'
+                  ? visual.color
+                  : visual.pattern === 'dashed'
+                    ? `repeating-linear-gradient(90deg, ${visual.color} 0 6px, transparent 6px 9px)`
+                    : `repeating-linear-gradient(90deg, ${visual.color} 0 2px, transparent 2px 5px)`;
+              return (
+                <span
+                  key={type}
+                  className="inline-flex shrink-0 items-center gap-1.5"
+                >
+                  <span
+                    className="h-2 w-5 rounded-[2px] border"
+                    style={{ borderColor: visual.color, background }}
+                  />
+                  {visual.label}
+                </span>
+              );
+            })}
+            <span className="inline-flex shrink-0 items-center gap-1.5">
+              <span className="h-2 w-5 border border-dashed border-[var(--color-ink-muted)] bg-gradient-to-r from-transparent via-[var(--color-stone)] to-transparent" />
               Datation incertaine
             </span>
-          </span>
-          <span>
-            {autoFilterViewport ? (
-              <span className="flex items-center gap-1 font-semibold text-[var(--color-primary)]">
-                <Sparkles className="size-3 text-[var(--color-primary)]" />
-                Catégories de la période visible ({legendCategories.length})
+            {autoFilterViewport && (
+              <span className="ml-auto inline-flex shrink-0 items-center gap-1 font-semibold text-[var(--color-primary)]">
+                <Sparkles className="size-3" />
+                Légende adaptée au viewport
               </span>
-            ) : (
-              <span>Catégories de la période visible ({legendCategories.length})</span>
             )}
-          </span>
-        </div>
-
+          </div>
+        )}
       </div>
 
     </div>

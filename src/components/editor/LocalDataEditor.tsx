@@ -939,7 +939,7 @@ export default function LocalDataEditor({
         <aside className="space-y-4">
           <section className="atlas-surface rounded-[var(--radius-lg)] p-4">
             <h2 className="text-sm font-bold">Prévisualisation immédiate</h2>
-            {personPreview ? <div className="mt-3 overflow-x-auto py-8"><BiographicalRibbon event={personPreview} width={520} isActive={false} /></div> : <p className="mt-2 text-sm text-[var(--color-ink-muted)]">Saisissez des bornes chronologiques pour afficher le ruban.</p>}
+            {personPreview ? <div className="mt-3 overflow-x-auto py-8"><BiographicalRibbon event={personPreview} width={520} isActive={false} label={personPreview.text} labelOffset={4} labelWidth={140} /></div> : <p className="mt-2 text-sm text-[var(--color-ink-muted)]">Saisissez des bornes chronologiques pour afficher le ruban.</p>}
             {activityPreview && <div className="mt-3 space-y-1 text-sm"><p>Âge au début : <strong>{activityPreview.startAge.label}</strong></p>{activityPreview.endAge && <p>Âge à la fin : <strong>{activityPreview.endAge.label}</strong></p>}<p>Durée : <strong>{activityPreview.duration?.label ?? 'Impossible à déterminer'}</strong></p></div>}
             {affectedEvents.length > 0 && <div className="mt-4"><h3 className="text-xs font-bold">Événements existants concernés</h3><ul className="mt-2 space-y-1 text-xs">{affectedEvents.map(item => <li key={item.event.id}>{item.event.text} · {item.age.label}</li>)}</ul></div>}
           </section>
