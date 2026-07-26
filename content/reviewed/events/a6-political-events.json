@@ -1,0 +1,102 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "event": {
+      "id": "historical-event-fall-samaria-740",
+      "name": "Prise de Samarie et fin du royaume du Nord",
+      "period": {
+        "start": {
+          "yearMin": -740,
+          "yearMax": -740,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -740,
+          "yearMax": -740,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "740 av. n. è."
+      },
+      "sourceOrder": 100,
+      "category": "Événements marquants",
+      "description": "L’Assyrie prend Samarie et soumet Israël ; le royaume du Nord prend fin.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Samarie",
+          "placeId": "samaria",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [],
+      "biblicalReferences": [
+        "2 Rois 17:6"
+      ],
+      "supportingClaimIds": [
+        "claim-political-fall-samaria-740"
+      ],
+      "notes": "Formulation factuelle courte d’après A6-B."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-a6-b"
+    ],
+    "event": {
+      "id": "historical-event-destruction-jerusalem-607",
+      "name": "Destruction de Jérusalem et déposition de Sédécias",
+      "period": {
+        "start": {
+          "yearMin": -607,
+          "yearMax": -607,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -607,
+          "yearMax": -607,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "607 av. n. è."
+      },
+      "sourceOrder": 101,
+      "category": "Événements marquants",
+      "description": "Les Babyloniens détruisent Jérusalem et son temple ; Sédécias est destitué.",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Sédécias",
+          "personId": "event-sedecias-h3ny0i",
+          "certainty": "certain"
+        }
+      ],
+      "biblicalReferences": [
+        "2 Rois 25:1-10"
+      ],
+      "supportingClaimIds": [
+        "claim-political-destruction-jerusalem-607"
+      ],
+      "notes": "Formulation factuelle courte d’après A6-B."
+    }
+  }
+]

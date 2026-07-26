@@ -1,0 +1,227 @@
+{
+  "generatedAt": "2026-07-25T00:00:00.000Z",
+  "scope": "Appendices A7-A à A7-H",
+  "policy": {
+    "extraction": "appendice-par-appendice",
+    "longTextCopied": false,
+    "imagesCopied": false,
+    "routeGeometry": "schematic",
+    "automaticMerge": false
+  },
+  "appendices": [
+    {
+      "appendix": "Appendice A7-A",
+      "sourceId": "source-nwtsty-a7-a",
+      "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/evenements-vie-terrestre-de-jesus/",
+      "reviewedAt": "2026-07-25",
+      "counts": {
+        "stagingRecords": 10,
+        "reviewedEvents": 10,
+        "explicitPeople": 8,
+        "identifiedPlaces": 4,
+        "biblicalReferences": 18,
+        "claims": 64,
+        "presences": 33,
+        "directInteractions": 3,
+        "unresolvedItems": 3,
+        "derivedRelations": 82
+      },
+      "unresolvedItems": [
+        {
+          "recordId": "staging-a7-a-02-annonce-naissance-jesus-visite-elisabeth",
+          "note": "La localité de Judée où Marie rejoint Élisabeth n’est pas précisée."
+        },
+        {
+          "recordId": "staging-a7-a-03-naissance-jean",
+          "note": "La source indique une région, sans localité ponctuelle."
+        },
+        {
+          "recordId": "staging-a7-a-07-astrologues-fuite-egypte-retour",
+          "note": "Aucun point d’Égypte n’est attribué : le pays seul est indiqué."
+        }
+      ]
+    },
+    {
+      "appendix": "Appendice A7-B",
+      "sourceId": "source-nwtsty-a7-b",
+      "counts": {
+        "stagingRecords": 9,
+        "reviewedEvents": 9,
+        "explicitPeople": 4,
+        "identifiedPlaces": 9,
+        "biblicalReferences": 18,
+        "claims": 27,
+        "presences": 11,
+        "directInteractions": 11,
+        "unresolvedItems": 6,
+        "derivedRelations": 12
+      },
+      "unresolvedItems": [
+        {
+          "recordId": "staging-a7b-01-bapteme",
+          "note": "Le site ponctuel exact près de Béthanie de l’autre côté du Jourdain n’est pas fixé par la source."
+        },
+        {
+          "recordId": "staging-a7b-01-bapteme",
+          "note": "Jéhovah est explicitement mentionné, mais le modèle BiblicalPerson n’est pas adapté à cette entité."
+        },
+        {
+          "recordId": "staging-a7b-02-tentation",
+          "note": "La source nomme une zone désertique et ne fournit pas de site ponctuel à placer sur Leaflet."
+        },
+        {
+          "recordId": "staging-a7b-03-premiers-disciples",
+          "note": "Le nom biblique est certain dans le tableau, mais son point cartographique précis reste à vérifier."
+        },
+        {
+          "recordId": "staging-a7b-07-jude-enon",
+          "note": "La cellule associe Judée et Énôn à une ligne composée ; aucune présence individuelle ponctuelle n’est générée sans attribution explicite."
+        },
+        {
+          "recordId": "staging-a7b-08-emprisonnement",
+          "note": "Le tableau réunit Tibériade et Judée avec deux actions ; aucune présence individuelle ponctuelle n’est générée sans attribution explicite."
+        }
+      ]
+    },
+    {
+      "appendix": "Appendice A7-C",
+      "sourceId": "source-nwtsty-a7-c",
+      "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-jesus-galilee/",
+      "reviewedAt": "2026-07-25",
+      "counts": {
+        "stagingRecords": 22,
+        "reviewedEvents": 22,
+        "explicitPeople": 7,
+        "identifiedPlaces": 7,
+        "biblicalReferences": 50,
+        "claims": 55,
+        "presences": 21,
+        "directInteractions": 5,
+        "unresolvedItems": 1,
+        "derivedRelations": 37
+      },
+      "unresolvedItems": [
+        {
+          "recordId": "staging-a7-c-11-epis-sabbat",
+          "note": "Le tableau présente le lieu du trajet de retour avec un point d’interrogation."
+        }
+      ]
+    },
+    {
+      "appendix": "Appendice A7-D",
+      "sourceId": "source-nwtsty-a7-d",
+      "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/jesus-mer-de-galilee/",
+      "reviewedAt": "2026-07-25",
+      "counts": {
+        "stagingRecords": 14,
+        "reviewedEvents": 14,
+        "explicitPeople": 4,
+        "identifiedPlaces": 6,
+        "biblicalReferences": 37,
+        "claims": 33,
+        "presences": 15,
+        "directInteractions": 2,
+        "unresolvedItems": 1,
+        "derivedRelations": 18
+      },
+      "unresolvedItems": [
+        {
+          "recordId": "staging-a7-d-10-marche-eau-guerisons-genesareth",
+          "note": "Aucun point cartographique distinct et vérifié n’est attribué à Génésareth."
+        }
+      ]
+    },
+    {
+      "appendix": "Appendice A7-E",
+      "sourceId": "source-nwtsty-a7-e",
+      "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-de-jesus-en-judee/",
+      "reviewedAt": "2026-07-25",
+      "counts": {
+        "stagingRecords": 18,
+        "reviewedEvents": 18,
+        "explicitPeople": 3,
+        "identifiedPlaces": 8,
+        "biblicalReferences": 31,
+        "claims": 36,
+        "presences": 14,
+        "directInteractions": 2,
+        "unresolvedItems": 0,
+        "derivedRelations": 15
+      },
+      "unresolvedItems": []
+    },
+    {
+      "appendix": "Appendice A7-F",
+      "sourceId": "source-nwtsty-a7-f",
+      "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-jesus-est-jourdain/",
+      "reviewedAt": "2026-07-25",
+      "counts": {
+        "stagingRecords": 18,
+        "reviewedEvents": 18,
+        "explicitPeople": 5,
+        "identifiedPlaces": 5,
+        "biblicalReferences": 28,
+        "claims": 33,
+        "presences": 7,
+        "directInteractions": 4,
+        "unresolvedItems": 0,
+        "derivedRelations": 36
+      },
+      "unresolvedItems": []
+    },
+    {
+      "appendix": "Appendice A7-G",
+      "sourceId": "source-nwtsty-a7-g",
+      "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-final-jesus-la-cene/",
+      "reviewedAt": "2026-07-25",
+      "counts": {
+        "stagingRecords": 20,
+        "reviewedEvents": 20,
+        "explicitPeople": 3,
+        "identifiedPlaces": 3,
+        "biblicalReferences": 52,
+        "claims": 47,
+        "presences": 25,
+        "directInteractions": 1,
+        "unresolvedItems": 0,
+        "derivedRelations": 240
+      },
+      "unresolvedItems": []
+    },
+    {
+      "appendix": "Appendice A7-H",
+      "sourceId": "source-nwtsty-a7-h",
+      "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/mort-et-resurrection-de-jesus/",
+      "reviewedAt": "2026-07-25",
+      "counts": {
+        "stagingRecords": 15,
+        "reviewedEvents": 15,
+        "explicitPeople": 8,
+        "identifiedPlaces": 3,
+        "biblicalReferences": 54,
+        "claims": 57,
+        "presences": 25,
+        "directInteractions": 8,
+        "unresolvedItems": 0,
+        "derivedRelations": 425
+      },
+      "unresolvedItems": []
+    }
+  ],
+  "totals": {
+    "events": 126,
+    "people": 26,
+    "places": 23,
+    "routes": 8,
+    "newPeopleRecords": 22,
+    "claims": 352,
+    "presences": 151,
+    "derivedRelations": 624,
+    "unresolvedItems": 11
+  },
+  "reconciliation": {
+    "strategy": "ID stable, références bibliques, période, titre normalisé et lieux associés.",
+    "automaticMerge": false,
+    "candidates": []
+  }
+}

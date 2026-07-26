@@ -210,6 +210,31 @@ const createTemporalRelation = (
   });
 };
 
+/**
+ * Une borne de décès « après X » prouve seulement que la personne a vécu au
+ * moins jusqu'à X. Pour les relations, on borne donc l'intervalle à X au lieu
+ * de prolonger artificiellement sa vie vers un futur illimité.
+ */
+export const conservativeLifespanSpan = (
+  span: TemporalSpan
+): TemporalSpan => {
+  if (span.end?.precision !== 'after') return span;
+  const endYear = span.end.yearMin ?? span.end.yearMax;
+  if (endYear === undefined) return span;
+  return {
+    ...span,
+    end: {
+      ...span.end,
+      yearMin: endYear,
+      yearMax: endYear,
+      precision: 'year',
+      approximate: true,
+      certainty:
+        span.end.certainty === 'certain' ? 'probable' : span.end.certainty
+    }
+  };
+};
+
 const generateLifespanRelations = (
   dataset: HistoricalDataset,
   generatedAt: string
@@ -238,18 +263,20 @@ const generateLifespanRelations = (
     ) {
       const first = people[firstIndex];
       const second = people[secondIndex];
+      const firstRelationSpan = conservativeLifespanSpan(first.lifeSpan);
+      const secondRelationSpan = conservativeLifespanSpan(second.lifeSpan);
       const relation = createTemporalRelation(
         {
           personId: first.id,
           sourceId: `lifespan:${first.id}`,
-          span: first.lifeSpan,
+          span: firstRelationSpan,
           certainty: first.certainty ?? 'unknown',
           claimIds: first.lifeSpanClaimIds
         },
         {
           personId: second.id,
           sourceId: `lifespan:${second.id}`,
-          span: second.lifeSpan,
+          span: secondRelationSpan,
           certainty: second.certainty ?? 'unknown',
           claimIds: second.lifeSpanClaimIds
         },
@@ -320,7 +347,39 @@ const generateActivityRelations = (
           generatedAt
         }
       );
-      if (relation) relations.push(relation);
+      if (!relation) continue;
+      relations.push(relation);
+
+      const firstIsReign = first.activity.type === 'reign';
+      const secondIsReign = second.activity.type === 'reign';
+      const firstIsProphetic =
+        first.activity.phase === 'prophetic-ministry' ||
+        first.activity.type === 'prophecy' ||
+        first.person.roles?.includes('prophet') === true;
+      const secondIsProphetic =
+        second.activity.phase === 'prophetic-ministry' ||
+        second.activity.type === 'prophecy' ||
+        second.person.roles?.includes('prophet') === true;
+      const specializedLevel =
+        firstIsReign && secondIsReign
+          ? 'simultaneous-reigns'
+          : (firstIsReign && secondIsProphetic) ||
+              (secondIsReign && firstIsProphetic)
+            ? 'prophet-during-reign'
+            : undefined;
+      if (specializedLevel) {
+        relations.push(
+          createRelation({
+            relationLevel: specializedLevel,
+            subjectIds: relation.subjectIds,
+            certainty: relation.certainty,
+            supportingClaimIds: relation.supportingClaimIds,
+            generatedFromIds: relation.generatedFromIds,
+            temporalOverlap: relation.temporalOverlap,
+            generatedAt
+          })
+        );
+      }
     }
   }
   return relations;

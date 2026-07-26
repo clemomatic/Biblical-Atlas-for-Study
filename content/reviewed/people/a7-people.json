@@ -1,0 +1,865 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-c",
+      "source-nwtsty-a7-f",
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "event-jean-e4vx5j",
+      "name": "Jean",
+      "alternateNames": [
+        "Fils de Zébédée",
+        "Jean l’apôtre",
+        "Apôtre Jean"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-c-appel-quatre-disciples",
+        "event-a7-f-demande-jacques-jean"
+      ],
+      "associatedLocationIds": [
+        "obi-sea-of-galilee"
+      ],
+      "biblicalReferences": [
+        "Matthieu 4:18-22",
+        "Marc 1:16-20",
+        "Luc 5:1-11",
+        "Matthieu 20:20-28",
+        "Marc 10:35-45"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-jean-e4vx5j-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "legacyEventId": "event-jean-e4vx5j",
+      "lifeSpan": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 100,
+          "yearMax": 100,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 5 av. n. è.-vers 100 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-c"
+    ],
+    "person": {
+      "id": "person-a7-andre",
+      "name": "André",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-c-appel-quatre-disciples"
+      ],
+      "associatedLocationIds": [
+        "obi-sea-of-galilee"
+      ],
+      "biblicalReferences": [
+        "Matthieu 4:18-22",
+        "Marc 1:16-20",
+        "Luc 5:1-11"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-h"
+    ],
+    "person": {
+      "id": "person-a7-anne-grand-pretre",
+      "name": "Anne",
+      "alternateNames": [
+        "Hanne",
+        "ancien grand prêtre"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-h-anne-caiphe-sanhedrin-reniement"
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Matthieu 26:57-27:1",
+        "Marc 14:53-15:1",
+        "Luc 22:54-71",
+        "Jean 18:13-27"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-h"
+    ],
+    "person": {
+      "id": "person-a7-barabbas",
+      "name": "Barabbas",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-h-barabbas-condamnation"
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Matthieu 27:15-30",
+        "Marc 15:6-19",
+        "Luc 23:13-25",
+        "Jean 18:39-19:16"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-h"
+    ],
+    "person": {
+      "id": "person-a7-caiphe",
+      "name": "Caïphe",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-h-anne-caiphe-sanhedrin-reniement"
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Matthieu 26:57-27:1",
+        "Marc 14:53-15:1",
+        "Luc 22:54-71",
+        "Jean 18:13-27"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a",
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-a7-elisabeth",
+      "name": "Élisabeth",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+        "event-a7-a-naissance-jean"
+      ],
+      "associatedLocationIds": [
+        "nazareth"
+      ],
+      "biblicalReferences": [
+        "Luc 1:26-56",
+        "Luc 1:57-80"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-elisabeth-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -70,
+          "yearMax": -70,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "person": {
+      "id": "person-a7-gabriel",
+      "name": "Gabriel",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-a-annonce-naissance-jean",
+        "event-a7-a-annonce-naissance-jesus-visite-elisabeth"
+      ],
+      "associatedLocationIds": [
+        "jerusalem",
+        "nazareth"
+      ],
+      "biblicalReferences": [
+        "Luc 1:5-25",
+        "Luc 1:26-56"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-d",
+      "source-nwtsty-a7-h"
+    ],
+    "person": {
+      "id": "person-a7-herode-antipas",
+      "name": "Hérode Antipas",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-d-mort-jean-herode",
+        "event-a7-h-devant-pilate-herode-pilate"
+      ],
+      "associatedLocationIds": [
+        "obi-tiberias",
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Matthieu 14:1-12",
+        "Marc 6:14-29",
+        "Luc 9:7-9",
+        "Matthieu 27:2",
+        "Matthieu 27:11-14",
+        "Marc 15:1-5",
+        "Luc 23:1-12",
+        "Jean 18:28-38"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "person": {
+      "id": "person-a7-herode-le-grand",
+      "name": "Hérode le Grand",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-a-astrologues-fuite-egypte-retour"
+      ],
+      "associatedLocationIds": [
+        "jerusalem",
+        "bethlehem",
+        "nazareth"
+      ],
+      "biblicalReferences": [
+        "Matthieu 2:1-23",
+        "Luc 2:39-40"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-c",
+      "source-nwtsty-a7-f"
+    ],
+    "person": {
+      "id": "person-a7-jacques-fils-zebedee",
+      "name": "Jacques",
+      "alternateNames": [
+        "Fils de Zébédée"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-c-appel-quatre-disciples",
+        "event-a7-f-demande-jacques-jean"
+      ],
+      "associatedLocationIds": [
+        "obi-sea-of-galilee"
+      ],
+      "biblicalReferences": [
+        "Matthieu 4:18-22",
+        "Marc 1:16-20",
+        "Luc 5:1-11",
+        "Matthieu 20:20-28",
+        "Marc 10:35-45"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-d"
+    ],
+    "person": {
+      "id": "person-a7-jaire",
+      "name": "Jaïre",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-d-femme-pertes-sang-fille-jaire"
+      ],
+      "associatedLocationIds": [
+        "capernaum"
+      ],
+      "biblicalReferences": [
+        "Matthieu 9:18-26",
+        "Marc 5:21-43",
+        "Luc 8:40-56"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a",
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-a7-joseph-pere-adoptif",
+      "name": "Joseph",
+      "alternateNames": [
+        "Père adoptif de Jésus"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-a-naissance-jesus",
+        "event-a7-a-annonce-bergers",
+        "event-a7-a-circoncision-presentation-temple",
+        "event-a7-a-astrologues-fuite-egypte-retour",
+        "event-a7-a-jesus-douze-ans-temple",
+        "event-a7-a-vie-nazareth"
+      ],
+      "associatedLocationIds": [
+        "bethlehem",
+        "jerusalem",
+        "nazareth"
+      ],
+      "biblicalReferences": [
+        "Matthieu 1:1-25",
+        "Luc 2:1-7",
+        "Jean 1:14",
+        "Luc 2:8-20",
+        "Luc 2:21-38",
+        "Matthieu 2:1-23",
+        "Luc 2:39-40",
+        "Luc 2:41-50",
+        "Matthieu 13:55-56",
+        "Marc 6:3",
+        "Luc 2:51-52"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-joseph-pere-adoptif-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -25,
+          "yearMax": -25,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 11,
+          "yearMax": 11,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 25 av. n. è.-après 11 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-g",
+      "source-nwtsty-a7-h"
+    ],
+    "person": {
+      "id": "person-a7-judas-iscariote",
+      "name": "Judas Iscariote",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-g-judas-negocie-livraison",
+        "event-a7-h-judas-identifie-congedie",
+        "event-a7-h-gethsemani-arrestation",
+        "event-a7-h-mort-judas"
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Matthieu 26:14-16",
+        "Marc 14:10-11",
+        "Luc 22:3-6",
+        "Matthieu 26:21-25",
+        "Marc 14:18-21",
+        "Luc 22:21-23",
+        "Jean 13:21-30",
+        "Matthieu 26:30",
+        "Matthieu 26:36-56",
+        "Marc 14:26",
+        "Marc 14:32-52",
+        "Luc 22:39-53",
+        "Jean 18:1-12",
+        "Matthieu 27:3-10",
+        "Actes 1:18-19"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-f"
+    ],
+    "person": {
+      "id": "person-a7-lazare",
+      "name": "Lazare",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-f-mort-resurrection-lazare"
+      ],
+      "associatedLocationIds": [
+        "obi-bethany-1"
+      ],
+      "biblicalReferences": [
+        "Jean 11:1-46"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e",
+      "source-nwtsty-a7-g",
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-a7-marie-bethanie",
+      "name": "Marie de Béthanie",
+      "alternateNames": [
+        "Marie, sœur de Lazare"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-e-bon-samaritain-marie-marthe",
+        "event-a7-g-marie-huile-jesus"
+      ],
+      "associatedLocationIds": [
+        "obi-bethany-1"
+      ],
+      "biblicalReferences": [
+        "Luc 10:25-42",
+        "Matthieu 26:6-13",
+        "Marc 14:3-9",
+        "Jean 12:2-11"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-marie-bethanie-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -15,
+          "yearMax": -15,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 15 av. n. è.-après 33 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a",
+      "source-nwtsty-a7-c",
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-a7-marie-mere-jesus",
+      "name": "Marie",
+      "alternateNames": [
+        "Mère de Jésus",
+        "Marie, mère de Jésus"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+        "event-a7-a-naissance-jesus",
+        "event-a7-a-annonce-bergers",
+        "event-a7-a-circoncision-presentation-temple",
+        "event-a7-a-astrologues-fuite-egypte-retour",
+        "event-a7-a-jesus-douze-ans-temple",
+        "event-a7-a-vie-nazareth",
+        "event-a7-c-mere-freres-jesus"
+      ],
+      "associatedLocationIds": [
+        "nazareth",
+        "bethlehem",
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Luc 1:26-56",
+        "Matthieu 1:1-25",
+        "Luc 2:1-7",
+        "Jean 1:14",
+        "Luc 2:8-20",
+        "Luc 2:21-38",
+        "Matthieu 2:1-23",
+        "Luc 2:39-40",
+        "Luc 2:41-50",
+        "Matthieu 13:55-56",
+        "Marc 6:3",
+        "Luc 2:51-52",
+        "Matthieu 12:46-50",
+        "Marc 3:31-35",
+        "Luc 8:19-21"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -20,
+          "yearMax": -20,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 20 av. n. è.-après 33 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "person": {
+      "id": "person-a7-marthe",
+      "name": "Marthe",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-e-bon-samaritain-marie-marthe"
+      ],
+      "associatedLocationIds": [
+        "obi-bethany-1"
+      ],
+      "biblicalReferences": [
+        "Luc 10:25-42"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-c"
+    ],
+    "person": {
+      "id": "person-a7-matthieu",
+      "name": "Matthieu",
+      "alternateNames": [
+        "Lévi"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-c-appel-matthieu-question-jeune"
+      ],
+      "associatedLocationIds": [
+        "capernaum"
+      ],
+      "biblicalReferences": [
+        "Matthieu 9:9-17",
+        "Marc 2:13-22",
+        "Luc 5:27-39"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-c",
+      "source-nwtsty-a7-h",
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-a7-pierre",
+      "name": "Pierre",
+      "alternateNames": [
+        "Simon Pierre",
+        "Simon"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-c-appel-quatre-disciples",
+        "event-a7-c-guerisons-capharnaum-belle-mere-pierre",
+        "event-a7-h-prediction-reniements-dispersion",
+        "event-a7-h-anne-caiphe-sanhedrin-reniement"
+      ],
+      "associatedLocationIds": [
+        "obi-sea-of-galilee",
+        "capernaum",
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Matthieu 4:18-22",
+        "Marc 1:16-20",
+        "Luc 5:1-11",
+        "Matthieu 8:14-17",
+        "Marc 1:21-34",
+        "Luc 4:31-41",
+        "Matthieu 26:31-35",
+        "Marc 14:27-31",
+        "Luc 22:31-38",
+        "Jean 13:31-38",
+        "Matthieu 26:57-27:1",
+        "Marc 14:53-15:1",
+        "Luc 22:54-71",
+        "Jean 18:13-27"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-pierre-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 64,
+          "yearMax": 64,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 5 av. n. è.-après 64 de n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-h"
+    ],
+    "person": {
+      "id": "person-a7-ponce-pilate",
+      "name": "Ponce Pilate",
+      "alternateNames": [
+        "Pilate"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-h-devant-pilate-herode-pilate",
+        "event-a7-h-barabbas-condamnation"
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Matthieu 27:2",
+        "Matthieu 27:11-14",
+        "Marc 15:1-5",
+        "Luc 23:1-12",
+        "Jean 18:28-38",
+        "Matthieu 27:15-30",
+        "Marc 15:6-19",
+        "Luc 23:13-25",
+        "Jean 18:39-19:16"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a",
+      "source-wcg-timeline-part-3"
+    ],
+    "person": {
+      "id": "person-a7-zacharie-pretre",
+      "name": "Zacharie",
+      "alternateNames": [
+        "Père de Jean le Baptiseur"
+      ],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-a-annonce-naissance-jean",
+        "event-a7-a-naissance-jean"
+      ],
+      "associatedLocationIds": [
+        "jerusalem"
+      ],
+      "biblicalReferences": [
+        "Luc 1:5-25",
+        "Luc 1:57-80"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7. Durée de vie sélectionnée depuis la frise WCG.",
+      "lastVerified": "2026-07-25",
+      "lifeSpanClaimIds": [
+        "claim-wcg-3-a7-zacharie-pretre-lifespan"
+      ],
+      "historicalCategories": [
+        "Débuts du christianisme"
+      ],
+      "lifeSpan": {
+        "start": {
+          "yearMin": -70,
+          "yearMax": -70,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+      }
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-f"
+    ],
+    "person": {
+      "id": "person-a7-zachee",
+      "name": "Zachée",
+      "alternateNames": [],
+      "activityPeriods": [],
+      "associatedEventIds": [
+        "event-a7-f-jericho-aveugles-zachee-mines"
+      ],
+      "associatedLocationIds": [
+        "obi-jericho-1"
+      ],
+      "biblicalReferences": [
+        "Matthieu 20:29-34",
+        "Marc 10:46-52",
+        "Luc 18:35-19:28"
+      ],
+      "certainty": "certain",
+      "notes": "Personne créée uniquement à partir de mentions explicites dans les tableaux A7.",
+      "lastVerified": "2026-07-25"
+    }
+  }
+]

@@ -1,0 +1,2130 @@
+[
+  {
+    "id": "claim-event-a7-c-appel-matthieu-question-jeune-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-matthieu",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-matthieu"
+    },
+    "eventId": "event-a7-c-appel-matthieu-question-jeune",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-matthieu-question-jeune-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-matthieu-question-jeune"
+    },
+    "eventId": "event-a7-c-appel-matthieu-question-jeune",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-matthieu-question-jeune-participation-person-a7-matthieu",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-matthieu"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-matthieu-question-jeune"
+    },
+    "eventId": "event-a7-c-appel-matthieu-question-jeune",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-matthieu-question-jeune-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-appel-matthieu-question-jeune",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-matthieu-question-jeune-presence-person-a7-matthieu-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-matthieu"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-appel-matthieu-question-jeune",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-event-jean-e4vx5j",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-jean-e4vx5j"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-andre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-andre"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-jacques-fils-zebedee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-jacques-fils-zebedee"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-pierre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-pierre"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-participation-event-jean-e4vx5j",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-e4vx5j"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-quatre-disciples"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-quatre-disciples"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-participation-person-a7-andre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-andre"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-quatre-disciples"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-participation-person-a7-jacques-fils-zebedee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-jacques-fils-zebedee"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-quatre-disciples"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-participation-person-a7-pierre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-pierre"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-appel-quatre-disciples"
+    },
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-presence-event-jean-e4vx5j-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-e4vx5j"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-presence-person-a7-andre-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-andre"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-presence-person-a7-jacques-fils-zebedee-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-jacques-fils-zebedee"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-appel-quatre-disciples-presence-person-a7-pierre-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-pierre"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-c-appel-quatre-disciples",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-choix-douze-apotres-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-choix-douze-apotres"
+    },
+    "eventId": "event-a7-c-choix-douze-apotres",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 13.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-choix-douze-apotres-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-choix-douze-apotres",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 13.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-demons-expulses-peche-impardonnable-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-demons-expulses-peche-impardonnable"
+    },
+    "eventId": "event-a7-c-demons-expulses-peche-impardonnable",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 20.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-deuxieme-tournee-galilee-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-deuxieme-tournee-galilee"
+    },
+    "eventId": "event-a7-c-deuxieme-tournee-galilee",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 19.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-disciples-jean-interrogent-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-disciples-jean-interrogent-jesus"
+    },
+    "eventId": "event-a7-c-disciples-jean-interrogent-jesus",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-disciples-jean-interrogent-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-nain",
+    "eventId": "event-a7-c-disciples-jean-interrogent-jesus",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-disciples-jean-interrogent-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-tiberias",
+    "eventId": "event-a7-c-disciples-jean-interrogent-jesus",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-epis-sabbat-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-epis-sabbat"
+    },
+    "eventId": "event-a7-c-epis-sabbat",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 11.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-bethzata-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-bethzata"
+    },
+    "eventId": "event-a7-c-guerison-bethzata",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-bethzata-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-c-guerison-bethzata",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum"
+    },
+    "eventId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "nazareth",
+    "eventId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-cana",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-cana",
+    "eventId": "event-a7-c-guerison-fils-fonctionnaire-nazareth-capharnaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "probable",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-lepreux-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-lepreux"
+    },
+    "eventId": "event-a7-c-guerison-lepreux",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-paralyse-capharnaum-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-paralyse-capharnaum"
+    },
+    "eventId": "event-a7-c-guerison-paralyse-capharnaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-paralyse-capharnaum-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-guerison-paralyse-capharnaum",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-serviteur-officier-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerison-serviteur-officier"
+    },
+    "eventId": "event-a7-c-guerison-serviteur-officier",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 15.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerison-serviteur-officier-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-guerison-serviteur-officier",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 15.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerisons-capharnaum-belle-mere-pierre-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerisons-capharnaum-belle-mere-pierre"
+    },
+    "eventId": "event-a7-c-guerisons-capharnaum-belle-mere-pierre",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerisons-capharnaum-belle-mere-pierre-participation-person-a7-pierre",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-pierre"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-guerisons-capharnaum-belle-mere-pierre"
+    },
+    "eventId": "event-a7-c-guerisons-capharnaum-belle-mere-pierre",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-guerisons-capharnaum-belle-mere-pierre-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-guerisons-capharnaum-belle-mere-pierre",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-main-guerie-sabbat-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-main-guerie-sabbat"
+    },
+    "eventId": "event-a7-c-main-guerie-sabbat",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 12.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-main-guerie-sabbat-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-sea-of-galilee",
+    "eventId": "event-a7-c-main-guerie-sabbat",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 12.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-mere-freres-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-mere-freres-jesus"
+    },
+    "eventId": "event-a7-c-mere-freres-jesus",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 22.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-mere-freres-jesus-participation-person-a7-marie-mere-jesus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-marie-mere-jesus"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-mere-freres-jesus"
+    },
+    "eventId": "event-a7-c-mere-freres-jesus",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 22.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-pecheresse-huile-pieds-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-pecheresse-huile-pieds"
+    },
+    "eventId": "event-a7-c-pecheresse-huile-pieds",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-pecheresse-huile-pieds-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-nain",
+    "eventId": "event-a7-c-pecheresse-huile-pieds",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-predication-synagogues-judee-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-predication-synagogues-judee"
+    },
+    "eventId": "event-a7-c-predication-synagogues-judee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-premiere-annonce-royaume-galilee-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-premiere-annonce-royaume-galilee"
+    },
+    "eventId": "event-a7-c-premiere-annonce-royaume-galilee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-premiere-tournee-galilee-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-premiere-tournee-galilee"
+    },
+    "eventId": "event-a7-c-premiere-tournee-galilee",
+    "period": {
+      "start": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 30,
+        "yearMax": 30,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "30 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-resurrection-fils-veuve-nain-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-resurrection-fils-veuve-nain"
+    },
+    "eventId": "event-a7-c-resurrection-fils-veuve-nain",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 16.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-resurrection-fils-veuve-nain-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-nain",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-nain",
+    "eventId": "event-a7-c-resurrection-fils-veuve-nain",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 16.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-sermon-montagne-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-sermon-montagne"
+    },
+    "eventId": "event-a7-c-sermon-montagne",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 14.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-sermon-montagne-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "capernaum",
+    "eventId": "event-a7-c-sermon-montagne",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 14.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-c-signe-jonas-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-c-signe-jonas"
+    },
+    "eventId": "event-a7-c-signe-jonas",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 31,
+        "precision": "season",
+        "certainty": "certain",
+        "season": "spring"
+      },
+      "displayLabel": "Pâque 31 de n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-c",
+        "shortReference": "Appendice A7-C, tableau, ligne 21.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]

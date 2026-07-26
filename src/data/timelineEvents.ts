@@ -134,15 +134,20 @@ const rawEventsData: RawEvent[] = [
   { text: "Salomon - Israel (12 Tribus)", category: "Règnes", start: "-1036-01-02 00:00:00", end: "-997-12-31 00:00:00", associatedLocationIds: ["jerusalem"] },
 
   // Prophets
-  { text: "Elie", category: "Prophètes (ou période de ministère)", start: "-939-01-01 00:00:00", end: "-904-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["carmel", "samaria"] },
-  { text: "Elisée", category: "Prophètes (ou période de ministère)", start: "-916-01-01 00:00:00", end: "-849-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["samaria", "shunam"] },
+  { id: "event-elie-1nckpyy", text: "Élie", category: "Prophètes (ou période de ministère)", start: "-939-01-01 00:00:00", end: "-904-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["carmel", "samaria"] },
+  { id: "event-elisee-1r2p3av", text: "Élisée", category: "Prophètes (ou période de ministère)", start: "-916-01-01 00:00:00", end: "-849-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["samaria", "shunam"] },
   { text: "Jonas", category: "Prophètes (ou période de ministère)", start: "-849-01-01 00:00:00", end: "-814-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["joppa", "nineveh"] },
   { text: "Amos", category: "Prophètes (ou période de ministère)", start: "-828-01-01 00:00:00", end: "-799-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["tekoa", "bethel"] },
   { text: "Joël", category: "Prophètes (ou période de ministère)", start: "-824-01-01 00:00:00", end: "-809-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["jerusalem"] },
   { text: "Osée", category: "Prophètes (ou période de ministère)", start: "-809-01-01 00:00:00", end: "-739-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["samaria"] },
   { text: "Isaïe", category: "Prophètes (ou période de ministère)", start: "-789-01-01 00:00:00", end: "-730-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["jerusalem"] },
   { text: "Michée", category: "Prophètes (ou période de ministère)", start: "-776-01-01 00:00:00", end: "-715-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["moresheth", "jerusalem"] },
+  { id: "person-nahum-a6-b", text: "Nahum", category: "Prophètes (ou période de ministère)", start: "-660-01-01 00:00:00", end: "-650-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true },
+  { id: "person-sophonie-a6-b", text: "Sophonie", category: "Prophètes (ou période de ministère)", start: "-660-01-01 00:00:00", end: "-645-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true },
   { text: "Jérémie", category: "Prophètes (ou période de ministère)", start: "-666-01-01 00:00:00", end: "-599-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, description: "Mission prophétique", associatedLocationIds: ["anathoth", "jerusalem"] },
+  { id: "person-habacuc-a6-b", text: "Habacuc", category: "Prophètes (ou période de ministère)", start: "-630-01-01 00:00:00", end: "-615-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true },
+  { id: "person-abdias-a6-b", text: "Abdias", category: "Prophètes (ou période de ministère)", start: "-620-01-01 00:00:00", end: "-605-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true },
+  { id: "person-ezechiel-a6-b", text: "Ézéchiel", category: "Prophètes (ou période de ministère)", start: "-615-01-01 00:00:00", end: "-590-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true },
   { text: "Daniel", category: "Prophètes (ou période de ministère)", start: "-633-01-01 00:00:00", end: "-533-01-01 00:00:00", fuzzy_start: true, fuzzy_end: true, associatedLocationIds: ["babylon", "susa"] },
 
   // Key Events

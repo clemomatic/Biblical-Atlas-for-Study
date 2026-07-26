@@ -1,0 +1,970 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "event": {
+      "id": "event-wcg-alliance-abrahamique-1943",
+      "name": "Entrée en vigueur de l’alliance abrahamique",
+      "period": {
+        "start": {
+          "yearMin": -1943,
+          "yearMax": -1943,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1943,
+          "yearMax": -1943,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1943 av. n. è."
+      },
+      "sourceOrder": 2,
+      "category": "Événements marquants",
+      "description": "Entrée en vigueur de l’alliance abrahamique",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-alliance-abrahamique-1943-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [
+        {
+          "label": "Abraham",
+          "personId": "event-abraham-mdcznq",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-assyrie-puissance-apres-874",
+      "name": "Assyrie, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -874,
+          "yearMax": -874,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -874,
+          "yearMax": -874,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Après 874 av. n. è."
+      },
+      "sourceOrder": 104,
+      "category": "Chronologie biblique",
+      "description": "Assyrie, puissance mondiale",
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-assyrie-puissance-apres-874-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise. La source donne seulement une borne « après 874 » ; le marqueur reste attaché à cette limite sans inventer une année précise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-babylone-puissance-625",
+      "name": "Babylone, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -625,
+          "yearMax": -625,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -625,
+          "yearMax": -625,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "625 av. n. è."
+      },
+      "sourceOrder": 106,
+      "category": "Chronologie biblique",
+      "description": "Babylone, puissance mondiale",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-babylone-puissance-625-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-conquete-royaume-dix-tribus-740",
+      "name": "Conquête du royaume des dix tribus par l’Assyrie",
+      "period": {
+        "start": {
+          "yearMin": -740,
+          "yearMax": -740,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -740,
+          "yearMax": -740,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "740 av. n. è."
+      },
+      "sourceOrder": 105,
+      "category": "Événements marquants",
+      "description": "Conquête du royaume des dix tribus par l’Assyrie",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-conquete-royaume-dix-tribus-740-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "event": {
+      "id": "event-wcg-deluge-2370",
+      "name": "Déluge",
+      "period": {
+        "start": {
+          "yearMin": -2370,
+          "yearMax": -2370,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -2370,
+          "yearMax": -2370,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2370 av. n. è."
+      },
+      "sourceOrder": 1,
+      "category": "Événements marquants",
+      "description": "Déluge",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-deluge-2370-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "supersedesLegacyEventIds": [
+        "event-deluge-r1bkq9"
+      ],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-destruction-jerusalem-607",
+      "name": "Destruction de Jérusalem par Nabuchodonosor",
+      "period": {
+        "start": {
+          "yearMin": -607,
+          "yearMax": -607,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -607,
+          "yearMax": -607,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "607 av. n. è."
+      },
+      "sourceOrder": 107,
+      "category": "Événements marquants",
+      "description": "Destruction de Jérusalem par Nabuchodonosor",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-destruction-jerusalem-607-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [
+        {
+          "label": "Nabuchodonosor",
+          "certainty": "certain"
+        }
+      ],
+      "supersedesLegacyEventIds": [
+        "event-destruction-de-jerusalem-par-les-babyloniens-mdfx8c"
+      ],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "event": {
+      "id": "event-wcg-destruction-jerusalem-70",
+      "name": "Destruction de Jérusalem et du Temple",
+      "period": {
+        "start": {
+          "yearMin": 70,
+          "yearMax": 70,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 70,
+          "yearMax": 70,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "70 de n. è."
+      },
+      "sourceOrder": 206,
+      "category": "Événements marquants",
+      "description": "Destruction de Jérusalem et du Temple",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-destruction-jerusalem-70-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-division-royaumes-997",
+      "name": "Division du pays d’Israël en deux royaumes",
+      "period": {
+        "start": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "997 av. n. è."
+      },
+      "sourceOrder": 103,
+      "category": "Événements marquants",
+      "description": "Division du pays d’Israël en deux royaumes",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-division-royaumes-997-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "event": {
+      "id": "event-wcg-egypte-puissance-1600",
+      "name": "Égypte, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1600 av. n. è."
+      },
+      "sourceOrder": 4,
+      "category": "Chronologie biblique",
+      "description": "Égypte, puissance mondiale",
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-egypte-puissance-1600-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-egypte-puissance-1600-part2",
+      "name": "Égypte, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1600 av. n. è."
+      },
+      "sourceOrder": 101,
+      "category": "Chronologie biblique",
+      "description": "Égypte, puissance mondiale",
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-egypte-puissance-1600-part2-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "event": {
+      "id": "event-wcg-entree-canaan-1473",
+      "name": "Entrée d’Israël en Canaan",
+      "period": {
+        "start": {
+          "yearMin": -1473,
+          "yearMax": -1473,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1473,
+          "yearMax": -1473,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1473 av. n. è."
+      },
+      "sourceOrder": 6,
+      "category": "Événements marquants",
+      "description": "Entrée d’Israël en Canaan",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-entree-canaan-1473-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "event": {
+      "id": "event-wcg-exode-1513",
+      "name": "Exode",
+      "period": {
+        "start": {
+          "yearMin": -1513,
+          "yearMax": -1513,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1513,
+          "yearMax": -1513,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1513 av. n. è."
+      },
+      "sourceOrder": 5,
+      "category": "Événements marquants",
+      "description": "Exode",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-exode-1513-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "event": {
+      "id": "event-wcg-fin-redaction-bible-98",
+      "name": "Fin de la rédaction de la Bible",
+      "period": {
+        "start": {
+          "yearMin": 98,
+          "yearMax": 98,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 98,
+          "yearMax": 98,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 98 de n. è."
+      },
+      "sourceOrder": 207,
+      "category": "Événements marquants",
+      "description": "Fin de la rédaction de la Bible",
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-fin-redaction-bible-98-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "event": {
+      "id": "event-wcg-grece-puissance-332",
+      "name": "Grèce, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -332,
+          "yearMax": -332,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -332,
+          "yearMax": -332,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 332 av. n. è."
+      },
+      "sourceOrder": 201,
+      "category": "Chronologie biblique",
+      "description": "Grèce, puissance mondiale",
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-grece-puissance-332-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "event": {
+      "id": "event-wcg-jacob-egypte-1728",
+      "name": "Arrivée de Jacob et de sa famille en Égypte",
+      "period": {
+        "start": {
+          "yearMin": -1728,
+          "yearMax": -1728,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1728,
+          "yearMax": -1728,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1728 av. n. è."
+      },
+      "sourceOrder": 3,
+      "category": "Événements marquants",
+      "description": "Arrivée de Jacob et de sa famille en Égypte",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-jacob-egypte-1728-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [
+        {
+          "label": "Jacob",
+          "personId": "event-jacob-a7o7cq",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-liberation-babylone-537",
+      "name": "Libération des Juifs de Babylone",
+      "period": {
+        "start": {
+          "yearMin": -537,
+          "yearMax": -537,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -537,
+          "yearMax": -537,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "537 av. n. è."
+      },
+      "sourceOrder": 109,
+      "category": "Événements marquants",
+      "description": "Libération des Juifs de Babylone",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-liberation-babylone-537-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "event": {
+      "id": "event-wcg-matthieu-evangile-41",
+      "name": "Matthieu écrit le premier Évangile",
+      "period": {
+        "start": {
+          "yearMin": 41,
+          "yearMax": 41,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 41,
+          "yearMax": 41,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 41 de n. è."
+      },
+      "sourceOrder": 205,
+      "category": "Événements marquants",
+      "description": "Matthieu écrit le premier Évangile",
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-matthieu-evangile-41-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [
+        {
+          "label": "Matthieu",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-medo-perse-puissance-539",
+      "name": "Empire médo-perse, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -539,
+          "yearMax": -539,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -539,
+          "yearMax": -539,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "539 av. n. è."
+      },
+      "sourceOrder": 108,
+      "category": "Chronologie biblique",
+      "description": "Empire médo-perse, puissance mondiale",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-medo-perse-puissance-539-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-1"
+    ],
+    "event": {
+      "id": "event-wcg-onction-saul-1117",
+      "name": "Onction de Saül par Samuel",
+      "period": {
+        "start": {
+          "yearMin": -1117,
+          "yearMax": -1117,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1117,
+          "yearMax": -1117,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1117 av. n. è."
+      },
+      "sourceOrder": 7,
+      "category": "Événements marquants",
+      "description": "Onction de Saül par Samuel",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-1-wcg-onction-saul-1117-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [
+        {
+          "label": "Samuel",
+          "personId": "event-samuel-8qh05i",
+          "certainty": "certain"
+        },
+        {
+          "label": "Saül",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "event": {
+      "id": "event-wcg-pentecote-33",
+      "name": "Effusion de l’esprit saint à la Pentecôte",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "33 de n. è."
+      },
+      "sourceOrder": 203,
+      "category": "Événements marquants",
+      "description": "Effusion de l’esprit saint à la Pentecôte",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-pentecote-33-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "event": {
+      "id": "event-wcg-premiers-gentils-36",
+      "name": "Baptême des premiers Gentils incirconcis",
+      "period": {
+        "start": {
+          "yearMin": 36,
+          "yearMax": 36,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 36,
+          "yearMax": 36,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "36 de n. è."
+      },
+      "sourceOrder": 204,
+      "category": "Événements marquants",
+      "description": "Baptême des premiers Gentils incirconcis",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-premiers-gentils-36-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-reconstruction-murailles-455",
+      "name": "Fin de la reconstruction des murailles de Jérusalem",
+      "period": {
+        "start": {
+          "yearMin": -455,
+          "yearMax": -455,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -455,
+          "yearMax": -455,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "455 av. n. è."
+      },
+      "sourceOrder": 111,
+      "category": "Événements marquants",
+      "description": "Fin de la reconstruction des murailles de Jérusalem",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-reconstruction-murailles-455-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-reconstruction-temple-515",
+      "name": "Reconstruction du temple de Jérusalem",
+      "period": {
+        "start": {
+          "yearMin": -515,
+          "yearMax": -515,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -515,
+          "yearMax": -515,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "515 av. n. è."
+      },
+      "sourceOrder": 110,
+      "category": "Événements marquants",
+      "description": "Reconstruction du temple de Jérusalem",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-reconstruction-temple-515-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-3"
+    ],
+    "event": {
+      "id": "event-wcg-rome-puissance-63-30",
+      "name": "Rome, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -63,
+          "yearMax": -63,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -30,
+          "yearMax": -30,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 63-vers 30 av. n. è."
+      },
+      "sourceOrder": 202,
+      "category": "Chronologie biblique",
+      "description": "Rome, puissance mondiale",
+      "certainty": "probable",
+      "supportingClaimIds": [
+        "claim-wcg-3-wcg-rome-puissance-63-30-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-wcg-timeline-part-2"
+    ],
+    "event": {
+      "id": "event-wcg-temple-salomon-1027",
+      "name": "Fin de la construction du temple de Salomon",
+      "period": {
+        "start": {
+          "yearMin": -1027,
+          "yearMax": -1027,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1027,
+          "yearMax": -1027,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1027 av. n. è."
+      },
+      "sourceOrder": 102,
+      "category": "Événements marquants",
+      "description": "Fin de la construction du temple de Salomon",
+      "certainty": "certain",
+      "supportingClaimIds": [
+        "claim-wcg-2-wcg-temple-salomon-1027-event"
+      ],
+      "placeMentions": [],
+      "participantMentions": [
+        {
+          "label": "Salomon",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+    }
+  }
+]

@@ -32,6 +32,9 @@ jobs:
       - name: Installer les dépendances
         run: pnpm install --frozen-lockfile
 
+      - name: Installer Chromium pour Playwright
+        run: pnpm exec playwright install --with-deps chromium
+
       - name: Contrôler TypeScript
         run: pnpm run typecheck
 
@@ -56,8 +59,17 @@ jobs:
       - name: Vérifier la provenance cartographique
         run: pnpm run map:sources:check
 
+      - name: Vérifier le rapport qualité du corpus
+        run: pnpm run quality:check
+
       - name: Construire l’application
         run: pnpm run build
 
       - name: Vérifier l’installation PWA
         run: pnpm run pwa:check
+
+      - name: Exécuter les parcours Playwright
+        run: pnpm run test:e2e
+
+      - name: Vérifier les seuils de performance
+        run: pnpm run performance:check

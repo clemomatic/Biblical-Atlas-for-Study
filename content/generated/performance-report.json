@@ -1,0 +1,57 @@
+{
+  "version": "1",
+  "corpus": {
+    "people": 127,
+    "events": 153,
+    "claims": 557,
+    "presences": 152,
+    "relations": 1118
+  },
+  "pageLoad": {
+    "interactiveMs": 384.085,
+    "domContentLoadedMs": 163.6,
+    "loadEventMs": 163.6
+  },
+  "bundle": {
+    "totalBytes": 4180066,
+    "mainJavaScript": {
+      "path": "assets/index-CHHpuVrZ.js",
+      "rawBytes": 3733867,
+      "gzipBytes": 387040
+    },
+    "javascriptFiles": 4
+  },
+  "generatedData": {
+    "jsonFiles": 16,
+    "totalBytes": 2569862
+  },
+  "snapshots": {
+    "iterations": 200,
+    "averageMs": 0.114,
+    "p95Ms": 0.331
+  },
+  "severalHundredEntities": {
+    "scaleFactor": 15,
+    "lifespans": 600,
+    "activities": 900,
+    "events": 2295,
+    "presences": 2280,
+    "queryIterations": 500,
+    "averageMs": 0.025,
+    "p95Ms": 0.047
+  },
+  "thresholds": {
+    "pageLoadMs": 5000,
+    "snapshotAverageMs": 25,
+    "syntheticQueryAverageMs": 10,
+    "mainJavaScriptRawBytes": 5000000,
+    "mainJavaScriptGzipBytes": 1500000
+  },
+  "passed": {
+    "pageLoad": true,
+    "snapshots": true,
+    "syntheticQueries": true,
+    "mainJavaScriptRaw": true,
+    "mainJavaScriptGzip": true
+  }
+}

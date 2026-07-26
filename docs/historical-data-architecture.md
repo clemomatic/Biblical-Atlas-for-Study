@@ -932,3 +932,15 @@ relations calculées viennent ensuite. Ce séquencement permet d’enrichir
 l’application sans casser la frise, la carte, les liens partageables ni les
 références existantes, et surtout sans transformer implicitement une période
 d’activité en biographie ou une contemporanéité en rencontre.
+
+## Consolidation qualit&eacute; (lot 12)
+
+Le mod&egrave;le poss&egrave;de maintenant trois sorties de contr&ocirc;le compl&eacute;mentaires :
+
+- `corpus-quality-report.json` inventorie les lacunes et s&eacute;pare blocage technique et dette &eacute;ditoriale ;
+- `performance-report.json` mesure bundle, chargement, snapshots et index &eacute;largi ;
+- `SourcesAndMethodPanel` expose dans chaque fiche les claims, m&eacute;thodes, relations g&eacute;n&eacute;r&eacute;es, sources et limites.
+
+La validation reste non destructive : une entr&eacute;e h&eacute;rit&eacute;e est signal&eacute;e, jamais corrig&eacute;e ou supprim&eacute;e automatiquement. L'index temporel conserve des tableaux compacts tri&eacute;s et utilise une recherche binaire de borne sup&eacute;rieure avant le filtrage des chevauchements.
+
+Voir [`quality-transparency-performance.md`](quality-transparency-performance.md) pour les r&eacute;sultats et les seuils.

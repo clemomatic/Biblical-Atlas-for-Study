@@ -4,12 +4,16 @@ import {
 } from 'node:fs/promises';
 import { join } from 'node:path';
 import type {
+  HistoricalCalculationDefinition,
   HistoricalClaim,
   HistoricalDataset,
   PresenceEpisode,
   ReviewedEventRecord,
+  ReviewedGeographicLink,
   ReviewedPersonRecord,
   ReviewedPlaceRecord,
+  ReviewedRouteRecord,
+  ReviewedTerritoryRecord,
   SourceCatalogEntry,
   StagingHistoricalRecord
 } from './contentTypes.ts';
@@ -45,6 +49,24 @@ const readJsonDirectory = async <T>(directory: string): Promise<T[]> => {
   return values;
 };
 
+const readOptionalJsonDirectory = async <T>(
+  directory: string
+): Promise<T[]> => {
+  try {
+    return await readJsonDirectory<T>(directory);
+  } catch (error) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      error.code === 'ENOENT'
+    ) {
+      return [];
+    }
+    throw error;
+  }
+};
+
 export async function loadHistoricalDataset(
   contentRoot: string
 ): Promise<HistoricalDataset> {
@@ -64,8 +86,20 @@ export async function loadHistoricalDataset(
     places: await readJsonDirectory<ReviewedPlaceRecord>(
       join(contentRoot, 'reviewed', 'places')
     ),
+    routes: await readOptionalJsonDirectory<ReviewedRouteRecord>(
+      join(contentRoot, 'reviewed', 'routes')
+    ),
+    geography: await readOptionalJsonDirectory<ReviewedGeographicLink>(
+      join(contentRoot, 'reviewed', 'geography')
+    ),
+    territories: await readOptionalJsonDirectory<ReviewedTerritoryRecord>(
+      join(contentRoot, 'reviewed', 'territories')
+    ),
     claims: await readJsonDirectory<HistoricalClaim>(
       join(contentRoot, 'reviewed', 'claims')
+    ),
+    calculations: await readOptionalJsonDirectory<HistoricalCalculationDefinition>(
+      join(contentRoot, 'reviewed', 'calculations')
     ),
     presences: await readJsonDirectory<PresenceEpisode>(
       join(contentRoot, 'reviewed', 'presences')

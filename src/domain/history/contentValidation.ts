@@ -1,6 +1,7 @@
 import {
   validateTemporalSpan
 } from './temporal.ts';
+import { findHistoricalCalculationCycle } from './calculatedClaims.ts';
 import type {
   DerivedHistoricalRelation,
   HistoricalClaim,
@@ -30,12 +31,20 @@ export class HistoricalDataValidationError extends Error {
 const VALID_PREDICATES = new Set([
   'birth',
   'death',
+  'age-at-event',
+  'duration',
+  'lifespan',
+  'timeline-context',
+  'historical-event',
   'presence',
   'residence',
   'travel',
   'reign',
+  'reign-start',
+  'reign-end',
   'prophecy',
   'office',
+  'political-event',
   'participation',
   'family-relation',
   'attested-interaction'
@@ -81,6 +90,11 @@ const VALID_EVIDENCE_METHODS = new Set([
   'inferred'
 ]);
 
+const VALID_CALCULATION_FORMULAS = new Set([
+  'subtract-duration-from-date',
+  'add-duration-to-date'
+]);
+
 const VALID_PRESENCE_TYPES = new Set([
   'resident',
   'visitor',
@@ -101,10 +115,30 @@ const VALID_PLACE_GRANULARITIES = new Set([
 const VALID_RELATION_LEVELS = new Set([
   'lifespan-overlap',
   'activity-overlap',
+  'prophet-during-reign',
+  'simultaneous-reigns',
   'same-region',
   'same-place',
   'same-event',
   'documented-interaction'
+]);
+
+const VALID_ACTIVITY_PHASES = new Set([
+  'standard',
+  'co-reign',
+  'disputed-reign',
+  'limited-reign',
+  'fully-established-reign',
+  'prophetic-ministry',
+  'official-office'
+]);
+
+const VALID_GEOGRAPHIC_METHODS = new Set([
+  'source-map-location',
+  'map-and-event-cross-reference',
+  'documented-route',
+  'reconstructed-route',
+  'schematic-route'
 ]);
 
 const addIterable = (
@@ -302,6 +336,12 @@ export function validateHistoricalDataset(
         `${path}.person.activityPeriods[${activityIndex}].span`,
         issues
       );
+      if (activity.phase && !VALID_ACTIVITY_PHASES.has(activity.phase)) {
+        issues.push({
+          path: `${path}.person.activityPeriods[${activityIndex}].phase`,
+          message: `Phase d’activité inconnue : ${activity.phase}.`
+        });
+      }
     });
   });
 
@@ -328,6 +368,137 @@ export function validateHistoricalDataset(
       issues.push({
         path: `${path}.place.certainty`,
         message: `Degré de certitude inconnu : ${record.place.certainty}.`
+      });
+    }
+  });
+
+  dataset.territories.forEach((record, index) => {
+    const path = `reviewed.territories[${index}]`;
+    registerId(record.territory.id, `${path}.territory.id`);
+    territoryIds.add(record.territory.id);
+    if (record.workflowStatus !== 'reviewed') {
+      issues.push({
+        path,
+        message: 'Le territoire doit avoir le statut reviewed.'
+      });
+    }
+    validateSourceIds(record.sourceIds, `${path}.sourceIds`);
+    validateSpanAt(record.territory.period, `${path}.territory.period`, issues);
+    if (record.territory.geometryStatus !== 'not-provided') {
+      issues.push({
+        path: `${path}.territory.geometryStatus`,
+        message:
+          'Un territoire A6 ne doit pas recevoir une géométrie non fournie par la source.'
+      });
+    }
+    record.territory.capitalPhases.forEach((phase, phaseIndex) => {
+      const phasePath = `${path}.territory.capitalPhases[${phaseIndex}]`;
+      registerId(phase.id, `${phasePath}.id`);
+      validateSpanAt(phase.period, `${phasePath}.period`, issues);
+      if (!placeIds.has(phase.placeId)) {
+        issues.push({
+          path: `${phasePath}.placeId`,
+          message: `Lieu inexistant : ${phase.placeId}.`
+        });
+      }
+      if (!VALID_CERTAINTY_LEVELS.has(phase.certainty)) {
+        issues.push({
+          path: `${phasePath}.certainty`,
+          message: `Degré de certitude inconnu : ${phase.certainty}.`
+        });
+      }
+    });
+  });
+
+  const validateRelatedIds = (
+    values: string[] | undefined,
+    knownIds: Set<string>,
+    path: string,
+    label: string
+  ): void => {
+    values?.forEach((value, index) => {
+      if (!knownIds.has(value)) {
+        issues.push({
+          path: `${path}[${index}]`,
+          message: `${label} inexistant : ${value}.`
+        });
+      }
+    });
+  };
+
+  dataset.routes.forEach((record, index) => {
+    const path = `reviewed.routes[${index}]`;
+    registerId(record.route.id, `${path}.route.id`);
+    routeIds.add(record.route.id);
+    if (record.workflowStatus !== 'reviewed') {
+      issues.push({
+        path,
+        message: 'L’itinéraire doit avoir le statut reviewed.'
+      });
+    }
+    validateSourceIds(record.sourceIds, `${path}.sourceIds`);
+    validateSpanAt(record.route.period, `${path}.route.period`, issues);
+    if (
+      record.route.geometryPrecision !== 'schematic' ||
+      record.route.notForExactNavigation !== true
+    ) {
+      issues.push({
+        path,
+        message:
+          'Un itinéraire A7 doit être explicitement schématique et impropre à la navigation exacte.'
+      });
+    }
+    if (
+      record.route.routeNature !== 'documented' &&
+      record.route.routeNature !== 'reconstructed' &&
+      record.route.routeNature !== 'schematic'
+    ) {
+      issues.push({
+        path: `${path}.route.routeNature`,
+        message: 'La nature documentée, reconstituée ou schématique est obligatoire.'
+      });
+    }
+    if (
+      record.route.tracePrecision !== 'exact' &&
+      record.route.tracePrecision !== 'approximate' &&
+      record.route.tracePrecision !== 'indicative-place-sequence'
+    ) {
+      issues.push({
+        path: `${path}.route.tracePrecision`,
+        message: 'La précision du tracé est obligatoire.'
+      });
+    }
+    if (
+      record.route.stepOrder !== 'source-chronology' &&
+      record.route.stepOrder !== 'documented-sequence'
+    ) {
+      issues.push({
+        path: `${path}.route.stepOrder`,
+        message: 'L’origine de l’ordre des étapes est obligatoire.'
+      });
+    }
+    if (record.route.placeIds.length < 2) {
+      issues.push({
+        path: `${path}.route.placeIds`,
+        message: 'Un itinéraire doit relier au moins deux lieux.'
+      });
+    }
+    validateRelatedIds(
+      record.route.placeIds,
+      placeIds,
+      `${path}.route.placeIds`,
+      'Lieu'
+    );
+    validateRelatedIds(
+      record.route.personIds,
+      personIds,
+      `${path}.route.personIds`,
+      'Personnage'
+    );
+    if (!VALID_CERTAINTY_LEVELS.has(record.route.certainty)) {
+      issues.push({
+        path: `${path}.route.certainty`,
+        message: `Degré de certitude inconnu : ${record.route.certainty}.`
       });
     }
   });
@@ -419,23 +590,22 @@ export function validateHistoricalDataset(
         });
       }
     });
+    validateRelatedIds(
+      record.event.supersedesLegacyEventIds,
+      eventIds,
+      `${path}.event.supersedesLegacyEventIds`,
+      'Événement remplacé'
+    );
   });
 
-  const validateRelatedIds = (
-    values: string[] | undefined,
-    knownIds: Set<string>,
-    path: string,
-    label: string
-  ): void => {
-    values?.forEach((value, index) => {
-      if (!knownIds.has(value)) {
-        issues.push({
-          path: `${path}[${index}]`,
-          message: `${label} inexistant : ${value}.`
-        });
-      }
-    });
-  };
+  dataset.routes.forEach((record, index) => {
+    validateRelatedIds(
+      record.route.associatedEventIds,
+      eventIds,
+      `reviewed.routes[${index}].route.associatedEventIds`,
+      'Événement'
+    );
+  });
 
   dataset.people.forEach((record, index) => {
     const path = `reviewed.people[${index}].person`;
@@ -489,6 +659,21 @@ export function validateHistoricalDataset(
         `${activityPath}.associatedPersonIds`,
         'Personnage'
       );
+      if (activity.realmId && !territoryIds.has(activity.realmId)) {
+        issues.push({
+          path: `${activityPath}.realmId`,
+          message: `Territoire inexistant : ${activity.realmId}.`
+        });
+      }
+      if (
+        activity.capitalPlaceId &&
+        !placeIds.has(activity.capitalPlaceId)
+      ) {
+        issues.push({
+          path: `${activityPath}.capitalPlaceId`,
+          message: `Capitale inexistante : ${activity.capitalPlaceId}.`
+        });
+      }
     });
   });
 
@@ -559,12 +744,32 @@ export function validateHistoricalDataset(
         `${personPath}.activityPeriods[${activityIndex}].supportingClaimIds`
       );
     });
+    record.person.sourceTimelineWindows?.forEach((window, windowIndex) => {
+      validateSupportingClaimIds(
+        window.supportingClaimIds,
+        `${personPath}.sourceTimelineWindows[${windowIndex}].supportingClaimIds`
+      );
+      if (!sourcesById.has(window.sourceId)) {
+        issues.push({
+          path: `${personPath}.sourceTimelineWindows[${windowIndex}].sourceId`,
+          message: `Source inexistante : ${window.sourceId}.`
+        });
+      }
+    });
   });
   dataset.events.forEach((record, eventIndex) => {
     validateSupportingClaimIds(
       record.event.supportingClaimIds,
       `reviewed.events[${eventIndex}].event.supportingClaimIds`
     );
+  });
+  dataset.territories.forEach((record, territoryIndex) => {
+    record.territory.capitalPhases.forEach((phase, phaseIndex) => {
+      validateSupportingClaimIds(
+        phase.supportingClaimIds,
+        `reviewed.territories[${territoryIndex}].territory.capitalPhases[${phaseIndex}].supportingClaimIds`
+      );
+    });
   });
 
   dataset.claims.forEach((claim, index) => {
@@ -611,6 +816,47 @@ export function validateHistoricalDataset(
       });
     }
     validateSpanAt(claim.period, `${path}.period`, issues);
+
+    if (claim.quantity) {
+      if (
+        claim.quantity.unit !== 'years' ||
+        !Number.isInteger(claim.quantity.years) ||
+        claim.quantity.years < 0
+      ) {
+        issues.push({
+          path: `${path}.quantity`,
+          message: 'Une quantité historique doit être exprimée en années entières positives ou nulles.'
+        });
+      }
+      if (
+        claim.quantity.uncertaintyYears !== undefined &&
+        (!Number.isInteger(claim.quantity.uncertaintyYears) ||
+          claim.quantity.uncertaintyYears < 0)
+      ) {
+        issues.push({
+          path: `${path}.quantity.uncertaintyYears`,
+          message: 'La marge de la quantité doit être un entier positif ou nul.'
+        });
+      }
+    }
+    if (
+      claim.predicate === 'age-at-event' &&
+      claim.quantity?.kind !== 'age'
+    ) {
+      issues.push({
+        path: `${path}.quantity`,
+        message: 'Une affirmation age-at-event doit fournir une quantité de type age.'
+      });
+    }
+    if (
+      claim.predicate === 'duration' &&
+      claim.quantity?.kind !== 'duration'
+    ) {
+      issues.push({
+        path: `${path}.quantity`,
+        message: 'Une affirmation duration doit fournir une quantité de type duration.'
+      });
+    }
 
     if (!Array.isArray(claim.evidence) || claim.evidence.length === 0) {
       issues.push({
@@ -700,6 +946,118 @@ export function validateHistoricalDataset(
     });
   });
 
+  const calculationOutputIds = new Set(
+    dataset.calculations.map(definition => definition.outputClaimId)
+  );
+  dataset.calculations.forEach((definition, index) => {
+    const path = `reviewed.calculations[${index}]`;
+    registerId(definition.id, `${path}.id`);
+    registerId(definition.outputClaimId, `${path}.outputClaimId`);
+    if (definition.workflowStatus !== 'reviewed') {
+      issues.push({
+        path: `${path}.workflowStatus`,
+        message: 'Une recette de calcul doit être relue avant génération.'
+      });
+    }
+    validateEntityReference(definition.subject, `${path}.subject`);
+    if (!VALID_PREDICATES.has(definition.predicate)) {
+      issues.push({
+        path: `${path}.predicate`,
+        message: `Prédicat historique inconnu : ${definition.predicate}.`
+      });
+    }
+    if (
+      definition.predicate === 'age-at-event' ||
+      definition.predicate === 'duration'
+    ) {
+      issues.push({
+        path: `${path}.predicate`,
+        message: 'Une recette temporelle doit produire une date ou une période, pas une quantité.'
+      });
+    }
+    if (!VALID_CALCULATION_FORMULAS.has(definition.formula)) {
+      issues.push({
+        path: `${path}.formula`,
+        message: `Formule de calcul inconnue : ${definition.formula}.`
+      });
+    }
+    if (!VALID_CERTAINTY_LEVELS.has(definition.certainty)) {
+      issues.push({
+        path: `${path}.certainty`,
+        message: `Degré de certitude inconnu : ${definition.certainty}.`
+      });
+    }
+    const source = sourcesById.get(definition.sourceId);
+    if (!source) {
+      issues.push({
+        path: `${path}.sourceId`,
+        message: `Source inexistante : ${definition.sourceId}.`
+      });
+    } else {
+      ensureSourceCanSupportReviewedData(source, `${path}.sourceId`, issues);
+    }
+    if (!definition.shortReference?.trim()) {
+      issues.push({
+        path: `${path}.shortReference`,
+        message: 'Une référence courte est obligatoire pour le calcul.'
+      });
+    } else if (definition.shortReference.length > 280) {
+      issues.push({
+        path: `${path}.shortReference`,
+        message: 'La référence courte du calcul dépasse 280 caractères.'
+      });
+    }
+    if (!definition.explanation?.trim()) {
+      issues.push({
+        path: `${path}.explanation`,
+        message: 'La méthode du calcul doit être expliquée.'
+      });
+    }
+    if (definition.dateInputClaimId === definition.quantityInputClaimId) {
+      issues.push({
+        path,
+        message: 'Les entrées date et quantité doivent être deux affirmations distinctes.'
+      });
+    }
+    [
+      ['dateInputClaimId', definition.dateInputClaimId],
+      ['quantityInputClaimId', definition.quantityInputClaimId]
+    ].forEach(([field, claimId]) => {
+      if (!claimsById.has(claimId) && !calculationOutputIds.has(claimId)) {
+        issues.push({
+          path: `${path}.${field}`,
+          message: `Affirmation d’entrée inexistante : ${claimId}.`
+        });
+      }
+    });
+    const directDateInput = claimsById.get(definition.dateInputClaimId);
+    if (directDateInput && !directDateInput.period) {
+      issues.push({
+        path: `${path}.dateInputClaimId`,
+        message: 'L’affirmation de date doit fournir une période.'
+      });
+    }
+    const directQuantityInput = claimsById.get(
+      definition.quantityInputClaimId
+    );
+    if (directQuantityInput && !directQuantityInput.quantity) {
+      issues.push({
+        path: `${path}.quantityInputClaimId`,
+        message: 'L’affirmation de quantité doit fournir un âge ou une durée.'
+      });
+    }
+  });
+
+  const calculationCycle = findHistoricalCalculationCycle(
+    dataset.calculations
+  );
+  if (calculationCycle) {
+    issues.push({
+      path: 'reviewed.calculations',
+      message: `Boucle entre affirmations calculées : ${calculationCycle.join(' -> ')}.`
+    });
+  }
+
   dataset.presences.forEach((presence, index) => {
     const path = `reviewed.presences[${index}]`;
     registerId(presence.id, `${path}.id`);
@@ -761,6 +1119,98 @@ export function validateHistoricalDataset(
         }
       });
     }
+  });
+
+  const presenceIds = new Set(dataset.presences.map(presence => presence.id));
+  dataset.geography.forEach((link, index) => {
+    const path = `reviewed.geography[${index}]`;
+    registerId(link.id, `${path}.id`);
+    if (
+      link.workflowStatus !== 'reviewed' ||
+      link.origin !== 'reviewed'
+    ) {
+      issues.push({
+        path,
+        message: 'Une provenance géographique validée doit provenir de reviewed.'
+      });
+    }
+    validateSourceIds(link.sourceIds, `${path}.sourceIds`);
+    if (!link.sourceIds.includes(link.primarySourceId)) {
+      issues.push({
+        path: `${path}.primarySourceId`,
+        message: 'La source cartographique principale doit figurer dans sourceIds.'
+      });
+    }
+    if (!link.mapId?.trim() || !link.mapReference?.trim()) {
+      issues.push({
+        path,
+        message: 'La carte et sa référence courte sont obligatoires.'
+      });
+    }
+    validateEntityReference(link.subject, `${path}.subject`);
+    if (
+      link.subject.entityType !== 'place' &&
+      link.subject.entityType !== 'event' &&
+      link.subject.entityType !== 'route'
+    ) {
+      issues.push({
+        path: `${path}.subject.entityType`,
+        message: 'La provenance géographique concerne un lieu, un événement ou un itinéraire.'
+      });
+    }
+    if (!VALID_GEOGRAPHIC_METHODS.has(link.method)) {
+      issues.push({
+        path: `${path}.method`,
+        message: `Méthode géographique inconnue : ${link.method}.`
+      });
+    }
+    if (
+      !VALID_CERTAINTY_LEVELS.has(link.certainty) ||
+      !VALID_CERTAINTY_LEVELS.has(link.sourceMapCertainty)
+    ) {
+      issues.push({
+        path: `${path}.certainty`,
+        message: 'Les degrés de certitude géographique doivent être explicites.'
+      });
+    }
+    if (link.coordinatesChanged !== false) {
+      issues.push({
+        path: `${path}.coordinatesChanged`,
+        message: 'Ce lot pilote ne doit modifier aucune coordonnée.'
+      });
+    }
+    if (!link.limitations?.trim()) {
+      issues.push({
+        path: `${path}.limitations`,
+        message: 'Les limites de la provenance géographique sont obligatoires.'
+      });
+    }
+    if (link.placeId && !placeIds.has(link.placeId)) {
+      issues.push({
+        path: `${path}.placeId`,
+        message: `Lieu inexistant : ${link.placeId}.`
+      });
+    }
+    validateRelatedIds(
+      link.eventIds,
+      eventIds,
+      `${path}.eventIds`,
+      'Événement'
+    );
+    validateRelatedIds(
+      link.personIds,
+      personIds,
+      `${path}.personIds`,
+      'Personnage'
+    );
+    link.presenceEpisodeIds?.forEach((presenceId, presenceIndex) => {
+      if (!presenceIds.has(presenceId)) {
+        issues.push({
+          path: `${path}.presenceEpisodeIds[${presenceIndex}]`,
+          message: `Épisode de présence inexistant : ${presenceId}.`
+        });
+      }
+    });
   });
 
   if (issues.length > 0) {
@@ -864,7 +1314,14 @@ export function validateGeneratedRelations(
       }
     });
     if (
-      ['lifespan-overlap', 'activity-overlap', 'same-place', 'same-region']
+      [
+        'lifespan-overlap',
+        'activity-overlap',
+        'prophet-during-reign',
+        'simultaneous-reigns',
+        'same-place',
+        'same-region'
+      ]
         .includes(relation.relationLevel) &&
       !relation.temporalOverlap
     ) {

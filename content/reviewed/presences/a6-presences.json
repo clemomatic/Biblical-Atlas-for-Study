@@ -1,0 +1,32 @@
+[
+  {
+    "id": "presence-joram-israel-samaria",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-joram-dcjw4c",
+    "placeId": "samaria",
+    "period": {
+      "start": {
+        "yearMin": -917,
+        "yearMax": -917,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -905,
+        "yearMax": -905,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "Règne de Joram à Samarie, vers 917-vers 905 av. n. è."
+    },
+    "presenceType": "reign-seat",
+    "certainty": "probable",
+    "supportingClaimIds": [
+      "claim-joram-israel-presence-samaria"
+    ],
+    "notes": "Présence créée parce que le passage indique explicitement que Joram règne à Samarie."
+  }
+]

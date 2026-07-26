@@ -1,0 +1,898 @@
+[
+  {
+    "id": "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-anne-caiphe-sanhedrin-reniement"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-anne-caiphe-sanhedrin-reniement-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-person-a7-anne-grand-pretre-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-anne-grand-pretre",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-anne-caiphe-sanhedrin-reniement"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-anne-caiphe-sanhedrin-reniement-presence-person-a7-anne-grand-pretre-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-person-a7-caiphe-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-caiphe",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-anne-caiphe-sanhedrin-reniement"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-anne-caiphe-sanhedrin-reniement-presence-person-a7-caiphe-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-anne-caiphe-sanhedrin-reniement-person-a7-pierre-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-pierre",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-anne-caiphe-sanhedrin-reniement"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-anne-caiphe-sanhedrin-reniement-presence-person-a7-pierre-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-ascension-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-bethany-1",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "iyar",
+        "day": 25
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "iyar",
+        "day": 25
+      },
+      "displayLabel": "25 iyar 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-ascension"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-ascension-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-assistant-vigne-amour-priere-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-assistant-vigne-amour-priere"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-assistant-vigne-amour-priere-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-autres-apparitions-mission-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après le 16 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-autres-apparitions-mission"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-autres-apparitions-mission-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-barabbas-condamnation-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-barabbas-condamnation"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-barabbas-condamnation-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-barabbas-condamnation-person-a7-barabbas-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-barabbas",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-barabbas-condamnation"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-barabbas-condamnation-presence-person-a7-barabbas-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-barabbas-condamnation-person-a7-ponce-pilate-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-ponce-pilate",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-barabbas-condamnation"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-barabbas-condamnation-presence-person-a7-ponce-pilate-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-devant-pilate-herode-pilate-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-devant-pilate-herode-pilate"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-devant-pilate-herode-pilate-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-devant-pilate-herode-pilate-person-a7-herode-antipas-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-herode-antipas",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-devant-pilate-herode-pilate"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-devant-pilate-herode-pilate-presence-person-a7-herode-antipas-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-devant-pilate-herode-pilate-person-a7-ponce-pilate-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-ponce-pilate",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-devant-pilate-herode-pilate"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-devant-pilate-herode-pilate-presence-person-a7-ponce-pilate-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-gethsemani-arrestation-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-gethsemani-arrestation"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-gethsemani-arrestation-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-gethsemani-arrestation-person-a7-judas-iscariote-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-judas-iscariote",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-gethsemani-arrestation"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-gethsemani-arrestation-presence-person-a7-judas-iscariote-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-institution-repas-seigneur-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-institution-repas-seigneur"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-institution-repas-seigneur-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-judas-identifie-congedie-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-judas-identifie-congedie"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-judas-identifie-congedie-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-judas-identifie-congedie-person-a7-judas-iscariote-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-judas-iscariote",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-judas-identifie-congedie"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-judas-identifie-congedie-presence-person-a7-judas-iscariote-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-mise-au-tombeau-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-mise-au-tombeau"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-mise-au-tombeau-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-mort-jesus-golgotha-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-mort-jesus-golgotha"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-mort-jesus-golgotha-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-mort-judas-person-a7-judas-iscariote-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-judas-iscariote",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-mort-judas"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-mort-judas-presence-person-a7-judas-iscariote-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-prediction-reniements-dispersion-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-prediction-reniements-dispersion"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-prediction-reniements-dispersion-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-prediction-reniements-dispersion-person-a7-pierre-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-pierre",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 14
+      },
+      "displayLabel": "14 nisan 33 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-prediction-reniements-dispersion"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-prediction-reniements-dispersion-presence-person-a7-pierre-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-resurrection-apparitions-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 16
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 16
+      },
+      "displayLabel": "16 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-h-resurrection-apparitions"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-resurrection-apparitions-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-h-resurrection-apparitions-event-jesus-en-tant-qu-humain-1f4ceyz-obi-emmaus",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-emmaus",
+    "period": {
+      "start": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 16
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "day",
+        "certainty": "certain",
+        "calendar": "hebrew",
+        "calendarMonth": "nisan",
+        "day": 16
+      },
+      "displayLabel": "16 nisan 33 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7-h-resurrection-apparitions"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-h-resurrection-apparitions-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-emmaus"
+    ]
+  }
+]

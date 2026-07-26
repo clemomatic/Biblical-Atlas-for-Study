@@ -11,7 +11,15 @@ import {
 } from '../types';
 import { formatEventSpan } from '../utils/dateUtils';
 import type { BiblicalPerson } from '../domain/history/types';
+import {
+  getActiveProphetsDuringReign,
+  getCalculatedDatesForPerson,
+  HISTORICAL_METHODOLOGY_CATALOG,
+  getContemporaryKingsForProphet,
+  type HistoricalPersonAssociation
+} from '../data/historicalStudyData';
 import { formatTemporalSpanFrench } from '../domain/history/temporal';
+import { buildEntityMethodology } from '../domain/history/entityMethodology';
 import {
   getBibleReferenceTarget,
   getDocumentaryReferenceTarget,
@@ -34,7 +42,10 @@ import {
   User,
   X
 } from 'lucide-react';
+import { GeographicProvenancePanel } from './GeographicProvenancePanel';
+import { HistoricalCalculationPanel } from './HistoricalCalculationPanel';
 import { MediaHeader } from './MediaHeader';
+import { SourcesAndMethodPanel } from './SourcesAndMethodPanel';
 
 type DetailSection = 'overview' | 'relations' | 'references';
 
@@ -367,6 +378,30 @@ const certaintyLabels: Record<CertaintyLevel, string> = {
   unknown: 'Non précisé'
 };
 
+const routeNatureLabels: Record<NonNullable<BiblicalRoute['routeNature']>, string> = {
+  documented: 'Déplacement documenté',
+  reconstructed: 'Déplacement reconstitué',
+  schematic: 'Déplacement schématique'
+};
+const routePrecisionLabels: Record<NonNullable<BiblicalRoute['tracePrecision']>, string> = {
+  exact: 'tracé exact',
+  approximate: 'tracé approximatif',
+  'indicative-place-sequence': 'liaison indicative entre lieux connus'
+};
+const routeStepOrderLabels: Record<NonNullable<BiblicalRoute['stepOrder']>, string> = {
+  'source-chronology': 'ordre chronologique de la source',
+  'documented-sequence': 'ordre des étapes explicitement documenté'
+};
+
+const associationStatusLabels: Record<
+  HistoricalPersonAssociation['status'],
+  string
+> = {
+  'calculated-overlap': 'Chevauchement calculé',
+  'biblically-attested': 'Relation bibliquement attestée',
+  'documented-interaction': 'Interaction directement documentée'
+};
+
 export const DetailPanel: React.FC<DetailPanelProps> = ({
   selectedEvent,
   selectedPlace,
@@ -533,15 +568,49 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         .map(id => people.find(person => person.id === id))
         .filter((person): person is BiblicalPerson => Boolean(person))
     : [];
+  const profilePerson =
+    selectedPerson ??
+    people.find(person => person.legacyEventId === selectedEvent?.id);
+  const activeProphets = profilePerson
+    ? getActiveProphetsDuringReign(profilePerson.id)
+    : [];
+  const contemporaryKings = profilePerson
+    ? getContemporaryKingsForProphet(profilePerson.id)
+    : [];
+  const profileActivities = profilePerson?.activityPeriods ?? [];
   const media =
     selectedEvent?.media ||
     selectedPlace?.media ||
     selectedRoute?.media ||
     selectedPerson?.media;
+  const geographicProvenance =
+    selectedEvent?.geographicProvenance ||
+    selectedPlace?.geographicProvenance ||
+    selectedRoute?.geographicProvenance ||
+    selectedPerson?.geographicProvenance ||
+    [];
+  const calculatedDates = profilePerson
+    ? getCalculatedDatesForPerson(profilePerson.id)
+    : [];
+  const methodologyEntity = (
+    selectedEvent ?? selectedPlace ?? selectedRoute ?? selectedPerson
+  )!;
+  const methodology = buildEntityMethodology(
+    selectedEvent
+      ? 'event'
+      : selectedPlace
+        ? 'place'
+        : selectedRoute
+          ? 'route'
+          : 'person',
+    methodologyEntity,
+    HISTORICAL_METHODOLOGY_CATALOG
+  );
 
   return (
     <aside
       aria-label={`Fiche documentaire : ${title}`}
+      data-testid="detail-panel"
       className="atlas-enter fixed inset-x-0 bottom-16 z-50 flex max-h-[82dvh] flex-col overflow-hidden rounded-t-[var(--radius-xl)] border-t border-[var(--color-stone-light)] bg-[var(--color-paper)] shadow-[var(--shadow-3)] md:bottom-0 lg:static lg:z-auto lg:h-full lg:max-h-none lg:w-[440px] lg:shrink-0 lg:rounded-none lg:border-l lg:border-t-0 lg:shadow-none xl:w-[460px]"
     >
       <div className="relative shrink-0">
@@ -640,6 +709,66 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             )}
 
+            {calculatedDates.length > 0 && (
+              <HistoricalCalculationPanel items={calculatedDates} />
+            )}
+
+            {selectedPerson?.sourceTimelineWindows?.map(window => (
+              <div
+                key={window.id}
+                className="border-l-2 border-dashed border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/45 px-4 py-3"
+              >
+                <p className="text-sm font-semibold text-[var(--color-ink)]">
+                  Fenêtre chronologique collective ·{' '}
+                  {formatTemporalSpanFrench(window.span)}
+                </p>
+                <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                  Cette barre situe un groupe dans la frise source. Elle ne
+                  constitue pas une date individuelle de naissance ou de décès
+                  et ne génère aucun contemporain.
+                </p>
+              </div>
+            ))}
+
+            {profileActivities.length > 0 && (
+              <section className="space-y-2">
+                <SectionTitle icon={<Calendar className="size-4" />}>
+                  Périodes d’activité documentées
+                </SectionTitle>
+                {profileActivities.map(activity => {
+                  const capital = activity.capitalPlaceId
+                    ? places.find(place => place.id === activity.capitalPlaceId)
+                    : undefined;
+                  const realm =
+                    activity.realmId === 'territory-kingdom-judah'
+                      ? 'Royaume de Juda'
+                      : activity.realmId === 'territory-kingdom-israel'
+                        ? 'Royaume d’Israël'
+                        : undefined;
+                  return (
+                    <div
+                      key={activity.id}
+                      className="border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/55 p-3"
+                    >
+                      <p className="text-sm font-semibold text-[var(--color-ink)]">
+                        {activity.label} ·{' '}
+                        {formatTemporalSpanFrench(activity.span)}
+                      </p>
+                      {(realm || capital) && (
+                        <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                          {[realm, capital && `siège administratif : ${capital.name}`]
+                            .filter(Boolean)
+                            .join(' · ')}
+                          {capital &&
+                            ' — cette association ne prouve pas à elle seule une présence continue.'}
+                        </p>
+                      )}
+                    </div>
+                  );
+                })}
+              </section>
+            )}
+
             {selectedPlace?.periodDescription && (
               <div className="flex items-start gap-3 border-l-2 border-[var(--color-mineral)] bg-[var(--color-mineral-soft)] p-4">
                 <Calendar className="mt-0.5 size-4 shrink-0 text-[var(--color-mineral)]" />
@@ -650,13 +779,28 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             )}
 
             {selectedRoute && (
-              <div className="flex items-center gap-3 border-l-2 border-[var(--color-olive)] bg-[var(--color-olive-soft)] p-4">
-                <Navigation className="size-4 shrink-0 text-[var(--color-olive)]" />
-                <p className="text-sm font-semibold text-[var(--color-ink)]">
-                  {selectedRoute.points.length} étapes
-                  {selectedRoute.startYear !== undefined &&
-                    ` · ${selectedRoute.startYear} à ${selectedRoute.endYear}`}
-                </p>
+              <div className="flex items-start gap-3 border-l-2 border-[var(--color-olive)] bg-[var(--color-olive-soft)] p-4">
+                <Navigation className="mt-0.5 size-4 shrink-0 text-[var(--color-olive)]" />
+                <div>
+                  <p className="text-sm font-semibold text-[var(--color-ink)]">
+                    {selectedRoute.points.length} étapes
+                    {selectedRoute.startYear !== undefined &&
+                      ` · ${selectedRoute.startYear} à ${selectedRoute.endYear}`}
+                  </p>
+                  {(selectedRoute.routeNature ||
+                    selectedRoute.tracePrecision ||
+                    selectedRoute.stepOrder) && (
+                    <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                      {[
+                        selectedRoute.routeNature && routeNatureLabels[selectedRoute.routeNature],
+                        selectedRoute.tracePrecision && routePrecisionLabels[selectedRoute.tracePrecision],
+                        selectedRoute.stepOrder && routeStepOrderLabels[selectedRoute.stepOrder]
+                      ]
+                        .filter(Boolean)
+                        .join(' · ')}
+                    </p>
+                  )}
+                </div>
               </div>
             )}
 
@@ -700,6 +844,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
                 {notes}
               </div>
             )}
+
+            <GeographicProvenancePanel items={geographicProvenance} />
+            <SourcesAndMethodPanel methodology={methodology} />
           </>
         )}
 
@@ -708,6 +855,52 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             <SectionTitle icon={<Network className="size-4" />}>
               Personnes, lieux et événements liés
             </SectionTitle>
+            {activeProphets.length > 0 && (
+              <section>
+                <SectionTitle icon={<User className="size-4" />}>
+                  Prophètes actifs pendant son règne
+                </SectionTitle>
+                <div className="space-y-2">
+                  {activeProphets.map(association => (
+                    <RelationButton
+                      key={association.personId}
+                      title={association.name}
+                      meta={`${association.contextLabel ? `${association.contextLabel} · ` : ''}${associationStatusLabels[association.status]}${association.periodLabel ? ` · ${association.periodLabel}` : ''}`}
+                      icon={<User className="size-4" />}
+                      onClick={() => onSelectPerson(association.personId)}
+                    />
+                  ))}
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                  Un chevauchement de périodes ne prouve ni une rencontre ni
+                  une présence dans la même ville.
+                </p>
+              </section>
+            )}
+
+            {contemporaryKings.length > 0 && (
+              <section>
+                <SectionTitle icon={<User className="size-4" />}>
+                  Rois contemporains
+                </SectionTitle>
+                <div className="space-y-2">
+                  {contemporaryKings.map(association => (
+                    <RelationButton
+                      key={association.personId}
+                      title={association.name}
+                      meta={`${association.contextLabel ? `${association.contextLabel} · ` : ''}${associationStatusLabels[association.status]}${association.periodLabel ? ` · ${association.periodLabel}` : ''}`}
+                      icon={<User className="size-4" />}
+                      onClick={() => onSelectPerson(association.personId)}
+                    />
+                  ))}
+                </div>
+                <p className="mt-2 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                  Ces contemporanéités sont calculées à partir des périodes
+                  relues. Une interaction n’est indiquée que lorsqu’un passage
+                  la documente directement.
+                </p>
+              </section>
+            )}
             {relatedPlaces.length > 0 && (
               <section>
                 <SectionTitle icon={<MapPin className="size-4" />}>
@@ -852,7 +1045,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               !linkedCharacters.length &&
               !relatedPeople.length &&
               !relatedRoutes.length &&
-              !routePlaces.length && (
+              !routePlaces.length &&
+              !activeProphets.length &&
+              !contemporaryKings.length && (
                 <p className="rounded-2xl border border-dashed border-slate-300 p-5 text-center text-sm text-slate-500">
                   Aucune relation structurée disponible.
                 </p>

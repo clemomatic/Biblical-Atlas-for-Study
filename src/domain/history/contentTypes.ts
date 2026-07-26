@@ -1,4 +1,7 @@
-import type { CertaintyLevel } from '../../types.ts';
+import type {
+  CertaintyLevel,
+  GeographicProvenanceMethod
+} from '../../types.ts';
 import type {
   BiblicalPerson,
   TemporalSpan
@@ -61,18 +64,36 @@ export type HistoricalClaimObject =
 export type HistoricalPredicate =
   | 'birth'
   | 'death'
+  | 'age-at-event'
+  | 'duration'
+  | 'lifespan'
+  | 'timeline-context'
+  | 'historical-event'
   | 'presence'
   | 'residence'
   | 'travel'
   | 'reign'
+  | 'reign-start'
+  | 'reign-end'
   | 'prophecy'
   | 'office'
+  | 'political-event'
   | 'participation'
   | 'family-relation'
   | 'attested-interaction';
 
 export type EvidenceMethod = 'direct' | 'calculated' | 'inferred';
 export type HumanReviewStatus = 'pending' | 'reviewed' | 'rejected';
+
+export type HistoricalQuantityKind = 'age' | 'duration';
+
+export interface HistoricalQuantity {
+  kind: HistoricalQuantityKind;
+  unit: 'years';
+  years: number;
+  approximate?: boolean;
+  uncertaintyYears?: number;
+}
 
 export interface HistoricalEvidence {
   sourceId: string;
@@ -89,7 +110,7 @@ export interface HistoricalEvidence {
 
 export interface HistoricalClaim {
   id: string;
-  workflowStatus: 'reviewed';
+  workflowStatus: 'reviewed' | 'generated';
   /**
    * `generated` existe dans le type pour pouvoir détecter et refuser qu’une
    * relation calculée soit placée manuellement dans `reviewed`.
@@ -101,11 +122,60 @@ export interface HistoricalClaim {
   placeId?: string;
   eventId?: string;
   period?: TemporalSpan;
+  quantity?: HistoricalQuantity;
   certainty: CertaintyLevel;
   evidence: HistoricalEvidence[];
   notes?: string;
 }
+export type HistoricalCalculationFormula =
+  | 'subtract-duration-from-date'
+  | 'add-duration-to-date';
 
+/**
+ * Recette relue qui décrit un calcul sans enregistrer son résultat comme un
+ * fait directement attesté. Le résultat est régénéré de façon déterministe.
+ */
+export interface HistoricalCalculationDefinition {
+  id: string;
+  workflowStatus: 'reviewed';
+  outputClaimId: string;
+  subject: HistoricalEntityReference;
+  predicate: HistoricalPredicate;
+  formula: HistoricalCalculationFormula;
+  dateInputClaimId: string;
+  quantityInputClaimId: string;
+  sourceId: string;
+  shortReference: string;
+  certainty: CertaintyLevel;
+  explanation: string;
+  notes?: string;
+}
+
+export interface HistoricalCalculationTrace {
+  definitionId: string;
+  formula: HistoricalCalculationFormula;
+  inputClaimIds: string[];
+  explanation: string;
+  result: TemporalSpan;
+  uncertaintyYears: number;
+  certaintyBeforeConflict: CertaintyLevel;
+}
+
+export interface HistoricalClaimConflict {
+  status: 'review-required';
+  conflictingClaimIds: string[];
+  explanation: string;
+}
+
+export interface CalculatedHistoricalClaim extends HistoricalClaim {
+  workflowStatus: 'generated';
+  origin: 'generated';
+  period: TemporalSpan;
+  calculation: HistoricalCalculationTrace;
+  conflict?: HistoricalClaimConflict;
+  /** Une divergence interdit explicitement une relation au niveau certain. */
+  eligibleForCertainRelations: boolean;
+}
 export type PresenceType =
   | 'resident'
   | 'visitor'
@@ -150,6 +220,8 @@ export interface ReviewedEventRecord {
     supportingClaimIds?: string[];
     placeMentions?: HistoricalPlaceMention[];
     participantMentions?: HistoricalParticipantMention[];
+    /** Anciennes lignes remplacées uniquement après rapprochement documenté. */
+    supersedesLegacyEventIds?: string[];
     notes?: string;
   };
 }
@@ -184,6 +256,70 @@ export interface ReviewedPlaceRecord {
     /** IDs géographiques explicites ; aucune région n’est déduite du nom. */
     regionIds?: string[];
     certainty?: CertaintyLevel;
+    notes?: string;
+  };
+}
+
+export interface ReviewedRouteRecord {
+  workflowStatus: 'reviewed';
+  sourceIds: string[];
+  route: {
+    id: string;
+    name: string;
+    description: string;
+    period?: TemporalSpan;
+    placeIds: string[];
+    associatedEventIds: string[];
+    personIds: string[];
+    biblicalReferences: string[];
+    certainty: CertaintyLevel;
+    geometryPrecision: 'schematic';
+    routeNature: 'documented' | 'reconstructed' | 'schematic';
+    tracePrecision: 'exact' | 'approximate' | 'indicative-place-sequence';
+    stepOrder: 'source-chronology' | 'documented-sequence';
+    notForExactNavigation: true;
+    notes: string;
+  };
+}
+
+export interface ReviewedGeographicLink {
+  id: string;
+  workflowStatus: 'reviewed';
+  origin: 'reviewed';
+  sourceIds: string[];
+  primarySourceId: string;
+  mapId: string;
+  mapReference: string;
+  subject: HistoricalEntityReference;
+  placeId?: string;
+  eventIds?: string[];
+  personIds?: string[];
+  presenceEpisodeIds?: string[];
+  method: GeographicProvenanceMethod;
+  certainty: CertaintyLevel;
+  sourceMapCertainty: CertaintyLevel;
+  coordinatesChanged: false;
+  limitations: string;
+}
+
+export interface ReviewedTerritoryRecord {
+  workflowStatus: 'reviewed';
+  sourceIds: string[];
+  territory: {
+    id: string;
+    name: string;
+    period: TemporalSpan;
+    capitalPhases: Array<{
+      id: string;
+      placeId: string;
+      period: TemporalSpan;
+      certainty: CertaintyLevel;
+      supportingClaimIds?: string[];
+      notes?: string;
+    }>;
+    certainty: CertaintyLevel;
+    /** Les appendices A6 n’autorisent pas à inventer une géométrie. */
+    geometryStatus: 'not-provided';
     notes?: string;
   };
 }
@@ -249,6 +385,8 @@ export interface DerivedHistoricalRelation {
   relationLevel:
     | 'lifespan-overlap'
     | 'activity-overlap'
+    | 'prophet-during-reign'
+    | 'simultaneous-reigns'
     | 'same-region'
     | 'same-place'
     | 'same-event'
@@ -273,7 +411,11 @@ export interface HistoricalDataset {
   people: ReviewedPersonRecord[];
   events: ReviewedEventRecord[];
   places: ReviewedPlaceRecord[];
+  routes: ReviewedRouteRecord[];
+  geography: ReviewedGeographicLink[];
+  territories: ReviewedTerritoryRecord[];
   claims: HistoricalClaim[];
+  calculations: HistoricalCalculationDefinition[];
   presences: PresenceEpisode[];
 }
 

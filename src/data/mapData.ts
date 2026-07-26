@@ -1,8 +1,17 @@
-import { BiblicalPlace, BiblicalRoute } from '../types';
+import sourceCatalogJson from '../../content/sources/source-catalog.json';
+import type { ReviewedRouteRecord } from '../domain/history/contentTypes';
+import { getTemporalInterval } from '../domain/history/temporal';
+import {
+  BiblicalPlace,
+  BiblicalRoute,
+  GeographicProvenance,
+  SourceReference
+} from '../types';
 import { PROMISED_LAND_PLACES } from './promisedLandPlaces';
 import { PATRIARCH_AND_EXODUS_PLACES } from './patriarchAndExodusPlaces';
 import { CHRISTIAN_EXPANSION_PLACES } from './christianExpansionPlaces';
 import { INSIGHT_PLACE_REFERENCES } from './insightReferences.generated';
+import { getGeographicProvenance } from './geographicProvenance';
 
 /**
  * BIBLICAL PLACES DATABASE
@@ -386,7 +395,8 @@ export const BIBLICAL_PLACES = mergePlaceCorpus(
   ]
 ).map(place => ({
   ...place,
-  encyclopediaReferences: INSIGHT_PLACE_REFERENCES[place.id] || []
+  encyclopediaReferences: INSIGHT_PLACE_REFERENCES[place.id] || [],
+  geographicProvenance: getGeographicProvenance('place', place.id)
 }));
 
 /**
@@ -394,4 +404,121 @@ export const BIBLICAL_PLACES = mergePlaceCorpus(
  * géographique vérifié n'est pas disponible. La carte reste centrée sur les
  * points d'intérêt documentés.
  */
-export const BIBLICAL_ROUTES: BiblicalRoute[] = [];
+const reviewedRouteRecords = Object.entries(
+  import.meta.glob('../../content/reviewed/routes/**/*.json', {
+    eager: true,
+    import: 'default'
+  })
+)
+  .sort(([left], [right]) => left.localeCompare(right))
+  .flatMap(([, value]) =>
+    Array.isArray(value) ? (value as ReviewedRouteRecord[]) : []
+  );
+
+const sourcesById = new Map(
+  (
+    sourceCatalogJson as Array<{
+      id: string;
+      title: string;
+      chapterOrAppendix?: string;
+      url?: string;
+      publication: string;
+    }>
+  ).map(source => [source.id, source])
+);
+
+const routeColors = [
+  '#3f4e78',
+  '#397b78',
+  '#a86f3d',
+  '#687258',
+  '#755b78',
+  '#9a5d54',
+  '#4d7181',
+  '#826b3e'
+];
+
+/**
+ * Projection cartographique des seuls itinéraires relus. Les coordonnées
+ * proviennent des lieux existants ; un lieu sans coordonnées n'est pas inventé.
+ */
+export const BIBLICAL_ROUTES: BiblicalRoute[] = reviewedRouteRecords.flatMap(
+  (record, routeIndex) => {
+    const route = record.route;
+    const points = route.placeIds.flatMap((placeId, pointIndex) => {
+      const place = BIBLICAL_PLACES.find(candidate => candidate.id === placeId);
+      if (!place) return [];
+      return [{
+        id: `${route.id}-step-${pointIndex + 1}`,
+        placeId,
+        name: place.name,
+        coordinates: place.coordinates,
+        stepNumber: pointIndex + 1
+      }];
+    });
+    if (points.length < 2) return [];
+
+    const interval = route.period
+      ? getTemporalInterval(route.period)
+      : undefined;
+    const sources: SourceReference[] = record.sourceIds.flatMap(sourceId => {
+      const source = sourcesById.get(sourceId);
+      if (!source) return [];
+      return [{
+        id: `${route.id}-${source.id}`,
+        label: source.chapterOrAppendix ?? source.title,
+        url: source.url,
+        citation: source.publication
+      }];
+    });
+
+    const reviewedGeographicProvenance = getGeographicProvenance(
+      'route',
+      route.id
+    );
+    const geographicProvenance: GeographicProvenance[] =
+      reviewedGeographicProvenance.length > 0
+        ? reviewedGeographicProvenance
+        : record.sourceIds.flatMap(sourceId => {
+            const source = sourcesById.get(sourceId);
+            if (!source) return [];
+            return [{
+              id: `${route.id}-${sourceId}-geography`,
+              sourceId,
+              sourceLabel: source.chapterOrAppendix ?? source.title,
+              sourceUrl: source.url,
+              mapId: source.chapterOrAppendix ?? source.title,
+              mapReference: source.chapterOrAppendix ?? source.title,
+              method: `${route.routeNature}-route` as GeographicProvenance['method'],
+              certainty: route.certainty,
+              sourceMapCertainty: 'unknown',
+              limitations: route.notes,
+              coordinatesChanged: false
+            }];
+          });
+
+    return [{
+      id: route.id,
+      name: route.name,
+      description: route.description,
+      color: routeColors[routeIndex % routeColors.length],
+      routeCategory: 'jesus-ministry',
+      startYear: interval?.yearMin,
+      endYear: interval?.yearMax,
+      points,
+      biblicalReferences: route.biblicalReferences,
+      associatedPlaceIds: [...new Set(points.map(point => point.placeId))],
+      associatedEventIds: route.associatedEventIds,
+      associatedCharacterIds: route.personIds,
+      sources,
+      certainty: route.certainty,
+      notes: route.notes,
+      geometryPrecision: route.geometryPrecision,
+      routeNature: route.routeNature,
+      tracePrecision: route.tracePrecision,
+      stepOrder: route.stepOrder,
+      geographicProvenance,
+      notForExactNavigation: route.notForExactNavigation
+    }];
+  }
+);

@@ -122,4 +122,6 @@ pnpm test
 
 La CI régénère aussi les sorties et vérifie que `content/generated/` reste inchangé. Toute divergence signale une sortie non reproductible ou un fichier généré non actualisé.
 
-Le corpus historique réel reste vide à ce stade. Les exemples utilisés par les tests sont explicitement des fixtures et ne sont pas intégrés aux données historiques de l’application.
+Le corpus réel A7 est généré séparément des exemples fictifs utilisés par les
+tests. Les fixtures ne sont jamais intégrées aux données historiques de
+l’application.

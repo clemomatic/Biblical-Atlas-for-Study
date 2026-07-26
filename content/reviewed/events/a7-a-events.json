@@ -1,0 +1,752 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-annonce-naissance-jean",
+      "name": "Gabriel annonce la naissance de Jean à Zacharie",
+      "period": {
+        "start": {
+          "yearMin": -3,
+          "yearMax": -3,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -3,
+          "yearMax": -3,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "displayLabel": "3 av. n. è."
+      },
+      "sourceOrder": 1,
+      "category": "Événements Marquants",
+      "description": "Gabriel annonce la naissance de Jean à Zacharie",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem, Temple",
+          "placeId": "jerusalem",
+          "granularity": "area",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Gabriel",
+          "personId": "person-a7-gabriel",
+          "certainty": "certain"
+        },
+        {
+          "label": "Zacharie",
+          "personId": "person-a7-zacharie-pretre",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Luc 1:5-25"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-annonce-naissance-jean-participation-person-a7-gabriel",
+        "claim-event-a7-a-annonce-naissance-jean-participation-person-a7-zacharie-pretre",
+        "claim-event-a7-a-annonce-naissance-jean-presence-person-a7-gabriel-jerusalem",
+        "claim-event-a7-a-annonce-naissance-jean-presence-person-a7-zacharie-pretre-jerusalem",
+        "claim-event-a7-a-annonce-naissance-jean-interaction-person-a7-gabriel-person-a7-zacharie-pretre"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-annonce-naissance-jesus-visite-elisabeth",
+      "name": "Gabriel annonce la naissance de Jésus ; Marie visite Élisabeth",
+      "period": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Vers 2 av. n. è."
+      },
+      "sourceOrder": 2,
+      "category": "Événements Marquants",
+      "description": "Gabriel annonce la naissance de Jésus ; Marie visite Élisabeth",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Nazareth",
+          "placeId": "nazareth",
+          "granularity": "point",
+          "certainty": "certain"
+        },
+        {
+          "label": "Judée",
+          "granularity": "region",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Gabriel",
+          "personId": "person-a7-gabriel",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-mere-jesus",
+          "certainty": "certain"
+        },
+        {
+          "label": "Élisabeth",
+          "personId": "person-a7-elisabeth",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Luc 1:26-56"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-participation-person-a7-gabriel",
+        "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-participation-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-participation-person-a7-elisabeth",
+        "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-presence-person-a7-gabriel-nazareth",
+        "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-presence-person-a7-marie-mere-jesus-nazareth",
+        "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-interaction-person-a7-gabriel-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-annonce-naissance-jesus-visite-elisabeth-interaction-person-a7-marie-mere-jesus-person-a7-elisabeth"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-naissance-jean",
+      "name": "Naissance de Jean le Baptiseur et prophétie de Zacharie",
+      "period": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "certainty": "certain"
+        },
+        "displayLabel": "2 av. n. è."
+      },
+      "sourceOrder": 3,
+      "category": "Événements Marquants",
+      "description": "Naissance de Jean le Baptiseur et prophétie de Zacharie",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Région montagneuse de Judée",
+          "granularity": "region",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jean le Baptiseur",
+          "personId": "event-jean-le-baptiseur-dvgl2c",
+          "certainty": "certain"
+        },
+        {
+          "label": "Zacharie",
+          "personId": "person-a7-zacharie-pretre",
+          "certainty": "certain"
+        },
+        {
+          "label": "Élisabeth",
+          "personId": "person-a7-elisabeth",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Luc 1:57-80"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-naissance-jean-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7-a-naissance-jean-participation-person-a7-zacharie-pretre",
+        "claim-event-a7-a-naissance-jean-participation-person-a7-elisabeth"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-naissance-jesus",
+      "name": "Naissance de Jésus à Bethléem",
+      "period": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "day",
+          "certainty": "probable",
+          "approximate": true,
+          "month": 10,
+          "day": 1
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "day",
+          "certainty": "probable",
+          "approximate": true,
+          "month": 10,
+          "day": 1
+        },
+        "displayLabel": "Vers le 1er octobre 2 av. n. è."
+      },
+      "sourceOrder": 4,
+      "category": "Événements Marquants",
+      "description": "Naissance de Jésus à Bethléem",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Bethléem",
+          "placeId": "bethlehem",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-mere-jesus",
+          "certainty": "certain"
+        },
+        {
+          "label": "Joseph",
+          "personId": "person-a7-joseph-pere-adoptif",
+          "certainty": "certain"
+        }
+      ],
+      "supersedesLegacyEventIds": [
+        "event-naissance-de-jesus-1ydqjh"
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Matthieu 1:1-25",
+        "Luc 2:1-7",
+        "Jean 1:14"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-naissance-jesus-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-a-naissance-jesus-participation-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-naissance-jesus-participation-person-a7-joseph-pere-adoptif",
+        "claim-event-a7-a-naissance-jesus-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+        "claim-event-a7-a-naissance-jesus-presence-person-a7-marie-mere-jesus-bethlehem",
+        "claim-event-a7-a-naissance-jesus-presence-person-a7-joseph-pere-adoptif-bethlehem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-annonce-bergers",
+      "name": "Des bergers apprennent la naissance de Jésus et lui rendent visite",
+      "period": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "day",
+          "certainty": "probable",
+          "approximate": true,
+          "month": 10,
+          "day": 1
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "day",
+          "certainty": "probable",
+          "approximate": true,
+          "month": 10,
+          "day": 1
+        },
+        "displayLabel": "Vers le 1er octobre 2 av. n. è."
+      },
+      "sourceOrder": 5,
+      "category": "Événements Marquants",
+      "description": "Des bergers apprennent la naissance de Jésus et lui rendent visite",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Près de Bethléem",
+          "placeId": "bethlehem",
+          "granularity": "area",
+          "certainty": "certain"
+        },
+        {
+          "label": "Bethléem",
+          "placeId": "bethlehem",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-mere-jesus",
+          "certainty": "certain"
+        },
+        {
+          "label": "Joseph",
+          "personId": "person-a7-joseph-pere-adoptif",
+          "certainty": "certain"
+        },
+        {
+          "label": "des bergers",
+          "certainty": "certain"
+        },
+        {
+          "label": "des anges",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Luc 2:8-20"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-annonce-bergers-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-a-annonce-bergers-participation-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-annonce-bergers-participation-person-a7-joseph-pere-adoptif",
+        "claim-event-a7-a-annonce-bergers-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+        "claim-event-a7-a-annonce-bergers-presence-person-a7-marie-mere-jesus-bethlehem",
+        "claim-event-a7-a-annonce-bergers-presence-person-a7-joseph-pere-adoptif-bethlehem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-circoncision-presentation-temple",
+      "name": "Jésus est circoncis puis présenté au Temple",
+      "period": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la naissance de Jésus en 2 av. n. è."
+      },
+      "sourceOrder": 6,
+      "category": "Événements Marquants",
+      "description": "Jésus est circoncis puis présenté au Temple",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Bethléem",
+          "placeId": "bethlehem",
+          "granularity": "point",
+          "certainty": "certain"
+        },
+        {
+          "label": "Jérusalem, Temple",
+          "placeId": "jerusalem",
+          "granularity": "area",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-mere-jesus",
+          "certainty": "certain"
+        },
+        {
+          "label": "Joseph",
+          "personId": "person-a7-joseph-pere-adoptif",
+          "certainty": "certain"
+        }
+      ],
+      "supersedesLegacyEventIds": [
+        "event-jesus-bebe-presente-au-temple-1usjr0d"
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Luc 2:21-38"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-circoncision-presentation-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-a-circoncision-presentation-temple-participation-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-circoncision-presentation-temple-participation-person-a7-joseph-pere-adoptif",
+        "claim-event-a7-a-circoncision-presentation-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+        "claim-event-a7-a-circoncision-presentation-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+        "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-marie-mere-jesus-bethlehem",
+        "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-marie-mere-jesus-jerusalem",
+        "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-joseph-pere-adoptif-bethlehem",
+        "claim-event-a7-a-circoncision-presentation-temple-presence-person-a7-joseph-pere-adoptif-jerusalem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-astrologues-fuite-egypte-retour",
+      "name": "Visite des astrologues, fuite en Égypte et installation à Nazareth",
+      "period": {
+        "start": {
+          "yearMin": -1,
+          "yearMax": 1,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": -1,
+          "yearMax": 1,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "1 av. n. è. ou 1 de n. è."
+      },
+      "sourceOrder": 7,
+      "category": "Événements Marquants",
+      "description": "Visite des astrologues, fuite en Égypte et installation à Nazareth",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain"
+        },
+        {
+          "label": "Bethléem",
+          "placeId": "bethlehem",
+          "granularity": "point",
+          "certainty": "certain"
+        },
+        {
+          "label": "Égypte",
+          "granularity": "region",
+          "certainty": "certain"
+        },
+        {
+          "label": "Nazareth",
+          "placeId": "nazareth",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-mere-jesus",
+          "certainty": "certain"
+        },
+        {
+          "label": "Joseph",
+          "personId": "person-a7-joseph-pere-adoptif",
+          "certainty": "certain"
+        },
+        {
+          "label": "Hérode le Grand",
+          "personId": "person-a7-herode-le-grand",
+          "certainty": "certain"
+        },
+        {
+          "label": "des astrologues",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Matthieu 2:1-23",
+        "Luc 2:39-40"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-person-a7-joseph-pere-adoptif",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-participation-person-a7-herode-le-grand",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-bethlehem",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-jerusalem",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-bethlehem",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-marie-mere-jesus-nazareth",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-jerusalem",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-bethlehem",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-joseph-pere-adoptif-nazareth",
+        "claim-event-a7-a-astrologues-fuite-egypte-retour-presence-person-a7-herode-le-grand-jerusalem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-jesus-douze-ans-temple",
+      "name": "À douze ans, Jésus échange avec les enseignants au Temple",
+      "period": {
+        "start": {
+          "yearMin": 12,
+          "yearMax": 12,
+          "precision": "season",
+          "certainty": "certain",
+          "season": "spring"
+        },
+        "end": {
+          "yearMin": 12,
+          "yearMax": 12,
+          "precision": "season",
+          "certainty": "certain",
+          "season": "spring"
+        },
+        "displayLabel": "Pâque 12 de n. è."
+      },
+      "sourceOrder": 8,
+      "category": "Événements Marquants",
+      "description": "À douze ans, Jésus échange avec les enseignants au Temple",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem, Temple",
+          "placeId": "jerusalem",
+          "granularity": "area",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-mere-jesus",
+          "certainty": "certain"
+        },
+        {
+          "label": "Joseph",
+          "personId": "person-a7-joseph-pere-adoptif",
+          "certainty": "certain"
+        },
+        {
+          "label": "des enseignants",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Luc 2:41-50"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-jesus-douze-ans-temple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-a-jesus-douze-ans-temple-participation-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-jesus-douze-ans-temple-participation-person-a7-joseph-pere-adoptif",
+        "claim-event-a7-a-jesus-douze-ans-temple-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+        "claim-event-a7-a-jesus-douze-ans-temple-presence-person-a7-marie-mere-jesus-jerusalem",
+        "claim-event-a7-a-jesus-douze-ans-temple-presence-person-a7-joseph-pere-adoptif-jerusalem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-vie-nazareth",
+      "name": "Jésus vit à Nazareth et exerce le métier de charpentier",
+      "period": {
+        "start": {
+          "yearMin": 12,
+          "yearMax": 29,
+          "precision": "range",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 12,
+          "yearMax": 29,
+          "precision": "range",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "De l’enfance au début du ministère"
+      },
+      "sourceOrder": 9,
+      "category": "Événements Marquants",
+      "description": "Jésus vit à Nazareth et exerce le métier de charpentier",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Nazareth",
+          "placeId": "nazareth",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-mere-jesus",
+          "certainty": "certain"
+        },
+        {
+          "label": "Joseph",
+          "personId": "person-a7-joseph-pere-adoptif",
+          "certainty": "certain"
+        },
+        {
+          "label": "frères et sœurs de Jésus",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Matthieu 13:55-56",
+        "Marc 6:3",
+        "Luc 2:51-52"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-vie-nazareth-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-a-vie-nazareth-participation-person-a7-marie-mere-jesus",
+        "claim-event-a7-a-vie-nazareth-participation-person-a7-joseph-pere-adoptif",
+        "claim-event-a7-a-vie-nazareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+        "claim-event-a7-a-vie-nazareth-presence-person-a7-marie-mere-jesus-nazareth",
+        "claim-event-a7-a-vie-nazareth-presence-person-a7-joseph-pere-adoptif-nazareth"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-a"
+    ],
+    "event": {
+      "id": "event-a7-a-debut-ministere-jean",
+      "name": "Jean le Baptiseur commence son ministère",
+      "period": {
+        "start": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "precision": "season",
+          "certainty": "certain",
+          "season": "spring"
+        },
+        "end": {
+          "yearMin": 29,
+          "yearMax": 29,
+          "precision": "season",
+          "certainty": "certain",
+          "season": "spring"
+        },
+        "displayLabel": "Printemps 29 de n. è."
+      },
+      "sourceOrder": 10,
+      "category": "Événements Marquants",
+      "description": "Jean le Baptiseur commence son ministère",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Désert",
+          "granularity": "area",
+          "certainty": "certain"
+        },
+        {
+          "label": "Jourdain",
+          "placeId": "jordan_river",
+          "granularity": "area",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jean le Baptiseur",
+          "personId": "event-jean-le-baptiseur-dvgl2c",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-A.",
+      "biblicalReferences": [
+        "Matthieu 3:1-12",
+        "Marc 1:1-8",
+        "Luc 3:1-18",
+        "Jean 1:6-8"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-a-debut-ministere-jean-participation-event-jean-le-baptiseur-dvgl2c",
+        "claim-event-a7-a-debut-ministere-jean-presence-event-jean-le-baptiseur-dvgl2c-jordan_river"
+      ]
+    }
+  }
+]

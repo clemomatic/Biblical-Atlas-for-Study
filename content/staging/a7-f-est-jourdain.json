@@ -1,0 +1,1763 @@
+[
+  {
+    "id": "staging-a7-f-01-retour-lieu-bapteme-jean",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 1.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Béthanie de l’autre côté du Jourdain",
+      "eventText": "Jésus retourne à l’endroit où Jean baptisait",
+      "biblicalReferences": [
+        "Jean 10:40-42"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 1.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-retour-lieu-bapteme-jean",
+          "name": "Jésus retourne à l’endroit où Jean baptisait",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 1,
+          "category": "Événements Marquants",
+          "description": "Jésus retourne à l’endroit où Jean baptisait",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Béthanie de l’autre côté du Jourdain",
+              "placeId": "place-a7b-bethany-beyond-jordan",
+              "granularity": "area",
+              "certainty": "possible"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "place-a7b-bethany-beyond-jordan",
+            "presenceType": "ministry",
+            "certainty": "possible"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-02-enseignement-villes-peree",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 2.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Pérée",
+      "eventText": "Jésus enseigne dans les villes et les villages en allant vers Jérusalem",
+      "biblicalReferences": [
+        "Luc 13:22"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 2.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-enseignement-villes-peree",
+          "name": "Jésus enseigne dans les villes et les villages en allant vers Jérusalem",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 2,
+          "category": "Événements Marquants",
+          "description": "Jésus enseigne dans les villes et les villages en allant vers Jérusalem",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Pérée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-03-porte-etroite-lamentation-jerusalem",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 3.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Pérée",
+      "eventText": "Jésus exhorte à entrer par la porte étroite et se lamente sur Jérusalem",
+      "biblicalReferences": [
+        "Luc 13:23-35"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 3.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-porte-etroite-lamentation-jerusalem",
+          "name": "Jésus exhorte à entrer par la porte étroite et se lamente sur Jérusalem",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 3,
+          "category": "Événements Marquants",
+          "description": "Jésus exhorte à entrer par la porte étroite et se lamente sur Jérusalem",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Pérée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-04-humilite-invites",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 4.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Probablement en Pérée",
+      "eventText": "Jésus enseigne l’humilité à l’aide de deux exemples",
+      "biblicalReferences": [
+        "Luc 14:1-24"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 4.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-humilite-invites",
+          "name": "Jésus enseigne l’humilité à l’aide de deux exemples",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 4,
+          "category": "Événements Marquants",
+          "description": "Jésus enseigne l’humilité à l’aide de deux exemples",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement en Pérée",
+              "granularity": "region",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-05-cout-etre-disciple",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 5.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Probablement en Pérée",
+      "eventText": "Jésus invite à calculer ce qu’il en coûte d’être disciple",
+      "biblicalReferences": [
+        "Luc 14:25-35"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 5.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-cout-etre-disciple",
+          "name": "Jésus invite à calculer ce qu’il en coûte d’être disciple",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 5,
+          "category": "Événements Marquants",
+          "description": "Jésus invite à calculer ce qu’il en coûte d’être disciple",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement en Pérée",
+              "granularity": "region",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-06-trois-exemples-choses-perdues",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 6.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Probablement en Pérée",
+      "eventText": "Jésus raconte trois exemples concernant ce qui était perdu",
+      "biblicalReferences": [
+        "Luc 15:1-32"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 6.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-trois-exemples-choses-perdues",
+          "name": "Jésus raconte trois exemples concernant ce qui était perdu",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 6,
+          "category": "Événements Marquants",
+          "description": "Jésus raconte trois exemples concernant ce qui était perdu",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement en Pérée",
+              "granularity": "region",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-07-intendant-injuste-riche-lazare",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 7.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Probablement en Pérée",
+      "eventText": "Jésus donne les exemples de l’intendant injuste et de l’homme riche",
+      "biblicalReferences": [
+        "Luc 16:1-31"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 7.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-intendant-injuste-riche-lazare",
+          "name": "Jésus donne les exemples de l’intendant injuste et de l’homme riche",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 7,
+          "category": "Événements Marquants",
+          "description": "Jésus donne les exemples de l’intendant injuste et de l’homme riche",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement en Pérée",
+              "granularity": "region",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-08-trebuchement-pardon-foi",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 8.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Probablement en Pérée",
+      "eventText": "Jésus enseigne au sujet du pardon, de la foi et des causes de chute",
+      "biblicalReferences": [
+        "Luc 17:1-10"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 8.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-trebuchement-pardon-foi",
+          "name": "Jésus enseigne au sujet du pardon, de la foi et des causes de chute",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 8,
+          "category": "Événements Marquants",
+          "description": "Jésus enseigne au sujet du pardon, de la foi et des causes de chute",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement en Pérée",
+              "granularity": "region",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-09-mort-resurrection-lazare",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 9.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Béthanie",
+      "eventText": "Jésus ressuscite Lazare à Béthanie",
+      "biblicalReferences": [
+        "Jean 11:1-46"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 9.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-mort-resurrection-lazare",
+          "name": "Jésus ressuscite Lazare à Béthanie",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 9,
+          "category": "Événements Marquants",
+          "description": "Jésus ressuscite Lazare à Béthanie",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Béthanie",
+              "placeId": "obi-bethany-1",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Lazare",
+              "personId": "person-a7-lazare",
+              "certainty": "certain"
+            },
+            {
+              "label": "Marthe et Marie",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-lazare",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-bethany-1",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-lazare",
+            "placeId": "obi-bethany-1",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "objectPersonId": "person-a7-lazare",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-10-complot-depart-ephraim",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 10.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Jérusalem ; Éphraïm",
+      "eventText": "Un complot vise Jésus, qui se retire à Éphraïm",
+      "biblicalReferences": [
+        "Jean 11:47-54"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 10.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-complot-depart-ephraim",
+          "name": "Un complot vise Jésus, qui se retire à Éphraïm",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 10,
+          "category": "Événements Marquants",
+          "description": "Un complot vise Jésus, qui se retire à Éphraïm",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jérusalem",
+              "placeId": "jerusalem",
+              "granularity": "point",
+              "certainty": "certain"
+            },
+            {
+              "label": "Éphraïm",
+              "placeId": "obi-ephraim-2",
+              "granularity": "point",
+              "certainty": "possible"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "jerusalem",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-ephraim-2",
+            "presenceType": "ministry",
+            "certainty": "possible"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-11-dix-lepreux-venue-royaume",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 11.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Samarie ; Galilée",
+      "eventText": "Jésus guérit dix lépreux et explique la venue du Royaume",
+      "biblicalReferences": [
+        "Luc 17:11-37"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 11.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-dix-lepreux-venue-royaume",
+          "name": "Jésus guérit dix lépreux et explique la venue du Royaume",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 11,
+          "category": "Événements Marquants",
+          "description": "Jésus guérit dix lépreux et explique la venue du Royaume",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Samarie",
+              "granularity": "region",
+              "certainty": "certain"
+            },
+            {
+              "label": "Galilée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-12-veuve-pharisien-collecteur",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 12.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Samarie ou Galilée",
+      "eventText": "Jésus donne les exemples de la veuve et du collecteur d’impôts",
+      "biblicalReferences": [
+        "Luc 18:1-14"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 12.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-veuve-pharisien-collecteur",
+          "name": "Jésus donne les exemples de la veuve et du collecteur d’impôts",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 12,
+          "category": "Événements Marquants",
+          "description": "Jésus donne les exemples de la veuve et du collecteur d’impôts",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Samarie ou Galilée",
+              "granularity": "region",
+              "certainty": "possible"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-13-mariage-divorce",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 13.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Pérée",
+      "eventText": "Jésus enseigne au sujet du mariage et du divorce",
+      "biblicalReferences": [
+        "Matthieu 19:1-12",
+        "Marc 10:1-12"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 13.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-mariage-divorce",
+          "name": "Jésus enseigne au sujet du mariage et du divorce",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 13,
+          "category": "Événements Marquants",
+          "description": "Jésus enseigne au sujet du mariage et du divorce",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Pérée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-14-benediction-enfants",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 14.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Pérée",
+      "eventText": "Jésus bénit des enfants",
+      "biblicalReferences": [
+        "Matthieu 19:13-15",
+        "Marc 10:13-16",
+        "Luc 18:15-17"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 14.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-benediction-enfants",
+          "name": "Jésus bénit des enfants",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 14,
+          "category": "Événements Marquants",
+          "description": "Jésus bénit des enfants",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Pérée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-15-homme-riche-ouvriers-vigne",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 15.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Pérée",
+      "eventText": "Jésus répond à un homme riche et donne l’exemple des ouvriers",
+      "biblicalReferences": [
+        "Matthieu 19:16-20:16",
+        "Marc 10:17-31",
+        "Luc 18:18-30"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 15.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-homme-riche-ouvriers-vigne",
+          "name": "Jésus répond à un homme riche et donne l’exemple des ouvriers",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 15,
+          "category": "Événements Marquants",
+          "description": "Jésus répond à un homme riche et donne l’exemple des ouvriers",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Pérée",
+              "granularity": "region",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-16-troisieme-prediction-mort",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 16.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Probablement en Pérée",
+      "eventText": "Jésus annonce sa mort pour la troisième fois",
+      "biblicalReferences": [
+        "Matthieu 20:17-19",
+        "Marc 10:32-34",
+        "Luc 18:31-34"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 16.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-troisieme-prediction-mort",
+          "name": "Jésus annonce sa mort pour la troisième fois",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 16,
+          "category": "Événements Marquants",
+          "description": "Jésus annonce sa mort pour la troisième fois",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement en Pérée",
+              "granularity": "region",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          }
+        ],
+        "presences": []
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-17-demande-jacques-jean",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 17.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Probablement en Pérée",
+      "eventText": "Jacques et Jean demandent des places dans le Royaume",
+      "biblicalReferences": [
+        "Matthieu 20:20-28",
+        "Marc 10:35-45"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 17.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-demande-jacques-jean",
+          "name": "Jacques et Jean demandent des places dans le Royaume",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 17,
+          "category": "Événements Marquants",
+          "description": "Jacques et Jean demandent des places dans le Royaume",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Probablement en Pérée",
+              "granularity": "region",
+              "certainty": "probable"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Jacques",
+              "personId": "person-a7-jacques-fils-zebedee",
+              "certainty": "certain"
+            },
+            {
+              "label": "Jean",
+              "personId": "event-jean-e4vx5j",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-jacques-fils-zebedee",
+            "certainty": "certain"
+          },
+          {
+            "personId": "event-jean-e4vx5j",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [],
+        "interactions": [
+          {
+            "subjectId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "objectPersonId": "person-a7-jacques-fils-zebedee",
+            "certainty": "certain"
+          },
+          {
+            "subjectId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "objectPersonId": "event-jean-e4vx5j",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "staging-a7-f-18-jericho-aveugles-zachee-mines",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-nwtsty-a7-f"
+    ],
+    "extractionNotes": "Appendice A7-F, tableau, ligne 18.",
+    "payload": {
+      "dateText": "Après la fête de l’Inauguration de 32 et avant la Pâque 33",
+      "placeText": "Jéricho",
+      "eventText": "À Jéricho, Jésus guérit des aveugles et rend visite à Zachée",
+      "biblicalReferences": [
+        "Matthieu 20:29-34",
+        "Marc 10:46-52",
+        "Luc 18:35-19:28"
+      ],
+      "certainty": "certain",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 33,
+          "precision": "range",
+          "certainty": "probable",
+          "approximate": true
+        },
+        "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+      },
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Appendice A7-F, tableau, ligne 18.",
+        "entityIdsVerified": true
+      },
+      "candidate": {
+        "event": {
+          "id": "event-a7-f-jericho-aveugles-zachee-mines",
+          "name": "À Jéricho, Jésus guérit des aveugles et rend visite à Zachée",
+          "period": {
+            "start": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "end": {
+              "yearMin": 32,
+              "yearMax": 33,
+              "precision": "range",
+              "certainty": "probable",
+              "approximate": true
+            },
+            "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+          },
+          "sourceOrder": 18,
+          "category": "Événements Marquants",
+          "description": "À Jéricho, Jésus guérit des aveugles et rend visite à Zachée",
+          "certainty": "certain",
+          "placeMentions": [
+            {
+              "label": "Jéricho",
+              "placeId": "obi-jericho-1",
+              "granularity": "point",
+              "certainty": "certain"
+            }
+          ],
+          "participantMentions": [
+            {
+              "label": "Jésus",
+              "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+              "certainty": "certain"
+            },
+            {
+              "label": "Zachée",
+              "personId": "person-a7-zachee",
+              "certainty": "certain"
+            },
+            {
+              "label": "deux aveugles",
+              "certainty": "certain"
+            }
+          ],
+          "notes": "Ligne factuelle relue de Appendice A7-F."
+        },
+        "participations": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-zachee",
+            "certainty": "certain"
+          }
+        ],
+        "presences": [
+          {
+            "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "placeId": "obi-jericho-1",
+            "presenceType": "ministry",
+            "certainty": "certain"
+          },
+          {
+            "personId": "person-a7-zachee",
+            "placeId": "obi-jericho-1",
+            "presenceType": "visitor",
+            "certainty": "certain"
+          }
+        ],
+        "interactions": [
+          {
+            "subjectId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+            "objectPersonId": "person-a7-zachee",
+            "certainty": "certain"
+          }
+        ]
+      }
+    }
+  }
+]

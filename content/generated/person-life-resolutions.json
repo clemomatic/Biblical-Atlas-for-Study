@@ -1,0 +1,1056 @@
+[
+  {
+    "personId": "event-abraham-mdcznq",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-abraham-mdcznq-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-abraham-mdcznq-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -2018,
+        "yearMax": -2018,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1843,
+        "yearMax": -1843,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2018-1843 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-adam-2peny4",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-adam-2peny4-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-adam-2peny4-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -4026,
+        "yearMax": -4026,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3096,
+        "yearMax": -3096,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "4026-3096 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-asa-1yoxudp",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-asa-1yoxudp-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-asa-1yoxudp-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -937,
+        "yearMax": -937,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 1000-937 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-david-iixp36",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-david-iixp36-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-david-iixp36-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1107,
+        "yearMax": -1107,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1037,
+        "yearMax": -1037,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1107-1037 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-elisee-1r2p3av",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-elisee-1r2p3av-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-elisee-1r2p3av-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -950,
+        "yearMax": -950,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -850,
+        "yearMax": -850,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 950-vers 850 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-ezechias-1ne958h",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-ezechias-1ne958h-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-ezechias-1ne958h-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -771,
+        "yearMax": -771,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -716,
+        "yearMax": -716,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "771-716 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-henoch-5b97vn",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-henoch-5b97vn-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-henoch-5b97vn-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -3404,
+        "yearMax": -3404,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -3039,
+        "yearMax": -3039,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "3404-3039 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-jacob-a7o7cq",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-jacob-a7o7cq-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-jacob-a7o7cq-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1858,
+        "yearMax": -1858,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1711,
+        "yearMax": -1711,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1858-1711 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-jean-e4vx5j",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-jean-e4vx5j-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-jean-e4vx5j-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 100,
+        "yearMax": 100,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 5 av. n. è.-vers 100 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-jean-le-baptiseur-dvgl2c",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-jean-le-baptiseur-dvgl2c-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "2 av. n. è.-vers 32 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-jesus-en-tant-qu-humain-1f4ceyz-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2 av. n. è.-33 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-joseph-11h377b",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-joseph-11h377b-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-joseph-11h377b-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1767,
+        "yearMax": -1767,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1657,
+        "yearMax": -1657,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1767-1657 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-josias-woei8d",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-josias-woei8d-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-josias-woei8d-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -667,
+        "yearMax": -667,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -628,
+        "yearMax": -628,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "667-628 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-manasse-1d4ld4r",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-manasse-1d4ld4r-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-manasse-1d4ld4r-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -728,
+        "yearMax": -728,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -661,
+        "yearMax": -661,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "728-661 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-moise-p4dtf4",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-moise-p4dtf4-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-moise-p4dtf4-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1593,
+        "yearMax": -1593,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1473,
+        "yearMax": -1473,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "1593-1473 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-noe-qdkz7y",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-noe-qdkz7y-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-noe-qdkz7y-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -2970,
+        "yearMax": -2970,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -2020,
+        "yearMax": -2020,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2970-2020 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "event-samuel-8qh05i",
+    "status": "compatible",
+    "candidateClaimIds": [
+      "claim-wcg-1-samuel-8qh05i-lifespan",
+      "claim-wcg-2-samuel-8qh05i-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-samuel-8qh05i-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1180,
+        "yearMax": -1180,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1080,
+        "yearMax": -1080,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1180-vers 1080 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Affirmation compatible offrant les bornes les plus précises."
+  },
+  {
+    "personId": "event-sara-1xft3rw",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-sara-1xft3rw-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-sara-1xft3rw-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -2008,
+        "yearMax": -2008,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1881,
+        "yearMax": -1881,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "2008-1881 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-a7-elisabeth",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-a7-elisabeth-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-a7-elisabeth-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -70,
+        "yearMax": -70,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-a7-joseph-pere-adoptif",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-a7-joseph-pere-adoptif-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-a7-joseph-pere-adoptif-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -25,
+        "yearMax": -25,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 11,
+        "yearMax": 11,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 25 av. n. è.-après 11 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-a7-marie-bethanie",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-a7-marie-bethanie-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-a7-marie-bethanie-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -15,
+        "yearMax": -15,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 15 av. n. è.-après 33 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-a7-marie-mere-jesus",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-a7-marie-mere-jesus-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-a7-marie-mere-jesus-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -20,
+        "yearMax": -20,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 20 av. n. è.-après 33 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-a7-pierre",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-a7-pierre-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-a7-pierre-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 64,
+        "yearMax": 64,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 5 av. n. è.-après 64 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-a7-zacharie-pretre",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-a7-zacharie-pretre-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-a7-zacharie-pretre-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -70,
+        "yearMax": -70,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -2,
+        "yearMax": -2,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-barnabe",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-wcg-barnabe-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-wcg-barnabe-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 55,
+        "yearMax": 55,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 5 av. n. è.-après 55 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-caleb",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-wcg-caleb-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-wcg-caleb-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1552,
+        "yearMax": -1552,
+        "precision": "year",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "1552-vers 1450 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-esther",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-wcg-esther-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-wcg-esther-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -515,
+        "yearMax": -515,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -415,
+        "yearMax": -415,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 515-vers 415 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-etienne",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-wcg-etienne-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-wcg-etienne-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 34,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 5 av. n. è.-vers 33/34 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-joad",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-wcg-joad-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-wcg-joad-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1005,
+        "yearMax": -1005,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -875,
+        "yearMax": -875,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1005-vers 875 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-jonathan",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-wcg-jonathan-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-wcg-jonathan-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1138,
+        "yearMax": -1138,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1078,
+        "yearMax": -1078,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1138-vers 1078 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-josue",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-wcg-josue-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-wcg-josue-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1560,
+        "yearMax": -1560,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1450,
+        "yearMax": -1450,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1560-vers 1450 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-marc",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-wcg-marc-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-wcg-marc-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": 15,
+        "yearMax": 15,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 65,
+        "yearMax": 65,
+        "precision": "after",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 15 de n. è.-après vers 65 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-marie-magdala",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-wcg-marie-magdala-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-wcg-marie-magdala-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -5,
+        "yearMax": -5,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 33,
+        "yearMax": 33,
+        "precision": "after",
+        "approximate": false,
+        "certainty": "certain"
+      },
+      "displayLabel": "vers 5 av. n. è.-après 33 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-mefibosheth",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-wcg-mefibosheth-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-wcg-mefibosheth-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1083,
+        "yearMax": -1083,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1000,
+        "yearMax": -1000,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1083-vers 1000 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-nehemie",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-wcg-nehemie-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-wcg-nehemie-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -485,
+        "yearMax": -485,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -385,
+        "yearMax": -385,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 485-vers 385 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-paul",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-3-wcg-paul-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-3-wcg-paul-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": 3,
+        "yearMax": 3,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": 65,
+        "yearMax": 65,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 3-vers 65 de n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-petite-fille-israelite",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-2-wcg-petite-fille-israelite-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-2-wcg-petite-fille-israelite-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -925,
+        "yearMax": -925,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -825,
+        "yearMax": -825,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 925-vers 825 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-rahab",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-wcg-rahab-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-wcg-rahab-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1500,
+        "yearMax": -1500,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1400,
+        "yearMax": -1400,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1500-vers 1400 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  },
+  {
+    "personId": "person-wcg-rebecca",
+    "status": "resolved",
+    "candidateClaimIds": [
+      "claim-wcg-1-wcg-rebecca-lifespan"
+    ],
+    "selectedClaimId": "claim-wcg-1-wcg-rebecca-lifespan",
+    "selectedSpan": {
+      "start": {
+        "yearMin": -1900,
+        "yearMax": -1900,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "end": {
+        "yearMin": -1775,
+        "yearMax": -1775,
+        "precision": "year",
+        "approximate": true,
+        "certainty": "probable"
+      },
+      "displayLabel": "vers 1900-vers 1775 av. n. è."
+    },
+    "divergentClaimPairs": [],
+    "selectionReason": "Seule affirmation relue disponible."
+  }
+]

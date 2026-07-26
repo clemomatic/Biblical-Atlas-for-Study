@@ -4,6 +4,7 @@ import 'leaflet/dist/leaflet.css';
 import {
   BiblicalMapCategory,
   BiblicalPlace,
+  BiblicalRoute,
   EventData,
   MapLabelLevel,
   TimelinePeriod
@@ -21,11 +22,13 @@ import { EmptyState, StatusNotice } from './ui/AtlasUi';
 
 interface MapViewProps {
   places: BiblicalPlace[];
+  routes: BiblicalRoute[];
   selectedPlace: BiblicalPlace | null;
   selectedEvent: EventData | null;
   visiblePeriod: TimelinePeriod | null;
   isActive: boolean;
   onSelectPlace: (place: BiblicalPlace) => void;
+  onSelectRoute: (route: BiblicalRoute) => void;
   searchQuery: string;
 }
 
@@ -204,17 +207,20 @@ const MAP_LABEL_MIN_ZOOM: Record<MapLabelLevel, number> = {
 
 export const MapView: React.FC<MapViewProps> = ({
   places,
+  routes,
   selectedPlace,
   selectedEvent,
   visiblePeriod,
   isActive,
   onSelectPlace,
+  onSelectRoute,
   searchQuery
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
   const baseMapLayerRef = useRef<L.TileLayer | null>(null);
   const markerLayerRef = useRef<L.LayerGroup | null>(null);
+  const routeLayerRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<Record<string, L.Marker>>({});
   const hasReliefFallbackRef = useRef(false);
 
@@ -223,6 +229,7 @@ export const MapView: React.FC<MapViewProps> = ({
   const [isBaseMapLoading, setIsBaseMapLoading] = useState(true);
   const [mapNotice, setMapNotice] = useState<string | null>(null);
   const [visiblePlaceCount, setVisiblePlaceCount] = useState(0);
+  const [showSchematicRoutes, setShowSchematicRoutes] = useState(true);
   const [isLayerPanelOpen, setIsLayerPanelOpen] = useState(
     getInitialLayerPanelOpen
   );
@@ -239,6 +246,7 @@ export const MapView: React.FC<MapViewProps> = ({
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
     markerLayerRef.current = L.layerGroup().addTo(map);
+    routeLayerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
     const handleZoomEnd = () => setMapZoom(map.getZoom());
     map.on('zoomend', handleZoomEnd);
@@ -248,11 +256,13 @@ export const MapView: React.FC<MapViewProps> = ({
     return () => {
       map.off('zoomend', handleZoomEnd);
       markerLayerRef.current?.clearLayers();
+      routeLayerRef.current?.clearLayers();
       markersRef.current = {};
       baseMapLayerRef.current = null;
       map.remove();
       mapRef.current = null;
       markerLayerRef.current = null;
+      routeLayerRef.current = null;
     };
   }, []);
 
@@ -448,6 +458,57 @@ export const MapView: React.FC<MapViewProps> = ({
   ]);
 
   useEffect(() => {
+    const routeLayer = routeLayerRef.current;
+    if (!routeLayer) return;
+    routeLayer.clearLayers();
+    if (!showSchematicRoutes) return;
+
+    routes
+      .filter(route => {
+        if (!overlapsPeriod(route.startYear, route.endYear, visiblePeriod)) {
+          return false;
+        }
+        if (selectedEvent?.associatedRouteIds?.length) {
+          return selectedEvent.associatedRouteIds.includes(route.id);
+        }
+        return true;
+      })
+      .forEach(route => {
+        if (route.points.length < 2) return;
+        const polyline = L.polyline(
+          route.points.map(point => point.coordinates),
+          {
+            color: route.color,
+            weight: 3,
+            opacity: 0.82,
+            dashArray: '7 7',
+            lineCap: 'round',
+            lineJoin: 'round',
+            interactive: true
+          }
+        );
+        polyline.bindTooltip(
+          `${escapeHtml(route.name)} · tracé schématique`,
+          { sticky: true }
+        );
+        polyline.on('click', () => onSelectRoute(route));
+        polyline.addTo(routeLayer);
+      });
+
+    routeLayer.eachLayer(layer => {
+      if ('bringToBack' in layer && typeof layer.bringToBack === 'function') {
+        layer.bringToBack();
+      }
+    });
+  }, [
+    routes,
+    visiblePeriod,
+    selectedEvent,
+    showSchematicRoutes,
+    onSelectRoute
+  ]);
+
+  useEffect(() => {
     if (
       !isActive ||
       !selectedPlace ||
@@ -469,7 +530,7 @@ export const MapView: React.FC<MapViewProps> = ({
   }, [selectedPlace, isActive]);
 
   return (
-    <div className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">
+    <div data-testid="map-view" className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">
       <div className="absolute left-3 top-3 z-[420] flex max-w-[calc(100%-1.5rem)] flex-col items-start gap-2 sm:left-4 sm:top-4">
         <button
           type="button"
@@ -582,6 +643,48 @@ export const MapView: React.FC<MapViewProps> = ({
                   </button>
                 ))}
               </div>
+            </fieldset>
+
+            <fieldset className="mt-5 border-t border-[var(--color-stone-light)] pt-4">
+              <legend className="text-sm font-semibold text-[var(--color-ink)]">
+                Données d’étude
+              </legend>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={showSchematicRoutes}
+                onClick={() =>
+                  setShowSchematicRoutes(current => !current)
+                }
+                className="mt-2 flex min-h-11 w-full items-center gap-3 bg-[var(--color-paper-muted)] px-3 py-2 text-left"
+              >
+                <span
+                  aria-hidden="true"
+                  className="h-0 w-8 border-t-[3px] border-dashed border-[var(--color-primary)]"
+                />
+                <span className="flex-1">
+                  <span className="block text-sm font-semibold text-[var(--color-ink)]">
+                    Déplacements schématiques
+                  </span>
+                  <span className="block text-xs leading-relaxed text-[var(--color-ink-muted)]">
+                    Relient les lieux cités, sans représenter le chemin exact.
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`h-5 w-9 rounded-full p-0.5 transition-colors ${
+                    showSchematicRoutes
+                      ? 'bg-[var(--color-primary)]'
+                      : 'bg-[var(--color-stone)]'
+                  }`}
+                >
+                  <span
+                    className={`block size-4 rounded-full bg-[var(--color-paper)] transition-transform ${
+                      showSchematicRoutes ? 'translate-x-4' : ''
+                    }`}
+                  />
+                </span>
+              </button>
             </fieldset>
 
             <details className="mt-5 border-t border-[var(--color-stone-light)] pt-4">

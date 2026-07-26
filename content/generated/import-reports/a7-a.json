@@ -1,0 +1,33 @@
+{
+  "appendix": "Appendice A7-A",
+  "sourceId": "source-nwtsty-a7-a",
+  "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/evenements-vie-terrestre-de-jesus/",
+  "reviewedAt": "2026-07-25",
+  "counts": {
+    "stagingRecords": 10,
+    "reviewedEvents": 10,
+    "explicitPeople": 8,
+    "identifiedPlaces": 4,
+    "biblicalReferences": 18,
+    "claims": 64,
+    "presences": 33,
+    "directInteractions": 3,
+    "unresolvedItems": 3
+  },
+  "unresolvedItems": [
+    {
+      "recordId": "staging-a7-a-02-annonce-naissance-jesus-visite-elisabeth",
+      "note": "La localité de Judée où Marie rejoint Élisabeth n’est pas précisée."
+    },
+    {
+      "recordId": "staging-a7-a-03-naissance-jean",
+      "note": "La source indique une région, sans localité ponctuelle."
+    },
+    {
+      "recordId": "staging-a7-a-07-astrologues-fuite-egypte-retour",
+      "note": "Aucun point d’Égypte n’est attribué : le pays seul est indiqué."
+    }
+  ],
+  "routeId": "route-a7-a-chronologie",
+  "derivedRelationsGeneratedSeparately": true
+}

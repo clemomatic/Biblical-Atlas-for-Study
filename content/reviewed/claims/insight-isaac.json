@@ -1,0 +1,195 @@
+[
+  {
+    "id": "claim-insight-isaac-birth-direct",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "birth",
+    "period": {
+      "start": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "1918 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "it-1 « Isaac », section « Quel âge Isaac avait-il quand il fut sevré ? » ; Genèse 21:2-8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Date directement indiquée par l’article ; elle reste distincte des dates recalculées."
+  },
+  {
+    "id": "claim-insight-jacob-birth-direct",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jacob-a7o7cq"
+    },
+    "predicate": "birth",
+    "period": {
+      "start": {
+        "yearMin": -1858,
+        "yearMax": -1858,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1858,
+        "yearMax": -1858,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "1858 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "it-1 « Isaac », naissance d’Ésaü et Jacob ; Genèse 25:22-26.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-insight-isaac-age-at-twins-birth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "age-at-event",
+    "object": {
+      "literal": "Naissance des jumeaux Ésaü et Jacob"
+    },
+    "quantity": {
+      "kind": "age",
+      "unit": "years",
+      "years": 60
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "it-1 « Isaac », naissance d’Ésaü et Jacob ; Genèse 25:22-26.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-insight-isaac-death-direct",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "death",
+    "period": {
+      "start": {
+        "yearMin": -1738,
+        "yearMax": -1738,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1738,
+        "yearMax": -1738,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "1738 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "it-1 « Isaac », fin de la section « Son mariage et sa famille » ; Genèse 35:27-29.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-insight-isaac-age-at-death",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "age-at-event",
+    "object": {
+      "literal": "Décès d’Isaac"
+    },
+    "quantity": {
+      "kind": "age",
+      "unit": "years",
+      "years": 180
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "it-1 « Isaac », fin de la section « Son mariage et sa famille » ; Genèse 35:27-29.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+,
+  {
+    "id": "claim-insight-isaac-lifespan-direct",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-isaac-16b1gw1"
+    },
+    "predicate": "lifespan",
+    "period": {
+      "start": {
+        "yearMin": -1918,
+        "yearMax": -1918,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "end": {
+        "yearMin": -1738,
+        "yearMax": -1738,
+        "precision": "year",
+        "certainty": "certain"
+      },
+      "displayLabel": "1918-1738 av. n. è."
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-insight-isaac",
+        "shortReference": "it-1 « Isaac » : naissance en 1918 et décès en 1738 av. n. è. ; Genèse 21:2-8 ; 35:27-29.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Durée de vie composée uniquement des deux bornes explicitement indiquées par l’article."
+  }
+]

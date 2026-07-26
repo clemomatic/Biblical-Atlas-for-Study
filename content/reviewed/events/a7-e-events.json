@@ -1,0 +1,1059 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-levain-pharisiens-aveugle-bethsaide",
+      "name": "Jésus met en garde contre le levain des pharisiens et guérit un aveugle",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 1,
+      "category": "Événements Marquants",
+      "description": "Jésus met en garde contre le levain des pharisiens et guérit un aveugle",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Mer de Galilée",
+          "placeId": "obi-sea-of-galilee",
+          "granularity": "area",
+          "certainty": "certain"
+        },
+        {
+          "label": "Bethsaïde",
+          "placeId": "obi-bethsaida-2",
+          "granularity": "point",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "les disciples",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 16:5-12",
+        "Marc 8:13-26"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-levain-pharisiens-aveugle-bethsaide-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-levain-pharisiens-aveugle-bethsaide-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+        "claim-event-a7-e-levain-pharisiens-aveugle-bethsaide-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethsaida-2"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-cles-royaume-premiere-prediction-mort",
+      "name": "Jésus parle des clés du Royaume et annonce sa mort",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 2,
+      "category": "Événements Marquants",
+      "description": "Jésus parle des clés du Royaume et annonce sa mort",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Région de Césarée de Philippe",
+          "placeId": "obi-caesarea-philippi",
+          "granularity": "area",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "les disciples",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 16:13-28",
+        "Marc 8:27-9:1",
+        "Luc 9:18-27"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-cles-royaume-premiere-prediction-mort-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-cles-royaume-premiere-prediction-mort-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-transfiguration",
+      "name": "Jésus est transfiguré",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 3,
+      "category": "Événements Marquants",
+      "description": "Jésus est transfiguré",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Probablement le mont Hermon",
+          "placeId": "obi-mount-hermon",
+          "granularity": "area",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "trois disciples",
+          "certainty": "certain"
+        },
+        {
+          "label": "Jéhovah",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 17:1-13",
+        "Marc 9:2-13",
+        "Luc 9:28-36"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-transfiguration-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-transfiguration-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-mount-hermon"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-guerison-garcon-possede",
+      "name": "Jésus guérit un garçon possédé",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 4,
+      "category": "Événements Marquants",
+      "description": "Jésus guérit un garçon possédé",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Région de Césarée de Philippe",
+          "placeId": "obi-caesarea-philippi",
+          "granularity": "area",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 17:14-20",
+        "Marc 9:14-29",
+        "Luc 9:37-43"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-guerison-garcon-possede-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-guerison-garcon-possede-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-deuxieme-prediction-mort",
+      "name": "Jésus annonce de nouveau sa mort",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 5,
+      "category": "Événements Marquants",
+      "description": "Jésus annonce de nouveau sa mort",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Galilée",
+          "granularity": "region",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 17:22-23",
+        "Marc 9:30-32",
+        "Luc 9:43-45"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-deuxieme-prediction-mort-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-impot-piece-poisson",
+      "name": "Jésus fait payer l’impôt avec une pièce trouvée dans un poisson",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 6,
+      "category": "Événements Marquants",
+      "description": "Jésus fait payer l’impôt avec une pièce trouvée dans un poisson",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Capharnaüm",
+          "placeId": "capernaum",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 17:24-27"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-impot-piece-poisson-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-impot-piece-poisson-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-plus-grand-royaume-exemples",
+      "name": "Jésus enseigne qui est le plus grand dans le Royaume",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 7,
+      "category": "Événements Marquants",
+      "description": "Jésus enseigne qui est le plus grand dans le Royaume",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Capharnaüm",
+          "placeId": "capernaum",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "les disciples",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 18:1-35",
+        "Marc 9:33-50",
+        "Luc 9:46-50"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-plus-grand-royaume-exemples-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-plus-grand-royaume-exemples-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-route-galilee-samarie-jerusalem",
+      "name": "Jésus prend la direction de Jérusalem et parle du prix à payer pour le suivre",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "certainty": "certain",
+          "approximate": true
+        },
+        "displayLabel": "Après la Pâque 32 de n. è."
+      },
+      "sourceOrder": 8,
+      "category": "Événements Marquants",
+      "description": "Jésus prend la direction de Jérusalem et parle du prix à payer pour le suivre",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Galilée",
+          "granularity": "region",
+          "certainty": "certain"
+        },
+        {
+          "label": "Samarie",
+          "granularity": "region",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "les disciples",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Matthieu 8:19-22",
+        "Luc 9:51-62",
+        "Jean 7:2-10"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-route-galilee-samarie-jerusalem-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-enseignement-fete-tabernacles",
+      "name": "Jésus enseigne pendant la fête des Tabernacles",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 9,
+      "category": "Événements Marquants",
+      "description": "Jésus enseigne pendant la fête des Tabernacles",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Jean 7:11-52"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-enseignement-fete-tabernacles-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-enseignement-fete-tabernacles-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-lumiere-monde-aveugle-naissance",
+      "name": "Jésus se présente comme la lumière du monde et guérit un aveugle de naissance",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 10,
+      "category": "Événements Marquants",
+      "description": "Jésus se présente comme la lumière du monde et guérit un aveugle de naissance",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Jean 8:12-9:41"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-lumiere-monde-aveugle-naissance-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-lumiere-monde-aveugle-naissance-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-envoi-soixante-dix",
+      "name": "Jésus envoie soixante-dix disciples",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 11,
+      "category": "Événements Marquants",
+      "description": "Jésus envoie soixante-dix disciples",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Probablement en Judée",
+          "granularity": "region",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "les 70 disciples",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Luc 10:1-24"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-envoi-soixante-dix-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-bon-samaritain-marie-marthe",
+      "name": "Jésus donne l’exemple du bon Samaritain et rend visite à Marthe et Marie",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 12,
+      "category": "Événements Marquants",
+      "description": "Jésus donne l’exemple du bon Samaritain et rend visite à Marthe et Marie",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Judée",
+          "granularity": "region",
+          "certainty": "certain"
+        },
+        {
+          "label": "Béthanie",
+          "placeId": "obi-bethany-1",
+          "granularity": "point",
+          "certainty": "certain"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marthe",
+          "personId": "person-a7-marthe",
+          "certainty": "certain"
+        },
+        {
+          "label": "Marie",
+          "personId": "person-a7-marie-bethanie",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Luc 10:25-42"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-bon-samaritain-marie-marthe-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-bon-samaritain-marie-marthe-participation-person-a7-marthe",
+        "claim-event-a7-e-bon-samaritain-marie-marthe-participation-person-a7-marie-bethanie",
+        "claim-event-a7-e-bon-samaritain-marie-marthe-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+        "claim-event-a7-e-bon-samaritain-marie-marthe-presence-person-a7-marthe-obi-bethany-1",
+        "claim-event-a7-e-bon-samaritain-marie-marthe-presence-person-a7-marie-bethanie-obi-bethany-1",
+        "claim-event-a7-e-bon-samaritain-marie-marthe-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-marthe",
+        "claim-event-a7-e-bon-samaritain-marie-marthe-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-marie-bethanie"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-priere-modele-ami-insistant",
+      "name": "Jésus enseigne la prière et donne l’exemple de l’ami insistant",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 13,
+      "category": "Événements Marquants",
+      "description": "Jésus enseigne la prière et donne l’exemple de l’ami insistant",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Probablement en Judée",
+          "granularity": "region",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Luc 11:1-13"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-priere-modele-ami-insistant-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-doigt-dieu-signe-jonas",
+      "name": "Jésus expulse des démons et reparle du signe de Jonas",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 14,
+      "category": "Événements Marquants",
+      "description": "Jésus expulse des démons et reparle du signe de Jonas",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Probablement en Judée",
+          "granularity": "region",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Luc 11:14-36"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-doigt-dieu-signe-jonas-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-repas-pharisien-hypocrisie",
+      "name": "Jésus condamne l’hypocrisie pendant un repas chez un pharisien",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 15,
+      "category": "Événements Marquants",
+      "description": "Jésus condamne l’hypocrisie pendant un repas chez un pharisien",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Probablement en Judée",
+          "granularity": "region",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Luc 11:37-54"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-repas-pharisien-hypocrisie-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-riche-insense-intendant-fidele",
+      "name": "Jésus donne les exemples de l’homme riche et de l’intendant fidèle",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 16,
+      "category": "Événements Marquants",
+      "description": "Jésus donne les exemples de l’homme riche et de l’intendant fidèle",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Probablement en Judée",
+          "granularity": "region",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Luc 12:1-59"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-riche-insense-intendant-fidele-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-infirme-sabbat-graine-levain",
+      "name": "Jésus guérit une femme infirme pendant le sabbat",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "autumn"
+        },
+        "displayLabel": "Fête des Tabernacles 32 de n. è."
+      },
+      "sourceOrder": 17,
+      "category": "Événements Marquants",
+      "description": "Jésus guérit une femme infirme pendant le sabbat",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Probablement en Judée",
+          "granularity": "region",
+          "certainty": "probable"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Luc 13:1-21"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-infirme-sabbat-graine-levain-participation-event-jesus-en-tant-qu-humain-1f4ceyz"
+      ]
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwtsty-a7-e"
+    ],
+    "event": {
+      "id": "event-a7-e-excellent-berger-depart-bethanie-jourdain",
+      "name": "Jésus parle de l’excellent berger puis quitte Jérusalem",
+      "period": {
+        "start": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "winter"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "season",
+          "certainty": "certain",
+          "approximate": true,
+          "season": "winter"
+        },
+        "displayLabel": "Fête de l’Inauguration 32 de n. è."
+      },
+      "sourceOrder": 18,
+      "category": "Événements Marquants",
+      "description": "Jésus parle de l’excellent berger puis quitte Jérusalem",
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain"
+        },
+        {
+          "label": "Béthanie de l’autre côté du Jourdain",
+          "placeId": "place-a7b-bethany-beyond-jordan",
+          "granularity": "area",
+          "certainty": "possible"
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "Jésus",
+          "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+          "certainty": "certain"
+        }
+      ],
+      "notes": "Ligne factuelle relue de Appendice A7-E.",
+      "biblicalReferences": [
+        "Jean 10:1-39"
+      ],
+      "supportingClaimIds": [
+        "claim-event-a7-e-excellent-berger-depart-bethanie-jourdain-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+        "claim-event-a7-e-excellent-berger-depart-bethanie-jourdain-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+        "claim-event-a7-e-excellent-berger-depart-bethanie-jourdain-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+      ]
+    }
+  }
+]

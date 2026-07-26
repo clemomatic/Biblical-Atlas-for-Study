@@ -34,6 +34,10 @@ export interface TemporalBoundary {
   yearMax?: HistoricalYear;
   month?: number;
   day?: number;
+  /** Calendrier explicite lorsque la source ne donne pas une date grégorienne. */
+  calendar?: 'gregorian' | 'hebrew';
+  /** Mois biblique conservé sans conversion spéculative vers le calendrier grégorien. */
+  calendarMonth?: 'nisan' | 'iyar';
   season?: HistoricalSeason;
   precision: TemporalPrecision;
   approximate?: boolean;
@@ -65,11 +69,34 @@ export type PersonActivityType =
   | 'imprisonment'
   | 'other';
 
+export type PersonActivityPhase =
+  | 'standard'
+  | 'co-reign'
+  | 'disputed-reign'
+  | 'limited-reign'
+  | 'fully-established-reign'
+  | 'prophetic-ministry'
+  | 'official-office';
+
+export type BiblicalPersonRole =
+  | 'king'
+  | 'queen'
+  | 'prophet'
+  | 'other';
+
 export interface PersonActivityPeriod extends EntityMetadata {
   id: string;
   type: PersonActivityType;
+  phase?: PersonActivityPhase;
   label: string;
   span: TemporalSpan;
+  /** Royaume ou territoire dans lequel l’activité est exercée. */
+  realmId?: string;
+  /**
+   * Siège administratif associé à l’activité. Ce champ ne constitue pas à lui
+   * seul une preuve de présence : celle-ci exige toujours un PresenceEpisode.
+   */
+  capitalPlaceId?: string;
   supportingClaimIds?: string[];
   associatedEventIds?: string[];
   associatedLocationIds?: string[];
@@ -85,9 +112,18 @@ export interface BiblicalPerson extends EntityMetadata {
   id: string;
   name: string;
   alternateNames?: string[];
+  roles?: BiblicalPersonRole[];
+  historicalCategories?: string[];
+  realmIds?: string[];
   description?: string;
   lifeSpan?: TemporalSpan;
   lifeSpanClaimIds?: string[];
+  /**
+   * Fenêtres dessinées par une source qui situent une personne sans prétendre
+   * représenter sa naissance et sa mort. Elles ne participent jamais au calcul
+   * automatique des contemporains.
+   */
+  sourceTimelineWindows?: SourceTimelineWindow[];
   activityPeriods: PersonActivityPeriod[];
   associatedEventIds?: string[];
   associatedLocationIds?: string[];
@@ -98,6 +134,16 @@ export interface BiblicalPerson extends EntityMetadata {
    * lorsque la frise consommera directement les personnes.
    */
   legacyEventId?: string;
+}
+
+export interface SourceTimelineWindow {
+  id: string;
+  sourceId: string;
+  kind: 'collective-context';
+  label: string;
+  span: TemporalSpan;
+  supportingClaimIds: string[];
+  notes: string;
 }
 
 export type TemporalOverlap = 'definite' | 'possible' | 'none' | 'unknown';

@@ -1,0 +1,25 @@
+{
+  "appendix": "Appendice A7-D",
+  "sourceId": "source-nwtsty-a7-d",
+  "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/jesus-mer-de-galilee/",
+  "reviewedAt": "2026-07-25",
+  "counts": {
+    "stagingRecords": 14,
+    "reviewedEvents": 14,
+    "explicitPeople": 4,
+    "identifiedPlaces": 6,
+    "biblicalReferences": 37,
+    "claims": 33,
+    "presences": 15,
+    "directInteractions": 2,
+    "unresolvedItems": 1
+  },
+  "unresolvedItems": [
+    {
+      "recordId": "staging-a7-d-10-marche-eau-guerisons-genesareth",
+      "note": "Aucun point cartographique distinct et vérifié n’est attribué à Génésareth."
+    }
+  ],
+  "routeId": "route-a7-d-chronologie",
+  "derivedRelationsGeneratedSeparately": true
+}

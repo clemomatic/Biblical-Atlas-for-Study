@@ -1,0 +1,20 @@
+{
+  "appendix": "Appendice A7-H",
+  "sourceId": "source-nwtsty-a7-h",
+  "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/mort-et-resurrection-de-jesus/",
+  "reviewedAt": "2026-07-25",
+  "counts": {
+    "stagingRecords": 15,
+    "reviewedEvents": 15,
+    "explicitPeople": 8,
+    "identifiedPlaces": 3,
+    "biblicalReferences": 54,
+    "claims": 57,
+    "presences": 25,
+    "directInteractions": 8,
+    "unresolvedItems": 0
+  },
+  "unresolvedItems": [],
+  "routeId": "route-a7-h-chronologie",
+  "derivedRelationsGeneratedSeparately": true
+}

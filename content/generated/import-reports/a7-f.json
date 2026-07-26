@@ -1,0 +1,20 @@
+{
+  "appendix": "Appendice A7-F",
+  "sourceId": "source-nwtsty-a7-f",
+  "sourceUrl": "https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/appendice-a/ministere-jesus-est-jourdain/",
+  "reviewedAt": "2026-07-25",
+  "counts": {
+    "stagingRecords": 18,
+    "reviewedEvents": 18,
+    "explicitPeople": 5,
+    "identifiedPlaces": 5,
+    "biblicalReferences": 28,
+    "claims": 33,
+    "presences": 7,
+    "directInteractions": 4,
+    "unresolvedItems": 0
+  },
+  "unresolvedItems": [],
+  "routeId": "route-a7-f-chronologie",
+  "derivedRelationsGeneratedSeparately": true
+}

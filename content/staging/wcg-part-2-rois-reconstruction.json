@@ -1,0 +1,1121 @@
+[
+  {
+    "id": "staging-wcg-2-person-001",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-samuel-8qh05i"
+      ],
+      "names": [
+        "Samuel"
+      ],
+      "historicalCategory": "Royaume uni",
+      "period": {
+        "start": {
+          "yearMin": -1180,
+          "yearMax": -1180,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1080,
+          "yearMax": -1080,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1180-vers 1080 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1180-vers 1080 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-002",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-jonathan"
+      ],
+      "names": [
+        "Jonathan"
+      ],
+      "historicalCategory": "Royaume uni",
+      "period": {
+        "start": {
+          "yearMin": -1138,
+          "yearMax": -1138,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1078,
+          "yearMax": -1078,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1138-vers 1078 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1138-vers 1078 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-003",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-david-iixp36"
+      ],
+      "names": [
+        "David"
+      ],
+      "historicalCategory": "Royaume uni",
+      "period": {
+        "start": {
+          "yearMin": -1107,
+          "yearMax": -1107,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1037,
+          "yearMax": -1037,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1107-1037 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1107-1037 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-004",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-mefibosheth"
+      ],
+      "names": [
+        "Mefibosheth"
+      ],
+      "historicalCategory": "Royaume uni",
+      "period": {
+        "start": {
+          "yearMin": -1083,
+          "yearMax": -1083,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1000,
+          "yearMax": -1000,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1083-vers 1000 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1083-vers 1000 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-005",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-joad"
+      ],
+      "names": [
+        "Joad"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -1005,
+          "yearMax": -1005,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -875,
+          "yearMax": -875,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1005-vers 875 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1005-vers 875 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-006",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-asa-1yoxudp"
+      ],
+      "names": [
+        "Asa"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -1000,
+          "yearMax": -1000,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -937,
+          "yearMax": -937,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 1000-937 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1000-937 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-007",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-elisee-1r2p3av"
+      ],
+      "names": [
+        "Élisée"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -950,
+          "yearMax": -950,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -850,
+          "yearMax": -850,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 950-vers 850 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 950-vers 850 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-008",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-petite-fille-israelite"
+      ],
+      "names": [
+        "La petite fille israélite"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -925,
+          "yearMax": -925,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -825,
+          "yearMax": -825,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 925-vers 825 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 925-vers 825 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-009",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-ezechias-1ne958h"
+      ],
+      "names": [
+        "Ézéchias"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -771,
+          "yearMax": -771,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -716,
+          "yearMax": -716,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "771-716 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "771-716 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-010",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-manasse-1d4ld4r"
+      ],
+      "names": [
+        "Manassé"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -728,
+          "yearMax": -728,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -661,
+          "yearMax": -661,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "728-661 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "728-661 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-011",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-josias-woei8d"
+      ],
+      "names": [
+        "Josias"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -667,
+          "yearMax": -667,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -628,
+          "yearMax": -628,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "667-628 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "667-628 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-012",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-esther"
+      ],
+      "names": [
+        "Esther"
+      ],
+      "historicalCategory": "Après l’Exil",
+      "period": {
+        "start": {
+          "yearMin": -515,
+          "yearMax": -515,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -415,
+          "yearMax": -415,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 515-vers 415 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 515-vers 415 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-person-013",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-nehemie"
+      ],
+      "names": [
+        "Néhémie"
+      ],
+      "historicalCategory": "Après l’Exil",
+      "period": {
+        "start": {
+          "yearMin": -485,
+          "yearMax": -485,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -385,
+          "yearMax": -385,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 485-vers 385 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 485-vers 385 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-collective-001",
+    "entityType": "claim",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Barre collective conservée comme contexte ; elle ne décrit pas les vies individuelles.",
+    "payload": {
+      "recordKind": "collective-context",
+      "label": "Abigaïl et Nathan",
+      "personIds": [
+        "person-wcg-abigail",
+        "person-wcg-nathan"
+      ],
+      "names": [
+        "Abigaïl",
+        "Nathan"
+      ],
+      "historicalCategory": "Royaume uni",
+      "period": {
+        "start": {
+          "yearMin": -1100,
+          "yearMax": -1100,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1000,
+          "yearMax": -1000,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Fenêtre collective vers 1100-vers 1000 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Fenêtre collective vers 1100-vers 1000 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-collective-002",
+    "entityType": "claim",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Barre collective conservée comme contexte ; elle ne décrit pas les vies individuelles.",
+    "payload": {
+      "recordKind": "collective-context",
+      "label": "Élie et la veuve de Sarepta",
+      "personIds": [
+        "event-elie-1nckpyy",
+        "person-wcg-veuve-sarepta"
+      ],
+      "names": [
+        "Élie",
+        "Veuve de Sarepta"
+      ],
+      "historicalCategory": "Royaume divisé",
+      "period": {
+        "start": {
+          "yearMin": -970,
+          "yearMax": -970,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -900,
+          "yearMax": -900,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Fenêtre collective vers 970-vers 900 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Fenêtre collective vers 970-vers 900 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-collective-003",
+    "entityType": "claim",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Barre collective conservée comme contexte ; elle ne décrit pas les vies individuelles.",
+    "payload": {
+      "recordKind": "collective-context",
+      "label": "Daniel, Hanania, Mishael et Azarias",
+      "personIds": [
+        "event-daniel-oyu19r",
+        "person-wcg-hanania",
+        "person-wcg-mishael",
+        "person-wcg-azarias"
+      ],
+      "names": [
+        "Daniel",
+        "Hanania",
+        "Mishael",
+        "Azarias"
+      ],
+      "historicalCategory": "Exil à Babylone",
+      "period": {
+        "start": {
+          "yearMin": -635,
+          "yearMax": -635,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -535,
+          "yearMax": -535,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Fenêtre collective vers 635-vers 535 av. n. è."
+      },
+      "certainty": "possible",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Fenêtre collective vers 635-vers 535 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-001",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-egypte-puissance-1600-part2",
+      "name": "Égypte, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -1600,
+          "yearMax": -1600,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 1600 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 1600 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-002",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-temple-salomon-1027",
+      "name": "Fin de la construction du temple de Salomon",
+      "period": {
+        "start": {
+          "yearMin": -1027,
+          "yearMax": -1027,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -1027,
+          "yearMax": -1027,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "1027 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "1027 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-003",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-division-royaumes-997",
+      "name": "Division du pays d’Israël en deux royaumes",
+      "period": {
+        "start": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -997,
+          "yearMax": -997,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "997 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "997 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-004",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-assyrie-puissance-apres-874",
+      "name": "Assyrie, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -874,
+          "yearMax": -874,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -874,
+          "yearMax": -874,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "Après 874 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "Après 874 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-005",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-conquete-royaume-dix-tribus-740",
+      "name": "Conquête du royaume des dix tribus par l’Assyrie",
+      "period": {
+        "start": {
+          "yearMin": -740,
+          "yearMax": -740,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -740,
+          "yearMax": -740,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "740 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "740 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-006",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-babylone-puissance-625",
+      "name": "Babylone, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -625,
+          "yearMax": -625,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -625,
+          "yearMax": -625,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "625 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "625 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-007",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-destruction-jerusalem-607",
+      "name": "Destruction de Jérusalem par Nabuchodonosor",
+      "period": {
+        "start": {
+          "yearMin": -607,
+          "yearMax": -607,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -607,
+          "yearMax": -607,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "607 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "607 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-008",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-medo-perse-puissance-539",
+      "name": "Empire médo-perse, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -539,
+          "yearMax": -539,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -539,
+          "yearMax": -539,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "539 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "539 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-009",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-liberation-babylone-537",
+      "name": "Libération des Juifs de Babylone",
+      "period": {
+        "start": {
+          "yearMin": -537,
+          "yearMax": -537,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -537,
+          "yearMax": -537,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "537 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "537 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-010",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-reconstruction-temple-515",
+      "name": "Reconstruction du temple de Jérusalem",
+      "period": {
+        "start": {
+          "yearMin": -515,
+          "yearMax": -515,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -515,
+          "yearMax": -515,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "515 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "515 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-2-event-011",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-2"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-reconstruction-murailles-455",
+      "name": "Fin de la reconstruction des murailles de Jérusalem",
+      "period": {
+        "start": {
+          "yearMin": -455,
+          "yearMax": -455,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": -455,
+          "yearMax": -455,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "455 av. n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "455 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  }
+]

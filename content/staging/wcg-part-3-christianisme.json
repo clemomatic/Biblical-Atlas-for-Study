@@ -1,0 +1,870 @@
+[
+  {
+    "id": "staging-wcg-3-person-001",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-a7-zacharie-pretre"
+      ],
+      "names": [
+        "Zacharie"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -70,
+          "yearMax": -70,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 70 av. n. è.-après 2 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-002",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-a7-elisabeth"
+      ],
+      "names": [
+        "Élisabeth"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -70,
+          "yearMax": -70,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 70 av. n. è.-après 2 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 70 av. n. è.-après 2 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-003",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-a7-marie-mere-jesus"
+      ],
+      "names": [
+        "Marie"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -20,
+          "yearMax": -20,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 20 av. n. è.-après 33 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 20 av. n. è.-après 33 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-004",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-a7-joseph-pere-adoptif"
+      ],
+      "names": [
+        "Joseph"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -25,
+          "yearMax": -25,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 11,
+          "yearMax": 11,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 25 av. n. è.-après 11 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 25 av. n. è.-après 11 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-005",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-jean-le-baptiseur-dvgl2c"
+      ],
+      "names": [
+        "Jean le Baptiseur"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 32,
+          "yearMax": 32,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "2 av. n. è.-vers 32 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "2 av. n. è.-vers 32 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-006",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-jesus-en-tant-qu-humain-1f4ceyz"
+      ],
+      "names": [
+        "Jésus"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -2,
+          "yearMax": -2,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "2 av. n. è.-33 de n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "2 av. n. è.-33 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-007",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-a7-pierre"
+      ],
+      "names": [
+        "Pierre"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 64,
+          "yearMax": 64,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 5 av. n. è.-après 64 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 5 av. n. è.-après 64 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-008",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-marie-magdala"
+      ],
+      "names": [
+        "Marie de Magdala"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 5 av. n. è.-après 33 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 5 av. n. è.-après 33 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-009",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-a7-marie-bethanie"
+      ],
+      "names": [
+        "Marie de Béthanie"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -15,
+          "yearMax": -15,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 15 av. n. è.-après 33 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 15 av. n. è.-après 33 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-010",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-etienne"
+      ],
+      "names": [
+        "Étienne"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 34,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 5 av. n. è.-vers 33/34 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 5 av. n. è.-vers 33/34 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-011",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-paul"
+      ],
+      "names": [
+        "Paul"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": 3,
+          "yearMax": 3,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 65,
+          "yearMax": 65,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 3-vers 65 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 3-vers 65 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-012",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-barnabe"
+      ],
+      "names": [
+        "Barnabé"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 55,
+          "yearMax": 55,
+          "precision": "after",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "vers 5 av. n. è.-après 55 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 5 av. n. è.-après 55 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-013",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "person-wcg-marc"
+      ],
+      "names": [
+        "Marc"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": 15,
+          "yearMax": 15,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 65,
+          "yearMax": 65,
+          "precision": "after",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 15 de n. è.-après vers 65 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 15 de n. è.-après vers 65 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-person-014",
+    "entityType": "person",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Ligne individuelle extraite de la table accessible de la frise.",
+    "payload": {
+      "recordKind": "individual-lifespan",
+      "personIds": [
+        "event-jean-e4vx5j"
+      ],
+      "names": [
+        "Jean"
+      ],
+      "historicalCategory": "Débuts du christianisme",
+      "period": {
+        "start": {
+          "yearMin": -5,
+          "yearMax": -5,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 100,
+          "yearMax": 100,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 5 av. n. è.-vers 100 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 5 av. n. è.-vers 100 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-event-001",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-grece-puissance-332",
+      "name": "Grèce, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -332,
+          "yearMax": -332,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -332,
+          "yearMax": -332,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 332 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 332 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-event-002",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-rome-puissance-63-30",
+      "name": "Rome, puissance mondiale",
+      "period": {
+        "start": {
+          "yearMin": -63,
+          "yearMax": -63,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": -30,
+          "yearMax": -30,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 63-vers 30 av. n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 63-vers 30 av. n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-event-003",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-pentecote-33",
+      "name": "Effusion de l’esprit saint à la Pentecôte",
+      "period": {
+        "start": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 33,
+          "yearMax": 33,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "33 de n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "33 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-event-004",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-premiers-gentils-36",
+      "name": "Baptême des premiers Gentils incirconcis",
+      "period": {
+        "start": {
+          "yearMin": 36,
+          "yearMax": 36,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 36,
+          "yearMax": 36,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "36 de n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "36 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-event-005",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-matthieu-evangile-41",
+      "name": "Matthieu écrit le premier Évangile",
+      "period": {
+        "start": {
+          "yearMin": 41,
+          "yearMax": 41,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 41,
+          "yearMax": 41,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 41 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 41 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-event-006",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-destruction-jerusalem-70",
+      "name": "Destruction de Jérusalem et du Temple",
+      "period": {
+        "start": {
+          "yearMin": 70,
+          "yearMax": 70,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "end": {
+          "yearMin": 70,
+          "yearMax": 70,
+          "precision": "year",
+          "approximate": false,
+          "certainty": "certain"
+        },
+        "displayLabel": "70 de n. è."
+      },
+      "certainty": "certain",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "70 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  },
+  {
+    "id": "staging-wcg-3-event-007",
+    "entityType": "event",
+    "workflowStatus": "staging",
+    "sourceHints": [
+      "source-wcg-timeline-part-3"
+    ],
+    "extractionNotes": "Évènement factuel court extrait de la frise.",
+    "payload": {
+      "recordKind": "historical-event",
+      "eventId": "event-wcg-fin-redaction-bible-98",
+      "name": "Fin de la rédaction de la Bible",
+      "period": {
+        "start": {
+          "yearMin": 98,
+          "yearMax": 98,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "end": {
+          "yearMin": 98,
+          "yearMax": 98,
+          "precision": "year",
+          "approximate": true,
+          "certainty": "probable"
+        },
+        "displayLabel": "vers 98 de n. è."
+      },
+      "certainty": "probable",
+      "review": {
+        "status": "reviewed",
+        "reviewedAt": "2026-07-25",
+        "sourceReference": "vers 98 de n. è.",
+        "entityIdsVerified": true
+      }
+    }
+  }
+]

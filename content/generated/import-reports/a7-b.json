@@ -10,7 +10,7 @@
     "mapReadyPlaces": 7,
     "claims": 27,
     "presences": 11,
-    "derivedRelations": 11,
+    "derivedRelations": 12,
     "stagingRecords": 9,
     "reviewedStagingRecords": 9,
     "pendingStagingRecords": 0,
@@ -67,6 +67,7 @@
     "derived-relation-same-place-1w4qejk",
     "derived-relation-same-place-41j03i",
     "derived-relation-same-place-65m5iv",
+    "derived-relation-same-place-mup0yv",
     "derived-relation-same-place-trogpq"
   ],
   "unresolvedItems": [

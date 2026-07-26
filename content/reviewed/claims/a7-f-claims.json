@@ -1,0 +1,1334 @@
+[
+  {
+    "id": "claim-event-a7-f-benediction-enfants-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-benediction-enfants"
+    },
+    "eventId": "event-a7-f-benediction-enfants",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 14.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-complot-depart-ephraim-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-complot-depart-ephraim"
+    },
+    "eventId": "event-a7-f-complot-depart-ephraim",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-complot-depart-ephraim-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "jerusalem",
+    "eventId": "event-a7-f-complot-depart-ephraim",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-complot-depart-ephraim-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-ephraim-2",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-ephraim-2",
+    "eventId": "event-a7-f-complot-depart-ephraim",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 10.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-cout-etre-disciple-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-cout-etre-disciple"
+    },
+    "eventId": "event-a7-f-cout-etre-disciple",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 5.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-demande-jacques-jean-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-event-jean-e4vx5j",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "event-jean-e4vx5j"
+    },
+    "eventId": "event-a7-f-demande-jacques-jean",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-demande-jacques-jean-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-jacques-fils-zebedee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-jacques-fils-zebedee"
+    },
+    "eventId": "event-a7-f-demande-jacques-jean",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-demande-jacques-jean-participation-event-jean-e4vx5j",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jean-e4vx5j"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-demande-jacques-jean"
+    },
+    "eventId": "event-a7-f-demande-jacques-jean",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-demande-jacques-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-demande-jacques-jean"
+    },
+    "eventId": "event-a7-f-demande-jacques-jean",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-demande-jacques-jean-participation-person-a7-jacques-fils-zebedee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-jacques-fils-zebedee"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-demande-jacques-jean"
+    },
+    "eventId": "event-a7-f-demande-jacques-jean",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 17.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-dix-lepreux-venue-royaume-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-dix-lepreux-venue-royaume"
+    },
+    "eventId": "event-a7-f-dix-lepreux-venue-royaume",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 11.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-enseignement-villes-peree-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-enseignement-villes-peree"
+    },
+    "eventId": "event-a7-f-enseignement-villes-peree",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 2.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-homme-riche-ouvriers-vigne-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-homme-riche-ouvriers-vigne"
+    },
+    "eventId": "event-a7-f-homme-riche-ouvriers-vigne",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 15.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-humilite-invites-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-humilite-invites"
+    },
+    "eventId": "event-a7-f-humilite-invites",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 4.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-intendant-injuste-riche-lazare-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-intendant-injuste-riche-lazare"
+    },
+    "eventId": "event-a7-f-intendant-injuste-riche-lazare",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 7.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-jericho-aveugles-zachee-mines-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-zachee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-zachee"
+    },
+    "eventId": "event-a7-f-jericho-aveugles-zachee-mines",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-jericho-aveugles-zachee-mines-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-jericho-aveugles-zachee-mines"
+    },
+    "eventId": "event-a7-f-jericho-aveugles-zachee-mines",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-jericho-aveugles-zachee-mines-participation-person-a7-zachee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-zachee"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-jericho-aveugles-zachee-mines"
+    },
+    "eventId": "event-a7-f-jericho-aveugles-zachee-mines",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-jericho-aveugles-zachee-mines-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-jericho-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-jericho-1",
+    "eventId": "event-a7-f-jericho-aveugles-zachee-mines",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-jericho-aveugles-zachee-mines-presence-person-a7-zachee-obi-jericho-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-zachee"
+    },
+    "predicate": "presence",
+    "placeId": "obi-jericho-1",
+    "eventId": "event-a7-f-jericho-aveugles-zachee-mines",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 18.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-mariage-divorce-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-mariage-divorce"
+    },
+    "eventId": "event-a7-f-mariage-divorce",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 13.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-mort-resurrection-lazare-interaction-event-jesus-en-tant-qu-humain-1f4ceyz-person-a7-lazare",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "attested-interaction",
+    "object": {
+      "entityType": "person",
+      "entityId": "person-a7-lazare"
+    },
+    "eventId": "event-a7-f-mort-resurrection-lazare",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-mort-resurrection-lazare-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-mort-resurrection-lazare"
+    },
+    "eventId": "event-a7-f-mort-resurrection-lazare",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-mort-resurrection-lazare-participation-person-a7-lazare",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-lazare"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-mort-resurrection-lazare"
+    },
+    "eventId": "event-a7-f-mort-resurrection-lazare",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-mort-resurrection-lazare-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-f-mort-resurrection-lazare",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-mort-resurrection-lazare-presence-person-a7-lazare-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-a7-lazare"
+    },
+    "predicate": "presence",
+    "placeId": "obi-bethany-1",
+    "eventId": "event-a7-f-mort-resurrection-lazare",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 9.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-porte-etroite-lamentation-jerusalem-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-porte-etroite-lamentation-jerusalem"
+    },
+    "eventId": "event-a7-f-porte-etroite-lamentation-jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 3.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-retour-lieu-bapteme-jean-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-retour-lieu-bapteme-jean"
+    },
+    "eventId": "event-a7-f-retour-lieu-bapteme-jean",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-retour-lieu-bapteme-jean-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "presence",
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "eventId": "event-a7-f-retour-lieu-bapteme-jean",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "possible",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 1.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-trebuchement-pardon-foi-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-trebuchement-pardon-foi"
+    },
+    "eventId": "event-a7-f-trebuchement-pardon-foi",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 8.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-trois-exemples-choses-perdues-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-trois-exemples-choses-perdues"
+    },
+    "eventId": "event-a7-f-trois-exemples-choses-perdues",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 6.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-troisieme-prediction-mort-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-troisieme-prediction-mort"
+    },
+    "eventId": "event-a7-f-troisieme-prediction-mort",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 16.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  },
+  {
+    "id": "claim-event-a7-f-veuve-pharisien-collecteur-participation-event-jesus-en-tant-qu-humain-1f4ceyz",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-jesus-en-tant-qu-humain-1f4ceyz"
+    },
+    "predicate": "participation",
+    "object": {
+      "entityType": "event",
+      "entityId": "event-a7-f-veuve-pharisien-collecteur"
+    },
+    "eventId": "event-a7-f-veuve-pharisien-collecteur",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 33,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "Après la fête de l’Inauguration de 32 et avant la Pâque 33"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwtsty-a7-f",
+        "shortReference": "Appendice A7-F, tableau, ligne 12.",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ]
+  }
+]

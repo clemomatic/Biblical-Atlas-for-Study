@@ -8,10 +8,11 @@ Cette chaîne sépare trois états qui ne doivent jamais être confondus :
 2. `reviewed` contient uniquement des données relues et sourcées ;
 3. `generated` contient des relations recalculables produites par un script.
 
-Le corpus historique actuel de l’application n’est pas déplacé par ce lot. Les
-nouveaux dossiers réels sont volontairement vides. Le seul contenu démonstratif
-se trouve sous `content/test-fixtures` et porte partout des IDs et libellés
-fictifs.
+Le corpus historique existant reste compatible avec la frise. Le premier corpus
+réel relu couvre les appendices A7-A à A7-H ; son processus et sa couverture
+sont détaillés dans
+[`imports/a7-calendar.md`](./imports/a7-calendar.md). Le contenu
+`content/test-fixtures` reste strictement fictif et isolé des données réelles.
 
 ## Organisation
 
@@ -24,6 +25,7 @@ content/
 │   ├── people/
 │   ├── events/
 │   ├── places/
+│   ├── routes/
 │   ├── claims/
 │   └── presences/
 ├── generated/
@@ -221,6 +223,15 @@ Une association générale entre une personne et un lieu ne suffit pas à créer
 pnpm historical:validate
 pnpm historical:promote -- --verify-output
 pnpm historical:generate
+pnpm historical:build:a7
+pnpm historical:check:a7
+pnpm historical:report:a7
+pnpm historical:build:b10
+pnpm historical:report:b10
+pnpm historical:check:b10
+pnpm historical:build:wcg
+pnpm historical:report:wcg
+pnpm historical:check:wcg
 pnpm historical:report:a7b
 pnpm test
 pnpm check
@@ -250,6 +261,56 @@ La convention des années reste celle de
 [`historical-temporal-model.md`](historical-temporal-model.md) :
 `-1` signifie 1 av. n. è., `1` signifie 1 de n. è. et `0` est interdit.
 
+## Frises « Marche courageusement avec Dieu »
+
+Chaque partie possède son propre fichier de `staging`. Une ligne individuelle
+peut produire un claim `lifespan`. Une barre commune à plusieurs personnes
+produit exclusivement un claim `timeline-context` et une
+`sourceTimelineWindow` : elle ne peut donc alimenter ni une naissance, ni un
+décès, ni une relation de contemporanéité.
+
+Les claims de durée de vie restent séparés par source. Le fichier généré
+`content/generated/person-life-resolutions.json` sélectionne la donnée la plus
+précise uniquement si toutes les affirmations sont compatibles. Une divergence
+laisse la sélection vide et apparaît dans le rapport de migration.
+
+La vue de contrôle visuel est accessible avec :
+
+```text
+/historical-overlaps
+
+Le paramètre de compatibilité `?control=historical-overlaps` reste également
+accepté.
+```
+
+Elle compare, partie par partie, les durées de vie, les activités, les fenêtres
+collectives et le nombre de contemporains calculés. Elle sert au contrôle
+éditorial et ne modifie aucune donnée.
+
+## Provenance géographique des appendices B
+
+Une carte des appendices B est traitée comme une source géographique, jamais
+comme une image à republier. Chaque petit lot doit produire :
+
+- une entrée du catalogue ;
+- un inventaire exhaustif dans `staging` ;
+- des rapprochements relus dans `reviewed/geography` ;
+- un rapport machine sous `generated` ;
+- une liste explicite des lieux ou régions encore sans ID.
+
+`ReviewedGeographicLink` conserve la carte, la référence, la méthode, la
+certitude et les limites. Un rapprochement cartographique ne modifie jamais une
+coordonnée par lui-même. Une coordonnée ne peut être changée que dans un lot
+distinct, avec justification documentée.
+
+Une présence n’est pas créée parce qu’un nom figure sur une carte. Les liens
+vers un événement réutilisent uniquement des `PresenceEpisode` déjà relus. De
+même, une route exige un déplacement explicite et un ordre de lieux documenté.
+Sa nature (`documented`, `reconstructed` ou `schematic`), sa précision et
+l’origine de l’ordre des étapes doivent être indiquées.
+
+Le pilote B10 et ses limites sont documentés dans
+[`historical-b10-geography.md`](historical-b10-geography.md).
 ## Jeu de test fictif
 
 `content/test-fixtures` contient :
@@ -279,3 +340,22 @@ Avant de déplacer une donnée vers `reviewed`, vérifier :
 - [ ] les claims d’entrée et l’explication de tout calcul ;
 - [ ] l’absence de long extrait ou d’image reproduite ;
 - [ ] le retrait de l’ancienne entrée `staging`.
+
+## Contr&ocirc;le de consolidation avant fusion
+
+Apr&egrave;s chaque petit lot relu :
+
+```bash
+pnpm historical:validate
+pnpm historical:generate
+pnpm quality:report
+pnpm test
+pnpm build
+pnpm test:e2e
+pnpm performance:report
+pnpm check
+```
+
+`quality:check` compare le rapport versionn&eacute; au corpus courant. Les lignes en `staging` restent un backlog visible mais ne sont jamais consid&eacute;r&eacute;es comme relues. Une anomalie dans `reviewed`, un ID orphelin, une relation insuffisamment prouv&eacute;e ou un calcul non reproductible bloque la fusion.
+
+Les certitudes `certain`, `probable`, `possible` et `unknown` ne remplacent pas la m&eacute;thode de preuve. `direct`, `calculated` et `inferred` d&eacute;crivent comment une affirmation a &eacute;t&eacute; obtenue ; `generated-overlap` d&eacute;crit une relation calcul&eacute;e. Ces dimensions sont pr&eacute;sent&eacute;es s&eacute;par&eacute;ment dans l'interface.

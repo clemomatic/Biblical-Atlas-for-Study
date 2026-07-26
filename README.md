@@ -18,6 +18,25 @@ pnpm dev
 
 L’application est ensuite disponible sur `http://localhost:3000`.
 
+### Éditeur historique local
+
+L’application publique reste strictement en lecture seule. Pour préparer un
+petit lot de données en développement :
+
+```powershell
+$env:VITE_ENABLE_EDITOR='true'
+pnpm dev
+```
+
+Ouvrez ensuite `http://localhost:3000/edition`. L’éditeur écrit uniquement dans
+`content/staging/editor`, propose un export JSON de secours et ne peut jamais
+promouvoir lui-même une donnée dans `reviewed`. Le build public retire le
+composant et l’API locale ; `pnpm editor:check-public` le vérifie après
+`pnpm build`.
+
+Le format des propositions, les contrôles et la procédure de relecture sont
+décrits dans [`docs/local-historical-editor.md`](docs/local-historical-editor.md).
+
 ### Installation comme application
 
 Le build de production est une Progressive Web App (PWA). Sur Chrome et Edge,
@@ -60,6 +79,9 @@ pnpm check
 
 ### Frise
 
+- rubans biographiques segmentés distinguant vie, règne, prophétie, ministère,
+  fonction, voyage, résidence et emprisonnement ;
+- âge et activité des participants calculés lors de la sélection d’un événement ;
 - zoom logarithmique, déplacement horizontal et vue annuelle avec repères mensuels ;
 - événements toujours distincts, sans fusion visuelle ;
 - modes de densité pour ajuster la quantité de texte affichée ;
@@ -184,3 +206,17 @@ src/
 Les tuiles de fond sont fournies par CARTO, Stadia Maps, Stamen et
 OpenStreetMap. Leur premier chargement nécessite une connexion réseau ; les
 zones déjà visitées peuvent ensuite être relues depuis le cache hors ligne.
+
+## Qualit&eacute; et transparence historique
+
+Chaque fiche contient une section **Sources et m&eacute;thode** qui distingue fait directement attest&eacute;, calcul, inf&eacute;rence et relation g&eacute;n&eacute;r&eacute;e. Les limites et la derni&egrave;re v&eacute;rification restent visibles, y compris pour les anciennes fiches dont la provenance n'est pas encore normalis&eacute;e.
+
+```bash
+pnpm quality:report       # inventaire d&eacute;terministe du corpus
+pnpm quality:check        # v&eacute;rification du rapport versionn&eacute;
+pnpm test:e2e             # parcours Chromium desktop et mobile
+pnpm performance:report   # build et mesures locales
+pnpm performance:check    # seuils utilis&eacute;s par la CI
+```
+
+Le bilan courant, la matrice de tests, les mesures et les limites connues sont document&eacute;s dans [`docs/quality-transparency-performance.md`](docs/quality-transparency-performance.md). Le processus d'ajout et de validation d'une source reste d&eacute;crit dans [`docs/historical-data-workflow.md`](docs/historical-data-workflow.md).

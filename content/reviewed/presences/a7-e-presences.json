@@ -1,0 +1,464 @@
+[
+  {
+    "id": "presence-event-a7-e-bon-samaritain-marie-marthe-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-bethany-1",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "displayLabel": "Fête des Tabernacles 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-bon-samaritain-marie-marthe"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-bon-samaritain-marie-marthe-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethany-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-bon-samaritain-marie-marthe-person-a7-marie-bethanie-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marie-bethanie",
+    "placeId": "obi-bethany-1",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "displayLabel": "Fête des Tabernacles 32 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-bon-samaritain-marie-marthe"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-bon-samaritain-marie-marthe-presence-person-a7-marie-bethanie-obi-bethany-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-bon-samaritain-marie-marthe-person-a7-marthe-obi-bethany-1",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-marthe",
+    "placeId": "obi-bethany-1",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "displayLabel": "Fête des Tabernacles 32 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-bon-samaritain-marie-marthe"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-bon-samaritain-marie-marthe-presence-person-a7-marthe-obi-bethany-1"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-cles-royaume-premiere-prediction-mort-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-caesarea-philippi",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-cles-royaume-premiere-prediction-mort"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-cles-royaume-premiere-prediction-mort-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-enseignement-fete-tabernacles-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "displayLabel": "Fête des Tabernacles 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-enseignement-fete-tabernacles"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-enseignement-fete-tabernacles-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-excellent-berger-depart-bethanie-jourdain-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "winter"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "winter"
+      },
+      "displayLabel": "Fête de l’Inauguration 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-excellent-berger-depart-bethanie-jourdain"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-excellent-berger-depart-bethanie-jourdain-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-excellent-berger-depart-bethanie-jourdain-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "place-a7b-bethany-beyond-jordan",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "winter"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "winter"
+      },
+      "displayLabel": "Fête de l’Inauguration 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-e-excellent-berger-depart-bethanie-jourdain"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-excellent-berger-depart-bethanie-jourdain-presence-event-jesus-en-tant-qu-humain-1f4ceyz-place-a7b-bethany-beyond-jordan"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-guerison-garcon-possede-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-caesarea-philippi",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-guerison-garcon-possede"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-guerison-garcon-possede-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-caesarea-philippi"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-impot-piece-poisson-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-impot-piece-poisson"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-impot-piece-poisson-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-levain-pharisiens-aveugle-bethsaide-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethsaida-2",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-bethsaida-2",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7-e-levain-pharisiens-aveugle-bethsaide"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-levain-pharisiens-aveugle-bethsaide-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-bethsaida-2"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-levain-pharisiens-aveugle-bethsaide-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-levain-pharisiens-aveugle-bethsaide"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-levain-pharisiens-aveugle-bethsaide-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-lumiere-monde-aveugle-naissance-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "jerusalem",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "certain",
+        "approximate": true,
+        "season": "autumn"
+      },
+      "displayLabel": "Fête des Tabernacles 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-lumiere-monde-aveugle-naissance"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-lumiere-monde-aveugle-naissance-presence-event-jesus-en-tant-qu-humain-1f4ceyz-jerusalem"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-plus-grand-royaume-exemples-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-e-plus-grand-royaume-exemples"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-plus-grand-royaume-exemples-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-e-transfiguration-event-jesus-en-tant-qu-humain-1f4ceyz-obi-mount-hermon",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-mount-hermon",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7-e-transfiguration"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-e-transfiguration-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-mount-hermon"
+    ]
+  }
+]

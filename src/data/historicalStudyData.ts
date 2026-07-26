@@ -1,21 +1,30 @@
+import calculatedClaimsJson from '../../content/generated/calculated-claims.json';
 import historicalIndexJson from '../../content/generated/historical-index.json';
+import personLifeResolutionsJson from '../../content/generated/person-life-resolutions.json';
 import relationsJson from '../../content/generated/relations.json';
 import sourceCatalogJson from '../../content/sources/source-catalog.json';
 import type {
+  CalculatedHistoricalClaim,
   DerivedHistoricalRelation,
   HistoricalClaim,
   ReviewedEventRecord,
   ReviewedPersonRecord,
   ReviewedPlaceRecord,
+  ReviewedRouteRecord,
+  ReviewedTerritoryRecord,
   SourceCatalogEntry
 } from '../domain/history/contentTypes';
+import type { PersonLifeResolution } from '../domain/history/personClaimResolution';
 import type { HistoricalIndexBundle } from '../domain/history/historicalIndex';
+import type { EntityMethodologyCatalog } from '../domain/history/entityMethodology';
 import {
   createHistoricalSnapshotCatalog,
   mergeReviewedPeople
 } from '../domain/history/historicalSnapshot';
+import type { GeographicProvenance } from '../types';
 import { BIBLICAL_PEOPLE } from './biblicalPeople';
-import { BIBLICAL_PLACES } from './mapData';
+import { getGeographicProvenance } from './geographicProvenance';
+import { BIBLICAL_PLACES, BIBLICAL_ROUTES } from './mapData';
 
 const flattenJsonModules = <T>(
   modules: Record<string, unknown>
@@ -48,6 +57,18 @@ const reviewedClaims = flattenJsonModules<HistoricalClaim>(
     import: 'default'
   })
 );
+const reviewedRoutes = flattenJsonModules<ReviewedRouteRecord>(
+  import.meta.glob('../../content/reviewed/routes/**/*.json', {
+    eager: true,
+    import: 'default'
+  })
+);
+const reviewedTerritories = flattenJsonModules<ReviewedTerritoryRecord>(
+  import.meta.glob('../../content/reviewed/territories/**/*.json', {
+    eager: true,
+    import: 'default'
+  })
+);
 
 export const HISTORICAL_SOURCE_CATALOG =
   sourceCatalogJson as unknown as SourceCatalogEntry[];
@@ -55,16 +76,238 @@ export const REVIEWED_HISTORICAL_PEOPLE = reviewedPeople;
 export const REVIEWED_HISTORICAL_EVENTS = reviewedEvents;
 export const REVIEWED_HISTORICAL_PLACES = reviewedPlaces;
 export const REVIEWED_HISTORICAL_CLAIMS = reviewedClaims;
+export const CALCULATED_HISTORICAL_CLAIMS =
+  calculatedClaimsJson as unknown as CalculatedHistoricalClaim[];
+
+export interface HistoricalCalculationDetail {
+  claim: CalculatedHistoricalClaim;
+  inputClaims: HistoricalClaim[];
+  source?: SourceCatalogEntry;
+}
+
+export const getCalculatedDatesForPerson = (
+  personId: string
+): HistoricalCalculationDetail[] =>
+  CALCULATED_HISTORICAL_CLAIMS
+    .filter(
+      claim =>
+        claim.subject.entityType === 'person' &&
+        claim.subject.entityId === personId
+    )
+    .map(claim => ({
+      claim,
+      inputClaims: claim.calculation.inputClaimIds
+        .map(claimId =>
+          REVIEWED_HISTORICAL_CLAIMS.find(candidate => candidate.id === claimId)
+        )
+        .filter((input): input is HistoricalClaim => Boolean(input)),
+      source: HISTORICAL_SOURCE_CATALOG.find(
+        source => source.id === claim.evidence[0]?.sourceId
+      )
+    }));
+export const REVIEWED_HISTORICAL_TERRITORIES = reviewedTerritories;
 export const DERIVED_HISTORICAL_RELATIONS =
   relationsJson as unknown as DerivedHistoricalRelation[];
 export const HISTORICAL_INDEX =
   historicalIndexJson as unknown as HistoricalIndexBundle;
+export const PERSON_LIFE_RESOLUTIONS =
+  personLifeResolutionsJson as unknown as PersonLifeResolution[];
 
-export const HISTORICAL_PEOPLE = mergeReviewedPeople(
+const sourceIdsByRecord = <T extends { sourceIds: string[] }>(
+  records: T[],
+  getId: (record: T) => string
+): Record<string, string[]> =>
+  Object.fromEntries(records.map(record => [getId(record), record.sourceIds]));
+
+export const HISTORICAL_METHODOLOGY_CATALOG: EntityMethodologyCatalog = {
+  claims: REVIEWED_HISTORICAL_CLAIMS,
+  calculatedClaims: CALCULATED_HISTORICAL_CLAIMS,
+  relations: DERIVED_HISTORICAL_RELATIONS,
+  sources: HISTORICAL_SOURCE_CATALOG,
+  sourceIdsByEntity: {
+    person: sourceIdsByRecord(
+      REVIEWED_HISTORICAL_PEOPLE,
+      record => record.person.id
+    ),
+    event: sourceIdsByRecord(
+      REVIEWED_HISTORICAL_EVENTS,
+      record => record.event.id
+    ),
+    place: sourceIdsByRecord(
+      REVIEWED_HISTORICAL_PLACES,
+      record => record.place.id
+    )
+  }
+};
+
+const mergedHistoricalPeople = mergeReviewedPeople(
   BIBLICAL_PEOPLE,
   REVIEWED_HISTORICAL_PEOPLE,
   HISTORICAL_SOURCE_CATALOG
 );
+
+const routeIdsByEventId = new Map<string, string[]>();
+reviewedRoutes.forEach(record => {
+  record.route.associatedEventIds.forEach(eventId => {
+    routeIdsByEventId.set(eventId, [
+      ...(routeIdsByEventId.get(eventId) ?? []),
+      record.route.id
+    ]);
+  });
+});
+
+const unique = (values: Array<string | undefined>): string[] =>
+  [...new Set(values.filter((value): value is string => Boolean(value)))];
+
+const uniqueGeographicProvenance = (
+  values: GeographicProvenance[]
+): GeographicProvenance[] =>
+  [...new Map(values.map(value => [value.id, value])).values()];
+
+/**
+ * Les fiches existantes restent la base canonique. Les associations A7
+ * explicitement relues sont ajoutées sans écraser leurs métadonnées.
+ */
+export const HISTORICAL_PEOPLE = mergedHistoricalPeople.map(person => {
+  const relatedEvents = REVIEWED_HISTORICAL_EVENTS.filter(record =>
+    record.event.participantMentions?.some(
+      participant => participant.personId === person.id
+    )
+  );
+
+  const associatedEventIds = unique([
+    ...(person.associatedEventIds ?? []),
+    ...relatedEvents.map(record => record.event.id)
+  ]);
+  const associatedLocationIds = unique([
+    ...(person.associatedLocationIds ?? []),
+    ...relatedEvents.flatMap(record =>
+      (record.event.placeMentions ?? []).map(mention => mention.placeId)
+    )
+  ]);
+  const associatedRouteIds = unique([
+    ...(person.associatedRouteIds ?? []),
+    ...relatedEvents.flatMap(
+      record => routeIdsByEventId.get(record.event.id) ?? []
+    )
+  ]);
+  const geographicProvenance = uniqueGeographicProvenance([
+    ...(person.geographicProvenance ?? []),
+    ...associatedEventIds.flatMap(eventId =>
+      getGeographicProvenance('event', eventId)
+    ),
+    ...associatedLocationIds.flatMap(placeId =>
+      BIBLICAL_PLACES.find(place => place.id === placeId)
+        ?.geographicProvenance ?? []
+    ),
+    ...associatedRouteIds.flatMap(routeId =>
+      BIBLICAL_ROUTES.find(route => route.id === routeId)
+        ?.geographicProvenance ?? []
+    )
+  ]);
+
+  return {
+    ...person,
+    associatedEventIds,
+    associatedLocationIds,
+    associatedRouteIds,
+    geographicProvenance
+  };
+});
+
+export type HistoricalPersonAssociationStatus =
+  | 'calculated-overlap'
+  | 'biblically-attested'
+  | 'documented-interaction';
+
+export interface HistoricalPersonAssociation {
+  personId: string;
+  name: string;
+  contextLabel?: string;
+  status: HistoricalPersonAssociationStatus;
+  certainty: DerivedHistoricalRelation['certainty'];
+  periodLabel?: string;
+  supportingClaimIds: string[];
+}
+
+const relationsForPair = (leftId: string, rightId: string) =>
+  DERIVED_HISTORICAL_RELATIONS.filter(
+    relation =>
+      relation.subjectIds.includes(leftId) &&
+      relation.subjectIds.includes(rightId)
+  );
+
+const associationStatus = (
+  relations: DerivedHistoricalRelation[]
+): HistoricalPersonAssociationStatus =>
+  relations.some(
+    relation => relation.relationLevel === 'documented-interaction'
+  )
+    ? 'documented-interaction'
+    : relations.some(relation => relation.relationLevel === 'same-event')
+      ? 'biblically-attested'
+      : 'calculated-overlap';
+
+const associationsForRolePair = (
+  personId: string,
+  ownRoles: Array<'king' | 'queen' | 'prophet'>,
+  otherRole: 'king' | 'queen' | 'prophet'
+): HistoricalPersonAssociation[] => {
+  const person = HISTORICAL_PEOPLE.find(candidate => candidate.id === personId);
+  if (!person || !person.roles?.some(role => ownRoles.includes(role as never))) {
+    return [];
+  }
+  const relationByOtherId = new Map<string, DerivedHistoricalRelation>();
+  DERIVED_HISTORICAL_RELATIONS.filter(
+    relation =>
+      relation.relationLevel === 'prophet-during-reign' &&
+      relation.subjectIds.includes(personId)
+  ).forEach(relation => {
+    const otherId = relation.subjectIds.find(id => id !== personId);
+    if (otherId) relationByOtherId.set(otherId, relation);
+  });
+
+  return [...relationByOtherId.entries()]
+    .flatMap(([otherId, overlapRelation]) => {
+      const other = HISTORICAL_PEOPLE.find(candidate => candidate.id === otherId);
+      if (!other?.roles?.includes(otherRole)) return [];
+      const pairRelations = relationsForPair(personId, otherId);
+      return [
+        {
+          personId: otherId,
+          name: other.name,
+          contextLabel: other.realmIds?.includes('territory-kingdom-judah')
+            ? 'Royaume de Juda'
+            : other.realmIds?.includes('territory-kingdom-israel')
+              ? 'Royaume d’Israël'
+              : other.roles?.includes('prophet')
+                ? 'Ministère prophétique'
+                : undefined,
+          status: associationStatus(pairRelations),
+          certainty: overlapRelation.certainty,
+          periodLabel: overlapRelation.temporalOverlap?.displayLabel,
+          supportingClaimIds: [
+            ...new Set(
+              pairRelations.flatMap(relation => relation.supportingClaimIds)
+            )
+          ]
+        }
+      ];
+    })
+    .sort((left, right) => left.name.localeCompare(right.name));
+};
+
+export const getActiveProphetsDuringReign = (
+  kingId: string
+): HistoricalPersonAssociation[] =>
+  associationsForRolePair(kingId, ['king', 'queen'], 'prophet');
+
+export const getContemporaryKingsForProphet = (
+  prophetId: string
+): HistoricalPersonAssociation[] => [
+  ...associationsForRolePair(prophetId, ['prophet'], 'king'),
+  ...associationsForRolePair(prophetId, ['prophet'], 'queen')
+].sort((left, right) => left.name.localeCompare(right.name));
 
 export const HISTORICAL_SNAPSHOT_CATALOG =
   createHistoricalSnapshotCatalog(

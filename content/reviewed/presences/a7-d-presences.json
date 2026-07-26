@@ -1,0 +1,490 @@
+[
+  {
+    "id": "presence-event-a7-d-demons-porcs-gadara-event-jesus-en-tant-qu-humain-1f4ceyz-obi-gadara",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-gadara",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-demons-porcs-gadara"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-demons-porcs-gadara-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-gadara"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-deux-aveugles-muet-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-d-deux-aveugles-muet"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-deux-aveugles-muet-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-exemples-royaume-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-exemples-royaume"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-exemples-royaume-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-femme-pertes-sang-fille-jaire-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7-d-femme-pertes-sang-fille-jaire"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-femme-pertes-sang-fille-jaire-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-femme-pertes-sang-fille-jaire-person-a7-jaire-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-jaire",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7-d-femme-pertes-sang-fille-jaire"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-femme-pertes-sang-fille-jaire-presence-person-a7-jaire-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-marche-eau-guerisons-genesareth-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-marche-eau-guerisons-genesareth"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-marche-eau-guerisons-genesareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-mort-jean-herode-event-jean-le-baptiseur-dvgl2c-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jean-le-baptiseur-dvgl2c",
+    "placeId": "obi-tiberias",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "imprisonment",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-mort-jean-herode"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-mort-jean-herode-presence-event-jean-le-baptiseur-dvgl2c-obi-tiberias"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-mort-jean-herode-person-a7-herode-antipas-obi-tiberias",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "person-a7-herode-antipas",
+    "placeId": "obi-tiberias",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "visitor",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-mort-jean-herode"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-mort-jean-herode-presence-person-a7-herode-antipas-obi-tiberias"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-nouveau-rejet-nazareth-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "nazareth",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-nouveau-rejet-nazareth"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-nouveau-rejet-nazareth-presence-event-jesus-en-tant-qu-humain-1f4ceyz-nazareth"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-pain-de-vie-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-pain-de-vie"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-pain-de-vie-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-retour-apotres-nourrit-cinq-mille-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-d-retour-apotres-nourrit-cinq-mille"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-retour-apotres-nourrit-cinq-mille-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-retour-apotres-nourrit-cinq-mille-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "season",
+        "certainty": "probable",
+        "approximate": true,
+        "season": "spring"
+      },
+      "displayLabel": "Vers la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-retour-apotres-nourrit-cinq-mille"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-retour-apotres-nourrit-cinq-mille-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-signe-jonas-magadan-event-jesus-en-tant-qu-humain-1f4ceyz-obi-magadan",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-magadan",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "possible",
+    "associatedEventIds": [
+      "event-a7-d-signe-jonas-magadan"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-signe-jonas-magadan-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-magadan"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-tempete-calmee-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "obi-sea-of-galilee",
+    "period": {
+      "start": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 31,
+        "yearMax": 32,
+        "precision": "range",
+        "certainty": "probable",
+        "approximate": true
+      },
+      "displayLabel": "31 ou 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "certain",
+    "associatedEventIds": [
+      "event-a7-d-tempete-calmee"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-tempete-calmee-presence-event-jesus-en-tant-qu-humain-1f4ceyz-obi-sea-of-galilee"
+    ]
+  },
+  {
+    "id": "presence-event-a7-d-traditions-humaines-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "personId": "event-jesus-en-tant-qu-humain-1f4ceyz",
+    "placeId": "capernaum",
+    "period": {
+      "start": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "end": {
+        "yearMin": 32,
+        "yearMax": 32,
+        "precision": "year",
+        "certainty": "certain",
+        "approximate": true
+      },
+      "displayLabel": "Après la Pâque 32 de n. è."
+    },
+    "presenceType": "ministry",
+    "certainty": "probable",
+    "associatedEventIds": [
+      "event-a7-d-traditions-humaines"
+    ],
+    "supportingClaimIds": [
+      "claim-event-a7-d-traditions-humaines-presence-event-jesus-en-tant-qu-humain-1f4ceyz-capernaum"
+    ]
+  }
+]

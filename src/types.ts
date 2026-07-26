@@ -1,3 +1,8 @@
+import type {
+  PersonActivityPeriod,
+  TemporalSpan
+} from './domain/history/types.ts';
+
 export type CertaintyLevel = 'certain' | 'probable' | 'possible' | 'unknown';
 export type TimelineDisplayLevel = 'overview' | 'study' | 'detail';
 export type MapLabelLevel = 'major' | 'regional' | 'study' | 'local';
@@ -21,13 +26,38 @@ export type BiblicalRouteCategory =
   | 'patriarch-jacob'
   | 'ancient-road'
   | 'exodus'
-  | 'missionary';
+  | 'missionary'
+  | 'jesus-ministry';
 
 export interface SourceReference {
   id: string;
   label: string;
   url?: string;
   citation?: string;
+}
+
+export type GeographicProvenanceMethod =
+  | 'source-map-location'
+  | 'map-and-event-cross-reference'
+  | 'documented-route'
+  | 'reconstructed-route'
+  | 'schematic-route';
+
+export interface GeographicProvenance {
+  id: string;
+  sourceId: string;
+  sourceLabel: string;
+  sourceUrl?: string;
+  mapId: string;
+  mapReference: string;
+  method: GeographicProvenanceMethod;
+  /** Certitude du rapprochement géographique, pas de la date de l’événement. */
+  certainty: CertaintyLevel;
+  /** Certitude portée explicitement par le symbole de la carte source. */
+  sourceMapCertainty: CertaintyLevel;
+  limitations: string;
+  /** Rend explicite qu’une simple association ne réécrit pas les coordonnées. */
+  coordinatesChanged: boolean;
 }
 
 export interface EncyclopediaReference {
@@ -65,6 +95,7 @@ export interface EntityMetadata {
   notes?: string;
   lastVerified?: string;
   media?: MediaAsset[];
+  geographicProvenance?: GeographicProvenance[];
 }
 
 export interface EraData {
@@ -118,6 +149,14 @@ export interface EventData extends EntityMetadata {
   associatedLocationIds?: string[];
   associatedRouteIds?: string[];
   associatedCharacterIds?: string[];
+  /** Ouvre la fiche BiblicalPerson plutôt qu'une fiche d'évènement. */
+  historicalPersonId?: string;
+  /** Distingue la durée de vie d'une période d'activité dans la frise. */
+  historicalPersonSpanKind?: 'lifespan' | 'activity';
+  /** Période sourcée utilisée pour les calculs, distincte de l’ancre de rendu. */
+  temporalSpan?: TemporalSpan;
+  /** Activités intégrées au ruban de vie sans supprimer leur projection héritée. */
+  historicalActivityPeriods?: PersonActivityPeriod[];
 }
 
 export interface BiblicalPlace extends EntityMetadata {
@@ -185,6 +224,13 @@ export interface BiblicalRoute extends EntityMetadata {
   associatedCharacterIds?: string[];
   /** @deprecated Compatibility with existing data; normalized to associatedCharacterIds. */
   associatedCharacters?: string[];
+  /** Le tracé relie des lieux attestés sans prétendre restituer le chemin exact. */
+  geometryPrecision?: 'schematic';
+  routeNature?: 'documented' | 'reconstructed' | 'schematic';
+  tracePrecision?: 'exact' | 'approximate' | 'indicative-place-sequence';
+  stepOrder?: 'source-chronology' | 'documented-sequence';
+  /** Empêche toute interprétation du tracé comme donnée de navigation. */
+  notForExactNavigation?: boolean;
 }
 
 export interface BiblicalTerritory extends EntityMetadata {
