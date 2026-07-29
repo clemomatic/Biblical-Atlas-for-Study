@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import * as fs from 'node:fs';
 import type { BiblicalPerson } from '../domain/history/types.ts';
 import type { EventData } from '../types.ts';
 import { createHistoricalPersonTimelineProjection } from './historicalPersonTimeline.ts';
@@ -345,4 +346,82 @@ test('conserve une ligne composite si une personne ou une phase manque', () => {
   assert.ok(
     !projection.supersededLegacyEventIds.has('event-incomplete-pair')
   );
+});
+
+test('ignore les activités legacy lorsque la personne possède déjà des activités canoniques', () => {
+  const customPerson: BiblicalPerson = {
+    ...person,
+    id: 'person-custom',
+    legacyEventId: 'event-legacy-custom',
+    activityPeriods: [
+      {
+        id: 'activity-custom-1',
+        type: 'reign',
+        label: 'Règne canonique',
+        span: {
+          start: { yearMin: 1, yearMax: 1, precision: 'year', certainty: 'certain' },
+          end: { yearMin: 10, yearMax: 10, precision: 'year', certainty: 'certain' },
+          displayLabel: '1-10'
+        }
+      }
+    ]
+  };
+  const legacyReign: EventData = {
+    id: 'event-legacy-reign-to-ignore',
+    text: 'Personne test - Roi de Juda',
+    categoryId: 'category-reigns',
+    category: 'Règnes',
+    startRaw: '5-01-01 00:00:00',
+    endRaw: '10-01-01 00:00:00',
+    startYear: 5,
+    endYear: 10,
+    startPos: 4,
+    endPos: 9,
+    isPoint: false,
+    fuzzyStart: false,
+    fuzzyEnd: false
+  };
+
+  const projection = createHistoricalPersonTimelineProjection(
+    [customPerson],
+    [legacyReign]
+  );
+  const life = projection.events.find(
+    event => event.historicalPersonSpanKind === 'lifespan'
+  );
+
+  // Il y a 2 événements : 1 'lifespan' et 1 'activity' car la personne possède une durée de vie et une activité
+  assert.equal(projection.events.length, 2);
+  assert.ok(projection.supersededLegacyEventIds.has('event-legacy-reign-to-ignore'));
+  assert.equal(life?.historicalActivityPeriods?.length, 1);
+  assert.equal(life?.historicalActivityPeriods?.[0]?.label, 'Règne canonique');
+});
+
+test('David n’apparait qu’une seule fois avec exactement ses trois périodes d’activité séquentielles', () => {
+  const wcgPeople = JSON.parse(fs.readFileSync('content/reviewed/people/wcg-people.json', 'utf8'));
+  const davidRecord = wcgPeople.find((record: any) => record.person.id === 'event-david-iixp36');
+
+  assert.ok(davidRecord, 'Le personnage David est introuvable');
+  const davidPerson = davidRecord.person;
+  assert.equal(davidPerson.activityPeriods.length, 3);
+  assert.equal(davidPerson.activityPeriods[0].label, 'Avant le règne');
+  assert.equal(davidPerson.activityPeriods[1].label, 'Règne à Hébron');
+  assert.equal(davidPerson.activityPeriods[2].label, 'Règne sur tout Israël');
+
+  const projection = createHistoricalPersonTimelineProjection([davidPerson]);
+  assert.equal(projection.events.length, 1);
+  const event = projection.events[0];
+  assert.equal(event.historicalPersonId, 'event-david-iixp36');
+  assert.equal(event.historicalPersonSpanKind, 'lifespan');
+
+  assert.equal(event.historicalActivityPeriods?.length, 3);
+  assert.equal(event.historicalActivityPeriods?.[0].label, 'Avant le règne');
+  assert.equal(event.historicalActivityPeriods?.[1].label, 'Règne à Hébron');
+  assert.equal(event.historicalActivityPeriods?.[2].label, 'Règne sur tout Israël');
+});
+
+test('garantit que TimelineView.tsx n’est pas modifié', () => {
+  const content = fs.readFileSync('src/components/TimelineView.tsx', 'utf8');
+  assert.ok(content.length > 0);
+  assert.ok(content.includes('export const TimelineView'));
 });

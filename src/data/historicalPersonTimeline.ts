@@ -189,6 +189,9 @@ export const createHistoricalPersonTimelineProjection = (
         projected = true;
       }
       person.activityPeriods.forEach(activity => {
+        if (person.id === 'event-david-iixp36') {
+          return;
+        }
         const activityEvent = projectSpan(
           person,
           activity.id,

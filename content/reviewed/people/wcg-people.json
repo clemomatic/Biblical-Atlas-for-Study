@@ -89,7 +89,68 @@
       "historicalCategories": [
         "Royaume uni"
       ],
-      "activityPeriods": [],
+      "activityPeriods": [
+        {
+          "id": "activity-david-pre-reign",
+          "type": "other",
+          "label": "Avant le règne",
+          "span": {
+            "start": {
+              "yearMin": -1107,
+              "yearMax": -1107,
+              "precision": "year",
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -1077,
+              "yearMax": -1077,
+              "precision": "year",
+              "certainty": "certain"
+            },
+            "displayLabel": "1107-1077 av. n. è."
+          }
+        },
+        {
+          "id": "activity-david-reign-hebron",
+          "type": "reign",
+          "label": "Règne à Hébron",
+          "span": {
+            "start": {
+              "yearMin": -1077,
+              "yearMax": -1077,
+              "precision": "year",
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -1070,
+              "yearMax": -1070,
+              "precision": "year",
+              "certainty": "certain"
+            },
+            "displayLabel": "1077-1070 av. n. è."
+          }
+        },
+        {
+          "id": "activity-david-reign-all-israel",
+          "type": "reign",
+          "label": "Règne sur tout Israël",
+          "span": {
+            "start": {
+              "yearMin": -1070,
+              "yearMax": -1070,
+              "precision": "year",
+              "certainty": "certain"
+            },
+            "end": {
+              "yearMin": -1037,
+              "yearMax": -1037,
+              "precision": "year",
+              "certainty": "certain"
+            },
+            "displayLabel": "1070-1037 av. n. è."
+          }
+        }
+      ],
       "certainty": "certain",
       "notes": "Personnage migré ou créé à partir d’une ligne factuelle relue de la publication. Durée de vie sélectionnée depuis la frise WCG.",
       "lastVerified": "2026-07-25",
