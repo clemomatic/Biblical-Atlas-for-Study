@@ -201,6 +201,15 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
+  const clearRecentSearches = () => {
+    setRecentSearches([]);
+    try {
+      window.localStorage.removeItem(RECENT_SEARCHES_KEY);
+    } catch {
+      // ignore
+    }
+  };
+
   const matchingItems = useMemo<SearchItem[]>(() => {
     if (normalizedQuery.length < 2) return [];
 
@@ -494,11 +503,21 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
           >
             {normalizedQuery.length < 2 && recentSearches.length > 0 && (
               <section className="mb-6">
-                <h2 className="flex items-center gap-2 text-sm font-bold text-[var(--color-ink)]">
-                  <Clock3 className="size-4 text-[var(--color-ink-muted)]" />
-                  Recherches récentes
-                </h2>
-                <div className="mt-2 flex flex-wrap gap-2">
+                <div className="flex items-center justify-between">
+                  <h2 className="flex items-center gap-2 text-sm font-bold text-[var(--color-ink)]">
+                    <Clock3 className="size-4 text-[var(--color-ink-muted)]" />
+                    Recherches récentes
+                  </h2>
+                  <button
+                    type="button"
+                    onClick={clearRecentSearches}
+                    className="text-xs font-semibold text-[var(--color-primary-dark)] hover:underline"
+                    aria-label="Effacer les recherches récentes"
+                  >
+                    Effacer
+                  </button>
+                </div>
+                <div className="mt-3 flex flex-wrap gap-2">
                   {recentSearches.map(value => (
                     <button
                       key={value}
