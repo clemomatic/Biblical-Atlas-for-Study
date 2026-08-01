@@ -209,6 +209,12 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
     } catch {
       // ignore
     }
+    inputRef.current?.focus();
+  };
+
+  const handleClearQuery = () => {
+    onQueryChange('');
+    inputRef.current?.focus();
   };
 
   const matchingItems = useMemo<SearchItem[]>(() => {
@@ -476,19 +482,31 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
       >
         <div className="flex min-h-16 items-center gap-3 border-b border-[var(--color-stone-light)] px-4 sm:px-6">
           <Search className="size-5 shrink-0 text-[var(--color-primary)]" />
-          <input
-            ref={inputRef}
-            value={query}
-            onChange={event => onQueryChange(event.target.value)}
-            placeholder="Rechercher un lieu, un événement, un personnage…"
-            className="min-w-0 flex-1 bg-transparent text-base font-medium text-[var(--color-ink)] outline-none placeholder:text-[var(--color-ink-muted)]"
-            role="combobox"
-            aria-expanded={isOpen}
-            aria-haspopup="listbox"
-            aria-controls="search-results-list"
-            aria-autocomplete="list"
-            aria-activedescendant={activeItem ? activeItem.key : undefined}
-          />
+          <div className="relative flex min-w-0 flex-1 items-center">
+            <input
+              ref={inputRef}
+              value={query}
+              onChange={event => onQueryChange(event.target.value)}
+              placeholder="Rechercher un lieu, un événement, un personnage…"
+              className="min-w-0 flex-1 bg-transparent pr-10 text-base font-medium text-[var(--color-ink)] outline-none placeholder:text-[var(--color-ink-muted)]"
+              role="combobox"
+              aria-expanded={isOpen}
+              aria-haspopup="listbox"
+              aria-controls="search-results-list"
+              aria-autocomplete="list"
+              aria-activedescendant={activeItem ? activeItem.key : undefined}
+            />
+            {query && (
+              <button
+                type="button"
+                onClick={handleClearQuery}
+                className="absolute right-2 flex size-8 items-center justify-center rounded-full text-[var(--color-ink-muted)] hover:bg-[var(--color-stone-light)] hover:text-[var(--color-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                aria-label="Effacer le texte de recherche"
+              >
+                <X className="size-4" />
+              </button>
+            )}
+          </div>
           <span className="hidden text-xs font-medium text-[var(--color-ink-muted)] sm:block">
             Échap
           </span>
