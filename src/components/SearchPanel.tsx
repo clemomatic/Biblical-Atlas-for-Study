@@ -148,6 +148,7 @@ function SearchResultItem({
   const Icon = meta.icon;
   return (
     <button
+      id={item.key}
       type="button"
       role="option"
       aria-selected={isActive}
@@ -481,6 +482,12 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
             onChange={event => onQueryChange(event.target.value)}
             placeholder="Rechercher un lieu, un événement, un personnage…"
             className="min-w-0 flex-1 bg-transparent text-base font-medium text-[var(--color-ink)] outline-none placeholder:text-[var(--color-ink-muted)]"
+            role="combobox"
+            aria-expanded={isOpen}
+            aria-haspopup="listbox"
+            aria-controls="search-results-list"
+            aria-autocomplete="list"
+            aria-activedescendant={activeItem ? activeItem.key : undefined}
           />
           <span className="hidden text-xs font-medium text-[var(--color-ink-muted)] sm:block">
             Échap
@@ -497,6 +504,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
 
         <div className="grid min-h-0 flex-1 md:grid-cols-[minmax(0,1.05fr)_minmax(280px,0.95fr)]">
           <div
+            id="search-results-list"
             className="min-h-0 overflow-y-auto border-[var(--color-stone-light)] p-4 md:border-r sm:p-5"
             role="listbox"
             aria-label="Résultats de recherche"
@@ -522,8 +530,11 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                     <button
                       key={value}
                       type="button"
-                      onClick={() => onQueryChange(value)}
-                      className="min-h-10 rounded-full bg-[var(--color-paper-muted)] px-3 text-xs font-semibold text-[var(--color-ink-soft)] hover:bg-[var(--color-primary-soft)]"
+                      onClick={() => {
+                        onQueryChange(value);
+                        inputRef.current?.focus();
+                      }}
+                      className="min-h-10 rounded-full bg-[var(--color-paper-muted)] px-3 text-xs font-semibold text-[var(--color-ink-soft)] hover:bg-[var(--color-primary-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
                     >
                       {value}
                     </button>
