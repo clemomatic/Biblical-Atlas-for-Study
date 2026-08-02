@@ -38,4 +38,29 @@ test('la recherche au clavier s?lectionne le r?sultat actif et ?chap ferme la fi
   await expect(page.getByTestId('detail-panel')).toContainText('Rome');
   await page.keyboard.press('Escape');
   await expect(page.getByTestId('detail-panel')).toHaveCount(0);
-});
+});
+
+test('gestion individuelle des recherches récentes avec maintien du focus', async ({ page }) => {
+  await page.goto('/');
+
+  // 1. Première recherche pour créer un historique
+  let search = await openSearch(page);
+  await search.locator('input').fill('Rome');
+  await search.getByRole('option').filter({ hasText: /^Rome/ }).first().click();
+
+  // 2. Ré-ouvrir la recherche car elle se ferme après sélection
+  search = await openSearch(page);
+
+  // 3. Cliquer sur le bouton d'effacement du texte de recherche pour voir l'historique
+  await search.getByRole('button', { name: 'Effacer le texte de recherche' }).click();
+
+  // 4. Vérifier que l'historique contient bien "Rome"
+  await expect(search.getByRole('button', { name: 'Rechercher « Rome »' })).toBeVisible();
+
+  // 5. Supprimer l'élément individuellement
+  await search.getByRole('button', { name: 'Supprimer « Rome » de l\'historique' }).click();
+
+  // 6. Vérifier la disparition et le maintien du focus
+  await expect(search.getByRole('button', { name: 'Rechercher « Rome »' })).toHaveCount(0);
+  await expect(search.locator('input')).toBeFocused();
+});
