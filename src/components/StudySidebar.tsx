@@ -401,6 +401,9 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
 
                     {!isCollapsed && root.name === 'Personnage' && (
                       <div className="mt-1 space-y-0.5 pl-3">
+                        <p className="px-2 pb-1 pt-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-[var(--color-ink-muted)]">
+                          Couleur des lignes par sous-catégorie
+                        </p>
                         {BIOGRAPHY_LANES.map(lane => {
                           const laneActive = activeBiographyLaneIds.has(lane.id);
                           const laneCount = biographyCounts.get(lane.id) ?? 0;

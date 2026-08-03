@@ -69,6 +69,10 @@ const BIBLICAL_BOOK_TRACK_TOP = 32;
 const BIBLICAL_BOOK_TRACK_SPACING = 28;
 const BIBLICAL_BOOK_ITEM_HEIGHT = 24;
 const BIBLICAL_BOOK_RAIL_BOTTOM_PADDING = 10;
+const PINNED_CONTEXT_LANE_IDS = new Set([
+  'period-reigns',
+  'period-covenants'
+]);
 const MONTH_LABELS = [
   'janv.',
   'févr.',
@@ -721,8 +725,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       const isBookPeriod = backgroundCategoryNames.has(e.category);
 
       if (!isBookPeriod && categoryNamesByRoot.characters.has(e.category)) {
-        const laneId = getBiographyLaneIdForEvent(e);
-        const laneKey = `biography:${laneId}`;
+        const laneKey = 'biography:people';
         if (!eventsByCat[laneKey]) eventsByCat[laneKey] = [];
         eventsByCat[laneKey].push(e);
       } else if (isBookPeriod) {
@@ -922,7 +925,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       });
 
       lanesMap[catName] = {
-        categoryName: biographyLane?.label ?? semanticLane?.label ?? catName,
+        categoryName:
+          biographyLane ? 'Personnage' : semanticLane?.label ?? catName,
         catColor:
           biographyLane?.color ||
           semanticLane?.color ||
@@ -948,6 +952,25 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     categoryNamesByRoot,
     people
   ]);
+
+  const primaryTimelineLanes = useMemo(
+    () =>
+      (Object.values(layoutLanes) as CategoryLane[]).filter(
+        lane =>
+          lane.events.length > 0 &&
+          !backgroundCategoryNames.has(lane.categoryName) &&
+          !PINNED_CONTEXT_LANE_IDS.has(lane.semanticLaneId ?? '')
+      ),
+    [backgroundCategoryNames, layoutLanes]
+  );
+
+  const pinnedContextLanes = useMemo(
+    () =>
+      (Object.values(layoutLanes) as CategoryLane[]).filter(lane =>
+        PINNED_CONTEXT_LANE_IDS.has(lane.semanticLaneId ?? '')
+      ),
+    [layoutLanes]
+  );
 
   const backgroundPeriodItems = useMemo(
     () =>
@@ -2184,12 +2207,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
 
           {/* 3. EVENT LANES & MARKS (Sublane Stacking) */}
           <div className="relative z-20 mt-2 space-y-1 px-3">
-            {(Object.values(layoutLanes) as CategoryLane[])
-              .filter(
-                (lane) =>
-                  lane.events.length > 0 &&
-                  !backgroundCategoryNames.has(lane.categoryName)
-              )
+            {primaryTimelineLanes
               .map((lane) => {
                 const isEventLane = lane.semanticKind === 'point';
                 const isPeriodLane = lane.semanticKind === 'period';
@@ -2609,6 +2627,107 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           />
         )}
       </div>
+
+      {pinnedContextLanes.length > 0 && (
+        <section
+          data-testid="timeline-context-dock"
+          aria-label="Repères historiques fixés"
+          className="relative z-30 shrink-0 border-t border-[var(--color-stone)] bg-[color-mix(in_srgb,var(--color-paper)_96%,transparent)] shadow-[0_-8px_24px_rgb(23_32_51/8%)] backdrop-blur-xl"
+        >
+          {pinnedContextLanes.map(lane => {
+            const LaneIcon =
+              lane.semanticLaneId === 'period-reigns' ? Crown : Sparkles;
+            const visibleEvents = lane.events.filter(
+              item =>
+                item.endX >= viewportX.startX - 80 &&
+                item.startX <= viewportX.endX + 80
+            );
+
+            return (
+              <div
+                key={`pinned-${lane.semanticLaneId}`}
+                data-pinned-timeline-lane={lane.semanticLaneId}
+                className="relative h-9 overflow-hidden border-b border-[var(--color-stone-light)] last:border-b-0"
+                style={{
+                  backgroundColor: `color-mix(in srgb, ${lane.catColor} 4%, var(--color-paper))`
+                }}
+              >
+                <div className="pointer-events-none absolute inset-y-0 left-0 z-30 flex w-[116px] items-center gap-2 border-r border-[var(--color-stone-light)] bg-[linear-gradient(90deg,var(--color-paper)_82%,color-mix(in_srgb,var(--color-paper)_88%,transparent))] px-3 text-[11px] font-semibold text-[var(--color-ink)] sm:w-[138px]">
+                  <LaneIcon
+                    className="size-3.5 shrink-0"
+                    style={{ color: lane.catColor }}
+                  />
+                  <span className="truncate">
+                    {TIMELINE_SEMANTIC_LANE_BY_ID.get(
+                      lane.semanticLaneId ?? ''
+                    )?.shortLabel ?? lane.categoryName}
+                  </span>
+                  <span className="ml-auto tabular-nums text-[10px] text-[var(--color-ink-muted)]">
+                    {lane.totalEventsCount}
+                  </span>
+                </div>
+
+                <div className="absolute inset-0 overflow-hidden">
+                  <div
+                    className="absolute inset-y-0 left-0"
+                    style={{
+                      width: `${timelineWidth}px`,
+                      transform: `translateX(-${viewportX.startX}px)`
+                    }}
+                  >
+                    {selectedEventMarkerX !== null && (
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-y-0 z-20 w-px bg-[var(--color-primary)]/65"
+                        style={{ left: `${selectedEventMarkerX}px` }}
+                      />
+                    )}
+                    {visibleEvents.map(item => {
+                      const event = item.primaryEvent;
+                      const width = Math.max(14, item.endX - item.startX);
+                      const selected = selectedEventId === event.id;
+                      const top = 2 + Math.min(item.sublaneIndex, 2) * 9;
+
+                      return (
+                        <button
+                          key={`pinned-event-${event.id}`}
+                          type="button"
+                          onClick={() => onSelectEvent(event)}
+                          onMouseEnter={() => setHoveredEventId(event.id)}
+                          onMouseLeave={() => setHoveredEventId(null)}
+                          onFocus={() => setHoveredEventId(event.id)}
+                          onBlur={() => setHoveredEventId(null)}
+                          className={`absolute flex h-4 min-w-3 items-center overflow-hidden rounded-[2px] border px-1 text-left text-[9px] font-semibold transition-[opacity,box-shadow] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--color-primary)] ${
+                            selected
+                              ? 'z-20 opacity-100 ring-2 ring-[var(--color-primary)] ring-offset-1 ring-offset-[var(--color-paper)]'
+                              : 'z-10 opacity-72 hover:opacity-100'
+                          }`}
+                          style={{
+                            left: `${item.startX}px`,
+                            top: `${top}px`,
+                            width: `${width}px`,
+                            color: lane.catColor,
+                            borderColor: `color-mix(in srgb, ${lane.catColor} 58%, transparent)`,
+                            backgroundColor: `color-mix(in srgb, ${lane.catColor} 14%, var(--color-paper))`
+                          }}
+                          aria-label={`${event.text}, ${formatDateFrench(event.startYear)} à ${formatDateFrench(event.endYear)}`}
+                          title={`${event.text} · ${formatDateFrench(event.startYear)} → ${formatDateFrench(event.endYear)}`}
+                        >
+                          {width >= 58 && (
+                            <span className="truncate">
+                              {getAuthoritativeDisplayLabel(event, width)}
+                            </span>
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </section>
+      )}
 
       {/* Légende contextuelle du viewport */}
       <div className="z-30 shrink-0 border-t border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] px-4 py-2 text-xs">
