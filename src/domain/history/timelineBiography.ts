@@ -193,8 +193,10 @@ export const mergeLegacyActivitiesIntoBiographies = (
         });
 
       matchedLegacyActivities.forEach(({ activity, eventId }) => {
-        if (!canonical.some(existing => sameActivity(existing, activity))) {
-          canonical.push(activity);
+        if (person.activityPeriods.length === 0) {
+          if (!canonical.some(existing => sameActivity(existing, activity))) {
+            canonical.push(activity);
+          }
         }
         supersededLegacyEventIds.add(eventId);
       });

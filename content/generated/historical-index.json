@@ -545,6 +545,36 @@
   ],
   "activities": [
     {
+      "id": "activity:activity-david-pre-reign",
+      "personId": "event-david-iixp36",
+      "activityId": "activity-david-pre-reign",
+      "activityType": "other",
+      "startIndex": -1107,
+      "endIndex": -1077,
+      "certainty": "certain",
+      "supportingClaimIds": []
+    },
+    {
+      "id": "activity:activity-david-reign-hebron",
+      "personId": "event-david-iixp36",
+      "activityId": "activity-david-reign-hebron",
+      "activityType": "reign",
+      "startIndex": -1077,
+      "endIndex": -1070,
+      "certainty": "certain",
+      "supportingClaimIds": []
+    },
+    {
+      "id": "activity:activity-david-reign-all-israel",
+      "personId": "event-david-iixp36",
+      "activityId": "activity-david-reign-all-israel",
+      "activityType": "reign",
+      "startIndex": -1070,
+      "endIndex": -1037,
+      "certainty": "certain",
+      "supportingClaimIds": []
+    },
+    {
       "id": "activity:activity-event-roboam-121uoxd-reign",
       "personId": "event-roboam-121uoxd",
       "activityId": "activity-event-roboam-121uoxd-reign",
