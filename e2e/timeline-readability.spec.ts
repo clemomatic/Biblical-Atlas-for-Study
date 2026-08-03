@@ -1,6 +1,6 @@
 import { expect, test } from '@playwright/test';
 
-test('sépare les périodes des événements ponctuels dans des lignes sémantiques', async ({
+test('sépare les événements et épingle les repères contextuels', async ({
   page
 }) => {
   await page.goto('/');
@@ -10,10 +10,19 @@ test('sépare les périodes des événements ponctuels dans des lignes sémantiq
   const pointLanes = page.locator('[data-timeline-kind="point"]');
   await expect(periodLanes.first()).toBeVisible();
   await expect(pointLanes.first()).toBeVisible();
-  expect(await periodLanes.count()).toBeGreaterThan(1);
+  expect(await periodLanes.count()).toBeGreaterThan(0);
   expect(await pointLanes.count()).toBeGreaterThan(1);
   await expect(periodLanes.first()).toContainText('périodes');
   await expect(pointLanes.first()).toContainText('ponctuels');
+
+  const dock = page.getByTestId('timeline-context-dock');
+  await expect(dock).toBeVisible();
+  await expect(
+    dock.locator('[data-pinned-timeline-lane="period-reigns"]')
+  ).toBeVisible();
+  await expect(
+    dock.locator('[data-pinned-timeline-lane="period-covenants"]')
+  ).toBeVisible();
 });
 
 test('présente la nouvelle organisation dans la légende de consultation', async ({
@@ -25,6 +34,7 @@ test('présente la nouvelle organisation dans la légende de consultation', asyn
   await expect(sidebar).toContainText('Périodes et contextes');
   await expect(sidebar).toContainText('Événements ponctuels');
   await expect(sidebar).toContainText('Filtres de contenu');
+  await expect(sidebar).toContainText('Couleur des lignes par sous-catégorie');
 });
 
 test('préserve les bornes visuelles des longues périodes sélectionnées', async ({
@@ -64,12 +74,19 @@ test('réserve le zoom de la molette à la touche Ctrl', async ({ page }) => {
 test.describe('frise lisible sur mobile', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 
-  test('conserve les lignes distinctes et les contrôles tactiles', async ({
+  test('conserve les lignes distinctes et le dock contextuel', async ({
     page
   }) => {
     await page.goto('/');
     await expect(page.getByTestId('timeline-view')).toBeVisible();
     await expect(page.locator('[data-timeline-kind="point"]').first()).toBeVisible();
-    await expect(page.locator('[data-timeline-kind="period"]').first()).toBeVisible();
+    const dock = page.getByTestId('timeline-context-dock');
+    await expect(dock).toBeVisible();
+    await expect(
+      dock.locator('[data-pinned-timeline-lane="period-reigns"]')
+    ).toBeVisible();
+    await expect(
+      dock.locator('[data-pinned-timeline-lane="period-covenants"]')
+    ).toBeVisible();
   });
 });

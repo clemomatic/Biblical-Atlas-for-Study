@@ -34,18 +34,22 @@ test('regroupe les vies et fonctions dans des bandes lisibles', async ({
 }) => {
   await page.goto('/');
 
+  const personLane = page.locator('[data-biography-lane="people"]');
+  await expect(personLane).toHaveCount(1);
+  await expect(personLane).toBeVisible();
+  await expect(personLane).toContainText('Personnage');
   await expect(
-    page.locator('[data-biography-lane="united-monarchy"]')
-  ).toBeVisible();
+    personLane.locator('[data-person-subcategory="united-monarchy"]')
+  ).not.toHaveCount(0);
   await expect(
-    page.locator('[data-biography-lane="judah-kings"]')
-  ).toBeVisible();
+    personLane.locator('[data-person-subcategory="judah-kings"]')
+  ).not.toHaveCount(0);
   await expect(
-    page.locator('[data-biography-lane="israel-kings"]')
-  ).toBeVisible();
+    personLane.locator('[data-person-subcategory="israel-kings"]')
+  ).not.toHaveCount(0);
   await expect(
-    page.locator('[data-biography-lane="prophets"]')
-  ).toBeVisible();
+    personLane.locator('[data-person-subcategory="prophets"]')
+  ).not.toHaveCount(0);
 
   const davidLabel = page
     .getByTestId('biographical-label')
@@ -56,14 +60,14 @@ test('regroupe les vies et fonctions dans des bandes lisibles', async ({
     page.getByRole('button', { name: /David - Israel \(12 Tribus\)/ })
   ).toHaveCount(0);
 
-  const israelKings = page.locator(
-    '[data-biography-lane="israel-kings"]'
-  );
   await expect(
-    israelKings.getByTestId('biographical-label').filter({ hasText: /^Omri$/ })
+    personLane
+      .locator('[data-person-subcategory="israel-kings"]')
+      .getByTestId('biographical-label')
+      .filter({ hasText: /^Omri$/ })
   ).toHaveCount(1);
   await expect(
-    israelKings.getByTestId('biographical-label').filter({
+    personLane.getByTestId('biographical-label').filter({
       hasText: /^Joachaz et Joas$/
     })
   ).toHaveCount(0);
@@ -91,6 +95,24 @@ test('regroupe les vies et fonctions dans des bandes lisibles', async ({
   await expect(page.getByTestId('timeline-view')).toContainText(
     'Lecture d’un ruban'
   );
+
+  const contextDock = page.getByTestId('timeline-context-dock');
+  await expect(contextDock).toBeVisible();
+  await expect(
+    contextDock.locator('[data-pinned-timeline-lane="period-reigns"]')
+  ).toBeVisible();
+  await expect(
+    contextDock.locator('[data-pinned-timeline-lane="period-covenants"]')
+  ).toBeVisible();
+  const dockBefore = await contextDock.boundingBox();
+  await scroller.evaluate(element => {
+    element.scrollTop += 320;
+    element.dispatchEvent(new Event('scroll'));
+  });
+  const dockAfter = await contextDock.boundingBox();
+  expect(dockBefore).not.toBeNull();
+  expect(dockAfter).not.toBeNull();
+  expect(Math.abs((dockAfter?.y ?? 0) - (dockBefore?.y ?? 0))).toBeLessThan(2);
 });
 
 test('rétablit les repères relatifs de Samuel dans une seule fiche', async ({ page }) => {

@@ -106,6 +106,9 @@ export function BiographicalRibbon({
   const lane = BIOGRAPHY_LANE_BY_ID.get(
     getBiographyLaneIdForEvent(event)
   );
+  const lifeColor = lane?.color ?? ACTIVITY_VISUALS.lifespan.color;
+  const lifeSoftColor =
+    lane?.softColor ?? ACTIVITY_VISUALS.lifespan.softColor;
   const hasLifeSpan = event.historicalPersonSpanKind === 'lifespan';
   const markerLabel = calculation
     ? [
@@ -127,15 +130,16 @@ export function BiographicalRibbon({
       data-testid="biographical-ribbon"
       data-event-id={event.id}
       data-person-id={event.historicalPersonId}
+      data-person-subcategory={lane?.id ?? 'people'}
     >
       <div
         className="absolute inset-x-0 top-[22px] h-3 rounded-[3px] border"
         style={{
           backgroundColor: hasLifeSpan
-            ? ACTIVITY_VISUALS.lifespan.softColor
+            ? lifeSoftColor
             : lane?.softColor ?? ACTIVITY_VISUALS.other.softColor,
           borderColor: hasLifeSpan
-            ? ACTIVITY_VISUALS.lifespan.color
+            ? lifeColor
             : lane?.color ?? ACTIVITY_VISUALS.other.color,
           opacity: event.certainty === 'possible' ? 0.72 : 1,
           borderStyle:
