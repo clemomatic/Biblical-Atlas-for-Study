@@ -13,6 +13,12 @@ import {
   BIOGRAPHY_LANE_BY_ID,
   getBiographyLaneIdForEvent
 } from '../domain/history/timelineBiography';
+import {
+  getTimelineSemanticLane,
+  getTimelineSemanticLaneCounts,
+  TIMELINE_SEMANTIC_LANES,
+  TIMELINE_SEMANTIC_LANE_BY_ID
+} from '../domain/history/timelineSemanticLanes';
 import { BiographicalRibbon } from './BiographicalRibbon';
 import { EventContextPreview } from './EventContextPreview';
 import {
@@ -694,6 +700,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     categoryName: string;
     catColor: string;
     biographyLaneId?: EventData['historicalPersonLaneId'];
+    semanticLaneId?: string;
+    semanticKind?: 'period' | 'point';
     events: PositionedEvent[];
     numSublanes: number;
     totalEventsCount: number;
@@ -712,29 +720,32 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     timelineDisplayEvents.forEach(e => {
       const isBookPeriod = backgroundCategoryNames.has(e.category);
 
-      if (!isBookPeriod && categoryNamesByRoot.events.has(e.category)) {
-        if (!eventsByCat['Événements']) eventsByCat['Événements'] = [];
-        eventsByCat['Événements'].push(e);
-      } else if (
-        !isBookPeriod &&
-        categoryNamesByRoot.characters.has(e.category)
-      ) {
+      if (!isBookPeriod && categoryNamesByRoot.characters.has(e.category)) {
         const laneId = getBiographyLaneIdForEvent(e);
         const laneKey = `biography:${laneId}`;
         if (!eventsByCat[laneKey]) eventsByCat[laneKey] = [];
         eventsByCat[laneKey].push(e);
-      } else if (e.isPoint && !isBookPeriod) {
-        if (!eventsByCat['Événements']) eventsByCat['Événements'] = [];
-        eventsByCat['Événements'].push(e);
-      } else {
+      } else if (isBookPeriod) {
         if (!eventsByCat[e.category]) eventsByCat[e.category] = [];
         eventsByCat[e.category].push(e);
+      } else {
+        const semanticLane = getTimelineSemanticLane(e);
+        const laneKey = `semantic:${semanticLane.id}`;
+        if (!eventsByCat[laneKey]) eventsByCat[laneKey] = [];
+        eventsByCat[laneKey].push(e);
       }
     });
 
     const categoryKeys = Object.keys(eventsByCat).sort((a, b) => {
-      if (a === 'Événements') return -1;
-      if (b === 'Événements') return 1;
+      const leftSemantic = a.startsWith('semantic:')
+        ? TIMELINE_SEMANTIC_LANE_BY_ID.get(a.replace('semantic:', ''))
+        : undefined;
+      const rightSemantic = b.startsWith('semantic:')
+        ? TIMELINE_SEMANTIC_LANE_BY_ID.get(b.replace('semantic:', ''))
+        : undefined;
+      if (leftSemantic || rightSemantic) {
+        return (leftSemantic?.order ?? 900) - (rightSemantic?.order ?? 900);
+      }
       const leftLane = a.startsWith('biography:')
         ? BIOGRAPHY_LANE_BY_ID.get(
             a.replace('biography:', '') as NonNullable<EventData['historicalPersonLaneId']>
@@ -756,7 +767,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       const sortedEvents = [...catEvents].sort((a, b) => a.startPos - b.startPos);
 
       const isBookCategory = backgroundCategoryNames.has(catName);
-      const isEventLane = catName === 'Événements';
+      const semanticLane = catName.startsWith('semantic:')
+        ? TIMELINE_SEMANTIC_LANE_BY_ID.get(catName.replace('semantic:', ''))
+        : undefined;
+      const isEventLane = semanticLane?.kind === 'point';
+      const isPeriodLane = semanticLane?.kind === 'period';
       const biographyLaneId = catName.startsWith('biography:')
         ? (catName.replace(
             'biography:',
@@ -822,17 +837,48 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           : isLowZoomMode && !isBookCategory
             ? lowZoomLabelWidth
             : labelWidthEstimate;
-        const showLabel =
-          isEventLane ||
+        let showLabel =
           isCharacterLane ||
-          !isLowZoomMode ||
           isBookCategory ||
           labelWidth >= 30;
 
         let sublaneIndex: number;
-        if (isBookCategory || isEventLane) {
+        if (isBookCategory) {
           sublaneIndex = 0;
           if (tracks.length === 0) tracks.push({ lastX: Number.POSITIVE_INFINITY });
+        } else if (isEventLane || isPeriodLane) {
+          const maxTracks = isEventLane
+            ? isLowZoomMode
+              ? 2
+              : pxPerYear < 2
+                ? 3
+                : 4
+            : isLowZoomMode
+              ? 2
+              : 3;
+          const visualWidth = isEventLane
+            ? Math.max(14, labelWidth + 10)
+            : Math.max(rangeWidth, Math.min(labelWidthEstimate, 220));
+          const visualEndX = startX + visualWidth + 10;
+          const availableTrack = tracks.findIndex(track => track.lastX <= startX);
+          if (availableTrack >= 0) {
+            sublaneIndex = availableTrack;
+            tracks[availableTrack].lastX = visualEndX;
+          } else if (tracks.length < maxTracks) {
+            tracks.push({ lastX: visualEndX });
+            sublaneIndex = tracks.length - 1;
+          } else {
+            sublaneIndex = tracks.reduce(
+              (best, track, index) =>
+                track.lastX < tracks[best].lastX ? index : best,
+              0
+            );
+            tracks[sublaneIndex].lastX = Math.max(
+              tracks[sublaneIndex].lastX,
+              startX + (isEventLane ? 14 : Math.max(16, rangeWidth))
+            );
+            showLabel = false;
+          }
         } else if (isLowZoomMode && primaryEvent.isPoint) {
           // Only markers that would physically overlap are offset vertically.
           // They remain independent and selectable.
@@ -876,14 +922,15 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       });
 
       lanesMap[catName] = {
-        categoryName: biographyLane?.label ?? catName,
+        categoryName: biographyLane?.label ?? semanticLane?.label ?? catName,
         catColor:
           biographyLane?.color ||
+          semanticLane?.color ||
           categoryColorMap[catName] ||
-          (catName === 'Événements'
-            ? '#2563eb'
-            : '#0080ff'),
+          (isEventLane ? '#2563eb' : '#0080ff'),
         biographyLaneId,
+        semanticLaneId: semanticLane?.id,
+        semanticKind: semanticLane?.kind,
         events: positionedEvents,
         numSublanes: tracks.length,
         totalEventsCount: catEvents.length
@@ -894,6 +941,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   }, [
     timelineDisplayEvents,
     timelineWidth,
+    pxPerYear,
     categoryColorMap,
     isLowZoomMode,
     backgroundCategoryNames,
@@ -954,13 +1002,22 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     timelineWidth
   ]);
 
-  const legendCategoryCounts = useMemo(() => {
-    const counts = new Map<string, number>();
-    exactViewportEvents.forEach(event => {
-      counts.set(event.category, (counts.get(event.category) || 0) + 1);
-    });
-    return counts;
-  }, [exactViewportEvents]);
+  const visibleSemanticLanes = useMemo(() => {
+    const counts = getTimelineSemanticLaneCounts(
+      exactViewportEvents.filter(
+        event =>
+          !categoryNamesByRoot.characters.has(event.category) &&
+          !backgroundCategoryNames.has(event.category)
+      )
+    );
+    return TIMELINE_SEMANTIC_LANES
+      .map(lane => ({ ...lane, count: counts.get(lane.id) ?? 0 }))
+      .filter(lane => lane.count > 0);
+  }, [
+    backgroundCategoryNames,
+    categoryNamesByRoot.characters,
+    exactViewportEvents
+  ]);
 
   const visibleBiographyLanes = useMemo(() => {
     const identities = new Map(
@@ -995,24 +1052,6 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       .map(type => ({ type, count: counts.get(type) ?? 0 }))
       .filter(item => item.count > 0);
   }, [categoryNamesByRoot.characters, exactViewportEvents]);
-
-  const legendCategories = useMemo(
-    () =>
-      categories.filter(category => {
-        const count = legendCategoryCounts.get(category.name) || 0;
-        return (
-          !categoryNamesByRoot.characters.has(category.name) &&
-          visibleCategories.has(category.name) &&
-          count > 0
-        );
-      }),
-    [
-      categories,
-      categoryNamesByRoot.characters,
-      legendCategoryCounts,
-      visibleCategories
-    ]
-  );
 
   const visibleBackgroundPeriodItems = useMemo(() => {
     const viewportWidth = viewportX.endX - viewportX.startX;
@@ -2151,101 +2190,74 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                   !backgroundCategoryNames.has(lane.categoryName)
               )
               .map((lane) => {
-                const isEventLane = lane.categoryName === 'Événements';
+                const isEventLane = lane.semanticKind === 'point';
+                const isPeriodLane = lane.semanticKind === 'period';
                 const isCharacterLane = Boolean(lane.biographyLaneId);
-                const isManuallyCollapsed =
-                  !isEventLane &&
-                  collapsedCategories.has(lane.categoryName);
+                const isManuallyCollapsed = collapsedCategories.has(
+                  lane.categoryName
+                );
                 const effectiveSublanes = isManuallyCollapsed ? 0 : lane.numSublanes;
                 const SUBLANE_HEIGHT = isCharacterLane
                   ? 48
-                  : 24;
+                  : isEventLane
+                    ? 30
+                    : isPeriodLane
+                      ? 28
+                      : 24;
                 const laneHeight = effectiveSublanes * SUBLANE_HEIGHT;
                 const viewportCenterX = (viewportX.startX + viewportX.endX) / 2;
-                const LaneIcon = lane.biographyLaneId === 'prophets'
-                  ? ScrollText
-                  : lane.biographyLaneId && lane.biographyLaneId !== 'people'
-                    ? Crown
-                    : getCategoryIcon(lane.categoryName);
+                const LaneIcon = isEventLane
+                  ? Flag
+                  : isPeriodLane
+                    ? CalendarRange
+                    : lane.biographyLaneId === 'prophets'
+                      ? ScrollText
+                      : lane.biographyLaneId && lane.biographyLaneId !== 'people'
+                        ? Crown
+                        : getCategoryIcon(lane.categoryName);
 
                 return (
                   <div
                     key={lane.categoryName}
                     data-biography-lane={lane.biographyLaneId}
-                    style={
-                      isCharacterLane
-                        ? {
-                            borderColor: `color-mix(in srgb, ${lane.catColor} 28%, transparent)`,
-                            backgroundColor: `color-mix(in srgb, ${lane.catColor} 7%, var(--color-paper))`,
-                            boxShadow: `inset 3px 0 0 ${lane.catColor}`
-                          }
-                        : undefined
-                    }
-                    className={`relative my-1 border-b py-1 transition-[opacity,background-color] duration-200 ${
-                      isEventLane
-                        ? 'border-[var(--color-bronze-soft)] bg-[var(--color-bronze-soft)]/35 shadow-[inset_3px_0_0_var(--color-bronze)]'
-                        : isCharacterLane
-                          ? ''
-                          : 'border-[var(--color-stone-light)]'
-                    }`}
+                    data-timeline-kind={lane.semanticKind ?? 'biography'}
+                    data-timeline-lane={lane.semanticLaneId ?? lane.biographyLaneId}
+                    style={{
+                      borderColor: `color-mix(in srgb, ${lane.catColor} 28%, transparent)`,
+                      backgroundColor: `color-mix(in srgb, ${lane.catColor} ${isCharacterLane ? 7 : 5}%, var(--color-paper))`,
+                      boxShadow: `inset 3px 0 0 ${lane.catColor}`
+                    }}
+                    className="relative my-1 border-b py-1 transition-[opacity,background-color] duration-200"
                   >
                     {/* Category Name Sticky Badge with Collapse Toggle */}
-                    {isEventLane ? (
-                      <div
-                        className="sticky left-2 z-35 mb-1.5 inline-flex min-h-8 items-center gap-2 border-l-2 border-[var(--color-bronze)] bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur"
-                      >
-                        <Flag className="size-3.5 shrink-0 text-[var(--color-bronze)]" />
-                        <span>
-                          Événements
+                    <button
+                      type="button"
+                      onClick={() => toggleCollapseCategory(lane.categoryName)}
+                      style={{ borderColor: lane.catColor }}
+                      className="group/badge sticky left-2 z-35 mb-1 inline-flex min-h-8 cursor-pointer items-center gap-2 border-l-2 bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur transition-colors hover:bg-[var(--color-paper-muted)]"
+                      title={isManuallyCollapsed ? 'Déplier cette ligne' : 'Replier cette ligne'}
+                    >
+                      <LaneIcon
+                        className="size-3.5 shrink-0"
+                        style={{ color: lane.catColor }}
+                      />
+                      <span className="text-[var(--color-ink)]">
+                        {lane.categoryName}
+                      </span>
+                      {lane.semanticKind && (
+                        <span className="text-[10px] font-medium text-[var(--color-ink-muted)]">
+                          {isEventLane ? 'ponctuels' : 'périodes'}
                         </span>
-                        <span className="tabular-nums text-xs text-[var(--color-ink-muted)]">
-                          {lane.totalEventsCount}
-                        </span>
-                      </div>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={() => toggleCollapseCategory(lane.categoryName)}
-                        style={{
-                          borderColor: isCharacterLane
-                            ? lane.catColor
-                            : 'var(--color-mineral)'
-                        }}
-                        className="group/badge sticky left-2 z-35 mb-1 inline-flex min-h-8 cursor-pointer items-center gap-2 border-l-2 bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur transition-colors hover:bg-[var(--color-paper-muted)]"
-                        title={isManuallyCollapsed ? "Cliquer pour déplier la catégorie" : "Cliquer pour replier la catégorie"}
-                      >
-                        <LaneIcon
-                          className="size-3.5 shrink-0"
-                          style={{
-                            color: isCharacterLane
-                              ? lane.catColor
-                              : 'var(--color-mineral)'
-                          }}
-                        />
-                        <span
-                          className="text-[var(--color-ink)]"
-                        >
-                          {lane.categoryName}
-                        </span>
-                        <span
-                          className="tabular-nums text-xs text-[var(--color-ink-muted)]"
-                        >
-                          {lane.totalEventsCount}{' '}
-                          {isCharacterLane ? 'pers.' : 'él.'}
-                        </span>
-                        {isManuallyCollapsed ? (
-                          <ChevronDown
-                            className="size-3"
-                            style={{ color: lane.catColor }}
-                          />
-                        ) : (
-                          <ChevronUp
-                            className="size-3"
-                            style={{ color: lane.catColor }}
-                          />
-                        )}
-                      </button>
-                    )}
+                      )}
+                      <span className="tabular-nums text-xs text-[var(--color-ink-muted)]">
+                        {lane.totalEventsCount} {isCharacterLane ? 'pers.' : 'él.'}
+                      </span>
+                      {isManuallyCollapsed ? (
+                        <ChevronDown className="size-3" style={{ color: lane.catColor }} />
+                      ) : (
+                        <ChevronUp className="size-3" style={{ color: lane.catColor }} />
+                      )}
+                    </button>
 
                     {/* Events Container with exact height based on active sublanes */}
                     {!isManuallyCollapsed && (
@@ -2397,7 +2409,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                   />
                                   
                                   {/* Adaptive point label: truncated in overview, expanded on interaction. */}
-                                  {(!isLowZoomMode || clusterItem.showLabel || isSelected || isClosest || isHovered) && (
+                                  {(clusterItem.showLabel || isSelected || isClosest || isHovered) && (
                                     <div
                                       style={
                                         (isEventLane || isLowZoomMode) &&
@@ -2486,7 +2498,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                     title={`${ev.text} (${formatDateFrench(ev.startYear)} - ${formatDateFrench(ev.endYear)}) ${ev.fuzzyStart ? '[Début incertain]' : ''} ${ev.fuzzyEnd ? '[Fin incertaine]' : ''}`}
                                   >
                                     {/* WHITE TEXT LABEL ON THE BAR */}
-                                    {(!isLowZoomMode || clusterItem.showLabel || isSelected || isClosest || isHovered) && (
+                                    {(clusterItem.showLabel || isSelected || isClosest || isHovered) && (
                                       <div
                                         style={{ transform: `translateX(${labelOffsetX}px)` }}
                                         className="pointer-events-none absolute inset-y-0 left-0 flex min-w-0 items-center gap-1 overflow-hidden px-1.5 text-xs font-semibold text-white drop-shadow-[0_1px_1px_rgba(0,0,0,0.6)] transition-transform duration-75"
@@ -2606,7 +2618,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           </span>
 
           {visibleBiographyLanes.length === 0 &&
-            legendCategories.length === 0 && (
+            visibleSemanticLanes.length === 0 && (
               <span className="shrink-0 italic text-[var(--color-ink-muted)]">
                 Aucun élément dans cette période
               </span>
@@ -2640,30 +2652,29 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
             );
           })}
 
-          {legendCategories.map(cat => {
-            const catEventsCount = legendCategoryCounts.get(cat.name) || 0;
-            const CategoryIcon = getCategoryIcon(cat.name);
+          {visibleSemanticLanes.map(lane => {
+            const LaneIcon = lane.kind === 'point' ? Flag : CalendarRange;
             return (
-              <button
-                key={cat.name}
-                onClick={() => toggleCategory(cat.name)}
-                className="inline-flex min-h-8 shrink-0 items-center gap-1.5 border-b border-transparent px-1.5 py-1 font-medium text-[var(--color-ink)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary-dark)]"
-                title={`${cat.name} (${catEventsCount} élément${catEventsCount > 1 ? 's' : ''} dans la période visible)`}
+              <span
+                key={lane.id}
+                className="inline-flex min-h-8 shrink-0 items-center gap-1.5 border-b px-1.5 py-1 font-medium text-[var(--color-ink)]"
+                style={{ borderColor: lane.color }}
+                title={`${lane.description} ${lane.count} élément${lane.count > 1 ? 's' : ''} visible${lane.count > 1 ? 's' : ''}.`}
               >
                 <span
-                  className="flex size-5 items-center justify-center"
-                  style={{ backgroundColor: `${cat.hexColor}18` }}
+                  className="flex size-5 items-center justify-center rounded-[2px]"
+                  style={{ backgroundColor: lane.softColor }}
                 >
-                  <CategoryIcon
-                    className="size-3"
-                    style={{ color: cat.hexColor }}
-                  />
+                  <LaneIcon className="size-3" style={{ color: lane.color }} />
                 </span>
-                <span>{cat.name}</span>
+                <span>{lane.shortLabel}</span>
+                <span className="text-[10px] text-[var(--color-ink-muted)]">
+                  {lane.kind === 'point' ? 'point' : 'période'}
+                </span>
                 <span className="tabular-nums text-[var(--color-ink-muted)]">
-                  {catEventsCount}
+                  {lane.count}
                 </span>
-              </button>
+              </span>
             );
           })}
         </div>

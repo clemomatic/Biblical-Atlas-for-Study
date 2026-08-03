@@ -12,6 +12,10 @@ import {
   AUTHORITATIVE_TIMELINE_EVENTS,
   getAuthoritativeReplacementForLegacyEvent
 } from './authoritativeChronology';
+import {
+  mergeHistoricalPeopleForDisplay,
+  mergePersonTimelineEventsForDisplay
+} from '../domain/history/personIdentityProjection';
 
 /**
  * Projection de compatibilité consommée par l’interface actuelle.
@@ -114,8 +118,7 @@ const legacyEvents = applyAuthoritativeResearch(
   )
 );
 const reviewedEvents = applyAuthoritativeResearch(REVIEWED_TIMELINE_EVENTS);
-
-export const TIMELINE_EVENTS = [
+const RAW_TIMELINE_EVENTS = [
   ...legacyEvents,
   ...personEvents,
   ...reviewedEvents,
@@ -123,3 +126,11 @@ export const TIMELINE_EVENTS = [
     event => !claimedAuthoritativeIds.has(event.id)
   )
 ];
+
+
+
+export const DISPLAY_HISTORICAL_PEOPLE =
+  mergeHistoricalPeopleForDisplay(HISTORICAL_PEOPLE);
+
+export const TIMELINE_EVENTS =
+  mergePersonTimelineEventsForDisplay(RAW_TIMELINE_EVENTS);
