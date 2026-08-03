@@ -19,6 +19,14 @@ import {
 } from 'lucide-react';
 import { formatDateFrench } from '../utils/dateUtils';
 import { EmptyState, StatusNotice } from './ui/AtlasUi';
+import {
+  HISTORICAL_ROAD_SEGMENTS,
+  HISTORICAL_ROAD_WARNING,
+  getHistoricalItinerarySummary,
+  getHistoricalRoadSegmentsForItineraries,
+  historicalRoadOverlapsPeriod,
+  type HistoricalRoadCertainty
+} from '../data/historicalRoadNetwork';
 
 interface MapViewProps {
   places: BiblicalPlace[];
@@ -205,6 +213,19 @@ const MAP_LABEL_MIN_ZOOM: Record<MapLabelLevel, number> = {
   local: 10
 };
 
+const historicalRoadDash = (certainty: HistoricalRoadCertainty): string | undefined => {
+  if (certainty === 'probable') return '8 6';
+  if (certainty === 'hypothetical') return '2 8';
+  return undefined;
+};
+
+const historicalRoadCertaintyLabel = (certainty: HistoricalRoadCertainty): string =>
+  certainty === 'high'
+    ? 'corridor bien établi'
+    : certainty === 'probable'
+      ? 'tracé probable'
+      : 'tracé hypothétique';
+
 export const MapView: React.FC<MapViewProps> = ({
   places,
   routes,
@@ -221,6 +242,8 @@ export const MapView: React.FC<MapViewProps> = ({
   const baseMapLayerRef = useRef<L.TileLayer | null>(null);
   const markerLayerRef = useRef<L.LayerGroup | null>(null);
   const routeLayerRef = useRef<L.LayerGroup | null>(null);
+  const historicalRoadLayerRef = useRef<L.LayerGroup | null>(null);
+  const selectedItineraryLayerRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<Record<string, L.Marker>>({});
   const hasReliefFallbackRef = useRef(false);
 
@@ -230,6 +253,7 @@ export const MapView: React.FC<MapViewProps> = ({
   const [mapNotice, setMapNotice] = useState<string | null>(null);
   const [visiblePlaceCount, setVisiblePlaceCount] = useState(0);
   const [showSchematicRoutes, setShowSchematicRoutes] = useState(true);
+  const [showHistoricalRoadNetwork, setShowHistoricalRoadNetwork] = useState(true);
   const [isLayerPanelOpen, setIsLayerPanelOpen] = useState(
     getInitialLayerPanelOpen
   );
@@ -245,8 +269,15 @@ export const MapView: React.FC<MapViewProps> = ({
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
+    map.createPane('historicalRoads');
+    map.getPane('historicalRoads')!.style.zIndex = '320';
+    map.createPane('selectedItinerary');
+    map.getPane('selectedItinerary')!.style.zIndex = '390';
+
+    historicalRoadLayerRef.current = L.layerGroup().addTo(map);
     markerLayerRef.current = L.layerGroup().addTo(map);
     routeLayerRef.current = L.layerGroup().addTo(map);
+    selectedItineraryLayerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
     const handleZoomEnd = () => setMapZoom(map.getZoom());
     map.on('zoomend', handleZoomEnd);
@@ -257,12 +288,16 @@ export const MapView: React.FC<MapViewProps> = ({
       map.off('zoomend', handleZoomEnd);
       markerLayerRef.current?.clearLayers();
       routeLayerRef.current?.clearLayers();
+      historicalRoadLayerRef.current?.clearLayers();
+      selectedItineraryLayerRef.current?.clearLayers();
       markersRef.current = {};
       baseMapLayerRef.current = null;
       map.remove();
       mapRef.current = null;
       markerLayerRef.current = null;
       routeLayerRef.current = null;
+      historicalRoadLayerRef.current = null;
+      selectedItineraryLayerRef.current = null;
     };
   }, []);
 
@@ -508,6 +543,77 @@ export const MapView: React.FC<MapViewProps> = ({
     onSelectRoute
   ]);
 
+
+  useEffect(() => {
+    const layer = historicalRoadLayerRef.current;
+    if (!layer) return;
+    layer.clearLayers();
+    if (!showHistoricalRoadNetwork) return;
+
+    HISTORICAL_ROAD_SEGMENTS
+      .filter(segment => historicalRoadOverlapsPeriod(segment, visiblePeriod))
+      .forEach(segment => {
+        const line = L.polyline(segment.coordinates, {
+          pane: 'historicalRoads',
+          color: '#8b6a42',
+          weight: segment.roadType === 'international' || segment.roadType === 'imperial' ? 2.2 : 1.5,
+          opacity: segment.certainty === 'high' ? 0.58 : 0.46,
+          dashArray: historicalRoadDash(segment.certainty),
+          lineCap: 'round',
+          lineJoin: 'round',
+          interactive: true
+        });
+        const sourceLink = segment.sourceUrl
+          ? `<a href="${escapeHtml(segment.sourceUrl)}" target="_blank" rel="noopener noreferrer">Consulter la source</a>`
+          : 'Source non accessible en ligne';
+        line.bindPopup(`
+          <div class="atlas-map-popup">
+            <strong>${escapeHtml(segment.name)}</strong><br />
+            <span>${escapeHtml(historicalRoadCertaintyLabel(segment.certainty))}</span><br />
+            <span>${escapeHtml(segment.sourcePage ?? '')}</span><br />
+            ${sourceLink}<br />
+            <small>Corridor historique documenté ; il ne constitue pas une trace GPS.</small>
+          </div>
+        `);
+        line.addTo(layer);
+      });
+  }, [showHistoricalRoadNetwork, visiblePeriod]);
+
+  useEffect(() => {
+    const layer = selectedItineraryLayerRef.current;
+    if (!layer) return;
+    layer.clearLayers();
+    const itineraryIds = selectedEvent?.authoritativeItineraryIds ?? [];
+    if (itineraryIds.length === 0) return;
+
+    getHistoricalRoadSegmentsForItineraries(itineraryIds).forEach(segment => {
+      const line = L.polyline(segment.coordinates, {
+        pane: 'selectedItinerary',
+        color: '#3f4e78',
+        weight: 5,
+        opacity: 0.9,
+        dashArray: historicalRoadDash(segment.certainty),
+        lineCap: 'round',
+        lineJoin: 'round',
+        interactive: true
+      });
+      line.bindTooltip(
+        `${escapeHtml(segment.name)} — ${escapeHtml(historicalRoadCertaintyLabel(segment.certainty))}`,
+        { sticky: true }
+      );
+      line.addTo(layer);
+    });
+
+    const summaries = itineraryIds
+      .map(getHistoricalItinerarySummary)
+      .filter((summary): summary is NonNullable<typeof summary> => Boolean(summary));
+    if (summaries.length > 0) {
+      setMapNotice(
+        `${summaries.map(summary => summary.name).join(' · ')} — ${HISTORICAL_ROAD_WARNING}`
+      );
+    }
+  }, [selectedEvent]);
+
   useEffect(() => {
     if (
       !isActive ||
@@ -681,6 +787,38 @@ export const MapView: React.FC<MapViewProps> = ({
                   <span
                     className={`block size-4 rounded-full bg-[var(--color-paper)] transition-transform ${
                       showSchematicRoutes ? 'translate-x-4' : ''
+                    }`}
+                  />
+                </span>
+              </button>
+
+              <button
+                type="button"
+                role="switch"
+                aria-checked={showHistoricalRoadNetwork}
+                onClick={() => setShowHistoricalRoadNetwork(current => !current)}
+                className="mt-2 flex min-h-11 w-full items-center gap-3 bg-[var(--color-paper-muted)] px-3 py-2 text-left"
+              >
+                <span aria-hidden="true" className="h-0 w-8 border-t-2 border-[var(--color-bronze)]" />
+                <span className="flex-1">
+                  <span className="block text-sm font-semibold text-[var(--color-ink)]">
+                    Réseau routier historique
+                  </span>
+                  <span className="block text-xs text-[var(--color-ink-muted)]">
+                    Corridors documentés, filtrés par période
+                  </span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`h-5 w-9 rounded-full p-0.5 transition-colors ${
+                    showHistoricalRoadNetwork
+                      ? 'bg-[var(--color-bronze)]'
+                      : 'bg-[var(--color-stone)]'
+                  }`}
+                >
+                  <span
+                    className={`block size-4 rounded-full bg-[var(--color-paper)] transition-transform ${
+                      showHistoricalRoadNetwork ? 'translate-x-4' : ''
                     }`}
                   />
                 </span>
