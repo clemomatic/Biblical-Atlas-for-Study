@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect, useMemo } from 'react';
 import { BiblicalPlace, EventData, EraData, CategoryData, TimelinePeriod } from '../types';
 import { formatDateFrench } from '../utils/dateUtils';
+import { getAuthoritativeDisplayLabel } from '../data/authoritativeChronology';
 import type {
   BiblicalPerson,
   PersonActivityType
@@ -165,6 +166,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const [labelDisplayMode, setLabelDisplayMode] = useState<'auto' | 'compact' | 'full'>('auto');
   const [hoveredEventId, setHoveredEventId] = useState<string | null>(null);
   const [pinnedPreviewEventId, setPinnedPreviewEventId] = useState<string | null>(null);
+  const touchPreviewClickRef = useRef<string | null>(null);
   const [isControlBarCollapsed, setIsControlBarCollapsed] = useState<boolean>(false);
   const [isDisplayMenuOpen, setIsDisplayMenuOpen] = useState(false);
   const [collapsedCategories, setCollapsedCategories] = useState<Set<string>>(new Set());
@@ -202,6 +204,16 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       : pxPerYear < detailMinPxPerYear
         ? 'study'
         : 'detail';
+  const semanticZoomLevel =
+    pxPerYear < overviewMaxPxPerYear
+      ? 0
+      : pxPerYear < 2.4
+        ? 1
+        : pxPerYear < detailMinPxPerYear
+          ? 2
+          : pxPerYear < 360
+            ? 3
+            : 4;
 
   const backgroundCategoryNames = useMemo(
     () =>
@@ -350,7 +362,18 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     if (searchQuery.trim()) return viewportFilteredEvents;
 
     return viewportFilteredEvents.filter(event => {
+      // Exception éditoriale demandée : les périodes de livres bibliques
+      // conservent exactement leur comportement et leur apparence actuels.
       if (backgroundCategoryNames.has(event.category)) return true;
+
+      const presentation = event.timelinePresentation;
+      if (
+        presentation &&
+        (semanticZoomLevel < presentation.zoomMin ||
+          semanticZoomLevel > presentation.zoomMax)
+      ) {
+        return false;
+      }
 
       const eventLevel = event.timelineLevel || 'study';
       if (zoomDisplayLevel === 'overview') {
@@ -365,6 +388,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     viewportFilteredEvents,
     searchQuery,
     zoomDisplayLevel,
+    semanticZoomLevel,
     backgroundCategoryNames
   ]);
 
@@ -771,7 +795,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           ? primaryEvent.isPoint
             ? 18
             : Math.min(60, rangeWidth)
-          : primaryEvent.text.length * 6.5 +
+          : getAuthoritativeDisplayLabel(primaryEvent, rangeWidth).length * 6.5 +
             (primaryEvent.icon ? 24 : 12) +
             (primaryEvent.isPoint ? 65 : 0);
 
@@ -2301,11 +2325,35 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                         ? eventLaneZIndex
                                         : undefined
                               }}
+                              onPointerUp={(e) => {
+                                if (
+                                  e.pointerType === 'touch' &&
+                                  !ev.historicalPersonId
+                                ) {
+                                  e.stopPropagation();
+                                  touchPreviewClickRef.current = ev.id;
+                                  if (pinnedPreviewEventId !== ev.id) {
+                                    setPinnedPreviewEventId(ev.id);
+                                    setHoveredEventId(ev.id);
+                                  } else {
+                                    setPinnedPreviewEventId(null);
+                                    setHoveredEventId(null);
+                                    onSelectEvent(ev);
+                                  }
+                                }
+                              }}
                               onClick={(e) => {
                                 e.stopPropagation();
+                                if (touchPreviewClickRef.current === ev.id) {
+                                  touchPreviewClickRef.current = null;
+                                  return;
+                                }
                                 const isTouchFirst =
                                   !ev.historicalPersonId &&
-                                  window.matchMedia('(hover: none)').matches &&
+                                  (
+                                    window.matchMedia('(hover: none)').matches ||
+                                    navigator.maxTouchPoints > 0
+                                  ) &&
                                   pinnedPreviewEventId !== ev.id;
                                 if (isTouchFirst) {
                                   setPinnedPreviewEventId(ev.id);
@@ -2379,7 +2427,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                             : ''
                                         }`}
                                       >
-                                        {ev.text}
+                                        {getAuthoritativeDisplayLabel(
+                                          ev,
+                                          clusterItem.labelWidth,
+                                          isSelected || isClosest || isHovered
+                                        )}
                                       </span>
                                     </div>
                                   )}
@@ -2455,7 +2507,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                           }}
                                           className={`block min-w-0 truncate ${isClosest || isSelected ? 'text-indigo-100 font-extrabold' : ''}`}
                                         >
-                                          {ev.text}
+                                          {getAuthoritativeDisplayLabel(
+                                            ev,
+                                            clusterItem.labelWidth,
+                                            isSelected || isClosest || isHovered
+                                          )}
                                         </span>
                                       </div>
                                     )}
