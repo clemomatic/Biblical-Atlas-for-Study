@@ -9,6 +9,7 @@ import { EVENTS } from './timelineEvents';
 import { HISTORICAL_PEOPLE } from './historicalStudyData';
 import { createHistoricalPersonTimelineProjection } from './historicalPersonTimeline';
 import {
+  AUTHORITATIVE_HISTORICAL_PEOPLE,
   AUTHORITATIVE_TIMELINE_EVENTS,
   getAuthoritativeReplacementForLegacyEvent
 } from './authoritativeChronology';
@@ -28,9 +29,13 @@ const LEGACY_TIMELINE_EVENTS = createLegacyTimelineProjection(
   EVENTS,
   BIBLICAL_PEOPLE
 );
+const COMBINED_HISTORICAL_PEOPLE = mergeHistoricalPeopleForDisplay([
+  ...HISTORICAL_PEOPLE,
+  ...AUTHORITATIVE_HISTORICAL_PEOPLE
+]);
 export const HISTORICAL_PERSON_TIMELINE =
   createHistoricalPersonTimelineProjection(
-    HISTORICAL_PEOPLE,
+    COMBINED_HISTORICAL_PEOPLE,
     LEGACY_TIMELINE_EVENTS
   );
 
@@ -130,7 +135,7 @@ const RAW_TIMELINE_EVENTS = [
 
 
 export const DISPLAY_HISTORICAL_PEOPLE =
-  mergeHistoricalPeopleForDisplay(HISTORICAL_PEOPLE);
+  COMBINED_HISTORICAL_PEOPLE;
 
 export const TIMELINE_EVENTS =
   mergePersonTimelineEventsForDisplay(RAW_TIMELINE_EVENTS);

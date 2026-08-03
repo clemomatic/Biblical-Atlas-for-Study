@@ -48,13 +48,11 @@ const person: BiblicalPerson = {
   ]
 };
 
-test('projette séparément la vie et l’activité vers la frise', () => {
+test('intègre les activités dans une seule ligne de vie', () => {
   const projection = createHistoricalPersonTimelineProjection([person]);
-  assert.equal(projection.events.length, 2);
-  assert.deepEqual(
-    projection.events.map(event => event.historicalPersonSpanKind).sort(),
-    ['activity', 'lifespan']
-  );
+  assert.equal(projection.events.length, 1);
+  assert.equal(projection.events[0].historicalPersonSpanKind, 'lifespan');
+  assert.equal(projection.events[0].historicalActivityPeriods?.length, 1);
   assert.ok(
     projection.events.every(
       event => event.historicalPersonId === 'person-test'
@@ -64,8 +62,26 @@ test('projette séparément la vie et l’activité vers la frise', () => {
   const life = projection.events.find(
     event => event.historicalPersonSpanKind === 'lifespan'
   );
+  assert.equal(life?.historicalOpenEnd, false);
   assert.equal(life?.endYear, 20);
   assert.equal(life?.fuzzyEnd, true);
+});
+
+test('projette une naissance ouverte sans la transformer en année exacte', () => {
+  const projection = createHistoricalPersonTimelineProjection([{
+    id: 'person-open',
+    name: 'Personne à naissance ouverte',
+    lifeSpan: {
+      start: { yearMax: -40, precision: 'before', approximate: true, certainty: 'possible' },
+      end: { yearMin: 20, yearMax: 20, precision: 'year', certainty: 'certain' },
+      displayLabel: 'Né avant 40 av. n. è. → mort en 20'
+    },
+    activityPeriods: []
+  }]);
+  assert.equal(projection.events.length, 1);
+  assert.equal(projection.events[0].startYear, -40);
+  assert.equal(projection.events[0].historicalOpenStart, true);
+  assert.equal(projection.events[0].temporalSpan?.start?.precision, 'before');
 });
 
 test('une fenêtre collective seule ne crée aucune ligne de vie', () => {

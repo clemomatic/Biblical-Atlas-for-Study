@@ -433,7 +433,13 @@ export function formatTemporalBoundaryFrench(
   }
 
   if (boundary.approximate) {
-    label = `vers ${label}`;
+    if (boundary.precision === 'before') {
+      label = label.replace(/^avant /, 'avant vers ');
+    } else if (boundary.precision === 'after') {
+      label = label.replace(/^après /, 'après vers ');
+    } else {
+      label = `vers ${label}`;
+    }
   }
   if ((boundary.uncertaintyYears ?? 0) > 0) {
     label += ` (± ${boundary.uncertaintyYears} an${boundary.uncertaintyYears === 1 ? '' : 's'})`;
