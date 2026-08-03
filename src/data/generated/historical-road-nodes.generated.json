@@ -1,0 +1,2486 @@
+{
+  "type": "FeatureCollection",
+  "name": "historical_road_nodes",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "GAZA",
+      "properties": {
+        "node_id": "GAZA",
+        "name": "Gaza",
+        "lon": 34.4668,
+        "lat": 31.5017,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.4668,
+          31.5017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASHKELON",
+      "properties": {
+        "node_id": "ASHKELON",
+        "name": "Ascalon",
+        "lon": 34.5715,
+        "lat": 31.6688,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.5715,
+          31.6688
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASHDOD",
+      "properties": {
+        "node_id": "ASHDOD",
+        "name": "Asdod",
+        "lon": 34.6435,
+        "lat": 31.8014,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.6435,
+          31.8014
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JOPPA",
+      "properties": {
+        "node_id": "JOPPA",
+        "name": "Joppé",
+        "lon": 34.7519,
+        "lat": 32.0504,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.7519,
+          32.0504
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "APHEK_COAST",
+      "properties": {
+        "node_id": "APHEK_COAST",
+        "name": "Afek, plaine côtière",
+        "lon": 34.93,
+        "lat": 32.104,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.93,
+          32.104
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CAESAREA",
+      "properties": {
+        "node_id": "CAESAREA",
+        "name": "Césarée",
+        "lon": 34.892,
+        "lat": 32.5,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.892,
+          32.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DOR",
+      "properties": {
+        "node_id": "DOR",
+        "name": "Dor",
+        "lon": 34.918,
+        "lat": 32.617,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.918,
+          32.617
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ACCO",
+      "properties": {
+        "node_id": "ACCO",
+        "name": "Acco",
+        "lon": 35.083,
+        "lat": 32.923,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.083,
+          32.923
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "TYRE",
+      "properties": {
+        "node_id": "TYRE",
+        "name": "Tyr",
+        "lon": 35.203,
+        "lat": 33.27,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.203,
+          33.27
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SAREPTA",
+      "properties": {
+        "node_id": "SAREPTA",
+        "name": "Sarepta",
+        "lon": 35.295,
+        "lat": 33.457,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.295,
+          33.457
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SIDON",
+      "properties": {
+        "node_id": "SIDON",
+        "name": "Sidon",
+        "lon": 35.371,
+        "lat": 33.557,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.371,
+          33.557
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BEERSHEBA",
+      "properties": {
+        "node_id": "BEERSHEBA",
+        "name": "Béer-Shéba",
+        "lon": 34.7915,
+        "lat": 31.2529,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.7915,
+          31.2529
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "HEBRON",
+      "properties": {
+        "node_id": "HEBRON",
+        "name": "Hébron",
+        "lon": 35.0998,
+        "lat": 31.5326,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.0998,
+          31.5326
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETHLEHEM",
+      "properties": {
+        "node_id": "BETHLEHEM",
+        "name": "Bethléem",
+        "lon": 35.2024,
+        "lat": 31.7054,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.2024,
+          31.7054
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM",
+      "properties": {
+        "node_id": "JERUSALEM",
+        "name": "Jérusalem",
+        "lon": 35.235,
+        "lat": 31.778,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.235,
+          31.778
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NOB",
+      "properties": {
+        "node_id": "NOB",
+        "name": "Nob, localisation proposée",
+        "lon": 35.245,
+        "lat": 31.8,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.245,
+          31.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GIBEAH",
+      "properties": {
+        "node_id": "GIBEAH",
+        "name": "Guibéa",
+        "lon": 35.239,
+        "lat": 31.823,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.239,
+          31.823
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RAMAH",
+      "properties": {
+        "node_id": "RAMAH",
+        "name": "Rama",
+        "lon": 35.224,
+        "lat": 31.849,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.224,
+          31.849
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MIZPAH",
+      "properties": {
+        "node_id": "MIZPAH",
+        "name": "Mizpa",
+        "lon": 35.216,
+        "lat": 31.885,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.216,
+          31.885
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GIBEON",
+      "properties": {
+        "node_id": "GIBEON",
+        "name": "Gabaon",
+        "lon": 35.184,
+        "lat": 31.849,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.184,
+          31.849
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETHEL",
+      "properties": {
+        "node_id": "BETHEL",
+        "name": "Béthel",
+        "lon": 35.239,
+        "lat": 31.926,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.239,
+          31.926
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "AI",
+      "properties": {
+        "node_id": "AI",
+        "name": "Aï, localisation proposée",
+        "lon": 35.261,
+        "lat": 31.917,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.261,
+          31.917
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHILOH",
+      "properties": {
+        "node_id": "SHILOH",
+        "name": "Silo",
+        "lon": 35.289,
+        "lat": 32.055,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.289,
+          32.055
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHECHEM",
+      "properties": {
+        "node_id": "SHECHEM",
+        "name": "Sichem",
+        "lon": 35.283,
+        "lat": 32.213,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.283,
+          32.213
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SYCHAR",
+      "properties": {
+        "node_id": "SYCHAR",
+        "name": "Sychar, localisation proposée",
+        "lon": 35.307,
+        "lat": 32.202,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.307,
+          32.202
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SAMARIA",
+      "properties": {
+        "node_id": "SAMARIA",
+        "name": "Samarie",
+        "lon": 35.189,
+        "lat": 32.276,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.189,
+          32.276
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DOTHAN",
+      "properties": {
+        "node_id": "DOTHAN",
+        "name": "Dothân",
+        "lon": 35.238,
+        "lat": 32.411,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.238,
+          32.411
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "LYDDA",
+      "properties": {
+        "node_id": "LYDDA",
+        "name": "Lydda",
+        "lon": 34.888,
+        "lat": 31.952,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.888,
+          31.952
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GEZER",
+      "properties": {
+        "node_id": "GEZER",
+        "name": "Guézer",
+        "lon": 34.922,
+        "lat": 31.876,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.922,
+          31.876
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "AIJALON",
+      "properties": {
+        "node_id": "AIJALON",
+        "name": "Vallée d’Ayalôn",
+        "lon": 34.99,
+        "lat": 31.84,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.99,
+          31.84
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETH_HORON_LOWER",
+      "properties": {
+        "node_id": "BETH_HORON_LOWER",
+        "name": "Beth-Horôn-le-Bas",
+        "lon": 35.071,
+        "lat": 31.899,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.071,
+          31.899
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETH_HORON_UPPER",
+      "properties": {
+        "node_id": "BETH_HORON_UPPER",
+        "name": "Beth-Horôn-le-Haut",
+        "lon": 35.108,
+        "lat": 31.893,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.108,
+          31.893
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "QIRIATH_JEARIM",
+      "properties": {
+        "node_id": "QIRIATH_JEARIM",
+        "name": "Qiriath-Yéarim",
+        "lon": 35.1,
+        "lat": 31.805,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.1,
+          31.805
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GATH",
+      "properties": {
+        "node_id": "GATH",
+        "name": "Gath, Tell es-Safi",
+        "lon": 34.85,
+        "lat": 31.7,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.85,
+          31.7
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "LACHISH",
+      "properties": {
+        "node_id": "LACHISH",
+        "name": "Lakish",
+        "lon": 34.846,
+        "lat": 31.565,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.846,
+          31.565
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ADULLAM",
+      "properties": {
+        "node_id": "ADULLAM",
+        "name": "Adoullam",
+        "lon": 35,
+        "lat": 31.65,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35,
+          31.65
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KEILAH",
+      "properties": {
+        "node_id": "KEILAH",
+        "name": "Qéïla",
+        "lon": 35.001,
+        "lat": 31.62,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.001,
+          31.62
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ZIPH",
+      "properties": {
+        "node_id": "ZIPH",
+        "name": "Ziph",
+        "lon": 35.1,
+        "lat": 31.48,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.1,
+          31.48
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MAON",
+      "properties": {
+        "node_id": "MAON",
+        "name": "Maôn",
+        "lon": 35.13,
+        "lat": 31.42,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.13,
+          31.42
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EN_GEDI",
+      "properties": {
+        "node_id": "EN_GEDI",
+        "name": "Èn-Guédi",
+        "lon": 35.39,
+        "lat": 31.46,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.39,
+          31.46
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ZIKLAG",
+      "properties": {
+        "node_id": "ZIKLAG",
+        "name": "Tsiqlag, localisation proposée",
+        "lon": 34.8,
+        "lat": 31.2,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.8,
+          31.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GERAR",
+      "properties": {
+        "node_id": "GERAR",
+        "name": "Guérar, région proposée",
+        "lon": 34.93,
+        "lat": 31.38,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.93,
+          31.38
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ARAD",
+      "properties": {
+        "node_id": "ARAD",
+        "name": "Arad",
+        "lon": 35.13,
+        "lat": 31.28,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.13,
+          31.28
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KADESH",
+      "properties": {
+        "node_id": "KADESH",
+        "name": "Qadesh-Barnéa, localisation proposée",
+        "lon": 34.43,
+        "lat": 30.65,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.43,
+          30.65
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERICHO",
+      "properties": {
+        "node_id": "JERICHO",
+        "name": "Jéricho",
+        "lon": 35.444,
+        "lat": 31.87,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.444,
+          31.87
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GILGAL",
+      "properties": {
+        "node_id": "GILGAL",
+        "name": "Guilgal, près de Jéricho",
+        "lon": 35.465,
+        "lat": 31.882,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.465,
+          31.882
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BAPTISM_SITE",
+      "properties": {
+        "node_id": "BAPTISM_SITE",
+        "name": "Région du baptême au Jourdain",
+        "lon": 35.548,
+        "lat": 31.838,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.548,
+          31.838
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ADAM",
+      "properties": {
+        "node_id": "ADAM",
+        "name": "Adam, passage du Jourdain",
+        "lon": 35.56,
+        "lat": 32.1,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.56,
+          32.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SUCCOTH",
+      "properties": {
+        "node_id": "SUCCOTH",
+        "name": "Soukkoth",
+        "lon": 35.59,
+        "lat": 32.2,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.59,
+          32.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PENUEL",
+      "properties": {
+        "node_id": "PENUEL",
+        "name": "Penouel",
+        "lon": 35.71,
+        "lat": 32.2,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.71,
+          32.2
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MAHANAIM",
+      "properties": {
+        "node_id": "MAHANAIM",
+        "name": "Mahanaïm",
+        "lon": 35.7,
+        "lat": 32.36,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.7,
+          32.36
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PELLA",
+      "properties": {
+        "node_id": "PELLA",
+        "name": "Pella",
+        "lon": 35.62,
+        "lat": 32.45,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.62,
+          32.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETH_SHEAN",
+      "properties": {
+        "node_id": "BETH_SHEAN",
+        "name": "Beth-Shéân",
+        "lon": 35.502,
+        "lat": 32.497,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.502,
+          32.497
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MEGIDDO",
+      "properties": {
+        "node_id": "MEGIDDO",
+        "name": "Megiddo",
+        "lon": 35.184,
+        "lat": 32.584,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.184,
+          32.584
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "TAANACH",
+      "properties": {
+        "node_id": "TAANACH",
+        "name": "Taanak",
+        "lon": 35.218,
+        "lat": 32.521,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.218,
+          32.521
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JEZREEL",
+      "properties": {
+        "node_id": "JEZREEL",
+        "name": "Jizréel",
+        "lon": 35.331,
+        "lat": 32.558,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.331,
+          32.558
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHUNEM",
+      "properties": {
+        "node_id": "SHUNEM",
+        "name": "Shounem",
+        "lon": 35.333,
+        "lat": 32.607,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.333,
+          32.607
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NAZARETH",
+      "properties": {
+        "node_id": "NAZARETH",
+        "name": "Nazareth",
+        "lon": 35.3035,
+        "lat": 32.6996,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.3035,
+          32.6996
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GATH_HEPHER",
+      "properties": {
+        "node_id": "GATH_HEPHER",
+        "name": "Gath-Hépher",
+        "lon": 35.32,
+        "lat": 32.74,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.32,
+          32.74
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CANA",
+      "properties": {
+        "node_id": "CANA",
+        "name": "Cana",
+        "lon": 35.339,
+        "lat": 32.748,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.339,
+          32.748
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CARMEL",
+      "properties": {
+        "node_id": "CARMEL",
+        "name": "Mont Carmel, corridor",
+        "lon": 35,
+        "lat": 32.73,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35,
+          32.73
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "CAPERNAUM",
+      "properties": {
+        "node_id": "CAPERNAUM",
+        "name": "Capharnaüm",
+        "lon": 35.575,
+        "lat": 32.881,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.575,
+          32.881
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETHSAIDA",
+      "properties": {
+        "node_id": "BETHSAIDA",
+        "name": "Bethsaïde, localisation proposée",
+        "lon": 35.63,
+        "lat": 32.91,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.63,
+          32.91
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "HAZOR",
+      "properties": {
+        "node_id": "HAZOR",
+        "name": "Hatsor",
+        "lon": 35.568,
+        "lat": 33.017,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.568,
+          33.017
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAN",
+      "properties": {
+        "node_id": "DAN",
+        "name": "Dan",
+        "lon": 35.653,
+        "lat": 33.249,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.653,
+          33.249
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "HESHBON",
+      "properties": {
+        "node_id": "HESHBON",
+        "name": "Hèshbôn",
+        "lon": 35.81,
+        "lat": 31.8,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.81,
+          31.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RABBAH",
+      "properties": {
+        "node_id": "RABBAH",
+        "name": "Raba des Ammonites",
+        "lon": 35.93,
+        "lat": 31.95,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.93,
+          31.95
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DIBON",
+      "properties": {
+        "node_id": "DIBON",
+        "name": "Dibôn",
+        "lon": 35.77,
+        "lat": 31.5,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.77,
+          31.5
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "AROER",
+      "properties": {
+        "node_id": "AROER",
+        "name": "Aroèr",
+        "lon": 35.73,
+        "lat": 31.45,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.73,
+          31.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PUNON",
+      "properties": {
+        "node_id": "PUNON",
+        "name": "Pounôn, région de Feinan",
+        "lon": 35.5,
+        "lat": 30.63,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.5,
+          30.63
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EZION_GEBER",
+      "properties": {
+        "node_id": "EZION_GEBER",
+        "name": "Éziôn-Guébèr",
+        "lon": 34.97,
+        "lat": 29.53,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.97,
+          29.53
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RAMOTH_GILEAD",
+      "properties": {
+        "node_id": "RAMOTH_GILEAD",
+        "name": "Ramoth-en-Galaad, localisation proposée",
+        "lon": 35.85,
+        "lat": 32.55,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.85,
+          32.55
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASHTAROTH",
+      "properties": {
+        "node_id": "ASHTAROTH",
+        "name": "Ashtaroth",
+        "lon": 36.08,
+        "lat": 32.87,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.08,
+          32.87
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EDREI",
+      "properties": {
+        "node_id": "EDREI",
+        "name": "Édréï",
+        "lon": 36.1,
+        "lat": 32.63,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.1,
+          32.63
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAMASCUS",
+      "properties": {
+        "node_id": "DAMASCUS",
+        "name": "Damas",
+        "lon": 36.277,
+        "lat": 33.513,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.277,
+          33.513
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETHANY",
+      "properties": {
+        "node_id": "BETHANY",
+        "name": "Béthanie",
+        "lon": 35.262,
+        "lat": 31.771,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.262,
+          31.771
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BETHPHAGE",
+      "properties": {
+        "node_id": "BETHPHAGE",
+        "name": "Bethphagé",
+        "lon": 35.252,
+        "lat": 31.779,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À remplacer ou confirmer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.252,
+          31.779
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "UR",
+      "properties": {
+        "node_id": "UR",
+        "name": "Our",
+        "lon": 46.103,
+        "lat": 30.963,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          46.103,
+          30.963
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ERIDU",
+      "properties": {
+        "node_id": "ERIDU",
+        "name": "Éridou",
+        "lon": 45.996,
+        "lat": 30.816,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          45.996,
+          30.816
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ERECH",
+      "properties": {
+        "node_id": "ERECH",
+        "name": "Érek (Ourouk)",
+        "lon": 45.637,
+        "lat": 31.322,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          45.637,
+          31.322
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NIPPUR",
+      "properties": {
+        "node_id": "NIPPUR",
+        "name": "Nippour",
+        "lon": 45.23,
+        "lat": 32.126,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          45.23,
+          32.126
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BABYLON",
+      "properties": {
+        "node_id": "BABYLON",
+        "name": "Babylone",
+        "lon": 44.421,
+        "lat": 32.536,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.421,
+          32.536
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SIPPAR",
+      "properties": {
+        "node_id": "SIPPAR",
+        "name": "Sippar",
+        "lon": 44.25,
+        "lat": 33.058,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          44.25,
+          33.058
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "HIT",
+      "properties": {
+        "node_id": "HIT",
+        "name": "Hit, sur l’Euphrate",
+        "lon": 42.825,
+        "lat": 33.642,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          42.825,
+          33.642
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MARI",
+      "properties": {
+        "node_id": "MARI",
+        "name": "Mari",
+        "lon": 40.886,
+        "lat": 34.552,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          40.886,
+          34.552
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RAQQA",
+      "properties": {
+        "node_id": "RAQQA",
+        "name": "Région de l’ancienne Tuttul, près de Raqqa",
+        "lon": 39.02,
+        "lat": 35.95,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.02,
+          35.95
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KARKEMISH",
+      "properties": {
+        "node_id": "KARKEMISH",
+        "name": "Karkemish",
+        "lon": 38.01,
+        "lat": 36.829,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.01,
+          36.829
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "HARRAN",
+      "properties": {
+        "node_id": "HARRAN",
+        "name": "Harân",
+        "lon": 39.031,
+        "lat": 36.865,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          39.031,
+          36.865
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GOZAN",
+      "properties": {
+        "node_id": "GOZAN",
+        "name": "Gozân, Tell Halaf",
+        "lon": 40.05,
+        "lat": 36.83,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          40.05,
+          36.83
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NINEVEH",
+      "properties": {
+        "node_id": "NINEVEH",
+        "name": "Ninive",
+        "lon": 43.145,
+        "lat": 36.359,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.145,
+          36.359
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KALAH",
+      "properties": {
+        "node_id": "KALAH",
+        "name": "Kalah, Nimroud",
+        "lon": 43.328,
+        "lat": 36.099,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.328,
+          36.099
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSUR",
+      "properties": {
+        "node_id": "ASSUR",
+        "name": "Assour",
+        "lon": 43.259,
+        "lat": 35.456,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.259,
+          35.456
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KHORSABAD",
+      "properties": {
+        "node_id": "KHORSABAD",
+        "name": "Khorsabad",
+        "lon": 43.229,
+        "lat": 36.509,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          43.229,
+          36.509
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ALEPPO",
+      "properties": {
+        "node_id": "ALEPPO",
+        "name": "Alep, corridor syrien",
+        "lon": 37.161,
+        "lat": 36.202,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.161,
+          36.202
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "HAMATH",
+      "properties": {
+        "node_id": "HAMATH",
+        "name": "Hamath",
+        "lon": 36.757,
+        "lat": 35.132,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.757,
+          35.132
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIBLAH",
+      "properties": {
+        "node_id": "RIBLAH",
+        "name": "Ribla, localisation proposée",
+        "lon": 36.55,
+        "lat": 34.45,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          36.55,
+          34.45
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "TADMOR",
+      "properties": {
+        "node_id": "TADMOR",
+        "name": "Tadmor, Palmyre",
+        "lon": 38.267,
+        "lat": 34.556,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.267,
+          34.556
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "TEMA",
+      "properties": {
+        "node_id": "TEMA",
+        "name": "Téma",
+        "lon": 38.55,
+        "lat": 27.63,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          38.55,
+          27.63
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SUSA",
+      "properties": {
+        "node_id": "SUSA",
+        "name": "Suse",
+        "lon": 48.257,
+        "lat": 32.189,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.257,
+          32.189
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ECBATANA",
+      "properties": {
+        "node_id": "ECBATANA",
+        "name": "Ecbatane, Hamadan",
+        "lon": 48.516,
+        "lat": 34.798,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          48.516,
+          34.798
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PASARGADAE",
+      "properties": {
+        "node_id": "PASARGADAE",
+        "name": "Pasargades",
+        "lon": 53.179,
+        "lat": 30.199,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          53.179,
+          30.199
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PERSEPOLIS",
+      "properties": {
+        "node_id": "PERSEPOLIS",
+        "name": "Persépolis",
+        "lon": 52.891,
+        "lat": 29.935,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          52.891,
+          29.935
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RAPHIA",
+      "properties": {
+        "node_id": "RAPHIA",
+        "name": "Raphia, Rafah",
+        "lon": 34.25,
+        "lat": 31.28,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          34.25,
+          31.28
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PELUSIUM",
+      "properties": {
+        "node_id": "PELUSIUM",
+        "name": "Péluse, entrée orientale du delta",
+        "lon": 32.55,
+        "lat": 31.04,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.55,
+          31.04
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "TAHPANHES",
+      "properties": {
+        "node_id": "TAHPANHES",
+        "name": "Tahpanès, Daphné",
+        "lon": 32.17,
+        "lat": 30.87,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.17,
+          30.87
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ZOAN",
+      "properties": {
+        "node_id": "ZOAN",
+        "name": "Zoân, Tanis",
+        "lon": 31.88,
+        "lat": 30.97,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.88,
+          30.97
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RAMESES",
+      "properties": {
+        "node_id": "RAMESES",
+        "name": "Ramsès, région proposée de Pi-Ramsès",
+        "lon": 31.83,
+        "lat": 30.8,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.83,
+          30.8
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GOSHEN",
+      "properties": {
+        "node_id": "GOSHEN",
+        "name": "Goshen, région du delta oriental",
+        "lon": 31.85,
+        "lat": 30.65,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.85,
+          30.65
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SUCCOTH_EGYPT",
+      "properties": {
+        "node_id": "SUCCOTH_EGYPT",
+        "name": "Soukkot, Tell el-Maskhuta proposé",
+        "lon": 32.1,
+        "lat": 30.55,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.1,
+          30.55
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ETHAM",
+      "properties": {
+        "node_id": "ETHAM",
+        "name": "Étam, lisière du désert",
+        "lon": 32.33,
+        "lat": 30.32,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.33,
+          30.32
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MIGDOL",
+      "properties": {
+        "node_id": "MIGDOL",
+        "name": "Migdol, localisation proposée",
+        "lon": 32.43,
+        "lat": 30.18,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.43,
+          30.18
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PIHAHIROTH",
+      "properties": {
+        "node_id": "PIHAHIROTH",
+        "name": "Pi-Hahiroth, localisation proposée",
+        "lon": 32.52,
+        "lat": 30.03,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.52,
+          30.03
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SEA_CROSSING",
+      "properties": {
+        "node_id": "SEA_CROSSING",
+        "name": "Corridor possible de traversée de la mer",
+        "lon": 32.65,
+        "lat": 29.95,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.65,
+          29.95
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ON",
+      "properties": {
+        "node_id": "ON",
+        "name": "On, Héliopolis",
+        "lon": 31.28,
+        "lat": 30.13,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.28,
+          30.13
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MEMPHIS",
+      "properties": {
+        "node_id": "MEMPHIS",
+        "name": "Memphis, Nof",
+        "lon": 31.25,
+        "lat": 29.85,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          31.25,
+          29.85
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NO_AMON",
+      "properties": {
+        "node_id": "NO_AMON",
+        "name": "No-Amon, Thèbes",
+        "lon": 32.64,
+        "lat": 25.72,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.64,
+          25.72
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SYENE",
+      "properties": {
+        "node_id": "SYENE",
+        "name": "Syène, Assouan",
+        "lon": 32.9,
+        "lat": 24.09,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          32.9,
+          24.09
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHUR",
+      "properties": {
+        "node_id": "SHUR",
+        "name": "Désert de Shour, corridor",
+        "lon": 33,
+        "lat": 30.6,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33,
+          30.6
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MARA",
+      "properties": {
+        "node_id": "MARA",
+        "name": "Mara, localisation proposée",
+        "lon": 33.08,
+        "lat": 29.1,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.08,
+          29.1
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ELIM",
+      "properties": {
+        "node_id": "ELIM",
+        "name": "Élim, Wadi Gharandel proposé",
+        "lon": 33.18,
+        "lat": 29.27,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.18,
+          29.27
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SIN_WILDERNESS",
+      "properties": {
+        "node_id": "SIN_WILDERNESS",
+        "name": "Désert de Sîn, corridor",
+        "lon": 33.4,
+        "lat": 29,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.4,
+          29
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "REPHIDIM",
+      "properties": {
+        "node_id": "REPHIDIM",
+        "name": "Rephidim, Wadi Feiran proposé",
+        "lon": 33.62,
+        "lat": 28.71,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.62,
+          28.71
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI",
+      "properties": {
+        "node_id": "SINAI",
+        "name": "Mont Sinaï, localisation traditionnelle",
+        "lon": 33.975,
+        "lat": 28.54,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          33.975,
+          28.54
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "MIDIAN",
+      "properties": {
+        "node_id": "MIDIAN",
+        "name": "Madian, région nord-ouest de l’Arabie",
+        "lon": 35.08,
+        "lat": 28.47,
+        "coordinate_status": "approximate_anchor",
+        "needs_feature_match": true,
+        "note": "À confirmer ou remplacer par le feature_id validé de l’Atlas."
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          35.08,
+          28.47
+        ]
+      }
+    }
+  ]
+}

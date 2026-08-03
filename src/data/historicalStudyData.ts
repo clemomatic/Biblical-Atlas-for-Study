@@ -24,6 +24,7 @@ import {
 import type { GeographicProvenance } from '../types';
 import { BIBLICAL_PEOPLE } from './biblicalPeople';
 import { getGeographicProvenance } from './geographicProvenance';
+import { AUTHORITATIVE_SOURCE_CATALOG } from './authoritativeChronology';
 import { BIBLICAL_PLACES, BIBLICAL_ROUTES } from './mapData';
 
 const flattenJsonModules = <T>(
@@ -70,8 +71,13 @@ const reviewedTerritories = flattenJsonModules<ReviewedTerritoryRecord>(
   })
 );
 
-export const HISTORICAL_SOURCE_CATALOG =
-  sourceCatalogJson as unknown as SourceCatalogEntry[];
+const legacySourceCatalog = sourceCatalogJson as unknown as SourceCatalogEntry[];
+export const HISTORICAL_SOURCE_CATALOG = [
+  ...legacySourceCatalog,
+  ...AUTHORITATIVE_SOURCE_CATALOG.filter(
+    source => !legacySourceCatalog.some(existing => existing.id === source.id)
+  )
+];
 export const REVIEWED_HISTORICAL_PEOPLE = reviewedPeople;
 export const REVIEWED_HISTORICAL_EVENTS = reviewedEvents;
 export const REVIEWED_HISTORICAL_PLACES = reviewedPlaces;

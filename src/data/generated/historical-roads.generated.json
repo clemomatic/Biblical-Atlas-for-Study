@@ -1,0 +1,6296 @@
+{
+  "type": "FeatureCollection",
+  "name": "historical_roads_canaan_transjordan_pilot",
+  "metadata": {
+    "status": "expanded_pilot",
+    "scope": "Canaan, Transjordanie, Égypte, Sinaï, Syrie, Mésopotamie et Perse",
+    "coordinate_system": "EPSG:4326",
+    "warning": "Les géométries sont des corridors historiques reconstruits d’après les cartes JW.ORG, la topographie et des ancres géographiques. Elles ne constituent pas des traces GPS archéologiques.",
+    "primary_sources": [
+      "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+      "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+      "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+      "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+      "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+      "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+      "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+      "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Les-pays-de-la-Bible/"
+    ]
+  },
+  "features": [
+    {
+      "type": "Feature",
+      "id": "VM-001",
+      "properties": {
+        "road_segment_id": "VM-001",
+        "from_node": "GAZA",
+        "to_node": "ASHKELON",
+        "road_name": "Via Maris, tronçon Gaza–Ascalon",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 21.1
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.4668,
+            31.5017
+          ],
+          [
+            34.49,
+            31.55
+          ],
+          [
+            34.53,
+            31.61
+          ],
+          [
+            34.5715,
+            31.6688
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-002",
+      "properties": {
+        "road_segment_id": "VM-002",
+        "from_node": "ASHKELON",
+        "to_node": "ASHDOD",
+        "road_name": "Via Maris, tronçon Ascalon–Asdod",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 16.26
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.5715,
+            31.6688
+          ],
+          [
+            34.59,
+            31.71
+          ],
+          [
+            34.62,
+            31.76
+          ],
+          [
+            34.6435,
+            31.8014
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-003",
+      "properties": {
+        "road_segment_id": "VM-003",
+        "from_node": "ASHDOD",
+        "to_node": "JOPPA",
+        "road_name": "Via Maris, tronçon Asdod–Joppé",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 29.52
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.6435,
+            31.8014
+          ],
+          [
+            34.67,
+            31.86
+          ],
+          [
+            34.71,
+            31.95
+          ],
+          [
+            34.7519,
+            32.0504
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-004",
+      "properties": {
+        "road_segment_id": "VM-004",
+        "from_node": "JOPPA",
+        "to_node": "APHEK_COAST",
+        "road_name": "Route côtière, Joppé–Afek",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 17.88
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.7519,
+            32.0504
+          ],
+          [
+            34.8,
+            32.07
+          ],
+          [
+            34.86,
+            32.09
+          ],
+          [
+            34.93,
+            32.104
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-005",
+      "properties": {
+        "road_segment_id": "VM-005",
+        "from_node": "APHEK_COAST",
+        "to_node": "CAESAREA",
+        "road_name": "Route côtière, Afek–Césarée",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 44.22
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.93,
+            32.104
+          ],
+          [
+            34.91,
+            32.22
+          ],
+          [
+            34.9,
+            32.35
+          ],
+          [
+            34.892,
+            32.5
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-006",
+      "properties": {
+        "road_segment_id": "VM-006",
+        "from_node": "CAESAREA",
+        "to_node": "DOR",
+        "road_name": "Route côtière, Césarée–Dor",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 13.25
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.892,
+            32.5
+          ],
+          [
+            34.9,
+            32.55
+          ],
+          [
+            34.918,
+            32.617
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-007",
+      "properties": {
+        "road_segment_id": "VM-007",
+        "from_node": "DOR",
+        "to_node": "MEGIDDO",
+        "road_name": "Passage du Carmel vers Megiddo",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Corridor topographique du passage du Carmel.",
+        "length_km": 25.86
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.918,
+            32.617
+          ],
+          [
+            34.98,
+            32.63
+          ],
+          [
+            35.05,
+            32.61
+          ],
+          [
+            35.12,
+            32.59
+          ],
+          [
+            35.184,
+            32.584
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-008",
+      "properties": {
+        "road_segment_id": "VM-008",
+        "from_node": "MEGIDDO",
+        "to_node": "JEZREEL",
+        "road_name": "Via Maris, vallée de Jezréel",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 14.11
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.184,
+            32.584
+          ],
+          [
+            35.23,
+            32.58
+          ],
+          [
+            35.28,
+            32.57
+          ],
+          [
+            35.331,
+            32.558
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-009",
+      "properties": {
+        "road_segment_id": "VM-009",
+        "from_node": "JEZREEL",
+        "to_node": "BETH_SHEAN",
+        "road_name": "Vallée de Jezréel vers Beth-Shéân",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 17.65
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.331,
+            32.558
+          ],
+          [
+            35.39,
+            32.55
+          ],
+          [
+            35.45,
+            32.52
+          ],
+          [
+            35.502,
+            32.497
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-010",
+      "properties": {
+        "road_segment_id": "VM-010",
+        "from_node": "BETH_SHEAN",
+        "to_node": "CAPERNAUM",
+        "road_name": "Route de la vallée vers la mer de Galilée",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 43.3
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.502,
+            32.497
+          ],
+          [
+            35.53,
+            32.62
+          ],
+          [
+            35.56,
+            32.74
+          ],
+          [
+            35.575,
+            32.881
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-011",
+      "properties": {
+        "road_segment_id": "VM-011",
+        "from_node": "CAPERNAUM",
+        "to_node": "HAZOR",
+        "road_name": "Route de Galilée vers Hatsor",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 15.22
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.575,
+            32.881
+          ],
+          [
+            35.58,
+            32.93
+          ],
+          [
+            35.57,
+            32.98
+          ],
+          [
+            35.568,
+            33.017
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-012",
+      "properties": {
+        "road_segment_id": "VM-012",
+        "from_node": "HAZOR",
+        "to_node": "DAN",
+        "road_name": "Route de Hatsor à Dan",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 27
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.568,
+            33.017
+          ],
+          [
+            35.59,
+            33.09
+          ],
+          [
+            35.62,
+            33.17
+          ],
+          [
+            35.653,
+            33.249
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "VM-013",
+      "properties": {
+        "road_segment_id": "VM-013",
+        "from_node": "DAN",
+        "to_node": "DAMASCUS",
+        "road_name": "Route de Dan à Damas",
+        "road_system": "VIA_MARIS",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 65.02
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.653,
+            33.249
+          ],
+          [
+            35.78,
+            33.3
+          ],
+          [
+            35.97,
+            33.39
+          ],
+          [
+            36.15,
+            33.47
+          ],
+          [
+            36.277,
+            33.513
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "COAST-001",
+      "properties": {
+        "road_segment_id": "COAST-001",
+        "from_node": "DOR",
+        "to_node": "ACCO",
+        "road_name": "Route côtière vers Acco",
+        "road_system": "COASTAL_WAY",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 37.44
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.918,
+            32.617
+          ],
+          [
+            34.96,
+            32.72
+          ],
+          [
+            35.02,
+            32.82
+          ],
+          [
+            35.083,
+            32.923
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "COAST-002",
+      "properties": {
+        "road_segment_id": "COAST-002",
+        "from_node": "ACCO",
+        "to_node": "TYRE",
+        "road_name": "Route côtière Acco–Tyr",
+        "road_system": "COASTAL_WAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 40.18
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.083,
+            32.923
+          ],
+          [
+            35.12,
+            33.02
+          ],
+          [
+            35.17,
+            33.16
+          ],
+          [
+            35.203,
+            33.27
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "COAST-003",
+      "properties": {
+        "road_segment_id": "COAST-003",
+        "from_node": "TYRE",
+        "to_node": "SAREPTA",
+        "road_name": "Route côtière Tyr–Sarepta",
+        "road_system": "COASTAL_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 22.51
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.203,
+            33.27
+          ],
+          [
+            35.24,
+            33.36
+          ],
+          [
+            35.295,
+            33.457
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "COAST-004",
+      "properties": {
+        "road_segment_id": "COAST-004",
+        "from_node": "SAREPTA",
+        "to_node": "SIDON",
+        "road_name": "Route côtière Sarepta–Sidon",
+        "road_system": "COASTAL_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 13.19
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.295,
+            33.457
+          ],
+          [
+            35.33,
+            33.51
+          ],
+          [
+            35.371,
+            33.557
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-001",
+      "properties": {
+        "road_segment_id": "RIDGE-001",
+        "from_node": "BEERSHEBA",
+        "to_node": "HEBRON",
+        "road_name": "Route de la montagne, Béer-Shéba–Hébron",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 42.78
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.7915,
+            31.2529
+          ],
+          [
+            34.88,
+            31.34
+          ],
+          [
+            34.98,
+            31.44
+          ],
+          [
+            35.0998,
+            31.5326
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-002",
+      "properties": {
+        "road_segment_id": "RIDGE-002",
+        "from_node": "HEBRON",
+        "to_node": "BETHLEHEM",
+        "road_name": "Route de la montagne, Hébron–Bethléem",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 21.6
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.0998,
+            31.5326
+          ],
+          [
+            35.13,
+            31.6
+          ],
+          [
+            35.17,
+            31.66
+          ],
+          [
+            35.2024,
+            31.7054
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-003",
+      "properties": {
+        "road_segment_id": "RIDGE-003",
+        "from_node": "BETHLEHEM",
+        "to_node": "JERUSALEM",
+        "road_name": "Route de la montagne, Bethléem–Jérusalem",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 8.65
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.2024,
+            31.7054
+          ],
+          [
+            35.22,
+            31.74
+          ],
+          [
+            35.235,
+            31.778
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-004",
+      "properties": {
+        "road_segment_id": "RIDGE-004",
+        "from_node": "JERUSALEM",
+        "to_node": "RAMAH",
+        "road_name": "Route de la montagne, Jérusalem–Rama",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 7.96
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.235,
+            31.778
+          ],
+          [
+            35.23,
+            31.81
+          ],
+          [
+            35.224,
+            31.849
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-005",
+      "properties": {
+        "road_segment_id": "RIDGE-005",
+        "from_node": "RAMAH",
+        "to_node": "BETHEL",
+        "road_name": "Route de la montagne, Rama–Béthel",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 8.68
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.224,
+            31.849
+          ],
+          [
+            35.23,
+            31.88
+          ],
+          [
+            35.239,
+            31.926
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-006",
+      "properties": {
+        "road_segment_id": "RIDGE-006",
+        "from_node": "BETHEL",
+        "to_node": "SHILOH",
+        "road_name": "Grande route Béthel–Sichem, tronçon vers Silo",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "La publication cite la grande route qui montait de Béthel vers Sichem.",
+        "length_km": 15.21
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.239,
+            31.926
+          ],
+          [
+            35.25,
+            31.98
+          ],
+          [
+            35.27,
+            32.02
+          ],
+          [
+            35.289,
+            32.055
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-007",
+      "properties": {
+        "road_segment_id": "RIDGE-007",
+        "from_node": "SHILOH",
+        "to_node": "SHECHEM",
+        "road_name": "Grande route Béthel–Sichem, tronçon Silo–Sichem",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 17.61
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.289,
+            32.055
+          ],
+          [
+            35.29,
+            32.11
+          ],
+          [
+            35.29,
+            32.16
+          ],
+          [
+            35.283,
+            32.213
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-008",
+      "properties": {
+        "road_segment_id": "RIDGE-008",
+        "from_node": "SHECHEM",
+        "to_node": "SAMARIA",
+        "road_name": "Route des hautes terres, Sichem–Samarie",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 11.31
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.283,
+            32.213
+          ],
+          [
+            35.25,
+            32.24
+          ],
+          [
+            35.189,
+            32.276
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-009",
+      "properties": {
+        "road_segment_id": "RIDGE-009",
+        "from_node": "SAMARIA",
+        "to_node": "DOTHAN",
+        "road_name": "Route des hautes terres, Samarie–Dothân",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 15.78
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.189,
+            32.276
+          ],
+          [
+            35.2,
+            32.33
+          ],
+          [
+            35.22,
+            32.37
+          ],
+          [
+            35.238,
+            32.411
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "RIDGE-010",
+      "properties": {
+        "road_segment_id": "RIDGE-010",
+        "from_node": "DOTHAN",
+        "to_node": "MEGIDDO",
+        "road_name": "Route Dothân–Megiddo",
+        "road_system": "CENTRAL_RIDGE",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 20.24
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.238,
+            32.411
+          ],
+          [
+            35.2,
+            32.47
+          ],
+          [
+            35.19,
+            32.53
+          ],
+          [
+            35.184,
+            32.584
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JV-001",
+      "properties": {
+        "road_segment_id": "JV-001",
+        "from_node": "JERICHO",
+        "to_node": "GILGAL",
+        "road_name": "Jéricho–Guilgal",
+        "road_system": "JORDAN_VALLEY",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 2.52
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.444,
+            31.87
+          ],
+          [
+            35.46,
+            31.875
+          ],
+          [
+            35.465,
+            31.882
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JV-002",
+      "properties": {
+        "road_segment_id": "JV-002",
+        "from_node": "GILGAL",
+        "to_node": "ADAM",
+        "road_name": "Route de la vallée du Jourdain, Guilgal–Adam",
+        "road_system": "JORDAN_VALLEY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 25.86
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.465,
+            31.882
+          ],
+          [
+            35.49,
+            31.95
+          ],
+          [
+            35.53,
+            32.03
+          ],
+          [
+            35.56,
+            32.1
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JV-003",
+      "properties": {
+        "road_segment_id": "JV-003",
+        "from_node": "ADAM",
+        "to_node": "SUCCOTH",
+        "road_name": "Route de la vallée, Adam–Soukkoth",
+        "road_system": "JORDAN_VALLEY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 11.51
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.56,
+            32.1
+          ],
+          [
+            35.57,
+            32.15
+          ],
+          [
+            35.59,
+            32.2
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JV-004",
+      "properties": {
+        "road_segment_id": "JV-004",
+        "from_node": "SUCCOTH",
+        "to_node": "BETH_SHEAN",
+        "road_name": "Route de la vallée, Soukkoth–Beth-Shéân",
+        "road_system": "JORDAN_VALLEY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 34.17
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.59,
+            32.2
+          ],
+          [
+            35.55,
+            32.29
+          ],
+          [
+            35.53,
+            32.4
+          ],
+          [
+            35.502,
+            32.497
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-001",
+      "properties": {
+        "road_segment_id": "KH-001",
+        "from_node": "EZION_GEBER",
+        "to_node": "PUNON",
+        "road_name": "Route du Roi, Éziôn-Guébèr–Pounôn",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 132.72
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.97,
+            29.53
+          ],
+          [
+            35.06,
+            29.78
+          ],
+          [
+            35.22,
+            30.12
+          ],
+          [
+            35.38,
+            30.4
+          ],
+          [
+            35.5,
+            30.63
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-002",
+      "properties": {
+        "road_segment_id": "KH-002",
+        "from_node": "PUNON",
+        "to_node": "AROER",
+        "road_name": "Route du Roi, Pounôn–Aroèr",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 93.97
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.5,
+            30.63
+          ],
+          [
+            35.57,
+            30.86
+          ],
+          [
+            35.67,
+            31.16
+          ],
+          [
+            35.72,
+            31.34
+          ],
+          [
+            35.73,
+            31.45
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-003",
+      "properties": {
+        "road_segment_id": "KH-003",
+        "from_node": "AROER",
+        "to_node": "DIBON",
+        "road_name": "Route du Roi, Aroèr–Dibôn",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 6.76
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.73,
+            31.45
+          ],
+          [
+            35.75,
+            31.47
+          ],
+          [
+            35.77,
+            31.5
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-004",
+      "properties": {
+        "road_segment_id": "KH-004",
+        "from_node": "DIBON",
+        "to_node": "HESHBON",
+        "road_name": "Route du Roi, Dibôn–Hèshbôn",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 33.6
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.77,
+            31.5
+          ],
+          [
+            35.78,
+            31.6
+          ],
+          [
+            35.8,
+            31.7
+          ],
+          [
+            35.81,
+            31.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-005",
+      "properties": {
+        "road_segment_id": "KH-005",
+        "from_node": "HESHBON",
+        "to_node": "RABBAH",
+        "road_name": "Route du Roi, Hèshbôn–Raba",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 20.17
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.81,
+            31.8
+          ],
+          [
+            35.85,
+            31.85
+          ],
+          [
+            35.9,
+            31.91
+          ],
+          [
+            35.93,
+            31.95
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-006",
+      "properties": {
+        "road_segment_id": "KH-006",
+        "from_node": "RABBAH",
+        "to_node": "RAMOTH_GILEAD",
+        "road_name": "Route du Roi, Raba–Ramoth-en-Galaad",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 67.18
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.93,
+            31.95
+          ],
+          [
+            35.91,
+            32.12
+          ],
+          [
+            35.89,
+            32.32
+          ],
+          [
+            35.87,
+            32.46
+          ],
+          [
+            35.85,
+            32.55
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-007",
+      "properties": {
+        "road_segment_id": "KH-007",
+        "from_node": "RAMOTH_GILEAD",
+        "to_node": "EDREI",
+        "road_name": "Route du Roi vers le Bashân",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 25.09
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.85,
+            32.55
+          ],
+          [
+            35.94,
+            32.58
+          ],
+          [
+            36.02,
+            32.61
+          ],
+          [
+            36.1,
+            32.63
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "KH-008",
+      "properties": {
+        "road_segment_id": "KH-008",
+        "from_node": "EDREI",
+        "to_node": "DAMASCUS",
+        "road_name": "Route du Bashân vers Damas",
+        "road_system": "KINGS_HIGHWAY",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 99.67
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            36.1,
+            32.63
+          ],
+          [
+            36.13,
+            32.78
+          ],
+          [
+            36.2,
+            33.02
+          ],
+          [
+            36.24,
+            33.28
+          ],
+          [
+            36.277,
+            33.513
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BASHAN-001",
+      "properties": {
+        "road_segment_id": "BASHAN-001",
+        "from_node": "RAMOTH_GILEAD",
+        "to_node": "ASHTAROTH",
+        "road_name": "Chemin du Bashân, Ramoth–Ashtaroth",
+        "road_system": "BASHAN_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 41.77
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.85,
+            32.55
+          ],
+          [
+            35.93,
+            32.68
+          ],
+          [
+            36,
+            32.79
+          ],
+          [
+            36.08,
+            32.87
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BASHAN-002",
+      "properties": {
+        "road_segment_id": "BASHAN-002",
+        "from_node": "ASHTAROTH",
+        "to_node": "EDREI",
+        "road_name": "Chemin du Bashân, Ashtaroth–Édréï",
+        "road_system": "BASHAN_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 26.75
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            36.08,
+            32.87
+          ],
+          [
+            36.09,
+            32.75
+          ],
+          [
+            36.1,
+            32.63
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-001",
+      "properties": {
+        "road_segment_id": "EW-001",
+        "from_node": "JERUSALEM",
+        "to_node": "JERICHO",
+        "road_name": "Route Jérusalem–Jéricho",
+        "road_system": "JERUSALEM_JERICHO",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Suit la descente naturelle du désert de Judée.",
+        "length_km": 23.33
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.235,
+            31.778
+          ],
+          [
+            35.3,
+            31.79
+          ],
+          [
+            35.36,
+            31.8
+          ],
+          [
+            35.41,
+            31.83
+          ],
+          [
+            35.444,
+            31.87
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-002",
+      "properties": {
+        "road_segment_id": "EW-002",
+        "from_node": "BETHEL",
+        "to_node": "JERICHO",
+        "road_name": "Route Béthel–Jéricho",
+        "road_system": "BETHEL_JERICHO",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 20.37
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.239,
+            31.926
+          ],
+          [
+            35.3,
+            31.91
+          ],
+          [
+            35.37,
+            31.89
+          ],
+          [
+            35.42,
+            31.88
+          ],
+          [
+            35.444,
+            31.87
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-003",
+      "properties": {
+        "road_segment_id": "EW-003",
+        "from_node": "SHECHEM",
+        "to_node": "ADAM",
+        "road_name": "Route Sichem–passage du Jourdain",
+        "road_system": "SHECHEM_JORDAN",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 29.01
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.283,
+            32.213
+          ],
+          [
+            35.36,
+            32.19
+          ],
+          [
+            35.45,
+            32.15
+          ],
+          [
+            35.52,
+            32.12
+          ],
+          [
+            35.56,
+            32.1
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-004",
+      "properties": {
+        "road_segment_id": "EW-004",
+        "from_node": "BETH_SHEAN",
+        "to_node": "PELLA",
+        "road_name": "Passage de Beth-Shéân vers Pella",
+        "road_system": "JORDAN_CROSSING",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 12.3
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.502,
+            32.497
+          ],
+          [
+            35.56,
+            32.48
+          ],
+          [
+            35.62,
+            32.45
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-005",
+      "properties": {
+        "road_segment_id": "EW-005",
+        "from_node": "PELLA",
+        "to_node": "MAHANAIM",
+        "road_name": "Route de Pella vers Mahanaïm",
+        "road_system": "GILEAD_CONNECTOR",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 12.87
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.62,
+            32.45
+          ],
+          [
+            35.65,
+            32.43
+          ],
+          [
+            35.69,
+            32.39
+          ],
+          [
+            35.7,
+            32.36
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-006",
+      "properties": {
+        "road_segment_id": "EW-006",
+        "from_node": "MAHANAIM",
+        "to_node": "RAMOTH_GILEAD",
+        "road_name": "Route de Mahanaïm vers Ramoth",
+        "road_system": "GILEAD_CONNECTOR",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 25.58
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.7,
+            32.36
+          ],
+          [
+            35.76,
+            32.43
+          ],
+          [
+            35.82,
+            32.49
+          ],
+          [
+            35.85,
+            32.55
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-007",
+      "properties": {
+        "road_segment_id": "EW-007",
+        "from_node": "SUCCOTH",
+        "to_node": "PENUEL",
+        "road_name": "Soukkoth–Penouel",
+        "road_system": "JABBOK_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 11.29
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.59,
+            32.2
+          ],
+          [
+            35.64,
+            32.2
+          ],
+          [
+            35.71,
+            32.2
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EW-008",
+      "properties": {
+        "road_segment_id": "EW-008",
+        "from_node": "PENUEL",
+        "to_node": "MAHANAIM",
+        "road_name": "Penouel–Mahanaïm",
+        "road_system": "JABBOK_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 17.84
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.71,
+            32.2
+          ],
+          [
+            35.71,
+            32.28
+          ],
+          [
+            35.7,
+            32.36
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_WEST-001",
+      "properties": {
+        "road_segment_id": "JERUSALEM_WEST-001",
+        "from_node": "JOPPA",
+        "to_node": "LYDDA",
+        "road_name": "Joppé–Lydda",
+        "road_system": "JAFFA_JERUSALEM",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 17.02
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.7519,
+            32.0504
+          ],
+          [
+            34.81,
+            32.02
+          ],
+          [
+            34.85,
+            31.98
+          ],
+          [
+            34.888,
+            31.952
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_WEST-002",
+      "properties": {
+        "road_segment_id": "JERUSALEM_WEST-002",
+        "from_node": "LYDDA",
+        "to_node": "GEZER",
+        "road_name": "Lydda–Guézer",
+        "road_system": "JAFFA_JERUSALEM",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 9.05
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.888,
+            31.952
+          ],
+          [
+            34.9,
+            31.92
+          ],
+          [
+            34.922,
+            31.876
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_WEST-003",
+      "properties": {
+        "road_segment_id": "JERUSALEM_WEST-003",
+        "from_node": "GEZER",
+        "to_node": "AIJALON",
+        "road_name": "Guézer–vallée d’Ayalôn",
+        "road_system": "BETH_HORON_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 7.65
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.922,
+            31.876
+          ],
+          [
+            34.96,
+            31.85
+          ],
+          [
+            34.99,
+            31.84
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_WEST-004",
+      "properties": {
+        "road_segment_id": "JERUSALEM_WEST-004",
+        "from_node": "AIJALON",
+        "to_node": "BETH_HORON_LOWER",
+        "road_name": "Ayalôn–Beth-Horôn-le-Bas",
+        "road_system": "BETH_HORON_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 10.08
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.99,
+            31.84
+          ],
+          [
+            35.03,
+            31.87
+          ],
+          [
+            35.071,
+            31.899
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_WEST-005",
+      "properties": {
+        "road_segment_id": "JERUSALEM_WEST-005",
+        "from_node": "BETH_HORON_LOWER",
+        "to_node": "BETH_HORON_UPPER",
+        "road_name": "Montée de Beth-Horôn",
+        "road_system": "BETH_HORON_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 3.67
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.071,
+            31.899
+          ],
+          [
+            35.09,
+            31.9
+          ],
+          [
+            35.108,
+            31.893
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_WEST-006",
+      "properties": {
+        "road_segment_id": "JERUSALEM_WEST-006",
+        "from_node": "BETH_HORON_UPPER",
+        "to_node": "GIBEON",
+        "road_name": "Beth-Horôn-le-Haut–Gabaon",
+        "road_system": "BETH_HORON_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 8.75
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.108,
+            31.893
+          ],
+          [
+            35.14,
+            31.88
+          ],
+          [
+            35.184,
+            31.849
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_WEST-007",
+      "properties": {
+        "road_segment_id": "JERUSALEM_WEST-007",
+        "from_node": "GIBEON",
+        "to_node": "JERUSALEM",
+        "road_name": "Gabaon–Jérusalem",
+        "road_system": "BETH_HORON_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 9.28
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.184,
+            31.849
+          ],
+          [
+            35.2,
+            31.82
+          ],
+          [
+            35.235,
+            31.778
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-001",
+      "properties": {
+        "road_segment_id": "SOUTH-001",
+        "from_node": "GAZA",
+        "to_node": "GERAR",
+        "road_name": "Gaza–région de Guérar",
+        "road_system": "SOUTHERN_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 46.68
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.4668,
+            31.5017
+          ],
+          [
+            34.62,
+            31.43
+          ],
+          [
+            34.78,
+            31.39
+          ],
+          [
+            34.93,
+            31.38
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-002",
+      "properties": {
+        "road_segment_id": "SOUTH-002",
+        "from_node": "GERAR",
+        "to_node": "BEERSHEBA",
+        "road_name": "Guérar–Béer-Shéba",
+        "road_system": "SOUTHERN_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 19.43
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.93,
+            31.38
+          ],
+          [
+            34.88,
+            31.32
+          ],
+          [
+            34.7915,
+            31.2529
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-003",
+      "properties": {
+        "road_segment_id": "SOUTH-003",
+        "from_node": "GAZA",
+        "to_node": "BEERSHEBA",
+        "road_name": "Gaza–Béer-Shéba",
+        "road_system": "NEGEV_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 41.49
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.4668,
+            31.5017
+          ],
+          [
+            34.57,
+            31.43
+          ],
+          [
+            34.67,
+            31.34
+          ],
+          [
+            34.7915,
+            31.2529
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHEPHELA-001",
+      "properties": {
+        "road_segment_id": "SHEPHELA-001",
+        "from_node": "ASHKELON",
+        "to_node": "GATH",
+        "road_name": "Ascalon–Gath",
+        "road_system": "SHEPHELA_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 26.69
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.5715,
+            31.6688
+          ],
+          [
+            34.68,
+            31.69
+          ],
+          [
+            34.77,
+            31.7
+          ],
+          [
+            34.85,
+            31.7
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHEPHELA-002",
+      "properties": {
+        "road_segment_id": "SHEPHELA-002",
+        "from_node": "GATH",
+        "to_node": "LACHISH",
+        "road_name": "Gath–Lakish",
+        "road_system": "SHEPHELA_WAY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 15.15
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.85,
+            31.7
+          ],
+          [
+            34.85,
+            31.64
+          ],
+          [
+            34.84,
+            31.6
+          ],
+          [
+            34.846,
+            31.565
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHEPHELA-003",
+      "properties": {
+        "road_segment_id": "SHEPHELA-003",
+        "from_node": "LACHISH",
+        "to_node": "HEBRON",
+        "road_name": "Lakish–Hébron",
+        "road_system": "SHEPHELA_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 24.6
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.846,
+            31.565
+          ],
+          [
+            34.93,
+            31.57
+          ],
+          [
+            35.02,
+            31.55
+          ],
+          [
+            35.0998,
+            31.5326
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHEPHELA-004",
+      "properties": {
+        "road_segment_id": "SHEPHELA-004",
+        "from_node": "GATH",
+        "to_node": "ADULLAM",
+        "road_name": "Gath–Adoullam",
+        "road_system": "SHEPHELA_WAY",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 15.26
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.85,
+            31.7
+          ],
+          [
+            34.92,
+            31.68
+          ],
+          [
+            35,
+            31.65
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHEPHELA-005",
+      "properties": {
+        "road_segment_id": "SHEPHELA-005",
+        "from_node": "ADULLAM",
+        "to_node": "HEBRON",
+        "road_name": "Adoullam–Hébron",
+        "road_system": "SHEPHELA_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 16.16
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35,
+            31.65
+          ],
+          [
+            35.05,
+            31.6
+          ],
+          [
+            35.0998,
+            31.5326
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHEPHELA-006",
+      "properties": {
+        "road_segment_id": "SHEPHELA-006",
+        "from_node": "ADULLAM",
+        "to_node": "KEILAH",
+        "road_name": "Adoullam–Qéïla",
+        "road_system": "SHEPHELA_WAY",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 3.84
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35,
+            31.65
+          ],
+          [
+            35.01,
+            31.64
+          ],
+          [
+            35.001,
+            31.62
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-004",
+      "properties": {
+        "road_segment_id": "SOUTH-004",
+        "from_node": "BEERSHEBA",
+        "to_node": "ARAD",
+        "road_name": "Béer-Shéba–Arad",
+        "road_system": "NEGEV_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 32.32
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.7915,
+            31.2529
+          ],
+          [
+            34.9,
+            31.26
+          ],
+          [
+            35.02,
+            31.27
+          ],
+          [
+            35.13,
+            31.28
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-005",
+      "properties": {
+        "road_segment_id": "SOUTH-005",
+        "from_node": "ARAD",
+        "to_node": "KADESH",
+        "road_name": "Arad–Qadesh",
+        "road_system": "NEGEV_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 97.95
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.13,
+            31.28
+          ],
+          [
+            34.98,
+            31.08
+          ],
+          [
+            34.78,
+            30.88
+          ],
+          [
+            34.58,
+            30.73
+          ],
+          [
+            34.43,
+            30.65
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-006",
+      "properties": {
+        "road_segment_id": "SOUTH-006",
+        "from_node": "KADESH",
+        "to_node": "EZION_GEBER",
+        "road_name": "Qadesh–Éziôn-Guébèr",
+        "road_system": "ARABAH_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 135.03
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.43,
+            30.65
+          ],
+          [
+            34.52,
+            30.45
+          ],
+          [
+            34.65,
+            30.15
+          ],
+          [
+            34.82,
+            29.8
+          ],
+          [
+            34.97,
+            29.53
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-007",
+      "properties": {
+        "road_segment_id": "SOUTH-007",
+        "from_node": "GATH",
+        "to_node": "ZIKLAG",
+        "road_name": "Gath–Tsiqlag",
+        "road_system": "PHILISTINE_NEGEV",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 55.82
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.85,
+            31.7
+          ],
+          [
+            34.83,
+            31.55
+          ],
+          [
+            34.81,
+            31.38
+          ],
+          [
+            34.8,
+            31.2
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SOUTH-008",
+      "properties": {
+        "road_segment_id": "SOUTH-008",
+        "from_node": "ZIKLAG",
+        "to_node": "BEERSHEBA",
+        "road_name": "Tsiqlag–Béer-Shéba",
+        "road_system": "PHILISTINE_NEGEV",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 5.97
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.8,
+            31.2
+          ],
+          [
+            34.8,
+            31.22
+          ],
+          [
+            34.7915,
+            31.2529
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-001",
+      "properties": {
+        "road_segment_id": "DAVID-001",
+        "from_node": "JERUSALEM",
+        "to_node": "NOB",
+        "road_name": "Jérusalem–Nob",
+        "road_system": "DAVID_LOCAL",
+        "road_type": "local",
+        "certainty": "hypothetical",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Localisation de Nob discutée.",
+        "length_km": 2.62
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.235,
+            31.778
+          ],
+          [
+            35.24,
+            31.79
+          ],
+          [
+            35.245,
+            31.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-002",
+      "properties": {
+        "road_segment_id": "DAVID-002",
+        "from_node": "JERUSALEM",
+        "to_node": "GIBEAH",
+        "road_name": "Jérusalem–Guibéa",
+        "road_system": "DAVID_LOCAL",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 5.05
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.235,
+            31.778
+          ],
+          [
+            35.24,
+            31.8
+          ],
+          [
+            35.239,
+            31.823
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-003",
+      "properties": {
+        "road_segment_id": "DAVID-003",
+        "from_node": "GIBEAH",
+        "to_node": "RAMAH",
+        "road_name": "Guibéa–Rama",
+        "road_system": "DAVID_LOCAL",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 3.22
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.239,
+            31.823
+          ],
+          [
+            35.23,
+            31.84
+          ],
+          [
+            35.224,
+            31.849
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-004",
+      "properties": {
+        "road_segment_id": "DAVID-004",
+        "from_node": "JERUSALEM",
+        "to_node": "QIRIATH_JEARIM",
+        "road_name": "Jérusalem–Qiriath-Yéarim",
+        "road_system": "ARK_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 13.11
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.235,
+            31.778
+          ],
+          [
+            35.18,
+            31.79
+          ],
+          [
+            35.13,
+            31.8
+          ],
+          [
+            35.1,
+            31.805
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-005",
+      "properties": {
+        "road_segment_id": "DAVID-005",
+        "from_node": "HEBRON",
+        "to_node": "ZIPH",
+        "road_name": "Hébron–Ziph",
+        "road_system": "JUDAH_WILDERNESS",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 5.85
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.0998,
+            31.5326
+          ],
+          [
+            35.1,
+            31.5
+          ],
+          [
+            35.1,
+            31.48
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-006",
+      "properties": {
+        "road_segment_id": "DAVID-006",
+        "from_node": "ZIPH",
+        "to_node": "MAON",
+        "road_name": "Ziph–Maôn",
+        "road_system": "JUDAH_WILDERNESS",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 7.31
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.1,
+            31.48
+          ],
+          [
+            35.12,
+            31.45
+          ],
+          [
+            35.13,
+            31.42
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-007",
+      "properties": {
+        "road_segment_id": "DAVID-007",
+        "from_node": "MAON",
+        "to_node": "EN_GEDI",
+        "road_name": "Maôn–Èn-Guédi",
+        "road_system": "JUDAH_WILDERNESS",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 25.13
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.13,
+            31.42
+          ],
+          [
+            35.22,
+            31.43
+          ],
+          [
+            35.31,
+            31.44
+          ],
+          [
+            35.39,
+            31.46
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DAVID-008",
+      "properties": {
+        "road_segment_id": "DAVID-008",
+        "from_node": "KEILAH",
+        "to_node": "ZIPH",
+        "road_name": "Qéïla–Ziph",
+        "road_system": "JUDAH_WILDERNESS",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 18.3
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.001,
+            31.62
+          ],
+          [
+            35.04,
+            31.55
+          ],
+          [
+            35.08,
+            31.51
+          ],
+          [
+            35.1,
+            31.48
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-001",
+      "properties": {
+        "road_segment_id": "GALILEE-001",
+        "from_node": "ACCO",
+        "to_node": "NAZARETH",
+        "road_name": "Acco–Nazareth",
+        "road_system": "GALILEE_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 32.29
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.083,
+            32.923
+          ],
+          [
+            35.15,
+            32.85
+          ],
+          [
+            35.23,
+            32.77
+          ],
+          [
+            35.3035,
+            32.6996
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-002",
+      "properties": {
+        "road_segment_id": "GALILEE-002",
+        "from_node": "NAZARETH",
+        "to_node": "CANA",
+        "road_name": "Nazareth–Cana",
+        "road_system": "GALILEE_WAY",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 6.33
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.3035,
+            32.6996
+          ],
+          [
+            35.32,
+            32.72
+          ],
+          [
+            35.339,
+            32.748
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-003",
+      "properties": {
+        "road_segment_id": "GALILEE-003",
+        "from_node": "CANA",
+        "to_node": "CAPERNAUM",
+        "road_name": "Cana–Capharnaüm",
+        "road_system": "GALILEE_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 26.63
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.339,
+            32.748
+          ],
+          [
+            35.41,
+            32.78
+          ],
+          [
+            35.5,
+            32.83
+          ],
+          [
+            35.575,
+            32.881
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-004",
+      "properties": {
+        "road_segment_id": "GALILEE-004",
+        "from_node": "NAZARETH",
+        "to_node": "MEGIDDO",
+        "road_name": "Nazareth–Megiddo",
+        "road_system": "JEZREEL_CONNECTOR",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 17.04
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.3035,
+            32.6996
+          ],
+          [
+            35.25,
+            32.65
+          ],
+          [
+            35.21,
+            32.61
+          ],
+          [
+            35.184,
+            32.584
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-005",
+      "properties": {
+        "road_segment_id": "GALILEE-005",
+        "from_node": "CARMEL",
+        "to_node": "MEGIDDO",
+        "road_name": "Mont Carmel–Megiddo",
+        "road_system": "CARMEL_PASS",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 23.69
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35,
+            32.73
+          ],
+          [
+            35.07,
+            32.68
+          ],
+          [
+            35.13,
+            32.63
+          ],
+          [
+            35.184,
+            32.584
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-006",
+      "properties": {
+        "road_segment_id": "GALILEE-006",
+        "from_node": "CARMEL",
+        "to_node": "DOR",
+        "road_name": "Mont Carmel–Dor",
+        "road_system": "CARMEL_COAST",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 14.76
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35,
+            32.73
+          ],
+          [
+            34.97,
+            32.68
+          ],
+          [
+            34.918,
+            32.617
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-007",
+      "properties": {
+        "road_segment_id": "GALILEE-007",
+        "from_node": "JEZREEL",
+        "to_node": "SHUNEM",
+        "road_name": "Jizréel–Shounem",
+        "road_system": "JEZREEL_LOCAL",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 5.46
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.331,
+            32.558
+          ],
+          [
+            35.33,
+            32.58
+          ],
+          [
+            35.333,
+            32.607
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-008",
+      "properties": {
+        "road_segment_id": "GALILEE-008",
+        "from_node": "SHUNEM",
+        "to_node": "NAZARETH",
+        "road_name": "Shounem–Nazareth",
+        "road_system": "GALILEE_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 10.79
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.333,
+            32.607
+          ],
+          [
+            35.31,
+            32.65
+          ],
+          [
+            35.3035,
+            32.6996
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-009",
+      "properties": {
+        "road_segment_id": "GALILEE-009",
+        "from_node": "GATH_HEPHER",
+        "to_node": "NAZARETH",
+        "road_name": "Gath-Hépher–Nazareth",
+        "road_system": "GALILEE_LOCAL",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 4.76
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.32,
+            32.74
+          ],
+          [
+            35.31,
+            32.72
+          ],
+          [
+            35.3035,
+            32.6996
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "GALILEE-010",
+      "properties": {
+        "road_segment_id": "GALILEE-010",
+        "from_node": "BETHSAIDA",
+        "to_node": "CAPERNAUM",
+        "road_name": "Bethsaïde–Capharnaüm",
+        "road_system": "SEA_GALILEE_NORTH",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 6.16
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.63,
+            32.91
+          ],
+          [
+            35.6,
+            32.9
+          ],
+          [
+            35.575,
+            32.881
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_LOCAL-001",
+      "properties": {
+        "road_segment_id": "JERUSALEM_LOCAL-001",
+        "from_node": "JERUSALEM",
+        "to_node": "BETHPHAGE",
+        "road_name": "Jérusalem–Bethphagé",
+        "road_system": "MOUNT_OLIVES",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 1.64
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.235,
+            31.778
+          ],
+          [
+            35.245,
+            31.78
+          ],
+          [
+            35.252,
+            31.779
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_LOCAL-002",
+      "properties": {
+        "road_segment_id": "JERUSALEM_LOCAL-002",
+        "from_node": "BETHPHAGE",
+        "to_node": "BETHANY",
+        "road_name": "Bethphagé–Béthanie",
+        "road_system": "MOUNT_OLIVES",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 1.3
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.252,
+            31.779
+          ],
+          [
+            35.257,
+            31.775
+          ],
+          [
+            35.262,
+            31.771
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JERUSALEM_LOCAL-003",
+      "properties": {
+        "road_segment_id": "JERUSALEM_LOCAL-003",
+        "from_node": "BETHANY",
+        "to_node": "JERICHO",
+        "road_name": "Béthanie–Jéricho",
+        "road_system": "JERUSALEM_JERICHO",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 22.11
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.262,
+            31.771
+          ],
+          [
+            35.31,
+            31.77
+          ],
+          [
+            35.37,
+            31.79
+          ],
+          [
+            35.42,
+            31.83
+          ],
+          [
+            35.444,
+            31.87
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "JORDAN_LOCAL-001",
+      "properties": {
+        "road_segment_id": "JORDAN_LOCAL-001",
+        "from_node": "JERICHO",
+        "to_node": "BAPTISM_SITE",
+        "road_name": "Jéricho–région du baptême",
+        "road_system": "JORDAN_LOCAL",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 10.52
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.444,
+            31.87
+          ],
+          [
+            35.49,
+            31.85
+          ],
+          [
+            35.548,
+            31.838
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SAMARIA_LOCAL-001",
+      "properties": {
+        "road_segment_id": "SAMARIA_LOCAL-001",
+        "from_node": "SHECHEM",
+        "to_node": "SYCHAR",
+        "road_name": "Sichem–Sychar",
+        "road_system": "SAMARIA_LOCAL",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 2.57
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.283,
+            32.213
+          ],
+          [
+            35.295,
+            32.207
+          ],
+          [
+            35.307,
+            32.202
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "COAST_LOCAL-001",
+      "properties": {
+        "road_segment_id": "COAST_LOCAL-001",
+        "from_node": "JOPPA",
+        "to_node": "CAESAREA",
+        "road_name": "Joppé–Césarée, corridor côtier",
+        "road_system": "COASTAL_WAY",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2000,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/",
+        "source_page": "gl p. 14-17",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 52.4
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.7519,
+            32.0504
+          ],
+          [
+            34.84,
+            32.2
+          ],
+          [
+            34.88,
+            32.35
+          ],
+          [
+            34.892,
+            32.5
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BENJ-001",
+      "properties": {
+        "road_segment_id": "BENJ-001",
+        "from_node": "MIZPAH",
+        "to_node": "RAMAH",
+        "road_name": "Mizpa–Rama",
+        "road_system": "BENJAMIN_LOCAL",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -1500,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-15",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Connexion locale ajoutée pour le circuit annuel de Samuel.",
+        "length_km": 4.08
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.216,
+            31.885
+          ],
+          [
+            35.22,
+            31.87
+          ],
+          [
+            35.224,
+            31.849
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "BENJ-002",
+      "properties": {
+        "road_segment_id": "BENJ-002",
+        "from_node": "MIZPAH",
+        "to_node": "GIBEON",
+        "road_name": "Mizpa–Gabaon",
+        "road_system": "BENJAMIN_LOCAL",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -1500,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Quand-J%C3%A9hovah-donnait-des-juges/",
+        "source_page": "gl p. 14-15",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Connexion locale ajoutée pour le circuit annuel de Samuel.",
+        "length_km": 5.03
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            35.216,
+            31.885
+          ],
+          [
+            35.2,
+            31.87
+          ],
+          [
+            35.184,
+            31.849
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-001",
+      "properties": {
+        "road_segment_id": "EUPH-001",
+        "from_node": "UR",
+        "to_node": "ERECH",
+        "road_name": "Corridor de l’Euphrate, Our–Érek",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Suit les plaines alluviales de la basse Mésopotamie.",
+        "length_km": 60.26
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            46.103,
+            30.963
+          ],
+          [
+            45.92,
+            31.06
+          ],
+          [
+            45.75,
+            31.2
+          ],
+          [
+            45.637,
+            31.322
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-002",
+      "properties": {
+        "road_segment_id": "EUPH-002",
+        "from_node": "ERECH",
+        "to_node": "NIPPUR",
+        "road_name": "Corridor de l’Euphrate, Érek–Nippour",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 97.44
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            45.637,
+            31.322
+          ],
+          [
+            45.5,
+            31.55
+          ],
+          [
+            45.34,
+            31.88
+          ],
+          [
+            45.23,
+            32.126
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-003",
+      "properties": {
+        "road_segment_id": "EUPH-003",
+        "from_node": "NIPPUR",
+        "to_node": "BABYLON",
+        "road_name": "Corridor de l’Euphrate, Nippour–Babylone",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 88.81
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            45.23,
+            32.126
+          ],
+          [
+            44.95,
+            32.25
+          ],
+          [
+            44.65,
+            32.43
+          ],
+          [
+            44.421,
+            32.536
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-004",
+      "properties": {
+        "road_segment_id": "EUPH-004",
+        "from_node": "BABYLON",
+        "to_node": "SIPPAR",
+        "road_name": "Corridor de l’Euphrate, Babylone–Sippar",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 60.2
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            44.421,
+            32.536
+          ],
+          [
+            44.35,
+            32.75
+          ],
+          [
+            44.25,
+            33.058
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-005",
+      "properties": {
+        "road_segment_id": "EUPH-005",
+        "from_node": "SIPPAR",
+        "to_node": "HIT",
+        "road_name": "Corridor de l’Euphrate, Sippar–Hit",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 147.55
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            44.25,
+            33.058
+          ],
+          [
+            43.85,
+            33.2
+          ],
+          [
+            43.3,
+            33.45
+          ],
+          [
+            42.825,
+            33.642
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-006",
+      "properties": {
+        "road_segment_id": "EUPH-006",
+        "from_node": "HIT",
+        "to_node": "MARI",
+        "road_name": "Corridor de l’Euphrate, Hit–Mari",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 207.41
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            42.825,
+            33.642
+          ],
+          [
+            42.2,
+            33.85
+          ],
+          [
+            41.45,
+            34.15
+          ],
+          [
+            40.886,
+            34.552
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-007",
+      "properties": {
+        "road_segment_id": "EUPH-007",
+        "from_node": "MARI",
+        "to_node": "RAQQA",
+        "road_name": "Corridor de l’Euphrate, Mari–région de Raqqa",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 230.06
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            40.886,
+            34.552
+          ],
+          [
+            40.45,
+            34.92
+          ],
+          [
+            39.75,
+            35.45
+          ],
+          [
+            39.02,
+            35.95
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "EUPH-008",
+      "properties": {
+        "road_segment_id": "EUPH-008",
+        "from_node": "RAQQA",
+        "to_node": "KARKEMISH",
+        "road_name": "Corridor de l’Euphrate, Raqqa–Karkemish",
+        "road_system": "EUPHRATES_CORRIDOR",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-monde-des-patriarches/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 134.71
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.02,
+            35.95
+          ],
+          [
+            38.65,
+            36.2
+          ],
+          [
+            38.2,
+            36.55
+          ],
+          [
+            38.01,
+            36.829
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "HARAN-001",
+      "properties": {
+        "road_segment_id": "HARAN-001",
+        "from_node": "KARKEMISH",
+        "to_node": "HARRAN",
+        "road_name": "Karkemish–Harân",
+        "road_system": "HARRAN_BRANCH",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://wol.jw.org/fr/wol/d/r30/lp-f/1102013273",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "La Bibliothèque en Ligne indique qu’Abraham traversa probablement l’Euphrate près de Karkemish.",
+        "length_km": 91.11
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            38.01,
+            36.829
+          ],
+          [
+            38.4,
+            36.82
+          ],
+          [
+            38.72,
+            36.84
+          ],
+          [
+            39.031,
+            36.865
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SYRIA-001",
+      "properties": {
+        "road_segment_id": "SYRIA-001",
+        "from_node": "KARKEMISH",
+        "to_node": "ALEPPO",
+        "road_name": "Karkemish–Alep",
+        "road_system": "SYRIAN_SPINE",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 103.22
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            38.01,
+            36.829
+          ],
+          [
+            37.75,
+            36.65
+          ],
+          [
+            37.42,
+            36.43
+          ],
+          [
+            37.161,
+            36.202
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SYRIA-002",
+      "properties": {
+        "road_segment_id": "SYRIA-002",
+        "from_node": "ALEPPO",
+        "to_node": "HAMATH",
+        "road_name": "Alep–Hamath",
+        "road_system": "SYRIAN_SPINE",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 124.46
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            37.161,
+            36.202
+          ],
+          [
+            37.02,
+            35.82
+          ],
+          [
+            36.87,
+            35.45
+          ],
+          [
+            36.757,
+            35.132
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SYRIA-003",
+      "properties": {
+        "road_segment_id": "SYRIA-003",
+        "from_node": "HAMATH",
+        "to_node": "RIBLAH",
+        "road_name": "Hamath–Ribla",
+        "road_system": "SYRIAN_SPINE",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 78.16
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            36.757,
+            35.132
+          ],
+          [
+            36.66,
+            34.8
+          ],
+          [
+            36.55,
+            34.45
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SYRIA-004",
+      "properties": {
+        "road_segment_id": "SYRIA-004",
+        "from_node": "RIBLAH",
+        "to_node": "DAMASCUS",
+        "road_name": "Ribla–Damas",
+        "road_system": "SYRIAN_SPINE",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 107.22
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            36.55,
+            34.45
+          ],
+          [
+            36.45,
+            34.1
+          ],
+          [
+            36.35,
+            33.8
+          ],
+          [
+            36.277,
+            33.513
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DESERT-001",
+      "properties": {
+        "road_segment_id": "DESERT-001",
+        "from_node": "BABYLON",
+        "to_node": "TADMOR",
+        "road_name": "Route caravanière Babylone–Tadmor",
+        "road_system": "DESERT_CARAVAN",
+        "road_type": "caravan",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Corridor direct possible pour les retours d’exil ; la Bible ne dit pas si ce trajet fut emprunté.",
+        "length_km": 622.67
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            44.421,
+            32.536
+          ],
+          [
+            43.5,
+            33.2
+          ],
+          [
+            42.4,
+            33.7
+          ],
+          [
+            41.3,
+            34.05
+          ],
+          [
+            39.8,
+            34.35
+          ],
+          [
+            38.267,
+            34.556
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DESERT-002",
+      "properties": {
+        "road_segment_id": "DESERT-002",
+        "from_node": "TADMOR",
+        "to_node": "DAMASCUS",
+        "road_name": "Route caravanière Tadmor–Damas",
+        "road_system": "DESERT_CARAVAN",
+        "road_type": "caravan",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 218.85
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            38.267,
+            34.556
+          ],
+          [
+            37.7,
+            34.35
+          ],
+          [
+            37.1,
+            34.1
+          ],
+          [
+            36.65,
+            33.8
+          ],
+          [
+            36.277,
+            33.513
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DESERT-003",
+      "properties": {
+        "road_segment_id": "DESERT-003",
+        "from_node": "BABYLON",
+        "to_node": "TEMA",
+        "road_name": "Route commerciale Babylone–Téma",
+        "road_system": "ARABIAN_CARAVAN",
+        "road_type": "caravan",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Les Babyloniens ouvrirent des routes commerciales dans le désert du nord de l’Arabie.",
+        "length_km": 791.25
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            44.421,
+            32.536
+          ],
+          [
+            43.6,
+            31.6
+          ],
+          [
+            42.2,
+            30.2
+          ],
+          [
+            40.5,
+            28.9
+          ],
+          [
+            38.55,
+            27.63
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSYRIA-001",
+      "properties": {
+        "road_segment_id": "ASSYRIA-001",
+        "from_node": "NINEVEH",
+        "to_node": "KALAH",
+        "road_name": "Ninive–Kalah",
+        "road_system": "TIGRIS_ASSYRIAN",
+        "road_type": "imperial",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 33.34
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            43.145,
+            36.359
+          ],
+          [
+            43.22,
+            36.23
+          ],
+          [
+            43.328,
+            36.099
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSYRIA-002",
+      "properties": {
+        "road_segment_id": "ASSYRIA-002",
+        "from_node": "KALAH",
+        "to_node": "ASSUR",
+        "road_name": "Kalah–Assour",
+        "road_system": "TIGRIS_ASSYRIAN",
+        "road_type": "imperial",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 71.77
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            43.328,
+            36.099
+          ],
+          [
+            43.3,
+            35.8
+          ],
+          [
+            43.259,
+            35.456
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSYRIA-003",
+      "properties": {
+        "road_segment_id": "ASSYRIA-003",
+        "from_node": "ASSUR",
+        "to_node": "HIT",
+        "road_name": "Assour–Hit, corridor vers l’Euphrate",
+        "road_system": "ASSYRIAN_WEST",
+        "road_type": "imperial",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 213.18
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            43.259,
+            35.456
+          ],
+          [
+            42.95,
+            35.1
+          ],
+          [
+            42.75,
+            34.45
+          ],
+          [
+            42.825,
+            33.642
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSYRIA-004",
+      "properties": {
+        "road_segment_id": "ASSYRIA-004",
+        "from_node": "NINEVEH",
+        "to_node": "KHORSABAD",
+        "road_name": "Ninive–Khorsabad",
+        "road_system": "ASSYRIAN_CAPITALS",
+        "road_type": "imperial",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 18.31
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            43.145,
+            36.359
+          ],
+          [
+            43.19,
+            36.43
+          ],
+          [
+            43.229,
+            36.509
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSYRIA-005",
+      "properties": {
+        "road_segment_id": "ASSYRIA-005",
+        "from_node": "NINEVEH",
+        "to_node": "GOZAN",
+        "road_name": "Ninive–Gozân",
+        "road_system": "ASSYRIAN_WEST",
+        "road_type": "imperial",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 281.26
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            43.145,
+            36.359
+          ],
+          [
+            42.3,
+            36.5
+          ],
+          [
+            41.1,
+            36.7
+          ],
+          [
+            40.05,
+            36.83
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSYRIA-006",
+      "properties": {
+        "road_segment_id": "ASSYRIA-006",
+        "from_node": "GOZAN",
+        "to_node": "HARRAN",
+        "road_name": "Gozân–Harân",
+        "road_system": "ASSYRIAN_WEST",
+        "road_type": "imperial",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 90.76
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            40.05,
+            36.83
+          ],
+          [
+            39.65,
+            36.85
+          ],
+          [
+            39.031,
+            36.865
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "ASSYRIA-007",
+      "properties": {
+        "road_segment_id": "ASSYRIA-007",
+        "from_node": "HARRAN",
+        "to_node": "KARKEMISH",
+        "road_name": "Harân–Karkemish",
+        "road_system": "ASSYRIAN_WEST",
+        "road_type": "imperial",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/Des-empires-attaquent-la-Terre-promise/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 90.96
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            39.031,
+            36.865
+          ],
+          [
+            38.6,
+            36.86
+          ],
+          [
+            38.01,
+            36.829
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PERSIA-001",
+      "properties": {
+        "road_segment_id": "PERSIA-001",
+        "from_node": "SUSA",
+        "to_node": "BABYLON",
+        "road_name": "Suse–Babylone",
+        "road_system": "PERSIAN_ROYAL",
+        "road_type": "imperial",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Route royale probable par les plaines et passages du Zagros.",
+        "length_km": 363.6
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            48.257,
+            32.189
+          ],
+          [
+            47.2,
+            32.25
+          ],
+          [
+            46,
+            32.3
+          ],
+          [
+            45,
+            32.4
+          ],
+          [
+            44.421,
+            32.536
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PERSIA-002",
+      "properties": {
+        "road_segment_id": "PERSIA-002",
+        "from_node": "SUSA",
+        "to_node": "ECBATANA",
+        "road_name": "Suse–Ecbatane",
+        "road_system": "PERSIAN_ROYAL",
+        "road_type": "imperial",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 295
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            48.257,
+            32.189
+          ],
+          [
+            48.1,
+            32.8
+          ],
+          [
+            48.25,
+            33.5
+          ],
+          [
+            48.4,
+            34.2
+          ],
+          [
+            48.516,
+            34.798
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PERSIA-003",
+      "properties": {
+        "road_segment_id": "PERSIA-003",
+        "from_node": "SUSA",
+        "to_node": "PERSEPOLIS",
+        "road_name": "Suse–Persépolis",
+        "road_system": "PERSIAN_ROYAL",
+        "road_type": "imperial",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 509.62
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            48.257,
+            32.189
+          ],
+          [
+            49.5,
+            31.6
+          ],
+          [
+            50.8,
+            30.8
+          ],
+          [
+            52.1,
+            30.2
+          ],
+          [
+            52.891,
+            29.935
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PERSIA-004",
+      "properties": {
+        "road_segment_id": "PERSIA-004",
+        "from_node": "PERSEPOLIS",
+        "to_node": "PASARGADAE",
+        "road_name": "Persépolis–Pasargades",
+        "road_system": "PERSIAN_ROYAL",
+        "road_type": "imperial",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 6-7",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 40.44
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            52.891,
+            29.935
+          ],
+          [
+            53,
+            30.05
+          ],
+          [
+            53.179,
+            30.199
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PHILISTINE-001",
+      "properties": {
+        "road_segment_id": "PHILISTINE-001",
+        "from_node": "GAZA",
+        "to_node": "RAPHIA",
+        "road_name": "Chemin du pays des Philistins, Gaza–Raphia",
+        "road_system": "PHILISTINE_WAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 32.16
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.4668,
+            31.5017
+          ],
+          [
+            34.36,
+            31.38
+          ],
+          [
+            34.25,
+            31.28
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "PHILISTINE-002",
+      "properties": {
+        "road_segment_id": "PHILISTINE-002",
+        "from_node": "RAPHIA",
+        "to_node": "PELUSIUM",
+        "road_name": "Chemin du pays des Philistins, Raphia–Péluse",
+        "road_system": "PHILISTINE_WAY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 164.08
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.25,
+            31.28
+          ],
+          [
+            33.85,
+            31.2
+          ],
+          [
+            33.2,
+            31.12
+          ],
+          [
+            32.55,
+            31.04
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-001",
+      "properties": {
+        "road_segment_id": "DELTA-001",
+        "from_node": "PELUSIUM",
+        "to_node": "ZOAN",
+        "road_name": "Route du delta oriental, Péluse–Zoân",
+        "road_system": "DELTA_EAST",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 64.34
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.55,
+            31.04
+          ],
+          [
+            32.3,
+            31.02
+          ],
+          [
+            31.88,
+            30.97
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-002",
+      "properties": {
+        "road_segment_id": "DELTA-002",
+        "from_node": "ZOAN",
+        "to_node": "TAHPANHES",
+        "road_name": "Zoân–Tahpanès",
+        "road_system": "DELTA_EAST",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 29.86
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            31.88,
+            30.97
+          ],
+          [
+            32.02,
+            30.93
+          ],
+          [
+            32.17,
+            30.87
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-003",
+      "properties": {
+        "road_segment_id": "DELTA-003",
+        "from_node": "ZOAN",
+        "to_node": "RAMESES",
+        "road_name": "Zoân–Ramsès",
+        "road_system": "DELTA_EAST",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 19.53
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            31.88,
+            30.97
+          ],
+          [
+            31.86,
+            30.88
+          ],
+          [
+            31.83,
+            30.8
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-004",
+      "properties": {
+        "road_segment_id": "DELTA-004",
+        "from_node": "RAMESES",
+        "to_node": "GOSHEN",
+        "road_name": "Ramsès–Goshen",
+        "road_system": "DELTA_EAST",
+        "road_type": "local",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 16.79
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            31.83,
+            30.8
+          ],
+          [
+            31.84,
+            30.72
+          ],
+          [
+            31.85,
+            30.65
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-005",
+      "properties": {
+        "road_segment_id": "DELTA-005",
+        "from_node": "GOSHEN",
+        "to_node": "SUCCOTH_EGYPT",
+        "road_name": "Goshen–Soukkot",
+        "road_system": "WADI_TUMILAT",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 26.47
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            31.85,
+            30.65
+          ],
+          [
+            31.95,
+            30.6
+          ],
+          [
+            32.1,
+            30.55
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-006",
+      "properties": {
+        "road_segment_id": "DELTA-006",
+        "from_node": "SUCCOTH_EGYPT",
+        "to_node": "ETHAM",
+        "road_name": "Soukkot–Étam",
+        "road_system": "WADI_TUMILAT",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 33.77
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.1,
+            30.55
+          ],
+          [
+            32.2,
+            30.45
+          ],
+          [
+            32.33,
+            30.32
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-007",
+      "properties": {
+        "road_segment_id": "DELTA-007",
+        "from_node": "ETHAM",
+        "to_node": "MIGDOL",
+        "road_name": "Étam–Migdol",
+        "road_system": "EXODUS_CORRIDOR",
+        "road_type": "local",
+        "certainty": "hypothetical",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Localisation exacte des étapes de l’Exode non établie.",
+        "length_km": 18.29
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.33,
+            30.32
+          ],
+          [
+            32.38,
+            30.25
+          ],
+          [
+            32.43,
+            30.18
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-008",
+      "properties": {
+        "road_segment_id": "DELTA-008",
+        "from_node": "MIGDOL",
+        "to_node": "PIHAHIROTH",
+        "road_name": "Migdol–Pi-Hahiroth",
+        "road_system": "EXODUS_CORRIDOR",
+        "road_type": "local",
+        "certainty": "hypothetical",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 18.8
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.43,
+            30.18
+          ],
+          [
+            32.48,
+            30.1
+          ],
+          [
+            32.52,
+            30.03
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "DELTA-009",
+      "properties": {
+        "road_segment_id": "DELTA-009",
+        "from_node": "PIHAHIROTH",
+        "to_node": "SEA_CROSSING",
+        "road_name": "Corridor possible de traversée de la mer",
+        "road_system": "EXODUS_CORRIDOR",
+        "road_type": "local",
+        "certainty": "hypothetical",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "Ne doit jamais être présenté comme localisation certaine de la traversée.",
+        "length_km": 15.54
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.52,
+            30.03
+          ],
+          [
+            32.58,
+            29.98
+          ],
+          [
+            32.65,
+            29.95
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHUR-001",
+      "properties": {
+        "road_segment_id": "SHUR-001",
+        "from_node": "PELUSIUM",
+        "to_node": "SHUR",
+        "road_name": "Chemin de Shour, Péluse–désert de Shour",
+        "road_system": "SHUR_WAY",
+        "road_type": "caravan",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 66.32
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.55,
+            31.04
+          ],
+          [
+            32.7,
+            30.82
+          ],
+          [
+            32.9,
+            30.7
+          ],
+          [
+            33,
+            30.6
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHUR-002",
+      "properties": {
+        "road_segment_id": "SHUR-002",
+        "from_node": "SHUR",
+        "to_node": "KADESH",
+        "road_name": "Chemin de Shour, désert–Qadesh",
+        "road_system": "SHUR_WAY",
+        "road_type": "caravan",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 163.15
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33,
+            30.6
+          ],
+          [
+            33.3,
+            30.45
+          ],
+          [
+            33.75,
+            30.25
+          ],
+          [
+            34.1,
+            30.35
+          ],
+          [
+            34.43,
+            30.65
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SHUR-003",
+      "properties": {
+        "road_segment_id": "SHUR-003",
+        "from_node": "BEERSHEBA",
+        "to_node": "SHUR",
+        "road_name": "Béer-Shéba–désert de Shour",
+        "road_system": "SHUR_WAY",
+        "road_type": "caravan",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 185.79
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            34.7915,
+            31.2529
+          ],
+          [
+            34.3,
+            31.05
+          ],
+          [
+            33.75,
+            30.85
+          ],
+          [
+            33,
+            30.6
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NILE-001",
+      "properties": {
+        "road_segment_id": "NILE-001",
+        "from_node": "GOSHEN",
+        "to_node": "ON",
+        "road_name": "Goshen–On",
+        "road_system": "NILE_DELTA",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 79.65
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            31.85,
+            30.65
+          ],
+          [
+            31.55,
+            30.4
+          ],
+          [
+            31.28,
+            30.13
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NILE-002",
+      "properties": {
+        "road_segment_id": "NILE-002",
+        "from_node": "ON",
+        "to_node": "MEMPHIS",
+        "road_name": "On–Memphis",
+        "road_system": "NILE_VALLEY",
+        "road_type": "regional",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 31.42
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            31.28,
+            30.13
+          ],
+          [
+            31.25,
+            30
+          ],
+          [
+            31.25,
+            29.85
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NILE-003",
+      "properties": {
+        "road_segment_id": "NILE-003",
+        "from_node": "MEMPHIS",
+        "to_node": "NO_AMON",
+        "road_name": "Memphis–No-Amon",
+        "road_system": "NILE_VALLEY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 24-25",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 523.07
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            31.25,
+            29.85
+          ],
+          [
+            31.2,
+            28.5
+          ],
+          [
+            31.3,
+            27
+          ],
+          [
+            31.8,
+            26.1
+          ],
+          [
+            32.64,
+            25.72
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NILE-004",
+      "properties": {
+        "road_segment_id": "NILE-004",
+        "from_node": "NO_AMON",
+        "to_node": "SYENE",
+        "road_name": "No-Amon–Syène",
+        "road_system": "NILE_VALLEY",
+        "road_type": "international",
+        "certainty": "high",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/Brochures-and-Booklets/Voyez-le-bon-pays/Le-peuple-de-Dieu-rentre-dans-son-pays/",
+        "source_page": "gl p. 24-25",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 183.19
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.64,
+            25.72
+          ],
+          [
+            32.75,
+            24.9
+          ],
+          [
+            32.9,
+            24.09
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "NILE-005",
+      "properties": {
+        "road_segment_id": "NILE-005",
+        "from_node": "TAHPANHES",
+        "to_node": "ON",
+        "road_name": "Tahpanès–On",
+        "road_system": "DELTA_EAST",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 119.46
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.17,
+            30.87
+          ],
+          [
+            31.7,
+            30.55
+          ],
+          [
+            31.4,
+            30.3
+          ],
+          [
+            31.28,
+            30.13
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-001",
+      "properties": {
+        "road_segment_id": "SINAI-001",
+        "from_node": "SEA_CROSSING",
+        "to_node": "MARA",
+        "road_name": "Traversée–Mara",
+        "road_system": "EXODUS_SINAI",
+        "road_type": "local",
+        "certainty": "hypothetical",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 103.37
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            32.65,
+            29.95
+          ],
+          [
+            32.82,
+            29.65
+          ],
+          [
+            33,
+            29.3
+          ],
+          [
+            33.08,
+            29.1
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-002",
+      "properties": {
+        "road_segment_id": "SINAI-002",
+        "from_node": "MARA",
+        "to_node": "ELIM",
+        "road_name": "Mara–Élim",
+        "road_system": "EXODUS_SINAI",
+        "road_type": "local",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 21.25
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33.08,
+            29.1
+          ],
+          [
+            33.12,
+            29.17
+          ],
+          [
+            33.18,
+            29.27
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-003",
+      "properties": {
+        "road_segment_id": "SINAI-003",
+        "from_node": "ELIM",
+        "to_node": "SIN_WILDERNESS",
+        "road_name": "Élim–désert de Sîn",
+        "road_system": "EXODUS_SINAI",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 37.77
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33.18,
+            29.27
+          ],
+          [
+            33.25,
+            29.12
+          ],
+          [
+            33.4,
+            29
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-004",
+      "properties": {
+        "road_segment_id": "SINAI-004",
+        "from_node": "SIN_WILDERNESS",
+        "to_node": "REPHIDIM",
+        "road_name": "Désert de Sîn–Rephidim",
+        "road_system": "EXODUS_SINAI",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 39.11
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33.4,
+            29
+          ],
+          [
+            33.48,
+            28.85
+          ],
+          [
+            33.62,
+            28.71
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-005",
+      "properties": {
+        "road_segment_id": "SINAI-005",
+        "from_node": "REPHIDIM",
+        "to_node": "SINAI",
+        "road_name": "Rephidim–mont Sinaï",
+        "road_system": "EXODUS_SINAI",
+        "road_type": "regional",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 39.56
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33.62,
+            28.71
+          ],
+          [
+            33.78,
+            28.62
+          ],
+          [
+            33.975,
+            28.54
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-006",
+      "properties": {
+        "road_segment_id": "SINAI-006",
+        "from_node": "SINAI",
+        "to_node": "KADESH",
+        "road_name": "Mont Sinaï–Qadesh, corridor du désert",
+        "road_system": "EXODUS_SINAI",
+        "road_type": "regional",
+        "certainty": "hypothetical",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 258.78
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33.975,
+            28.54
+          ],
+          [
+            33.65,
+            29.1
+          ],
+          [
+            33.85,
+            29.6
+          ],
+          [
+            34.05,
+            30.1
+          ],
+          [
+            34.43,
+            30.65
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-007",
+      "properties": {
+        "road_segment_id": "SINAI-007",
+        "from_node": "SINAI",
+        "to_node": "MIDIAN",
+        "road_name": "Mont Sinaï–Madian",
+        "road_system": "MIDIAN_WAY",
+        "road_type": "regional",
+        "certainty": "hypothetical",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "La localisation du mont Sinaï et les frontières de Madian restent discutées.",
+        "length_km": 110.09
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33.975,
+            28.54
+          ],
+          [
+            34.3,
+            28.45
+          ],
+          [
+            34.65,
+            28.42
+          ],
+          [
+            35.08,
+            28.47
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "SINAI-008",
+      "properties": {
+        "road_segment_id": "SINAI-008",
+        "from_node": "SHUR",
+        "to_node": "MIDIAN",
+        "road_name": "Désert de Shour–Madian",
+        "road_system": "MIDIAN_WAY",
+        "road_type": "caravan",
+        "certainty": "probable",
+        "period_start": -2200,
+        "period_end": 100,
+        "geometry_basis": "map_and_topographic_corridor",
+        "source_url": "https://www.jw.org/fr/biblioth%C3%A8que/livres/Voyez-le-bon-pays/De-l%C3%89gypte-%C3%A0-la-Terre-promise/",
+        "source_page": "gl p. 8-9",
+        "directionality": "both",
+        "needs_human_validation": true,
+        "notes": "",
+        "length_km": 311.37
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            33,
+            30.6
+          ],
+          [
+            33.7,
+            30
+          ],
+          [
+            34.2,
+            29.4
+          ],
+          [
+            34.7,
+            28.9
+          ],
+          [
+            35.08,
+            28.47
+          ]
+        ]
+      }
+    }
+  ]
+}

@@ -24,6 +24,10 @@ try {
       REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
       REVIEWED_TIMELINE_EVENTS
     },
+    {
+      AUTHORITATIVE_TIMELINE_EVENTS,
+      isLegacyEventSupersededByAuthoritativeResearch
+    },
     { BIBLICAL_PLACES }
   ] =
     await Promise.all([
@@ -31,6 +35,7 @@ try {
       server.ssrLoadModule('/src/data/biblicalPeople.ts'),
       server.ssrLoadModule('/src/data/historicalData.ts'),
       server.ssrLoadModule('/src/data/reviewedHistoricalEvents.ts'),
+      server.ssrLoadModule('/src/data/authoritativeChronology.ts'),
       server.ssrLoadModule('/src/data/mapData.ts')
     ]);
 
@@ -46,16 +51,29 @@ try {
     ...REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS,
     ...HISTORICAL_PERSON_TIMELINE.supersededLegacyEventIds
   ]);
-  if (
-    TIMELINE_EVENTS.length !==
-    EVENTS.length -
-      supersededLegacyIds.size +
-      HISTORICAL_PERSON_TIMELINE.events.length +
-      REVIEWED_TIMELINE_EVENTS.length
-  ) {
-    fail(
-      'la projection ne conserve pas toutes les lignes historiques non remplacées et relues'
+  const retainedLegacyEvents = EVENTS.filter(
+    event => !supersededLegacyIds.has(event.id)
+  );
+  for (const event of retainedLegacyEvents) {
+    if (!TIMELINE_EVENTS.some(candidate => candidate.id === event.id)) {
+      fail(`la ligne legacy non remplacée ${event.id} a disparu de la projection`);
+    }
+  }
+  for (const event of REVIEWED_TIMELINE_EVENTS) {
+    if (!TIMELINE_EVENTS.some(candidate => candidate.id === event.id)) {
+      fail(`la ligne relue ${event.id} a disparu de la projection`);
+    }
+  }
+  for (const event of AUTHORITATIVE_TIMELINE_EVENTS) {
+    const matches = TIMELINE_EVENTS.filter(
+      candidate =>
+        candidate.authoritativeRecordId === event.authoritativeRecordId
     );
+    if (matches.length !== 1) {
+      fail(
+        `la fiche autoritative ${event.authoritativeRecordId} doit être projetée une seule fois, ${matches.length} trouvée(s)`
+      );
+    }
   }
   for (const legacyEventId of supersededLegacyIds) {
     if (!EVENTS.some(event => event.id === legacyEventId)) {
@@ -168,7 +186,7 @@ try {
   }
 
   console.log(
-    `Compatibilité historique vérifiée : ${BIBLICAL_PEOPLE.length} personnes pilotes, ${EVENTS.length} lignes legacy brutes intactes, ${supersededLegacyIds.size} substitution(s) canoniques, ${HISTORICAL_PERSON_TIMELINE.events.length} projection(s) de vie ou d’activité, ${REVIEWED_TIMELINE_EVENTS.length} événements relus ajoutés, ${mapReadyPlaceIds.size} lieux A7 prêts pour la carte, aucun doublon.`
+    `Compatibilité historique vérifiée : ${BIBLICAL_PEOPLE.length} personnes pilotes, ${EVENTS.length} lignes legacy brutes intactes, ${supersededLegacyIds.size} substitution(s) canoniques, ${HISTORICAL_PERSON_TIMELINE.events.length} projection(s) de vie ou d’activité, ${REVIEWED_TIMELINE_EVENTS.length} événements relus conservés, ${AUTHORITATIVE_TIMELINE_EVENTS.length} fiches autoritatives projetées ou fusionnées, ${mapReadyPlaceIds.size} lieux A7 prêts pour la carte, aucun doublon.`
   );
 } finally {
   await server.close();
