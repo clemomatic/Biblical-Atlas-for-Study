@@ -8,7 +8,10 @@ import {
   TimelinePeriod
 } from './types';
 import { ERAS, CATEGORIES } from './data/erasData';
-import { TIMELINE_EVENTS } from './data/historicalData';
+import {
+  DISPLAY_HISTORICAL_PEOPLE as HISTORICAL_PEOPLE,
+  TIMELINE_EVENTS
+} from './data/historicalData';
 import {
   BIBLICAL_PLACES,
   BIBLICAL_ROUTES
@@ -24,10 +27,8 @@ import { AtThisMomentPanel } from './components/AtThisMomentPanel';
 import { HistoricalOverlapControl } from './components/HistoricalOverlapControl';
 import { normalizeDataRelations } from './utils/dataRelations';
 import { Clock3, Map as MapIcon, Search } from 'lucide-react';
-import {
-  HISTORICAL_PEOPLE,
-  HISTORICAL_SOURCE_CATALOG
-} from './data/historicalStudyData';
+import { HISTORICAL_SOURCE_CATALOG } from './data/historicalStudyData';
+import { canonicalizeHistoricalPersonId } from './domain/history/personIdentityProjection';
 import {
   BIOGRAPHY_LANES,
   getBiographyLaneIdForEvent
@@ -185,8 +186,11 @@ export default function App() {
   const selectedRoute =
     routes.find(route => route.id === selectedRouteId) || null;
   const selectedPerson =
-    HISTORICAL_PEOPLE.find(person => person.id === selectedPersonId) ||
-    null;
+    HISTORICAL_PEOPLE.find(
+      person =>
+        person.id ===
+        canonicalizeHistoricalPersonId(selectedPersonId ?? undefined)
+    ) || null;
 
   const filteredCategories = useMemo(
     () =>
