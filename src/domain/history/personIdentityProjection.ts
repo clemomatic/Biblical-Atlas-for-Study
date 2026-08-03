@@ -11,7 +11,40 @@ export const HISTORICAL_PERSON_ID_ALIASES = new Map<string, string>([
   ['wcg-marie-mere', 'person-a7-marie-mere-jesus'],
   ['wcg-marie-bethanie', 'person-a7-marie-bethanie'],
   ['wcg-paul', 'person-wcg-paul'],
-  ['wcg-petite-israelite', 'person-wcg-petite-fille-israelite']
+  ['wcg-petite-israelite', 'person-wcg-petite-fille-israelite'],
+  ['event-samuel-8qh05i', 'samuel-vie'],
+  ['person-wcg-jonathan', 'wcg-jonathan'],
+  ['event-saul-z98f25', 'atlas-0087'],
+  ['atlas-0147', 'event-abraham-mdcznq'],
+  ['atlas-0080', 'event-adam-2peny4'],
+  ['atlas-0032', 'event-asa-1yoxudp'],
+  ['wcg-barnabe', 'person-wcg-barnabe'],
+  ['wcg-caleb', 'person-wcg-caleb'],
+  ['atlas-0189', 'event-david-iixp36'],
+  ['wcg-elisabeth', 'person-a7-elisabeth'],
+  ['wcg-esther', 'person-wcg-esther'],
+  ['wcg-etienne', 'person-wcg-etienne'],
+  ['atlas-0136', 'event-ezechias-1ne958h'],
+  ['ezechiel-vie', 'person-ezechiel-a6-b'],
+  ['atlas-0144', 'event-henoch-5b97vn'],
+  ['atlas-0081', 'event-isaac-16b1gw1'],
+  ['atlas-0106', 'event-jacob-a7o7cq'],
+  ['atlas-0187', 'event-jean-le-baptiseur-dvgl2c'],
+  ['atlas-0036', 'event-jesus-en-tant-qu-humain-1f4ceyz'],
+  ['wcg-joad', 'person-wcg-joad'],
+  ['atlas-0089', 'event-josias-woei8d'],
+  ['atlas-0037', 'person-wcg-josue'],
+  ['atlas-0066', 'event-manasse-1d4ld4r'],
+  ['wcg-marc', 'person-wcg-marc'],
+  ['wcg-marie-magdala', 'person-wcg-marie-magdala'],
+  ['wcg-mefibosheth', 'person-wcg-mefibosheth'],
+  ['atlas-0007', 'event-moise-p4dtf4'],
+  ['wcg-nehemie', 'person-wcg-nehemie'],
+  ['atlas-0079', 'event-noe-qdkz7y'],
+  ['wcg-pierre', 'person-a7-pierre'],
+  ['wcg-rahab', 'person-wcg-rahab'],
+  ['wcg-rebecca', 'person-wcg-rebecca'],
+  ['atlas-0155', 'event-sara-1xft3rw']
 ]);
 
 export const canonicalizeHistoricalPersonId = (
@@ -54,6 +87,9 @@ const mergePeopleGroup = (
     people.find(person => person.id === canonicalId) ?? people[0];
   const aliases = people.filter(person => person !== canonical);
   const notes = unique(people.map(person => person.notes));
+  const latestWithLifeSpan = [...people].reverse().find(person => person.lifeSpan);
+  const latestWithDescription = [...people].reverse().find(person => person.description);
+  const latestWithCertainty = [...people].reverse().find(person => person.certainty);
   const lastVerified = people
     .map(person => person.lastVerified)
     .filter((value): value is string => Boolean(value))
@@ -63,6 +99,7 @@ const mergePeopleGroup = (
   return {
     ...canonical,
     id: canonicalId,
+    certainty: latestWithCertainty?.certainty ?? canonical.certainty,
     alternateNames: unique([
       ...(canonical.alternateNames ?? []),
       ...aliases.flatMap(person => [person.name, ...(person.alternateNames ?? [])])
@@ -72,11 +109,11 @@ const mergePeopleGroup = (
       people.flatMap(person => person.historicalCategories ?? [])
     ),
     realmIds: unique(people.flatMap(person => person.realmIds ?? [])),
-    description:
-      canonical.description ??
-      aliases.find(person => person.description)?.description,
-    lifeSpan:
-      canonical.lifeSpan ?? aliases.find(person => person.lifeSpan)?.lifeSpan,
+    description: latestWithDescription?.description ?? canonical.description,
+    lifeSpan: latestWithLifeSpan?.lifeSpan ?? canonical.lifeSpan,
+    legacyEventId:
+      canonical.legacyEventId ??
+      aliases.find(person => person.legacyEventId)?.legacyEventId,
     lifeSpanClaimIds: unique(
       people.flatMap(person => person.lifeSpanClaimIds ?? [])
     ),
@@ -143,10 +180,11 @@ const mergeTimelineGroup = (
     events.find(event => event.historicalPersonId === canonicalId) ??
     events[0];
   const authoritative =
+    events.find(event => event.authoritativeRecordId && event.historicalPersonSpanKind === 'lifespan') ??
     events.find(event => event.authoritativeRecordId) ?? canonical;
   return {
-    ...canonical,
     ...authoritative,
+    ...canonical,
     id: canonical.id,
     text: canonical.text,
     historicalPersonId: canonicalId,
@@ -204,8 +242,7 @@ export const mergePersonTimelineEventsForDisplay = (
 
     if (
       canonicalPersonId &&
-      belongsToReviewedAliasGroup &&
-      event.historicalPersonSpanKind !== 'activity'
+      belongsToReviewedAliasGroup
     ) {
       identityGroups.set(canonicalPersonId, [
         ...(identityGroups.get(canonicalPersonId) ?? []),

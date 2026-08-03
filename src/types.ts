@@ -183,6 +183,10 @@ export interface EventData extends EntityMetadata {
   historicalActivityPeriods?: PersonActivityPeriod[];
   /** Bande sémantique stable utilisée pour organiser les biographies. */
   historicalPersonLaneId?: HistoricalPersonLaneId;
+  /** La borne dessinée n'est qu'une limite : la vie commence plus tôt. */
+  historicalOpenStart?: boolean;
+  /** La borne dessinée n'est qu'une limite : la vie continue plus tard. */
+  historicalOpenEnd?: boolean;
   /** Fiche du nouveau corpus de recherche dont cette projection provient. */
   authoritativeRecordId?: string;
   /** Itinéraires du réseau historique associés par le classeur validé. */

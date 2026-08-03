@@ -8,6 +8,7 @@ import type {
   TimelineDisplayLevel
 } from '../types.ts';
 import type {
+  BiblicalPerson,
   PersonActivityPeriod,
   PersonActivityType,
   TemporalBoundary,
@@ -19,7 +20,7 @@ import { createCategoryId } from '../utils/stableIds.ts';
 import { BIBLICAL_PLACES } from './mapData.ts';
 import type { SourceCatalogEntry } from '../domain/history/contentTypes.ts';
 
-interface AuthoritativeChronologyRecord {
+export interface AuthoritativeChronologyRecord {
   id: string;
   status?: string;
   recordType?: string;
@@ -160,12 +161,12 @@ const boundaryFor = (
   day: number | undefined,
   certainty: CertaintyLevel
 ): TemporalBoundary | undefined => {
-  if (!year) return undefined;
+  if (year === undefined || year === 0) return undefined;
   const precision = precisionFor(precisionLabel, Boolean(month), Boolean(day));
   const normalized = normalizeText(precisionLabel ?? '');
   return {
-    yearMin: year,
-    yearMax: year,
+    yearMin: precision === 'before' ? undefined : year,
+    yearMax: precision === 'after' ? undefined : year,
     day,
     precision,
     approximate:
@@ -220,9 +221,15 @@ const activityTypeFor = (record: AuthoritativeChronologyRecord): PersonActivityT
   const layer = normalizeText(record.layer ?? '');
   const category = normalizeText(record.category ?? '');
   if (layer === 'regnes') return 'reign';
-  if (layer === 'prophetes') return 'prophecy';
+  if (layer === 'prophetes' || category.includes('prophet')) return 'prophecy';
+  if (category.includes('residence')) return 'residence';
   if (layer === 'voyages') return 'journey';
-  if (layer === 'juges' || category.includes('fonction')) return 'office';
+  if (
+    layer === 'juges' ||
+    layer === 'sanctuaire' ||
+    category.includes('fonction') ||
+    category.includes('service')
+  ) return 'office';
   if (layer === 'ministere chretien') return 'ministry';
   return 'other';
 };
@@ -257,11 +264,12 @@ const activityFor = (record: AuthoritativeChronologyRecord): PersonActivityPerio
   id: record.id,
   type: activityTypeFor(record),
   phase: activityTypeFor(record) === 'prophecy' ? 'prophetic-ministry' : activityTypeFor(record) === 'office' ? 'official-office' : 'standard',
-  label: record.shortLabel ?? record.title,
+  label: record.title,
   span: temporalSpanFor(record),
   associatedLocationIds: resolveLocationIds(record),
   associatedRouteIds: record.itineraryIds.map(id => `historical-itinerary-${id.toLocaleLowerCase('fr')}`),
   associatedPersonIds: record.linkedPersonIds,
+  associatedEventIds: [record.id],
   sources: sourceReferencesFor(record),
   documentaryReferences: record.citedReferences,
   certainty: certaintyFor(record.confidence),
@@ -311,22 +319,133 @@ const recordToEvent = (
 
 const PERSON_BASE_LAYER = 'personnages';
 const ACTIVITY_LAYERS = new Set(['regnes', 'prophetes', 'voyages', 'juges', 'ministere chretien']);
+const PERIOD_DETAIL_LAYERS = new Set([...ACTIVITY_LAYERS, 'sanctuaire']);
+
+const isPersonBaseRecord = (record: AuthoritativeChronologyRecord): boolean =>
+  normalizeText(record.layer ?? '') === PERSON_BASE_LAYER &&
+  (record.id === record.personId || normalizeText(record.category ?? '') === 'vie');
+
+const basePersonIdsBySubject = new Map<string, string[]>();
+bundle.records.filter(isPersonBaseRecord).forEach(record => {
+  if (!record.personId || !record.subject) return;
+  const key = normalizeText(record.subject);
+  basePersonIdsBySubject.set(key, [
+    ...(basePersonIdsBySubject.get(key) ?? []),
+    record.personId
+  ]);
+});
+
+const resolvedPersonIdFor = (record: AuthoritativeChronologyRecord): string | undefined => {
+  if (record.personId) return record.personId;
+  if (record.id === 'atlas-0087') return record.id;
+  if (!record.subject) return undefined;
+  const candidates = [...new Set(basePersonIdsBySubject.get(normalizeText(record.subject)) ?? [])];
+  return candidates.length === 1 ? candidates[0] : undefined;
+};
+
+const isBiographicalPeriod = (record: AuthoritativeChronologyRecord): boolean =>
+  normalizeText(record.recordType ?? '') === 'periode' &&
+  !isPersonBaseRecord(record) &&
+  (PERIOD_DETAIL_LAYERS.has(normalizeText(record.layer ?? '')) || Boolean(record.visualParentId));
 const recordsByPersonId = new Map<string, AuthoritativeChronologyRecord[]>();
 
 bundle.records.forEach(record => {
-  if (!record.personId) return;
-  const layer = normalizeText(record.layer ?? '');
-  if (layer !== PERSON_BASE_LAYER && !ACTIVITY_LAYERS.has(layer)) return;
-  const records = recordsByPersonId.get(record.personId) ?? [];
+  const personId = resolvedPersonIdFor(record);
+  if (!personId || (!isPersonBaseRecord(record) && !isBiographicalPeriod(record))) return;
+  const records = recordsByPersonId.get(personId) ?? [];
   records.push(record);
-  recordsByPersonId.set(record.personId, records);
+  recordsByPersonId.set(personId, records);
 });
+
+const uniqueSources = (records: AuthoritativeChronologyRecord[]): SourceReference[] => {
+  const seen = new Set<string>();
+  return records.flatMap(sourceReferencesFor).filter(source => {
+    const key = source.url ?? source.id;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+};
+
+const uniqueValues = (values: Array<string | undefined>): string[] =>
+  [...new Set(values.filter((value): value is string => Boolean(value)))];
+
+const saulLifeSpan = (): TemporalSpan => ({
+  start: { yearMax: -1138, precision: 'before', approximate: true, certainty: 'possible' },
+  end: { yearMin: -1078, yearMax: -1078, precision: 'year', approximate: true, certainty: 'probable' },
+  displayLabel: 'Né avant vers 1138 av. n. è. → mort vers 1078 av. n. è.'
+});
+
+export const AUTHORITATIVE_HISTORICAL_PEOPLE: BiblicalPerson[] =
+  [...recordsByPersonId.entries()].map(([personId, records]) => {
+    const base = records.find(isPersonBaseRecord);
+    const activities = records.filter(isBiographicalPeriod).map(activityFor);
+    const anchor = base ?? records[0];
+    const jonathan = bundle.records.find(record => record.id === 'wcg-jonathan');
+    const sourceRecords = personId === 'atlas-0087' && jonathan ? [...records, jonathan] : records;
+    const isSaul = personId === 'atlas-0087';
+    const notes = uniqueValues([
+      ...records.map(record => record.notes),
+      isSaul
+        ? 'La naissance n’est pas datée. La borne ouverte repose sur la naissance approximative de son fils Jonathan vers 1138 av. n. è. : elle prouve seulement que Saül est né plus tôt et permet des âges minimaux, jamais un âge exact.'
+        : undefined
+    ]).join('\n\n');
+    return {
+      id: personId,
+      name: anchor.subject ?? anchor.shortLabel ?? anchor.title,
+      alternateNames: [],
+      roles: activities.some(activity => activity.type === 'reign')
+        ? ['king']
+        : activities.some(activity => activity.type === 'prophecy')
+          ? ['prophet']
+          : ['other'],
+      description: base?.notes ?? anchor.notes,
+      lifeSpan: base ? temporalSpanFor(base) : isSaul ? saulLifeSpan() : undefined,
+      activityPeriods: activities,
+      associatedEventIds: uniqueValues(
+        bundle.records
+          .filter(record => resolvedPersonIdFor(record) === personId && !isPersonBaseRecord(record))
+          .map(record => record.id)
+      ),
+      associatedLocationIds: uniqueValues(
+        bundle.records
+          .filter(record => resolvedPersonIdFor(record) === personId)
+          .flatMap(resolveLocationIds)
+      ),
+      associatedRouteIds: uniqueValues(records.flatMap(record =>
+        record.itineraryIds.map(id => `historical-itinerary-${id.toLocaleLowerCase('fr')}`)
+      )),
+      associatedPersonIds: uniqueValues([
+        ...records.flatMap(record => record.linkedPersonIds),
+        isSaul ? 'wcg-jonathan' : undefined
+      ]),
+      biblicalReferences: uniqueValues(records.flatMap(record => record.citedReferences)),
+      documentaryReferences: uniqueValues(records.flatMap(record => record.citedReferences)),
+      sources: uniqueSources(sourceRecords),
+      certainty: isSaul ? 'possible' : certaintyFor(base?.confidence ?? anchor.confidence),
+      notes: notes || undefined
+    } satisfies BiblicalPerson;
+  });
+
+const biographyRecordsByPersonId = new Map<string, AuthoritativeChronologyRecord[]>();
+bundle.records.forEach(record => {
+  const personId = resolvedPersonIdFor(record);
+  if (!personId) return;
+  biographyRecordsByPersonId.set(personId, [
+    ...(biographyRecordsByPersonId.get(personId) ?? []),
+    record
+  ]);
+});
+
+export const getAuthoritativeBiographicalRecords = (
+  personId: string
+): readonly AuthoritativeChronologyRecord[] => biographyRecordsByPersonId.get(personId) ?? [];
 
 const personEvents: EventData[] = [];
 const absorbedActivityRecordIds = new Set<string>();
 recordsByPersonId.forEach((records, personId) => {
-  const base = records.find(record => normalizeText(record.layer ?? '') === PERSON_BASE_LAYER);
-  const activities = records.filter(record => ACTIVITY_LAYERS.has(normalizeText(record.layer ?? '')));
+  const base = records.find(isPersonBaseRecord);
+  const activities = records.filter(isBiographicalPeriod);
   activities.forEach(record => absorbedActivityRecordIds.add(record.id));
   const anchor = base ?? activities[0];
   if (!anchor) return;
@@ -342,14 +461,23 @@ recordsByPersonId.forEach((records, personId) => {
 const genericEvents = bundle.records
   .filter(record => normalizeText(record.layer ?? '') !== PERSON_BASE_LAYER)
   .filter(record => !absorbedActivityRecordIds.has(record.id))
+  .filter(record => {
+    const notes = normalizeText([record.notes, record.positioningNotes].filter(Boolean).join(' '));
+    return !(
+      notes.includes('uniquement de repere de tri') ||
+      notes.includes('seulement de repere de tri')
+    );
+  })
   .map(record => recordToEvent(record))
   .filter((event): event is EventData => Boolean(event));
 
-export const AUTHORITATIVE_TIMELINE_EVENTS: EventData[] = [...personEvents, ...genericEvents]
+const allAuthoritativeEvents = [...personEvents, ...genericEvents]
+  .sort((left, right) => left.startPos - right.startPos || left.id.localeCompare(right.id));
+export const AUTHORITATIVE_TIMELINE_EVENTS: EventData[] = genericEvents
   .sort((left, right) => left.startPos - right.startPos || left.id.localeCompare(right.id));
 
 const authoritativeEventsByRecordId = new Map<string, EventData>();
-AUTHORITATIVE_TIMELINE_EVENTS.forEach(event => {
+allAuthoritativeEvents.forEach(event => {
   if (event.authoritativeRecordId) {
     authoritativeEventsByRecordId.set(event.authoritativeRecordId, event);
   }
@@ -362,7 +490,10 @@ const authoritativeReplacementByTitle = new Map<string, EventData>();
 bundle.records.forEach(record => {
   const event = authoritativeEventsByRecordId.get(record.id);
   if (!event) return;
-  [record.title, record.shortLabel, record.subject]
+  const identityLabels = isPersonBaseRecord(record)
+    ? [record.title, record.shortLabel, record.subject]
+    : [record.title, record.shortLabel];
+  identityLabels
     .filter((value): value is string => Boolean(value))
     .forEach(value => {
       const key = normalizeText(value);

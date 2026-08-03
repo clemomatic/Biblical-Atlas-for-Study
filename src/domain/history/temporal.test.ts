@@ -199,3 +199,12 @@ test('conserve un jour du calendrier hébreu sans conversion grégorienne', () =
   );
   assert.equal(boundary.month, undefined);
 });
+
+test('formate une borne ouverte approximative sans ambiguïté', () => {
+  assert.equal(
+    formatTemporalBoundaryFrench({
+      yearMax: -10, precision: 'before', approximate: true, certainty: 'possible'
+    }),
+    'avant vers 10 av. n. è.'
+  );
+});

@@ -42,6 +42,11 @@ test('convertit les anciens identifiants vers une identité canonique relue', ()
     canonicalizeHistoricalPersonId('wcg-marie-mere'),
     'person-a7-marie-mere-jesus'
   );
+  assert.equal(canonicalizeHistoricalPersonId('event-samuel-8qh05i'), 'samuel-vie');
+  assert.equal(canonicalizeHistoricalPersonId('person-wcg-jonathan'), 'wcg-jonathan');
+  assert.equal(canonicalizeHistoricalPersonId('event-saul-z98f25'), 'atlas-0087');
+  assert.equal(canonicalizeHistoricalPersonId('atlas-0080'), 'event-adam-2peny4');
+  assert.equal(canonicalizeHistoricalPersonId('atlas-0189'), 'event-david-iixp36');
 });
 
 test('fusionne les anciennes et nouvelles fiches de Paul sans perdre son ancien nom', () => {

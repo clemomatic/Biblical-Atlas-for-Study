@@ -104,11 +104,18 @@ const projectSpan = (
   displayActivities: PersonActivityPeriod[] = person.activityPeriods
 ): EventData | undefined => {
   const interval = getTemporalInterval(span);
-  const startYear = interval.yearMin;
-  const endYear = interval.yearMax;
+  const openStart = span.start?.precision === 'before';
+  const openEnd = span.end?.precision === 'after';
+  const startYear =
+    interval.yearMin ??
+    (openStart ? span.start?.yearMax ?? span.start?.yearMin : undefined);
+  const endYear =
+    interval.yearMax ??
+    (openEnd ? span.end?.yearMin ?? span.end?.yearMax : undefined);
   if (interval.unknown || startYear === undefined || endYear === undefined) {
     return undefined;
   }
+  if (startYear > endYear) return undefined;
   const startPos = historicalYearToTimelineIndex(startYear);
   const endPos = historicalYearToTimelineIndex(endYear);
   const sourceLabel =
@@ -146,6 +153,8 @@ const projectSpan = (
     temporalSpan: span,
     historicalActivityPeriods:
       displayActivities.length > 0 ? displayActivities : undefined,
+    historicalOpenStart: openStart,
+    historicalOpenEnd: openEnd,
     historicalPersonLaneId: getBiographyLaneId(
       person,
       displayActivities.length > 0 ? displayActivities : person.activityPeriods
@@ -188,32 +197,6 @@ export const createHistoricalPersonTimelineProjection = (
         events.push(lifeEvent);
         projected = true;
       }
-      person.activityPeriods.forEach(activity => {
-        const activityEvent = projectSpan(
-          person,
-          activity.id,
-          `${person.name} — ${activity.label}`,
-          activity.span,
-          categoryForActivity(person, activity),
-          'activity',
-          person.description,
-          [activity]
-        );
-        if (activityEvent) {
-          activityEvent.certainty = activity.certainty ?? person.certainty;
-          activityEvent.associatedLocationIds = [
-            ...new Set([
-              ...(activity.associatedLocationIds ?? []),
-              ...(person.associatedLocationIds ?? [])
-            ])
-          ];
-          activityEvent.historicalPersonLaneId = getBiographyLaneId(person, [
-            activity
-          ]);
-          events.push(activityEvent);
-          projected = true;
-        }
-      });
     } else {
       const envelope = activityEnvelopeSpan(displayActivities);
       if (envelope) {

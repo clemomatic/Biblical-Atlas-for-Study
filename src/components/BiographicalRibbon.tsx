@@ -123,8 +123,10 @@ export function BiographicalRibbon({
           ? 'ring-2 ring-[var(--color-primary)] ring-offset-1 ring-offset-[var(--color-paper)]'
           : ''
       }`}
-      aria-label={`${label}, ${hasLifeSpan ? 'ruban de vie' : 'période d’activité'} avec ${segments.length} période${segments.length === 1 ? '' : 's'} d’activité`}
+      aria-label={`${label}, ${hasLifeSpan ? 'ruban de vie' : 'période d’activité'}${event.historicalOpenStart ? ', commencé avant la limite affichée' : ''}${event.historicalOpenEnd ? ', poursuivi après la limite affichée' : ''}, avec ${segments.length} période${segments.length === 1 ? '' : 's'} d’activité`}
       data-testid="biographical-ribbon"
+      data-event-id={event.id}
+      data-person-id={event.historicalPersonId}
     >
       <div
         className="absolute inset-x-0 top-[22px] h-3 rounded-[3px] border"
@@ -146,6 +148,24 @@ export function BiographicalRibbon({
               : undefined
         }}
       />
+      {event.historicalOpenStart && (
+        <span
+          aria-hidden="true"
+          className="absolute left-0 top-[19px] z-20 -translate-x-1/2 text-base font-bold text-[var(--color-ink-muted)]"
+          title="La personne est née avant la borne affichée"
+        >
+          ‹
+        </span>
+      )}
+      {event.historicalOpenEnd && (
+        <span
+          aria-hidden="true"
+          className="absolute right-0 top-[19px] z-20 translate-x-1/2 text-base font-bold text-[var(--color-ink-muted)]"
+          title="La période continue après la borne affichée"
+        >
+          ›
+        </span>
+      )}
       {segments.map(segment => {
         const visual = ACTIVITY_VISUALS[segment.activity.type];
         const height = segment.track === 0 ? 10 : 4;
