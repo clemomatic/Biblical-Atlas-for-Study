@@ -45,6 +45,7 @@ import {
 import { GeographicProvenancePanel } from './GeographicProvenancePanel';
 import { HistoricalCalculationPanel } from './HistoricalCalculationPanel';
 import { MediaHeader } from './MediaHeader';
+import { PersonChronologySummary } from './PersonChronologySummary';
 import { SourcesAndMethodPanel } from './SourcesAndMethodPanel';
 
 type DetailSection = 'overview' | 'relations' | 'references';
@@ -570,6 +571,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     : [];
   const profilePerson =
     selectedPerson ??
+    people.find(person => person.id === selectedEvent?.historicalPersonId) ??
     people.find(person => person.legacyEventId === selectedEvent?.id);
   const activeProphets = profilePerson
     ? getActiveProphetsDuringReign(profilePerson.id)
@@ -577,7 +579,6 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   const contemporaryKings = profilePerson
     ? getContemporaryKingsForProphet(profilePerson.id)
     : [];
-  const profileActivities = profilePerson?.activityPeriods ?? [];
   const media =
     selectedEvent?.media ||
     selectedPlace?.media ||
@@ -702,18 +703,13 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             )}
 
-            {selectedPerson?.lifeSpan && (
-              <div className="flex items-center gap-2 border-l-2 border-[var(--color-primary)] bg-[var(--color-primary-soft)] px-4 py-3 text-sm font-semibold text-[var(--color-primary-dark)]">
-                <Calendar className="size-4 shrink-0" />
-                {formatTemporalSpanFrench(selectedPerson.lifeSpan)}
-              </div>
-            )}
+            {profilePerson && <PersonChronologySummary person={profilePerson} />}
 
             {calculatedDates.length > 0 && (
               <HistoricalCalculationPanel items={calculatedDates} />
             )}
 
-            {selectedPerson?.sourceTimelineWindows?.map(window => (
+            {profilePerson?.sourceTimelineWindows?.map(window => (
               <div
                 key={window.id}
                 className="border-l-2 border-dashed border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/45 px-4 py-3"
@@ -730,44 +726,6 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
               </div>
             ))}
 
-            {profileActivities.length > 0 && (
-              <section className="space-y-2">
-                <SectionTitle icon={<Calendar className="size-4" />}>
-                  Périodes d’activité documentées
-                </SectionTitle>
-                {profileActivities.map(activity => {
-                  const capital = activity.capitalPlaceId
-                    ? places.find(place => place.id === activity.capitalPlaceId)
-                    : undefined;
-                  const realm =
-                    activity.realmId === 'territory-kingdom-judah'
-                      ? 'Royaume de Juda'
-                      : activity.realmId === 'territory-kingdom-israel'
-                        ? 'Royaume d’Israël'
-                        : undefined;
-                  return (
-                    <div
-                      key={activity.id}
-                      className="border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)]/55 p-3"
-                    >
-                      <p className="text-sm font-semibold text-[var(--color-ink)]">
-                        {activity.label} ·{' '}
-                        {formatTemporalSpanFrench(activity.span)}
-                      </p>
-                      {(realm || capital) && (
-                        <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
-                          {[realm, capital && `siège administratif : ${capital.name}`]
-                            .filter(Boolean)
-                            .join(' · ')}
-                          {capital &&
-                            ' — cette association ne prouve pas à elle seule une présence continue.'}
-                        </p>
-                      )}
-                    </div>
-                  );
-                })}
-              </section>
-            )}
 
             {selectedPlace?.periodDescription && (
               <div className="flex items-start gap-3 border-l-2 border-[var(--color-mineral)] bg-[var(--color-mineral-soft)] p-4">

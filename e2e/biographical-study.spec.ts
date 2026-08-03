@@ -93,6 +93,39 @@ test('regroupe les vies et fonctions dans des bandes lisibles', async ({
   );
 });
 
+test('rétablit les repères relatifs de Samuel dans une seule fiche', async ({ page }) => {
+  await page.goto('/?person=samuel-vie');
+  const detail = page.getByTestId('detail-panel');
+  await expect(detail).toBeVisible();
+  await expect(detail.getByTestId('person-chronology-summary')).toBeVisible();
+  await expect(detail).toContainText('Service auprès du tabernacle');
+  await expect(detail).toContainText('Juge d’Israël');
+  await expect(detail).toContainText('Circuit judiciaire annuel');
+  await expect(detail).toContainText('Maison, autel et activité à Rama');
+  await expect(detail).toContainText('repère relatif');
+
+  await expect(
+    page.getByTestId('biographical-label').filter({ hasText: /^Samuel$/ })
+  ).toHaveCount(1);
+});
+
+test('distingue la vie ouverte de Saül de son règne', async ({ page }) => {
+  await page.goto('/?person=atlas-0087');
+  const detail = page.getByTestId('detail-panel');
+  await expect(detail).toBeVisible();
+  await expect(detail).toContainText('Né avant vers 1138 av. n. è.');
+  await expect(detail).toContainText('Règne de Saül');
+  await expect(detail).toContainText('Au moins 21 ans');
+  await expect(detail).toContainText('Au moins 60 ans');
+  await expect(detail).toContainText(/permet des âges minimaux/i);
+
+  const saulRibbon = page
+    .getByTestId('biographical-ribbon')
+    .filter({ has: page.getByTestId('biographical-label').filter({ hasText: /^Saül$/ }) });
+  await expect(saulRibbon).toHaveCount(1);
+  await expect(saulRibbon).toHaveAttribute('aria-label', /commencé avant la limite affichée/);
+});
+
 test.describe('interaction tactile', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 

@@ -45,7 +45,8 @@
     "editor:check-public": "node scripts/check-public-editor.mjs",
     "preview": "vite preview",
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
-    "research:validate": "node scripts/validate-authoritative-research.mjs"
+    "research:validate": "node scripts/validate-authoritative-research.mjs",
+    "timeline:coherence": "node scripts/report-timeline-coherence.mjs --verify"
   },
   "dependencies": {
     "@fontsource-variable/manrope": "^5.3.0",
