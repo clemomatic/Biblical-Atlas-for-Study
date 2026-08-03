@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   CalendarRange,
+  Flag,
   PanelLeftClose,
   PanelLeftOpen,
   RotateCcw,
@@ -19,6 +20,10 @@ import {
   getBiographyLaneIdForEvent
 } from '../domain/history/timelineBiography';
 import { ACTIVITY_VISUALS } from '../domain/history/activityVisuals';
+import {
+  getTimelineSemanticLaneCounts,
+  TIMELINE_SEMANTIC_LANES
+} from '../domain/history/timelineSemanticLanes';
 import { IconButton, SectionHeading } from './ui/AtlasUi';
 
 interface StudySidebarProps {
@@ -70,6 +75,32 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
     });
     return counts;
   }, [events]);
+
+  const semanticLaneCounts = React.useMemo(() => {
+    const backgroundCategoryIds = new Set(
+      categories
+        .filter(category => category.displayMode === 'background-period')
+        .map(category => category.id)
+    );
+    return getTimelineSemanticLaneCounts(
+      events.filter(
+        event =>
+          !event.historicalPersonId &&
+          !backgroundCategoryIds.has(event.categoryId)
+      )
+    );
+  }, [categories, events]);
+
+  const visibleSemanticLanes = React.useMemo(
+    () =>
+      TIMELINE_SEMANTIC_LANES
+        .map(lane => ({
+          ...lane,
+          count: semanticLaneCounts.get(lane.id) ?? 0
+        }))
+        .filter(lane => lane.count > 0),
+    [semanticLaneCounts]
+  );
 
   const categoryStructure = React.useMemo(() => {
     const byName = new Map(
@@ -252,10 +283,48 @@ export const StudySidebar: React.FC<StudySidebarProps> = ({
             </section>
           )}
 
-          <section className="mt-5">
+          <section className={`mt-5 ${isCollapsed ? 'lg:hidden' : ''}`}>
+            <SectionHeading title="Organisation de la frise" />
+            <p className="mt-1 text-xs leading-relaxed text-[var(--color-ink-muted)]">
+              Les durées et les faits datés sont répartis sur des lignes distinctes.
+            </p>
+            <div className="mt-3 space-y-3">
+              {(['period', 'point'] as const).map(kind => {
+                const lanes = visibleSemanticLanes.filter(lane => lane.kind === kind);
+                if (lanes.length === 0) return null;
+                const KindIcon = kind === 'point' ? Flag : CalendarRange;
+                return (
+                  <div key={kind}>
+                    <p className="mb-1.5 flex items-center gap-1.5 text-xs font-semibold text-[var(--color-ink-soft)]">
+                      <KindIcon className="size-3.5" />
+                      {kind === 'point' ? 'Événements ponctuels' : 'Périodes et contextes'}
+                    </p>
+                    <div className="space-y-1">
+                      {lanes.map(lane => (
+                        <div
+                          key={lane.id}
+                          className="flex min-h-8 items-center gap-2 px-1 text-xs text-[var(--color-ink)]"
+                          title={lane.description}
+                        >
+                          <span
+                            className={kind === 'point' ? 'size-2.5 rounded-full' : 'h-2 w-5 rounded-[2px]'}
+                            style={{ backgroundColor: lane.color }}
+                          />
+                          <span className="min-w-0 flex-1 truncate">{lane.shortLabel}</span>
+                          <span className="tabular-nums text-[var(--color-ink-muted)]">{lane.count}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </section>
+
+          <section className="mt-6 border-t border-[var(--color-stone-light)] pt-5">
             <div className={isCollapsed ? 'lg:hidden' : ''}>
               <SectionHeading
-                title="Contenu visible"
+                title="Filtres de contenu"
                 action={
                   <button
                     type="button"
