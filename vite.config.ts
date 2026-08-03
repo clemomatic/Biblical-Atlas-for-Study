@@ -234,6 +234,16 @@ export default defineConfig(({ command, mode }) => {
   server: {
     hmr: env.DISABLE_HMR !== 'true',
     watch: env.DISABLE_HMR === 'true' ? null : {}
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules')) return 'vendor';
+          return undefined;
+        }
+      }
+    }
   }
   };
 });
