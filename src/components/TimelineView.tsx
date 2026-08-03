@@ -1120,10 +1120,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     containerRef.current.scrollLeft = scrollLeft - walk;
   };
 
-  // The desktop wheel directly controls timeline zoom and keeps the year
-  // under the pointer anchored in place.
+  // Ctrl + wheel controls timeline zoom and keeps the year under the pointer
+  // anchored in place. Without Ctrl, preserve the browser's native vertical
+  // scrolling inside the timeline.
   const handleWheel = (e: React.WheelEvent) => {
-    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    if (!e.ctrlKey || Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
 
     e.preventDefault();
     const rect = e.currentTarget.getBoundingClientRect();
@@ -2383,11 +2384,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                 if (pinnedPreviewEventId !== ev.id) setHoveredEventId(null);
                               }}
                               aria-label={`${ev.text}, ${formatDateFrench(ev.startYear)}${ev.endYear !== ev.startYear ? ` à ${formatDateFrench(ev.endYear)}` : ''}`}
-                              className={`group pointer-events-auto absolute cursor-pointer touch-manipulation transition-[opacity,transform] duration-200 ${
+                              className={`group pointer-events-auto absolute cursor-pointer touch-manipulation transition-opacity duration-200 ${
                                 isSelected || isClosest
-                                  ? 'z-40 scale-[1.01]'
+                                  ? 'z-40'
                                   : isHovered
-                                  ? 'z-30 scale-[1.005]'
+                                  ? 'z-30'
                                   : 'z-20'
                               } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]`}
                             >
