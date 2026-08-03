@@ -1,0 +1,3773 @@
+{
+  "metadata": {
+    "network": "historical_roads_egypt_mesopotamia_expanded",
+    "routing_method": "shortest_path_with_certainty_penalty_and_forced_waypoints",
+    "warning": "Les routes calculées suivent des corridors documentés, avec des nœuds de passage imposés. Elles ne prouvent pas le tracé exact emprunté."
+  },
+  "itineraries": {
+    "ABRAHAM-VIE": {
+      "itinerary_id": "ABRAHAM-VIE",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Our vers Harân",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "UR",
+            "ERECH",
+            "NIPPUR",
+            "BABYLON",
+            "SIPPAR",
+            "HIT",
+            "MARI",
+            "RAQQA",
+            "KARKEMISH",
+            "HARRAN"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EUPH-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "ASSYRIA-007",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 1146.8,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Le parcours suit le Croissant fertile et le corridor de l’Euphrate."
+        },
+        {
+          "leg_name": "Harân vers Canaan",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "HARRAN",
+            "KARKEMISH",
+            "ALEPPO",
+            "HAMATH",
+            "RIBLAH",
+            "DAMASCUS",
+            "DAN",
+            "HAZOR",
+            "MEGIDDO",
+            "SHECHEM",
+            "BETHEL",
+            "HEBRON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "ASSYRIA-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 799.2,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        },
+        {
+          "leg_name": "Séjour en Égypte",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "BETHEL",
+            "JERUSALEM",
+            "BETHLEHEM",
+            "HEBRON",
+            "GATH",
+            "ASHKELON",
+            "GAZA",
+            "RAPHIA",
+            "PELUSIUM",
+            "ZOAN",
+            "GOSHEN"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "PHILISTINE-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "PHILISTINE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-004",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 438.2,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "La destination précise d’Abraham en Égypte n’est pas indiquée ; Goshen représente le delta oriental."
+        },
+        {
+          "leg_name": "Retour d’Égypte vers Béthel",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "GOSHEN",
+            "PELUSIUM",
+            "RAPHIA",
+            "GAZA",
+            "ASHKELON",
+            "GATH",
+            "HEBRON",
+            "BETHLEHEM",
+            "JERUSALEM",
+            "BETHEL"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "DELTA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "PHILISTINE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "PHILISTINE-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SHEPHELA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SHEPHELA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SHEPHELA-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 438.2,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 55,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "ISAAC-DEPLACEMENTS": {
+      "itinerary_id": "ISAAC-DEPLACEMENTS",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Guérar vers Béer-Shéba",
+          "waypoint_nodes": [
+            "GERAR",
+            "BEERSHEBA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SOUTH-002",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 21.8,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 1,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "JACOB-RETOUR-CANAAN": {
+      "itinerary_id": "JACOB-RETOUR-CANAAN",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Harân vers Galaad et Canaan",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "HARRAN",
+            "KARKEMISH",
+            "ALEPPO",
+            "HAMATH",
+            "RIBLAH",
+            "DAMASCUS",
+            "RAMOTH_GILEAD",
+            "MAHANAIM",
+            "PENUEL",
+            "SUCCOTH",
+            "SHECHEM",
+            "BETHEL",
+            "BETHLEHEM",
+            "HEBRON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "ASSYRIA-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "KH-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 828.8,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 18,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "JOSEPH-VERS-EGYPTE": {
+      "itinerary_id": "JOSEPH-VERS-EGYPTE",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Hébron vers Dothân",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "HEBRON",
+            "BETHLEHEM",
+            "JERUSALEM",
+            "BETHEL",
+            "SHECHEM",
+            "DOTHAN"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 110.1,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        },
+        {
+          "leg_name": "Dothân vers l’Égypte",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "DOTHAN",
+            "MEGIDDO",
+            "DOR",
+            "CAESAREA",
+            "JOPPA",
+            "ASHDOD",
+            "ASHKELON",
+            "GAZA",
+            "RAPHIA",
+            "PELUSIUM",
+            "ZOAN",
+            "GOSHEN",
+            "ON",
+            "MEMPHIS"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST_LOCAL-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "PHILISTINE-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "PHILISTINE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "NILE-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "NILE-002",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 614.9,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Les marchands suivaient vraisemblablement les grands axes commerciaux vers l’Égypte."
+        }
+      ],
+      "segment_count": 22,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "EXODE-ISRAEL": {
+      "itinerary_id": "EXODE-ISRAEL",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Ramsès vers la traversée",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "RAMESES",
+            "GOSHEN",
+            "SUCCOTH_EGYPT",
+            "ETHAM",
+            "MIGDOL",
+            "PIHAHIROTH",
+            "SEA_CROSSING"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "DELTA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-009",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 157.9,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Les trois dernières localisations sont hypothétiques et doivent être rendues en pointillés."
+        },
+        {
+          "leg_name": "Traversée vers le Sinaï",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "SEA_CROSSING",
+            "MARA",
+            "ELIM",
+            "SIN_WILDERNESS",
+            "REPHIDIM",
+            "SINAI"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SINAI-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SINAI-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SINAI-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SINAI-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SINAI-005",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 298.9,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        },
+        {
+          "leg_name": "Sinaï vers Qadesh",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "SINAI",
+            "KADESH"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SINAI-006",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 362.3,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Corridor de désert, sans prétention de reproduire chaque campement."
+        },
+        {
+          "leg_name": "Qadesh vers les plaines de Moab",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "KADESH",
+            "EZION_GEBER",
+            "PUNON",
+            "AROER",
+            "DIBON",
+            "HESHBON",
+            "RABBAH",
+            "RAMOTH_GILEAD",
+            "MAHANAIM",
+            "PELLA",
+            "BETH_SHEAN",
+            "ADAM",
+            "GILGAL",
+            "JERICHO"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SOUTH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EW-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 661,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 26,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "JOSUE-CONQUETE": {
+      "itinerary_id": "JOSUE-CONQUETE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Campagne centrale",
+          "waypoint_nodes": [
+            "GILGAL",
+            "JERICHO",
+            "BETHEL",
+            "GIBEON",
+            "AIJALON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "JV-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 73.8,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Campagne du sud",
+          "waypoint_nodes": [
+            "AIJALON",
+            "GEZER",
+            "GATH",
+            "LACHISH",
+            "HEBRON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "JERUSALEM_WEST-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SHEPHELA-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SHEPHELA-003",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 153.2,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Campagne du nord, corridor principal",
+          "waypoint_nodes": [
+            "HEBRON",
+            "JERUSALEM",
+            "BETHEL",
+            "SHECHEM",
+            "DOTHAN",
+            "MEGIDDO",
+            "HAZOR"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 203.2,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 29,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "RUTH-NOEMI": {
+      "itinerary_id": "RUTH-NOEMI",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Moab vers Bethléem, corridor proposé",
+          "waypoint_nodes": [
+            "DIBON",
+            "HESHBON",
+            "JERICHO",
+            "JERUSALEM",
+            "BETHLEHEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "KH-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EW-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 257.2,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 11,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "SAMUEL-CIRCUIT": {
+      "itinerary_id": "SAMUEL-CIRCUIT",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Circuit annuel",
+          "waypoint_nodes": [
+            "RAMAH",
+            "BETHEL",
+            "JERICHO",
+            "GILGAL",
+            "MIZPAH",
+            "RAMAH"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EW-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "BENJ-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "BENJ-001",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 77,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 8,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "DAVID-FUGITIF": {
+      "itinerary_id": "DAVID-FUGITIF",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Premiers refuges",
+          "waypoint_nodes": [
+            "GIBEAH",
+            "RAMAH",
+            "JERUSALEM",
+            "NOB",
+            "JERUSALEM",
+            "GATH",
+            "ADULLAM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "DAVID-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DAVID-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DAVID-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-004",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 97.1,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Désert de Juda",
+          "waypoint_nodes": [
+            "ADULLAM",
+            "KEILAH",
+            "ZIPH",
+            "MAON",
+            "EN_GEDI"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SHEPHELA-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DAVID-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DAVID-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DAVID-007",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 60.3,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Philistie et accession à Hébron",
+          "waypoint_nodes": [
+            "EN_GEDI",
+            "MAON",
+            "ZIPH",
+            "HEBRON",
+            "GATH",
+            "ZIKLAG",
+            "BEERSHEBA",
+            "HEBRON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "DAVID-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DAVID-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DAVID-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SOUTH-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SOUTH-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-001",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 187.4,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 21,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "DAVID-ARCHE": {
+      "itinerary_id": "DAVID-ARCHE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Transport de l’Arche",
+          "waypoint_nodes": [
+            "QIRIATH_JEARIM",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "DAVID-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 14.7,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 1,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "ELIE-MINISTERE": {
+      "itinerary_id": "ELIE-MINISTERE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Sarepta, Carmel et Jizréel",
+          "waypoint_nodes": [
+            "SIDON",
+            "SAREPTA",
+            "TYRE",
+            "ACCO",
+            "CARMEL",
+            "MEGIDDO",
+            "JEZREEL"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "COAST-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-008",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 175,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Fuite vers Béer-Shéba",
+          "waypoint_nodes": [
+            "JEZREEL",
+            "MEGIDDO",
+            "DOTHAN",
+            "SAMARIA",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM",
+            "HEBRON",
+            "BEERSHEBA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "VM-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-001",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 189.6,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 18,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "ELISEE-MINISTERE": {
+      "itinerary_id": "ELISEE-MINISTERE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Jourdain, Béthel et Carmel",
+          "waypoint_nodes": [
+            "JERICHO",
+            "BETHEL",
+            "SHILOH",
+            "SHECHEM",
+            "SAMARIA",
+            "DOTHAN",
+            "MEGIDDO",
+            "CARMEL"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EW-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-005",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 135.2,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Shounem et Samarie",
+          "waypoint_nodes": [
+            "CARMEL",
+            "MEGIDDO",
+            "JEZREEL",
+            "SHUNEM",
+            "JEZREEL",
+            "SAMARIA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "GALILEE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 106,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Damas",
+          "waypoint_nodes": [
+            "SAMARIA",
+            "DOTHAN",
+            "MEGIDDO",
+            "HAZOR",
+            "DAN",
+            "DAMASCUS"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 202.8,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 22,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "JONAS-MISSION": {
+      "itinerary_id": "JONAS-MISSION",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Gath-Hépher vers Joppé",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "GATH_HEPHER",
+            "NAZARETH",
+            "MEGIDDO",
+            "DOR",
+            "CAESAREA",
+            "JOPPA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "GALILEE-009",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST_LOCAL-001",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 122.2,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        },
+        {
+          "leg_name": "Corridor terrestre possible vers Ninive",
+          "route_variant": "après_lieu_de_rejet_inconnu",
+          "waypoint_nodes": [
+            "DAMASCUS",
+            "RIBLAH",
+            "HAMATH",
+            "ALEPPO",
+            "KARKEMISH",
+            "HARRAN",
+            "GOZAN",
+            "NINEVEH"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "ASSYRIA-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "ASSYRIA-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "ASSYRIA-005",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 909.8,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Le point où Jonas fut rejeté sur la terre ferme n’est pas indiqué ; seule la portion intérieure est proposée."
+        }
+      ],
+      "segment_count": 12,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "FAMILLE-JESUS": {
+      "itinerary_id": "FAMILLE-JESUS",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Nazareth, Bethléem et Jérusalem",
+          "waypoint_nodes": [
+            "NAZARETH",
+            "MEGIDDO",
+            "DOTHAN",
+            "SAMARIA",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM",
+            "BETHLEHEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 130.2,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Bethléem vers l’Égypte, portion pilotée",
+          "waypoint_nodes": [
+            "BETHLEHEM",
+            "HEBRON",
+            "LACHISH",
+            "GATH",
+            "ASHKELON",
+            "GAZA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-001",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 115.3,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Retour vers Nazareth, portion pilotée",
+          "waypoint_nodes": [
+            "GAZA",
+            "ASHKELON",
+            "ASHDOD",
+            "JOPPA",
+            "DOR",
+            "MEGIDDO",
+            "NAZARETH"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "VM-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "COAST_LOCAL-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 183.8,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 21,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "JESUS-DEBUT-MINISTERE": {
+      "itinerary_id": "JESUS-DEBUT-MINISTERE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Baptême et Galilée",
+          "waypoint_nodes": [
+            "NAZARETH",
+            "MEGIDDO",
+            "BETH_SHEAN",
+            "JERICHO",
+            "BAPTISM_SITE",
+            "JERICHO",
+            "BETHEL",
+            "SHECHEM",
+            "SYCHAR",
+            "NAZARETH",
+            "CANA",
+            "CAPERNAUM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-009",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JORDAN_LOCAL-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JORDAN_LOCAL-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SAMARIA_LOCAL-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SAMARIA_LOCAL-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 326.7,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Pâque à Jérusalem",
+          "waypoint_nodes": [
+            "CAPERNAUM",
+            "BETH_SHEAN",
+            "JERICHO",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "VM-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-001",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 154.5,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 26,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "JESUS-GALILEE": {
+      "itinerary_id": "JESUS-GALILEE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Circuit principal de Galilée",
+          "waypoint_nodes": [
+            "CAPERNAUM",
+            "CANA",
+            "NAZARETH",
+            "SHUNEM",
+            "JEZREEL",
+            "MEGIDDO",
+            "NAZARETH",
+            "CANA",
+            "CAPERNAUM",
+            "BETHSAIDA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-010",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 130,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 9,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "JESUS-NORD-JUDEE": {
+      "itinerary_id": "JESUS-NORD-JUDEE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Tyr, Sidon et Décapole, portion pilotée",
+          "waypoint_nodes": [
+            "CAPERNAUM",
+            "HAZOR",
+            "DAN",
+            "TYRE",
+            "SAREPTA",
+            "SIDON",
+            "TYRE",
+            "ACCO",
+            "CANA",
+            "CAPERNAUM",
+            "BETH_SHEAN"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "VM-011",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "COAST-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "COAST-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "COAST-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-010",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 429.3,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        },
+        {
+          "leg_name": "Retour vers Jérusalem",
+          "waypoint_nodes": [
+            "BETH_SHEAN",
+            "ADAM",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "JV-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 133.1,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 24,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "JESUS-DERNIER-VOYAGE": {
+      "itinerary_id": "JESUS-DERNIER-VOYAGE",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Pérée, Jéricho et Béthanie",
+          "waypoint_nodes": [
+            "BETH_SHEAN",
+            "PELLA",
+            "MAHANAIM",
+            "HESHBON",
+            "JERICHO",
+            "BETHANY",
+            "BETHPHAGE",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EW-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EW-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EW-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "KH-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "KH-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "KH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EW-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EW-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_LOCAL-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_LOCAL-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_LOCAL-001",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 360.9,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 16,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "PIERRE-ACTES": {
+      "itinerary_id": "PIERRE-ACTES",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Jérusalem, Samarie, Lydda, Joppé et Césarée",
+          "waypoint_nodes": [
+            "JERUSALEM",
+            "BETHEL",
+            "SHECHEM",
+            "SAMARIA",
+            "SHECHEM",
+            "BETHEL",
+            "RAMAH",
+            "GIBEON",
+            "BETH_HORON_UPPER",
+            "BETH_HORON_LOWER",
+            "AIJALON",
+            "GEZER",
+            "LYDDA",
+            "JOPPA",
+            "CAESAREA",
+            "JOPPA",
+            "LYDDA",
+            "GEZER",
+            "AIJALON",
+            "GIBEON",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "COAST_LOCAL-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "COAST_LOCAL-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-007",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 374.8,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 26,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "PHILIPPE-EVANGELISATEUR": {
+      "itinerary_id": "PHILIPPE-EVANGELISATEUR",
+      "network_scope": "Canaan_Transjordan_pilot",
+      "legs": [
+        {
+          "leg_name": "Jérusalem, Samarie, Gaza et Césarée",
+          "waypoint_nodes": [
+            "JERUSALEM",
+            "BETHEL",
+            "SHECHEM",
+            "SAMARIA",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM",
+            "GIBEON",
+            "AIJALON",
+            "GEZER",
+            "GATH",
+            "ASHKELON",
+            "GAZA",
+            "ASHKELON",
+            "ASHDOD",
+            "JOPPA",
+            "CAESAREA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "JERUSALEM_WEST-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SHEPHELA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "COAST_LOCAL-001",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 443.1,
+          "status": "mapped",
+          "route_variant": "principal",
+          "note": "",
+          "unmapped_pairs": []
+        }
+      ],
+      "segment_count": 26,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau pilote. Il ne constitue pas une preuve que le personnage a emprunté chaque tronçon."
+    },
+    "REBECCA-MARIAGE": {
+      "itinerary_id": "REBECCA-MARIAGE",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Région de Harân vers le Néguev",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "HARRAN",
+            "KARKEMISH",
+            "ALEPPO",
+            "HAMATH",
+            "RIBLAH",
+            "DAMASCUS",
+            "DAN",
+            "HAZOR",
+            "MEGIDDO",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM",
+            "HEBRON",
+            "BEERSHEBA"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "ASSYRIA-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-001",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 842,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Le texte ne détaille pas les étapes intermédiaires ; ce tracé suit les grands corridors."
+        }
+      ],
+      "segment_count": 21,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "JACOB-VERS-HARAN": {
+      "itinerary_id": "JACOB-VERS-HARAN",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Béer-Shéba vers Harân",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "BEERSHEBA",
+            "HEBRON",
+            "BETHLEHEM",
+            "JERUSALEM",
+            "BETHEL",
+            "SHECHEM",
+            "MEGIDDO",
+            "HAZOR",
+            "DAN",
+            "DAMASCUS",
+            "RIBLAH",
+            "HAMATH",
+            "ALEPPO",
+            "KARKEMISH",
+            "HARRAN"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "ASSYRIA-007",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 842,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 21,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "JACOB-VERS-EGYPTE": {
+      "itinerary_id": "JACOB-VERS-EGYPTE",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Hébron et Béer-Shéba vers Goshen",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "HEBRON",
+            "BEERSHEBA",
+            "GERAR",
+            "GAZA",
+            "RAPHIA",
+            "PELUSIUM",
+            "ZOAN",
+            "RAMESES",
+            "GOSHEN"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SOUTH-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SOUTH-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "PHILISTINE-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "PHILISTINE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-004",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 423.8,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 8,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "MOISE-MADIAN-RETOUR": {
+      "itinerary_id": "MOISE-MADIAN-RETOUR",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Égypte vers Madian",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "RAMESES",
+            "GOSHEN",
+            "SUCCOTH_EGYPT",
+            "ETHAM",
+            "SHUR",
+            "MIDIAN"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "DELTA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHUR-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SINAI-008",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 685.5,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Le trajet exact de la fuite de Moïse n’est pas donné ; le corridor est probable."
+        },
+        {
+          "leg_name": "Madian vers Horeb",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "MIDIAN",
+            "SINAI"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SINAI-007",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 154.1,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "La localisation du Sinaï et l’étendue de Madian demeurent incertaines."
+        },
+        {
+          "leg_name": "Retour vers l’Égypte",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "SINAI",
+            "MIDIAN",
+            "SHUR",
+            "ETHAM",
+            "SUCCOTH_EGYPT",
+            "GOSHEN",
+            "RAMESES"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "SINAI-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SINAI-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHUR-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "DELTA-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 839.6,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 22,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "DANIEL-DEPORTATION": {
+      "itinerary_id": "DANIEL-DEPORTATION",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Jérusalem vers Babylone",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "JERUSALEM",
+            "DAMASCUS",
+            "RIBLAH",
+            "HAMATH",
+            "ALEPPO",
+            "KARKEMISH",
+            "RAQQA",
+            "MARI",
+            "HIT",
+            "SIPPAR",
+            "BABYLON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EW-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 1472.4,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Corridor probable du Croissant fertile."
+        }
+      ],
+      "segment_count": 18,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "EZECHIEL-DEPORTATION": {
+      "itinerary_id": "EZECHIEL-DEPORTATION",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Juda vers la Babylonie",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "JERUSALEM",
+            "DAMASCUS",
+            "RIBLAH",
+            "HAMATH",
+            "ALEPPO",
+            "KARKEMISH",
+            "RAQQA",
+            "MARI",
+            "HIT",
+            "SIPPAR",
+            "BABYLON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EW-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "JV-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-010",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "EUPH-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 1472.4,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Corridor probable du Croissant fertile."
+        }
+      ],
+      "segment_count": 18,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "JEREMIE-EGYPTE": {
+      "itinerary_id": "JEREMIE-EGYPTE",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Juda vers Tahpanès",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "JERUSALEM",
+            "BETHLEHEM",
+            "HEBRON",
+            "GATH",
+            "ASHKELON",
+            "GAZA",
+            "RAPHIA",
+            "PELUSIUM",
+            "TAHPANHES"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "RIDGE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-004",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "SHEPHELA-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-001",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "PHILISTINE-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "PHILISTINE-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DELTA-002",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 412.8,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 10,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "EXILES-RETOUR-537": {
+      "itinerary_id": "EXILES-RETOUR-537",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Option par l’Euphrate et Karkemish",
+          "route_variant": "croissant_fertile",
+          "waypoint_nodes": [
+            "BABYLON",
+            "SIPPAR",
+            "HIT",
+            "MARI",
+            "RAQQA",
+            "KARKEMISH",
+            "ALEPPO",
+            "HAMATH",
+            "RIBLAH",
+            "DAMASCUS",
+            "DAN",
+            "HAZOR",
+            "MEGIDDO",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EUPH-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 1475.6,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "La source indique que cette route, semblable à celle d’Abraham, est possible."
+        },
+        {
+          "leg_name": "Option directe par Tadmor et Damas",
+          "route_variant": "tadmor_damas",
+          "waypoint_nodes": [
+            "BABYLON",
+            "TADMOR",
+            "DAMASCUS",
+            "DAN",
+            "HAZOR",
+            "MEGIDDO",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "DESERT-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "DESERT-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 1181.2,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "La source indique aussi ce raccourci possible ; la Bible ne précise pas l’option choisie."
+        }
+      ],
+      "segment_count": 37,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "EZRA-RETOUR-468": {
+      "itinerary_id": "EZRA-RETOUR-468",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Babylone, Ahava et Jérusalem",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "BABYLON",
+            "SIPPAR",
+            "HIT",
+            "MARI",
+            "RAQQA",
+            "KARKEMISH",
+            "ALEPPO",
+            "HAMATH",
+            "RIBLAH",
+            "DAMASCUS",
+            "DAN",
+            "HAZOR",
+            "MEGIDDO",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EUPH-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 1475.6,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Le fleuve Ahava n’est pas identifié avec certitude ; il est représenté par le corridor de rassemblement près de Babylone."
+        }
+      ],
+      "segment_count": 22,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    },
+    "NEHEMIE-SUSE-JERUSALEM": {
+      "itinerary_id": "NEHEMIE-SUSE-JERUSALEM",
+      "network_scope": "Egypt_Mesopotamia_Canaan_expanded",
+      "legs": [
+        {
+          "leg_name": "Suse vers Babylone",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "SUSA",
+            "BABYLON"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "PERSIA-001",
+              "direction": "forward"
+            }
+          ],
+          "weighted_distance_km": 407.2,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": "Route royale probable à travers les passages du Zagros."
+        },
+        {
+          "leg_name": "Babylone vers Jérusalem",
+          "route_variant": "principal",
+          "waypoint_nodes": [
+            "BABYLON",
+            "SIPPAR",
+            "HIT",
+            "MARI",
+            "RAQQA",
+            "KARKEMISH",
+            "ALEPPO",
+            "HAMATH",
+            "RIBLAH",
+            "DAMASCUS",
+            "DAN",
+            "HAZOR",
+            "MEGIDDO",
+            "SHECHEM",
+            "BETHEL",
+            "JERUSALEM"
+          ],
+          "road_segments": [
+            {
+              "segment_id": "EUPH-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-005",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-006",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-007",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "EUPH-008",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-001",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-002",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-003",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "SYRIA-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "VM-013",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-012",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "VM-011",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-003",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-002",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "GALILEE-004",
+              "direction": "forward"
+            },
+            {
+              "segment_id": "RIDGE-010",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-009",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-008",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-007",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-006",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-005",
+              "direction": "reverse"
+            },
+            {
+              "segment_id": "RIDGE-004",
+              "direction": "reverse"
+            }
+          ],
+          "weighted_distance_km": 1475.6,
+          "status": "mapped",
+          "unmapped_pairs": [],
+          "note": ""
+        }
+      ],
+      "segment_count": 23,
+      "unmapped_pairs": [],
+      "status": "mapped",
+      "warning": "Le chemin calculé choisit les corridors disponibles du réseau. Il ne prouve pas que chaque tronçon a été emprunté."
+    }
+  }
+}

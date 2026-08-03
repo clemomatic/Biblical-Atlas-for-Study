@@ -173,7 +173,7 @@ export default defineConfig(({ command, mode }) => {
         skipWaiting: true,
         // Le corpus A7 et ses index déterministes dépassent légèrement la
         // limite Workbox de 2 Mio avant compression (environ 300 Kio gzip).
-        maximumFileSizeToCacheInBytes: 4 * 1024 * 1024,
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         navigateFallback: 'index.html',
         globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
         runtimeCaching: [

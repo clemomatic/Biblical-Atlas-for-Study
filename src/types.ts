@@ -129,6 +129,24 @@ export interface CategoryData {
   fontColor?: string;
 }
 
+export interface AuthoritativeTimelinePresentation {
+  axisSegment?: string;
+  zoomMin: number;
+  zoomMax: number;
+  renderMode?: string;
+  visualGroupId?: string;
+  visualParentId?: string;
+  visualMemberIds: string[];
+  shortLabel?: string;
+  labelPriority: number;
+  laneId?: string;
+  laneOrder: number;
+  groupingKey?: string;
+  clickBehavior?: string;
+  collisionPolicy?: string;
+  minLabelWidth: number;
+}
+
 export interface EventData extends EntityMetadata {
   id: string;
   text: string;
@@ -165,6 +183,12 @@ export interface EventData extends EntityMetadata {
   historicalActivityPeriods?: PersonActivityPeriod[];
   /** Bande sémantique stable utilisée pour organiser les biographies. */
   historicalPersonLaneId?: HistoricalPersonLaneId;
+  /** Fiche du nouveau corpus de recherche dont cette projection provient. */
+  authoritativeRecordId?: string;
+  /** Itinéraires du réseau historique associés par le classeur validé. */
+  authoritativeItineraryIds?: string[];
+  /** Directives de rendu sémantique validées dans le guide d’intégration. */
+  timelinePresentation?: AuthoritativeTimelinePresentation;
 }
 
 export interface BiblicalPlace extends EntityMetadata {
