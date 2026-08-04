@@ -492,7 +492,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
               role="combobox"
               aria-expanded={isOpen}
               aria-haspopup="listbox"
-              aria-controls="search-results-list"
+              aria-controls={displayedItems.length > 0 ? 'search-results-list' : undefined}
               aria-autocomplete="list"
               aria-activedescendant={activeItem ? activeItem.key : undefined}
             />
@@ -522,10 +522,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
 
         <div className="grid min-h-0 flex-1 md:grid-cols-[minmax(0,1.05fr)_minmax(280px,0.95fr)]">
           <div
-            id="search-results-list"
             className="min-h-0 overflow-y-auto border-[var(--color-stone-light)] p-4 md:border-r sm:p-5"
-            role="listbox"
-            aria-label="Résultats de recherche"
           >
             {normalizedQuery.length < 2 && recentSearches.length > 0 && (
               <section className="mb-6">
@@ -577,13 +574,25 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                 message="Essayez un nom de lieu, une époque, une catégorie ou une référence."
               />
             ) : (
-              <div className="space-y-5">
+              <div
+                id="search-results-list"
+                role="listbox"
+                aria-label="Résultats de recherche"
+                className="space-y-5"
+              >
                 {groupedItems.map(group => (
-                  <section key={group.kind}>
-                    <h2 className="px-3 text-xs font-semibold text-[var(--color-ink-muted)]">
+                  <div
+                    key={group.kind}
+                    role="group"
+                    aria-labelledby={`group-label-${group.kind}`}
+                  >
+                    <h3
+                      id={`group-label-${group.kind}`}
+                      className="px-3 text-xs font-semibold text-[var(--color-ink-muted)]"
+                    >
                       {kindMeta[group.kind].label} · {group.items.length}
-                    </h2>
-                    <div className="mt-1">
+                    </h3>
+                    <div className="mt-1" role="none">
                       {group.items.map(({ item, index }) => (
                         <SearchResultItem
                           key={item.key}
@@ -595,7 +604,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                         />
                       ))}
                     </div>
-                  </section>
+                  </div>
                 ))}
               </div>
             )}
