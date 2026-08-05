@@ -1385,6 +1385,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           type="button"
           onClick={() => setIsDisplayMenuOpen(previous => !previous)}
           aria-expanded={isDisplayMenuOpen}
+          aria-label="Options d'affichage de la frise"
+          title="Options d'affichage de la frise"
           className="atlas-control ml-auto flex items-center gap-2 px-3 lg:ml-0"
         >
           <SlidersHorizontal className="size-4" />
@@ -2255,6 +2257,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                       style={{ borderColor: lane.catColor }}
                       className="group/badge sticky left-2 z-35 mb-1 inline-flex min-h-8 cursor-pointer items-center gap-2 border-l-2 bg-[var(--color-paper)]/94 px-3 py-1 text-xs font-semibold text-[var(--color-ink)] shadow-[var(--shadow-1)] backdrop-blur transition-colors hover:bg-[var(--color-paper-muted)]"
                       title={isManuallyCollapsed ? 'Déplier cette ligne' : 'Replier cette ligne'}
+                      aria-expanded={!isManuallyCollapsed}
                     >
                       <LaneIcon
                         className="size-3.5 shrink-0"
