@@ -7,3 +7,7 @@
 ## 2025-03-05 - [ARIA Combobox and Chip Focus Retention]
 **Learning:** When building search panels with keyboard navigation (ArrowUp/ArrowDown to highlight results), screen-readers will not announce highlighted results without semantic combobox markup (`role="combobox"`, `aria-autocomplete`, `aria-activedescendant` linking to active item `id`). Additionally, selecting recent search chips must always restore focus back to the primary search input to prevent focus loss when the chip container is unmounted or updated.
 **Action:** Always implement ARIA Combobox specifications on search bars with dropdown results, and ensure button chips that alter search state restore focus to the input element on click.
+
+## 2026-08-05 - [Responsive Icon Buttons and Collapse States]
+**Learning:** In responsive layouts, controls often hide descriptive text on smaller viewports (e.g. using `hidden sm:inline`), rendering the button icon-only on mobile. Such buttons MUST have persistent `aria-label` and `title` properties. Additionally, interactive accordion/collapse panels require `aria-expanded` attributes to properly communicate their layout state to screen readers.
+**Action:** Always pair responsive/icon-only controls with explicit French/local aria-labels and use `aria-expanded` to communicate toggle states on accordion/collapsible panels.
