@@ -102,7 +102,7 @@ export function AppHeader({
           Rechercher dans l’atlas
         </span>
         <span className="hidden text-[11px] font-semibold text-[var(--color-ink-muted)] lg:block">
-          /
+          {typeof window !== 'undefined' && /mac/i.test(window.navigator.userAgent) ? '⌘K' : 'Ctrl+K'}
         </span>
       </button>
 

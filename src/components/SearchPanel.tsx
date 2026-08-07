@@ -130,55 +130,55 @@ const kindMeta: Record<
   }
 };
 
-function SearchResultItem({
-  item,
-  query,
-  isActive,
-  onHover,
-  onSelect
-}: {
-  key?: React.Key;
+interface SearchResultItemProps {
   item: SearchItem;
   query: string;
   isActive: boolean;
   onHover: () => void;
   onSelect: () => void;
-}) {
-  const meta = kindMeta[item.kind];
-  const Icon = meta.icon;
-  return (
-    <button
-      id={item.key}
-      type="button"
-      role="option"
-      aria-selected={isActive}
-      onMouseEnter={onHover}
-      onFocus={onHover}
-      onClick={onSelect}
-      className={`group flex min-h-14 w-full items-center gap-3 border-l-2 px-3 py-2.5 text-left transition-colors ${
-        isActive
-          ? 'border-[var(--color-primary)] bg-[var(--color-primary-soft)]'
-          : 'border-transparent hover:bg-[var(--color-paper-muted)]'
-      }`}
-    >
-      <span
-        className="grid size-9 shrink-0 place-items-center"
-        style={{ color: meta.color }}
-      >
-        <Icon className="size-[18px]" />
-      </span>
-      <span className="min-w-0 flex-1">
-        <span className="block truncate text-sm font-semibold text-[var(--color-ink)]">
-          <HighlightedText value={item.title} query={query} />
-        </span>
-        <span className="mt-0.5 block truncate text-xs text-[var(--color-ink-muted)]">
-          {item.meta}
-        </span>
-      </span>
-      <ArrowRight className="size-4 shrink-0 text-[var(--color-stone)] transition-transform group-hover:translate-x-0.5" />
-    </button>
-  );
 }
+
+const SearchResultItem = React.forwardRef<HTMLButtonElement, SearchResultItemProps>(
+  ({ item, query, isActive, onHover, onSelect }, ref) => {
+    const meta = kindMeta[item.kind];
+    const Icon = meta.icon;
+    return (
+      <button
+        ref={ref}
+        id={item.key}
+        type="button"
+        role="option"
+        aria-selected={isActive}
+        onMouseEnter={onHover}
+        onFocus={onHover}
+        onClick={onSelect}
+        className={`group flex min-h-14 w-full items-center gap-3 border-l-2 px-3 py-2.5 text-left transition-colors ${
+          isActive
+            ? 'border-[var(--color-primary)] bg-[var(--color-primary-soft)]'
+            : 'border-transparent hover:bg-[var(--color-paper-muted)]'
+        }`}
+      >
+        <span
+          className="grid size-9 shrink-0 place-items-center"
+          style={{ color: meta.color }}
+        >
+          <Icon className="size-[18px]" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-sm font-semibold text-[var(--color-ink)]">
+            <HighlightedText value={item.title} query={query} />
+          </span>
+          <span className="mt-0.5 block truncate text-xs text-[var(--color-ink-muted)]">
+            {item.meta}
+          </span>
+        </span>
+        <ArrowRight className="size-4 shrink-0 text-[var(--color-stone)] transition-transform group-hover:translate-x-0.5" />
+      </button>
+    );
+  }
+);
+
+SearchResultItem.displayName = 'SearchResultItem';
 
 export const SearchPanel: React.FC<SearchPanelProps> = ({
   isOpen,
@@ -199,6 +199,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   const dialogRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const previousFocusRef = useRef<HTMLElement | null>(null);
+  const activeItemRef = useRef<HTMLButtonElement | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
@@ -385,6 +386,15 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   useEffect(() => {
     setActiveIndex(0);
   }, [normalizedQuery, isOpen]);
+
+  useEffect(() => {
+    if (activeItemRef.current) {
+      activeItemRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest'
+      });
+    }
+  }, [activeIndex]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -587,6 +597,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                       {group.items.map(({ item, index }) => (
                         <SearchResultItem
                           key={item.key}
+                          ref={activeIndex === index ? activeItemRef : null}
                           item={item}
                           query={deferredQuery}
                           isActive={activeIndex === index}
