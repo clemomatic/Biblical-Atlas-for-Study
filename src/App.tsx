@@ -267,7 +267,15 @@ export default function App() {
         target?.tagName === 'TEXTAREA' ||
         target?.isContentEditable;
 
-      if (event.key === '/' && !isTyping) {
+      if (isTyping) return;
+
+      const isMac = /mac/i.test(window.navigator.userAgent);
+      const isTrigger =
+        event.key === '/' ||
+        (isMac && event.metaKey && event.key?.toLowerCase() === 'k') ||
+        (!isMac && event.ctrlKey && event.key?.toLowerCase() === 'k');
+
+      if (isTrigger) {
         event.preventDefault();
         setIsSearchOpen(true);
       }
