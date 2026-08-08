@@ -202,6 +202,17 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   const [activeIndex, setActiveIndex] = useState(0);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
 
+  const removeRecentSearch = (valueToRemove: string) => {
+    const next = recentSearches.filter(val => val !== valueToRemove);
+    setRecentSearches(next);
+    try {
+      window.localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(next));
+    } catch {
+      // ignore
+    }
+    inputRef.current?.focus();
+  };
+
   const clearRecentSearches = () => {
     setRecentSearches([]);
     try {
@@ -545,17 +556,29 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {recentSearches.map(value => (
-                    <button
+                    <div
                       key={value}
-                      type="button"
-                      onClick={() => {
-                        onQueryChange(value);
-                        inputRef.current?.focus();
-                      }}
-                      className="min-h-10 rounded-full bg-[var(--color-paper-muted)] px-3 text-xs font-semibold text-[var(--color-ink-soft)] hover:bg-[var(--color-primary-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                      className="inline-flex items-center rounded-full bg-[var(--color-paper-muted)] pl-3 pr-1 py-1 text-xs font-semibold text-[var(--color-ink-soft)] hover:bg-[var(--color-primary-soft)] focus-within:ring-2 focus-within:ring-[var(--color-primary)] focus-within:bg-[var(--color-primary-soft)] transition-colors"
                     >
-                      {value}
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onQueryChange(value);
+                          inputRef.current?.focus();
+                        }}
+                        className="text-left font-semibold outline-none text-[var(--color-ink-soft)] hover:text-[var(--color-primary-dark)] transition-colors mr-1"
+                      >
+                        {value}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => removeRecentSearch(value)}
+                        className="flex size-6 items-center justify-center rounded-full text-[var(--color-ink-muted)] hover:bg-[var(--color-stone-light)] hover:text-[var(--color-ink)] focus:outline-none focus:ring-1 focus:ring-[var(--color-primary)]"
+                        aria-label={`Supprimer ${value} de l’historique`}
+                      >
+                        <X className="size-3" />
+                      </button>
+                    </div>
                   ))}
                 </div>
               </section>
