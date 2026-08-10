@@ -212,6 +212,17 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
     inputRef.current?.focus();
   };
 
+  const removeRecentSearch = (valueToRemove: string) => {
+    const next = recentSearches.filter(value => value !== valueToRemove);
+    setRecentSearches(next);
+    try {
+      window.localStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(next));
+    } catch {
+      // ignore
+    }
+    inputRef.current?.focus();
+  };
+
   const handleClearQuery = () => {
     onQueryChange('');
     inputRef.current?.focus();
@@ -545,17 +556,32 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
                   {recentSearches.map(value => (
-                    <button
+                    <span
                       key={value}
-                      type="button"
-                      onClick={() => {
-                        onQueryChange(value);
-                        inputRef.current?.focus();
-                      }}
-                      className="min-h-10 rounded-full bg-[var(--color-paper-muted)] px-3 text-xs font-semibold text-[var(--color-ink-soft)] hover:bg-[var(--color-primary-soft)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)]"
+                      className="inline-flex items-center rounded-full bg-[var(--color-paper-muted)] hover:bg-[var(--color-primary-soft)] transition-colors"
                     >
-                      {value}
-                    </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          onQueryChange(value);
+                          inputRef.current?.focus();
+                        }}
+                        className="flex h-10 items-center rounded-l-full pl-4 pr-2 text-xs font-semibold text-[var(--color-ink-soft)] hover:text-[var(--color-primary-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:rounded-full"
+                      >
+                        {value}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          removeRecentSearch(value);
+                        }}
+                        className="flex h-10 w-8 items-center justify-center rounded-r-full pr-3 text-[var(--color-ink-muted)] hover:text-red-600 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary)] focus-visible:rounded-full"
+                        aria-label={`Supprimer la recherche "${value}"`}
+                      >
+                        <X className="size-3" />
+                      </button>
+                    </span>
                   ))}
                 </div>
               </section>
