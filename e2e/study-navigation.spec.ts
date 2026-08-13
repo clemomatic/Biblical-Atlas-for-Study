@@ -38,4 +38,31 @@ test('la recherche au clavier s?lectionne le r?sultat actif et ?chap ferme la fi
   await expect(page.getByTestId('detail-panel')).toContainText('Rome');
   await page.keyboard.press('Escape');
   await expect(page.getByTestId('detail-panel')).toHaveCount(0);
-});
+});
+
+test('permet d\'effacer une recherche récente individuellement', async ({ page }) => {
+  await page.goto('/');
+  const search = await openSearch(page);
+  await search.locator('input').fill('Isaac');
+  await search.getByRole('option').filter({ hasText: /^Isaac/ }).first().click();
+
+  const detail = page.getByTestId('detail-panel');
+  await expect(detail).toContainText('Isaac');
+  await page.keyboard.press('Escape');
+
+  await openSearch(page);
+
+  // Clear the search query to show recent searches
+  const clearBtn = page.getByRole('button', { name: 'Effacer le texte de recherche' });
+  await expect(clearBtn).toBeVisible();
+  await clearBtn.click();
+
+  const recentChip = page.locator('div.min-h-10').filter({ hasText: /^Isaac$/ });
+  await expect(recentChip).toBeVisible();
+
+  const deleteBtn = page.getByRole('button', { name: 'Supprimer « Isaac » de l\'historique' });
+  await expect(deleteBtn).toBeVisible();
+  await deleteBtn.click();
+
+  await expect(recentChip).not.toBeVisible();
+});
