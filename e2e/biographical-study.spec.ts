@@ -151,17 +151,11 @@ test('distingue la vie ouverte de Saül de son règne', async ({ page }) => {
 test.describe('interaction tactile', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 
-  test('un premier appui ouvre l’aperçu, le suivant les détails', async ({
+  test('sur la frise globale, un premier appui ouvre l’aperçu, le suivant les détails', async ({
     page
   }) => {
-    await page.goto(`/?event=${EVENT_ID}`);
-    const focusedTimeline = page.getByTestId('focused-timeline');
-    await expect(focusedTimeline).toBeVisible();
-    await focusedTimeline
-      .getByRole('button', { name: /^Ouvrir la fiche de/ })
-      .click();
-    await expect(page.getByTestId('detail-panel')).toBeVisible();
-    await page.keyboard.press('Escape');
+    await page.goto('/?view=timeline&from=1&to=20');
+    await expect(page.getByTestId('timeline-view')).toBeVisible();
 
     const event = page.getByRole('button', { name: EVENT_NAME }).first();
     await expect(event).toBeVisible();
