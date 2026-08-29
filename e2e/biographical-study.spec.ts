@@ -155,6 +155,11 @@ test.describe('interaction tactile', () => {
     page
   }) => {
     await page.goto(`/?event=${EVENT_ID}`);
+    const focusedTimeline = page.getByTestId('focused-timeline');
+    await expect(focusedTimeline).toBeVisible();
+    await focusedTimeline
+      .getByRole('button', { name: /^Ouvrir la fiche de/ })
+      .click();
     await expect(page.getByTestId('detail-panel')).toBeVisible();
     await page.keyboard.press('Escape');
 

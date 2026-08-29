@@ -31,7 +31,9 @@ test('mobile: focalise Samuel avec ses contemporains et événements', async ({
 
   const focus = page.getByTestId('focused-timeline');
   await expect(focus).toBeVisible();
-  await expect(focus.getByRole('heading', { name: 'Samuel' })).toBeVisible();
+  await expect(
+    focus.getByRole('heading', { name: 'Samuel', exact: true })
+  ).toBeVisible();
   await expect(focus).toContainText('Vie et contemporains');
   await expect(focus.getByRole('button', { name: 'Vue entière' })).toHaveAttribute(
     'aria-pressed',
