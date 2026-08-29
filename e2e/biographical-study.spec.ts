@@ -151,7 +151,7 @@ test('distingue la vie ouverte de Saül de son règne', async ({ page }) => {
 test.describe('interaction tactile', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 
-  test('sur la frise globale, un premier appui ouvre l’aperçu, le suivant les détails', async ({
+  test('sur la frise globale, un premier appui ouvre l’aperçu, le suivant la frise focalisée', async ({
     page
   }) => {
     await page.goto('/?view=timeline&from=1&to=20');
@@ -164,7 +164,8 @@ test.describe('interaction tactile', () => {
     await expect(page.getByTestId('detail-panel')).toHaveCount(0);
 
     await event.tap();
-    await expect(page.getByTestId('detail-panel')).toBeVisible();
+    await expect(page.getByTestId('focused-timeline')).toBeVisible();
+    await expect(page.getByTestId('detail-panel')).toBeHidden();
   });
 });
 
