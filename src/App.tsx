@@ -25,6 +25,7 @@ import {
   BIBLICAL_ROUTES
 } from './data/mapData';
 import { TimelineView } from './components/TimelineView';
+import { FocusedTimelineMobile } from './components/FocusedTimelineMobile';
 import { MapView } from './components/MapView';
 import { DetailPanel } from './components/DetailPanel';
 import { SearchPanel } from './components/SearchPanel';
@@ -41,6 +42,7 @@ import {
   BIOGRAPHY_LANES,
   getBiographyLaneIdForEvent
 } from './domain/history/timelineBiography';
+import { buildFocusedTimeline } from './domain/history/focusedTimeline';
 
 const LocalDataEditor = __ATLAS_EDITOR_ENABLED__
   ? lazy(() => import('./components/editor/LocalDataEditor'))
@@ -202,6 +204,9 @@ export default function App() {
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(
     initialLocation.personId
   );
+  const [isMobileFocusOpen, setIsMobileFocusOpen] = useState(
+    Boolean(initialLocation.personId || initialLocation.eventId)
+  );
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
@@ -241,6 +246,16 @@ export default function App() {
         person.id ===
         canonicalizeHistoricalPersonId(selectedPersonId ?? undefined)
     ) || null;
+  const focusedTimelineModel = useMemo(
+    () =>
+      buildFocusedTimeline({
+        person: selectedPerson,
+        event: selectedEvent,
+        people: HISTORICAL_PEOPLE,
+        events: linkedEvents
+      }),
+    [linkedEvents, selectedEvent, selectedPerson]
+  );
 
   const filteredCategories = useMemo(
     () =>
@@ -343,6 +358,7 @@ export default function App() {
       setSelectedPlaceId(next.placeId);
       setSelectedRouteId(next.routeId);
       setSelectedPersonId(next.personId);
+      setIsMobileFocusOpen(Boolean(next.personId || next.eventId));
       setVisiblePeriod(next.visiblePeriod);
       setTimelinePeriodRequest(previous => ({
         period: next.visiblePeriod,
@@ -380,6 +396,7 @@ export default function App() {
     setSelectedPlaceId(null);
     setSelectedRouteId(null);
     setSelectedPersonId(null);
+    setIsMobileFocusOpen(false);
   }, []);
 
   const handleSelectEvent = useCallback((event: EventData) => {
@@ -390,6 +407,7 @@ export default function App() {
       setSelectedRouteId(null);
       setActiveTab('timeline');
       setIsSearchOpen(false);
+      setIsMobileFocusOpen(true);
       return;
     }
     setSelectedEventId(event.id);
@@ -398,6 +416,7 @@ export default function App() {
     setSelectedPersonId(null);
     setActiveTab('timeline');
     setIsSearchOpen(false);
+    setIsMobileFocusOpen(true);
   }, []);
 
   const handleSelectPlace = useCallback((place: BiblicalPlace) => {
@@ -407,6 +426,7 @@ export default function App() {
     setSelectedPersonId(null);
     setActiveTab('map');
     setIsSearchOpen(false);
+    setIsMobileFocusOpen(false);
   }, []);
 
   const handleSelectRoute = useCallback((route: BiblicalRoute) => {
@@ -416,6 +436,7 @@ export default function App() {
     setSelectedPersonId(null);
     setActiveTab('map');
     setIsSearchOpen(false);
+    setIsMobileFocusOpen(false);
   }, []);
 
   const handleSelectPerson = useCallback((personId: string) => {
@@ -425,6 +446,25 @@ export default function App() {
     setSelectedRouteId(null);
     setActiveTab('timeline');
     setIsSearchOpen(false);
+    setIsMobileFocusOpen(true);
+  }, []);
+
+  const handleOpenFocusedDetails = useCallback((event?: EventData) => {
+    if (event) {
+      setSelectedEventId(event.id);
+      setSelectedPlaceId(null);
+      setSelectedRouteId(null);
+    }
+    setActiveTab('timeline');
+    setIsMobileFocusOpen(false);
+  }, []);
+
+  const handleOpenFocusedMap = useCallback((event: EventData) => {
+    setSelectedEventId(event.id);
+    setSelectedPlaceId(null);
+    setSelectedRouteId(null);
+    setActiveTab('map');
+    setIsMobileFocusOpen(true);
   }, []);
 
   const handleVisiblePeriodChange = useCallback((period: TimelinePeriod) => {
@@ -545,21 +585,39 @@ export default function App() {
             className={activeTab === 'timeline' ? 'h-full' : 'hidden h-full'}
             aria-hidden={activeTab !== 'timeline'}
           >
-            <TimelineView
-              eras={ERAS}
-              categories={filteredCategories}
-              events={filteredEvents}
-              people={HISTORICAL_PEOPLE}
-              places={places}
-              selectedEventId={selectedEvent?.id || null}
-              requestedPeriod={timelinePeriodRequest.period}
-              periodRequestKey={timelinePeriodRequest.key}
-              isActive={activeTab === 'timeline'}
-              onSelectEvent={handleSelectEvent}
-              onVisiblePeriodChange={handleVisiblePeriodChange}
-              onOpenAtThisMoment={() => setIsAtThisMomentOpen(true)}
-              searchQuery=""
-            />
+            {isMobileFocusOpen && focusedTimelineModel && (
+              <FocusedTimelineMobile
+                model={focusedTimelineModel}
+                places={places}
+                onBack={clearSelection}
+                onSelectPerson={handleSelectPerson}
+                onOpenDetails={handleOpenFocusedDetails}
+                onOpenMap={handleOpenFocusedMap}
+              />
+            )}
+            <div
+              className={
+                isMobileFocusOpen && focusedTimelineModel
+                  ? 'hidden h-full md:block'
+                  : 'h-full'
+              }
+            >
+              <TimelineView
+                eras={ERAS}
+                categories={filteredCategories}
+                events={filteredEvents}
+                people={HISTORICAL_PEOPLE}
+                places={places}
+                selectedEventId={selectedEvent?.id || null}
+                requestedPeriod={timelinePeriodRequest.period}
+                periodRequestKey={timelinePeriodRequest.key}
+                isActive={activeTab === 'timeline'}
+                onSelectEvent={handleSelectEvent}
+                onVisiblePeriodChange={handleVisiblePeriodChange}
+                onOpenAtThisMoment={() => setIsAtThisMomentOpen(true)}
+                searchQuery=""
+              />
+            </div>
           </section>
 
           <section
@@ -598,6 +656,7 @@ export default function App() {
             onSelectRoute={handleSelectRoute}
             onSelectPerson={handleSelectPerson}
             onSwitchTab={setActiveTab}
+            hideOnMobile={Boolean(isMobileFocusOpen && focusedTimelineModel)}
           />
         )}
       </div>
