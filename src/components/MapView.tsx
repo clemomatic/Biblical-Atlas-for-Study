@@ -33,6 +33,7 @@ interface MapViewProps {
   routes: BiblicalRoute[];
   selectedPlace: BiblicalPlace | null;
   selectedEvent: EventData | null;
+  selectedRoute: BiblicalRoute | null;
   visiblePeriod: TimelinePeriod | null;
   isActive: boolean;
   onSelectPlace: (place: BiblicalPlace) => void;
@@ -231,6 +232,7 @@ export const MapView: React.FC<MapViewProps> = ({
   routes,
   selectedPlace,
   selectedEvent,
+  selectedRoute,
   visiblePeriod,
   isActive,
   onSelectPlace,
@@ -496,10 +498,14 @@ export const MapView: React.FC<MapViewProps> = ({
     const routeLayer = routeLayerRef.current;
     if (!routeLayer) return;
     routeLayer.clearLayers();
-    if (!showSchematicRoutes) return;
+    if (!showSchematicRoutes && !selectedRoute) return;
+
+    let selectedPolyline: L.Polyline | null = null;
 
     routes
       .filter(route => {
+        if (route.id === selectedRoute?.id) return true;
+        if (!showSchematicRoutes) return false;
         if (!overlapsPeriod(route.startYear, route.endYear, visiblePeriod)) {
           return false;
         }
@@ -510,13 +516,14 @@ export const MapView: React.FC<MapViewProps> = ({
       })
       .forEach(route => {
         if (route.points.length < 2) return;
+        const isSelected = route.id === selectedRoute?.id;
         const polyline = L.polyline(
           route.points.map(point => point.coordinates),
           {
             color: route.color,
-            weight: 3,
-            opacity: 0.82,
-            dashArray: '7 7',
+            weight: isSelected ? 6 : 3,
+            opacity: isSelected ? 1 : 0.82,
+            dashArray: isSelected ? '10 6' : '7 7',
             lineCap: 'round',
             lineJoin: 'round',
             interactive: true
@@ -528,6 +535,7 @@ export const MapView: React.FC<MapViewProps> = ({
         );
         polyline.on('click', () => onSelectRoute(route));
         polyline.addTo(routeLayer);
+        if (isSelected) selectedPolyline = polyline;
       });
 
     routeLayer.eachLayer(layer => {
@@ -535,10 +543,12 @@ export const MapView: React.FC<MapViewProps> = ({
         layer.bringToBack();
       }
     });
+    selectedPolyline?.bringToFront();
   }, [
     routes,
     visiblePeriod,
     selectedEvent,
+    selectedRoute,
     showSchematicRoutes,
     onSelectRoute
   ]);
@@ -635,6 +645,30 @@ export const MapView: React.FC<MapViewProps> = ({
     return () => window.cancelAnimationFrame(frame);
   }, [selectedPlace, isActive]);
 
+  useEffect(() => {
+    if (!isActive || !selectedRoute || !mapRef.current) return;
+    const coordinates = selectedRoute.points
+      .map(point => point.coordinates)
+      .filter(
+        ([latitude, longitude]) =>
+          Number.isFinite(latitude) && Number.isFinite(longitude)
+      );
+    if (coordinates.length < 2) return;
+
+    const frame = window.requestAnimationFrame(() => {
+      const map = mapRef.current;
+      if (!map) return;
+      map.invalidateSize({ pan: false });
+      map.fitBounds(L.latLngBounds(coordinates), {
+        animate: true,
+        duration: 0.8,
+        maxZoom: 9,
+        padding: [48, 48]
+      });
+    });
+    return () => window.cancelAnimationFrame(frame);
+  }, [isActive, selectedRoute]);
+
   return (
     <div data-testid="map-view" className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">
       <div className="absolute left-3 top-3 z-[420] flex max-w-[calc(100%-1.5rem)] flex-col items-start gap-2 sm:left-4 sm:top-4">
@@ -661,7 +695,19 @@ export const MapView: React.FC<MapViewProps> = ({
           />
         </button>
 
-        {visiblePeriod && (
+        {selectedRoute &&
+        selectedRoute.startYear !== undefined &&
+        selectedRoute.endYear !== undefined ? (
+          <p className="rounded-[var(--radius-sm)] bg-[var(--color-paper)]/94 px-3 py-2 text-xs text-[var(--color-ink-soft)] shadow-[var(--shadow-1)] backdrop-blur">
+            <span className="block font-semibold text-[var(--color-primary-dark)]">
+              Itinéraire sélectionné
+            </span>
+            <span className="tabular-nums">
+              {formatDateFrench(Math.round(selectedRoute.startYear))} à{' '}
+              {formatDateFrench(Math.round(selectedRoute.endYear))}
+            </span>
+          </p>
+        ) : visiblePeriod ? (
           <p className="rounded-[var(--radius-sm)] bg-[var(--color-paper)]/90 px-3 py-2 text-xs text-[var(--color-ink-soft)] shadow-[var(--shadow-1)] backdrop-blur">
             <span className="font-semibold text-[var(--color-ink)]">
               Période visible
@@ -671,7 +717,7 @@ export const MapView: React.FC<MapViewProps> = ({
               {formatDateFrench(Math.round(visiblePeriod.endYear))}
             </span>
           </p>
-        )}
+        ) : null}
       </div>
 
       {isLayerPanelOpen && (

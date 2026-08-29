@@ -209,13 +209,25 @@ export function AtThisMomentPanel({
     string | null
   >(null);
 
-  const snapshot = useMemo(() => {
+  const focusedYear = useMemo(() => {
     if (!period) return null;
+    return Math.round((period.startYear + period.endYear) / 2);
+  }, [period]);
+  const focusedPeriod = useMemo<TimelinePeriod | null>(
+    () =>
+      focusedYear === null
+        ? null
+        : { startYear: focusedYear, endYear: focusedYear },
+    [focusedYear]
+  );
+
+  const snapshot = useMemo(() => {
+    if (!focusedPeriod) return null;
     return buildHistoricalSnapshot(
       HISTORICAL_SNAPSHOT_CATALOG,
-      timelinePeriodToTemporalSpan(period)
+      timelinePeriodToTemporalSpan(focusedPeriod)
     );
-  }, [period]);
+  }, [focusedPeriod]);
 
   const groupedEvents: Record<
     string,
@@ -266,7 +278,7 @@ export function AtThisMomentPanel({
 
   useEffect(() => {
     if (isOpen) setExpandedConnectionId(null);
-  }, [isOpen, period?.startYear, period?.endYear]);
+  }, [focusedYear, isOpen]);
 
   if (!isOpen) return null;
 
@@ -300,7 +312,7 @@ export function AtThisMomentPanel({
               <CalendarRange className="size-5" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="atlas-kicker">Vue d’étude</p>
+              <p className="atlas-kicker">Année centrale de la frise</p>
               <h2
                 id="at-this-moment-title"
                 className="mt-1 font-[var(--font-editorial)] text-2xl font-semibold leading-tight text-[var(--color-ink)]"
@@ -323,9 +335,10 @@ export function AtThisMomentPanel({
             </button>
           </div>
           <p className="mt-4 text-sm leading-relaxed text-[var(--color-ink-soft)]">
-            Cette synthèse reflète uniquement les données validées actuellement
-            disponibles. Une personne vivante n’est pas nécessairement
-            localisée, et une contemporanéité ne prouve jamais une rencontre.
+            La synthèse porte sur l’année située au centre de la frise et reflète
+            uniquement les données validées. Une personne vivante n’est pas
+            nécessairement localisée, et une contemporanéité ne prouve jamais
+            une rencontre.
           </p>
         </header>
 

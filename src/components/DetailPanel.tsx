@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActiveTab,
   BiblicalPlace,
@@ -422,10 +422,21 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
 }) => {
   const [activeSection, setActiveSection] =
     useState<DetailSection>('overview');
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setActiveSection('overview');
   }, [
+    selectedEvent?.id,
+    selectedPlace?.id,
+    selectedRoute?.id,
+    selectedPerson?.id
+  ]);
+
+  useEffect(() => {
+    contentRef.current?.scrollTo({ top: 0 });
+  }, [
+    activeSection,
     selectedEvent?.id,
     selectedPlace?.id,
     selectedRoute?.id,
@@ -631,61 +642,44 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
         </button>
       </div>
 
-      <div className="hidden">
-        <div className="flex items-start justify-between gap-4">
-          <div className="min-w-0">
-            <div className="flex items-center gap-2">
-              <span
-                className="size-2.5 rounded-full bg-cyan-500"
-                style={
-                  category ? { backgroundColor: category.hexColor } : undefined
-                }
-              />
-              <span className="truncate text-[11px] font-bold uppercase tracking-[0.16em] text-indigo-600">
-                {type}
-              </span>
-            </div>
-            <h2 className="mt-2 font-serif text-2xl font-bold leading-tight text-slate-950">
-              {title}
-            </h2>
-          </div>
-          <button
-            onClick={onClose}
-            className="grid size-10 shrink-0 place-items-center rounded-xl text-slate-500 hover:bg-slate-100 hover:text-slate-900"
-            aria-label="Fermer la fiche"
-          >
-            <X className="size-5" />
-          </button>
-        </div>
-
-        <div className="mt-4 flex gap-1 rounded-xl bg-slate-100 p-1">
-          {[
-            { id: 'overview' as const, label: 'Présentation', icon: FileText },
-            { id: 'relations' as const, label: 'Relations', icon: Network },
-            { id: 'references' as const, label: 'Références', icon: Library }
-          ].map(section => {
-            const Icon = section.icon;
-            const isActive = activeSection === section.id;
-            return (
-              <button
-                key={section.id}
-                onClick={() => setActiveSection(section.id)}
-                className={`flex min-w-0 flex-1 items-center justify-center gap-1.5 rounded-lg px-2 py-2 text-[11px] font-bold transition ${
-                  isActive
-                    ? 'bg-white text-indigo-700 shadow-sm'
-                    : 'text-slate-500 hover:text-slate-800'
-                }`}
-              >
-                <Icon className="size-3.5" />
-                <span className="truncate">{section.label}</span>
-              </button>
-            );
-          })}
-        </div>
+      <div
+        role="tablist"
+        aria-label="Sections de la fiche"
+        className="grid shrink-0 grid-cols-3 gap-1 border-b border-[var(--color-stone-light)] bg-[var(--color-paper-muted)] p-2"
+      >
+        {[
+          { id: 'overview' as const, label: 'Présentation', icon: FileText },
+          { id: 'relations' as const, label: 'Relations', icon: Network },
+          { id: 'references' as const, label: 'Références', icon: Library }
+        ].map(section => {
+          const Icon = section.icon;
+          const isActive = activeSection === section.id;
+          return (
+            <button
+              key={section.id}
+              type="button"
+              role="tab"
+              aria-selected={isActive}
+              onClick={() => setActiveSection(section.id)}
+              className={`flex min-h-10 min-w-0 items-center justify-center gap-1.5 rounded-[var(--radius-sm)] px-2 text-xs font-semibold transition-colors ${
+                isActive
+                  ? 'bg-[var(--color-paper)] text-[var(--color-primary-dark)] shadow-[var(--shadow-1)]'
+                  : 'text-[var(--color-ink-muted)] hover:bg-[var(--color-paper)] hover:text-[var(--color-ink)]'
+              }`}
+            >
+              <Icon className="size-3.5 shrink-0" />
+              <span className="truncate">{section.label}</span>
+            </button>
+          );
+        })}
       </div>
 
-      <div className="flex-1 space-y-8 overflow-y-auto bg-[var(--color-paper)] p-5 sm:p-6">
-        {true && (
+      <div
+        ref={contentRef}
+        role="tabpanel"
+        className="flex-1 space-y-8 overflow-y-auto bg-[var(--color-paper)] p-5 sm:p-6"
+      >
+        {activeSection === 'overview' && (
           <>
             <SectionTitle icon={<FileText className="size-4" />}>
               En bref
@@ -808,7 +802,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           </>
         )}
 
-        {true && (
+        {activeSection === 'relations' && (
           <div className="space-y-6">
             <SectionTitle icon={<Network className="size-4" />}>
               Personnes, lieux et événements liés
@@ -1013,7 +1007,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
           </div>
         )}
 
-        {true && (
+        {activeSection === 'references' && (
           <div className="space-y-6">
             <SectionTitle icon={<Library className="size-4" />}>
               Références et sources
