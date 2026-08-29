@@ -107,7 +107,8 @@ export function EventContextPreview({
         onClick={onOpenDetails}
         className="mt-4 inline-flex min-h-10 w-full items-center justify-center rounded-[var(--radius-sm)] bg-[var(--color-primary)] px-4 text-sm font-semibold text-white transition-colors hover:bg-[var(--color-primary-dark)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
       >
-        Voir les détails et les sources
+        <span className="md:hidden">Explorer dans la frise</span>
+        <span className="hidden md:inline">Voir les détails et les sources</span>
       </button>
     </aside>
   );
