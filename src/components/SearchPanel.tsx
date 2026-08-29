@@ -44,6 +44,7 @@ interface SearchItem {
   title: string;
   meta: string;
   description?: string;
+  score?: number;
   onSelect: () => void;
 }
 
@@ -55,10 +56,44 @@ const normalize = (value: string): string =>
     .replace(/[\u0300-\u036f]/g, '')
     .toLowerCase();
 
-const includesQuery = (
+const getSearchScore = (
   query: string,
-  values: Array<string | undefined>
-): boolean => values.some(value => value && normalize(value).includes(query));
+  title: string,
+  secondaryValues: Array<string | undefined>
+): number | null => {
+  const normalizedTitle = normalize(title);
+  if (normalizedTitle === query) return 0;
+  if (normalizedTitle.startsWith(query)) return 10;
+  if (
+    normalizedTitle
+      .split(/[^a-z0-9]+/)
+      .some(word => word.startsWith(query))
+  ) {
+    return 20;
+  }
+  if (normalizedTitle.includes(query)) return 30;
+
+  for (const value of secondaryValues) {
+    if (!value) continue;
+    const normalizedValue = normalize(value);
+    if (normalizedValue === query) return 40;
+    if (normalizedValue.startsWith(query)) return 60;
+    if (normalizedValue.includes(query)) return 100;
+  }
+  return null;
+};
+
+const kindPriority: Record<SearchItemKind, number> = {
+  character: 0,
+  place: 1,
+  event: 2,
+  route: 3
+};
+
+const compareSearchItems = (left: SearchItem, right: SearchItem): number =>
+  (left.score ?? 1000) - (right.score ?? 1000) ||
+  kindPriority[left.kind] - kindPriority[right.kind] ||
+  left.title.localeCompare(right.title, 'fr');
 
 const getRecentSearches = (): string[] => {
   try {
@@ -221,66 +256,71 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
     if (normalizedQuery.length < 2) return [];
 
     const placeItems = places
-      .filter(place =>
-        includesQuery(normalizedQuery, [
-          place.name,
+      .flatMap(place => {
+        const score = getSearchScore(normalizedQuery, place.name, [
           place.description,
           place.category,
           place.territory,
           ...(place.alternateNames || []),
           ...place.biblicalReferences
-        ])
-      )
-      .slice(0, 8)
-      .map(place => ({
-        key: `place-${place.id}`,
-        kind: 'place' as const,
-        title: place.name,
-        meta: place.territory || place.category || 'Lieu biblique',
-        description: place.description,
-        onSelect: () => onSelectPlace(place)
-      }));
+        ]);
+        if (score === null) return [];
+        return [
+          {
+            key: `place-${place.id}`,
+            kind: 'place' as const,
+            title: place.name,
+            meta: place.territory || place.category || 'Lieu biblique',
+            description: place.description,
+            score,
+            onSelect: () => onSelectPlace(place)
+          }
+        ];
+      })
+      .sort(compareSearchItems)
+      .slice(0, 8);
 
-    const matchingEvents = events.filter(event =>
-      includesQuery(normalizedQuery, [
-        event.text,
+    const matchingEvents = events.flatMap(event => {
+      const score = getSearchScore(normalizedQuery, event.text, [
         event.category,
         event.description,
         ...(event.biblicalReferences || [])
-      ])
-    );
+      ]);
+      return score === null ? [] : [{ event, score }];
+    });
     const personIds = new Set(people.map(person => person.id));
     const personItems = people
-      .filter(person =>
-        includesQuery(normalizedQuery, [
-          person.name,
+      .flatMap(person => {
+        const score = getSearchScore(normalizedQuery, person.name, [
           person.description,
           ...(person.alternateNames ?? []),
           ...(person.biblicalReferences ?? [])
-        ])
-      )
-      .slice(0, 8)
-      .map(person => ({
-        key: `character-${person.id}`,
-        kind: 'character' as const,
-        title: person.name,
-        meta:
-          person.activityPeriods[0]?.span.displayLabel ??
-          (person.lifeSpan
-            ? formatTemporalSpanFrench(person.lifeSpan)
-            : person.roles?.includes('prophet')
-              ? 'Prophète'
-              : 'Personnage biblique'),
-        description: person.description,
-        onSelect: () => onSelectPerson(person.id)
-      }));
+        ]);
+        if (score === null) return [];
+        return [
+          {
+            key: `character-${person.id}`,
+            kind: 'character' as const,
+            title: person.name,
+            meta:
+              person.activityPeriods[0]?.span.displayLabel ??
+              (person.lifeSpan
+                ? formatTemporalSpanFrench(person.lifeSpan)
+                : person.roles?.includes('prophet')
+                  ? 'Prophète'
+                  : 'Personnage biblique'),
+            description: person.description,
+            score,
+            onSelect: () => onSelectPerson(person.id)
+          }
+        ];
+      });
     const legacyCharacterItems = matchingEvents
       .filter(
-        event =>
+        ({ event }) =>
           event.category === 'Personnage' && !personIds.has(event.id)
       )
-      .slice(0, 6)
-      .map(event => ({
+      .map(({ event, score }) => ({
         key: `character-${event.id}`,
         kind: 'character' as const,
         title: event.text,
@@ -292,47 +332,54 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
           event.fuzzyEnd
         ),
         description: event.description,
+        score,
         onSelect: () => onSelectEvent(event)
       }));
     const eventItems = matchingEvents
       .filter(
-        event =>
+        ({ event }) =>
           event.category !== 'Personnage' && !personIds.has(event.id)
       )
-      .slice(0, 8)
-      .map(event => ({
+      .map(({ event, score }) => ({
         key: `event-${event.id}`,
         kind: 'event' as const,
         title: event.text,
         meta: event.category,
         description: event.description,
+        score,
         onSelect: () => onSelectEvent(event)
-      }));
+      }))
+      .sort(compareSearchItems)
+      .slice(0, 8);
     const routeItems = routes
-      .filter(route =>
-        includesQuery(normalizedQuery, [
-          route.name,
+      .flatMap(route => {
+        const score = getSearchScore(normalizedQuery, route.name, [
           route.description,
           ...route.biblicalReferences
-        ])
-      )
-      .slice(0, 5)
-      .map(route => ({
-        key: `route-${route.id}`,
-        kind: 'route' as const,
-        title: route.name,
-        meta: `${route.points.length} étapes`,
-        description: route.description,
-        onSelect: () => onSelectRoute(route)
-      }));
+        ]);
+        if (score === null) return [];
+        return [
+          {
+            key: `route-${route.id}`,
+            kind: 'route' as const,
+            title: route.name,
+            meta: `${route.points.length} étapes`,
+            description: route.description,
+            score,
+            onSelect: () => onSelectRoute(route)
+          }
+        ];
+      })
+      .sort(compareSearchItems)
+      .slice(0, 5);
 
-    return [
-      ...placeItems,
-      ...personItems,
-      ...legacyCharacterItems,
-      ...eventItems,
-      ...routeItems
-    ];
+    const characterItems = [...personItems, ...legacyCharacterItems]
+      .sort(compareSearchItems)
+      .slice(0, 8);
+    return [placeItems, characterItems, eventItems, routeItems]
+      .filter(group => group.length > 0)
+      .sort((left, right) => compareSearchItems(left[0], right[0]))
+      .flat();
   }, [
     events,
     normalizedQuery,
@@ -456,7 +503,9 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
 
   if (!isOpen) return null;
 
-  const groupedItems = (['place', 'character', 'event', 'route'] as const)
+  const groupedItems = [
+    ...new Set<SearchItemKind>(displayedItems.map(item => item.kind))
+  ]
     .map(kind => ({
       kind,
       items: displayedItems

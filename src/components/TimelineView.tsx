@@ -49,6 +49,8 @@ interface TimelineViewProps {
   people: readonly BiblicalPerson[];
   places: readonly BiblicalPlace[];
   selectedEventId: string | null;
+  requestedPeriod: TimelinePeriod | null;
+  periodRequestKey: number;
   isActive: boolean;
   onSelectEvent: (event: EventData) => void;
   onVisiblePeriodChange: (period: TimelinePeriod) => void;
@@ -149,6 +151,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   people,
   places,
   selectedEventId,
+  requestedPeriod,
+  periodRequestKey,
   isActive,
   onSelectEvent,
   onVisiblePeriodChange,
@@ -168,6 +172,7 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     useState<number>(DEFAULT_PX_PER_YEAR);
   const containerRef = useRef<HTMLDivElement>(null);
   const hasInitializedViewportRef = useRef(false);
+  const lastAppliedPeriodRequestRef = useRef(-1);
   const [isDragging, setIsDragging] = useState<boolean>(false);
   const [startX, setStartX] = useState<number>(0);
   const [scrollLeft, setScrollLeft] = useState<number>(0);
@@ -282,27 +287,67 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   }, [isActive, timelineWidth]);
 
   useEffect(() => {
+    const container = containerRef.current;
+    const isNewPeriodRequest =
+      lastAppliedPeriodRequestRef.current !== periodRequestKey;
     if (
       !isActive ||
-      hasInitializedViewportRef.current ||
-      !containerRef.current
+      !container ||
+      (hasInitializedViewportRef.current && !isNewPeriodRequest)
     ) {
+      return;
+    }
+
+    const hasRequestedPeriod =
+      requestedPeriod &&
+      Number.isFinite(requestedPeriod.startYear) &&
+      Number.isFinite(requestedPeriod.endYear) &&
+      requestedPeriod.endYear > requestedPeriod.startYear;
+    const requestedSpan = hasRequestedPeriod
+      ? requestedPeriod.endYear - requestedPeriod.startYear
+      : null;
+    const targetScale = requestedSpan
+      ? Math.max(
+          MIN_PX_PER_YEAR,
+          Math.min(MAX_PX_PER_YEAR, container.clientWidth / requestedSpan)
+        )
+      : DEFAULT_PX_PER_YEAR;
+
+    if (Math.abs(targetScale - pxPerYear) > 0.01) {
+      setPxPerYear(targetScale);
       return;
     }
 
     const frame = window.requestAnimationFrame(() => {
       if (!containerRef.current) return;
-      const centerRatio = (INITIAL_CENTER_YEAR - minYear) / totalYears;
+      const targetTimelineWidth = Math.max(1200, totalYears * targetScale);
+      const targetLeft = hasRequestedPeriod
+        ? ((requestedPeriod.startYear - minYear) / totalYears) *
+          targetTimelineWidth
+        : ((INITIAL_CENTER_YEAR - minYear) / totalYears) *
+            targetTimelineWidth -
+          containerRef.current.clientWidth / 2;
       containerRef.current.scrollLeft = Math.max(
         0,
-        centerRatio * timelineWidth - containerRef.current.clientWidth / 2
+        Math.min(
+          targetTimelineWidth - containerRef.current.clientWidth,
+          targetLeft
+        )
       );
       hasInitializedViewportRef.current = true;
+      lastAppliedPeriodRequestRef.current = periodRequestKey;
       updateViewport();
     });
 
     return () => window.cancelAnimationFrame(frame);
-  }, [isActive, timelineWidth]);
+  }, [
+    isActive,
+    periodRequestKey,
+    pxPerYear,
+    requestedPeriod,
+    timelineWidth,
+    totalYears
+  ]);
 
   useEffect(() => {
     setVisibleCategories(new Set(categories.map(category => category.name)));
@@ -313,11 +358,17 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   }, [categories]);
 
   useEffect(() => {
+    if (!isActive || !hasInitializedViewportRef.current) return;
     onVisiblePeriodChange({
       startYear: getYearFromX(viewportX.startX),
       endYear: getYearFromX(viewportX.endX)
     });
-  }, [viewportX, timelineWidth, onVisiblePeriodChange]);
+  }, [
+    isActive,
+    viewportX,
+    timelineWidth,
+    onVisiblePeriodChange
+  ]);
 
   // Toggle single category
   const toggleCategory = (catName: string) => {
@@ -2846,4 +2897,3 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
     </div>
   );
 };
-

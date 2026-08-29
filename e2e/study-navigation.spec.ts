@@ -18,10 +18,12 @@ test('recherche une personne, consulte sa m?thode et navigue personne ? lieu ? ?
   const sourceLink = detail.getByTestId('sources-and-method').locator('a[href]').first();
   await expect(sourceLink).toHaveAttribute('href', /^https:\/\//);
 
+  await detail.getByRole('tab', { name: 'Relations' }).click();
   await detail.getByRole('button', { name: /H.bron/ }).click();
   await expect(page.getByTestId('map-view')).toBeVisible();
   await expect(detail).toContainText(/H.bron/);
 
+  await detail.getByRole('tab', { name: 'Relations' }).click();
   await detail.getByRole('button', { name: /Alliance avec Abraham/ }).click();
   await expect(page.getByTestId('timeline-view')).toBeVisible();
   await expect(detail).toContainText('Alliance avec Abraham');
@@ -38,4 +40,4 @@ test('la recherche au clavier s?lectionne le r?sultat actif et ?chap ferme la fi
   await expect(page.getByTestId('detail-panel')).toContainText('Rome');
   await page.keyboard.press('Escape');
   await expect(page.getByTestId('detail-panel')).toHaveCount(0);
-});
+});

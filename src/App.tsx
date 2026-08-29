@@ -1,4 +1,12 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from 'react';
+import {
+  lazy,
+  Suspense,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from 'react';
 import {
   ActiveTab,
   BiblicalPlace,
@@ -80,30 +88,71 @@ const readInitialBiographyLanes = (): Set<HistoricalPersonLaneId> => {
   }
 };
 
-const readInitialView = (): ActiveTab => {
-  if (typeof window === 'undefined') return 'timeline';
-  return new URLSearchParams(window.location.search).get('view') === 'map'
-    ? 'map'
-    : 'timeline';
-};
+interface AppLocationState {
+  activeTab: ActiveTab;
+  eventId: string | null;
+  placeId: string | null;
+  routeId: string | null;
+  personId: string | null;
+  visiblePeriod: TimelinePeriod | null;
+  historicalControlOpen: boolean;
+}
 
-const readInitialIds = () => {
+const readLocationState = (): AppLocationState => {
   if (typeof window === 'undefined') {
     return {
+      activeTab: 'timeline',
       eventId: null,
       placeId: null,
       routeId: null,
-      personId: null
+      personId: null,
+      visiblePeriod: null,
+      historicalControlOpen: false
     };
   }
   const params = new URLSearchParams(window.location.search);
+  const parsedFrom = Number(params.get('from'));
+  const parsedTo = Number(params.get('to'));
+  const hasValidPeriod =
+    params.has('from') &&
+    params.has('to') &&
+    Number.isFinite(parsedFrom) &&
+    Number.isFinite(parsedTo) &&
+    parsedFrom !== parsedTo;
   return {
+    activeTab: params.get('view') === 'map' ? 'map' : 'timeline',
     eventId: params.get('event'),
     placeId: params.get('place'),
     routeId: params.get('route'),
-    personId: params.get('person')
+    personId: params.get('person'),
+    visiblePeriod: hasValidPeriod
+      ? {
+          startYear: Math.min(parsedFrom, parsedTo),
+          endYear: Math.max(parsedFrom, parsedTo)
+        }
+      : null,
+    historicalControlOpen:
+      window.location.pathname.endsWith('/historical-overlaps') ||
+      params.get('control') === 'historical-overlaps'
   };
 };
+
+const getNavigationKey = (state: {
+  activeTab: ActiveTab;
+  eventId: string | null;
+  placeId: string | null;
+  routeId: string | null;
+  personId: string | null;
+  historicalControlOpen: boolean;
+}) =>
+  [
+    state.activeTab,
+    state.eventId ?? '',
+    state.placeId ?? '',
+    state.routeId ?? '',
+    state.personId ?? '',
+    state.historicalControlOpen ? 'historical-overlaps' : ''
+  ].join('|');
 
 const readInitialCategories = (): Set<string> => {
   if (typeof window === 'undefined') {
@@ -125,45 +174,46 @@ const readInitialSidebarState = () => {
   return window.localStorage.getItem(SIDEBAR_COLLAPSE_KEY) === 'true';
 };
 
-const readInitialHistoricalControlState = () => {
-  if (typeof window === 'undefined') return false;
-  return (
-    window.location.pathname.endsWith('/historical-overlaps') ||
-    new URLSearchParams(window.location.search).get('control') ===
-      'historical-overlaps'
-  );
-};
-
 export default function App() {
-  const initialIds = useMemo(readInitialIds, []);
-  const [activeTab, setActiveTab] = useState<ActiveTab>(readInitialView);
+  const initialLocation = useMemo(readLocationState, []);
+  const [activeTab, setActiveTab] = useState<ActiveTab>(
+    initialLocation.activeTab
+  );
   const [activeCategoryIds, setActiveCategoryIds] =
     useState<Set<string>>(readInitialCategories);
   const [activeBiographyLaneIds, setActiveBiographyLaneIds] =
     useState<Set<HistoricalPersonLaneId>>(readInitialBiographyLanes);
-  const [visiblePeriod, setVisiblePeriod] = useState<TimelinePeriod | null>(null);
+  const [visiblePeriod, setVisiblePeriod] = useState<TimelinePeriod | null>(
+    initialLocation.visiblePeriod
+  );
+  const [timelinePeriodRequest, setTimelinePeriodRequest] = useState<{
+    period: TimelinePeriod | null;
+    key: number;
+  }>({ period: initialLocation.visiblePeriod, key: 0 });
   const [selectedEventId, setSelectedEventId] = useState<string | null>(
-    initialIds.eventId
+    initialLocation.eventId
   );
   const [selectedPlaceId, setSelectedPlaceId] = useState<string | null>(
-    initialIds.placeId
+    initialLocation.placeId
   );
   const [selectedRouteId, setSelectedRouteId] = useState<string | null>(
-    initialIds.routeId
+    initialLocation.routeId
   );
   const [selectedPersonId, setSelectedPersonId] = useState<string | null>(
-    initialIds.personId
+    initialLocation.personId
   );
   const [searchQuery, setSearchQuery] = useState('');
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [isFiltersOpen, setIsFiltersOpen] = useState(false);
   const [isAtThisMomentOpen, setIsAtThisMomentOpen] = useState(false);
   const [isHistoricalControlOpen, setIsHistoricalControlOpen] = useState(
-    readInitialHistoricalControlState
+    initialLocation.historicalControlOpen
   );
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(
     readInitialSidebarState
   );
+  const hasSyncedUrlRef = useRef(false);
+  const lastNavigationKeyRef = useRef(getNavigationKey(initialLocation));
 
   const {
     events: linkedEvents,
@@ -244,11 +294,35 @@ export default function App() {
     if (isHistoricalControlOpen) {
       params.set('control', 'historical-overlaps');
     }
-    window.history.replaceState(
-      null,
-      '',
-      `${window.location.pathname}?${params.toString()}`
-    );
+    const nextUrl = `${window.location.pathname}?${params.toString()}`;
+    const nextNavigationKey = getNavigationKey({
+      activeTab,
+      eventId: selectedEventId,
+      placeId: selectedPlaceId,
+      routeId: selectedRouteId,
+      personId: selectedPersonId,
+      historicalControlOpen: isHistoricalControlOpen
+    });
+
+    const shouldPush =
+      hasSyncedUrlRef.current &&
+      nextNavigationKey !== lastNavigationKeyRef.current;
+    const currentUrl = `${window.location.pathname}${window.location.search}`;
+    if (currentUrl !== nextUrl) {
+      window.history[shouldPush ? 'pushState' : 'replaceState'](
+        { atlasNavigation: true },
+        '',
+        nextUrl
+      );
+    } else if (!hasSyncedUrlRef.current) {
+      window.history.replaceState(
+        { atlasNavigation: true },
+        '',
+        nextUrl
+      );
+    }
+    hasSyncedUrlRef.current = true;
+    lastNavigationKeyRef.current = nextNavigationKey;
   }, [
     activeTab,
     selectedEventId,
@@ -258,6 +332,30 @@ export default function App() {
     visiblePeriod,
     isHistoricalControlOpen
   ]);
+
+  useEffect(() => {
+    const handlePopState = () => {
+      const next = readLocationState();
+      hasSyncedUrlRef.current = true;
+      lastNavigationKeyRef.current = getNavigationKey(next);
+      setActiveTab(next.activeTab);
+      setSelectedEventId(next.eventId);
+      setSelectedPlaceId(next.placeId);
+      setSelectedRouteId(next.routeId);
+      setSelectedPersonId(next.personId);
+      setVisiblePeriod(next.visiblePeriod);
+      setTimelinePeriodRequest(previous => ({
+        period: next.visiblePeriod,
+        key: previous.key + 1
+      }));
+      setIsHistoricalControlOpen(next.historicalControlOpen);
+      setIsSearchOpen(false);
+      setIsAtThisMomentOpen(false);
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
@@ -325,6 +423,7 @@ export default function App() {
     setSelectedEventId(null);
     setSelectedPlaceId(null);
     setSelectedRouteId(null);
+    setActiveTab('timeline');
     setIsSearchOpen(false);
   }, []);
 
@@ -418,7 +517,7 @@ export default function App() {
       <div className="flex min-h-0 flex-1">
         <StudySidebar
           isOpen={isFiltersOpen}
-          isCollapsed={isSidebarCollapsed}
+          isCollapsed={isSidebarCollapsed || hasSelection}
           categories={CATEGORIES}
           events={linkedEvents}
           activeCategoryIds={activeCategoryIds}
@@ -453,6 +552,8 @@ export default function App() {
               people={HISTORICAL_PEOPLE}
               places={places}
               selectedEventId={selectedEvent?.id || null}
+              requestedPeriod={timelinePeriodRequest.period}
+              periodRequestKey={timelinePeriodRequest.key}
               isActive={activeTab === 'timeline'}
               onSelectEvent={handleSelectEvent}
               onVisiblePeriodChange={handleVisiblePeriodChange}
@@ -470,6 +571,7 @@ export default function App() {
               routes={routes}
               selectedPlace={selectedPlace}
               selectedEvent={selectedEvent}
+              selectedRoute={selectedRoute}
               visiblePeriod={visiblePeriod}
               isActive={activeTab === 'map'}
               onSelectPlace={handleSelectPlace}
