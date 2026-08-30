@@ -9,6 +9,8 @@ import type {
 } from '../types.ts';
 import type {
   BiblicalPerson,
+  HistoricalPersonRelationship,
+  HistoricalPersonRelationshipKind,
   PersonActivityPeriod,
   PersonActivityType,
   TemporalBoundary,
@@ -193,8 +195,113 @@ const boundaryFor = (
  * un simple repère de contexte dans la frise focalisée.
  */
 const CURATED_EVENT_PERSON_LINKS = new Map<string, string[]>([
-  ['atlas-0073', ['atlas-0079']]
+  [
+    'atlas-0073',
+    ['atlas-0079', 'atlas-0146', 'atlas-0105', 'genese-cham']
+  ]
 ]);
+
+const reciprocalRelationship = (
+  id: string,
+  firstPersonId: string,
+  secondPersonId: string,
+  firstToSecondKind: HistoricalPersonRelationshipKind,
+  secondToFirstKind: HistoricalPersonRelationshipKind,
+  supportingRecordIds: string[]
+): HistoricalPersonRelationship[] => [
+  {
+    id: `${id}-forward`,
+    sourcePersonId: firstPersonId,
+    targetPersonId: secondPersonId,
+    kind: firstToSecondKind,
+    supportingRecordIds
+  },
+  {
+    id: `${id}-reverse`,
+    sourcePersonId: secondPersonId,
+    targetPersonId: firstPersonId,
+    kind: secondToFirstKind,
+    supportingRecordIds
+  }
+];
+
+const fatherAndChild = (
+  id: string,
+  fatherId: string,
+  childId: string,
+  supportingRecordId: string,
+  childKind: 'son' | 'daughter' = 'son'
+): HistoricalPersonRelationship[] =>
+  reciprocalRelationship(
+    id,
+    fatherId,
+    childId,
+    childKind,
+    'father',
+    [supportingRecordId]
+  );
+
+/**
+ * Relations de famille explicitement documentées par les lignes du tableau.
+ * Elles restent séparées des simples cooccurrences afin qu'une longue durée
+ * de vie ne puisse pas masquer un père, un fils ou un conjoint.
+ */
+export const AUTHORITATIVE_PERSON_RELATIONSHIPS: HistoricalPersonRelationship[] = [
+  ...fatherAndChild('adam-seth', 'atlas-0080', 'atlas-0104', 'atlas-0104'),
+  ...fatherAndChild('seth-enosh', 'atlas-0104', 'atlas-0119', 'atlas-0119'),
+  ...fatherAndChild('enosh-kenan', 'atlas-0119', 'genese-kenan', 'genese-kenan'),
+  ...fatherAndChild('kenan-mahalalel', 'genese-kenan', 'genese-mahalalel', 'genese-mahalalel'),
+  ...fatherAndChild('mahalalel-jared', 'genese-mahalalel', 'genese-jared', 'genese-jared'),
+  ...fatherAndChild('jared-henoch', 'genese-jared', 'atlas-0144', 'atlas-0144'),
+  ...fatherAndChild('henoch-mathusalem', 'atlas-0144', 'atlas-0057', 'atlas-0057'),
+  ...fatherAndChild('mathusalem-lamek', 'atlas-0057', 'atlas-0133', 'atlas-0133'),
+  ...fatherAndChild('lamek-noe', 'atlas-0133', 'atlas-0079', 'atlas-0079'),
+  ...fatherAndChild('noe-japhet', 'atlas-0079', 'atlas-0146', 'atlas-0146'),
+  ...fatherAndChild('noe-sem', 'atlas-0079', 'atlas-0105', 'atlas-0146'),
+  ...fatherAndChild('noe-cham', 'atlas-0079', 'genese-cham', 'genese-cham'),
+  ...fatherAndChild('sem-arpakshad', 'atlas-0105', 'atlas-0120', 'atlas-0120'),
+  ...fatherAndChild('arpakshad-shelah', 'atlas-0120', 'atlas-0134', 'atlas-0134'),
+  ...fatherAndChild('shelah-eber', 'atlas-0134', 'atlas-0058', 'atlas-0058'),
+  ...fatherAndChild('eber-peleg', 'atlas-0058', 'atlas-0145', 'atlas-0145'),
+  ...fatherAndChild('peleg-reou', 'atlas-0145', 'genese-reou', 'genese-reou'),
+  ...fatherAndChild('reou-seroug', 'genese-reou', 'genese-seroug', 'genese-seroug'),
+  ...fatherAndChild('seroug-nahor', 'genese-seroug', 'genese-nahor', 'genese-nahor'),
+  ...fatherAndChild('nahor-tera', 'genese-nahor', 'atlas-0158', 'atlas-0158'),
+  ...fatherAndChild('tera-abraham', 'atlas-0158', 'atlas-0147', 'atlas-0158'),
+  ...reciprocalRelationship(
+    'abraham-sara',
+    'atlas-0147',
+    'atlas-0155',
+    'wife',
+    'husband',
+    ['atlas-0155']
+  ),
+  ...fatherAndChild('abraham-ismael', 'atlas-0147', 'genese-ismael', 'genese-ismael'),
+  ...fatherAndChild('abraham-isaac', 'atlas-0147', 'atlas-0081', 'atlas-0081'),
+  ...reciprocalRelationship(
+    'isaac-rebecca',
+    'atlas-0081',
+    'wcg-rebecca',
+    'wife',
+    'husband',
+    ['it-isaac-mariage-1878']
+  ),
+  ...fatherAndChild('isaac-jacob', 'atlas-0081', 'atlas-0106', 'atlas-0106'),
+  ...fatherAndChild('isaac-esau', 'atlas-0081', 'genese-esau', 'genese-esau'),
+  ...fatherAndChild('jacob-ruben', 'atlas-0106', 'atlas-0061', 'atlas-0061'),
+  ...fatherAndChild('jacob-simeon', 'atlas-0106', 'atlas-0121', 'atlas-0121'),
+  ...fatherAndChild('jacob-juda', 'atlas-0106', 'atlas-0148', 'atlas-0148'),
+  ...fatherAndChild('jacob-levi', 'atlas-0106', 'atlas-0135', 'atlas-0135'),
+  ...fatherAndChild('jacob-dan', 'atlas-0106', 'atlas-0156', 'atlas-0156'),
+  ...fatherAndChild('jacob-nephtali', 'atlas-0106', 'atlas-0161', 'atlas-0161'),
+  ...fatherAndChild('jacob-aser', 'atlas-0106', 'atlas-0164', 'atlas-0164'),
+  ...fatherAndChild('jacob-gad', 'atlas-0106', 'atlas-0162', 'atlas-0162'),
+  ...fatherAndChild('jacob-issachar', 'atlas-0106', 'atlas-0165', 'atlas-0165'),
+  ...fatherAndChild('jacob-zabulon', 'atlas-0106', 'atlas-0166', 'atlas-0166'),
+  ...fatherAndChild('jacob-dinah', 'atlas-0106', 'genese-dina', 'genese-dina', 'daughter'),
+  ...fatherAndChild('jacob-joseph', 'atlas-0106', 'atlas-0159', 'atlas-0159'),
+  ...fatherAndChild('jacob-benjamin', 'atlas-0106', 'atlas-0168', 'atlas-0168')
+];
 
 const temporalSpanFor = (record: AuthoritativeChronologyRecord): TemporalSpan => {
   const certainty = certaintyFor(record.confidence);
@@ -348,21 +455,36 @@ const PERSON_BASE_LAYER = 'personnages';
 const ACTIVITY_LAYERS = new Set(['regnes', 'prophetes', 'voyages', 'juges', 'ministere chretien']);
 const PERIOD_DETAIL_LAYERS = new Set([...ACTIVITY_LAYERS, 'sanctuaire']);
 
-const isPersonBaseRecord = (record: AuthoritativeChronologyRecord): boolean =>
+const isCollectivePersonWindow = (
+  record: AuthoritativeChronologyRecord
+): boolean => normalizeText(record.category ?? '') === 'periode collective';
+
+export const isAuthoritativePersonBaseRecord = (
+  record: AuthoritativeChronologyRecord
+): boolean =>
   normalizeText(record.layer ?? '') === PERSON_BASE_LAYER &&
-  (record.id === record.personId || normalizeText(record.category ?? '') === 'vie');
+  !isCollectivePersonWindow(record) &&
+  (record.id === record.personId ||
+    normalizeText(record.category ?? '') === 'vie' ||
+    (!record.personId &&
+      normalizeText(record.recordType ?? '') === 'periode' &&
+      Boolean(record.subject)));
+
+const isPersonBaseRecord = isAuthoritativePersonBaseRecord;
 
 const basePersonIdsBySubject = new Map<string, string[]>();
 bundle.records.filter(isPersonBaseRecord).forEach(record => {
-  if (!record.personId || !record.subject) return;
+  const personId = record.personId ?? record.id;
+  if (!record.subject) return;
   const key = normalizeText(record.subject);
   basePersonIdsBySubject.set(key, [
     ...(basePersonIdsBySubject.get(key) ?? []),
-    record.personId
+    personId
   ]);
 });
 
 const resolvedPersonIdFor = (record: AuthoritativeChronologyRecord): string | undefined => {
+  if (isPersonBaseRecord(record)) return record.personId ?? record.id;
   if (record.personId) return record.personId;
   if (record.id === 'atlas-0087') return record.id;
   if (!record.subject) return undefined;
@@ -448,7 +570,12 @@ export const AUTHORITATIVE_HISTORICAL_PEOPLE: BiblicalPerson[] =
         record.itineraryIds.map(id => `historical-itinerary-${id.toLocaleLowerCase('fr')}`)
       )),
       associatedPersonIds: uniqueValues([
-        ...records.flatMap(record => record.linkedPersonIds),
+        ...records
+          .flatMap(record => record.linkedPersonIds)
+          .filter(relatedPersonId => relatedPersonId !== personId),
+        ...AUTHORITATIVE_PERSON_RELATIONSHIPS
+          .filter(relationship => relationship.sourcePersonId === personId)
+          .map(relationship => relationship.targetPersonId),
         isSaul ? 'wcg-jonathan' : undefined
       ]),
       biblicalReferences: uniqueValues(records.flatMap(record => record.citedReferences)),

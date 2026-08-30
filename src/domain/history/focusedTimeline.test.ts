@@ -5,7 +5,11 @@ import {
   buildFocusedTimeline,
   getFocusedTimelineDomain
 } from './focusedTimeline.ts';
-import type { BiblicalPerson, TemporalSpan } from './types.ts';
+import type {
+  BiblicalPerson,
+  HistoricalPersonRelationship,
+  TemporalSpan
+} from './types.ts';
 
 const yearSpan = (
   start: number,
@@ -280,4 +284,145 @@ test('déduplique deux périodes contextuelles presque identiques sans participa
     model.markers.map(marker => marker.event.id),
     ['babel-authoritative']
   );
+});
+
+test('priorise un fils documenté avant des contemporains courts sans relation', () => {
+  const noe = person('noe', 'Noé', -2970, -2020);
+  const sem = person('sem', 'Sem', -2468, -1868);
+  const relationships: HistoricalPersonRelationship[] = [
+    {
+      id: 'noe-sem-forward',
+      sourcePersonId: 'noe',
+      targetPersonId: 'sem',
+      kind: 'son',
+      supportingRecordIds: ['record-sem']
+    },
+    {
+      id: 'noe-sem-reverse',
+      sourcePersonId: 'sem',
+      targetPersonId: 'noe',
+      kind: 'father',
+      supportingRecordIds: ['record-sem']
+    }
+  ];
+  const shortContemporaries = [
+    person('peleg', 'Péleg', -2269, -2030),
+    person('reou', 'Réou', -2239, -2000),
+    person('seroug', 'Seroug', -2207, -1977),
+    person('nahor', 'Nahor', -2177, -2029),
+    person('tera', 'Téra', -2148, -2025)
+  ];
+
+  const model = buildFocusedTimeline({
+    person: noe,
+    people: [noe, sem, ...shortContemporaries],
+    events: [],
+    relationships
+  });
+
+  assert.ok(model);
+  const semLane = model.people.find(lane => lane.person.id === sem.id);
+  assert.ok(semLane);
+  assert.equal(semLane.relationshipLabel, 'fils');
+  assert.equal(semLane.relationshipDepth, 1);
+  assert.equal(model.people[1]?.person.id, sem.id);
+});
+
+test('conserve les bornes connues et la contemporanéité d’une vie ouverte', () => {
+  const saulOpenStart = person('saul-open', 'Saül', -1138, -1078, {
+    lifeSpan: {
+      start: {
+        yearMax: -1138,
+        precision: 'before',
+        approximate: true,
+        certainty: 'possible'
+      },
+      end: {
+        yearMin: -1078,
+        yearMax: -1078,
+        precision: 'year',
+        approximate: true,
+        certainty: 'probable'
+      },
+      displayLabel: 'Avant 1138 → 1078 av. n. è.'
+    }
+  });
+  const japhetOpenEnd = person('japhet', 'Japhet', -2468, -2468, {
+    lifeSpan: {
+      start: {
+        yearMin: -2468,
+        yearMax: -2468,
+        precision: 'year',
+        certainty: 'certain'
+      },
+      displayLabel: 'Né en 2468 av. n. è.'
+    }
+  });
+  const flood = event('flood', 'Déluge', -2370, -2369, {
+    associatedCharacterIds: ['japhet']
+  });
+
+  const saulModel = buildFocusedTimeline({
+    person: saulOpenStart,
+    people: [saulOpenStart],
+    events: []
+  });
+  const floodModel = buildFocusedTimeline({
+    event: flood,
+    people: [japhetOpenEnd],
+    events: [flood]
+  });
+
+  assert.ok(saulModel);
+  assert.equal(saulModel.anchorSpan.start, -1138);
+  assert.equal(saulModel.anchorSpan.end, -1078);
+  assert.equal(saulModel.anchorSpan.openStart, true);
+  assert.ok(floodModel);
+  assert.equal(floodModel.people[0]?.person.id, japhetOpenEnd.id);
+  assert.equal(floodModel.people[0]?.span.openEnd, true);
+});
+
+test('déduplique un événement quand une seule source a renseigné le participant', () => {
+  const abraham = person('abraham', 'Abraham', -2018, -1843);
+  const detailed = event(
+    'alliance-detaillee',
+    'Entrée en vigueur de l’alliance abrahamique',
+    -1943,
+    -1943,
+    {
+      associatedCharacterIds: ['abraham'],
+      authoritativeRecordId: 'atlas-alliance',
+      sources: [
+        {
+          id: 'source-detaillee',
+          label: 'Source détaillée',
+          url: 'https://example.test/alliance'
+        }
+      ]
+    }
+  );
+  const thematic = event(
+    'alliance-thematique',
+    'Alliance avec Abraham',
+    -1943,
+    -1943,
+    {
+      authoritativeRecordId: 'alliance-abrahamique',
+      sources: [
+        {
+          id: 'source-thematique',
+          label: 'Source thématique',
+          url: 'https://example.test/alliance'
+        }
+      ]
+    }
+  );
+  const model = buildFocusedTimeline({
+    person: abraham,
+    people: [abraham],
+    events: [thematic, detailed]
+  });
+
+  assert.ok(model);
+  assert.deepEqual(model.markers.map(marker => marker.event.id), [detailed.id]);
 });

@@ -44,7 +44,19 @@ export const HISTORICAL_PERSON_ID_ALIASES = new Map<string, string>([
   ['wcg-pierre', 'person-a7-pierre'],
   ['wcg-rahab', 'person-wcg-rahab'],
   ['wcg-rebecca', 'person-wcg-rebecca'],
-  ['atlas-0155', 'event-sara-1xft3rw']
+  ['atlas-0155', 'event-sara-1xft3rw'],
+  ['atlas-0061', 'event-ruben-ybwrix'],
+  ['atlas-0121', 'event-simeon-49d9zh'],
+  ['atlas-0148', 'event-juda-enkph2'],
+  ['atlas-0135', 'event-levi-b9fznr'],
+  ['atlas-0156', 'event-dan-sktasb'],
+  ['atlas-0161', 'event-nephtali-1a852sh'],
+  ['atlas-0164', 'event-aser-1lc3588'],
+  ['atlas-0162', 'event-gad-xtoa7k'],
+  ['atlas-0165', 'event-issachar-9bk8u4'],
+  ['atlas-0166', 'event-zabulon-2umi4y'],
+  ['atlas-0159', 'event-joseph-11h377b'],
+  ['atlas-0168', 'event-benjamin-1xyq73w']
 ]);
 
 export const canonicalizeHistoricalPersonId = (
@@ -113,7 +125,10 @@ const mergePeopleGroup = (
     lifeSpan: latestWithLifeSpan?.lifeSpan ?? canonical.lifeSpan,
     legacyEventId:
       canonical.legacyEventId ??
-      aliases.find(person => person.legacyEventId)?.legacyEventId,
+      aliases.find(person => person.legacyEventId)?.legacyEventId ??
+      (people.every(person => person.id !== canonicalId)
+        ? canonicalId
+        : undefined),
     lifeSpanClaimIds: unique(
       people.flatMap(person => person.lifeSpanClaimIds ?? [])
     ),
@@ -138,7 +153,7 @@ const mergePeopleGroup = (
       people
         .flatMap(person => person.associatedPersonIds ?? [])
         .map(canonicalizeHistoricalPersonId)
-    ),
+    ).filter(personId => personId !== canonicalId),
     biblicalReferences: unique(
       people.flatMap(person => person.biblicalReferences ?? [])
     ),

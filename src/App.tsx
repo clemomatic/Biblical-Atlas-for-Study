@@ -37,6 +37,7 @@ import { HistoricalOverlapControl } from './components/HistoricalOverlapControl'
 import { normalizeDataRelations } from './utils/dataRelations';
 import { Clock3, Map as MapIcon, Search } from 'lucide-react';
 import { HISTORICAL_SOURCE_CATALOG } from './data/historicalStudyData';
+import { AUTHORITATIVE_PERSON_RELATIONSHIPS } from './data/authoritativeChronology';
 import { canonicalizeHistoricalPersonId } from './domain/history/personIdentityProjection';
 import {
   BIOGRAPHY_LANES,
@@ -252,7 +253,8 @@ export default function App() {
         person: selectedPerson,
         event: selectedEvent,
         people: HISTORICAL_PEOPLE,
-        events: linkedEvents
+        events: linkedEvents,
+        relationships: AUTHORITATIVE_PERSON_RELATIONSHIPS
       }),
     [linkedEvents, selectedEvent, selectedPerson]
   );

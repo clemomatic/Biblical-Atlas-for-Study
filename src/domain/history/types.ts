@@ -118,6 +118,33 @@ export interface PersonActivityPeriod extends EntityMetadata {
   associatedPersonIds?: string[];
 }
 
+/**
+ * Rôle de la personne cible par rapport à la personne source.
+ *
+ * Exemple : pour `Noé -> Sem`, le rôle est `son`. La relation réciproque
+ * `Sem -> Noé` porte le rôle `father` afin que l'interface puisse expliquer
+ * le lien sans le déduire d'un simple chevauchement de dates.
+ */
+export type HistoricalPersonRelationshipKind =
+  | 'father'
+  | 'mother'
+  | 'son'
+  | 'daughter'
+  | 'husband'
+  | 'wife'
+  | 'brother'
+  | 'sister'
+  | 'companion';
+
+export interface HistoricalPersonRelationship {
+  id: string;
+  sourcePersonId: string;
+  targetPersonId: string;
+  kind: HistoricalPersonRelationshipKind;
+  /** Lignes du tableau chronologique qui documentent le rapprochement. */
+  supportingRecordIds: string[];
+}
+
 export interface BiblicalPerson extends EntityMetadata {
   /**
    * Identifiant canonique. Pendant la migration, il est identique à l’ID de

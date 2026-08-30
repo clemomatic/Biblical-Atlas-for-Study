@@ -8,6 +8,8 @@ import {
 } from './temporal.ts';
 import type {
   BiblicalPerson,
+  HistoricalPersonRelationship,
+  HistoricalPersonRelationshipKind,
   PersonActivityPeriod,
   TemporalSpan
 } from './types.ts';
@@ -20,6 +22,8 @@ export interface FocusedTimelineSpan {
   end: number;
   fuzzyStart?: boolean;
   fuzzyEnd?: boolean;
+  openStart?: boolean;
+  openEnd?: boolean;
 }
 
 export interface FocusedTimelineActivitySpan extends FocusedTimelineSpan {
@@ -33,6 +37,8 @@ export interface FocusedTimelinePersonLane {
   span: FocusedTimelineSpan;
   activities: FocusedTimelineActivitySpan[];
   isFocus: boolean;
+  relationshipLabel?: string;
+  relationshipDepth?: 1 | 2;
 }
 
 export interface FocusedTimelineMarker {
@@ -60,6 +66,7 @@ export interface FocusedTimelineInput {
   event?: EventData | null;
   people: readonly BiblicalPerson[];
   events: readonly EventData[];
+  relationships?: readonly HistoricalPersonRelationship[];
 }
 
 const BOOK_PERIOD_CATEGORY = 'période des livres bibliques';
@@ -109,7 +116,10 @@ const bookIdentity = (value: string): string =>
 const orderedSpan = (
   start: number,
   end: number,
-  options: Pick<FocusedTimelineSpan, 'fuzzyStart' | 'fuzzyEnd'> = {}
+  options: Pick<
+    FocusedTimelineSpan,
+    'fuzzyStart' | 'fuzzyEnd' | 'openStart' | 'openEnd'
+  > = {}
 ): FocusedTimelineSpan => ({
   start: Math.min(start, end),
   end: Math.max(start, end),
@@ -121,19 +131,27 @@ const temporalSpanToTimelineSpan = (
 ): FocusedTimelineSpan | null => {
   if (!span) return null;
   const interval = getTemporalInterval(span);
+  const startAnchorYear = span.start
+    ? span.start.yearMin ?? span.start.yearMax
+    : undefined;
+  const endAnchorYear = span.end
+    ? span.end.yearMax ?? span.end.yearMin
+    : undefined;
+  const startYear = startAnchorYear ?? endAnchorYear;
+  const endYear = endAnchorYear ?? startAnchorYear;
   if (
     interval.unknown ||
-    interval.yearMin === undefined ||
-    interval.yearMax === undefined ||
-    interval.yearMin === 0 ||
-    interval.yearMax === 0
+    startYear === undefined ||
+    endYear === undefined ||
+    startYear === 0 ||
+    endYear === 0
   ) {
     return null;
   }
 
   return orderedSpan(
-    historicalYearToTimelineIndex(interval.yearMin),
-    historicalYearToTimelineIndex(interval.yearMax),
+    historicalYearToTimelineIndex(startYear),
+    historicalYearToTimelineIndex(endYear),
     {
       fuzzyStart:
         span.start?.approximate === true ||
@@ -142,7 +160,15 @@ const temporalSpanToTimelineSpan = (
       fuzzyEnd:
         span.end?.approximate === true ||
         span.end?.certainty !== 'certain' ||
-        span.end?.precision !== 'year'
+        span.end?.precision !== 'year',
+      openStart:
+        !span.start ||
+        span.start.precision === 'before' ||
+        span.start.yearMin === undefined,
+      openEnd:
+        !span.end ||
+        span.end.precision === 'after' ||
+        span.end.yearMax === undefined
     }
   );
 };
@@ -224,7 +250,39 @@ const personSpan = (
   events: readonly EventData[]
 ): FocusedTimelineSpan | null => {
   const lifeSpan = temporalSpanToTimelineSpan(person.lifeSpan);
-  if (lifeSpan) return lifeSpan;
+  if (lifeSpan) {
+    if (!lifeSpan.openStart && !lifeSpan.openEnd) return lifeSpan;
+    const canonicalId = canonicalizeHistoricalPersonId(person.id);
+    const associatedEventIds = new Set(person.associatedEventIds ?? []);
+    const evidenceSpans = events
+      .filter(
+        event =>
+          associatedEventIds.has(event.id) ||
+          Boolean(
+            event.authoritativeRecordId &&
+              associatedEventIds.has(event.authoritativeRecordId)
+          ) ||
+          (event.associatedCharacterIds ?? []).some(
+            personId =>
+              canonicalizeHistoricalPersonId(personId) === canonicalId
+          )
+      )
+      .map(eventSpan);
+    const evidence = envelope(evidenceSpans);
+    if (!evidence) return lifeSpan;
+    return orderedSpan(
+      lifeSpan.openStart
+        ? Math.min(lifeSpan.start, evidence.start)
+        : lifeSpan.start,
+      lifeSpan.openEnd ? Math.max(lifeSpan.end, evidence.end) : lifeSpan.end,
+      {
+        fuzzyStart: lifeSpan.fuzzyStart,
+        fuzzyEnd: lifeSpan.fuzzyEnd,
+        openStart: lifeSpan.openStart,
+        openEnd: lifeSpan.openEnd
+      }
+    );
+  }
 
   const activities = activitySpans(person);
   const activityEnvelope = envelope(activities);
@@ -244,6 +302,17 @@ const overlaps = (
   right: FocusedTimelineSpan
 ): boolean => left.start <= right.end && right.start <= left.end;
 
+const spansMayOverlap = (
+  left: FocusedTimelineSpan,
+  right: FocusedTimelineSpan
+): boolean => {
+  const leftStart = left.openStart ? Number.NEGATIVE_INFINITY : left.start;
+  const leftEnd = left.openEnd ? Number.POSITIVE_INFINITY : left.end;
+  const rightStart = right.openStart ? Number.NEGATIVE_INFINITY : right.start;
+  const rightEnd = right.openEnd ? Number.POSITIVE_INFINITY : right.end;
+  return leftStart <= rightEnd && rightStart <= leftEnd;
+};
+
 const overlapRatio = (
   left: FocusedTimelineSpan,
   right: FocusedTimelineSpan
@@ -255,6 +324,36 @@ const overlapRatio = (
   );
   const denominator = Math.max(1, Math.min(left.end - left.start, right.end - right.start));
   return Math.min(1, intersection / denominator);
+};
+
+const overlapDuration = (
+  left: FocusedTimelineSpan,
+  right: FocusedTimelineSpan
+): number => {
+  if (!spansMayOverlap(left, right)) return 0;
+  const leftStart = left.openStart ? right.start : left.start;
+  const leftEnd = left.openEnd ? right.end : left.end;
+  const rightStart = right.openStart ? left.start : right.start;
+  const rightEnd = right.openEnd ? left.end : right.end;
+  return Math.max(
+    0,
+    Math.min(leftEnd, rightEnd) - Math.max(leftStart, rightStart)
+  );
+};
+
+/**
+ * Part de la période focalisée réellement partagée par une autre personne.
+ * Le dénominateur reste la durée du focus : une courte vie entièrement
+ * incluse ne doit plus battre plusieurs siècles de contemporanéité.
+ */
+const overlapCoverageOfAnchor = (
+  span: FocusedTimelineSpan,
+  anchor: FocusedTimelineSpan
+): number => {
+  if (!spansMayOverlap(span, anchor)) return 0;
+  const anchorDuration = anchor.end - anchor.start;
+  if (anchorDuration <= 0) return 1;
+  return Math.min(1, overlapDuration(span, anchor) / anchorDuration);
 };
 
 const domainForAnchor = (
@@ -283,9 +382,105 @@ const canonicalPersonIds = (values: readonly string[] | undefined): Set<string> 
 const eventParticipantIds = (event: EventData): Set<string> =>
   canonicalPersonIds(event.associatedCharacterIds);
 
+const relationshipLabels: Record<HistoricalPersonRelationshipKind, string> = {
+  father: 'père',
+  mother: 'mère',
+  son: 'fils',
+  daughter: 'fille',
+  husband: 'mari',
+  wife: 'épouse',
+  brother: 'frère',
+  sister: 'sœur',
+  companion: 'compagnon'
+};
+
+interface CanonicalRelationshipEdge {
+  targetPersonId: string;
+  kind: HistoricalPersonRelationshipKind;
+}
+
+interface FocusedRelationshipContext {
+  label: string;
+  depth: 1 | 2;
+}
+
+const relationshipGraph = (
+  relationships: readonly HistoricalPersonRelationship[]
+): Map<string, CanonicalRelationshipEdge[]> => {
+  const graph = new Map<string, CanonicalRelationshipEdge[]>();
+  relationships.forEach(relationship => {
+    const sourcePersonId =
+      canonicalizeHistoricalPersonId(relationship.sourcePersonId) ??
+      relationship.sourcePersonId;
+    const targetPersonId =
+      canonicalizeHistoricalPersonId(relationship.targetPersonId) ??
+      relationship.targetPersonId;
+    graph.set(sourcePersonId, [
+      ...(graph.get(sourcePersonId) ?? []),
+      { targetPersonId, kind: relationship.kind }
+    ]);
+  });
+  return graph;
+};
+
+const composedRelationshipLabel = (
+  first: HistoricalPersonRelationshipKind,
+  second: HistoricalPersonRelationshipKind
+): string | null => {
+  const parentKinds = new Set<HistoricalPersonRelationshipKind>([
+    'father',
+    'mother'
+  ]);
+  const childKinds = new Set<HistoricalPersonRelationshipKind>([
+    'son',
+    'daughter'
+  ]);
+
+  if (parentKinds.has(first) && parentKinds.has(second)) {
+    return second === 'mother' ? 'grand-mère' : 'grand-père';
+  }
+  if (childKinds.has(first) && childKinds.has(second)) {
+    return second === 'daughter' ? 'petite-fille' : 'petit-fils';
+  }
+  if (parentKinds.has(first) && childKinds.has(second)) {
+    return second === 'daughter' ? 'sœur' : 'frère';
+  }
+  return null;
+};
+
+const relationshipContextFor = (
+  focusPersonId: string | undefined,
+  targetPersonId: string | undefined,
+  graph: ReadonlyMap<string, readonly CanonicalRelationshipEdge[]>
+): FocusedRelationshipContext | null => {
+  if (!focusPersonId || !targetPersonId) return null;
+  const direct = graph
+    .get(focusPersonId)
+    ?.find(edge => edge.targetPersonId === targetPersonId);
+  if (direct) {
+    return { label: relationshipLabels[direct.kind], depth: 1 };
+  }
+
+  for (const first of graph.get(focusPersonId) ?? []) {
+    for (const second of graph.get(first.targetPersonId) ?? []) {
+      if (
+        second.targetPersonId !== targetPersonId ||
+        second.targetPersonId === focusPersonId
+      ) {
+        continue;
+      }
+      const label = composedRelationshipLabel(first.kind, second.kind);
+      if (label) return { label, depth: 2 };
+    }
+  }
+  return null;
+};
+
 const eventIsPersonProjection = (event: EventData): boolean =>
   Boolean(event.historicalPersonId) ||
   normalize(event.category) === 'personnage' ||
+  normalize(event.category).startsWith('fils ') ||
+  normalize(event.category).startsWith('fille ') ||
   normalize(event.category).includes('prophetes') ||
   normalize(event.category).includes('roi de') ||
   normalize(event.category) === 'regnes';
@@ -293,20 +488,73 @@ const eventIsPersonProjection = (event: EventData): boolean =>
 const isMajorEvent = (event: EventData): boolean =>
   normalize(event.category).includes('evenements marquants');
 
-const markerTitleTokens = (event: EventData): Set<string> =>
-  new Set(
-    normalize(event.text)
-      .replace(/\b(par|comme|roi|reine|evenement)\b/g, ' ')
-      .split(' ')
-      .filter(Boolean)
+const canonicalMarkerToken = (token: string): string => {
+  if (token === 'abrahamique') return 'abraham';
+  if (token === 'israelites') return 'israel';
+  return token;
+};
+
+const markerTitleTokens = (event: EventData): Set<string> => {
+  const values = normalize(event.text)
+    .replace(/\b(par|comme|roi|reine|evenement|avec|vers|fin|debut)\b/g, ' ')
+    .split(' ')
+    .filter(Boolean)
+    .map(canonicalMarkerToken);
+  const tokens = new Set(values);
+  if (tokens.has('exode') || (tokens.has('sortie') && tokens.has('egypte'))) {
+    tokens.add('exode');
+    tokens.add('sortie');
+    tokens.add('egypte');
+  }
+  return tokens;
+};
+
+const normalizedValues = (values: readonly string[]): Set<string> =>
+  new Set(values.map(normalize).filter(Boolean));
+
+const setsOverlap = (left: ReadonlySet<string>, right: ReadonlySet<string>) =>
+  [...left].some(value => right.has(value));
+
+const markerBiblicalReferenceKeys = (event: EventData): Set<string> =>
+  normalizedValues(event.biblicalReferences ?? []);
+
+const markerSourceUrlKeys = (event: EventData): Set<string> =>
+  normalizedValues(
+    (event.sources ?? []).flatMap(source => (source.url ? [source.url] : []))
   );
+
+const markerConcept = (event: EventData): string | null => {
+  const title = normalize(event.text);
+  const has = (...tokens: string[]) => tokens.every(token => title.includes(token));
+  if (title.includes('babel')) return 'babel';
+  if (title === 'exode' || has('sortie', 'egypte')) return 'exode';
+  if (has('alliance', 'abraham')) return 'alliance-abrahamique';
+  if (
+    has('saul', 'samuel') &&
+    (title.includes('onction') || title.includes('oint'))
+  ) {
+    return 'onction-saul';
+  }
+  if (has('division', 'israel', 'royaume')) return 'division-royaumes';
+  if (title === 'mort jesus' || title.includes('jesus meurt')) {
+    return 'mort-jesus';
+  }
+  if (
+    title === 'resurrection jesus' ||
+    title.includes('jesus est ressuscite')
+  ) {
+    return 'resurrection-jesus';
+  }
+  if (has('bapteme', 'jesus')) return 'bapteme-jesus';
+  return null;
+};
 
 const markerSourceScore = (event: EventData): number =>
   (event.authoritativeRecordId ? 100 : 0) +
   (event.biblicalReferences?.length ?? 0) * 2 +
   (event.sources?.length ?? 0);
 
-const markersDescribeSameEvent = (
+export const focusedTimelineEventsDescribeSameEvent = (
   left: EventData,
   right: EventData
 ): boolean => {
@@ -338,7 +586,13 @@ const markersDescribeSameEvent = (
     leftParticipants.join('|') === rightParticipants.join('|');
   const participantsAreBothUnknown =
     leftParticipants.length === 0 && rightParticipants.length === 0;
-  if (!participantsMatch && !participantsAreBothUnknown) {
+  const participantsMissingFromOneSource =
+    (leftParticipants.length === 0) !== (rightParticipants.length === 0);
+  if (
+    !participantsMatch &&
+    !participantsAreBothUnknown &&
+    !participantsMissingFromOneSource
+  ) {
     return false;
   }
   if (
@@ -353,9 +607,35 @@ const markersDescribeSameEvent = (
   const sharedCount = [...leftTokens].filter(token => rightTokens.has(token)).length;
   const similarity =
     sharedCount / Math.max(1, Math.min(leftTokens.size, rightTokens.size));
+  const leftBiblicalReferences = markerBiblicalReferenceKeys(left);
+  const rightBiblicalReferences = markerBiblicalReferenceKeys(right);
+  const biblicalReferencesConflict =
+    leftBiblicalReferences.size > 0 &&
+    rightBiblicalReferences.size > 0 &&
+    !setsOverlap(leftBiblicalReferences, rightBiblicalReferences);
+  const sourcesOverlap = setsOverlap(
+    markerSourceUrlKeys(left),
+    markerSourceUrlKeys(right)
+  );
+  const conceptsMatch = Boolean(
+    markerConcept(left) && markerConcept(left) === markerConcept(right)
+  );
+  if (conceptsMatch || normalize(left.text) === normalize(right.text)) {
+    return true;
+  }
+  if (biblicalReferencesConflict) return false;
+  if (participantsMissingFromOneSource) {
+    return (
+      sourcesOverlap &&
+      sharedCount >= 2 &&
+      similarity >= 0.5
+    );
+  }
   return participantsAreBothUnknown
-    ? sharedCount >= 2 && similarity >= 0.5
-    : similarity >= 0.5;
+    ? sharedCount >= 2 &&
+        similarity >= 0.5 &&
+        (sourcesOverlap || nearIdenticalPeriods)
+    : sourcesOverlap && sharedCount >= 2 && similarity >= 0.5;
 };
 
 const selectEvenly = <T,>(items: readonly T[], count: number): T[] => {
@@ -419,13 +699,20 @@ const markerCandidates = (
       };
     })
     .sort(
-      (left, right) => markerSourceScore(right.event) - markerSourceScore(left.event)
+      (left, right) =>
+        Number(right.directlyRelated) - Number(left.directlyRelated) ||
+        markerSourceScore(right.event) - markerSourceScore(left.event)
     );
   const candidates = rankedCandidates.filter(
     (candidate, index) =>
       !rankedCandidates
         .slice(0, index)
-        .some(previous => markersDescribeSameEvent(previous.event, candidate.event))
+        .some(previous =>
+          focusedTimelineEventsDescribeSameEvent(
+            previous.event,
+            candidate.event
+          )
+        )
   );
 
   if (kind === 'event') {
@@ -494,9 +781,11 @@ const contextPeople = (
   focusEvent: EventData | null,
   markers: readonly FocusedTimelineMarker[],
   people: readonly BiblicalPerson[],
-  events: readonly EventData[]
+  events: readonly EventData[],
+  relationships: readonly HistoricalPersonRelationship[]
 ): FocusedTimelinePersonLane[] => {
   const focusId = canonicalizeHistoricalPersonId(focusPerson?.id);
+  const relationshipsByPerson = relationshipGraph(relationships);
   const explicitlyRelated = canonicalPersonIds(
     focusPerson?.associatedPersonIds
   );
@@ -515,11 +804,23 @@ const contextPeople = (
       const canonicalId = canonicalizeHistoricalPersonId(person.id);
       if (canonicalId === focusId) return [];
       const span = personSpan(person, events);
-      if (!span || !overlaps(span, anchorSpan)) return [];
-      const directlyRelated = Boolean(
-        (canonicalId && explicitlyRelated.has(canonicalId)) ||
-          (canonicalId && participantIds.has(canonicalId))
+      if (!span) return [];
+      const relationship = relationshipContextFor(
+        focusId,
+        canonicalId,
+        relationshipsByPerson
       );
+      const explicitlyLinked = Boolean(
+        canonicalId && explicitlyRelated.has(canonicalId)
+      );
+      const eventParticipant = Boolean(
+        canonicalId && participantIds.has(canonicalId)
+      );
+      const documentedOpenOverlap = Boolean(
+        (relationship || explicitlyLinked || eventParticipant) &&
+          spansMayOverlap(span, anchorSpan)
+      );
+      if (!overlaps(span, anchorSpan) && !documentedOpenOverlap) return [];
       const activityBonus = person.activityPeriods.some(
         activity => activity.type === 'reign'
       )
@@ -527,9 +828,18 @@ const contextPeople = (
         : person.activityPeriods.some(activity => activity.type === 'prophecy')
           ? 15
           : 0;
+      const sharedDuration = overlapDuration(span, anchorSpan);
+      const boundedLifeBonus = span.openStart || span.openEnd ? 0 : 8;
       const score =
-        (directlyRelated ? 200 : 0) +
-        overlapRatio(span, anchorSpan) * 50 +
+        (relationship?.depth === 1
+          ? 500
+          : relationship?.depth === 2
+            ? 350
+            : 0) +
+        (eventParticipant ? 260 : 0) +
+        (explicitlyLinked ? 180 : 0) +
+        overlapCoverageOfAnchor(span, anchorSpan) * 100 +
+        boundedLifeBonus +
         activityBonus;
       return [
         {
@@ -537,18 +847,22 @@ const contextPeople = (
           span,
           activities: activitySpans(person),
           isFocus: false,
-          score
+          relationshipLabel: relationship?.label,
+          relationshipDepth: relationship?.depth,
+          score,
+          sharedDuration
         }
       ];
     })
     .sort(
       (left, right) =>
         right.score - left.score ||
+        right.sharedDuration - left.sharedDuration ||
         left.span.start - right.span.start ||
         left.person.name.localeCompare(right.person.name, 'fr')
     )
     .slice(0, MAX_CONTEXT_PEOPLE)
-    .map(({ score: _score, ...lane }) => lane);
+    .map(({ score: _score, sharedDuration: _sharedDuration, ...lane }) => lane);
 };
 
 const focusPersonLane = (
@@ -600,7 +914,8 @@ export const buildFocusedTimeline = (
     focusEvent,
     markers,
     input.people,
-    input.events
+    input.events,
+    input.relationships ?? []
   );
   const primaryLane = focusPerson
     ? focusPersonLane(focusPerson, input.events)
@@ -671,14 +986,23 @@ export const clipFocusedTimelineSpan = (
   span: FocusedTimelineSpan,
   domain: FocusedTimelineSpan
 ): FocusedTimelineSpan | null => {
-  if (!overlaps(span, domain)) return null;
+  if (!spansMayOverlap(span, domain)) return null;
   return {
-    start: Math.max(span.start, domain.start),
-    end: Math.min(span.end, domain.end),
+    start: span.openStart ? domain.start : Math.max(span.start, domain.start),
+    end: span.openEnd ? domain.end : Math.min(span.end, domain.end),
     fuzzyStart: span.fuzzyStart || span.start < domain.start,
-    fuzzyEnd: span.fuzzyEnd || span.end > domain.end
+    fuzzyEnd: span.fuzzyEnd || span.end > domain.end,
+    openStart: span.openStart,
+    openEnd: span.openEnd
   };
 };
+
+export const focusedTimelineSpanContainsPosition = (
+  span: FocusedTimelineSpan,
+  position: number
+): boolean =>
+  (span.openStart || span.start <= position) &&
+  (span.openEnd || span.end >= position);
 
 export const focusedTimelinePositionPercent = (
   position: number,

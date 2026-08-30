@@ -81,6 +81,11 @@ test('mobile: garde la frise de Noé cohérente avec sa durée de vie', async ({
   );
   await expect(focus).toContainText('Noé : Entre 600 et 601 ans');
   await expect(
+    focus.getByRole('button', {
+      name: 'Focaliser la frise sur Sem, fils'
+    })
+  ).toBeVisible();
+  await expect(
     focus.getByRole('button', { name: /Naissance d’Abraham/ })
   ).toHaveCount(0);
   await expect(

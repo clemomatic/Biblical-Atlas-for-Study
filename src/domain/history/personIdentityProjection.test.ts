@@ -47,6 +47,7 @@ test('convertit les anciens identifiants vers une identité canonique relue', ()
   assert.equal(canonicalizeHistoricalPersonId('event-saul-z98f25'), 'atlas-0087');
   assert.equal(canonicalizeHistoricalPersonId('atlas-0080'), 'event-adam-2peny4');
   assert.equal(canonicalizeHistoricalPersonId('atlas-0189'), 'event-david-iixp36');
+  assert.equal(canonicalizeHistoricalPersonId('atlas-0061'), 'event-ruben-ybwrix');
 });
 
 test('fusionne les anciennes et nouvelles fiches de Paul sans perdre son ancien nom', () => {
@@ -65,6 +66,19 @@ test('ne fusionne jamais deux homonymes sur leur seul nom', () => {
     person('person-joseph-autre', 'Joseph')
   ]);
   assert.equal(merged.length, 2);
+});
+
+test('rattache une nouvelle fiche à sa ligne héritée sans conserver un auto-lien', () => {
+  const ruben = {
+    ...person('atlas-0061', 'Ruben'),
+    associatedPersonIds: ['atlas-0061', 'atlas-0106']
+  };
+  const [merged] = mergeHistoricalPeopleForDisplay([ruben]);
+
+  assert.equal(merged.id, 'event-ruben-ybwrix');
+  assert.equal(merged.legacyEventId, 'event-ruben-ybwrix');
+  assert.ok(!merged.associatedPersonIds?.includes('event-ruben-ybwrix'));
+  assert.ok(merged.associatedPersonIds?.includes('event-jacob-a7o7cq'));
 });
 
 test('ne projette qu’une ligne de vie par identité canonique', () => {

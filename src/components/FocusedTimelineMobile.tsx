@@ -15,6 +15,7 @@ import type { BiblicalPlace, EventData } from '../types.ts';
 import {
   clipFocusedTimelineSpan,
   eventDataToTemporalSpan,
+  focusedTimelineSpanContainsPosition,
   focusedTimelinePositionPercent,
   getFocusedTimelineDomain,
   type FocusedTimelineModel,
@@ -80,7 +81,12 @@ const spanStyle = (
   domain: FocusedTimelineSpan,
   minimumWidth = 1.5
 ) => {
-  const clipped = clipFocusedTimelineSpan(span, domain);
+  const visualSpan = {
+    ...span,
+    start: span.openStart ? domain.start : span.start,
+    end: span.openEnd ? domain.end : span.end
+  };
+  const clipped = clipFocusedTimelineSpan(visualSpan, domain);
   if (!clipped) return null;
   const left = focusedTimelinePositionPercent(clipped.start, domain);
   const right = focusedTimelinePositionPercent(clipped.end, domain);
@@ -93,7 +99,7 @@ const spanStyle = (
 const laneIsActiveAt = (
   lane: FocusedTimelinePersonLane,
   position: number
-): boolean => lane.span.start <= position && lane.span.end >= position;
+): boolean => focusedTimelineSpanContainsPosition(lane.span, position);
 
 function PersonLane({
   lane,
@@ -110,27 +116,43 @@ function PersonLane({
   const baseStyle = spanStyle(lane.span, domain);
   const active =
     selectedPosition === undefined || laneIsActiveAt(lane, selectedPosition);
+  const lifeSpanClass = lane.isFocus
+    ? lane.span.openEnd
+      ? 'bg-[linear-gradient(to_right,var(--color-primary-soft)_55%,transparent)] ring-1 ring-inset ring-[var(--color-primary)]/20'
+      : lane.span.openStart
+        ? 'bg-[linear-gradient(to_left,var(--color-primary-soft)_55%,transparent)] ring-1 ring-inset ring-[var(--color-primary)]/20'
+        : 'bg-[var(--color-primary-soft)] ring-1 ring-inset ring-[var(--color-primary)]/25'
+    : lane.span.openEnd
+      ? 'bg-[linear-gradient(to_right,var(--color-stone)_55%,transparent)]'
+      : lane.span.openStart
+        ? 'bg-[linear-gradient(to_left,var(--color-stone)_55%,transparent)]'
+        : 'bg-[var(--color-stone)]';
   const content = (
     <>
-      <span
-        className={`truncate text-left text-[11px] font-semibold ${
-          lane.isFocus
-            ? 'text-[var(--color-primary-dark)]'
-            : active
-              ? 'text-[var(--color-ink)]'
-              : 'text-[var(--color-ink-muted)]'
-        }`}
-      >
-        {lane.person.name}
+      <span className="min-w-0 text-left">
+        <span
+          className={`block truncate text-[11px] font-semibold ${
+            lane.isFocus
+              ? 'text-[var(--color-primary-dark)]'
+              : active
+                ? 'text-[var(--color-ink)]'
+                : 'text-[var(--color-ink-muted)]'
+          }`}
+        >
+          {lane.person.name}
+        </span>
+        {lane.relationshipLabel && (
+          <span className="mt-0.5 block truncate text-[9px] font-medium text-[var(--color-bronze)]">
+            {lane.relationshipLabel}
+          </span>
+        )}
       </span>
       <span className="relative h-9 min-w-0 overflow-hidden rounded-[8px] bg-[linear-gradient(to_right,var(--color-stone-light)_1px,transparent_1px)] bg-[length:33.333%_100%]">
         {baseStyle && (
           <span
-            className={`absolute top-2.5 h-4 rounded-full ${
-              lane.isFocus
-                ? 'bg-[var(--color-primary-soft)] ring-1 ring-inset ring-[var(--color-primary)]/25'
-                : 'bg-[var(--color-stone)]'
-            } ${active ? 'opacity-100' : 'opacity-45'}`}
+            className={`absolute top-2.5 h-4 rounded-full ${lifeSpanClass} ${
+              active ? 'opacity-100' : 'opacity-45'
+            }`}
             style={baseStyle}
           />
         )}
@@ -162,15 +184,17 @@ function PersonLane({
   );
 
   return lane.isFocus ? (
-    <div className="grid min-h-11 grid-cols-[68px_minmax(0,1fr)] items-center gap-2 px-3">
+    <div className="grid min-h-11 grid-cols-[82px_minmax(0,1fr)] items-center gap-2 px-3">
       {content}
     </div>
   ) : (
     <button
       type="button"
       onClick={onSelect}
-      className="grid min-h-11 w-full grid-cols-[68px_minmax(0,1fr)] items-center gap-2 px-3 hover:bg-[var(--color-paper-muted)]"
-      aria-label={`Focaliser la frise sur ${lane.person.name}`}
+      className="grid min-h-11 w-full grid-cols-[82px_minmax(0,1fr)] items-center gap-2 px-3 hover:bg-[var(--color-paper-muted)]"
+      aria-label={`Focaliser la frise sur ${lane.person.name}${
+        lane.relationshipLabel ? `, ${lane.relationshipLabel}` : ''
+      }`}
     >
       {content}
     </button>
@@ -370,7 +394,7 @@ export function FocusedTimelineMobile({
             aria-label={`${model.title}, ses contemporains et les événements correspondants`}
           >
             <div
-              className="pointer-events-none absolute bottom-3 left-[88px] right-3 top-8 z-10"
+              className="pointer-events-none absolute bottom-3 left-[102px] right-3 top-8 z-10"
               aria-hidden="true"
             >
               {guidePosition !== null && (
@@ -383,7 +407,7 @@ export function FocusedTimelineMobile({
               )}
             </div>
 
-            <div className="grid min-h-7 grid-cols-[68px_minmax(0,1fr)] items-end gap-2 px-3 text-[10px] font-semibold text-[var(--color-ink-muted)]">
+            <div className="grid min-h-7 grid-cols-[82px_minmax(0,1fr)] items-end gap-2 px-3 text-[10px] font-semibold text-[var(--color-ink-muted)]">
               <span>Année</span>
               <span className="flex justify-between tabular-nums">
                 {[0, 1, 2, 3].map(index => {
@@ -396,7 +420,7 @@ export function FocusedTimelineMobile({
             </div>
 
             {model.focusEvent && (
-              <div className="grid min-h-11 grid-cols-[68px_minmax(0,1fr)] items-center gap-2 px-3">
+              <div className="grid min-h-11 grid-cols-[82px_minmax(0,1fr)] items-center gap-2 px-3">
                 <span className="truncate text-[11px] font-semibold text-[var(--color-primary-dark)]">
                   {model.kind === 'book' ? 'Récit' : 'Événement'}
                 </span>
@@ -425,7 +449,7 @@ export function FocusedTimelineMobile({
               />
             ))}
 
-            <div className="grid min-h-[92px] grid-cols-[68px_minmax(0,1fr)] items-center gap-2 px-3">
+            <div className="grid min-h-[92px] grid-cols-[82px_minmax(0,1fr)] items-center gap-2 px-3">
               <span className="text-[11px] font-semibold text-[var(--color-ink-muted)]">
                 Événements
               </span>
@@ -462,6 +486,7 @@ export function FocusedTimelineMobile({
 
           <div className="flex flex-wrap gap-x-3 gap-y-1 border-t border-[var(--color-stone-light)] px-3 py-2 text-[10px] text-[var(--color-ink-muted)]">
             <span className="flex items-center gap-1.5"><span className="h-1.5 w-4 rounded-full bg-[var(--color-stone)]" />vie</span>
+            <span className="flex items-center gap-1.5"><span className="h-1.5 w-4 rounded-full bg-gradient-to-r from-[var(--color-stone)] to-transparent" />borne ouverte</span>
             <span className="flex items-center gap-1.5"><span className="h-1.5 w-4 rounded-full bg-[var(--color-mineral)]" />ministère / prophétie</span>
             <span className="flex items-center gap-1.5"><span className="h-1.5 w-4 rounded-full bg-[var(--color-bronze)]" />règne</span>
             <span className="flex items-center gap-1.5"><span className="size-2 rounded-full bg-[var(--color-primary)]" />lié au focus</span>
