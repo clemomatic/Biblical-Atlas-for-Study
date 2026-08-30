@@ -61,6 +61,33 @@ test('mobile: focalise Samuel avec ses contemporains et événements', async ({
   await expect(page.getByTestId('detail-panel')).toContainText('Samuel');
 });
 
+test('mobile: garde la frise de Noé cohérente avec sa durée de vie', async ({
+  page
+}) => {
+  await page.goto('/?view=timeline&person=event-noe-qdkz7y');
+
+  const focus = page.getByTestId('focused-timeline');
+  await expect(focus).toBeVisible();
+  await expect(
+    focus.getByRole('heading', { name: 'Noé', exact: true })
+  ).toBeVisible();
+  await expect(focus).toContainText('2970 av. n. è. → 2020 av. n. è.');
+
+  await expect(
+    focus.getByRole('heading', { name: 'Déluge', exact: true })
+  ).toBeVisible();
+  await expect(focus).toContainText(
+    '17e jour du 2e mois, 2370 av. n. è. → 27e jour du 2e mois, 2369 av. n. è.'
+  );
+  await expect(focus).toContainText('Noé : Entre 600 et 601 ans');
+  await expect(
+    focus.getByRole('button', { name: /Naissance d’Abraham/ })
+  ).toHaveCount(0);
+  await expect(
+    focus.getByRole('button', { name: /tour de Babel/i })
+  ).toHaveCount(1);
+});
+
 test('mobile: distingue la période racontée de la rédaction de 1 Samuel', async ({
   page
 }) => {

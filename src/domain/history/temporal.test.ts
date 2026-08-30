@@ -8,6 +8,7 @@ import {
   getTemporalOverlap,
   historicalYearToTimelineIndex,
   legacyYearsToTemporalSpan,
+  parseHebrewCalendarMonth,
   shiftHistoricalYear,
   timelineIndexToHistoricalYear,
   validateTemporalBoundary
@@ -198,6 +199,27 @@ test('conserve un jour du calendrier hébreu sans conversion grégorienne', () =
     '14 nisan 33 de n. è.'
   );
   assert.equal(boundary.month, undefined);
+});
+
+test('normalise les mois bibliques sans les convertir en mois grégoriens', () => {
+  assert.equal(parseHebrewCalendarMonth('1er mois (Nisan)'), 'nisan');
+  assert.equal(parseHebrewCalendarMonth('2e mois'), 'iyar');
+  assert.equal(
+    parseHebrewCalendarMonth('7e mois (Éthanim / Tishri)'),
+    'tishri'
+  );
+  assert.equal(parseHebrewCalendarMonth('10e mois (Tébeth)'), 'tebeth');
+
+  const boundary: TemporalBoundary = {
+    yearMin: -2370,
+    yearMax: -2370,
+    calendar: 'hebrew',
+    calendarMonth: 'iyar',
+    precision: 'month',
+    certainty: 'certain'
+  };
+  validateTemporalBoundary(boundary);
+  assert.equal(formatTemporalBoundaryFrench(boundary), 'iyar 2370 av. n. è.');
 });
 
 test('formate une borne ouverte approximative sans ambiguïté', () => {

@@ -15,7 +15,10 @@ import type {
   TemporalPrecision,
   TemporalSpan
 } from '../domain/history/types.ts';
-import { historicalYearToTimelineIndex } from '../domain/history/temporal.ts';
+import {
+  historicalYearToTimelineIndex,
+  parseHebrewCalendarMonth
+} from '../domain/history/temporal.ts';
 import { createCategoryId } from '../utils/stableIds.ts';
 import { BIBLICAL_PLACES } from './mapData.ts';
 import type { SourceCatalogEntry } from '../domain/history/contentTypes.ts';
@@ -162,12 +165,19 @@ const boundaryFor = (
   certainty: CertaintyLevel
 ): TemporalBoundary | undefined => {
   if (year === undefined || year === 0) return undefined;
-  const precision = precisionFor(precisionLabel, Boolean(month), Boolean(day));
+  const calendarMonth = parseHebrewCalendarMonth(month);
+  const precision = precisionFor(
+    precisionLabel,
+    Boolean(calendarMonth),
+    Boolean(day)
+  );
   const normalized = normalizeText(precisionLabel ?? '');
   return {
     yearMin: precision === 'before' ? undefined : year,
     yearMax: precision === 'after' ? undefined : year,
     day,
+    calendar: calendarMonth ? 'hebrew' : undefined,
+    calendarMonth,
     precision,
     approximate:
       normalized.includes('approxim') ||
@@ -176,6 +186,15 @@ const boundaryFor = (
     certainty
   };
 };
+
+/**
+ * Relations explicites absentes du classeur d'extraction, mais établies par
+ * le récit cité. Elles empêchent un événement central d'être présenté comme
+ * un simple repère de contexte dans la frise focalisée.
+ */
+const CURATED_EVENT_PERSON_LINKS = new Map<string, string[]>([
+  ['atlas-0073', ['atlas-0079']]
+]);
 
 const temporalSpanFor = (record: AuthoritativeChronologyRecord): TemporalSpan => {
   const certainty = certaintyFor(record.confidence);
@@ -303,7 +322,15 @@ const recordToEvent = (
     description: record.notes ?? record.positioningNotes,
     timelineLevel: timelineLevelFor(record.zoomMin),
     associatedLocationIds: resolveLocationIds(record),
-    associatedCharacterIds: [...new Set([record.personId, ...record.linkedPersonIds].filter((id): id is string => Boolean(id)))],
+    associatedCharacterIds: [
+      ...new Set(
+        [
+          record.personId,
+          ...record.linkedPersonIds,
+          ...(CURATED_EVENT_PERSON_LINKS.get(record.id) ?? [])
+        ].filter((id): id is string => Boolean(id))
+      )
+    ],
     associatedRouteIds: record.itineraryIds.map(id => `historical-itinerary-${id.toLocaleLowerCase('fr')}`),
     documentaryReferences: record.citedReferences,
     sources: sourceReferencesFor(record),
@@ -343,10 +370,15 @@ const resolvedPersonIdFor = (record: AuthoritativeChronologyRecord): string | un
   return candidates.length === 1 ? candidates[0] : undefined;
 };
 
-const isBiographicalPeriod = (record: AuthoritativeChronologyRecord): boolean =>
-  normalizeText(record.recordType ?? '') === 'periode' &&
-  !isPersonBaseRecord(record) &&
-  (PERIOD_DETAIL_LAYERS.has(normalizeText(record.layer ?? '')) || Boolean(record.visualParentId));
+const isBiographicalPeriod = (record: AuthoritativeChronologyRecord): boolean => {
+  const layer = normalizeText(record.layer ?? '');
+  return (
+    normalizeText(record.recordType ?? '') === 'periode' &&
+    !isPersonBaseRecord(record) &&
+    layer !== 'livres bibliques' &&
+    (PERIOD_DETAIL_LAYERS.has(layer) || Boolean(record.visualParentId))
+  );
+};
 const recordsByPersonId = new Map<string, AuthoritativeChronologyRecord[]>();
 
 bundle.records.forEach(record => {

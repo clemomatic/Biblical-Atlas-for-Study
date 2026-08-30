@@ -27,6 +27,20 @@ export type TemporalPrecision =
 
 export type HistoricalSeason = 'spring' | 'summer' | 'autumn' | 'winter';
 
+export type HebrewCalendarMonth =
+  | 'nisan'
+  | 'iyar'
+  | 'sivan'
+  | 'tammuz'
+  | 'av'
+  | 'elul'
+  | 'tishri'
+  | 'heshvan'
+  | 'kislev'
+  | 'tebeth'
+  | 'shebat'
+  | 'adar';
+
 export interface TemporalBoundary {
   /** Première année possible, selon la convention HistoricalYear. */
   yearMin?: HistoricalYear;
@@ -37,7 +51,7 @@ export interface TemporalBoundary {
   /** Calendrier explicite lorsque la source ne donne pas une date grégorienne. */
   calendar?: 'gregorian' | 'hebrew';
   /** Mois biblique conservé sans conversion spéculative vers le calendrier grégorien. */
-  calendarMonth?: 'nisan' | 'iyar';
+  calendarMonth?: HebrewCalendarMonth;
   season?: HistoricalSeason;
   precision: TemporalPrecision;
   approximate?: boolean;

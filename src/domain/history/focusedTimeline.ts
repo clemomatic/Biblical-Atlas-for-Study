@@ -312,23 +312,38 @@ const markersDescribeSameEvent = (
 ): boolean => {
   const leftSpan = eventSpan(left);
   const rightSpan = eventSpan(right);
+  const leftDuration = leftSpan.end - leftSpan.start;
+  const rightDuration = rightSpan.end - rightSpan.start;
   const samePublishedYears =
     left.startYear === right.startYear && left.endYear === right.endYear;
   const positionsWithinOneYear =
     Math.abs(leftSpan.start - rightSpan.start) <= 1 &&
     Math.abs(leftSpan.end - rightSpan.end) <= 1;
+  const nearIdenticalPeriods =
+    leftDuration > 0 &&
+    rightDuration > 0 &&
+    overlapRatio(leftSpan, rightSpan) >= 0.9;
   if (
     (leftSpan.start !== rightSpan.start || leftSpan.end !== rightSpan.end) &&
-    !(samePublishedYears && positionsWithinOneYear)
+    !(samePublishedYears && positionsWithinOneYear) &&
+    !nearIdenticalPeriods
   ) {
     return false;
   }
 
   const leftParticipants = [...eventParticipantIds(left)].sort();
   const rightParticipants = [...eventParticipantIds(right)].sort();
+  const participantsMatch =
+    leftParticipants.length > 0 &&
+    leftParticipants.join('|') === rightParticipants.join('|');
+  const participantsAreBothUnknown =
+    leftParticipants.length === 0 && rightParticipants.length === 0;
+  if (!participantsMatch && !participantsAreBothUnknown) {
+    return false;
+  }
   if (
-    leftParticipants.length === 0 ||
-    leftParticipants.join('|') !== rightParticipants.join('|')
+    participantsAreBothUnknown &&
+    normalize(left.category) !== normalize(right.category)
   ) {
     return false;
   }
@@ -336,7 +351,11 @@ const markersDescribeSameEvent = (
   const leftTokens = markerTitleTokens(left);
   const rightTokens = markerTitleTokens(right);
   const sharedCount = [...leftTokens].filter(token => rightTokens.has(token)).length;
-  return sharedCount / Math.max(1, Math.min(leftTokens.size, rightTokens.size)) >= 0.5;
+  const similarity =
+    sharedCount / Math.max(1, Math.min(leftTokens.size, rightTokens.size));
+  return participantsAreBothUnknown
+    ? sharedCount >= 2 && similarity >= 0.5
+    : similarity >= 0.5;
 };
 
 const selectEvenly = <T,>(items: readonly T[], count: number): T[] => {
@@ -365,12 +384,13 @@ const markerCandidates = (
     : new Set<string>();
 
   const domainDuration = Math.max(1, domain.end - domain.start);
+  const markerDomain = kind === 'person' ? anchorSpan : domain;
   const rankedCandidates = events
     .filter(event => {
       if (eventIsPersonProjection(event)) return false;
       if (isBookCoverageEvent(event) || isBookWritingEvent(event)) return false;
       const span = eventSpan(event);
-      if (!overlaps(span, domain)) return false;
+      if (!overlaps(span, markerDomain)) return false;
       return (
         event.id === focusEvent?.id ||
         span.end - span.start <= domainDuration * 1.5

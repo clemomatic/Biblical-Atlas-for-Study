@@ -23,10 +23,11 @@ import {
   type FocusedTimelineSpan
 } from '../domain/history/focusedTimeline.ts';
 import {
-  calculateAgeAtPeriod
+  calculatePersonAtEvent
 } from '../domain/history/eventChronology.ts';
 import { getActivityVisual } from '../domain/history/activityVisuals.ts';
 import {
+  formatTemporalSpanFrench,
   timelineIndexToHistoricalYear
 } from '../domain/history/temporal.ts';
 import { formatEventSpan } from '../utils/dateUtils.ts';
@@ -59,6 +60,19 @@ const focusKindLabels: Record<FocusedTimelineModel['kind'], string> = {
 const compactYear = (position: number): string => {
   const year = timelineIndexToHistoricalYear(Math.round(position));
   return year < 0 ? `${Math.abs(year)} av.` : `${year}`;
+};
+
+const formatFocusedEventPeriod = (event: EventData): string => {
+  const period = eventDataToTemporalSpan(event);
+  return period
+    ? formatTemporalSpanFrench(period)
+    : formatEventSpan(
+        event.startYear,
+        event.endYear,
+        event.isPoint,
+        event.fuzzyStart,
+        event.fuzzyEnd
+      );
 };
 
 const spanStyle = (
@@ -175,7 +189,6 @@ export function FocusedTimelineMobile({
     model.markers.find(marker => marker.event.id === model.focusEvent?.id)?.event
       .id ??
     model.markers.find(marker => marker.directlyRelated)?.event.id ??
-    model.markers[Math.floor(model.markers.length / 2)]?.event.id ??
     null;
   const [scale, setScale] = useState<FocusedTimelineScale>('full');
   const [selectedMarkerId, setSelectedMarkerId] = useState<string | null>(
@@ -187,16 +200,14 @@ export function FocusedTimelineMobile({
       model.markers.find(marker => marker.event.id === model.focusEvent?.id)
         ?.event.id ??
       model.markers.find(marker => marker.directlyRelated)?.event.id ??
-      model.markers[Math.floor(model.markers.length / 2)]?.event.id ??
       null;
     setScale('full');
     setSelectedMarkerId(nextMarkerId);
   }, [model.id, model.focusEvent?.id, model.markers]);
 
-  const currentMarker =
-    model.markers.find(marker => marker.event.id === selectedMarkerId) ??
-    model.markers[0] ??
-    null;
+  const currentMarker = selectedMarkerId
+    ? model.markers.find(marker => marker.event.id === selectedMarkerId) ?? null
+    : null;
   const currentMarkerIndex = currentMarker
     ? model.markers.findIndex(marker => marker.event.id === currentMarker.event.id)
     : -1;
@@ -244,21 +255,14 @@ export function FocusedTimelineMobile({
   const eventPeriod = currentEvent
     ? eventDataToTemporalSpan(currentEvent)
     : null;
-  const age =
+  const personAtEvent =
     model.focusPerson?.lifeSpan && eventPeriod
-      ? calculateAgeAtPeriod(model.focusPerson.lifeSpan, eventPeriod)
+      ? calculatePersonAtEvent(model.focusPerson, eventPeriod)
       : null;
+  const age = personAtEvent?.outsideKnownLife ? null : personAtEvent?.age;
   const writingLabel = model.writingEvents.length
     ? model.writingEvents
-        .map(event =>
-          formatEventSpan(
-            event.startYear,
-            event.endYear,
-            event.isPoint,
-            event.fuzzyStart,
-            event.fuzzyEnd
-          )
-        )
+        .map(formatFocusedEventPeriod)
         .join(' · ')
     : null;
   const canOpenMap = Boolean(currentEvent?.associatedLocationIds?.length);
@@ -269,6 +273,10 @@ export function FocusedTimelineMobile({
     }
   };
   const selectNext = () => {
+    if (currentMarkerIndex < 0 && model.markers.length > 0) {
+      setSelectedMarkerId(model.markers[0].event.id);
+      return;
+    }
     if (currentMarkerIndex >= 0 && currentMarkerIndex < model.markers.length - 1) {
       setSelectedMarkerId(model.markers[currentMarkerIndex + 1].event.id);
     }
@@ -430,12 +438,8 @@ export function FocusedTimelineMobile({
                       type="button"
                       onClick={() => setSelectedMarkerId(marker.event.id)}
                       aria-pressed={isSelected}
-                      aria-label={`${marker.event.text}, ${formatEventSpan(
-                        marker.event.startYear,
-                        marker.event.endYear,
-                        marker.event.isPoint,
-                        marker.event.fuzzyStart,
-                        marker.event.fuzzyEnd
+                      aria-label={`${marker.event.text}, ${formatFocusedEventPeriod(
+                        marker.event
                       )}`}
                       className="absolute grid size-11 -translate-x-1/2 place-items-center rounded-full"
                       style={{ left: `${position}%`, top: `${track * 20}px` }}
@@ -486,13 +490,7 @@ export function FocusedTimelineMobile({
             <div className="min-w-0">
               <p className="text-[11px] font-bold uppercase tracking-[0.08em] text-[var(--color-bronze)]">
                 {currentEvent
-                  ? formatEventSpan(
-                      currentEvent.startYear,
-                      currentEvent.endYear,
-                      currentEvent.isPoint,
-                      currentEvent.fuzzyStart,
-                      currentEvent.fuzzyEnd
-                    )
+                  ? formatFocusedEventPeriod(currentEvent)
                   : model.periodLabel}
               </p>
               <h3 className="mt-1 font-[var(--font-editorial)] text-xl font-semibold leading-tight text-[var(--color-ink)]">
@@ -576,7 +574,7 @@ export function FocusedTimelineMobile({
               type="button"
               onClick={selectNext}
               disabled={
-                currentMarkerIndex < 0 ||
+                model.markers.length === 0 ||
                 currentMarkerIndex >= model.markers.length - 1
               }
               aria-label="Événement suivant"

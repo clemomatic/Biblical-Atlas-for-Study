@@ -1,6 +1,7 @@
 import type {
   HistoricalSeason,
   HistoricalYear,
+  HebrewCalendarMonth,
   LegacyTemporalPeriod,
   TemporalBoundary,
   TemporalInterval,
@@ -29,6 +30,62 @@ const SEASON_NAMES: Record<HistoricalSeason, string> = {
   autumn: 'automne',
   winter: 'hiver'
 };
+
+const HEBREW_MONTH_ORDINALS: HebrewCalendarMonth[] = [
+  'nisan',
+  'iyar',
+  'sivan',
+  'tammuz',
+  'av',
+  'elul',
+  'tishri',
+  'heshvan',
+  'kislev',
+  'tebeth',
+  'shebat',
+  'adar'
+];
+
+const normalizeCalendarLabel = (value: string): string =>
+  value
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLocaleLowerCase('fr')
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
+/**
+ * Convertit les libellés bibliques du corpus en identifiants de mois hébreux.
+ * Aucun mois grégorien n'est déduit : « 2e mois » reste Iyar sur le calendrier
+ * biblique, conformément au libellé documentaire conservé séparément.
+ */
+export function parseHebrewCalendarMonth(
+  value: string | undefined
+): HebrewCalendarMonth | undefined {
+  if (!value) return undefined;
+  const normalized = normalizeCalendarLabel(value);
+  const namedMonths: Array<[RegExp, HebrewCalendarMonth]> = [
+    [/\b(nisan|abib)\b/, 'nisan'],
+    [/\b(iyar|ziv)\b/, 'iyar'],
+    [/\bsivan\b/, 'sivan'],
+    [/\b(tammuz|tamouz)\b/, 'tammuz'],
+    [/\b(ab|av)\b/, 'av'],
+    [/\beloul\b/, 'elul'],
+    [/\b(tishri|ethanim|etanim)\b/, 'tishri'],
+    [/\b(heshvan|bul)\b/, 'heshvan'],
+    [/\bkislev\b/, 'kislev'],
+    [/\b(tebeth|tebet)\b/, 'tebeth'],
+    [/\bshebat\b/, 'shebat'],
+    [/\badar\b/, 'adar']
+  ];
+  const named = namedMonths.find(([pattern]) => pattern.test(normalized));
+  if (named) return named[1];
+
+  const ordinalMatch = normalized.match(/^(\d{1,2})(?:er|e)?\s+mois\b/);
+  if (!ordinalMatch) return undefined;
+  const ordinal = Number.parseInt(ordinalMatch[1], 10);
+  return HEBREW_MONTH_ORDINALS[ordinal - 1];
+}
 
 export function assertHistoricalYear(
   value: number,
@@ -145,7 +202,11 @@ export function validateTemporalBoundary(boundary: TemporalBoundary): void {
       throw new RangeError('Une plage nécessite yearMin et yearMax.');
     }
   }
-  if (boundary.precision === 'month' && boundary.month === undefined) {
+  if (
+    boundary.precision === 'month' &&
+    boundary.month === undefined &&
+    boundary.calendarMonth === undefined
+  ) {
     throw new RangeError('Une précision au mois nécessite un mois.');
   }
   if (
@@ -403,6 +464,9 @@ const formatSingleYearBoundary = (boundary: TemporalBoundary): string => {
     return `${boundary.day} ${MONTH_NAMES[(boundary.month ?? 1) - 1]} ${formattedYear}`;
   }
   if (boundary.precision === 'month') {
+    if (boundary.calendar === 'hebrew' && boundary.calendarMonth) {
+      return `${boundary.calendarMonth} ${formattedYear}`;
+    }
     return `${MONTH_NAMES[(boundary.month ?? 1) - 1]} ${formattedYear}`;
   }
   if (boundary.precision === 'season') {
