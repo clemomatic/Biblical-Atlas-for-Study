@@ -27,6 +27,20 @@ export type TemporalPrecision =
 
 export type HistoricalSeason = 'spring' | 'summer' | 'autumn' | 'winter';
 
+export type HebrewCalendarMonth =
+  | 'nisan'
+  | 'iyar'
+  | 'sivan'
+  | 'tammuz'
+  | 'av'
+  | 'elul'
+  | 'tishri'
+  | 'heshvan'
+  | 'kislev'
+  | 'tebeth'
+  | 'shebat'
+  | 'adar';
+
 export interface TemporalBoundary {
   /** Première année possible, selon la convention HistoricalYear. */
   yearMin?: HistoricalYear;
@@ -37,7 +51,7 @@ export interface TemporalBoundary {
   /** Calendrier explicite lorsque la source ne donne pas une date grégorienne. */
   calendar?: 'gregorian' | 'hebrew';
   /** Mois biblique conservé sans conversion spéculative vers le calendrier grégorien. */
-  calendarMonth?: 'nisan' | 'iyar';
+  calendarMonth?: HebrewCalendarMonth;
   season?: HistoricalSeason;
   precision: TemporalPrecision;
   approximate?: boolean;
@@ -102,6 +116,33 @@ export interface PersonActivityPeriod extends EntityMetadata {
   associatedLocationIds?: string[];
   associatedRouteIds?: string[];
   associatedPersonIds?: string[];
+}
+
+/**
+ * Rôle de la personne cible par rapport à la personne source.
+ *
+ * Exemple : pour `Noé -> Sem`, le rôle est `son`. La relation réciproque
+ * `Sem -> Noé` porte le rôle `father` afin que l'interface puisse expliquer
+ * le lien sans le déduire d'un simple chevauchement de dates.
+ */
+export type HistoricalPersonRelationshipKind =
+  | 'father'
+  | 'mother'
+  | 'son'
+  | 'daughter'
+  | 'husband'
+  | 'wife'
+  | 'brother'
+  | 'sister'
+  | 'companion';
+
+export interface HistoricalPersonRelationship {
+  id: string;
+  sourcePersonId: string;
+  targetPersonId: string;
+  kind: HistoricalPersonRelationshipKind;
+  /** Lignes du tableau chronologique qui documentent le rapprochement. */
+  supportingRecordIds: string[];
 }
 
 export interface BiblicalPerson extends EntityMetadata {

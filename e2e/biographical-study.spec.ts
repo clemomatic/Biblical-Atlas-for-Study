@@ -151,12 +151,11 @@ test('distingue la vie ouverte de Saül de son règne', async ({ page }) => {
 test.describe('interaction tactile', () => {
   test.use({ viewport: { width: 390, height: 844 }, hasTouch: true });
 
-  test('un premier appui ouvre l’aperçu, le suivant les détails', async ({
+  test('sur la frise globale, un appui ouvre l’aperçu puis son action ouvre la frise focalisée', async ({
     page
   }) => {
-    await page.goto(`/?event=${EVENT_ID}`);
-    await expect(page.getByTestId('detail-panel')).toBeVisible();
-    await page.keyboard.press('Escape');
+    await page.goto('/?view=timeline&from=1&to=20');
+    await expect(page.getByTestId('timeline-view')).toBeVisible();
 
     const event = page.getByRole('button', { name: EVENT_NAME }).first();
     await expect(event).toBeVisible();
@@ -164,8 +163,12 @@ test.describe('interaction tactile', () => {
     await expect(page.getByTestId('event-context-preview')).toBeVisible();
     await expect(page.getByTestId('detail-panel')).toHaveCount(0);
 
-    await event.tap();
-    await expect(page.getByTestId('detail-panel')).toBeVisible();
+    await page
+      .getByTestId('event-context-preview')
+      .getByRole('button', { name: 'Explorer dans la frise' })
+      .tap();
+    await expect(page.getByTestId('focused-timeline')).toBeVisible();
+    await expect(page.getByTestId('detail-panel')).toBeHidden();
   });
 });
 
