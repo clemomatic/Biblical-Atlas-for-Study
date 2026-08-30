@@ -159,14 +159,14 @@ test.describe('interaction tactile', () => {
 
     const event = page.getByRole('button', { name: EVENT_NAME }).first();
     await expect(event).toBeVisible();
+    await event.tap();
+    await expect(page.getByTestId('event-context-preview')).toBeVisible();
+    await expect(page.getByTestId('detail-panel')).toHaveCount(0);
+
     await page
       .getByTestId('event-context-preview')
       .getByRole('button', { name: 'Explorer dans la frise' })
       .tap();
-    await expect(page.getByTestId('event-context-preview')).toBeVisible();
-    await expect(page.getByTestId('detail-panel')).toHaveCount(0);
-
-    await event.tap();
     await expect(page.getByTestId('focused-timeline')).toBeVisible();
     await expect(page.getByTestId('detail-panel')).toBeHidden();
   });
