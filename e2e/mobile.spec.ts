@@ -95,7 +95,9 @@ test('mobile: distingue la période racontée de la rédaction de 1 Samuel', asy
 
   const focus = page.getByTestId('focused-timeline');
   await expect(focus).toBeVisible();
-  await expect(focus.getByRole('heading', { name: '1 Samuel' })).toBeVisible();
+  await expect(
+    focus.getByRole('heading', { name: '1 Samuel', exact: true, level: 2 })
+  ).toBeVisible();
   await expect(focus).toContainText('Période couverte par le récit');
   await expect(focus).toContainText('Rédaction ou compilation');
   await expect(focus).toContainText(/1078 av\. n\. è\./);
