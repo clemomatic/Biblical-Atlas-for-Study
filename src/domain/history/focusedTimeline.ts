@@ -38,7 +38,7 @@ export interface FocusedTimelinePersonLane {
   activities: FocusedTimelineActivitySpan[];
   isFocus: boolean;
   relationshipLabel?: string;
-  relationshipDepth?: 1 | 2;
+  relationshipDepth?: number;
 }
 
 export interface FocusedTimelineMarker {
@@ -401,8 +401,10 @@ interface CanonicalRelationshipEdge {
 
 interface FocusedRelationshipContext {
   label: string;
-  depth: 1 | 2;
+  depth: number;
 }
+
+const MAX_LINEAGE_DEPTH = 12;
 
 const relationshipGraph = (
   relationships: readonly HistoricalPersonRelationship[]
@@ -471,6 +473,47 @@ const relationshipContextFor = (
       }
       const label = composedRelationshipLabel(first.kind, second.kind);
       if (label) return { label, depth: 2 };
+    }
+  }
+
+  const lineageDirections: Array<{
+    kinds: ReadonlySet<HistoricalPersonRelationshipKind>;
+    label: 'ancêtre' | 'descendant';
+  }> = [
+    {
+      kinds: new Set<HistoricalPersonRelationshipKind>(['father', 'mother']),
+      label: 'ancêtre'
+    },
+    {
+      kinds: new Set<HistoricalPersonRelationshipKind>(['son', 'daughter']),
+      label: 'descendant'
+    }
+  ];
+
+  for (const direction of lineageDirections) {
+    const visited = new Set<string>([focusPersonId]);
+    const queue = (graph.get(focusPersonId) ?? [])
+      .filter(edge => direction.kinds.has(edge.kind))
+      .map(edge => ({ personId: edge.targetPersonId, depth: 1 }));
+    while (queue.length > 0) {
+      const current = queue.shift();
+      if (!current || visited.has(current.personId)) continue;
+      visited.add(current.personId);
+      if (current.personId === targetPersonId && current.depth >= 3) {
+        return {
+          label: `${direction.label} · ${current.depth} gén.`,
+          depth: current.depth
+        };
+      }
+      if (current.depth >= MAX_LINEAGE_DEPTH) continue;
+      (graph.get(current.personId) ?? [])
+        .filter(edge => direction.kinds.has(edge.kind))
+        .forEach(edge =>
+          queue.push({
+            personId: edge.targetPersonId,
+            depth: current.depth + 1
+          })
+        );
     }
   }
   return null;
@@ -830,12 +873,15 @@ const contextPeople = (
           : 0;
       const sharedDuration = overlapDuration(span, anchorSpan);
       const boundedLifeBonus = span.openStart || span.openEnd ? 0 : 8;
-      const score =
-        (relationship?.depth === 1
+      const relationshipScore = relationship
+        ? relationship.depth === 1
           ? 500
-          : relationship?.depth === 2
+          : relationship.depth === 2
             ? 350
-            : 0) +
+            : 260 + Math.min(relationship.depth, MAX_LINEAGE_DEPTH) * 10
+        : 0;
+      const score =
+        relationshipScore +
         (eventParticipant ? 260 : 0) +
         (explicitlyLinked ? 180 : 0) +
         overlapCoverageOfAnchor(span, anchorSpan) * 100 +

@@ -93,6 +93,23 @@ test('mobile: garde la frise de Noé cohérente avec sa durée de vie', async ({
   ).toHaveCount(1);
 });
 
+test('mobile: montre que Sem et Abraham ont été contemporains', async ({
+  page
+}) => {
+  await page.goto('/?view=timeline&person=event-abraham-mdcznq');
+
+  const focus = page.getByTestId('focused-timeline');
+  await expect(focus).toBeVisible();
+  await expect(
+    focus.getByRole('heading', { name: 'Abraham', exact: true })
+  ).toBeVisible();
+  await expect(
+    focus.getByRole('button', {
+      name: 'Focaliser la frise sur Sem, ancêtre · 9 gén.'
+    })
+  ).toBeVisible();
+});
+
 test('mobile: distingue la période racontée de la rédaction de 1 Samuel', async ({
   page
 }) => {

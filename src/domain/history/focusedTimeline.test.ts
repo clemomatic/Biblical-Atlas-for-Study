@@ -382,6 +382,87 @@ test('conserve les bornes connues et la contemporanéité d’une vie ouverte', 
   assert.equal(floodModel.people[0]?.span.openEnd, true);
 });
 
+test('fait ressortir Sem comme ancêtre contemporain d’Abraham', () => {
+  const abraham = person('abraham', 'Abraham', -2018, -1843);
+  const sara = person('sara', 'Sara', -2008, -1881);
+  const ismael = person('ismael', 'Ismaël', -1932, -1795);
+  const isaac = person('isaac', 'Isaac', -1918, -1738);
+  const tera = person('tera', 'Téra', -2148, -1943);
+  const jacob = person('jacob', 'Jacob', -1858, -1711);
+  const eber = person('eber', 'Éber', -2303, -1839);
+  const sem = person('sem', 'Sem', -2468, -1868);
+  const lineage = [
+    'abraham',
+    'tera',
+    'nahor',
+    'seroug',
+    'reou',
+    'peleg',
+    'eber',
+    'shelah',
+    'arpakshad',
+    'sem'
+  ];
+  const relationships: HistoricalPersonRelationship[] = lineage
+    .slice(0, -1)
+    .flatMap((childId, index) => {
+      const parentId = lineage[index + 1];
+      return [
+        {
+          id: `${childId}-${parentId}-parent`,
+          sourcePersonId: childId,
+          targetPersonId: parentId,
+          kind: 'father' as const,
+          supportingRecordIds: [parentId]
+        },
+        {
+          id: `${parentId}-${childId}-child`,
+          sourcePersonId: parentId,
+          targetPersonId: childId,
+          kind: 'son' as const,
+          supportingRecordIds: [childId]
+        }
+      ];
+    });
+  relationships.push(
+    {
+      id: 'abraham-sara',
+      sourcePersonId: 'abraham',
+      targetPersonId: 'sara',
+      kind: 'wife',
+      supportingRecordIds: ['sara']
+    },
+    ...['ismael', 'isaac'].map(childId => ({
+      id: `abraham-${childId}`,
+      sourcePersonId: 'abraham',
+      targetPersonId: childId,
+      kind: 'son' as const,
+      supportingRecordIds: [childId]
+    })),
+    {
+      id: 'isaac-jacob',
+      sourcePersonId: 'isaac',
+      targetPersonId: 'jacob',
+      kind: 'son',
+      supportingRecordIds: ['jacob']
+    }
+  );
+
+  const model = buildFocusedTimeline({
+    person: abraham,
+    people: [abraham, sara, ismael, isaac, tera, jacob, eber, sem],
+    events: [],
+    relationships
+  });
+
+  assert.ok(model);
+  const semLane = model.people.find(lane => lane.person.id === sem.id);
+  assert.ok(semLane);
+  assert.equal(semLane.relationshipLabel, 'ancêtre · 9 gén.');
+  assert.equal(semLane.relationshipDepth, 9);
+  assert.ok(!model.people.some(lane => lane.person.id === jacob.id));
+});
+
 test('déduplique un événement quand une seule source a renseigné le participant', () => {
   const abraham = person('abraham', 'Abraham', -2018, -1843);
   const detailed = event(

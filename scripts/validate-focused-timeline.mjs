@@ -363,6 +363,42 @@ try {
     errors.push('Noé : la ligne de Sem doit traverser le repère du Déluge.');
   }
 
+  const abrahamId = canonicalPersonId('atlas-0147');
+  const abraham = peopleById.get(abrahamId);
+  const abrahamModel = abraham
+    ? focused.buildFocusedTimeline({
+        person: abraham,
+        people: data.DISPLAY_HISTORICAL_PEOPLE,
+        events: data.TIMELINE_EVENTS,
+        relationships: authoritative.AUTHORITATIVE_PERSON_RELATIONSHIPS
+      })
+    : null;
+  const semWithAbraham = abrahamModel?.people.find(
+    lane => canonicalPersonId(lane.person.id) === semId
+  );
+  if (
+    !semWithAbraham ||
+    semWithAbraham.relationshipLabel !== 'ancêtre · 9 gén.'
+  ) {
+    errors.push(
+      'Abraham : Sem doit être affiché comme ancêtre contemporain à neuf générations.'
+    );
+  } else {
+    const sharedStart = Math.max(
+      abrahamModel.anchorSpan.start,
+      semWithAbraham.span.start
+    );
+    const sharedEnd = Math.min(
+      abrahamModel.anchorSpan.end,
+      semWithAbraham.span.end
+    );
+    if (sharedEnd - sharedStart !== 150) {
+      errors.push(
+        'Abraham : la période de contemporanéité avec Sem doit être de 150 ans.'
+      );
+    }
+  }
+
   if (errors.length > 0) {
     throw new Error(
       `Validation de la frise focalisée échouée (${errors.length}) :\n${errors.join('\n')}`
