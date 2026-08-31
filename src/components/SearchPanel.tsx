@@ -181,8 +181,17 @@ function SearchResultItem({
 }) {
   const meta = kindMeta[item.kind];
   const Icon = meta.icon;
+  const itemRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isActive && itemRef.current) {
+      itemRef.current.scrollIntoView({ block: 'nearest' });
+    }
+  }, [isActive]);
+
   return (
     <button
+      ref={itemRef}
       id={item.key}
       type="button"
       role="option"
