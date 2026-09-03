@@ -442,6 +442,12 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
+    if (!isOpen || !activeItem) return;
+    const element = document.getElementById(activeItem.key);
+    element?.scrollIntoView({ block: 'nearest' });
+  }, [activeIndex, activeItem, isOpen]);
+
+  useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
