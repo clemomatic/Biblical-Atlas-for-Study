@@ -52,12 +52,14 @@ test('public daily source loads only on command and meeting content remains link
 test('local JW archive inspection creates a Markdown inventory without changing source',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.getByRole('button',{name:'Studio'}).click();
+  const chooserPromise=page.waitForEvent('filechooser');
   await pane.getByRole('button',{name:'Inspecter une archive'}).click();
+  const chooser=await chooserPromise;
   const data=zipSync({
     'manifest.json':strToU8(JSON.stringify({name:'Ma sauvegarde',userDataBackup:{schemaVersion:16}})),
     'userData.db':strToU8('SQLite format 3\0synthetic test data')
   });
-  await page.locator('input[type=file]').setInputFiles({name:'backup.jwlibrary',mimeType:'application/octet-stream',buffer:Buffer.from(data)});
+  await chooser.setFiles({name:'backup.jwlibrary',mimeType:'application/octet-stream',buffer:Buffer.from(data)});
   await expect.poll(async()=>await page.evaluate(()=>(window as any).atlasTest.files().filter((f:any)=>f.path.includes('/Imports/')).length)).toBe(1);
   const report=await page.evaluate(()=>(window as any).atlasTest.files().find((f:any)=>f.path.includes('/Imports/')));
   expect(report.content).toContain('archive_type: jwlibrary');
