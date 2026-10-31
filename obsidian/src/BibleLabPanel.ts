@@ -17,6 +17,8 @@ export interface BibleLabHost {
   newInvestigation: (selections: []) => void;
   createTalk: () => void;
   inspectArchive: () => void;
+  saveDailyStudy: (day: import('./studyLive').DayPreview,date:Date) => void;
+  saveWeeklyStudy: (week: import('./studyLive').MeetingPreview,date:Date) => void;
 }
 
 function external(url: string): void {
@@ -181,7 +183,8 @@ export class BibleLabSidebarView extends ItemView {
     }else daily.createEl('p',{cls:'biblelab-mini',text:this.liveError||'Aperçu disponible à la demande.'});
     const row=daily.createDiv({cls:'biblelab-buttons'});
     button(row,'Lire sur WOL','external-link',()=>external(dayLink(now)));
-    if(this.live.day)button(row,'Lien vers la note','copy',()=>void this.copy(this.live.day!.source));
+    if(this.live.day){button(row,'Créer une méditation','notebook-pen',()=>this.host.saveDailyStudy(this.live.day!,now),true);
+      button(row,'Copier le lien','copy',()=>void this.copy(this.live.day!.source));}
     const week=card(this.scroller,'Réunion de semaine',this.live.meeting?.week||weekTitle(now));
     week.addClass('biblelab-feature-card');
     const weekSymbol=week.createSpan({cls:'biblelab-feature-icon'});setIcon(weekSymbol,'calendar-range');
@@ -193,7 +196,9 @@ export class BibleLabSidebarView extends ItemView {
         for(const item of section.items) sectionEl.createEl('p',{text:item});
       }
     }else week.createEl('p',{cls:'biblelab-mini',text:'Programme officiel et sujets de la semaine.'});
-    button(week.createDiv({cls:'biblelab-buttons'}),'Voir la réunion','external-link',()=>external(dayLink(now)));
+    const weekActions=week.createDiv({cls:'biblelab-buttons'});
+    button(weekActions,'Voir la réunion','external-link',()=>external(dayLink(now)));
+    if(this.live.meeting)button(weekActions,'Préparer en note','notebook-pen',()=>this.host.saveWeeklyStudy(this.live.meeting!,now),true);
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'CONTINUER'});
     const research=card(this.scroller,'Une nouvelle découverte','Commencer une enquête ou reprendre une réflexion.');
     const researchRow=research.createDiv({cls:'biblelab-buttons'});
