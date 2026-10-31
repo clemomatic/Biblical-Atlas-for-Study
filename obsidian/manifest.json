@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
-  "name": "Bible Lab — Atlas et recherche biblique",
-  "version": "0.3.0",
+  "name": "Bible Lab — Study Studio",
+  "version": "0.4.0",
   "minAppVersion": "1.6.0",
-  "description": "Laboratoire d'étude dans Obsidian : explorateur WOL, liens JW Library, cartothèque Voyez le bon pays, appendices, notes et Atlas interactif.",
+  "description": "Study Studio pour Obsidian : recherche WOL, Atlas, texte du jour, réunions, plans de discours et inspection locale des archives JW.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
