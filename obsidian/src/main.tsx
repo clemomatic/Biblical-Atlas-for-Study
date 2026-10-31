@@ -19,6 +19,7 @@ import { MapTileCache } from './MapTiles';
 import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
 import { enhanceBibleLabMarkers } from './bibleLabMarkers';
+import { normalizeSearch } from './bibleLabData';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -209,6 +210,13 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
   onunload(): void { this.listeners.clear(); this.maps?.dispose(); }
+  openAtlasPlace = (name: string): void => {
+    const normalized = normalizeSearch(name.replace(/\\s*\\[.*$/, ''));
+    const selection = [...this.snapshot.atlas.catalog.values()]
+      .find(item => item.key.startsWith('place:') && normalizeSearch(item.title) === normalized);
+    if (!selection) new Notice('Lieu non identifié dans l’Atlas interactif ; ouverture de la carte générale.');
+    this.run(this.openAtlas(selection?.key));
+  };
   async openBibleLab(reference?: string): Promise<void> {
     await this.ready;
     let leaf = this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
