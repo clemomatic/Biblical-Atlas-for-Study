@@ -43,6 +43,10 @@ test('public daily source loads only on command and meeting content remains link
   await pane.getByRole('button',{name:'Actualiser'}).click();
   await expect(pane.getByText('Jéhovah exige un attachement sans partage', {exact:false})).toBeVisible();
   await expect(pane.getByText('Un message pour nous')).toBeVisible();
+  await pane.getByRole('button',{name:'Créer une méditation'}).click();
+  await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.includes('/Méditations/')))).toBeTruthy();
+  await pane.getByRole('button',{name:'Préparer en note'}).click();
+  await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.includes('/Réunions/')))).toBeTruthy();
 });
 
 test('local JW archive inspection creates a Markdown inventory without changing source',async({page})=>{
