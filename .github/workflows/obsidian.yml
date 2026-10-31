@@ -23,12 +23,15 @@ jobs:
       - run: pnpm obsidian:typecheck
       - run: pnpm obsidian:test
       - run: pnpm obsidian:package
-      - run: pnpm exec playwright install --with-deps chromium
-      - run: pnpm exec playwright test --config obsidian/playwright.config.ts --workers=2
+      # Publishing the build artifact independently of the optional graphical
+      # smoke suite keeps an installable preview available if Chromium flakes.
+      # The run conclusion still reports full E2E success or failure.
       - uses: actions/upload-artifact@v4
         with:
           name: atlas-biblique-obsidian
           path: obsidian/artifacts/
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts --workers=2
       - uses: actions/upload-artifact@v4
         if: failure()
         with:
