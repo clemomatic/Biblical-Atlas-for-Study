@@ -182,3 +182,8 @@
  .biblelab-scroller > * {animation:none}
  .biblelab-btn,.biblelab-tab,.biblelab-card,.biblelab-launch{transition:none}
 }
+
+.biblelab-disclosure {margin:9px 0 12px;border-radius:10px;color:var(--bl-muted);font-size:10px;line-height:1.6;}
+.biblelab-disclosure summary {cursor:pointer;display:list-item;padding:4px 2px;font-size:10px;font-weight:600;color:var(--bl-muted);}
+.biblelab-disclosure summary:hover {color:var(--text-accent);}
+.biblelab-disclosure p {padding:8px 10px;border-radius:8px;margin:5px 0 0;background:var(--bl-soft);color:var(--bl-muted);font-size:11px;line-height:1.65;}
