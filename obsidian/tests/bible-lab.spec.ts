@@ -13,7 +13,7 @@ test('research sidebar opens and sends only the current search to official URLs'
   const pane=page.locator('.biblelab-side');
   await expect(pane.getByPlaceholder('Mot, sujet ou verset…')).toHaveValue('Matthieu 10:29');
   await pane.getByPlaceholder('Mot, sujet ou verset…').fill('Jean 7:24');
-  await pane.getByRole('button',{name:'JW Library'}).click();
+  await pane.getByRole('button',{name:/JW Library$/}).first().click();
   const opened=await page.evaluate(()=>(window as any).openedLabUrls);
   expect(opened[0]).toContain('bible=43007024');
   await pane.getByRole('button',{name:'Rechercher WOL'}).click();
