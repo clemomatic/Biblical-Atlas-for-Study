@@ -17,21 +17,30 @@ const MAX_UNCOMPRESSED=160*1024*1024;
 const MAX_ENTRIES=1500;
 function validateZip(bytes:Uint8Array):void{
   const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
-  let count=0,total=0,found=false;
-  for(let p=0;p+46<=bytes.length;){
-    const sig=view.getUint32(p,true);
-    if(sig===0x02014b50){
-      found=true;count++;
-      if(count>MAX_ENTRIES)throw Error('Archive contenant trop de fichiers.');
-      const size=view.getUint32(p+24,true),nameLength=view.getUint16(p+28,true);
-      const extra=view.getUint16(p+30,true),comment=view.getUint16(p+32,true);
-      if(size===0xffffffff)throw Error('Les archives ZIP64 ne sont pas prises en charge.');
-      total+=size;
-      if(size>MAX_UNCOMPRESSED||total>MAX_UNCOMPRESSED)throw Error('Archive trop volumineuse une fois décompressée.');
-      p+=46+nameLength+extra+comment;
-    }else p++;
+  // Locate end-of-central-directory. Do not scan file bodies: a compressed entry
+  // may contain the same signature by chance.
+  let eocd=-1;
+  for(let p=bytes.length-22;p>=Math.max(0,bytes.length-65557);p--){
+    if(view.getUint32(p,true)===0x06054b50){eocd=p;break;}
   }
-  if(!found)throw Error('Structure ZIP non reconnue.');
+  if(eocd<0)throw Error('Structure ZIP non reconnue.');
+  const count=view.getUint16(eocd+10,true),size=view.getUint32(eocd+12,true),offset=view.getUint32(eocd+16,true);
+  if(count>MAX_ENTRIES||count===0)throw Error('Nombre de fichiers ZIP non valide.');
+  if(offset+size>eocd||offset+size>bytes.length)throw Error('Table centrale ZIP invalide.');
+  let p=offset,total=0;
+  for(let n=0;n<count;n++){
+    if(p+46>bytes.length||view.getUint32(p,true)!==0x02014b50)throw Error('Entrée ZIP centrale invalide.');
+    const flags=view.getUint16(p+8,true),method=view.getUint16(p+10,true);
+    const uncompressed=view.getUint32(p+24,true);
+    const nameLength=view.getUint16(p+28,true),extra=view.getUint16(p+30,true),comment=view.getUint16(p+32,true);
+    if(flags&1)throw Error('Archives chiffrées non prises en charge.');
+    if(method!==0&&method!==8)throw Error('Compression ZIP non prise en charge.');
+    if(uncompressed===0xffffffff)throw Error('Archives ZIP64 non prises en charge.');
+    total+=uncompressed;
+    if(uncompressed>MAX_UNCOMPRESSED||total>MAX_UNCOMPRESSED)throw Error('Archive trop volumineuse une fois décompressée.');
+    p+=46+nameLength+extra+comment;
+  }
+  if(p!==offset+size)throw Error('Taille de table centrale incohérente.');
 }
 export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
   const kind=file.name.toLowerCase().endsWith('.jwlibrary')?'jwlibrary':file.name.toLowerCase().endsWith('.jwpub')?'jwpub':null;
