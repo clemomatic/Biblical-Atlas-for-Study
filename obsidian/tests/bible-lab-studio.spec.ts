@@ -1,0 +1,61 @@
+import { test, expect } from '@playwright/test';
+import { zipSync, strToU8 } from 'fflate';
+
+test.beforeEach(async({page})=>{
+  await page.route('https://**/*',route=>route.abort());
+  await page.goto('/obsidian/dev/index.html');
+  await page.waitForFunction(()=>(window as any).atlasTest?.ready);
+  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
+  await expect(page.locator('.biblelab-side')).toBeVisible();
+});
+
+test('Study Studio dashboard offers compact navigation and opens a structured discourse note',async({page})=>{
+  const pane=page.locator('.biblelab-side');
+  await expect(pane.getByRole('heading',{name:'Un espace pour explorer.'})).toBeVisible();
+  await expect(pane.locator('.biblelab-tab')).toHaveCount(6);
+  await pane.getByRole('button',{name:'Studio'}).click();
+  await pane.getByRole('button',{name:'Nouveau discours'}).click();
+  const dialog=page.getByRole('dialog');
+  await expect(dialog.getByText('Créer un plan de discours')).toBeVisible();
+  await dialog.getByRole('textbox',{name:'Titre'}).fill('Vaincre le mal par le bien');
+  await dialog.getByRole('textbox',{name:'Verset central'}).fill('Romains 12:21');
+  await dialog.getByRole('button',{name:'Créer le plan'}).click();
+  const paths=await page.evaluate(()=>(window as any).atlasTest.files());
+  const note=paths.find((f:any)=>f.path.includes('Discours')&&f.content.includes('Romains 12:21'));
+  expect(note).toBeTruthy();
+  expect(note.content).toContain('## 03 · Conclusion');
+  expect(note.content).toContain('duration_minutes: 10');
+});
+
+test('public daily source loads only on command and meeting content remains linked',async({page})=>{
+  const html=`<html><body>
+    <h2>Samedi 31 octobre</h2>
+    <p>Jéhovah exige un attachement sans partage (Deut. 4:24).</p>
+    <p>La réflexion personnelle commence par les Écritures.</p>
+    <h1>26 octobre – 1er novembre</h1><h2>JÉRÉMIE 47-48</h2>
+    <h2>JOYAUX DE LA PAROLE DE DIEU</h2><h3>1. Un message pour nous</h3>
+    <h2>APPLIQUE-TOI AU MINISTÈRE</h2><h3>2. Engage la conversation</h3>
+    <h2>VIE CHRÉTIENNE</h2><h3>3. Étude de l’assemblée</h3>
+    </body></html>`;
+  await page.route('https://wol.jw.org/fr/wol/dt/**',route=>route.fulfill({status:200,contentType:'text/html',body:html}));
+  const pane=page.locator('.biblelab-side');
+  await expect(pane.getByText('Aperçu disponible à la demande.')).toBeVisible();
+  await pane.getByRole('button',{name:'Actualiser'}).click();
+  await expect(pane.getByText('Jéhovah exige un attachement sans partage', {exact:false})).toBeVisible();
+  await expect(pane.getByText('Un message pour nous')).toBeVisible();
+});
+
+test('local JW archive inspection creates a Markdown inventory without changing source',async({page})=>{
+  const pane=page.locator('.biblelab-side');
+  await pane.getByRole('button',{name:'Studio'}).click();
+  await pane.getByRole('button',{name:'Inspecter une archive'}).click();
+  const data=zipSync({
+    'manifest.json':strToU8(JSON.stringify({name:'Ma sauvegarde',userDataBackup:{schemaVersion:16}})),
+    'userData.db':strToU8('SQLite format 3\0synthetic test data')
+  });
+  await page.locator('input[type=file]').setInputFiles({name:'backup.jwlibrary',mimeType:'application/octet-stream',buffer:Buffer.from(data)});
+  await expect.poll(async()=>await page.evaluate(()=>(window as any).atlasTest.files().filter((f:any)=>f.path.includes('/Imports/')).length)).toBe(1);
+  const report=await page.evaluate(()=>(window as any).atlasTest.files().find((f:any)=>f.path.includes('/Imports/')));
+  expect(report.content).toContain('archive_type: jwlibrary');
+  expect(report.content).toContain('Version du schéma');
+});
