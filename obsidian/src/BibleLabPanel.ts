@@ -1,10 +1,11 @@
 import { ItemView, MarkdownView, Notice, requestUrl, setIcon, TFile, type WorkspaceLeaf } from 'obsidian';
 import styles from './bibleLab.css?inline';
 import {
-  extractReferences, jwLibraryLink, mapChapterForPage, MAP_CHAPTERS, MAP_FALLBACK,
+  extractReferences, jwLibraryLink, mapChapterForPage, MAP_CHAPTERS,
   normalizeSearch, OFFICIAL_ATLAS, OFFICIAL_MAP_INDEX, parseMapIndex, parseScripture,
   RESOURCES, wolLookup, wolSearch, type MapLocation, type Resource
 } from './bibleLabData';
+import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'wol' | 'refs' | 'maps' | 'library';
@@ -48,7 +49,7 @@ export class BibleLabSidebarView extends ItemView {
   private libraryTerm='';
   private noteRefs: string[] = [];
   private noteTitle='';
-  private mapIndex:MapLocation[]=MAP_FALLBACK;
+  private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
   private indexLoaded=false;
   private indexLoading=false;
   private sequence=0;
