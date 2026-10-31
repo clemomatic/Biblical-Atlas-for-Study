@@ -56,7 +56,7 @@ export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
   const warnings:string[]=[];
   const hasDatabase=names.some(x=>/^(?:.*\/)?userData\.db$/i.test(x));
   if(kind==='jwlibrary'&&!hasDatabase)warnings.push('Aucune base userData.db : archive incomplète.');
-  const dbName=names.find(x=>/^(?:.*\\/)?userData\\.db$/i.test(x));
+  const dbName=names.find(x=>/^(?:.*\/)?userData\.db$/i.test(x));
   let databaseVersion:number|null=null, databaseSize=0;
   if(dbName){
     const db=entries[dbName];databaseSize=db.length;
