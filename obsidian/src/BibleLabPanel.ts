@@ -130,7 +130,7 @@ export class BibleLabSidebarView extends ItemView {
   }
   private searchField(parent:HTMLElement,value:string,placeholder:string,change:(text:string)=>void,submit:()=>void):HTMLInputElement{
     const area=parent.createDiv({cls:'biblelab-search'});
-    const input=area.createEl('input',{type:'search',placeholder,attr:{'aria-label':placeholder}});
+    const input=area.createEl('input',{attr:{type:'search',placeholder,'aria-label':placeholder}});
     input.value=value;
     input.addEventListener('input',()=>change(input.value));
     input.addEventListener('keydown',event=>{if(event.key==='Enter'){event.preventDefault();submit();}});
@@ -250,7 +250,7 @@ export class BibleLabSidebarView extends ItemView {
     load.disabled=this.indexLoading;
     if(!this.indexLoaded)this.scroller.createDiv({cls:'biblelab-alert',text:'Index de secours limité affiché. « Charger l’index complet » tente de lire uniquement les noms et repères du site officiel. Si WOL bloque la requête, le lien officiel reste accessible.'});
     const area=this.scroller.createDiv({cls:'biblelab-search'});
-    const input=area.createEl('input',{type:'search',placeholder:'Jérusalem, Capharnaüm, Our…'});
+    const input=area.createEl('input',{attr:{type:'search',placeholder:'Jérusalem, Capharnaüm, Our…'}});
     input.value=this.mapTerm;input.addEventListener('input',()=>{this.mapTerm=input.value;this.renderMapResults(results);});
     const results=this.scroller.createDiv();
     this.renderMapResults(results);
@@ -283,7 +283,7 @@ export class BibleLabSidebarView extends ItemView {
   }
   private renderLibrary():void{
     heading(this.scroller,'Bibliothèque d’étude','Accès direct aux annexes et aux outils documentaires officiels.');
-    this.scroller.createEl('div',{cls:'biblelab-search'}).createEl('input',{type:'search',placeholder:'Filtrer les ressources…',attr:{value:this.libraryTerm}})
+    this.scroller.createEl('div',{cls:'biblelab-search'}).createEl('input',{attr:{type:'search',placeholder:'Filtrer les ressources…',value:this.libraryTerm}})
       .addEventListener('input',event=>{this.libraryTerm=(event.target as HTMLInputElement).value;this.renderLibraryResults(resultContainer);});
     const resultContainer=this.scroller.createDiv();
     this.renderLibraryResults(resultContainer);
