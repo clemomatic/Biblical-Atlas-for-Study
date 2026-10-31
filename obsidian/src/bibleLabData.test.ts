@@ -22,6 +22,8 @@ test('Reference Tools markers and plain French verses can be found in a study no
   const refs=extractReferences(note);
   for(const term of ['Matthieu 10:29','Jean 7:24','1 Corinthiens 13:4','prophétie'])assert.ok(refs.includes(term));
   assert.equal(refs.filter(x=>x==='Jean 7:24').length,1);
+  assert.ok(extractReferences('Mt 10:29 ; Ps 145:16 ; 2 Co 4:16').includes('Mt 10:29'));
+  assert.ok(extractReferences('Mt 10:29 ; Ps 145:16 ; 2 Co 4:16').includes('2 Co 4:16'));
   assert.ok(refs.length<=40);
 });
 test('Resources remain official links and map chapters are indexed',()=>{
