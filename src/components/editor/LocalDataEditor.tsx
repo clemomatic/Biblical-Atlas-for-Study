@@ -906,7 +906,7 @@ export default function LocalDataEditor({
                 ) : batch.proposals.map(proposal => (
                   <article key={proposal.id} className="rounded-[var(--radius-md)] border border-[var(--color-stone-light)] p-4">
                     <div className="flex items-start justify-between gap-3">
-                      <div><p className="atlas-kicker">{proposal.kind} · non relu</p><h3 className="font-bold">{'name' in proposal.data ? proposal.data.name : 'title' in proposal.data ? proposal.data.title : 'label' in proposal.data ? proposal.data.label : proposal.data.id}</h3></div>
+                      <div><p className="atlas-kicker">{proposal.kind} · non relu</p><h3 className="font-bold">{'name' in proposal.data ? proposal.data.name : 'title' in proposal.data ? proposal.data.title : 'label' in proposal.data ? proposal.data.label : proposal.id}</h3></div>
                       <button type="button" aria-label="Rejeter cette proposition" onClick={() => setBatch(previous => ({ ...previous, proposals: previous.proposals.filter(item => item.id !== proposal.id) }))} className="atlas-icon-button text-[var(--color-danger)]"><XCircle className="size-4" /></button>
                     </div>
                     <p className="mt-2 text-xs text-[var(--color-ink-muted)]">{proposal.extractionNote || 'Note d’extraction manquante'}</p>

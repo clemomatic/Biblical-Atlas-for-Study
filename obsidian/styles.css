@@ -1,0 +1,8 @@
+/* Only the view container is styled globally; the Atlas lives in a ShadowRoot. */
+.workspace-leaf-content[data-type="atlas-biblique"] .view-content.atlas-obsidian-host {
+  padding: 0;
+  overflow: hidden;
+}
+.atlas-obsidian-host { height: 100%; min-height: 0; padding: 0; overflow: hidden; }
+.atlas-obsidian-surface { height: 100%; min-height: 0; }
+.atlas-obsidian-link { margin: 4px; }

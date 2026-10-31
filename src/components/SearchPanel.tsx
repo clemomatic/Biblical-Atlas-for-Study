@@ -435,7 +435,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
 
   useEffect(() => {
     if (!isOpen) return;
-    previousFocusRef.current = document.activeElement as HTMLElement;
+    previousFocusRef.current = (dialogRef.current?.getRootNode() as Document | ShadowRoot)?.activeElement as HTMLElement;
     setRecentSearches(getRecentSearches());
     window.setTimeout(() => inputRef.current?.focus(), 0);
     return () => previousFocusRef.current?.focus();
@@ -444,6 +444,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (dialogRef.current?.getRootNode() instanceof ShadowRoot && !event.composedPath().includes(dialogRef.current)) return;
       if (event.key === 'Escape') {
         event.preventDefault();
         onClose();
@@ -471,10 +472,11 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
         ];
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
-        if (event.shiftKey && document.activeElement === first) {
+        const focusedElement = (dialogRef.current.getRootNode() as Document | ShadowRoot).activeElement;
+        if (event.shiftKey && focusedElement === first) {
           event.preventDefault();
           last?.focus();
-        } else if (!event.shiftKey && document.activeElement === last) {
+        } else if (!event.shiftKey && focusedElement === last) {
           event.preventDefault();
           first?.focus();
         }

@@ -4,6 +4,10 @@ Application d’étude en lecture seule permettant d’explorer une frise chrono
 
 L’application n’intègre aucun outil public d’ajout ou d’importation de données. Le corpus est versionné avec le code afin que son évolution puisse être relue et vérifiée. Les dates et affirmations historiques d’origine sont conservées : aucune datation ne doit être modifiée sans source vérifiable.
 
+### Extension Obsidian
+
+Le dossier [`obsidian/`](obsidian/README.md) contient une version installable dans Obsidian, avec le même corpus et le même moteur carte/frise. Elle ajoute les notes d’étude, les liens vers les notes existantes, les fiches personnelles et les enquêtes Canvas. Les recherches personnelles sont stockées dans le coffre et ne modifient pas le corpus documentaire. Pour compiler le paquet : `pnpm obsidian:package`.
+
 ## Installation
 
 Prérequis :

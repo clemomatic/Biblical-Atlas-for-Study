@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="fr">
+  <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>Atlas — vérification Obsidian</title>
+  <link rel="stylesheet" href="/obsidian/styles.css" />
+  <style>
+    * { box-sizing: border-box; } body { margin: 0; font: 14px system-ui; color: #172033; background: #e5e1d8; }
+    #test-header { height: 32px; padding: 8px 16px; font-size: 11px; color: #666; } #surface { height: calc(100dvh - 32px); }
+    .view-content { height: 100%; } .modal-container { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #17203366; }
+    .modal { max-height: 92dvh; width: min(600px, 95vw); overflow: auto; padding: 25px; border-radius: 14px; background: #fffdf8; box-shadow: 0 20px 80px #17203344; }
+    .setting-item { padding: 12px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid #ddd; }
+    .setting-item[hidden] { display: none; } .setting-item-description { font-size: 11px; color: #667; max-width: 260px; margin-top: 4px; }
+    .setting-item-control { display: flex; flex-direction: column; gap: 6px; } .setting-item input, .setting-item textarea, .setting-item select { min-height: 34px; max-width: 220px; border: 1px solid #c9c4b8; border-radius: 5px; padding: 7px; }
+    button { cursor: pointer; } .modal button { padding: 9px 12px; border: 1px solid #c9c4b8; border-radius: 5px; background: #fff; } .modal .mod-cta { background: #3f4e78; color: white; }
+    .suggestion-item { display: block; width: 100%; text-align: left; margin: 6px 0; } [role=alert] { color: #a34a42; font-size: 12px; }
+    .theme-dark { --background-primary: #202127; --background-secondary: #191a20; --background-modifier-border: #383a44; --text-normal: #e4e5ec; --text-muted: #b2b4bf; --text-faint: #8c909e; }
+  </style></head>
+  <body><div id="test-header">Hôte de vérification · API Obsidian simulée · paquet réellement compilé</div><div id="surface"></div><script type="module" src="./harness.js"></script></body>
+</html>

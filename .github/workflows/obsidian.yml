@@ -1,0 +1,36 @@
+name: Obsidian plugin
+on:
+  push:
+    branches: [main]
+    paths: ['obsidian/**', 'src/**', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
+  pull_request:
+    paths: ['obsidian/**', 'src/**', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
+permissions:
+  contents: read
+jobs:
+  plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm obsidian:typecheck
+      - run: pnpm obsidian:test
+      - run: pnpm obsidian:package
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts --workers=2
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atlas-biblique-obsidian
+          path: obsidian/artifacts/
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: obsidian-test-results
+          path: test-results/
