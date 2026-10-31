@@ -14,6 +14,7 @@ HTMLElement.prototype.addClass = function (...names) { this.classList.add(...nam
 HTMLElement.prototype.setText = function (text) { this.textContent = text; };
 HTMLElement.prototype.createEl = function (tag, options) { const child = element(tag, options); this.append(child); return child; };
 HTMLElement.prototype.createDiv = function (options) { return this.createEl('div', options); };
+HTMLElement.prototype.createSpan = function (options) { return this.createEl('span', options); };
 
 class Emitter {
   listeners = new Map();
