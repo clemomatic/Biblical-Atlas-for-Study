@@ -1,12 +1,14 @@
 import { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
-import { ArrowUpRight, BookOpen, CalendarDays, ChevronRight, Link2, MapPin, Network, NotebookPen, Plus, Search, X } from 'lucide-react';
+import { ArrowUpRight, BookOpen, CalendarDays, ChevronRight, Download, Link2, MapPin, Move, Network, NotebookPen, Pencil, Plus, Search, Settings2, X } from 'lucide-react';
 import App from '../../src/App';
 import type { AtlasIntegration, AtlasNavigationState, AtlasOfflineBackground, AtlasSelection } from '../../src/atlasIntegration';
 import offlineLand from '../data/land.json';
 import offlineLakes from '../data/lakes.json';
-import { PERSONAL_CATEGORY, projectPersonalNotes } from './model';
-import { buildCatalog } from './catalog';
+import { PERSONAL_CATEGORY } from './model';
 import type { AtlasHost } from './host';
+import { ageAtCursor, dateFromPosition, type ProbeDate } from './ages';
+import { AgeProbe } from './AgeProbe';
+import { workspaceSnapshot } from './snapshot';
 
 const EXTRA_CATEGORIES = [PERSONAL_CATEGORY];
 const OFFLINE_BACKGROUND = { land: offlineLand, lakes: offlineLakes } as unknown as AtlasOfflineBackground;
@@ -18,21 +20,34 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
   onNavigate: (state: AtlasNavigationState) => void;
 }) {
   const snapshot = useSyncExternalStore(host.subscribe, host.getSnapshot);
+  const mapCache = useSyncExternalStore(host.maps.subscribe, host.maps.getSnapshot);
   const [selection, setSelection] = useState<AtlasSelection | null>(null);
   const [isNotebookOpen, setIsNotebookOpen] = useState(false);
   const [showAllNotes, setShowAllNotes] = useState(false);
   const [query, setQuery] = useState('');
   const [basket, setBasket] = useState<AtlasSelection[]>([]);
-  const personal = useMemo(() => projectPersonalNotes(snapshot.notes), [snapshot.notes]);
-  const catalog = useMemo(() => buildCatalog(snapshot.notes), [snapshot.notes]);
+  const [activeView, setActiveView] = useState(initialState.activeTab);
+  const [isMapEditing, setIsMapEditing] = useState(false);
+  const [ageViewport, setAgeViewport] = useState(initialState.visiblePeriod);
+  const [pinnedAgeDate, setPinnedAgeDate] = useState<ProbeDate | null>(null);
+  const setPinnedAgePosition = useCallback((position: number) => setPinnedAgeDate(dateFromPosition(position)), []);
+  const catalog = snapshot.atlas.catalog;
+  const handleNavigate = useCallback((state: AtlasNavigationState) => { setActiveView(state.activeTab); setAgeViewport(previous => previous?.startYear === state.visiblePeriod?.startYear && previous?.endYear === state.visiblePeriod?.endYear ? previous : state.visiblePeriod); onNavigate(state); }, [onNavigate]);
+  const ageDate = useMemo(() => pinnedAgeDate ?? dateFromPosition(selection?.type === 'event' ? (selection.entity as import('../../src/types').EventData).startPos : ageViewport ? (ageViewport.startYear + ageViewport.endYear) / 2 : -1100), [pinnedAgeDate, selection, ageViewport]);
+  const ages = useMemo(() => new Map(snapshot.atlas.dataset.people.map(person => [person.id, ageAtCursor(person, ageDate)])), [snapshot.atlas.dataset.people, ageDate]);
+  const ageProbe = useMemo(() => ({ position: ageDate.position, dateLabel: ageDate.label, ages, onPosition: setPinnedAgePosition }), [ageDate, ages]);
+  const snapshotForPeriod = useCallback((period: import('../../src/domain/history/types').TemporalSpan) => workspaceSnapshot(snapshot.atlas, period), [snapshot.atlas]);
+  const mapTiles = useMemo(() => ({ revision: mapCache.revision, createLayer: (style: 'natural-relief' | 'light-map') => host.maps.createLayer(style, snapshot.settings.allowOnlineMaps) }), [host, mapCache.revision, snapshot.settings.allowOnlineMaps]);
   const updateSelection = useCallback((next: AtlasSelection | null) => {
     setSelection(previous => previous?.key === next?.key && previous?.entity === next?.entity ? previous : next);
   }, []);
   const integration = useMemo<AtlasIntegration>(() => ({ initialState, navigation,
-    events: personal.events, places: personal.places, categories: EXTRA_CATEGORIES,
-    allowOnlineMaps: snapshot.settings.allowOnlineMaps, offlineBackground: OFFLINE_BACKGROUND, onNavigate, onSelectionChange: updateSelection,
-    linkForSelection: host.linkForSelection
-  }), [initialState, navigation, personal, snapshot.settings.allowOnlineMaps, onNavigate, updateSelection]);
+    dataset: snapshot.atlas.dataset, categories: EXTRA_CATEGORIES, replaceHistoricalRoads: true,
+    mapEditing: isMapEditing && activeView === 'map' ? host.mapActions : undefined,
+    mapTiles, onMapViewport: host.setMapViewport, ageProbe, snapshotForPeriod,
+    allowOnlineMaps: snapshot.settings.allowOnlineMaps, offlineBackground: OFFLINE_BACKGROUND, onNavigate: handleNavigate, onSelectionChange: updateSelection,
+    linkForSelection: host.linkForSelection, renderMarkdown: host.renderMarkdown
+  }), [initialState, navigation, snapshot.atlas, snapshot.settings.allowOnlineMaps, handleNavigate, updateSelection, host, isMapEditing, activeView, mapTiles, ageProbe, snapshotForPeriod]);
 
   const linkedNotes = useMemo(() => selection ? snapshot.notes.filter(note => note.keys.includes(selection.key)) : [], [snapshot.notes, selection?.key]);
   const displayedNotes = useMemo(() => {
@@ -58,9 +73,16 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
         </div>
         <div className="atlas-vault-actions">
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.openEntityNote(selection)}><BookOpen size={16} /><span>Note d’étude</span></button>}
+          {selection && <button type="button" className="atlas-vault-button" onClick={() => host.editEntity(selection)}><Pencil size={16} /><span>Modifier</span></button>}
           <button type="button" className={`atlas-vault-button ${isNotebookOpen ? 'is-active' : ''}`} aria-expanded={isNotebookOpen} aria-controls="atlas-personal-notebook" onClick={() => setIsNotebookOpen(open => !open)}><NotebookPen size={16} /><span>Mon carnet</span><span className="atlas-vault-count">{snapshot.notes.length}</span></button>
+          {activeView === 'map' && <button type="button" className={`atlas-vault-button ${isMapEditing ? 'is-active' : ''}`} aria-label={isMapEditing ? 'Terminer la modification de la carte' : 'Modifier la carte'} aria-pressed={isMapEditing} onClick={() => { setIsMapEditing(value => !value); setIsNotebookOpen(false); }}><Move size={16} /></button>}
+          <button type="button" className="atlas-vault-button" aria-label="Gérer toutes les fiches" title="Gérer toutes les fiches" onClick={host.manageAtlas}><Settings2 size={16} /></button>
+          <button type="button" className="atlas-vault-button" aria-label="Cartes hors connexion" title="Cartes hors connexion" onClick={host.openMapDownloads}><Download size={16} /></button>
         </div>
       </header>
+      {activeView === 'timeline' && <AgeProbe date={ageDate} ages={ages} people={snapshot.atlas.dataset.people} selection={selection} pinned={pinnedAgeDate !== null} onDate={setPinnedAgeDate} onFollow={() => setPinnedAgeDate(null)} onPerson={id => host.openEntity(`person:${id}`)} />}
+      {activeView === 'map' && mapCache.error && <div className="atlas-map-edit-banner"><span>{mapCache.error}</span><button type="button" onClick={host.openMapDownloads}>Cartes hors connexion</button></div>}
+      {isMapEditing && activeView === 'map' && <div className="atlas-map-edit-banner"><span><strong>Édition de la carte</strong> · Déplace les repères. Pour une route sélectionnée, déplace les étapes, clique pour en ajouter ou fais un appui long pour en retirer.</span><button type="button" onClick={() => setIsMapEditing(false)}>Terminer</button></div>}
       <div className="atlas-plugin-workspace">
         <App integration={integration} />
         {isNotebookOpen && <aside id="atlas-personal-notebook" className="atlas-notebook" aria-label="Mon carnet d’étude">
@@ -69,6 +91,7 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
           <p className="atlas-notebook-intro">Tes observations, tes versets, tes liens. Un carnet qui grandit avec ton étude.</p>
           <button type="button" className="atlas-vault-button atlas-vault-primary" onClick={() => host.newResearch(selection ? [selection.key] : [])}><Plus size={17} />Nouvelle recherche</button>
           {selection && <div className="atlas-notebook-context"><span className="atlas-vault-eyebrow">AUTOUR DE CETTE FICHE</span><strong>{selection.title}</strong><div className="atlas-notebook-inline">
+            <button type="button" className="atlas-vault-button" onClick={() => host.editEntity(selection)}><Pencil size={14} />Modifier la fiche</button>
             <button type="button" className="atlas-vault-button" onClick={() => host.linkNote(selection)}><Link2 size={14} />Relier une note</button>
             <button type="button" className="atlas-vault-button" onClick={addToBasket} disabled={!pinned && basket.length >= 12}><Plus size={14} />{pinned ? 'Retirer du tableau' : 'Garder pour l’enquête'}</button>
           </div></div>}

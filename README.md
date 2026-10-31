@@ -6,7 +6,7 @@ L’application n’intègre aucun outil public d’ajout ou d’importation de 
 
 ### Extension Obsidian
 
-Le dossier [`obsidian/`](obsidian/README.md) contient une version installable dans Obsidian, avec le même corpus et le même moteur carte/frise. Elle ajoute les notes d’étude, les liens vers les notes existantes, les fiches personnelles et les enquêtes Canvas. Les recherches personnelles sont stockées dans le coffre et ne modifient pas le corpus documentaire. Pour compiler le paquet : `pnpm obsidian:package`.
+Le dossier [`obsidian/`](obsidian/README.md) contient une version installable dans Obsidian, avec le même corpus et le même moteur carte/frise. La version 0.2 ajoute l’édition de toutes les fiches et routes, les déplacements sur la carte, les enquêtes Canvas, le téléchargement de régions hors connexion et un repère de calcul des âges. Les personnalisations sont des notes Markdown du coffre, conservées à travers les mises à jour du corpus. Pour compiler le paquet : `pnpm obsidian:package`.
 
 ## Installation
 

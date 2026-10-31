@@ -1,5 +1,8 @@
-import type { BiblicalPlace, CategoryData, EventData, TimelinePeriod, ActiveTab } from './types';
-import type { BiblicalPerson } from './domain/history/types';
+import type { BiblicalPlace, BiblicalRoute, CategoryData, EventData, TimelinePeriod, ActiveTab } from './types';
+import type { BiblicalPerson, TemporalSpan } from './domain/history/types';
+import type { HistoricalSnapshot } from './domain/history/historicalSnapshot';
+import type { ReactNode } from 'react';
+import type { Layer } from 'leaflet';
 
 export type AtlasEntityType = 'person' | 'place' | 'event' | 'route';
 export type AtlasEntityKey = `${AtlasEntityType}:${string}`;
@@ -27,6 +30,27 @@ export interface AtlasOfflineBackground {
   lakes: GeoJSON.GeoJsonObject;
 }
 
+export interface AtlasDataset {
+  people: BiblicalPerson[];
+  events: EventData[];
+  places: BiblicalPlace[];
+  routes: BiblicalRoute[];
+}
+export interface AtlasMapEditing {
+  onMovePlace: (id: string, coordinates: [number, number]) => void;
+  onMoveRoutePoint: (routeId: string, pointId: string, coordinates: [number, number]) => void;
+  onAddRoutePoint: (routeId: string, coordinates: [number, number]) => void;
+  onRemoveRoutePoint: (routeId: string, pointId: string) => void;
+}
+export interface AtlasMapBounds { west: number; south: number; east: number; north: number }
+export interface AtlasMapTiles { revision: number; createLayer: (style: 'natural-relief' | 'light-map') => Layer }
+export interface AtlasAgeProbe {
+  position: number;
+  dateLabel: string;
+  ages: Map<string, { label: string; explanation: string }>;
+  onPosition: (position: number) => void;
+}
+
 /** Host-specific behavior is optional: the web application keeps its own routing. */
 export interface AtlasIntegration {
   initialState?: AtlasNavigationState;
@@ -34,11 +58,19 @@ export interface AtlasIntegration {
   events?: EventData[];
   places?: BiblicalPlace[];
   categories?: CategoryData[];
+  dataset?: AtlasDataset;
+  mapEditing?: AtlasMapEditing;
+  replaceHistoricalRoads?: boolean;
+  mapTiles?: AtlasMapTiles;
+  ageProbe?: AtlasAgeProbe;
+  snapshotForPeriod?: (period: TemporalSpan) => HistoricalSnapshot;
+  onMapViewport?: (bounds: AtlasMapBounds) => void;
   allowOnlineMaps?: boolean;
   offlineBackground?: AtlasOfflineBackground;
   onNavigate?: (state: AtlasNavigationState) => void;
   onSelectionChange?: (selection: AtlasSelection | null) => void;
   linkForSelection?: (selection: AtlasSelection | null) => string;
+  renderMarkdown?: (text: string, sourcePath?: string) => ReactNode;
 }
 
 export const emptyAtlasNavigation = (): AtlasNavigationState => ({

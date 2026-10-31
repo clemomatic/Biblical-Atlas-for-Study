@@ -1,6 +1,7 @@
-import { TFile, TFolder, type App } from 'obsidian';
+import { parseYaml, stringifyYaml, TFile, TFolder, type App } from 'obsidian';
 import type { AtlasEntityKey, AtlasSelection } from '../../src/atlasIntegration';
 import { atlasDeepLink, investigationCanvas, safeFilename, validFolder, type VaultNote } from './model';
+import { entityDataForNote, validateEntity, type EditableEntity } from './editable';
 
 export interface ResearchDraft {
   title: string;
@@ -23,6 +24,8 @@ const sourceLink = (label: string, url?: string): string => url && /^https?:\/\/
 export class AtlasVault {
   private pendingNotes = new Map<AtlasEntityKey, Promise<TFile>>();
   private createdNotes = new Map<AtlasEntityKey, TFile>();
+  private createdEdits = new Map<AtlasEntityKey, TFile>();
+  private editQueue = new Map<AtlasEntityKey, Promise<unknown>>();
 
   constructor(private app: App, private folder: () => string, private notes: () => readonly VaultNote[], private version: string) {}
 
@@ -66,6 +69,8 @@ export class AtlasVault {
   }
 
   ensureEntityNote(selection: AtlasSelection): Promise<TFile> {
+    const edited = this.editableFile(selection.key);
+    if (edited) return Promise.resolve(edited);
     const existing = this.notes().find(note => note.keys.includes(selection.key));
     const file = existing && this.app.vault.getAbstractFileByPath(existing.path);
     if (file instanceof TFile) return Promise.resolve(file);
@@ -76,6 +81,54 @@ export class AtlasVault {
     const operation = this.writeEntityNote(selection).then(file => { this.createdNotes.set(selection.key, file); return file; }).finally(() => this.pendingNotes.delete(selection.key));
     this.pendingNotes.set(selection.key, operation);
     return operation;
+  }
+
+  editableFile(key: AtlasEntityKey): TFile | undefined {
+    const matches = this.notes().filter(note => note.edit?.key === key);
+    if (matches.length > 1) throw new Error('Plusieurs personnalisations existent pour cette fiche. Conserve un seul fichier avant de poursuivre.');
+    const file = matches[0] ? this.app.vault.getAbstractFileByPath(matches[0].path) : this.createdEdits.get(key);
+    return file instanceof TFile && this.app.vault.getAbstractFileByPath(file.path) === file ? file : undefined;
+  }
+
+  async saveEditable(selection: AtlasSelection, data: EditableEntity | ((current: EditableEntity) => EditableEntity), options: { created?: boolean; hidden?: boolean; expectedRaw?: string | null } = {}): Promise<TFile> {
+    const previous = this.editQueue.get(selection.key) ?? Promise.resolve();
+    const operation = previous.catch(() => {}).then(async () => {
+      const file = this.editableFile(selection.key);
+      if ((options.expectedRaw === null && file) || (typeof options.expectedRaw === 'string' && !file)) throw new Error('Cette fiche a changé depuis l’ouverture de l’éditeur. Ferme puis rouvre l’éditeur avant d’enregistrer.');
+      const update = (current: EditableEntity) => validateEntity(selection.type, typeof data === 'function' ? data(current) : data, selection.id);
+      if (!file) {
+        const entity = update(selection.entity);
+        const content = yaml({ atlas_schema: 1, atlas_entity: selection.key, atlas_entities: [selection.key],
+          atlas_data: entityDataForNote(entity), atlas_description: true, atlas_hidden: options.hidden ?? false,
+          atlas_created: options.created ?? false, atlas_revision: 1, atlas_base_version: this.version }) + (entity.description ?? '');
+        const created = await this.createUnique(`${validFolder(this.folder())}/Entités`, selection.title, 'md', content);
+        this.createdEdits.set(selection.key, created); return created;
+      }
+      await this.app.vault.process(file, raw => {
+        if (typeof options.expectedRaw === 'string' && options.expectedRaw !== raw) throw new Error('Cette fiche a changé depuis l’ouverture de l’éditeur. Ferme puis rouvre l’éditeur pour retrouver sa dernière version ; ton texte n’a pas été remplacé.');
+        const match = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(raw);
+        const frontmatter = match ? parseYaml(match[1]) as Record<string, any> : {};
+        if (frontmatter.atlas_entity !== selection.key) throw new Error('Le lien de cette note avec la fiche a changé. Rouvre la fiche avant de l’enregistrer.');
+        const body = match ? raw.slice(match[0].length).replace(/^\r?\n/, '').trimEnd() : raw;
+        const current = { ...selection.entity, ...(frontmatter.atlas_data ?? {}), ...(frontmatter.atlas_description === true ? { description: body } : {}) } as EditableEntity;
+        const entity = update(current);
+        const next = { ...frontmatter, atlas_data: entityDataForNote(entity), atlas_description: true,
+          atlas_hidden: options.hidden ?? frontmatter.atlas_hidden ?? false,
+          atlas_created: options.created ?? frontmatter.atlas_created ?? false,
+          atlas_revision: (Number(frontmatter.atlas_revision) || 0) + 1 };
+        return `---\n${stringifyYaml(next)}---\n\n${entity.description ?? ''}`;
+      });
+      return file;
+    });
+    this.editQueue.set(selection.key, operation);
+    try { return await operation; } finally { if (this.editQueue.get(selection.key) === operation) this.editQueue.delete(selection.key); }
+  }
+
+  async restoreEditable(key: AtlasEntityKey): Promise<void> {
+    await (this.editQueue.get(key) ?? Promise.resolve()).catch(() => {});
+    const file = this.editableFile(key);
+    if (file) await this.app.vault.trash(file, true);
+    this.createdEdits.delete(key);
   }
 
   private async writeEntityNote(selection: AtlasSelection): Promise<TFile> {

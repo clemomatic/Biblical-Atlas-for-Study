@@ -40,6 +40,7 @@ interface FocusedTimelineMobileProps {
   onSelectPerson: (personId: string) => void;
   onOpenDetails: (event?: EventData) => void;
   onOpenMap: (event: EventData) => void;
+  ageProbe?: import('../atlasIntegration').AtlasAgeProbe;
 }
 
 const scaleOptions: Array<{
@@ -105,13 +106,15 @@ function PersonLane({
   lane,
   domain,
   selectedPosition,
-  onSelect
+  onSelect,
+  cursorAge
 }: {
   key?: Key;
   lane: FocusedTimelinePersonLane;
   domain: FocusedTimelineSpan;
   selectedPosition?: number;
   onSelect: () => void;
+  cursorAge?: { label: string; explanation: string };
 }) {
   const baseStyle = spanStyle(lane.span, domain);
   const active =
@@ -141,6 +144,7 @@ function PersonLane({
         >
           {lane.person.name}
         </span>
+        {cursorAge && <span data-testid="focused-person-age" title={cursorAge.explanation} className="block text-[9px] text-[var(--color-primary)]">{cursorAge.label}</span>}
         {lane.relationshipLabel && (
           <span className="mt-0.5 block truncate text-[9px] font-medium text-[var(--color-bronze)]">
             {lane.relationshipLabel}
@@ -207,7 +211,8 @@ export function FocusedTimelineMobile({
   onBack,
   onSelectPerson,
   onOpenDetails,
-  onOpenMap
+  onOpenMap,
+  ageProbe
 }: FocusedTimelineMobileProps) {
   const initialMarkerId =
     model.markers.find(marker => marker.event.id === model.focusEvent?.id)?.event
@@ -445,6 +450,7 @@ export function FocusedTimelineMobile({
                 lane={lane}
                 domain={domain}
                 selectedPosition={selectedPosition}
+                cursorAge={ageProbe?.ages.get(lane.person.id)}
                 onSelect={() => onSelectPerson(lane.person.id)}
               />
             ))}

@@ -2,6 +2,7 @@ import type { AtlasEntityKey, AtlasEntityType, AtlasNavigationState } from '../.
 import { emptyAtlasNavigation } from '../../src/atlasIntegration.ts';
 import type { BiblicalPlace, CategoryData, EventData } from '../../src/types';
 import { parseTimelineDate } from '../../src/utils/dateUtils.ts';
+import type { EntityEdit } from './editable';
 
 export const PERSONAL_CATEGORY: CategoryData = {
   id: 'obsidian-research', name: 'Mes recherches', color: '155,100,53', hexColor: '#9b6435'
@@ -18,6 +19,7 @@ export interface VaultNote {
   coordinates?: [number, number];
   references: string[];
   warnings: string[];
+  edit?: EntityEdit;
 }
 
 export interface AtlasSettings { noteFolder: string; allowOnlineMaps: boolean }
@@ -66,6 +68,8 @@ const stringList = (value: unknown): string[] =>
 export function noteFromMetadata(path: string, basename: string, frontmatter: Record<string, unknown> | undefined): VaultNote | null {
   if (!frontmatter) return null;
   const keys = [...new Set(stringList(frontmatter.atlas_entities).map(parseEntityKey).filter((key): key is AtlasEntityKey => key !== null))];
+  const editableKey = parseEntityKey(frontmatter.atlas_entity);
+  if (editableKey && !keys.includes(editableKey)) keys.push(editableKey);
   const uid = typeof frontmatter.atlas_uid === 'string' && /^[a-z0-9-]{1,80}$/i.test(frontmatter.atlas_uid) ? frontmatter.atlas_uid : undefined;
   const kind = frontmatter.atlas_kind === 'event' || frontmatter.atlas_kind === 'place' ? frontmatter.atlas_kind : 'research';
   if (!keys.length && frontmatter.atlas_schema !== 1) return null;

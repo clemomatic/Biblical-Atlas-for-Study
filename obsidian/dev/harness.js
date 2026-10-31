@@ -36,10 +36,14 @@ class Vault extends Emitter {
   getName() { return 'Étude & méditation'; }
   getAbstractFileByPath(path) { return this.files.get(path) ?? null; }
   getMarkdownFiles() { return [...this.files.values()].filter(file => file instanceof TFile && file.extension === 'md'); }
+  getFiles() { return [...this.files.values()].filter(file => file instanceof TFile); }
   async createFolder(path) { if (this.files.has(path)) throw Error('exists'); const folder = new TFolder(path); this.files.set(path, folder); return folder; }
   async create(path, content) { if (this.files.has(path)) throw Error('exists'); const file = new TFile(path, content); this.files.set(path, file); this.trigger('create', file); app.metadataCache.trigger('changed', file); return file; }
   async read(file) { return file.content; }
   async cachedRead(file) { return file.content; }
+  async readBinary(file) { return file.content; }
+  async createBinary(path, data) { return this.create(path, data); }
+  async trash(file) { return this.delete(file); }
   async modify(file, content) { file.content = content; this.trigger('modify', file); app.metadataCache.trigger('changed', file); }
   async process(file, callback) { const content = callback(file.content); await this.modify(file, content); return content; }
   async rename(file, path) {
@@ -78,7 +82,7 @@ class Plugin {
 class PluginSettingTab { constructor(application, plugin) { this.app = application; this.plugin = plugin; this.containerEl = element('div'); } }
 class Modal {
   constructor(application) { this.app = application; this.contentEl = element('div', { cls: 'modal-content' }); }
-  open() { this.wrapper = element('div', { cls: 'modal-container' }); const modal = this.wrapper.createDiv({ cls: 'modal' }); modal.setAttribute('role', 'dialog'); modal.append(this.contentEl); document.body.append(this.wrapper); this.onOpen?.(); }
+  open() { this.wrapper = element('div', { cls: 'modal-container' }); const modal = this.wrapper.createDiv({ cls: 'modal' }); this.modalEl = modal; modal.setAttribute('role', 'dialog'); modal.append(this.contentEl); document.body.append(this.wrapper); this.onOpen?.(); }
   close() { this.onClose?.(); this.wrapper?.remove(); }
 }
 class FuzzySuggestModal extends Modal {
@@ -102,6 +106,15 @@ class Setting {
 }
 const notices = [];
 class Notice { constructor(text) { notices.push(text); } }
+class Component { load() {} unload() {} }
+class MarkdownRenderer { static async render(application, markdown, target) { target.textContent = markdown; } }
+const requestUrl = async parameters => {
+  window.atlasNetworkRequests ??= []; window.atlasNetworkRequests.push(parameters);
+  const response = await fetch(parameters.url);
+  const arrayBuffer = await response.arrayBuffer();
+  const text = new TextDecoder().decode(arrayBuffer);
+  return { status: response.status, headers: Object.fromEntries(response.headers), arrayBuffer, text, get json() { return JSON.parse(text); } };
+};
 const vault = new Vault();
 const metadataCache = new Emitter(); metadataCache.getFileCache = file => ({ frontmatter: parseFile(file.content).frontmatter });
 const workspace = new Emitter();
@@ -115,14 +128,14 @@ const app = { vault, metadataCache, workspace, fileManager: { async processFront
   const { frontmatter, body } = parseFile(file.content); callback(frontmatter);
   await vault.modify(file, `---\n${stringify(frontmatter)}---\n${body}`);
 } } };
-const api = { ItemView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, FuzzySuggestModal };
+const api = { ItemView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl };
 if (new URLSearchParams(location.search).get('theme') === 'dark') document.body.classList.add('theme-dark');
 await vault.createFolder('Mes notes');
 await vault.create('Mes notes/Une idée précieuse.md', '---\ntags: [personnel]\npriorite: 3\n---\nMon texte personnel **à conserver**.\n\nUne seconde ligne.\n');
 const module = { exports: {} };
 new Function('module', 'exports', 'require', bundle)(module, module.exports, id => { if (id !== 'obsidian') throw Error(`Unexpected runtime dependency: ${id}`); return api; });
 const PluginClass = module.exports.default ?? module.exports;
-let plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.1.0', name: 'Atlas biblique interactif' });
+let plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.2.0', name: 'Atlas biblique interactif' });
 await plugin.onload();
 await plugin.openAtlas();
 window.atlasTest = {
@@ -134,7 +147,7 @@ window.atlasTest = {
   async remove(path) { await vault.delete(vault.files.get(path)); },
   async restart() {
     await plugin.unload(); workspace.leaves = []; document.querySelector('#surface').empty();
-    plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.1.0', name: 'Atlas biblique interactif' });
+    plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.2.0', name: 'Atlas biblique interactif' });
     await plugin.onload(); await plugin.openAtlas(); this.plugin = plugin;
   }
 };

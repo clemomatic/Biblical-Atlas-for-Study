@@ -1,7 +1,7 @@
 {
   "id": "atlas-biblique",
   "name": "Atlas biblique interactif",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "minAppVersion": "1.6.0",
   "description": "Explorez la carte et la frise bibliques, reliez vos notes et créez des enquêtes Canvas. Corpus sourcé et recherches personnelles conservés séparément.",
   "author": "Clément Martin",

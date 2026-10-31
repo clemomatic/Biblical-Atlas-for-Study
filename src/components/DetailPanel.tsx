@@ -67,6 +67,7 @@ interface DetailPanelProps {
   onSelectPerson: (personId: string) => void;
   onSwitchTab: (tab: ActiveTab) => void;
   hideOnMobile?: boolean;
+  renderMarkdown?: import('../atlasIntegration').AtlasIntegration['renderMarkdown'];
 }
 
 const SectionTitle = ({
@@ -420,7 +421,8 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
   onSelectRoute,
   onSelectPerson,
   onSwitchTab,
-  hideOnMobile = false
+  hideOnMobile = false,
+  renderMarkdown
 }) => {
   const [activeSection, setActiveSection] =
     useState<DetailSection>('overview');
@@ -586,10 +588,10 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     selectedPerson ??
     people.find(person => person.id === selectedEvent?.historicalPersonId) ??
     people.find(person => person.legacyEventId === selectedEvent?.id);
-  const activeProphets = profilePerson
+  const activeProphets = profilePerson && !profilePerson.personalization
     ? getActiveProphetsDuringReign(profilePerson.id)
     : [];
-  const contemporaryKings = profilePerson
+  const contemporaryKings = profilePerson && !profilePerson.personalization
     ? getContemporaryKingsForProphet(profilePerson.id)
     : [];
   const media =
@@ -603,7 +605,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
     selectedRoute?.geographicProvenance ||
     selectedPerson?.geographicProvenance ||
     [];
-  const calculatedDates = profilePerson
+  const calculatedDates = profilePerson && !profilePerson.personalization
     ? getCalculatedDatesForPerson(profilePerson.id)
     : [];
   const methodologyEntity = (
@@ -685,6 +687,7 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
       >
         {activeSection === 'overview' && (
           <>
+            {methodologyEntity.personalization && <p className="border-l-2 border-[var(--color-bronze)] bg-[var(--color-bronze-soft)] p-3 text-xs text-[var(--color-ink-soft)]">Fiche personnalisée · Enregistrée dans ton coffre Obsidian.</p>}
             <SectionTitle icon={<FileText className="size-4" />}>
               En bref
             </SectionTitle>
@@ -772,9 +775,9 @@ export const DetailPanel: React.FC<DetailPanelProps> = ({
             ) : null}
 
             <div className="bg-[var(--color-paper-muted)] p-4">
-              <p className="text-[15px] leading-7 text-[var(--color-ink-soft)]">
+              {renderMarkdown ? renderMarkdown(description || 'Aucune présentation détaillée disponible.', methodologyEntity.personalization?.path) : <p className="text-[15px] leading-7 text-[var(--color-ink-soft)]">
                 {description || 'Aucune présentation détaillée disponible.'}
-              </p>
+              </p>}
             </div>
 
             {certainty && (

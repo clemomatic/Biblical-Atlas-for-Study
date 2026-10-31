@@ -1,10 +1,10 @@
-# Atlas biblique interactif pour Obsidian — 0.1.0
+# Atlas biblique interactif pour Obsidian — 0.2.0
 
 Une carte, une frise et des fiches documentaires, reliées à vos notes d’étude. Le corpus historique est inclus dans le plugin. Vos notes et tableaux d’enquête restent des fichiers ordinaires du coffre.
 
 ## Installer sur Windows ou Android
 
-1. Décompressez `atlas-biblique-0.1.0.zip`.
+1. Décompressez `atlas-biblique-0.2.0.zip`.
 2. Copiez le dossier `atlas-biblique` dans le dossier `.obsidian/plugins/` de votre coffre. Les fichiers doivent se trouver directement dans `.obsidian/plugins/atlas-biblique/main.js`, `manifest.json` et `styles.css`.
 3. Dans Obsidian, ouvrez **Paramètres → Modules complémentaires**, autorisez les modules complémentaires si nécessaire, puis rechargez Obsidian.
 4. Activez **Atlas biblique interactif**.
@@ -23,6 +23,33 @@ Cette version s’installe manuellement ; elle n’est pas publiée dans le cata
 5. Utilisez **Retenir** sur plusieurs fiches, puis **Enquête**. Un tableau Canvas et une note de recherche sont créés. Vous pouvez déplacer les cartes, ajouter des images et légender les fils dans Canvas.
 
 Les fiches proposées autour d’une enquête sont uniquement les associations déjà présentes dans le corpus. Les fils du tableau portent le libellé « À explorer » : ils ne créent pas de nouvelles affirmations historiques.
+
+## Modifier toutes les fiches et les tracés
+
+Ouvrez une fiche puis **Modifier**. L’éditeur propose quatre sections :
+
+- **Texte et dates** : titre, description Markdown, notes, certitude et années.
+- **Carte et étapes** : coordonnées, symbole et couleur d’un lieu ; couleur, noms, ordre et positions des étapes d’un itinéraire. Une étape peut suivre un lieu existant ou garder une position indépendante.
+- **Liens et sources** : versets, sources et associations entre fiches.
+- **Données complètes** : toutes les propriétés de la fiche, dont les activités, les bornes incertaines, les mois/jours, les illustrations et les références détaillées. Le format est JSON ; les données sont validées avant enregistrement.
+
+Le bouton **Gérer toutes les fiches** (réglages dans la barre de l’Atlas) permet de rechercher chaque personnage, événement, lieu et itinéraire, d’en créer, de masquer/réafficher une fiche ou de restaurer l’original. Les corridors du réseau routier historique sont également des itinéraires éditables.
+
+Sur la carte, sélectionnez **Modifier la carte** pour déplacer les repères. Avec une route sélectionnée, déplacez les étapes numérotées, cliquez sur un endroit vide pour en ajouter, ou utilisez un clic droit/appui long sur une étape pour la retirer. Une route doit garder au moins deux étapes. L’éditeur permet aussi ces opérations sans geste sur la carte.
+
+Une première modification crée une note sous `Atlas biblique/Entités` (ou votre dossier configuré). Son corps est la description de la fiche : modifiez-le librement dans Obsidian, avec Markdown et liens internes. Les propriétés `atlas_entity` et `atlas_data` conservent l’identifiant et les autres données. Les changements actualisent la carte, la frise et les calculs. Les textes issus des fiches personnalisées portent cette provenance ; les anciennes déductions du corpus ne servent pas de preuve aux nouvelles dates.
+
+**Note d’étude** ouvre cette note personnalisée lorsqu’elle existe. Les notes d’étude ou recherches créées auparavant restent éditables et sont conservées séparément ; leur texte n’est pas remplacé lors de la création d’une personnalisation. Si une note change pendant que l’éditeur est ouvert, l’enregistrement est refusé pour préserver le texte le plus récent : rouvrez l’éditeur.
+
+**Restaurer l’original** envoie uniquement la note de personnalisation à la corbeille Obsidian. **Retirer la fiche** fait de même pour une fiche créée personnellement. Les autres notes liées sont conservées. Si la même personnalisation est dupliquée, le carnet indique le conflit et l’original reste affiché jusqu’à sa résolution.
+
+## Âge des personnages au repère
+
+La barre **Âges au…** accompagne la frise. Le trait vertical muni d’une poignée ↔ se déplace à la souris ou au doigt ; au clavier, les flèches déplacent le repère d’environ un mois, Maj+flèche de dix ans. Les rubans des personnages traversés par le trait affichent leur âge calculable. La fiche sélectionnée conserve également son âge dans la barre.
+
+**Date précise** permet de saisir une année, puis éventuellement un mois et un jour civils. **Tous les personnages** ouvre la liste des âges, avec recherche et option d’affichage avant/après leur vie. **Suivre la frise** reprend le centre de la période visible ou le début de l’événement sélectionné.
+
+Le calcul utilise les données actuelles de vos fiches et saute l’année zéro. Une date de naissance complète permet un âge révolu ; des années seules donnent une estimation, et des bornes variables une fourchette. Une naissance inconnue reste « Âge inconnu ». Avant la naissance connue, la fiche indique « Pas encore né » ; après le décès, elle affiche l’âge au décès. Les mois hébraïques ne sont pas convertis arbitrairement en anniversaires civils. Ces calculs ne constituent pas de nouvelles attestations historiques.
 
 ## Ajouter ses propres événements et lieux
 
@@ -69,13 +96,27 @@ place:jerusalem
 
 La frise, le corpus, les repères géographiques, les notes et Canvas fonctionnent sans compte distant ni service d’IA.
 
-Les fonds géographiques en ligne sont désactivés par défaut. Un fond Natural Earth simplifié est inclus dans le plugin : il situe les terres, les mers et les grands lacs sans téléchargement. Il représente la géographie actuelle à petite échelle, sans relief ni frontières historiques. À fort zoom, ses contours restent peu détaillés. Activez **Charger les fonds de carte en ligne** dans les réglages du plugin pour télécharger les fonds CARTO/Stadia Maps. Leur disponibilité dépend de leurs fournisseurs ; aucun téléchargement permanent de régions n’est fourni dans cette version. Les liens JW/WOL nécessitent leurs applications ou une connexion pour ouvrir leur contenu.
+Un fond Natural Earth simplifié est inclus dans le plugin et fonctionne immédiatement sans téléchargement. Les tuiles détaillées utilisent désormais **OpenFreeMap**, sans clé d’API, via l’API réseau publique d’Obsidian. Le chargement en ligne reste désactivé par défaut ; activez-le dans les réglages pour charger et conserver les tuiles consultées.
+
+Pour préparer une étude sans réseau :
+
+1. Ouvrez **Cartes hors connexion** (icône de téléchargement dans l’Atlas ou commande du même nom).
+2. Choisissez **Terre promise**, **Égypte et Sinaï**, **Méditerranée et Proche-Orient**, la zone actuellement visible ou des coordonnées personnalisées.
+3. Choisissez le niveau de détail puis **Télécharger cette zone**. La fenêtre indique le nombre de tuiles, la progression et la taille reçue.
+4. Attendez **Disponible hors connexion**. Le téléchargement utilise au plus quatre requêtes simultanées, 3 000 tuiles et 50 Mo par préparation ; les zones trop grandes sont refusées et le téléchargement s’arrête avec une marge avant la limite de taille. Une interruption garde les tuiles déjà reçues et signale un résultat partiel.
+5. Désactivez le chargement en ligne ou coupez le réseau. Les tuiles enregistrées sont relues du coffre, même après redémarrage. Au-delà du détail téléchargé, une tuile parente est agrandie ; hors zone, le fond inclus reste disponible.
+
+Le relief Natural Earth est limité à son détail natif (zoom 6). Les données vectorielles apportent des contours d’eau, occupation des sols et bâtiments jusqu’au zoom 12 ; elles ne représentent pas des frontières ou reliefs historiques. Les routes et repères bibliques restent les éléments interactifs de l’Atlas. Ces fonds ne comprennent pas de photographie satellite.
+
+Les fichiers sont sous `Atlas biblique/Cartes` (ou le dossier configuré au démarrage du plugin). Ne modifiez pas les tuiles binaires. **Retirer les cartes téléchargées** libère ce cache sans toucher aux notes. Pour une synchronisation entre appareils, le service de synchronisation doit aussi transporter les fichiers `.pbf`, `.png` et `.json` du coffre. Les liens JW/WOL nécessitent leurs applications ou une connexion pour ouvrir leur contenu.
+
+Attribution : [OpenFreeMap](https://openfreemap.org/), [OpenMapTiles](https://openmaptiles.org/), [OpenStreetMap](https://www.openstreetmap.org/copyright) et [Natural Earth](https://www.naturalearthdata.com/).
 
 La synchronisation entre appareils dépend de la synchronisation de votre coffre Obsidian ; le plugin ne fournit pas son propre service de synchronisation.
 
 ## Données et mises à jour
 
-- Les mises à jour du corpus passent par les versions du plugin ; les fichiers de votre coffre ne sont jamais remplacés automatiquement.
+- Les mises à jour du corpus passent par les versions du plugin. Les notes de personnalisation priment sur le corpus fourni et sont conservées lors des mises à jour ; restaurez l’original pour reprendre la fiche de la version installée.
 - Une fiche créée depuis le corpus est un instantané, avec `atlas_corpus_version`. Ses références restent consultables dans le plugin ; elle n’est pas réécrite lors d’une mise à jour.
 - Les notes peuvent être déplacées ou renommées dans Obsidian : leurs propriétés assurent le lien avec l’Atlas.
 - Remplacez `main.js`, `manifest.json` et `styles.css` pour mettre le plugin à jour, puis désactivez/réactivez-le. Conservez `data.json` si vous souhaitez conserver les réglages.
@@ -95,4 +136,4 @@ pnpm exec playwright test --config obsidian/playwright.config.ts
 
 La sortie compilée est dans `obsidian/dist/atlas-biblique`. Le ZIP est créé dans `obsidian/artifacts`. Le paquet comprend les dépendances et les polices ; seule l’API Obsidian est externe. Le code utilise les API Vault/FileManager et aucune API Node.js/Electron à l’exécution.
 
-Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obsidian simulé. Ils vérifient les notes, leur préservation, les changements de métadonnées, la navigation, Canvas, l’isolation visuelle et le mode hors connexion. Ils ne remplacent pas une validation dans les applications natives Windows et Android.
+Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obsidian simulé. Ils vérifient les notes et leur préservation, l’édition des fiches/routes, les conflits, les calculs d’âge, les téléchargements et leur relecture sans réseau, la navigation, Canvas et l’isolation visuelle. Ils ne remplacent pas une validation dans les applications natives Windows et Android.

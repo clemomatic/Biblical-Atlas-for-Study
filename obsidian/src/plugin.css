@@ -38,6 +38,11 @@
 .atlas-plugin-shell { display: flex; flex-direction: column; height: 100%; min-height: 0; font-family: var(--font-ui); }
 .atlas-plugin-workspace { position: relative; flex: 1; min-height: 0; overflow: hidden; contain: layout paint; container: atlas / size; }
 .atlas-plugin-workspace [data-testid="map-view"] { isolation: isolate; }
+.atlas-map-edit-banner { display:flex; align-items:center; gap:12px; padding:9px 16px; color:var(--color-primary-dark); background:var(--color-primary-soft); border-bottom:1px solid var(--color-stone); font-size:10px; line-height:1.6; flex-shrink:0; }
+.atlas-map-edit-banner > span { flex:1; } .atlas-map-edit-banner button { border:1px solid var(--color-stone); border-radius:5px; padding:7px 10px; background:var(--color-paper); font-size:11px; cursor:pointer; }
+.atlas-route-edit-handle { display:grid; place-items:center; background:var(--color-paper); color:var(--color-primary-dark); border:2px solid var(--color-primary); border-radius:50%; font-weight:750; font-size:12px; box-shadow:0 2px 7px #17203333; cursor:grab; }
+.atlas-markdown-content { font-size:14px; line-height:1.85; color:var(--color-ink-soft); overflow-wrap:anywhere; }
+.atlas-markdown-content p { margin:0 0 12px; } .atlas-markdown-content ul,.atlas-markdown-content ol { padding-left:22px; list-style:revert; } .atlas-markdown-content a { color:var(--color-primary); text-decoration:underline; } .atlas-markdown-content h1,.atlas-markdown-content h2,.atlas-markdown-content h3 { font-size:1.1em; font-weight:700; margin:16px 0 8px; } .atlas-markdown-content img { max-width:100%; height:auto; } .atlas-markdown-content strong { font-weight:700; }
 .atlas-vault-toolbar { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 16px; padding: 13px 20px; border-bottom: 1px solid var(--color-stone); background: var(--color-paper); }
 .atlas-vault-context { display: flex; align-items: center; min-width: 0; gap: 12px; }
 .atlas-vault-context > div { min-width: 0; }
@@ -94,7 +99,27 @@
 .atlas-selection-bar button:hover, .atlas-selection-bar button[aria-pressed="true"] { background: var(--color-primary-soft); }
 .atlas-selection-bar button:disabled { opacity: .5; cursor: default; }
 .leaflet-container { background: var(--color-paper-muted); }
+.atlas-age-probe { flex-shrink: 0; border-bottom: 1px solid var(--color-stone); padding: 7px 14px; background: var(--color-paper); font-size: 11px; }
+.atlas-age-bar, .atlas-age-bar > div, .atlas-age-search { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.atlas-age-bar > span { display: grid; gap: 3px; }
+.atlas-age-selected { color: var(--color-primary); }
+.atlas-age-probe button { color: var(--color-primary); border: 1px solid var(--color-stone); border-radius: 5px; background: var(--color-paper-muted); padding: 6px 9px; min-height: 32px; cursor: pointer; font: inherit; }
+.atlas-age-date { display: flex; align-items: end; flex-wrap: wrap; gap: 8px; padding: 12px 0 5px; }
+.atlas-age-date label { display: grid; gap: 4px; }
+.atlas-age-date input { width: 82px; }
+.atlas-age-date small { color: var(--color-ink-muted); flex-basis: 100%; }
+.atlas-age-probe input { color: var(--color-ink); background: var(--color-paper-muted); border: 1px solid var(--color-stone); border-radius: 4px; padding: 7px; font: inherit; }
+.atlas-age-list { padding-top: 10px; }
+.atlas-age-search input:not([type="checkbox"]) { flex: 1; min-width: 140px; }
+.atlas-age-search label { display: flex; align-items: center; gap: 5px; }
+.atlas-age-grid { max-height: 24vh; overflow-y: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr)); gap: 5px; margin-top: 8px; }
+.atlas-age-grid button { display: flex; align-items: center; justify-content: space-between; gap: 8px; text-align: left; }
+.atlas-age-grid button span { color: var(--color-ink-muted); }
+.atlas-age-list p { color: var(--color-ink-muted); font-size: 10px; line-height: 1.6; margin: 8px 0 0; }
 @container atlas (max-width: 650px) {
+  .atlas-age-probe { padding: 7px 10px; font-size: 10px; }
+  .atlas-age-probe button { min-height: 36px; }
+  .atlas-age-grid { grid-template-columns: 1fr; }
   .atlas-vault-toolbar { padding: 9px 12px; gap: 8px; flex-wrap: wrap; }
   .atlas-vault-context { gap: 8px; max-width: 100%; }
   .atlas-vault-context p { font-size: 12px; }

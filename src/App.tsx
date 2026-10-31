@@ -181,6 +181,7 @@ const readInitialSidebarState = () => {
 
 export default function App({ integration }: { integration?: AtlasIntegration } = {}) {
   const rootRef = useRef<HTMLDivElement>(null);
+  const people = integration?.dataset?.people ?? HISTORICAL_PEOPLE;
   const initialLocation = useMemo(() => integration
     ? integration.initialState ?? emptyAtlasNavigation()
     : readLocationState(), []);
@@ -232,13 +233,13 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
     places,
     routes
   } = useMemo(
-    () =>
+    () => integration?.dataset ??
       normalizeDataRelations(
-        [...TIMELINE_EVENTS, ...(integration?.events ?? [])],
-        [...BIBLICAL_PLACES, ...(integration?.places ?? [])],
-        BIBLICAL_ROUTES
+        integration?.dataset?.events ?? [...TIMELINE_EVENTS, ...(integration?.events ?? [])],
+        integration?.dataset?.places ?? [...BIBLICAL_PLACES, ...(integration?.places ?? [])],
+        integration?.dataset?.routes ?? BIBLICAL_ROUTES
       ),
-    [integration?.events, integration?.places]
+    [integration?.events, integration?.places, integration?.dataset]
   );
 
   const selectedEvent =
@@ -248,7 +249,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
   const selectedRoute =
     routes.find(route => route.id === selectedRouteId) || null;
   const selectedPerson =
-    HISTORICAL_PEOPLE.find(
+    people.find(
       person =>
         person.id ===
         canonicalizeHistoricalPersonId(selectedPersonId ?? undefined)
@@ -258,11 +259,11 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
       buildFocusedTimeline({
         person: selectedPerson,
         event: selectedEvent,
-        people: HISTORICAL_PEOPLE,
+        people: people,
         events: linkedEvents,
         relationships: AUTHORITATIVE_PERSON_RELATIONSHIPS
       }),
-    [linkedEvents, selectedEvent, selectedPerson]
+    [linkedEvents, selectedEvent, selectedPerson, people]
   );
 
   const filteredCategories = useMemo(
@@ -569,7 +570,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
         }
       >
         <LocalDataEditor
-          people={HISTORICAL_PEOPLE}
+          people={people}
           events={linkedEvents}
           places={places}
           sources={HISTORICAL_SOURCE_CATALOG}
@@ -630,6 +631,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
           >
             {isMobileFocusOpen && focusedTimelineModel && (
               <FocusedTimelineMobile
+                ageProbe={integration?.ageProbe}
                 model={focusedTimelineModel}
                 places={places}
                 onBack={clearSelection}
@@ -649,7 +651,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
                 eras={ERAS}
                 categories={filteredCategories}
                 events={filteredEvents}
-                people={HISTORICAL_PEOPLE}
+                people={people}
                 places={places}
                 selectedEventId={selectedEvent?.id || null}
                 requestedPeriod={timelinePeriodRequest.period}
@@ -659,6 +661,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
                 onVisiblePeriodChange={handleVisiblePeriodChange}
                 onOpenAtThisMoment={() => setIsAtThisMomentOpen(true)}
                 searchQuery=""
+                ageProbe={integration?.ageProbe}
               />
             </div>
           </section>
@@ -680,11 +683,15 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
               searchQuery=""
               allowOnlineTiles={integration?.allowOnlineMaps ?? true}
               offlineBackground={integration?.offlineBackground}
+              editing={integration?.mapEditing}
+              replaceHistoricalRoads={integration?.replaceHistoricalRoads}
+              mapTiles={integration?.mapTiles}
+              onViewport={integration?.onMapViewport}
             />
           </section>
         </main>
 
-        {hasSelection && (
+        {hasSelection && !integration?.mapEditing && (
           <DetailPanel
             selectedEvent={selectedEvent}
             selectedPlace={selectedPlace}
@@ -694,7 +701,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
             places={places}
             routes={routes}
             events={linkedEvents}
-            people={HISTORICAL_PEOPLE}
+            people={people}
             onClose={clearSelection}
             onSelectPlace={handleSelectPlace}
             onSelectEvent={handleSelectEvent}
@@ -702,6 +709,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
             onSelectPerson={handleSelectPerson}
             onSwitchTab={setActiveTab}
             hideOnMobile={Boolean(isMobileFocusOpen && focusedTimelineModel)}
+            renderMarkdown={integration?.renderMarkdown}
           />
         )}
       </div>
@@ -747,7 +755,7 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
         events={linkedEvents}
         places={places}
         routes={routes}
-        people={HISTORICAL_PEOPLE}
+        people={people}
         onClose={() => setIsSearchOpen(false)}
         onQueryChange={setSearchQuery}
         onSelectEvent={handleSelectEvent}
@@ -757,6 +765,8 @@ export default function App({ integration }: { integration?: AtlasIntegration } 
       />
 
       <AtThisMomentPanel
+        snapshotForPeriod={integration?.snapshotForPeriod}
+        placeNames={integration?.dataset ? new Map(places.map(place => [place.id, place.name])) : undefined}
         isOpen={isAtThisMomentOpen}
         period={visiblePeriod}
         onClose={() => setIsAtThisMomentOpen(false)}

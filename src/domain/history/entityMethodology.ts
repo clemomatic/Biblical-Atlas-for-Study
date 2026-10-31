@@ -113,6 +113,12 @@ export const buildEntityMethodology = (
   entity: MethodologyEntity,
   catalog: EntityMethodologyCatalog
 ): EntityMethodology => {
+  if (entity.personalization) {
+    const sources = entityMetadataSources(entity);
+    return { methods: [], certainty: entity.certainty ?? 'unknown', sourceCount: sources.length, sources,
+      limitations: ['Cette fiche est personnalisée dans ton coffre. Les références conservées ne valident pas automatiquement les modifications.'],
+      claimIds: [], relationIds: [], usesLegacyMetadata: false };
+  }
   const claims = [...catalog.claims, ...catalog.calculatedClaims]
     .filter(claim => claimTargetsEntity(claim, entityType, entity.id))
     .sort((left, right) => left.id.localeCompare(right.id));
@@ -188,4 +194,4 @@ export const buildEntityMethodology = (
     relationIds: relations.map(relation => relation.id),
     usesLegacyMetadata: claims.length === 0
   };
-};
+};

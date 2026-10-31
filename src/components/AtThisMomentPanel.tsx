@@ -38,6 +38,8 @@ interface AtThisMomentPanelProps {
   onSelectPerson: (personId: string) => void;
   onSelectEvent: (eventId: string) => void;
   onSelectPlace: (placeId: string) => void;
+  snapshotForPeriod?: import('../atlasIntegration').AtlasIntegration['snapshotForPeriod'];
+  placeNames?: Map<string, string>;
 }
 
 const levelPresentation: Record<
@@ -200,7 +202,9 @@ export function AtThisMomentPanel({
   onClose,
   onSelectPerson,
   onSelectEvent,
-  onSelectPlace
+  onSelectPlace,
+  snapshotForPeriod,
+  placeNames
 }: AtThisMomentPanelProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLElement>(null);
@@ -223,11 +227,12 @@ export function AtThisMomentPanel({
 
   const snapshot = useMemo(() => {
     if (!focusedPeriod) return null;
+    if (snapshotForPeriod) return snapshotForPeriod(timelinePeriodToTemporalSpan(focusedPeriod));
     return buildHistoricalSnapshot(
       HISTORICAL_SNAPSHOT_CATALOG,
       timelinePeriodToTemporalSpan(focusedPeriod)
     );
-  }, [focusedPeriod]);
+  }, [focusedPeriod, snapshotForPeriod]);
 
   const groupedEvents: Record<
     string,
@@ -443,7 +448,7 @@ export function AtThisMomentPanel({
                                   event.placeIds.length
                                     ? event.placeIds
                                         .map(placeId =>
-                                          HISTORICAL_SNAPSHOT_CATALOG.placeNamesById.get(
+                                          (placeNames ?? HISTORICAL_SNAPSHOT_CATALOG.placeNamesById).get(
                                             placeId
                                           )
                                         )
