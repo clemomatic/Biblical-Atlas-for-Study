@@ -252,10 +252,10 @@ export class BibleLabSidebarView extends ItemView {
     const results=this.scroller.createDiv();
     this.renderMapResults(results);
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'Parcourir les cartes'});
-    for(const [label,page] of MAP_CHAPTERS){
+    for(const [label,page,url] of MAP_CHAPTERS){
       const el=card(this.scroller,label,'Pages '+page+'–'+(page+1));
       const actions=el.createDiv({cls:'biblelab-buttons'});
-      button(actions,'Voir l’atlas officiel','external-link',()=>external(OFFICIAL_ATLAS));
+      button(actions,'Ouvrir cette carte','external-link',()=>external(url));
       button(actions,'Copier la référence','copy',()=>void this.copy('Voyez le bon pays, p. '+page+'–'+(page+1)));
     }
   }
@@ -269,7 +269,9 @@ export class BibleLabSidebarView extends ItemView {
       const c=card(parent,item.name,item.coordinates);
       c.createDiv({cls:'biblelab-mini',text:'Cartes : '+item.pages.map(p=>mapChapterForPage(p)+' (p. '+p+')').join(' · ')});
       const row=c.createDiv({cls:'biblelab-buttons'});
-      button(row,'Index officiel','external-link',()=>external(OFFICIAL_MAP_INDEX));
+      const chapter=MAP_CHAPTERS.find(([,page])=>item.pages.some(p=>p>=page&&p<page+2));
+      if(chapter)button(row,'Voir la carte','external-link',()=>external(chapter[2]),true);
+      button(row,'Index officiel','list',()=>external(OFFICIAL_MAP_INDEX));
       button(row,'Copier repères','copy',()=>void this.copy(item.name+' — '+item.coordinates+' — Voyez le bon pays'));
       button(row,'Atlas interactif','map',()=>void this.host.openAtlas());
     }
