@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
-  "name": "Atlas biblique interactif",
-  "version": "0.2.0",
+  "name": "Bible Lab — Atlas et recherche biblique",
+  "version": "0.3.0",
   "minAppVersion": "1.6.0",
-  "description": "Explorez la carte et la frise bibliques, reliez vos notes et créez des enquêtes Canvas. Corpus sourcé et recherches personnelles conservés séparément.",
+  "description": "Laboratoire d'étude dans Obsidian : explorateur WOL, liens JW Library, cartothèque Voyez le bon pays, appendices, notes et Atlas interactif.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
