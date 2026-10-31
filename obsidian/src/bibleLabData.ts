@@ -116,12 +116,20 @@ export const RESOURCES: Resource[] = [
   {id:'bible',title:'Bible d’étude',section:'Texte biblique',subtitle:'Livres, notes et références croisées',url:base+'livres/'}
 ];
 export const MAP_CHAPTERS = [
-  ['Les pays de la Bible',4],['Le monde des patriarches',6],['De l’Égypte à la Terre promise',8],
-  ['Israël et les nations environnantes',10],['Un pays bon et vaste',12],['Quand Jéhovah donnait des juges',14],
-  ['Israël aux jours de David et de Salomon',16],['La Terre promise',18],
-  ['Jérusalem et le temple de Salomon',20],['Des empires attaquent la Terre promise',22],
-  ['Le peuple de Dieu rentre dans son pays',24],['L’empreinte de la Grèce et de Rome',26],
-  ['Jésus dans le pays des Juifs',28],['Jérusalem et le Temple au temps de Jésus',30],
-  ['La propagation du christianisme',32]
+  ['Les pays de la Bible',4,OFFICIAL_ATLAS+'Les-pays-de-la-Bible/'],
+  ['Le monde des patriarches',6,OFFICIAL_ATLAS+'Le-monde-des-patriarches/'],
+  ['De l’Égypte à la Terre promise',8,OFFICIAL_ATLAS+'De-l%C3%89gypte-%C3%A0-la-Terre-promise/'],
+  ['Israël et les nations environnantes',10,OFFICIAL_ATLAS+'Isra%C3%ABl-et-les-nations-environnantes/'],
+  ['Un pays bon et vaste',12,OFFICIAL_ATLAS+'Un-pays-bon-et-vaste/'],
+  ['Quand Jéhovah donnait des juges',14,OFFICIAL_ATLAS+'Quand-J%C3%A9hovah-donnait-des-juges/'],
+  ['Israël aux jours de David et de Salomon',16,OFFICIAL_ATLAS+'Isra%C3%ABl-aux-jours-de-David-et-de-Salomon/'],
+  ['La Terre promise',18,OFFICIAL_ATLAS+'La-Terre-promise/'],
+  ['Jérusalem et le temple de Salomon',20,OFFICIAL_ATLAS+'J%C3%A9rusalem-et-le-temple-de-Salomon/'],
+  ['Des empires attaquent la Terre promise',22,OFFICIAL_ATLAS+'Des-empires-attaquent-la-Terre-promise/'],
+  ['Le peuple de Dieu rentre dans son pays',24,OFFICIAL_ATLAS+'Le-peuple-de-Dieu-rentre-dans-son-pays/'],
+  ['L’empreinte de la Grèce et de Rome',26,OFFICIAL_ATLAS+'Lempreinte-de-la-Gr%C3%A8ce-et-de-Rome-sur-les-Juifs/'],
+  ['Jésus dans le pays des Juifs',28,OFFICIAL_ATLAS+'J%C3%A9sus-dans-le-pays-des-Juifs/'],
+  ['Jérusalem et le Temple au temps de Jésus',30,OFFICIAL_ATLAS+'J%C3%A9rusalem-et-le-Temple-au-temps-de-J%C3%A9sus/'],
+  ['La propagation du christianisme',32,OFFICIAL_ATLAS+'La-propagation-du-christianisme/']
 ] as const;
 export function mapChapterForPage(page:number):string {return MAP_CHAPTERS.find(([_,p])=>page>=p && page<p+2)?.[0] ?? 'Voir index';}
