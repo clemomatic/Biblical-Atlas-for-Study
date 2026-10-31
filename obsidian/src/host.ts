@@ -9,6 +9,7 @@ export interface AtlasHost {
   getSnapshot: () => AtlasSnapshot;
   subscribe: (listener: () => void) => () => void;
   openNote: (path: string) => void;
+  openBibleLab: () => Promise<void>;
   openEntity: (key: AtlasEntityKey) => void;
   openEntityNote: (selection: AtlasSelection) => void;
   linkNote: (selection: AtlasSelection) => void;
