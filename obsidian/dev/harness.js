@@ -98,7 +98,7 @@ class Setting {
   setDesc(text) { this.info.createDiv({ text, cls: 'setting-item-description' }); return this; }
   input(tag, type, configure) {
     const input = this.control.createEl(tag, { attr: { 'aria-label': this.label ?? '' } }); if (type) input.type = type;
-    const component = { inputEl: input, setPlaceholder: value => { input.placeholder = value; return component; }, setValue: value => { if (type === 'checkbox') input.checked = value; else input.value = value; return component; }, onChange: callback => { input.addEventListener(type === 'checkbox' || tag === 'select' ? 'change' : 'input', () => callback(type === 'checkbox' ? input.checked : input.value)); return component; }, addOptions: options => { for (const [value, text] of Object.entries(options)) { const option = input.createEl('option', { text }); option.value = value; } return component; } };
+    const component = { inputEl: input, setPlaceholder: value => { input.placeholder = value; return component; }, setValue: value => { if (type === 'checkbox') input.checked = value; else input.value = value; return component; }, onChange: callback => { input.addEventListener(type === 'checkbox' || tag === 'select' ? 'change' : 'input', () => callback(type === 'checkbox' ? input.checked : input.value)); return component; }, addOption: (value, text) => { const option=input.createEl('option',{text});option.value=value;return component; }, addOptions: options => { for (const [value, text] of Object.entries(options)) { const option = input.createEl('option', { text }); option.value = value; } return component; } };
     configure(component); return this;
   }
   addText(configure) { return this.input('input', 'text', configure); }
