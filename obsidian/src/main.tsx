@@ -1,5 +1,5 @@
 import { createRoot, type Root } from 'react-dom/client';
-import { ItemView, Notice, Plugin, PluginSettingTab, Setting, TFile, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
+import { ItemView, Notice, Plugin, PluginSettingTab, Setting, TFile, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
 import appCss from '../../src/index.css?inline';
 import leafletCss from 'leaflet/dist/leaflet.css?inline';
 import pluginCss from './plugin.css?inline';
@@ -17,6 +17,8 @@ import { AtlasVault } from './vault';
 import { MarkdownContent } from './MarkdownContent';
 import { MapTileCache } from './MapTiles';
 import { MapDownloadModal } from './MapDownloadModal';
+import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
+import { enhanceBibleLabMarkers } from './bibleLabMarkers';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -145,8 +147,12 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
     this.registerView(VIEW_TYPE, leaf => new AtlasView(leaf, this));
+    this.registerView(BIBLE_LAB_VIEW, leaf => new BibleLabSidebarView(leaf, this));
     this.addRibbonIcon('map', 'Ouvrir l’Atlas biblique', () => this.run(this.openAtlas()));
+    this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
+    this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le laboratoire biblique', callback: () => this.run(this.openBibleLab()) });
+    this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (Bible Lab)', editorCallback: editor => this.run(this.openBibleLab(editor.getSelection() || editor.getLine(editor.getCursor().line))) });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({ id: 'manage-atlas', name: 'Gérer et personnaliser toutes les fiches', callback: this.manageAtlas });
     this.addCommand({ id: 'offline-maps', name: 'Télécharger des cartes hors connexion', callback: this.openMapDownloads });
@@ -158,6 +164,15 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       return true;
     } });
     this.addSettingTab(new AtlasSettingTab(this.app, this));
+    this.registerMarkdownPostProcessor(el => enhanceBibleLabMarkers(el, ref => this.run(this.openBibleLab(ref))));
+    const refreshBibleLab = debounce(() => {
+      const file = this.app.workspace.getActiveFile();
+      for (const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)) {
+        if (leaf.view instanceof BibleLabSidebarView) this.run(leaf.view.updateActiveNote(file));
+      }
+    }, 450);
+    this.registerEvent(this.app.workspace.on('file-open', refreshBibleLab));
+    this.registerEvent(this.app.workspace.on('editor-change', refreshBibleLab));
     this.registerObsidianProtocolHandler('atlas-biblique', parameters => {
       if (!parameters.entity) { this.run(this.openAtlas()); return; }
       const key = parseEntityKey(parameters.entity);
@@ -194,6 +209,19 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
   onunload(): void { this.listeners.clear(); this.maps?.dispose(); }
+  async openBibleLab(reference?: string): Promise<void> {
+    await this.ready;
+    let leaf = this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
+    if (!leaf) {
+      leaf = this.app.workspace.getRightLeaf(false) ?? this.app.workspace.getLeaf('tab');
+      await leaf.setViewState({ type: BIBLE_LAB_VIEW, active: true });
+    }
+    await this.app.workspace.revealLeaf(leaf);
+    if (leaf.view instanceof BibleLabSidebarView) {
+      await leaf.view.updateActiveNote(this.app.workspace.getActiveFile());
+      if (reference?.trim()) leaf.view.focusReference(reference.trim());
+    }
+  }
   async openAtlas(key?: AtlasEntityKey): Promise<void> {
     await this.ready;
     const selection = key && resolveEntity(this.snapshot.atlas.catalog, key);
