@@ -133,3 +133,76 @@
   .atlas-selection-bar button { min-height: 40px; padding: 5px 8px; font-size: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; } }
+
+/* Study Studio visual language shared by the Atlas workspace */
+:host {
+ --studio-accent:#8060c8;
+ --studio-focus:color-mix(in srgb,var(--studio-accent) 25%,transparent);
+}
+.atlas-vault-toolbar{
+  min-height:62px;
+  border-bottom:1px solid var(--color-stone);
+  gap:12px;
+}
+.atlas-vault-monogram{
+  background:linear-gradient(140deg,#9d79e5,#6041aa);
+  color:white;border-color:#ffffff29;
+  box-shadow:inset 0 1px 0 #ffffff48,0 6px 14px #6948ad2e;
+  border-radius:13px;
+}
+.atlas-vault-eyebrow{
+  color:var(--color-ink-muted);
+  font-size:9px;
+  font-weight:830;
+  letter-spacing:.14em;
+}
+.atlas-vault-context p{
+  font-size:13px;
+  font-weight:770;
+  letter-spacing:-.025em;
+}
+.atlas-vault-button{
+  border-radius:10px;
+  font-weight:680;
+  letter-spacing:-.012em;
+  transition:color .16s ease,border-color .16s ease,transform .16s ease,background .16s ease;
+}
+.atlas-vault-button:not(:disabled):hover{transform:translateY(-1px);}
+.atlas-vault-research{
+  color:var(--color-primary);
+  border-color:color-mix(in srgb,var(--color-primary) 28%,var(--color-stone));
+  background:var(--color-primary-soft);
+}
+.atlas-vault-research svg{stroke-width:2}
+.atlas-vault-button:focus-visible,
+.atlas-vault-icon:focus-visible,
+.atlas-selection-bar button:focus-visible,
+.atlas-notebook button:focus-visible {
+  outline:2px solid var(--color-primary);
+  outline-offset:2px;
+}
+.atlas-notebook {
+  box-shadow:-18px 0 60px #1812281f;
+  border-left:1px solid var(--color-stone);
+}
+.atlas-notebook-heading h2 {letter-spacing:-.05em;line-height:1.14}
+.atlas-notebook-search {
+  border-radius:12px;
+  transition:border-color .16s,box-shadow .16s;
+}
+.atlas-notebook-search:focus-within{
+  border-color:var(--color-primary);
+  box-shadow:0 0 0 3px var(--studio-focus);
+}
+.atlas-note-card {transition:background .16s ease;}
+.atlas-note-title:hover{color:var(--color-primary)}
+.atlas-investigation-box{border-radius:14px}
+.atlas-selection-bar{border-top:1px solid var(--color-stone)}
+@container atlas (max-width: 650px) {
+  .atlas-vault-research span {display:none}
+  .atlas-vault-context > div{max-width:220px}
+}
+@media(prefers-reduced-motion:reduce) {
+ .atlas-vault-button,.atlas-note-card,.atlas-notebook-search{transition:none}
+ .atlas-vault-button:not(:disabled):hover{transform:none}
+}
