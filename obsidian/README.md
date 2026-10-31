@@ -1,6 +1,18 @@
-# Bible Lab — Atlas et laboratoire de recherche (0.3.0)
+# Bible Lab — Study Studio (0.4.0)
 
-**Bible Lab** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+**Bible Lab Study Studio 0.4** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+
+### Nouvelle interface Study Studio 0.4
+
+L'accueil se concentre sur la recherche et la lecture : navigation à six pictogrammes, cartes compactes, repères de sources, affichage adaptatif aux thèmes clair/sombre et animations désactivées si le système demande une réduction du mouvement.
+
+- **Accueil** : texte du jour et sommaire de la réunion de semaine (le bouton **Actualiser** charge la page officielle WOL ; aucune note du coffre n'est envoyée).
+- **Studio** : plans de discours enregistrés sous `Atlas biblique/Discours`, avec introduction, développement, conclusion, minutage indicatif, sources et liste de préparation.
+- **Archives JW** : sélection locale d'un fichier `.jwpub` ou `.jwlibrary`, contrôle de taille de l'archive, lecture des métadonnées et création d'un inventaire Markdown sous `Atlas biblique/Imports`. L'archive d'origine n'est jamais modifiée.
+
+**Important** : le décodage intégral d'un JWPUB et l'édition suivie d'une réexportation compatible d'une sauvegarde JW Library ne sont **pas encore implémentés** dans le plugin. Le travail préparatoire d'inspection ne doit pas être confondu avec ces fonctions. Une restauration d'une sauvegarde JW Library peut remplacer toutes les données de l'appareil ; toujours créer et conserver une sauvegarde récente avant toute expérimentation.
+
+Le texte du jour est limité à un aperçu ; le programme de réunion montre ses titres et rubriques, sans archiver une publication entière. Les liens WOL officiels restent disponibles si le chargement ou la structure de la page change.
 
 ### Découvrir le laboratoire
 
