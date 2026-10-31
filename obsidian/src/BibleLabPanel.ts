@@ -141,9 +141,11 @@ export class BibleLabSidebarView extends ItemView {
     this.searchField(this.scroller,this.query,'Mot, sujet ou verset…',text=>{this.query=text;},()=>this.openSearch());
     const actions=this.scroller.createDiv({cls:'biblelab-buttons'});
     button(actions,'Rechercher WOL','external-link',()=>this.openSearch(),true);
-    button(actions,'Ouvrir le passage','book-open',()=>external(wolLookup(this.query)));
-    const jw=jwLibraryLink(this.query);
-    if(jw) button(actions,'JW Library','book-marked',()=>external(jw));
+    button(actions,'Ouvrir le passage','book-open',()=>external(this.referenceUrl(this.query)));
+    button(actions,'JW Library','book-marked',()=>{
+      const link=jwLibraryLink(this.query);
+      if(link)external(link);else new Notice('Indique un verset précis pour ouvrir JW Library.');
+    });
     const actions2=this.scroller.createDiv({cls:'biblelab-buttons'});
     button(actions2,'Copier lien','copy',()=>void this.copyLink(this.query));
     button(actions2,'Insérer dans note','file-plus-2',()=>this.insertLink(this.query));
@@ -215,7 +217,7 @@ export class BibleLabSidebarView extends ItemView {
     for(const ref of this.noteRefs){
       const c=card(this.scroller,ref,parseScripture(ref)?'Verset reconnu':'Recherche documentaire');
       const row=c.createDiv({cls:'biblelab-buttons'});
-      button(row,'WOL','external-link',()=>external(wolLookup(ref)));
+      button(row,'WOL','external-link',()=>external(this.referenceUrl(ref)));
       const jw=jwLibraryLink(ref);
       if(jw)button(row,'JW Library','book-open',()=>external(jw));
       button(row,'Copier','copy',()=>void this.copy(ref));
@@ -303,8 +305,9 @@ export class BibleLabSidebarView extends ItemView {
     try{await navigator.clipboard.writeText(text);new Notice('Copié dans le presse-papiers.');}
     catch{new Notice('Copie indisponible sur cet appareil.');}
   }
-  private async copyLink(reference:string):Promise<void>{await this.copy(wolLookup(reference));}
-  private insertLink(reference:string):void{this.insertMarkdownLink(reference,wolLookup(reference));}
+  private referenceUrl(reference:string):string{return parseScripture(reference)?wolLookup(reference):wolSearch(reference);}
+  private async copyLink(reference:string):Promise<void>{await this.copy(this.referenceUrl(reference));}
+  private insertLink(reference:string):void{this.insertMarkdownLink(reference,this.referenceUrl(reference));}
   private insertMarkdownLink(title:string,url:string):void{
     const safeTitle=title.replace(/[\[\]]/g,'');
     const currentFile=this.app.workspace.getActiveFile();
