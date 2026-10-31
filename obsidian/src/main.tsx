@@ -20,6 +20,8 @@ import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
 import { enhanceBibleLabMarkers } from './bibleLabMarkers';
 import { normalizeSearch } from './bibleLabData';
+import { TalkStudioModal, saveTalkToVault } from './talkStudio';
+import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveInspector';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -153,6 +155,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
     this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le laboratoire biblique', callback: () => this.run(this.openBibleLab()) });
+    this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
+    this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (Bible Lab)', editorCallback: editor => this.run(this.openBibleLab(editor.getSelection() || editor.getLine(editor.getCursor().line))) });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({ id: 'manage-atlas', name: 'Gérer et personnaliser toutes les fiches', callback: this.manageAtlas });
@@ -210,6 +214,21 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
   onunload(): void { this.listeners.clear(); this.maps?.dispose(); }
+  createTalk = ():void => {
+    new TalkStudioModal(this.app, async draft => {
+      await saveTalkToVault(this.app,this.settings.noteFolder,draft);
+      new Notice('Plan de discours créé et ouvert.');
+    }).open();
+  };
+  inspectArchive = ():void => {
+    this.run((async () => {
+      const file=await chooseJwArchive();
+      if(!file)return;
+      const report=await inspectJwArchive(file);
+      await saveArchiveReport(this.app,report,this.settings.noteFolder);
+      new Notice('Archive '+report.kind+' analysée : '+report.entries.length+' fichiers. Aucun original modifié.');
+    })());
+  };
   openAtlasPlace = (name: string): void => {
     const normalized = normalizeSearch(name.replace(/\s*\[.*$/, ''));
     const selection = [...this.snapshot.atlas.catalog.values()]
