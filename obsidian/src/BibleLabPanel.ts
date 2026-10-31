@@ -229,7 +229,9 @@ export class BibleLabSidebarView extends ItemView {
     button(investigation.createDiv({cls:'biblelab-buttons'}),'Nouvelle enquête','network',()=>this.host.newResearch([]),true);
     const archive=card(this.scroller,'Passerelles JW Library','Analyser en local une archive JWPUB ou une sauvegarde personnelle.');
     button(archive.createDiv({cls:'biblelab-buttons'}),'Inspecter une archive','file-archive',()=>this.host.inspectArchive(),true);
-    archive.createEl('p',{cls:'biblelab-mini',text:'Cette version reconnaît les archives et crée un inventaire Markdown. L’import des textes et l’édition réversible des sauvegardes nécessitent une étape dédiée de validation.'});
+    const archiveInfo=archive.createEl('details',{cls:'biblelab-disclosure'});
+    archiveInfo.createEl('summary',{text:'Que fait l’inspection ?'});
+    archiveInfo.createEl('p',{text:'Lecture locale de manifestes et inventaire Markdown sans modifier les fichiers. La conversion intégrale et la réexportation ne sont pas encore disponibles.'});
     const prompt=card(this.scroller,'Bibliothèque de modèles','Tes notes restent des fichiers Markdown portables.');
     button(prompt.createDiv({cls:'biblelab-buttons'}),'Explorer les sources','library-big',()=>this.setTab('library'));
   }
@@ -265,8 +267,9 @@ export class BibleLabSidebarView extends ItemView {
       button(links,'Copier JW Library','link',()=>void this.copy(jwLibraryLink(this.query)||''));
     }
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'Aperçu du texte (facultatif)'});
-    const note=this.scroller.createDiv({cls:'biblelab-alert'});
-    note.setText('Inspiré de WOL Reference Tools : cet aperçu facultatif utilise le service tiers wol-worker.iaremark.us. Seule la recherche saisie lui est envoyée. Le reste du plugin fonctionne sans ce service.');
+    const privacy=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
+    privacy.createEl('summary',{text:'Source et confidentialité de l’aperçu'});
+    privacy.createEl('p',{text:'Aperçu facultatif inspiré de WOL Reference Tools : le terme saisi est envoyé au service tiers wol-worker.iaremark.us, uniquement après un clic. Aucun document du coffre n’est transmis.'});
     const row=this.scroller.createDiv({cls:'biblelab-buttons'});
     const preview=button(row,this.previewLoading?'Chargement…':'Charger un aperçu','eye',()=>void this.fetchPreview());
     preview.disabled=this.previewLoading;
@@ -353,7 +356,11 @@ export class BibleLabSidebarView extends ItemView {
     button(top,'Mon Atlas','map-pin',()=>void this.host.openAtlas(),true);
     const load=button(top,this.indexLoaded?'Actualiser l’index':'Charger l’index complet','refresh-cw',()=>void this.loadIndex());
     load.disabled=this.indexLoading;
-    if(!this.indexLoaded)this.scroller.createDiv({cls:'biblelab-alert',text:'Index de secours limité affiché. « Charger l’index complet » tente de lire uniquement les noms et repères du site officiel. Si WOL bloque la requête, le lien officiel reste accessible.'});
+    if(!this.indexLoaded){
+      const info=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
+      info.createEl('summary',{text:'À propos des repères cartographiques'});
+      info.createEl('p',{text:'La sélection hors ligne vient des données documentées de l’Atlas. Charger l’index complet tente de lire les noms et repères du site officiel ; la carte reste accessible si le chargement échoue.'});
+    }
     const area=this.scroller.createDiv({cls:'biblelab-search'});
     const input=area.createEl('input',{attr:{type:'search',placeholder:'Jérusalem, Capharnaüm, Our…'}});
     input.value=this.mapTerm;input.addEventListener('input',()=>{this.mapTerm=input.value;this.renderMapResults(results);});
