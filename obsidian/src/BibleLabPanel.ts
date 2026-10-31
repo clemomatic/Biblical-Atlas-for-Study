@@ -10,6 +10,7 @@ export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'wol' | 'refs' | 'maps' | 'library';
 export interface BibleLabHost {
   openAtlas: () => Promise<void>;
+  openAtlasPlace: (name:string) => void;
   newResearch: (keys: []) => void;
   newInvestigation: (selections: []) => void;
 }
@@ -275,7 +276,7 @@ export class BibleLabSidebarView extends ItemView {
       if(chapter)button(row,'Voir la carte','external-link',()=>external(chapter[2]),true);
       button(row,'Index officiel','list',()=>external(OFFICIAL_MAP_INDEX));
       button(row,'Copier repères','copy',()=>void this.copy(item.name+' — '+item.coordinates+' — Voyez le bon pays'));
-      button(row,'Atlas interactif','map',()=>void this.host.openAtlas());
+      button(row,'Atlas interactif','map',()=>this.host.openAtlasPlace(item.name));
     }
     if(results.length>35)parent.createDiv({cls:'biblelab-mini',text:'Affichage limité à 35 lieux : précise la recherche.'});
     if(!results.length)parent.createDiv({cls:'biblelab-empty',text:'Aucun lieu trouvé. Essaie une autre orthographe ou ouvre l’index officiel.'});
