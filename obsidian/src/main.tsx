@@ -22,6 +22,8 @@ import { enhanceBibleLabMarkers } from './bibleLabMarkers';
 import { normalizeSearch } from './bibleLabData';
 import { TalkStudioModal, saveTalkToVault } from './talkStudio';
 import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveInspector';
+import { saveDailyStudy, saveWeeklyStudy } from './studyNoteBuilder';
+import type { DayPreview, MeetingPreview } from './studyLive';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -214,6 +216,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
   onunload(): void { this.listeners.clear(); this.maps?.dispose(); }
+  saveDailyStudy = (day:DayPreview,date:Date):void => {this.run(saveDailyStudy(this.app,this.settings.noteFolder,day,date));};
+  saveWeeklyStudy = (week:MeetingPreview,date:Date):void => {this.run(saveWeeklyStudy(this.app,this.settings.noteFolder,week,date));};
   createTalk = ():void => {
     new TalkStudioModal(this.app, async draft => {
       await saveTalkToVault(this.app,this.settings.noteFolder,draft);
