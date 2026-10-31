@@ -1,8 +1,6 @@
 /** Bible Lab link and document helpers.
  * No publication texts are shipped, and no unapproved remote service is contacted.
  */
-import { PROMISED_LAND_PLACES } from '../../src/data/promisedLandPlaces';
-
 export const WOL_SEARCH = 'https://wol.jw.org/fr/wol/s/r30/lp-f?q=';
 export const WOL_LOOKUP = 'https://wol.jw.org/fr/wol/l/r30/lp-f?q=';
 export const OFFICIAL_MAP_INDEX = 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102003130';
@@ -91,7 +89,7 @@ export function parseMapIndex(html: string): MapLocation[] {
   }
   return entries.sort((a,b)=>a.name.localeCompare(b.name,'fr'));
 }
-const MAP_CURATED: MapLocation[] = [
+export const MAP_FALLBACK: MapLocation[] = [
   {name:'Jérusalem',pages:[18,19,21,29,31],coordinates:'Voir index officiel'},
   {name:'Capharnaüm',pages:[18,29],coordinates:'p. 18 · F4 ; p. 29 · E4'},
   {name:'Bethléem',pages:[18,19,29],coordinates:'p. 19 · D10 ; p. 29 · D10'},
@@ -106,20 +104,6 @@ const MAP_CURATED: MapLocation[] = [
   {name:'Éphèse',pages:[5,26,27,33],coordinates:'p. 33 · E2'},
   {name:'Jéricho',pages:[18,19,29],coordinates:'Voir index officiel'}
 ];
-/** Additional verified locations extracted from the Atlas's reviewed transcription of
- * 'La Terre promise' (Voyez le bon pays, pp. 18–19). Grid references are
- * documentary coordinates and are never interpreted as GPS coordinates.
- */
-const MAP_FROM_ATLAS: MapLocation[] = PROMISED_LAND_PLACES
-  .filter(place => Array.isArray(place.mapReferences) && place.mapReferences.length > 0)
-  .map(place => ({
-    name:place.name,
-    pages:[18],
-    coordinates:'p. 18–19 · '+place.mapReferences!.join(' ; ')
-  }));
-export const MAP_FALLBACK: MapLocation[] = [...new Map(
-  [...MAP_FROM_ATLAS, ...MAP_CURATED].map(entry=>[normalizeSearch(entry.name),entry])
-).values()].sort((a,b)=>a.name.localeCompare(b.name,'fr'));
 export type Resource={id:string;title:string;section:string;url:string;subtitle?:string};
 const base='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/';
 export const RESOURCES: Resource[] = [
