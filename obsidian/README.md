@@ -1,6 +1,36 @@
-# Atlas biblique interactif pour Obsidian — 0.2.0
+# Bible Lab — Atlas et laboratoire de recherche (0.3.0)
 
-Une carte, une frise et des fiches documentaires, reliées à vos notes d’étude. Le corpus historique est inclus dans le plugin. Vos notes et tableaux d’enquête restent des fichiers ordinaires du coffre.
+**Bible Lab** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+
+### Découvrir le laboratoire
+
+1. Ouvrez la commande **Ouvrir le laboratoire biblique** ou l'icône **livre** dans la barre d'Obsidian.
+2. **WOL** : tapez `Matthieu 10:29` ou un sujet, ouvrez la recherche ou le passage officiel, copiez le lien ou insérez-le dans votre note active. Le bouton JW Library utilise le lien `jw.org/finder` lorsqu'une référence biblique complète est reconnue.
+3. **Versets** : les références du document actif apparaissent automatiquement. Écrivez `!!Jean 3:16!!` pour marquer une référence WOL ; les versets rédigés explicitement en français sont également détectés. En mode lecture, le marqueur devient un lien ouvrant le panneau.
+4. **Cartes** : recherchez un lieu dans l'index de *Voyez le bon pays* ; chaque résultat indique les pages et repères alphanumériques, puis ouvre directement la carte correspondante. **Charger l'index complet** tente de récupérer les noms et repères de l'index officiel ; la petite liste de secours reste disponible si l'accès réseau est bloqué.
+5. **Outils** : retrouvez les appendices A, B et C, les cartes B2, B3, B4, B6, B7, B10 et B13, des schémas, le calendrier hébreu et *Étude perspicace*. Copiez les liens ou insérez-les dans une note.
+6. **Atlas** : la commande et le bouton de navigation de l'ancien Atlas restent disponibles : carte, frise, personnages, âges, routes, notes modifiables et enquêtes Canvas.
+
+### Respect des données et de WOL
+
+- Les notes et Canvas sont des fichiers locaux Markdown/JSON du coffre. Une mise à jour du plugin ne les remplace pas.
+- Les recherches WOL et JW Library ouvrent les sites officiels avec le terme demandé ; aucune note complète n'est envoyée automatiquement.
+- **Aperçu WOL** : contrairement aux liens directs, cette option manuelle utilise `https://wol-worker.iaremark.us`, service tiers employé par WOL Reference Tools. Le plugin n'y envoie que le terme de la recherche au moment du clic, et n'affiche que le texte nettoyé du HTML renvoyé. Un cache en mémoire de 30 minutes réduit les requêtes. Ne l'utilisez pas pour des informations confidentielles. Le service est facultatif et peut devenir indisponible.
+- **Index des cartes** : l'actualisation télécharge la page publique de l'index officiel ; elle peut échouer à cause de protections réseau. Dans ce cas, les liens officiels restent proposés.
+- Aucun texte complet de publication ni fichier JW Library n'est fourni ou modifié par ce plugin. Il s'agit d'une passerelle vers les outils officiels, pas d'une synchronisation avec JW Library.
+
+### Installation et mises à jour
+
+Le paquet compilé ZIP est publié parmi les **artifacts** des tests GitHub Actions lorsque la vérification réussit. Son dossier porte encore le nom `atlas-biblique`. Fermez Obsidian avant de remplacer `main.js`, `styles.css` et `manifest.json` dans ce même dossier, puis relancez-le et activez le plugin.
+
+Sur Android, un gestionnaire de fichiers donnant accès au dossier caché `.obsidian/plugins/` peut être nécessaire. Testez d'abord sur une copie du coffre ; les tests d'interface automatisés ne remplacent pas un essai dans l'application native.
+
+### Limites connues
+
+- Une recherche par sujet utilise la recherche officielle WOL et non une API de résultats intégrée ; l'aperçu facultatif repose sur un service indépendant qui peut être inaccessible.
+- La recherche de lieux depuis l'index ouvre la carte officielle, mais ne calcule pas encore automatiquement une coordonnée géographique à partir des repères imprimés.
+- Les liens JW Finder suivent le comportement de l'appareil et ne garantissent pas que l'application JW Library soit installée ou intercepte le lien.
+- Le panneau est conçu pour Obsidian ordinateur et mobile ; sa validation native reste à faire.
 
 ## Installer sur Windows ou Android
 
