@@ -68,10 +68,11 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
       <header className="atlas-vault-toolbar" aria-label="Mon étude biblique">
         <div className="atlas-vault-context">
           <span className="atlas-vault-monogram" aria-hidden="true"><NotebookPen size={19} /></span>
-          <div><span className="atlas-vault-eyebrow">MON ESPACE D’ÉTUDE</span>
+          <div><span className="atlas-vault-eyebrow">BIBLE LAB · ATLAS</span>
             <p>{selection ? selection.title : 'Chaque découverte peut devenir une piste.'}</p></div>
         </div>
         <div className="atlas-vault-actions">
+          <button type="button" className="atlas-vault-button atlas-vault-research" title="Ouvrir Bible Lab" onClick={() => void host.openBibleLab()}><Search size={16} /><span>Explorer</span></button>
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.openEntityNote(selection)}><BookOpen size={16} /><span>Note d’étude</span></button>}
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.editEntity(selection)}><Pencil size={16} /><span>Modifier</span></button>}
           <button type="button" className={`atlas-vault-button ${isNotebookOpen ? 'is-active' : ''}`} aria-expanded={isNotebookOpen} aria-controls="atlas-personal-notebook" onClick={() => setIsNotebookOpen(open => !open)}><NotebookPen size={16} /><span>Mon carnet</span><span className="atlas-vault-count">{snapshot.notes.length}</span></button>
