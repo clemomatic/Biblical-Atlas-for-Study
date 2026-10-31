@@ -211,7 +211,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   }
   onunload(): void { this.listeners.clear(); this.maps?.dispose(); }
   openAtlasPlace = (name: string): void => {
-    const normalized = normalizeSearch(name.replace(/\\s*\\[.*$/, ''));
+    const normalized = normalizeSearch(name.replace(/\s*\[.*$/, ''));
     const selection = [...this.snapshot.atlas.catalog.values()]
       .find(item => item.key.startsWith('place:') && normalizeSearch(item.title) === normalized);
     if (!selection) new Notice('Lieu non identifié dans l’Atlas interactif ; ouverture de la carte générale.');
