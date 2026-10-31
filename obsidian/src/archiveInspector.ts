@@ -56,6 +56,14 @@ export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
   const warnings:string[]=[];
   const hasDatabase=names.some(x=>/^(?:.*\/)?userData\.db$/i.test(x));
   if(kind==='jwlibrary'&&!hasDatabase)warnings.push('Aucune base userData.db : archive incomplète.');
+  const dbName=names.find(x=>/^(?:.*\\/)?userData\\.db$/i.test(x));
+  let databaseVersion:number|null=null, databaseSize=0;
+  if(dbName){
+    const db=entries[dbName];databaseSize=db.length;
+    const isSqlite=db.length>=100 && strFromU8(db.subarray(0,15))==='SQLite format 3';
+    if(!isSqlite)warnings.push('En-tête SQLite incomplet ou non valide : inspection structurelle seulement.');
+    else databaseVersion=new DataView(db.buffer,db.byteOffset,db.byteLength).getUint32(60,false);
+  }
   if(kind==='jwpub'&&!names.some(x=>/\.zip$/i.test(x)))warnings.push('Le conteneur interne de la publication n’a pas été trouvé.');
   if(kind==='jwlibrary') warnings.push('L’édition des notes et la génération d’une sauvegarde ne sont pas encore activées : la base SQLite doit être traitée sans perte de données.');
   if(kind==='jwpub')warnings.push('Les textes JWPUB ne sont pas importés à cette étape : leur contenu peut nécessiter déchiffrement et décodage SQLite.');
@@ -67,7 +75,9 @@ export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
     {label:'Version du schéma',value:String(info.schemaVersion??metadata.version??'Non indiquée')},
     {label:'Langue',value:String(info.language??info.MepsLanguageIndex??'Non indiquée')},
     {label:'Fichiers',value:String(names.length)},
-    {label:'Base personnelle',value:hasDatabase?'Présente':'Non présente'}
+    {label:'Base personnelle',value:hasDatabase?'Présente':'Non présente'},
+    {label:'Taille base SQLite',value:databaseSize?Math.round(databaseSize/1024)+' Kio':'Non présente'},
+    {label:'SQLite user_version',value:databaseVersion===null?'Non disponible':String(databaseVersion)}
   ];
   return {kind,filename:file.name,entries:names,title,details,warnings,hasDatabase};
 }
