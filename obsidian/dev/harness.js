@@ -54,6 +54,7 @@ class Vault extends Emitter {
   }
   async delete(file) { for (const path of [...this.files.keys()]) if (path === file.path || path.startsWith(file.path + '/')) this.files.delete(path); this.trigger('delete', file); }
 }
+class MarkdownView {}
 class ItemView {
   constructor(leaf) { this.leaf = leaf; this.app = app; this.containerEl = leaf.containerEl; this.contentEl = this.containerEl.createDiv({ cls: 'view-content' }); }
 }
@@ -76,6 +77,7 @@ class Plugin {
   addSettingTab(tab) { this.settingTab = tab; }
   registerObsidianProtocolHandler(action, callback) { this.protocol = callback; }
   registerMarkdownCodeBlockProcessor(language, callback) { this.codeBlock = callback; }
+  registerMarkdownPostProcessor(callback) { this.markdownPostProcessor = callback; }
   registerEvent(reference) { this.cleanups.push(() => reference.off()); }
   async unload() { for (const leaf of app.workspace.leaves) await leaf.view?.onClose?.(); this.cleanups.forEach(callback => callback()); this.onunload(); }
 }
@@ -122,20 +124,23 @@ Object.assign(workspace, {
   leaves: [], activeFile: null, lastOpened: null, requestSaveLayout() {}, onLayoutReady(callback) { callback(); },
   getLeavesOfType(type) { return this.leaves.filter(leaf => leaf.type === type); },
   getLeaf() { const leaf = new Leaf(); this.leaves.push(leaf); return leaf; },
+  getRightLeaf() { return this.getLeaf('right'); },
   getActiveFile() { return this.activeFile; }, async revealLeaf() {}
 });
 const app = { vault, metadataCache, workspace, fileManager: { async processFrontMatter(file, callback) {
   const { frontmatter, body } = parseFile(file.content); callback(frontmatter);
   await vault.modify(file, `---\n${stringify(frontmatter)}---\n${body}`);
 } } };
-const api = { ItemView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl };
+const setIcon = (element, name) => { element.dataset.icon = name; element.createSpan({ text: '◈' }); };
+const debounce = (callback, delay) => { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => callback(...args), delay); }; };
+const api = { ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, debounce };
 if (new URLSearchParams(location.search).get('theme') === 'dark') document.body.classList.add('theme-dark');
 await vault.createFolder('Mes notes');
 await vault.create('Mes notes/Une idée précieuse.md', '---\ntags: [personnel]\npriorite: 3\n---\nMon texte personnel **à conserver**.\n\nUne seconde ligne.\n');
 const module = { exports: {} };
 new Function('module', 'exports', 'require', bundle)(module, module.exports, id => { if (id !== 'obsidian') throw Error(`Unexpected runtime dependency: ${id}`); return api; });
 const PluginClass = module.exports.default ?? module.exports;
-let plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.2.0', name: 'Atlas biblique interactif' });
+let plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.3.0', name: 'Bible Lab — Atlas et recherche biblique' });
 await plugin.onload();
 await plugin.openAtlas();
 window.atlasTest = {
@@ -147,7 +152,7 @@ window.atlasTest = {
   async remove(path) { await vault.delete(vault.files.get(path)); },
   async restart() {
     await plugin.unload(); workspace.leaves = []; document.querySelector('#surface').empty();
-    plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.2.0', name: 'Atlas biblique interactif' });
+    plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.3.0', name: 'Bible Lab — Atlas et recherche biblique' });
     await plugin.onload(); await plugin.openAtlas(); this.plugin = plugin;
   }
 };
