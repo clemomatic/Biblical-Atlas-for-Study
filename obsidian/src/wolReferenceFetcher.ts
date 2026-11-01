@@ -26,9 +26,51 @@ export function canonicalReferenceUrl(raw:string):string|null{
  }
  return url;
 }
+
+interface PublicationPage {issue:string;first:number;last:number}
+const FRENCH_MONTHS='janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre';
+/** The citation may refer to pages INSIDE a longer article. */
+export function publicationPages(raw:string):PublicationPage|null{
+ const t=raw.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+   .toLocaleLowerCase('fr').replace(/\u00a0/g,' ').replace(/[–—]/g,'-');
+ const match=t.match(new RegExp(
+  '\\b(w\\d{2}|wp\\d{2}(?:\\.\\d+)?|g\\d{2}|mwb\\d{2})\\s+('+FRENCH_MONTHS+
+  ')\\s+p\\.?\\s*(\\d{1,3})(?:\\s*-\\s*(\\d{1,3}))?\\b','i'));
+ if(!match)return null;
+ const first=Number(match[3]),last=Number(match[4]||match[3]);
+ if(first<1||last<first||last>300)return null;
+ return {issue:match[1]+' '+match[2],first,last};
+}
+export function matchingPublicationPages(requested:string,listing:string):boolean{
+ const a=publicationPages(requested),b=publicationPages(listing);
+ return !!a&&!!b&&a.issue===b.issue&&b.first<=a.first&&b.last>=a.last;
+}
+/** Exact citations are resolved without silently accepting a wrong issue. */
+export function selectPublicationCandidate(html:string,base:string,reference:string):string|null{
+ const request=publicationPages(reference);
+ if(!request)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ let best:string|null=null;
+ let shortest=Number.POSITIVE_INFINITY;
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(a.getAttribute('href')||'',base);
+  if(!href)continue;
+  // WOL results commonly attach the publication/pages to the article row.
+  const box=a.closest('li,article,.result,.searchResult,.search-result,.item')||a.parentElement;
+  const visible=(box?.textContent||'').slice(0,900);
+  const page=publicationPages(visible);
+  if(!page||!matchingPublicationPages(reference,visible))continue;
+  const range=page.last-page.first;
+  if(range<shortest){best=href;shortest=range;}
+ }
+ return best;
+}
+
 function pickDocument(html:string,base:string,reference:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
  const requested=simple(reference);
+ const exact=selectPublicationCandidate(html,base,reference);
+ if(exact)return exact;
  // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
  const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
  const canonicalHref=canonical?.getAttribute('href')||canonical?.getAttribute('content');
@@ -46,6 +88,11 @@ function pickDocument(html:string,base:string,reference:string):string|null{
    if(requested && (label.includes(requested)||surrounding.includes(requested)))weight+=100;
    for(const word of keywords) if(surrounding.includes(word))weight+=word.length>4?6:3;
    if(label.length>8)weight+=2;
+   // A search result with explicit, contradictory issue/page metadata
+   // must not be presented as a match for the requested bibliography.
+   const requestedPages=publicationPages(reference);
+   const listed=publicationPages((anchor.closest('li,article,.result,.searchResult,.search-result,.item')||anchor.parentElement||anchor).textContent||'');
+   if(requestedPages&&listed&&!matchingPublicationPages(reference,(anchor.closest('li,article,.result,.searchResult,.search-result,.item')||anchor.parentElement||anchor).textContent||''))continue;
    if(weight>score){score=weight;best=href;}
  }
  // A direct reference lookup is normally an exact or near-exact match.
@@ -112,8 +159,19 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    // Try the official bibliographic result listing instead of fabricating content.
  }
  if(!docUrl){
-   const fallback=WOL+'s/r30/lp-f?'+new URLSearchParams({q:query});
-   try{docUrl=pickDocument(await officialText(fallback),fallback,query);}catch{ /* no matching result */ }
+   const page=publicationPages(query);
+   // Prefer an issue search for citations inside a document's page range.
+   const searchTerms=page?[page.issue,query]:[query];
+   for(const term of searchTerms){
+     const fallback=WOL+'s/r30/lp-f?'+new URLSearchParams({q:term});
+     try{
+       docUrl=pickDocument(await officialText(fallback),fallback,query);
+       if(docUrl)break;
+     }catch(error){
+       networkProblem+=(networkProblem?' ; ':'')+
+         (error instanceof Error?error.message:'Recherche WOL indisponible');
+     }
+   }
  }
  docUrl=docUrl||knownCitation(query);
  if(!docUrl){
