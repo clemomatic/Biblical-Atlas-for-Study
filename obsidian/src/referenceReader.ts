@@ -2,7 +2,7 @@
  * Explicit links are preserved; other publication citations use /wol/l/, not
  * the keyword search route /wol/s/. No HTML from the web is injected into Obsidian.
  */
-import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData';
+import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
