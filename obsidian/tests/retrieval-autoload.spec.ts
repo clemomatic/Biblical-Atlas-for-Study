@@ -77,3 +77,20 @@ test('WOL matches pages 24-26 to a longer February 2018 article spanning pages 2
  await expect(pane.getByText('Un premier paragraphe sur la spiritualité.')).toBeVisible();
  await expect(pane.getByText('Une méditation sur la famille.')).toBeVisible();
 });
+
+
+test('Guide lesson lmd 11 opens its verified WOL document when lookup endpoints fail',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/l/**',route=>
+  route.fulfill({status:404,body:'<html><body>Non disponible</body></html>'}));
+ await page.route('https://wol.jw.org/fr/wol/s/**',route=>
+  route.fulfill({status:429,body:'<html><body>Trop de demandes</body></html>'}));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1102023311',route=>
+  route.fulfill({status:200,contentType:'text/html',
+    body:'<html><main class="bodyTxt"><h1>Rester simple</h1>'+
+      '<p>L’exemple de Jésus montre la valeur de la simplicité.</p>'+
+      '<p>Nous pouvons parler avec clarté et tact.</p></main></html>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('lmd 11'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.getByText('L’exemple de Jésus montre la valeur de la simplicité.')).toBeVisible();
+ await expect(pane.getByText('Nous pouvons parler avec clarté et tact.')).toBeVisible();
+});
