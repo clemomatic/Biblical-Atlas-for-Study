@@ -80,7 +80,10 @@ export async function readJwpub(file:File):Promise<JwPublication>{
   const raw=new Uint8Array(await file.arrayBuffer());
   validateZip(raw);
   const outer=unzipSync(raw,{filter:entry=>entry.name==='manifest.json'||entry.name==='contents'});
-  if(!outer['contents'])throw Error('Le conteneur JWPUB interne est absent.');
+  if(!outer['contents']||!outer['manifest.json'])throw Error('Manifest JWPUB ou conteneur interne absent.');
+  const publicationManifest=JSON.parse(strFromU8(outer['manifest.json']));
+  if(typeof publicationManifest.hash==='string' && await digest(outer['contents'])!==publicationManifest.hash.toLowerCase())
+    throw Error('Empreinte SHA-256 du contenu JWPUB incorrecte.');
   validateZip(outer['contents']);
   const files=unzipSync(outer['contents']);
   const dbName=Object.keys(files).find(name=>name.endsWith('.db'));
