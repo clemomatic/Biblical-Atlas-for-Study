@@ -115,3 +115,69 @@ test('publication reference search opens bibliographic lookup URL with + encoded
   expect(await page.evaluate(()=>(window as any).outbound)).toContain(
     'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+14-19');
 });
+
+
+test('w24 November p.20-25: old /s link resolves the exact article, not a nearby issue',async({page})=>{
+ const lookup='https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+20-25';
+ const target='https://wol.jw.org/fr/wol/d/r30/lp-f/202499991';
+ const wrong='https://wol.jw.org/fr/wol/d/r30/lp-f/202499992';
+ const requested:string[]=[];
+ await page.route(/wol\.jw\.org\/fr\/wol\/(?:l|s)\/r30\/lp-f/,route=>{
+   requested.push(route.request().url());
+   return route.fulfill({status:200,contentType:'text/html',body:
+    '<html><main><ul>'+
+    '<li><a href="/fr/wol/d/r30/lp-f/202499992">Frères, vous qualifiez-vous pour devenir assistants ?</a><span>w24 novembre p. 14-19</span></li>'+
+    '<li><a href="/fr/wol/d/r30/lp-f/202499991">Frères, vous qualifiez-vous pour devenir anciens ?</a><span>w24 novembre p. 20-25</span></li>'+
+    '</ul></main></html>'});
+ });
+ await page.route(target,route=>route.fulfill({status:200,contentType:'text/html',
+   body:'<html><main class="bodyTxt"><h1>Frères, vous qualifiez-vous pour devenir anciens ?</h1><p>Étude 47</p><p>Texte du bon article sur les anciens.</p></main></html>'}));
+ await page.route(wrong,route=>route.fulfill({status:200,contentType:'text/html',
+   body:'<html><main class="bodyTxt"><h1>Mauvais article</h1><p>Ne pas afficher.</p></main></html>'}));
+ await page.evaluate(async()=>{
+  const {app}=(window as any).atlasTest;
+  const file=await app.vault.create('Mes notes/w24-20-25.md',
+   '[Source historique](https://wol.jw.org/fr/wol/s/r30/lp-f?q=w24%20Novembre%20p.%2020-25)');
+  app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
+  (window as any).openedBibliography=[];
+  window.open=((url:string|URL|undefined)=>{(window as any).openedBibliography.push(String(url));return null;}) as typeof window.open;
+ });
+ const pane=page.locator('.biblelab-side');
+ await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-reader-summary').first().click();
+ await expect(pane.getByText('Texte du bon article sur les anciens.')).toBeVisible();
+ await expect(pane.getByText('Ne pas afficher.')).toHaveCount(0);
+ expect(requested[0]).toBe(lookup);
+ await pane.getByRole('button',{name:'WOL'}).first().click();
+ expect(await page.evaluate(()=>(window as any).openedBibliography)).toContain(target);
+});
+
+test('w18 février p.24-26: a WOL meta refresh resolves to full document without hardcoded IDs',async({page})=>{
+ const lookup='https://wol.jw.org/fr/wol/l/r30/lp-f?q=w18+f%C3%A9vrier+p.24-26';
+ const article='https://wol.jw.org/fr/wol/d/r30/lp-f/201899991';
+ await page.route(lookup,route=>route.fulfill({status:200,contentType:'text/html',
+  body:'<html><head><meta http-equiv="refresh" content="0;url=/fr/wol/d/r30/lp-f/201899991"></head><body>Redirection WOL</body></html>'}));
+ await page.route(article,route=>route.fulfill({status:200,contentType:'text/html',
+  body:'<html><main class="bodyTxt"><h1>Article de février 2018</h1><p>Première partie de l’article consulté.</p><p>Deuxième partie de la publication.</p></main></html>'}));
+ await page.evaluate(async()=>{
+  const {app}=(window as any).atlasTest;
+  const file=await app.vault.create('Mes notes/w18.md',
+   '[w18 février p.24-26]\n[Ancien lien](https://wol.jw.org/fr/wol/s/r30/lp-f?q=w18%20f%C3%A9vrier%20p.24-26)');
+  app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
+ });
+ const pane=page.locator('.biblelab-side');
+ await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-reader-summary').first().click();
+ await expect(pane.getByText('Première partie de l’article consulté.')).toBeVisible();
+ await expect(pane.getByText('Deuxième partie de la publication.')).toBeVisible();
+});
+
+test('No citation match: WOL stays accessible without showing an unrelated article',async({page})=>{
+ const lookup='https://wol.jw.org/fr/wol/l/r30/lp-f?q=w18+f%C3%A9vrier+p.24-26';
+ await page.route('https://wol.jw.org/fr/wol/**',route=>route.fulfill({status:200,contentType:'text/html',
+  body:'<html><main><ul><li><a href="/fr/wol/d/r30/lp-f/2222">Un article différent</a><span>w18 février p. 12-13</span></li></ul></main></html>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('w18 février p.24-26'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.getByText('Référence non résolue automatiquement.',{exact:false})).toBeVisible();
+ await expect(pane.getByText('Un article différent')).toHaveCount(0);
+});
