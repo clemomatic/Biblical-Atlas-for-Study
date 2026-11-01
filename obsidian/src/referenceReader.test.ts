@@ -36,6 +36,7 @@ test('Only official WOL URLs are accepted, code and YAML links ignored',()=>{
  const note=[
  '---','source: https://wol.jw.org/fr/wol/d/r30/lp-f/99','---',
  '```md','[Hidden](https://wol.jw.org/fr/wol/d/r30/lp-f/88)','```',
+ '~~~text','Matthieu 10:29','[Invisible](https://wol.jw.org/fr/wol/d/r30/lp-f/77)','~~~',
  'Visible [Document](https://wol.jw.org/fr/wol/d/r30/lp-f/11)'
  ].join('\n');
  const r=extractReferenceEntries(note);
