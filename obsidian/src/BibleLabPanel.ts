@@ -79,7 +79,7 @@ export class BibleLabSidebarView extends ItemView {
   private referenceHistory:ReferenceEntry[]=[];
   private referencePosition:number[]=[];
   private referenceCursor=-1;
-  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label),remember:ref=>this.rememberReference(ref)};
+  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label),remember:ref=>this.rememberReference(ref),insert:ref=>this.insertMarkdownLink(ref.label,ref.url)};
   private noteTitle='';
   private lastMarkdownPath:string|null=null;
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
@@ -195,7 +195,7 @@ export class BibleLabSidebarView extends ItemView {
       const parent=['home','wol','refs'].includes(entry.key)?primary:secondary;
       const tab=parent.createEl('button',{cls:'biblelab-tab',attr:{
         type:'button','aria-selected':String(this.tab===entry.key),
-        'aria-label':entry.label,'title':entry.label}});
+        'aria-label':entry.key==='home'?'Accueil':entry.key==='wol'?'WOL':entry.key==='refs'?'Références':entry.label,'title':entry.label}});
       const symbol=tab.createSpan();setIcon(symbol,entry.icon);
       tab.createSpan({text:entry.label});
       tab.addEventListener('click',()=>this.setTab(entry.key));
@@ -380,8 +380,8 @@ export class BibleLabSidebarView extends ItemView {
     return input;
   }
   private renderWol():void{
-    heading(this.scroller,'Recherche documentaire','Trouve les publications de WOL et JW.org, puis consulte leurs références sans quitter Obsidian.');
-    this.searchField(this.scroller,this.query,'Mot, sujet ou verset…',text=>{
+    heading(this.scroller,'Recherche documentaire','Un sujet ou une référence, puis les sources officielles.');
+    this.searchField(this.scroller,this.query,'Sujet, publication ou verset…',text=>{
       if(this.query!==text){
         this.query=text;this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
         this.wolResultsSequence++;this.wolResultsLoading=false;
@@ -389,104 +389,115 @@ export class BibleLabSidebarView extends ItemView {
       }
     },()=>void this.loadWolResults());
 
-    const controls=this.scroller.createDiv({cls:'biblelab-search-controls'});
+    const primary=this.scroller.createDiv({cls:'biblelab-search-primary'});
+    const find=button(primary,this.wolResultsLoading?'Recherche…':'Voir les résultats','search',()=>void this.loadWolResults(),true);
+    find.disabled=this.wolResultsLoading;
+    button(primary,'Lire dans le panneau','book-open-text',()=>{
+      const term=this.query.trim();
+      if(!term){new Notice('Saisis un verset, une référence ou un lien WOL.');return;}
+      this.focusReference(cleanWolUrl(term)||this.referenceUrl(term),term);
+    });
+
+    if(this.wolResultsLoading){
+      const status=this.scroller.createDiv({cls:'biblelab-search-state',attr:{role:'status','aria-live':'polite'}});
+      const icon=status.createSpan();setIcon(icon,'loader-circle');
+      status.createSpan({text:'Recherche de documents sur WOL…'});
+    }
+    if(this.wolResultsError){
+      const info=this.scroller.createDiv({cls:'biblelab-search-feedback'});
+      const symbol=info.createSpan();setIcon(symbol,'info');
+      info.createEl('p',{text:this.wolResultsError});
+      button(info,'Voir sur WOL','external-link',()=>this.openSearch());
+    }
+    if(this.wolResultsQuery&&!this.wolResultsLoading&&this.wolResults.length){
+      const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
+      headingRow.createEl('h3',{text:'RÉSULTATS · '+this.wolResults.length+' LIENS'});
+      for(const hit of this.wolResults){
+        const el=this.scroller.createDiv({cls:'biblelab-search-result'});
+        const icon=el.createSpan({cls:'biblelab-search-result-icon'});setIcon(icon,'file-text');
+        const copy=el.createDiv({cls:'biblelab-search-result-copy'});
+        copy.createEl('strong',{text:hit.title});
+        if(hit.excerpt)copy.createEl('p',{text:hit.excerpt});
+        const row=el.createDiv({cls:'biblelab-search-result-actions'});
+        button(row,'Lire ici','book-open',()=>this.focusReference(hit.url,hit.title),true);
+        button(row,'WOL','external-link',()=>external(hit.url));
+      }
+      this.scroller.createEl('p',{cls:'biblelab-mini',
+        text:'Aperçu de la première page seulement. Les autres résultats restent accessibles sur WOL.'});
+    }
+
+    // Progressive disclosure: occasional advanced tools should never obscure
+    // the result list or the reading workflow.
+    const advanced=this.scroller.createEl('details',{cls:'biblelab-search-advanced'});
+    advanced.createEl('summary',{text:'Filtres et actions supplémentaires'});
+    const advancedBody=advanced.createDiv({cls:'biblelab-search-advanced-body'});
+    const controls=advancedBody.createDiv({cls:'biblelab-search-controls'});
     const matchLabel=controls.createEl('label',{text:'Correspondance'});
     const match=matchLabel.createEl('select',{attr:{'aria-label':'Type de correspondance WOL'}});
     for(const [value,label] of [['par','Même paragraphe'],['sen','Même phrase']] as const){
       const option=match.createEl('option',{text:label,attr:{value}});
       option.selected=this.searchMatch===value;
     }
-    match.addEventListener('change',()=>{this.searchMatch=match.value==='sen'?'sen':'par';this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';this.wolResultsSequence++;this.wolResultsLoading=false;});
+    match.addEventListener('change',()=>{
+      this.searchMatch=match.value==='sen'?'sen':'par';
+      this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
+      this.wolResultsSequence++;this.wolResultsLoading=false;
+    });
     const scopeLabel=controls.createEl('label',{text:'Sources'});
     const scope=scopeLabel.createEl('select',{attr:{'aria-label':'Sources WOL'}});
     for(const [value,label] of [['all','Toutes les publications'],['index','Index des publications']] as const){
       const option=scope.createEl('option',{text:label,attr:{value}});
       option.selected=this.searchScope===value;
     }
-    scope.addEventListener('change',()=>{this.searchScope=scope.value==='index'?'index':'all';this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';this.wolResultsSequence++;this.wolResultsLoading=false;});
-
-    const actions=this.scroller.createDiv({cls:'biblelab-buttons'});
-    const find=button(actions,this.wolResultsLoading?'Recherche…':'Voir les résultats','list-filter',()=>void this.loadWolResults(),true);
-    find.disabled=this.wolResultsLoading;
+    scope.addEventListener('change',()=>{
+      this.searchScope=scope.value==='index'?'index':'all';
+      this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
+      this.wolResultsSequence++;this.wolResultsLoading=false;
+    });
+    const actions=advancedBody.createDiv({cls:'biblelab-buttons'});
     button(actions,'Rechercher WOL','external-link',()=>this.openSearch());
-    button(actions,'Tester les sources','activity',()=>void this.testOfficialAccess());
     button(actions,'Recherche JW.org','globe',()=>{
-      try{external(jwOrgResearchUrl(this.query));}catch{new Notice('Saisis un sujet à rechercher.');}
+      try{external(jwOrgResearchUrl(this.query));}
+      catch{new Notice('Saisis un sujet à rechercher.');}
     });
-    const actions2=this.scroller.createDiv({cls:'biblelab-buttons'});
-    button(actions2,'Lire dans le panneau','book-open',()=>{
-      const term=this.query.trim();
-      if(!term){new Notice('Saisis un verset, une référence ou un lien WOL.');return;}
-      this.focusReference(cleanWolUrl(term)||this.referenceUrl(term),term);
-    });
-    button(actions2,'JW Library','book-marked',()=>{
+    button(actions,'Tester les sources','activity',()=>void this.testOfficialAccess());
+    const other=advancedBody.createDiv({cls:'biblelab-buttons'});
+    button(other,'JW Library','book-marked',()=>{
       const link=jwLibraryLink(this.query);
-      if(link)external(link);else new Notice('La passerelle JW Library ouvre des versets reconnus, pas une recherche de mots dans l’application.');
+      if(link)external(link);
+      else new Notice('La passerelle JW Library ne prend en charge que les versets reconnus.');
     });
-    button(actions2,'Copier le lien','copy',()=>void this.copyLink(this.query));
-    button(actions2,'Insérer le lien','file-plus-2',()=>this.insertLink(this.query));
-
+    button(other,'Copier le lien','copy',()=>void this.copyLink(this.query));
+    button(other,'Insérer le lien','file-plus-2',()=>this.insertLink(this.query));
     if(this.sourceCheckMessage){
-      const check=this.scroller.createDiv({cls:'biblelab-reader-hint'});
+      const check=advancedBody.createDiv({cls:'biblelab-reader-hint'});
       check.createSpan({text:this.sourceCheckMessage});
-      check.createEl('p',{text:'Si une source refuse la lecture automatisée, ouvre la page officielle : le plugin ne peut pas contourner ses restrictions.'});
-    }
-    if(this.wolResultsLoading)this.scroller.createEl('p',{cls:'biblelab-reader-loading',text:'Consultation de la recherche WOL…'});
-    if(this.wolResultsError){
-      const info=this.scroller.createDiv({cls:'biblelab-alert'});
-      info.createSpan({text:this.wolResultsError});
-      button(info,'Continuer sur WOL','external-link',()=>this.openSearch());
-    }
-    if(this.wolResultsQuery && !this.wolResultsLoading && this.wolResults.length){
-      const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
-      headingRow.createEl('h3',{text:'RÉSULTATS WOL · '+this.wolResults.length+' premiers liens'});
-      for(const hit of this.wolResults){
-        const el=card(this.scroller,hit.title,hit.excerpt||undefined);
-        el.addClass('biblelab-wol-hit');
-        const row=el.createDiv({cls:'biblelab-buttons'});
-        button(row,'Lire ici','book-open-text',()=>this.focusReference(hit.url,hit.title),true);
-        button(row,'WOL','external-link',()=>external(hit.url));
-        button(row,'Copier','copy',()=>void this.copy(hit.url));
-      }
-      this.scroller.createEl('p',{cls:'biblelab-mini',text:'Aperçu des liens présents sur la première page seulement. Pour tous les résultats ou des filtres avancés, utilise WOL.'});
+      check.createEl('p',{text:'Les sites officiels peuvent limiter la consultation automatisée. Ouvre WOL si nécessaire.'});
     }
 
-    this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'MES NOTES JW LIBRARY'});
-    const local=this.scroller.createDiv({cls:'biblelab-reader-start biblelab-local-jw'});
-    local.createEl('p',{text:'Recherche privée dans les notes déjà importées depuis une sauvegarde JW Library. Rien n’est envoyé en ligne.'});
+    const personal=this.scroller.createEl('details',{cls:'biblelab-search-advanced biblelab-personal-search'});
+    personal.open=!!this.localHitsQuery||!!this.localSearchError;
+    personal.createEl('summary',{text:'Rechercher dans mes notes JW Library'});
+    const local=personal.createDiv({cls:'biblelab-search-advanced-body'});
+    local.createEl('p',{cls:'biblelab-mini',text:'Uniquement les notes importées dans Obsidian. Aucune donnée privée n’est transmise en ligne.'});
     const localBtn=button(local,this.localSearchLoading?'Recherche locale…':'Chercher mes notes','file-search',()=>void this.searchImportedNotes());
     localBtn.disabled=this.localSearchLoading;
     if(this.localSearchError)local.createEl('p',{cls:'biblelab-reader-hint',text:this.localSearchError});
-    if(this.localHitsQuery && !this.localSearchLoading){
-      local.createEl('p',{cls:'biblelab-mini',text:this.localHits.length+' note(s) trouvée(s) · recherche sur les 30 premiers résultats'});
+    if(this.localHitsQuery&&!this.localSearchLoading){
+      local.createEl('p',{cls:'biblelab-mini',text:this.localHits.length+' résultat(s) sur les 30 premiers trouvés'});
       for(const hit of this.localHits){
         const item=card(local,hit.title,hit.excerpt);
         item.addClass('biblelab-local-jw-result');
         button(item,'Ouvrir la note','file-text',()=>{
           const file=this.app.vault.getAbstractFileByPath(hit.path);
-          if(!(file instanceof TFile)){new Notice('La note a été déplacée ou supprimée.');return;}
+          if(!(file instanceof TFile)){new Notice('Cette note a été déplacée ou supprimée.');return;}
           void this.app.workspace.getLeaf('tab').openFile(file);
         });
       }
     }
-
-    const read=this.scroller.createDiv({cls:'biblelab-reader-start'});
-    read.createEl('h3',{text:'Lire une référence précise'});
-    read.createEl('p',{text:'Versets avec notes d’étude et renvois, ou publications officielles, chargés sur demande.'});
-    const target=this.query.trim();
-    if(target){
-      const direct=cleanWolUrl(target);
-      const item:ReferenceEntry={label:target,url:direct||passageUrl(target),
-        kind:parseScripture(target)?'scripture':direct?'document':'publication',origin:'pinned'};
-      renderReferenceAccordion(read,item,this.reader);
-      button(read,'Afficher la référence','panel-right-open',()=>{
-        this.reader.expanded.add(item.url+'#'+item.label);this.render();
-      });
-    }
-    this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'Ressources officielles'});
-    const shortcuts=this.scroller.createDiv({cls:'biblelab-buttons'});
-    button(shortcuts,'Outils d’étude JW.org','library-big',()=>external('https://www.jw.org/fr/la-bible-et-vous/outils-etude-bible/'));
-    button(shortcuts,'Consulter l’Index WOL','book-open-check',()=>external('https://wol.jw.org/fr/wol/d/r30/lp-f/1200270070'));
+    const links=this.scroller.createDiv({cls:'biblelab-search-shortcuts'});
+    button(links,'Bibliothèque d’étude','library-big',()=>external('https://www.jw.org/fr/la-bible-et-vous/outils-etude-bible/'));
+    button(links,'Index WOL','book-open-check',()=>external('https://wol.jw.org/fr/wol/d/r30/lp-f/1200270070'));
   }
   private async loadWolResults():Promise<void>{
     const term=this.query.trim();
