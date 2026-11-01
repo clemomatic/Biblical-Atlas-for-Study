@@ -25,6 +25,7 @@ import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveI
 import { saveDailyStudy, saveWeeklyStudy } from './studyNoteBuilder';
 import type { DayPreview, MeetingPreview } from './studyLive';
 import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
+import { NativeJwModal } from './NativeJwModal';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -161,6 +162,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
     this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
     this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
+    this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (Bible Lab)', editorCallback: editor => this.run(this.openBibleLab(editor.getSelection() || editor.getLine(editor.getCursor().line))) });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({ id: 'manage-atlas', name: 'Gérer et personnaliser toutes les fiches', callback: this.manageAtlas });
@@ -226,6 +228,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       new Notice('Plan de discours créé et ouvert.');
     }).open();
   };
+  openNativeBridge = ():void => {new NativeJwModal(this.app,this.settings.noteFolder).open();};
   importMarkdownArchive = ():void => {
     this.run((async()=>{
       const file=await chooseMarkdownZip();
