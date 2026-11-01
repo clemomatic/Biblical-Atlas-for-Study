@@ -1,3 +1,19 @@
+## Bible Lab 0.8.5 — Parcours d’étude et UX repensés
+
+Cette version introduit la première refonte structurelle du panneau, avec une priorité : **chercher → lire → exploiter une référence dans sa note sans se perdre dans l'interface**.
+
+- **Navigation** : trois parcours principaux (« Étudier », « Chercher », « Lire ») ; Atlas, Sources et Studio restent présents mais visuellement secondaires, sans perte de fonctions.
+- **Accueil utile** : champ de recherche, dernière lecture, références de la note active, et accès direct au texte du jour et à la réunion. On évite l'accueil « vitrine » composé de gros raccourcis.
+- **Recherche intelligente** : saisir « Jean 7:24 » ou une URL WOL ouvre directement le lecteur ; un sujet comme « compassion » lance la recherche documentaire WOL. Le champ conserve la requête même après consultation d'une référence.
+- **Résultats** : cartes éditoriales condensées, action principale « Lire ici », accès à la source officielle et message clair si la recherche automatisée est indisponible.
+- **Moins de bruit** : les filtres, diagnostics réseau, imports locaux et options secondaires sont repliables, plutôt que tous visibles en permanence.
+- **Lecture contextualisée** : une seule source mise en évidence, historique précédent/suivant, références de la note active repliées pendant la lecture.
+- **Passage à l'action** : « Insérer dans ma note » sur la source consultée, avec protection de l'éditeur Markdown contre les insertions dans un mauvais fichier.
+- **Lisibilité** : hiérarchie typographique, espacement, navigation clavier et styles adaptatifs aux largeurs étroites.
+- **Non-régression** : nouveaux scénarios Playwright pour l'accueil, la recherche, les sources, le retour à la recherche et les références de notes.
+
+Les limites d'accès automatique à WOL et JW.org demeurent : l'interface doit les signaler et laisser l'accès direct à ces sites. Aucune nouvelle collecte ni transmission des notes personnelles du coffre.
+
 ## Bible Lab 0.8.4 — Réparation des sources officielles
 
 Cette version corrige la récupération du texte du jour et du programme de réunion depuis les structures réelles de WOL et améliore les parcours de lecture des liens officiels.
