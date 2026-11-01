@@ -9,6 +9,7 @@ export interface ReaderState {
  pending:Map<string,Promise<ReaderResult>>;
  copy:(url:string)=>void;
  open:(url:string)=>void;
+ capture:(reference:ReferenceEntry,resolvedUrl:string)=>void;
 }
 function key(item:ReferenceEntry):string{return item.url+'#'+item.label;}
 function action(parent:HTMLElement,label:string,icon:string,callback:()=>void):void {
@@ -31,6 +32,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  let currentUrl=ref.url;
  action(buttons,'WOL','external-link',()=>state.open(currentUrl));
  action(buttons,'Copier','copy',()=>state.copy(currentUrl));
+ action(buttons,'Noter une piste','lightbulb',()=>state.capture(ref,currentUrl));
  if(ref.kind==='scripture'){const jw=jwLibraryLink(ref.label);if(jw)action(buttons,'JW Library','book-marked',()=>state.open(jw));}
  const contents=body.createDiv({cls:'biblelab-reader-contents'});
  const draw=(result:ReaderResult):void=>{
