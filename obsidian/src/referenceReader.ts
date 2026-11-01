@@ -7,7 +7,8 @@ import { cleanReadingText, readableOfficialElement } from './readerText.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
-export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption';text:string;source?:string;number?:string}
+export interface ReaderPart {text:string;url?:string;kind?:ReferenceKind}
+export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption';text:string;source?:string;number?:string;parts?:ReaderPart[]}
 export interface ReaderLink {label:string;url:string}
 export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string}
 export const MAX_REFERENCES=60;
@@ -85,6 +86,58 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  }
  return results.slice(0,MAX_REFERENCES);
 }
+/**
+ * Build safe, interactive text spans. Keep all content as textContent;
+ * only links from the official WOL host or recognized Bible citations open
+ * in the local reference reader. Nothing from remote HTML is injected.
+ */
+export function linkifyReaderText(
+ text:string, explicit:readonly {label:string;url:string}[]=[]
+):ReaderPart[]{
+ if(!text)return [];
+ type Candidate={start:number;end:number;url:string;kind:ReferenceKind;priority:number};
+ const candidates:Candidate[]=[];
+ const add=(label:string,url:string,kind:ReferenceKind,priority:number):void=>{
+  if(!label||label.length>160||candidates.length>180)return;
+  const needle=label.toLocaleLowerCase('fr');
+  const content=text.toLocaleLowerCase('fr');
+  let at=0;
+  for(let i=0;i<24;i++){
+   const start=content.indexOf(needle,at);
+   if(start<0)break;
+   const end=start+label.length;
+   // A link must not match part of a longer word.
+   const before=start?text[start-1]:'';
+   const after=text[end]||'';
+   if(!/\p{L}|\p{N}/u.test(before)&&!/\p{L}|\p{N}/u.test(after))
+    candidates.push({start,end,url,kind,priority});
+   at=end;
+  }
+ };
+ for(const item of explicit){
+  const url=cleanWolUrl(item.url);
+  if(!url)continue;
+  const label=cleanReadingText(item.label);
+  if(label.length>=2)add(label,url,parseScripture(label)?'scripture':url.includes('/wol/d/')?'document':'publication',0);
+ }
+ for(const label of extractReferences(text).slice(0,30)){
+  const scripture=parseScripture(label);
+  if(!scripture)continue;
+  add(label,bibleChapterUrl(scripture),'scripture',1);
+ }
+ candidates.sort((a,b)=>a.start-b.start||a.priority-b.priority||(b.end-b.start)-(a.end-a.start));
+ const parts:ReaderPart[]=[];
+ let offset=0;
+ for(const item of candidates){
+  if(item.start<offset||parts.length>=90)continue;
+  if(item.start>offset)parts.push({text:text.slice(offset,item.start)});
+  parts.push({text:text.slice(item.start,item.end),url:item.url,kind:item.kind});
+  offset=item.end;
+ }
+ if(offset<text.length)parts.push({text:text.slice(offset)});
+ return parts.length?parts:[{text}];
+}
+
 function normalizedText(node:Element|null,max=2200):string {
  return cleanReadingText(node?.textContent||'').slice(0,max);
 }
@@ -144,7 +197,7 @@ function articleParagraphNumber(node:Element):string|undefined{
  const value=mark&&normalizedText(mark,6);
  return value&&/^\d{1,3}$/.test(value)?value:undefined;
 }
-function gatherSections(root:Element,limit=360):ReaderLine[]{
+function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  const lines:ReaderLine[]=[];
  const seen=new Set<string>();
  const selectors='h1,h2,h3,h4,p,li,blockquote,dt,dd,figcaption';
@@ -164,7 +217,11 @@ function gatherSections(root:Element,limit=360):ReaderLine[]{
   else if(/question|studyQ|questionText/i.test(classes)||/^\d{1,2}\.\s+.{6,}\?$/.test(text))type='question';
   else if(/studyNote|footnote/i.test(classes))type='note';
   else if(/crossRef|xref/i.test(classes))type='crossref';
-  lines.push({type,text,number});
+  const explicit=[...el.querySelectorAll<HTMLAnchorElement>('a[href]')].slice(0,30)
+   .map(a=>({label:cleanReadingText(a.textContent||''),
+     url:allowLink(a.getAttribute('href')||'',sourceUrl)||''}))
+   .filter(item=>item.url);
+  lines.push({type,text,number,parts:linkifyReaderText(text,explicit)});
   if(lines.length>=limit)break;
  }
  return lines;
@@ -227,7 +284,7 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
      }
    }
  }else{
-   lines=gatherSections(root,isLookup?40:360);
+   lines=gatherSections(root,official,isLookup?40:360);
    if(lines.length>=360)notice='Article très long : affichage limité. Ouvre WOL pour consulter la suite.';
  }
  if(!isVerse&&!lines.length&&normalizedText(root)){
