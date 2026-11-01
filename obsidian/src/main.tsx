@@ -27,6 +27,7 @@ import type { DayPreview, MeetingPreview } from './studyLive';
 import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
 import { NativeJwModal } from './NativeJwModal';
 import type { MapBounds } from './tileMath';
+import { normalizedReaderPreferences, WOL_LANGUAGES } from './researchPreferences';
 
 const VIEW_TYPE = 'atlas-biblique';
 
@@ -83,16 +84,65 @@ class AtlasView extends ItemView {
 
 class AtlasSettingTab extends PluginSettingTab {
   constructor(app: ObsidianApp, private plugin: BiblicalAtlasPlugin) { super(app, plugin); }
-  display(): void {
-    this.containerEl.empty(); this.containerEl.createEl('h2', { text: 'Atlas biblique interactif' });
-    new Setting(this.containerEl).setName('Dossier des recherches').setDesc('Les nouvelles notes et enquêtes seront créées ici. Les fichiers existants restent à leur emplacement.').addText(text => {
-      text.setValue(this.plugin.settings.noteFolder);
-      text.onChange(value => { try { validFolder(value); void this.plugin.updateSettings({ noteFolder: value }).catch(error => this.plugin.report(error)); } catch { /* Allow typing an incomplete path. */ } });
+  display():void{
+    this.containerEl.empty();
+    this.containerEl.createEl('h2',{text:'Bible Lab · Préférences'});
+    this.containerEl.createEl('p',{text:'Paramètres enregistrés localement dans le coffre. La modification d’un dossier ne déplace jamais les fichiers déjà créés.'});
+    this.containerEl.createEl('h3',{text:'Langue et sources officielles'});
+    new Setting(this.containerEl).setName('Langue des recherches').setDesc('Appliquée à WOL, JW.org et aux nouveaux liens bibliques. Les notes existantes et leurs URL ne sont pas traduites.').addDropdown(dropdown=>{
+      dropdown.addOptions(Object.fromEntries(Object.entries(WOL_LANGUAGES).map(([code,p])=>[code,p.label])));
+      dropdown.setValue(this.plugin.settings.language).onChange(value=>{
+        void this.plugin.updateSettings({language:value as AtlasSettings['language']}).catch(error=>this.plugin.report(error));
+      });
     });
-    new Setting(this.containerEl).setName('Charger les fonds de carte en ligne').setDesc('Charge les tuiles OpenFreeMap sans clé et les conserve dans le coffre. Désactivé : seules les tuiles déjà téléchargées et le fond Natural Earth inclus sont utilisés.').addToggle(toggle => toggle.setValue(this.plugin.settings.allowOnlineMaps).onChange(async value => { await this.plugin.updateSettings({ allowOnlineMaps: value }); }));
-    new Setting(this.containerEl).setName('Cartes hors connexion').setDesc('Préparer une région, consulter les téléchargements ou libérer leur espace.').addButton(button => button.setButtonText('Préparer les cartes').onClick(this.plugin.openMapDownloads));
-    this.containerEl.createEl('p', { text: 'Le corpus est inclus dans le plugin. Tes recherches restent des notes Markdown ; une mise à jour du plugin ne les réécrit pas. Aucun service d’IA ni compte distant n’est utilisé.' });
-    this.containerEl.createEl('p', { text: `Version ${this.plugin.manifest.version} · Consulte le guide fourni pour installer les mises à jour et créer des fiches personnelles.` });
+    this.containerEl.createEl('p',{text:'La reconnaissance automatique des abréviations bibliques reste actuellement optimisée pour le français. Les aperçus du texte du jour et de la réunion sont disponibles en français uniquement.'});
+    this.containerEl.createEl('h3',{text:'Dossiers du coffre'});
+    const pathSetting=(name:string,description:string,key:'noteFolder'|'studyFolder'|'jwFolder')=>{
+      new Setting(this.containerEl).setName(name).setDesc(description).addText(text=>{
+        text.setPlaceholder('Dossier / Sous-dossier');
+        text.setValue(this.plugin.settings[key]);
+        text.onChange(value=>{
+          try{const validated=validFolder(value);
+            void this.plugin.updateSettings({[key]:validated} as Partial<AtlasSettings>).catch(error=>this.plugin.report(error));
+          }catch{ /* intermediate typing is not committed */ }
+        });
+      });
+    };
+    pathSetting('Dossier Atlas','Fiches modifiées, recherches historiques et cartes locales.','noteFolder');
+    pathSetting('Dossier des notes d’étude','Méditations, préparations des réunions et plans de discours.','studyFolder');
+    pathSetting('Dossier des archives JW','Imports de JWPUB, notes JW Library et exports de sauvegardes.','jwFolder');
+    this.containerEl.createEl('p',{text:'Astuce : choisis des chemins relatifs au coffre, par exemple « Bible Lab/Notes » et « Bible Lab/Archives ». Les fichiers déjà créés ne sont pas déplacés.'});
+    this.containerEl.createEl('h3',{text:'Lecture et renvois'});
+    new Setting(this.containerEl).setName('Taille du texte').setDesc('Apparence du lecteur de références, sans modifier Obsidian.').addDropdown(dropdown=>{
+      dropdown.addOptions({compact:'Compact',comfortable:'Confortable',large:'Grande'});
+      dropdown.setValue(this.plugin.settings.readerSize).onChange(value=>
+        void this.plugin.updateSettings({readerSize:value as AtlasSettings['readerSize']}).catch(error=>this.plugin.report(error)));
+    });
+    new Setting(this.containerEl).setName('Afficher les notes d’étude').setDesc('Notes et commentaires développés par défaut ; désactivé, ils restent consultables en dépliant la section.').addToggle(toggle=>
+      toggle.setValue(this.plugin.settings.showReaderNotes).onChange(value=>
+        this.plugin.updateSettings({showReaderNotes:value}).catch(error=>this.plugin.report(error))));
+    new Setting(this.containerEl).setName('Références liées visibles').setDesc('Nombre maximum de renvois affichés sous chaque article ou verset.').addDropdown(dropdown=>{
+      dropdown.addOptions({'10':'10','20':'20','35':'35'});
+      dropdown.setValue(String(this.plugin.settings.readerRelatedLimit)).onChange(value=>
+        void this.plugin.updateSettings({readerRelatedLimit:Number(value) as AtlasSettings['readerRelatedLimit']}).catch(error=>this.plugin.report(error)));
+    });
+    new Setting(this.containerEl).setName('Cache de lecture').setDesc('Durée de conservation temporaire des textes consultés, uniquement en mémoire. Zéro : nouveau chargement à chaque ouverture.').addDropdown(dropdown=>{
+      dropdown.addOptions({'0':'Sans cache','15':'15 minutes','30':'30 minutes','60':'1 heure'});
+      dropdown.setValue(String(this.plugin.settings.readerCacheMinutes)).onChange(value=>
+        void this.plugin.updateSettings({readerCacheMinutes:Number(value) as AtlasSettings['readerCacheMinutes']}).catch(error=>this.plugin.report(error)));
+    });
+    this.containerEl.createEl('h3',{text:'Atlas et données'});
+    new Setting(this.containerEl).setName('Charger les fonds de carte en ligne').setDesc('Tuiles OpenFreeMap. Désactivé : cartes déjà téléchargées et fond inclus uniquement.').addToggle(toggle=>
+      toggle.setValue(this.plugin.settings.allowOnlineMaps).onChange(value=>
+        this.plugin.updateSettings({allowOnlineMaps:value}).catch(error=>this.plugin.report(error))));
+    new Setting(this.containerEl).setName('Cartes hors connexion').setDesc('Préparer une région ou supprimer les tuiles téléchargées.').addButton(button=>
+      button.setButtonText('Gérer les cartes').onClick(this.plugin.openMapDownloads));
+    new Setting(this.containerEl).setName('Réinitialiser les préférences de lecture').setDesc('Restaure le français et les options de lecture d’origine, sans toucher aux dossiers, aux notes ou aux archives.').addButton(button=>
+      button.setButtonText('Réinitialiser').onClick(async()=>{
+        await this.plugin.updateSettings(normalizedReaderPreferences(null));this.display();
+        new Notice('Préférences de lecture réinitialisées.');
+      }));
+    this.containerEl.createEl('p',{text:'Données du coffre conservées localement. Aucune synchronisation directe avec JW Library. Version '+this.plugin.manifest.version+'.'});
   }
 }
 
@@ -143,13 +193,30 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   }
   private async indexAll(): Promise<void> { await Promise.all(this.app.vault.getMarkdownFiles().map(file => this.indexFile(file, false))); this.publish(); }
   async updateSettings(change: Partial<AtlasSettings>): Promise<void> {
-    this.settings = { ...this.settings, ...change, noteFolder: validFolder(change.noteFolder ?? this.settings.noteFolder) };
-    await this.saveData(this.settings); this.publish();
+    const candidate={...this.settings,...change};
+    this.settings={
+      ...candidate,...normalizedReaderPreferences(candidate),
+      noteFolder:validFolder(candidate.noteFolder),
+      studyFolder:validFolder(candidate.studyFolder),
+      jwFolder:validFolder(candidate.jwFolder),
+      allowOnlineMaps:candidate.allowOnlineMaps===true
+    };
+    await this.saveData(this.settings);
+    this.publish();
+    for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)){
+      if(leaf.view instanceof BibleLabSidebarView)leaf.view.onPreferencesChanged();
+    }
   }
   async onload(): Promise<void> {
     const stored = await this.loadData() as Partial<AtlasSettings> | null;
-    try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true }; }
-    catch { this.settings = { ...DEFAULT_SETTINGS }; }
+    const folder=(value:unknown,fallback:string)=>{try{return validFolder(value);}catch{return fallback;}};
+    this.settings={
+      ...DEFAULT_SETTINGS,...normalizedReaderPreferences(stored),
+      noteFolder:folder(stored?.noteFolder,DEFAULT_SETTINGS.noteFolder),
+      studyFolder:folder(stored?.studyFolder,folder(stored?.noteFolder,DEFAULT_SETTINGS.studyFolder)),
+      jwFolder:folder(stored?.jwFolder,folder(stored?.noteFolder,DEFAULT_SETTINGS.jwFolder)),
+      allowOnlineMaps:stored?.allowOnlineMaps===true
+    };
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
@@ -220,20 +287,20 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
   onunload(): void { this.listeners.clear(); this.maps?.dispose(); }
-  saveDailyStudy = (day:DayPreview,date:Date):void => {this.run(saveDailyStudy(this.app,this.settings.noteFolder,day,date));};
-  saveWeeklyStudy = (week:MeetingPreview,date:Date):void => {this.run(saveWeeklyStudy(this.app,this.settings.noteFolder,week,date));};
+  saveDailyStudy = (day:DayPreview,date:Date):void => {this.run(saveDailyStudy(this.app,this.settings.studyFolder,day,date));};
+  saveWeeklyStudy = (week:MeetingPreview,date:Date):void => {this.run(saveWeeklyStudy(this.app,this.settings.studyFolder,week,date));};
   createTalk = ():void => {
     new TalkStudioModal(this.app, async draft => {
-      await saveTalkToVault(this.app,this.settings.noteFolder,draft);
+      await saveTalkToVault(this.app,this.settings.studyFolder,draft);
       new Notice('Plan de discours créé et ouvert.');
     }).open();
   };
-  openNativeBridge = ():void => {new NativeJwModal(this.app,this.settings.noteFolder).open();};
+  openNativeBridge = ():void => {new NativeJwModal(this.app,this.settings.jwFolder).open();};
   importMarkdownArchive = ():void => {
     this.run((async()=>{
       const file=await chooseMarkdownZip();
       if(!file)return;
-      const result=await importMarkdownZip(this.app,file,this.settings.noteFolder);
+      const result=await importMarkdownZip(this.app,file,this.settings.jwFolder);
       new Notice('Import terminé : '+result.notes+' notes Markdown.');
     })());
   };
@@ -242,7 +309,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       const file=await chooseJwArchive();
       if(!file)return;
       const report=await inspectJwArchive(file);
-      await saveArchiveReport(this.app,report,this.settings.noteFolder);
+      await saveArchiveReport(this.app,report,this.settings.jwFolder);
       new Notice('Archive '+report.kind+' analysée : '+report.entries.length+' fichiers. Aucun original modifié.');
     })());
   };
