@@ -1,3 +1,19 @@
+## Bible Lab 0.8.2 — Fiabilisation du lecteur et de la recherche
+
+Cette livraison corrige les défauts visibles du panneau latéral et rationalise la navigation.
+
+- **Entités HTML** : prise en charge des espaces littéraux `&nbsp;`, des variantes `&nbsp:`, `&#160;`, `&#x202f;`, et des encodages successifs comme `&amp;nbsp;`, dans les versets, les titres d’articles, les références, les recherches et les aperçus.
+- **Texte biblique fidèle** : n’utilise plus un extrait générique du chapitre comme s’il correspondait au verset demandé. Lorsqu’un verset n’est pas isolable, le lecteur le signale et propose d’ouvrir la source.
+- **Articles** : suppression DOM des numéros de paragraphes avant extraction du texte, numéros affichés séparément et limite de lecture longue annoncée explicitement.
+- **Navigation** : historique de 40 références, boutons précédent/suivant, ouverture d’un document lié en lecture principale et tentative de restauration du défilement.
+- **Notes Obsidian** : l’action d’insertion n’écrit plus dans le premier éditeur Markdown trouvé : elle demande la note active ou un éditeur explicitement associé à la dernière note connue.
+- **Accueil** : la lecture et la recherche sont prioritaires ; les outils d’enquête restent disponibles dans Studio.
+- **Programme hebdomadaire** : consultation distincte du Cahier Vie et ministère sur JW.org, plutôt que d’essayer de le récupérer sur la page du texte du jour ; la source est vérifiée avant d’afficher le programme.
+- **Performance** : cache de lecture limité à 48 références. Le chargement des documents reste à la demande.
+- **Tests** : régressions sur les espaces, le texte des versets, les articles HTML doublement encodés, la navigation, la sécurité d'insertion et le programme de réunion.
+
+**Limites** : l’extraction dépend de la structure de WOL/JW.org et certaines pages peuvent rester illisibles. Les URL de JW Library restent des liens sans synchronisation directe des notes. L’export de sauvegarde JW Library reste expérimental. Vérifier sur un coffre Obsidian de test avant usage courant.
+
 ## Bible Lab 0.8.1 — lecteur de références
 
 Cette version améliore la lecture **dans le panneau latéral** sans ajouter d’outils d’enquête.
