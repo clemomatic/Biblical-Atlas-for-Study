@@ -140,11 +140,11 @@ function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
  return lines;
 }
 function articleParagraphNumber(node:Element):string|undefined{
- const mark=node.querySelector('.parNum, .pNum, [class~="parnum"], :scope > sup');
+ const mark=node.querySelector('.parNum, .pNum, [class~="parnum"]');
  const value=mark&&normalizedText(mark,6);
  return value&&/^\d{1,3}$/.test(value)?value:undefined;
 }
-function gatherSections(root:Element,limit=145):ReaderLine[]{
+function gatherSections(root:Element,limit=360):ReaderLine[]{
  const lines:ReaderLine[]=[];
  const seen=new Set<string>();
  const selectors='h1,h2,h3,h4,p,li,blockquote,dt,dd,figcaption';
@@ -182,7 +182,11 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  const keys=new Set<string>();
  const targeted=scripture&&isVerse?verseRelatedAnchors(root,scripture):[];
  // On chapter pages, links from other verses aren't pertinent.
- const candidateLinks=isVerse&&targeted.length?targeted:root.querySelectorAll<HTMLAnchorElement>('a[href]');
+ const selected=scripture&&isVerse?relevantVerseNode(doc,scripture):null;
+ const local=selected?.closest('p,li,[data-verse]')||selected?.parentElement;
+ const localLinks=local?[...local.querySelectorAll<HTMLAnchorElement>('a[href]'),
+   ...[local.nextElementSibling?.querySelectorAll<HTMLAnchorElement>('a[href]')||[]].flat()]:[];
+ const candidateLinks=isVerse?[...targeted,...localLinks]:root.querySelectorAll<HTMLAnchorElement>('a[href]');
  for(const a of candidateLinks){
    const href=allowLink(a.getAttribute('href')||'',official);
    const label=normalizedText(a,150);
@@ -218,13 +222,14 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
        notice='Notes et renvois trouvés ; utilise WOL pour vérifier le texte exact du verset.';
      }else{
        notice='Le verset précis n’a pas pu être isolé : extrait du chapitre et accès à la Bible d’étude.';
-       lines=gatherSections(root,14);
+       lines=[];
      }
    }
  }else{
-   lines=gatherSections(root,isLookup?22:145);
+   lines=gatherSections(root,isLookup?40:360);
+   if(lines.length>=360)notice='Article très long : affichage limité. Ouvre WOL pour consulter la suite.';
  }
- if(!lines.length&&normalizedText(root)){
+ if(!isVerse&&!lines.length&&normalizedText(root)){
    lines=[{type:'paragraph',text:readableOfficialElement(root,'article',2400)}];
  }
  if(!lines.length)notice='Le contenu n’a pas pu être extrait : ouvre le document sur WOL.';
