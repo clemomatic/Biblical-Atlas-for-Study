@@ -94,12 +94,25 @@ def import_backup(path:Path,dest:Path):
         for nid,label in con.execute(q):labels.setdefault(nid,[]).append(label)
         rows=con.execute('SELECT NoteId, Guid, Title, Content, Created, LastModified, LocationId, UserMarkId FROM Note ORDER BY NoteId')
         count=0
+        tag_notes={}
         for nid,guid,title,content,created,modified,loc,mark in rows:
             name=safe_filename(title)+' — '+guid+'.md'
             note=make_note((guid,title,content,created,modified,loc,mark),labels.get(nid,[]))
             
             with (dest/name).open('w',encoding='utf-8',newline='') as handle:handle.write(note)
             count+=1
+            for label in labels.get(nid,[]):tag_notes.setdefault(label,[]).append((Path(name).stem,title or 'Sans titre'))
+        # Visual navigation index; stored in a subfolder, never considered a JW note on re-export.
+        index=dest/'INDEX';index.mkdir(exist_ok=True)
+        tag_folder=index/'Thèmes';tag_folder.mkdir(exist_ok=True)
+        dashboard=['---','bible_lab_kind: jw-library-index','---','# Mon laboratoire d’étude','','> [!summary] Mes recherches JW Library','> **'+str(count)+' notes** · **'+str(len(tag_notes))+' thèmes**','','## Explorer les thèmes','']
+        for label,linked in sorted(tag_notes.items(), key=lambda pair:(-len(pair[1]),pair[0].casefold())):
+            filename=safe_filename(label)+'-'+sha(label.encode())[:8]+'.md'
+            dashboard.append('- [['+Path(filename).stem+'|'+label.replace('|',' ') +']] · '+str(len(linked)))
+            lines=['---','bible_lab_kind: jw-library-tag-index','---','# '+label,'','> [!info] '+str(len(linked))+' notes reliées','']
+            lines += ['- [['+stem+'|'+(title or 'Sans titre').replace('|',' ') +']]' for stem,title in linked]
+            (tag_folder/filename).write_text('\n'.join(lines)+'\n','utf-8')
+        (index/'00 Tableau de recherche.md').write_text('\n'.join(dashboard)+'\n','utf-8')
         con.close()
         source={'source_name':path.name,'source_sha256':sha(path.read_bytes()),'schema_version':schema,'note_count':count,'description':'Enregistre les GUID, titres, contenus et étiquettes en Markdown; réexportation limitée à Title et Content des notes existantes.'}
         (dest/'_BIBLE_LAB_IMPORT.json').write_text(json.dumps(source,indent=2,ensure_ascii=False),'utf-8')
