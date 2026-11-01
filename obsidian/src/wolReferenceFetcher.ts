@@ -149,6 +149,17 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
  const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
+ // A small set of source IDs was verified directly on WOL. Try those
+ // first, so a known article is not held hostage by broken /l/ redirects
+ // or by the /s/ search HTML. Fall back to ordinary resolution if blocked.
+ const verified=knownCitation(query);
+ if(verified){
+   try{
+     const article=readerForDocument(await officialText(verified),verified,query);
+     article.kind='article';
+     return article;
+   }catch{ /* Continue through official bibliography lookup. */ }
+ }
  const lookup=path.startsWith('/fr/wol/s/')
    ? WOL+'l/r30/lp-f?'+new URLSearchParams({q:query}):url;
  let text='';let docUrl:string|null=null;
