@@ -159,7 +159,7 @@ export async function prepareBackupExport(app:App,file:File):Promise<BackupExpor
     const baselineFk=fk(db);
     const noteRows=rows(db,'SELECT NoteId,Guid,Title,Content FROM Note');
     const known=new Map(noteRows.map(x=>[String(x.Guid),x]));
-    const files=app.vault.getMarkdownFiles().filter(f=>f.path.startsWith(folder+'/') && f.parent?.path===folder);
+    const files=app.vault.getMarkdownFiles().filter(f=>f.path.startsWith(folder+'/') && !f.path.slice(folder.length+1).includes('/'));
     if(files.length!==source.count||metadata.note_count!==source.count)throw Error('Un fichier de note manque ou a été ajouté : réexportation refusée.');
     const changes:BackupChange[]=[];
     const seen=new Set<string>();
