@@ -1,3 +1,18 @@
+## Bible Lab 0.8.3 — lecture documentaire interactive
+
+Version de test centrée sur la consultation des publications et références WOL/JW.org dans le panneau latéral.
+
+- Les références bibliques citées dans les paragraphes des articles deviennent des liens cliquables. Les références reconnues s'ouvrent dans le lecteur intégré, en conservant l'historique de navigation.
+- Les liens de documents WOL présents dans le corps des paragraphes sont accessibles directement au toucher ou au clic. Les liens externes et les URL non autorisées ne sont pas insérés dans le lecteur.
+- Les notes et renvois de la Bible d'étude qui contiennent des références bibliques peuvent également s'ouvrir sans quitter Obsidian.
+- Les articles comportant plusieurs sections proposent un sommaire interne avec navigation jusqu'aux titres, y compris au-delà de la portion initialement affichée.
+- Le lecteur d'article propose A− / A+ pour ajuster la taille du texte ; le réglage reste actif dans le panneau pendant la session.
+- Le bouton de l'accueil a été renommé « Reprendre la lecture » afin d'éviter les collisions d'intitulés avec l'onglet « Références », observées dans les tests navigateur de la version 0.8.2.
+- Le contenu distant reste rendu en texte et en boutons natifs, jamais en HTML injecté. Aucune donnée personnelle de JW Library ou des notes du coffre n'est transmise à WOL.
+- Des tests unitaires et navigateur couvrent les liens bibliques, les liens de publication, les changements d'article et le retour, le sommaire et les contrôles typographiques.
+
+Cette version dépend des améliorations précédentes (v0.8.0–0.8.2). Les travaux de synchronisation JW Library, d'index documentaire complet et d'enrichissement des illustrations n'en font pas partie.
+
 ## Bible Lab 0.8.2 — Fiabilisation du lecteur et de la recherche
 
 Cette livraison corrige les défauts visibles du panneau latéral et rationalise la navigation.
