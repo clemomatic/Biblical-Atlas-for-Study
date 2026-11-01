@@ -15,7 +15,8 @@ test('French and abbreviated scripture references yield stable JW Library links'
 });
 test('WOL links safely encode the requested French query',()=>{
   assert.equal(wolSearch('Jéhovah & amour'),'https://wol.jw.org/fr/wol/s/r30/lp-f?q=J%C3%A9hovah%20%26%20amour');
-  assert.equal(wolLookup('Jean 3:16'),'https://wol.jw.org/fr/wol/l/r30/lp-f?q=Jean%203%3A16');
+  assert.equal(wolLookup('w24 Novembre p. 14-19'),'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+14-19');
+  assert.equal(wolLookup('Jean 3:16'),'https://wol.jw.org/fr/wol/l/r30/lp-f?q=Jean+3%3A16');
 });
 test('Reference Tools markers and plain French verses can be found in a study note',()=>{
   const note='!!Matthieu 10:29; Jean 7:24!!\nUn détail : 1 Corinthiens 13:4 et Jean 7:24\n!!prophétie!!';
