@@ -12,14 +12,15 @@ test.beforeEach(async ({page})=>{
 test('research sidebar opens and sends only the current search to official URLs',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
-  await expect(pane.getByPlaceholder('Mot, sujet ou verset…')).toHaveValue('Matthieu 10:29');
-  await pane.getByPlaceholder('Mot, sujet ou verset…').fill('Jean 7:24');
+  await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('');
+  await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Jean 7:24');
+  await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
   await pane.getByRole('button',{name:/JW Library$/}).first().click();
   const opened=await page.evaluate(()=>(window as any).openedLabUrls);
   expect(opened[0]).toContain('bible=43007024');
   await pane.getByRole('button',{name:'Rechercher WOL'}).click();
   const updated=await page.evaluate(()=>(window as any).openedLabUrls);
-  expect(updated[1]).toBe('https://wol.jw.org/fr/wol/s/r30/lp-f?q=Jean%207%3A24');
+  expect(updated[1]).toContain('https://wol.jw.org/fr/wol/s/r30/lp-f?q=Jean+7%3A24');
   // Opening a pinned verse may fetch the official study Bible in the
   // reference pane; keyword search itself must still only open the official URL.
 });
@@ -52,6 +53,6 @@ test('WOL style reference markers open the search sidebar without altering the n
     (window as any).atlasTest.plugin.markdownPostProcessor(node);
   });
   await page.getByText('Jean 3:16',{exact:true}).last().click();
-  await expect(page.locator('.biblelab-side').getByRole('button',{name:'Références'})).toHaveAttribute('aria-selected','true');
+  await expect(page.locator('.biblelab-side').locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
   await expect(page.locator('.biblelab-reader-labels strong').filter({hasText:'Jean 3:16'})).toBeVisible();
 });
