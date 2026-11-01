@@ -65,6 +65,7 @@ export class BibleLabSidebarView extends ItemView {
   private wolResultsError='';
   private wolResultsLoading=false;
   private sourceCheckLoading=false;
+  private searchAdvancedOpen=false;
   private sourceCheckMessage='';
   private wolResultsSequence=0;
   private localHits:LocalJwHit[]=[];
@@ -138,6 +139,7 @@ export class BibleLabSidebarView extends ItemView {
       kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
     this.rememberReference(ref);
     this.pinnedRef=ref;
+    if(this.tab!=='refs'&&this.scroller)this.tabScroll.set(this.tab,this.scroller.scrollTop);
     this.reader.expanded.clear();
     this.reader.expanded.add(ref.url+'#'+label);
     this.tab='refs';if(this.scroller){this.render();this.scroller.scrollTop=0;}
@@ -407,7 +409,7 @@ export class BibleLabSidebarView extends ItemView {
       const info=this.scroller.createDiv({cls:'biblelab-search-feedback'});
       const symbol=info.createSpan();setIcon(symbol,'info');
       info.createEl('p',{text:this.wolResultsError});
-      button(info,'Voir sur WOL','external-link',()=>this.openSearch());
+      button(info,'Continuer sur WOL','external-link',()=>this.openSearch());
     }
     if(this.wolResultsQuery&&!this.wolResultsLoading&&this.wolResults.length){
       const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
@@ -429,6 +431,8 @@ export class BibleLabSidebarView extends ItemView {
     // Progressive disclosure: occasional advanced tools should never obscure
     // the result list or the reading workflow.
     const advanced=this.scroller.createEl('details',{cls:'biblelab-search-advanced'});
+    advanced.open=this.searchAdvancedOpen;
+    advanced.addEventListener('toggle',()=>{if(advanced.isConnected)this.searchAdvancedOpen=advanced.open;});
     advanced.createEl('summary',{text:'Filtres et actions supplémentaires'});
     const advancedBody=advanced.createDiv({cls:'biblelab-search-advanced-body'});
     const controls=advancedBody.createDiv({cls:'biblelab-search-controls'});
