@@ -21,6 +21,8 @@ def sample_archive(path:Path, schema:int=16, malformed_fk:bool=False):
         con.execute('CREATE TABLE Tag(TagId INTEGER PRIMARY KEY,Name TEXT)')
         con.execute('CREATE TABLE TagMap(TagMapId INTEGER PRIMARY KEY,NoteId INTEGER,TagId INTEGER,Position INTEGER)')
         con.execute('CREATE TABLE LastModified(LastModified TEXT)')
+        for table in ('UserMark','Bookmark','InputField','PlaylistItem'):
+            con.execute(f'CREATE TABLE "{table}"(Id INTEGER PRIMARY KEY)')
         con.execute('INSERT INTO Note VALUES (1,?,?,?,?,?,?,?)',(GUID,'Note de test','Ligne 1\r\nLigne 2','2026-01-01T00:00:00Z','2026-01-01T00:00:00Z',None,None))
         con.execute('INSERT INTO Tag VALUES (1,?)',('Méditation',))
         con.execute('INSERT INTO TagMap VALUES (1,1,1,0)')
