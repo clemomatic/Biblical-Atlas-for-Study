@@ -4,7 +4,6 @@ import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry }
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
-const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
 import { isBibliographicCitation,isExactBibliographicResult } from './wolBibliography';
 
 const DOC=/^\/fr\/wol\/d\/r30\/lp-f\/\d+(?:\/|$)/;
