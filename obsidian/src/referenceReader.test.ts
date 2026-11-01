@@ -53,3 +53,22 @@ test('Legacy WOL /s publication citations are upgraded to /l without rewriting t
   assert.equal(cleanWolUrl('https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour%20biblique'),
     'https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour%20biblique');
 });
+
+
+test('All bibliographic citations use /l lookup even when saved as legacy /s links',()=>{
+ for(const [old,expected] of [
+  ['https://wol.jw.org/fr/wol/s/r30/lp-f?q=w24%20Novembre%20p.%2020-25',
+   'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+20-25'],
+  ['https://wol.jw.org/fr/wol/s/r30/lp-f?q=w18%20f%C3%A9vrier%20p.24-26',
+   'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w18+f%C3%A9vrier+p.24-26'],
+  ['https://wol.jw.org/fr/wol/l/r30/lp-f?q=w18+f%C3%A9vrier+p.24-26',
+   'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w18+f%C3%A9vrier+p.24-26']
+ ]){
+  assert.equal(cleanWolUrl(old),expected);
+  assert.equal(extractReferenceEntries('[Ancienne référence]('+old+')')[0].url,expected);
+ }
+ const found=extractReferenceEntries('[w24 Novembre p. 20-25]\n[w18 février p.24-26]');
+ assert.equal(found.length,2);
+ assert.equal(found[0].url,'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+20-25');
+ assert.equal(found[1].url,'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w18+f%C3%A9vrier+p.24-26');
+});
