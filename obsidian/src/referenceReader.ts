@@ -48,7 +48,6 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
     .replace(/`[^`\r\n]+`/g,'');
  // Markdown links: [label](https://wol.jw.org/fr/wol/...)
  const linked=/\[([^\]\n]{1,240})\]\(\s*(https?:\/\/[^\s)]+)(?:\s+["'][^"']+["'])?\s*\)/gi;
- const plainWol:string[]=[];
  for(const m of text.matchAll(linked)){
    const href=cleanWolUrl(m[2]);
    if(href)push(m[1],href,'markdown');
@@ -105,7 +104,7 @@ function gatherSections(root:Element,limit=32):ReaderLine[]{
    if(!text||text.length<2||seen.has(text))continue;
    if(/^\s*(?:se connecter|partager|imprimer|précédent|suivant)$/i.test(text))continue;
    seen.add(text);
-   const type=/^H[1-4]$/.test(el.tagName)?'heading':/note|renvoi|référence/i.test(el.className||'')?'note':'paragraph';
+   const type:ReaderLine['type']=/^H[1-4]$/.test(el.tagName)?'heading':/note|renvoi|référence/i.test(el.className||'')?'note':'paragraph';
    lines.push({type,text});
    if(lines.length>=limit)break;
  }
