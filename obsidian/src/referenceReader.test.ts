@@ -53,3 +53,11 @@ test('Legacy WOL /s publication citations are upgraded to /l without rewriting t
   assert.equal(cleanWolUrl('https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour%20biblique'),
     'https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour%20biblique');
 });
+
+
+test('Bible references containing literal encoded nbsp are recognized and displayed cleanly',()=>{
+ const refs=extractReferenceEntries('Voir !!Jean&amp;nbsp;7:24!! et Matthieu&nbsp:10:29.');
+ assert.ok(refs.some(ref=>ref.label==='Jean 7:24'),JSON.stringify(refs));
+ assert.ok(refs.some(ref=>ref.label==='Matthieu 10:29'),JSON.stringify(refs));
+ assert.equal(passageUrl('Jean&amp;nbsp;7:24'),'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/43/7');
+});
