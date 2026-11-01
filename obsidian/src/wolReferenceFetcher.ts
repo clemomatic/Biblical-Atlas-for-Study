@@ -150,9 +150,23 @@ export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
      const value=readText(commentary.content||'');if(value)lines.push({type:'note',text:(commentary.source?readText(commentary.source)+' — ':'')+value});
    }
    const links:ReaderResult['links']=[];
+   const linked=new Set<string>();
    for(const row of entry.crossReferences||[]){
-     const label=(row.targets||[]).map(x=>x.standardCitation).filter(Boolean).join(' · ');
-     if(label)lines.push({type:'note',text:'Renvois : '+label});
+     const labels:string[]=[];
+     for(const target of row.targets||[]){
+       const citation=(target.standardCitation||'').trim();
+       if(citation)labels.push(citation);
+       const targetCode=(target.vs||'').replace(/[^0-9]/g,'');
+       if(citation&&/^\\d{8}$/.test(targetCode)){
+         const book=Number(targetCode.slice(0,2)),chapter=Number(targetCode.slice(2,5));
+         if(book>=1&&book<=66&&chapter>=1&&chapter<=150){
+           const url=WOL+'b/r30/lp-f/nwt/'+book+'/'+chapter;
+           const key=citation+'|'+url;
+           if(!linked.has(key)){links.push({label:citation,url});linked.add(key);}
+         }
+       }
+     }
+     if(labels.length)lines.push({type:'note',text:'Renvois : '+labels.join(' · ')});
    }
    if(!lines.length)throw Error('Bible d’étude vide.');
    return {title:entry.citation||scripture.label,
