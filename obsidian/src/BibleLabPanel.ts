@@ -1,9 +1,9 @@
 import { ItemView, MarkdownView, Notice, requestUrl, setIcon, TFile, type WorkspaceLeaf } from 'obsidian';
 import styles from './bibleLab.css?inline';
 import {
-  extractReferences, jwLibraryLink, mapChapterForPage, MAP_CHAPTERS,
+  jwLibraryLink, mapChapterForPage, MAP_CHAPTERS,
   normalizeSearch, OFFICIAL_ATLAS, OFFICIAL_MAP_INDEX, parseMapIndex, parseScripture,
-  RESOURCES, wolLookup, wolSearch, type MapLocation, type Resource
+  RESOURCES, wolSearch, type MapLocation, type Resource
 } from './bibleLabData';
 import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
 import { dayLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
@@ -270,25 +270,18 @@ export class BibleLabSidebarView extends ItemView {
     button(actions2,'Insérer dans note','file-plus-2',()=>this.insertLink(this.query));
     button(actions2,'Créer une enquête','network',()=>this.host.newResearch([]));
 
-    const ref=parseScripture(this.query);
-    if(ref){
-      const info=card(this.scroller,ref.label,'Référence biblique reconnue · lien officiel JW Finder.');
-      const links=info.createDiv({cls:'biblelab-buttons'});
-      button(links,'Copier référence','copy',()=>void this.copy(ref.label));
-      button(links,'Copier JW Library','link',()=>void this.copy(jwLibraryLink(this.query)||''));
-    }
-    this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'Aperçu du texte (facultatif)'});
-    const privacy=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
-    privacy.createEl('summary',{text:'Source et confidentialité de l’aperçu'});
-    privacy.createEl('p',{text:'Aperçu facultatif inspiré de WOL Reference Tools : le terme saisi est envoyé au service tiers wol-worker.iaremark.us, uniquement après un clic. Aucun document du coffre n’est transmis.'});
-    const row=this.scroller.createDiv({cls:'biblelab-buttons'});
-    const preview=button(row,this.previewLoading?'Chargement…':'Charger un aperçu','eye',()=>void this.fetchPreview());
-    preview.disabled=this.previewLoading;
-    if(this.previewFor===this.query&&this.previewLines.length){
-      const box=card(this.scroller,'Aperçu · '+this.previewFor,'Texte fourni par le service tiers, à vérifier dans WOL.');
-      for(const line of this.previewLines.slice(0,12))box.createEl('p',{text:line});
-    }else if(this.previewFor===this.query&&!this.previewLoading){
-      this.scroller.createDiv({cls:'biblelab-mini',text:'Aucun aperçu disponible. Utilise le lien officiel WOL.'});
+    const read=this.scroller.createDiv({cls:'biblelab-reader-start'});
+    read.createEl('h3',{text:'Lire dans le panneau'});
+    read.createEl('p',{text:'Texte, notes et références extraits de la source officielle sur demande.'});
+    const target=this.query.trim();
+    if(target){
+      const direct=cleanWolUrl(target);
+      const item:ReferenceEntry={label:target,url:direct||passageUrl(target),
+        kind:parseScripture(target)?'scripture':direct?'document':'publication',origin:'pinned'};
+      renderReferenceAccordion(read,item,this.reader);
+      button(read,'Déplier la référence','panel-right-open',()=>{
+        this.reader.expanded.add(item.url+'#'+item.label);this.render();
+      },true);
     }
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'Raccourcis'});
     for(const value of ['Jean 7:24','Matthieu 10:29','Jérémie 45:3']){
