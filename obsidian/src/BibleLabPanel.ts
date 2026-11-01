@@ -273,7 +273,7 @@ export class BibleLabSidebarView extends ItemView {
       try{
         const response=await requestUrl({url:dailyUrl,throw:false});
         if(response.status!==200)throw Error('WOL HTTP '+response.status);
-        if(!response.text||response.text.length<150)throw Error('Page WOL vide');
+        if(!response.text||!response.text.trim())throw Error('Page WOL vide');
         day=parseDailyHtml(response.text,today);
         const programmeLink=wolMeetingLink(response.text,today,dailyUrl)||dailyUrl;
         meeting=parseMeetingHtml(response.text,today,programmeLink);
