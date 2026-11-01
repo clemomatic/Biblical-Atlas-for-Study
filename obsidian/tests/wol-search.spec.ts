@@ -85,3 +85,24 @@ test('WOL blocked access shows explicit source fallback, not invented results',a
  const opened=await page.evaluate(()=>(window as any).openedSites);
  expect(opened[0]).toContain('https://wol.jw.org/fr/wol/s/r30/lp-f');
 });
+
+
+test('Personal JW Library backup notes are searchable locally without any network call',async({page})=>{
+ const pane=page.locator('.biblelab-side');
+ await page.evaluate(async()=>{
+  const {app}=(window as any).atlasTest;
+  await app.vault.create('Atlas biblique/Imports/Exemple.md',[
+    '---','bible_lab_kind: jw-library-note','jw_guid: "sample-01"',
+    'title: "Méditation sur la douceur"','---','','Jésus montrait beaucoup de douceur.'
+  ].join('\n'));
+  (window as any).atlasNetworkRequests=[];
+ });
+ await pane.getByPlaceholder('Mot, sujet ou verset…').fill('douceur');
+ await pane.getByRole('button',{name:'Chercher mes notes'}).click();
+ await expect(pane.getByText('Méditation sur la douceur')).toBeVisible();
+ await expect(pane.getByText(/1 note\(s\) trouvée\(s\)/)).toBeVisible();
+ expect(await page.evaluate(()=>(window as any).atlasNetworkRequests)).toEqual([]);
+ await pane.getByRole('button',{name:'Ouvrir la note'}).click();
+ expect(await page.evaluate(()=>(window as any).atlasTest.app.workspace.lastOpened))
+  .toBe('Atlas biblique/Imports/Exemple.md');
+});
