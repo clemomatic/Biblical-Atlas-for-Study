@@ -10,6 +10,7 @@ export interface ReaderState {
  copy:(url:string)=>void;
  open:(url:string)=>void;
  navigate?:(ref:ReferenceEntry)=>void;
+ articleFontSize?:number;
 }
 function key(item:ReferenceEntry):string{return item.url+'#'+item.label;}
 function action(parent:HTMLElement,label:string,icon:string,callback:()=>void):void {
@@ -97,19 +98,32 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        contents.createEl('p',{cls:'biblelab-reader-hint',text:part.text});
      }
    }else if(result.lines.length){
+     // A concise editorial toolbar stays within the current reference.
+     const controls=contents.createDiv({cls:'biblelab-article-controls'});
+     controls.createSpan({text:'LECTURE',cls:'biblelab-article-control-label'});
      const article=contents.createDiv({cls:'biblelab-reader-text biblelab-article-reading'});
-     // Long articles should remain usable on narrow mobile sidebars.
-     // Rendering more is local and does not trigger extra website requests.
-     let displayed=0;
-     const batchSize=16;
+     const applySize=():void=>article.style.setProperty('--bl-article-font-size',(state.articleFontSize||13)+'px');
+     const shrink=controls.createEl('button',{text:'A−',cls:'biblelab-reader-font-button',
+       attr:{type:'button','aria-label':'Réduire la taille du texte'}});
+     shrink.addEventListener('click',()=>{state.articleFontSize=Math.max(11,(state.articleFontSize||13)-1);applySize();});
+     const grow=controls.createEl('button',{text:'A+',cls:'biblelab-reader-font-button',
+       attr:{type:'button','aria-label':'Augmenter la taille du texte'}});
+     grow.addEventListener('click',()=>{state.articleFontSize=Math.min(19,(state.articleFontSize||13)+1);applySize();});
+     applySize();
+
      const lines=result.lines.filter((line,i)=>
        !(i===0&&line.type==='heading'&&line.text===result.title));
+     let displayed=0;
+     const batchSize=18;
+     const headings=new Map<number,HTMLElement>();
      const append=(amount:number):void=>{
        const to=Math.min(displayed+amount,lines.length);
        for(;displayed<to;displayed++){
          const part=lines[displayed];
          if(part.type==='heading'){
-           article.createEl('h5',{cls:'biblelab-article-heading',text:part.text});
+           const header=article.createEl('h5',{cls:'biblelab-article-heading',text:part.text});
+           header.id='bl-article-section-'+depth+'-'+displayed;
+           headings.set(displayed,header);
          }else if(part.type==='question'){
            const question=article.createEl('p',{cls:'biblelab-article-question'});
            readable(question,part);
@@ -132,6 +146,21 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      };
      const more=article.createEl('button',{cls:'biblelab-reader-more',attr:{type:'button'}});
      more.addEventListener('click',()=>append(batchSize));
+     const sections=lines.map((line,i)=>({line,i})).filter(item=>item.line.type==='heading').slice(0,18);
+     if(sections.length>=2){
+       const outline=contents.createEl('details',{cls:'biblelab-article-outline'});
+       outline.createEl('summary',{text:'Plan de l’article · '+sections.length+' sections'});
+       const list=outline.createDiv({cls:'biblelab-article-outline-list'});
+       for(const section of sections){
+         const link=list.createEl('button',{text:section.line.text,
+           attr:{type:'button',title:'Aller à '+section.line.text}});
+         link.addEventListener('click',()=>{
+           while(displayed<=section.i&&displayed<lines.length)append(batchSize);
+           const header=headings.get(section.i);
+           if(header)header.scrollIntoView({block:'nearest',behavior:'instant'});
+         });
+       }
+     }
      append(batchSize);
    }
 
