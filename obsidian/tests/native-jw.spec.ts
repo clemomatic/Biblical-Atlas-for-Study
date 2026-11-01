@@ -72,3 +72,40 @@ test('JW Library backup imports GUIDs, tags and markdown index without Python',a
  expect(note).toContain('<!-- BIBLE_LAB_NOTE_START -->');
  await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.includes('Tableau de recherche.md')))).toBeTruthy();
 });
+
+test('native backup export previews only edited note and keeps original media',async({page})=>{
+ const src=await backupBytes();
+ const upload=page.waitForEvent('filechooser');
+ await page.getByRole('button',{name:'Importer une sauvegarde JW Library'}).click();
+ await (await upload).setFiles({name:'example.jwlibrary',mimeType:'application/zip',buffer:Buffer.from(src)});
+ await expect(page.getByText('notes personnelles')).toBeVisible();
+ await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
+ await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.endsWith(GUID+'.md')))).toBeTruthy();
+ await page.evaluate(async()=>{
+   const {app}= (window as any).atlasTest;
+   const note=app.vault.getMarkdownFiles().find((f:any)=>f.path.endsWith('11111111-2222-3333-4444-555555555555.md'));
+   const text=await app.vault.read(note);
+   await app.vault.modify(note,text+'\nUne nouvelle pensée');
+ });
+ await page.locator('.biblelab-side').getByRole('button',{name:'Ouvrir la passerelle'}).click();
+ const choose=page.waitForEvent('filechooser');
+ await page.getByRole('button',{name:'Créer une sauvegarde JW Library'}).click();
+ await (await choose).setFiles({name:'example.jwlibrary',mimeType:'application/zip',buffer:Buffer.from(src)});
+ await expect(page.getByRole('button',{name:'Comparer les changements'})).toBeVisible();
+ await page.getByRole('button',{name:'Comparer les changements'}).click();
+ await expect(page.getByText('1 note(s) modifiée(s) sur 1')).toBeVisible();
+ await page.getByRole('button',{name:'Créer une nouvelle sauvegarde'}).click();
+ await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.includes('/Exports/')&&f.path.endsWith('.jwlibrary'))),{timeout:60000}).toBeTruthy();
+ const exportBytes=await page.evaluate(()=>{
+   const value=(window as any).atlasTest.files().find((f:any)=>f.path.includes('/Exports/')&&f.path.endsWith('.jwlibrary')).content;
+   return Array.from(new Uint8Array(value));
+ });
+ const zip=await import('fflate');
+ const content=zip.unzipSync(new Uint8Array(exportBytes));
+ expect(new TextDecoder().decode(content['cover.jpg'])).toBe('original unchanged');
+ const manifest=JSON.parse(new TextDecoder().decode(content['manifest.json']));
+ expect(createHash('sha256').update(content['userData.db']).digest('hex')).toBe(manifest.userDataBackup.hash);
+ const Sql=await sql();const db=new Sql.Database(content['userData.db']);
+ const after=db.exec('SELECT Content FROM Note')[0].values[0][0];
+ expect(after).toContain('Une nouvelle pensée');db.close();
+});
