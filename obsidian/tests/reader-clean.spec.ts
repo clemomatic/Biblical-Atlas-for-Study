@@ -73,3 +73,57 @@ test('Long WOL article keeps section hierarchy, excludes answer widgets and prog
  await pane.getByRole('button',{name:/Afficher la suite/}).click();
  await expect(pane.getByText('Le paragraphe numéro 22 approfondit le sujet.')).toBeVisible();
 });
+
+
+test('WOL article titles and paragraphs decode literal &nbsp; and twice-escaped entities',async({page})=>{
+ const html='<html><main><h1>Étudier&amp;nbsp;la bonté</h1>'+
+  '<p>Jésus&amp;nbsp;aimait les gens.</p>'+
+  '<p>Sa compassion&amp;amp;nbsp:se remarquait dans sa conduite.</p></main></html>';
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2024663',route=>route.fulfill({status:200,contentType:'text/html',body:html}));
+ await page.evaluate(async()=>{
+  const {app}=(window as any).atlasTest;
+  const file=await app.vault.create('Mes notes/Typographie.md',
+   '[Lire cet article](https://wol.jw.org/fr/wol/d/r30/lp-f/2024663)');
+  app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
+ });
+ const pane=page.locator('.biblelab-side');
+ await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-reader-summary').filter({hasText:'Lire cet article'}).first().click();
+ await expect(pane.getByText('Étudier la bonté',{exact:true})).toBeVisible();
+ await expect(pane.getByText('Jésus aimait les gens.',{exact:true})).toBeVisible();
+ await expect(pane.getByText('Sa compassion se remarquait dans sa conduite.',{exact:true})).toBeVisible();
+ await expect(pane.locator('.biblelab-reader-text')).not.toContainText('&nbsp');
+});
+
+test('reference history allows returning to the previously opened passage',async({page})=>{
+ const pane=page.locator('.biblelab-side');
+ await page.evaluate(async()=>{
+  const {plugin}=(window as any).atlasTest;
+  await plugin.openBibleLab('Jean 7:24');
+  await plugin.openBibleLab('Matthieu 10:29');
+ });
+ await expect(pane.locator('.biblelab-reader-history-count')).toHaveText('2 / 2');
+ await pane.getByRole('button',{name:'Précédent'}).click();
+ await expect(pane.locator('.biblelab-reader-history-count')).toHaveText('1 / 2');
+ await expect(pane.locator('.biblelab-reader-labels strong').filter({hasText:'Jean 7:24'}).first()).toBeVisible();
+});
+
+test('reference insertion never writes to an unrelated open Markdown file',async({page})=>{
+ await page.evaluate(async()=>{
+  const {app}= (window as any).atlasTest;
+  const user=(window as any).atlasTest;
+  await app.vault.create('Mes notes/Source.md','Contenu original');
+  await app.vault.create('Mes notes/Autre.md','Note à préserver');
+  user.openMarkdownEditor('Mes notes/Autre.md');
+  app.workspace.activeFile=app.vault.getAbstractFileByPath('Mes notes/Source.md');
+  app.workspace.trigger('file-open',app.workspace.activeFile);
+ });
+ const pane=page.locator('.biblelab-side');
+ await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await pane.getByRole('button',{name:'Insérer le lien'}).click();
+ expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Autre.md'))).toBe('Note à préserver');
+ expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Source.md'))).toBe('Contenu original');
+ await page.evaluate(()=>(window as any).atlasTest.openMarkdownEditor('Mes notes/Source.md'));
+ await pane.getByRole('button',{name:'Insérer le lien'}).click();
+ expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Source.md'))).toContain('wol.jw.org');
+});
