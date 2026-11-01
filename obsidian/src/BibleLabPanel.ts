@@ -6,7 +6,7 @@ import {
   RESOURCES, wolSearch, type MapLocation, type Resource
 } from './bibleLabData';
 import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
-import { dayLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
+import { dayLink, meetingIssueLink, findMeetingProgramme, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, type ReferenceEntry } from './referenceReader';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
@@ -246,7 +246,7 @@ export class BibleLabSidebarView extends ItemView {
       }
     }else week.createEl('p',{cls:'biblelab-mini',text:'Programme officiel et sujets de la semaine.'});
     const weekActions=week.createDiv({cls:'biblelab-buttons'});
-    button(weekActions,'Voir la réunion','external-link',()=>external(dayLink(now)));
+    button(weekActions,'Voir la réunion','external-link',()=>external(this.live.meeting?.source||meetingIssueLink(now)));
     if(this.live.meeting)button(weekActions,'Préparer en note','notebook-pen',()=>this.host.saveWeeklyStudy(this.live.meeting!,now),true);
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'CONTINUER'});
     const research=card(this.scroller,'Une nouvelle découverte','Commencer une enquête ou reprendre une réflexion.');
@@ -259,14 +259,33 @@ export class BibleLabSidebarView extends ItemView {
     if(this.liveLoading)return;
     this.liveLoading=true;this.liveError='';this.render();
     const today=new Date();
+    const warnings:string[]=[];
+    let day:StudyLive['day']=null,meeting:StudyLive['meeting']=null;
     try{
-      const response=await requestUrl({url:dayLink(today),throw:false});
-      if(response.status!==200)throw Error('WOL indisponible ('+response.status+').');
-      const day=parseDailyHtml(response.text,today),meeting=parseMeetingHtml(response.text,today);
-      if(!day&&!meeting)throw Error('La présentation de la page a changé : extraction indisponible.');
+      // Daily text and weekly meeting are separate publications and sources.
+      try{
+        const response=await requestUrl({url:dayLink(today),throw:false});
+        if(response.status!==200)throw Error('Texte du jour indisponible ('+response.status+')');
+        day=parseDailyHtml(response.text,today);
+        if(!day)warnings.push('Texte du jour illisible.');
+      }catch{warnings.push('Texte du jour indisponible.');}
+      const issueUrl=meetingIssueLink(today);
+      try{
+        const index=await requestUrl({url:issueUrl,throw:false});
+        if(index.status!==200)throw Error('Cahier inaccessible');
+        const source=findMeetingProgramme(index.text,today,issueUrl);
+        if(!source)throw Error('Semaine absente du cahier');
+        const response=await requestUrl({url:source,throw:false});
+        if(response.status!==200)throw Error('Programme inaccessible');
+        meeting=parseMeetingHtml(response.text,today);
+        if(meeting)meeting.source=source;
+        else warnings.push('Programme de la semaine illisible.');
+      }catch{warnings.push('Programme de la semaine indisponible : consulte le cahier officiel.');}
+      if(!day&&!meeting)throw Error(warnings.join(' '));
       this.live={day,meeting};this.liveLastUpdated=Date.now();
+      this.liveError=warnings.join(' ');
     }catch(error){
-      this.liveError=(error instanceof Error?error.message:'Connexion indisponible.')+' Utilise les liens officiels.';
+      this.liveError=error instanceof Error?error.message:'Chargement indisponible.';
     }finally{this.liveLoading=false;if(this.tab==='home')this.render();}
   }
   private renderStudio():void{
