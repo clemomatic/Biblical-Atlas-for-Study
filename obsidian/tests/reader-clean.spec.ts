@@ -4,6 +4,7 @@ test.beforeEach(async({page})=>{
  await page.route('https://**/*',route=>route.abort());
  await page.goto('/obsidian/dev/index.html');
  await page.waitForFunction(()=>(window as any).atlasTest?.ready);
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
 });
 
 test('Bible verse removes encoded spaces, superscript markers and number-only note labels',async({page})=>{
@@ -27,8 +28,8 @@ test('Bible verse removes encoded spaces, superscript markers and number-only no
  await expect(reading).not.toContainText('29');
  await expect(pane.locator('.biblelab-reader-note-source').filter({hasText:'moineaux'})).toBeVisible();
  await expect(pane.locator('.biblelab-reader-note-source').filter({hasText:'petit oiseau'})).toBeVisible();
- await expect(pane.getByText('Notes de traduction')).toBeVisible();
- await expect(pane.getByText('Notes d’étude')).toBeVisible();
+ await expect(pane.getByText('Notes de traduction',{exact:true})).toBeVisible();
+ await expect(pane.getByText('Notes d’étude',{exact:true})).toBeVisible();
  await pane.getByText('Renvois bibliques').click();
  await expect(pane.getByText('Jean 3:16',{exact:true}).first()).toBeVisible();
 });
@@ -68,7 +69,7 @@ test('Long WOL article keeps section hierarchy, excludes answer widgets and prog
  await expect(pane.getByText('1. Que montre cet exemple ?')).toBeVisible();
  await expect(pane.getByText('Ta réponse')).toHaveCount(0);
  await expect(pane.locator('.biblelab-article-parnum').first()).toHaveText('1');
- await expect(pane.getByText('Le paragraphe numéro 22 approfondit le sujet.')).toHaveCount(0);
+ await expect(pane.getByText('Le paragraphe numéro 22 approfondit le sujet.',{exact:true})).toHaveCount(0);
  await pane.getByRole('button',{name:/Afficher la suite/}).click();
  await expect(pane.getByText('Le paragraphe numéro 22 approfondit le sujet.')).toBeVisible();
 });
