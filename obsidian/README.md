@@ -1,6 +1,47 @@
-# Bible Lab — Study Studio (0.5.0)
+# Bible Lab — Study Studio (0.6.0)
 
 **Bible Lab Study Studio 0.4** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+
+### Passage en mode natif — 0.6.0
+
+L'onglet **Studio** contient maintenant trois actions autonomes, utilisables
+sur Windows et Android sans Python ni serveur :
+
+- **Ouvrir JWPUB :** choisir une publication locale `.jwpub`, vérifier le
+  nombre de documents, puis importer les textes déchiffrés en notes Markdown,
+  avec les illustrations référencées et un sommaire. La conversion utilise
+  SQLite WebAssembly embarqué, Web Crypto AES-CBC et décompression zlib locale.
+- **Importer mes notes :** choisir une sauvegarde `.jwlibrary` et importer les
+  notes, GUID et étiquettes dans un dossier neuf `Imports/JW Library...`.
+  Une page « Mon laboratoire d'étude » relie les notes par thèmes.
+- **Créer une sauvegarde :** sélectionner à nouveau la sauvegarde originale,
+  prévisualiser les notes modifiées et cocher explicitement la confirmation.
+  Bible Lab crée alors **une nouvelle archive** dans `Exports/`. Le fichier
+  initial reste intact.
+
+La vérification englobe SHA-256 du manifeste, intégrité SQLite, contrôle
+du schéma (14–16), liste complète des GUID, contenu de départ de chaque note,
+quantité de notes, et absence de nouvelle anomalie relationnelle. Les fichiers
+médias originaux sont conservés directement dans leur forme compressée,
+sans les décoder ni les modifier.
+
+**Édition des notes :** le contenu après le marqueur
+`<!-- BIBLE_LAB_NOTE_START -->` peut être modifié dans Obsidian.
+Le champ `title` des propriétés YAML est le titre qui sera réexporté.
+Pour que la comparaison reste fiable, ne pas effacer les champs
+`jw_guid` et `jw_original_hash`. Les étiquettes, signets et surlignages
+sont importés en lecture seule à cette étape : leur modification dans Obsidian
+n'est pas réexportée.
+
+**La restauration dans une application JW Library réelle n'a pas encore
+été validée.** Une restauration remplace les données personnelles du profil
+cible : conserver une sauvegarde indépendante et tester sur un appareil/profil
+vierge. La lecture des fichiers est locale ; seuls les liens WOL facultatifs
+peuvent envoyer un terme de recherche à un site externe.
+
+Le script Python de la version 0.5 reste disponible pour les utilisateurs
+qui souhaitent traiter leurs fichiers en dehors d'Obsidian. Il n'est plus
+nécessaire pour ce parcours natif.
 
 ### Passerelle JW — 0.5
 
