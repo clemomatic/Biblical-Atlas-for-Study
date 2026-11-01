@@ -91,6 +91,9 @@ export class BibleLabSidebarView extends ItemView {
   private live: StudyLive = { day:null, meeting:null };
   private liveLoading=false;
   private liveLastUpdated=0;
+  private liveLastAttempt=0;
+  private liveAttemptDate='';
+  private liveViewOpen=false;
   private liveError='';
 
   constructor(leaf:WorkspaceLeaf,host:BibleLabHost) {
@@ -120,8 +123,11 @@ export class BibleLabSidebarView extends ItemView {
     atlas.addEventListener('click',event=>{event.preventDefault();void this.host.openAtlas();});
     await this.updateActiveNote(this.app.workspace.getActiveFile());
     this.render();
+    this.liveViewOpen=true;
+    // First launch should be useful without requiring the Refresh button.
+    void this.loadLive();
   }
-  async onClose():Promise<void>{this.sequence++;this.contentEl.empty();}
+  async onClose():Promise<void>{this.liveViewOpen=false;this.sequence++;this.contentEl.empty();}
   private rememberReference(ref:ReferenceEntry):void{
     const current=this.referenceHistory[this.referenceCursor];
     if(current?.url===ref.url && current.label===ref.label)return;
@@ -179,6 +185,7 @@ export class BibleLabSidebarView extends ItemView {
     if(this.tab===tab)return;
     if(this.scroller)this.tabScroll.set(this.tab,this.scroller.scrollTop);
     this.tab=tab;this.render();
+    if(tab==='home')void this.loadLive();
     const previous=this.tabScroll.get(tab)||0;
     if(this.scroller)this.scroller.scrollTop=previous;
   }
@@ -274,7 +281,7 @@ export class BibleLabSidebarView extends ItemView {
     button(shortcuts,'Lire mes références','book-open-text',()=>this.setTab('refs'));
     const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
     headingRow.createEl('h3',{text:'AUJOURD’HUI'});
-    const reload=button(headingRow,this.liveLoading?'Chargement…':'Actualiser','refresh-cw',()=>void this.loadLive());
+    const reload=button(headingRow,this.liveLoading?'Chargement…':'Actualiser','refresh-cw',()=>void this.loadLive(true));
     reload.disabled=this.liveLoading;
     const daily=card(this.scroller,'Texte du jour',this.live.day?.date || 'WOL · Examinons les Écritures chaque jour');
     daily.addClass('biblelab-feature-card');
@@ -303,10 +310,18 @@ export class BibleLabSidebarView extends ItemView {
     if(this.live.meeting)button(weekActions,'Préparer en note','notebook-pen',()=>this.host.saveWeeklyStudy(this.live.meeting!,now),true);
     if(this.liveLastUpdated) this.scroller.createEl('p',{cls:'biblelab-mini',text:'Mise à jour depuis WOL · '+new Date(this.liveLastUpdated).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
   }
-  private async loadLive():Promise<void>{
+  private async loadLive(force=false):Promise<void>{
     if(this.liveLoading)return;
-    this.liveLoading=true;this.liveError='';this.render();
     const today=new Date();
+    const stamp=dayLink(today);
+    // Don't repeat network requests during same-day navigation or repeated
+    // component renders. The explicit Refresh button always bypasses this.
+    const since=Date.now()-this.liveLastAttempt;
+    const ttl=this.live.day||this.live.meeting?20*60*1000:60*1000;
+    if(!force&&this.liveAttemptDate===stamp&&since>=0&&since<ttl)return;
+    this.liveAttemptDate=stamp;this.liveLastAttempt=Date.now();
+    this.liveLoading=true;this.liveError='';
+    if(this.tab==='home'&&this.liveViewOpen)this.render();
     const warnings:string[]=[];
     let day:StudyLive['day']=null,meeting:StudyLive['meeting']=null;
     const dailyUrl=dayLink(today);
@@ -346,13 +361,13 @@ export class BibleLabSidebarView extends ItemView {
       }
       if(day||meeting){
         this.live={day,meeting};this.liveLastUpdated=Date.now();
-      }else{
+      }else if(this.liveAttemptDate===stamp){
         this.live={day:null,meeting:null};
       }
       this.liveError=warnings.join(' ');
     }finally{
       this.liveLoading=false;
-      if(this.tab==='home')this.render();
+      if(this.tab==='home'&&this.liveViewOpen)this.render();
     }
   }
   private renderStudio():void{
