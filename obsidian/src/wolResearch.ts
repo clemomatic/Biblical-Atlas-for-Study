@@ -1,3 +1,4 @@
+import { cleanReadingText } from './readerText.ts';
 /** Recherche documentaire sur les pages officielles WOL / JW.org.
  * Pas d'API privée, de proxy tiers, ni d'index personnel envoyé au réseau.
  * Le HTML WOL peut évoluer : une liste vide doit toujours proposer le site.
@@ -27,7 +28,7 @@ export function jwOrgResearchUrl(query:string):string {
  if(!q)throw Error('Saisis un sujet ou une expression.');
  return 'https://www.jw.org/fr/rechercher/?'+new URLSearchParams({q}).toString();
 }
-const compact=(v:string,max=220)=>v.replace(/[\u00a0\u202f]/g,' ').replace(/\s+/g,' ').trim().slice(0,max);
+const compact=(v:string,max=220)=>cleanReadingText(v).slice(0,max);
 function officialResultHref(href:string,base:string):string|null {
  try {
   const safe=cleanWolUrl(new URL(href,base).toString());
