@@ -18,6 +18,34 @@ export function weekMonday(date:Date):Date {
   d.setDate(d.getDate() - (d.getDay()+6)%7);
   return d;
 }
+const MONTH_NAMES=['janvier','février','mars','avril','mai','juin','juillet','août','septembre','octobre','novembre','décembre'];
+const SLUG_MONTHS=['janvier','fevrier','mars','avril','mai','juin','juillet','aout','septembre','octobre','novembre','decembre'];
+/** A meeting programme is not on the Daily Text page. Resolve its own source. */
+export function meetingIssueLink(date:Date):string{
+ const monday=weekMonday(date);
+ const begin=Math.floor(monday.getMonth()/2)*2;
+ return 'https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/mwb-'+
+   SLUG_MONTHS[begin]+'-'+SLUG_MONTHS[begin+1]+'-'+monday.getFullYear()+'/';
+}
+export function findMeetingProgramme(html:string,date:Date,issueUrl=meetingIssueLink(date)):string|null {
+ const monday=weekMonday(date);
+ const expected=new RegExp('(?:^|[^0-9])'+monday.getDate()+'(?:er)?\\s+'+MONTH_NAMES[monday.getMonth()]+'(?:\\b|\\s)','i');
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const text=cleanReadingText(a.textContent||'');
+  if(!expected.test(text))continue;
+  try{
+   const uri=new URL(a.getAttribute('href')||'',issueUrl);
+   if(uri.protocol==='https:'&&uri.hostname==='www.jw.org'&&
+      uri.pathname.startsWith('/fr/biblioth%C3%A8que/reunion-tj-cahier/')&&
+      uri.pathname.includes('Programme-')){
+      return uri.toString();
+   }
+  }catch{/* ignore malformed source links */}
+ }
+ return null;
+}
+
 export function weekTitle(date:Date):string {
   const monday=weekMonday(date), sunday=new Date(monday);
   sunday.setDate(monday.getDate()+6);
