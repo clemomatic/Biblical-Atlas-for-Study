@@ -289,3 +289,16 @@
 .biblelab-reader-start>.biblelab-btn{margin-top:3px}
 @media(max-width:350px){.biblelab-reader-summary{padding:10px;gap:8px}.biblelab-reader-labels strong{font-size:11px}.biblelab-reader-body{padding:0 10px 11px}}
 @media(prefers-reduced-motion:reduce){.biblelab-reader,.biblelab-reader-chevron{transition:none}}
+
+
+/* Bible Lab 0.8 — compact official-source research controls and results */
+.biblelab-search-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:9px 0 12px}
+.biblelab-search-controls label{display:flex;flex-direction:column;gap:5px;font-size:10px;font-weight:750;color:var(--bl-muted)}
+.biblelab-search-controls select{width:100%;min-width:0;background:var(--background-primary);
+  border:1px solid var(--bl-edge);border-radius:9px;padding:9px 8px;
+  font-size:11px;color:var(--text-normal);min-height:37px}
+.biblelab-search-controls select:focus-visible{outline:2px solid var(--bl-brand);outline-offset:2px}
+.biblelab-wol-hit{margin:8px 0}
+.biblelab-wol-hit h3{overflow-wrap:anywhere;line-height:1.4}
+.biblelab-wol-hit .biblelab-buttons{margin-top:8px}
+@media(max-width:350px){.biblelab-search-controls{grid-template-columns:1fr}}
