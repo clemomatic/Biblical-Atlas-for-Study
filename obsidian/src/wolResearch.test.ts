@@ -26,3 +26,12 @@ test('Blank queries are rejected, unbounded input is capped',()=>{
  assert.throws(()=>wolResearchUrl('',{match:'par',scope:'all'}));
  assert.equal(new URL(jwOrgResearchUrl('a'.repeat(500))).searchParams.get('q')?.length,250);
 });
+
+test('Index and Guide use the WOL reference-works category without inventing a private endpoint',()=>{
+ for(const scope of ['index','guide'] as const){
+  const uri=new URL(wolResearchUrl('miséricorde',{match:'par',scope}));
+  assert.equal(uri.origin,'https://wol.jw.org');
+  assert.equal(uri.searchParams.get('fc[]'),'dx');
+  assert.equal(uri.searchParams.get('q'),'miséricorde');
+ }
+});
