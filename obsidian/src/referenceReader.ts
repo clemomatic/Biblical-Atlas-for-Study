@@ -70,7 +70,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
    const raw=m[1].trim();
    if(/^https?:\/\//i.test(raw)){
      const url=cleanWolUrl(raw);if(url)push(raw,url,'brackets');
-   }else if(/^(?:w\d{2}(?:\.?\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|cl |lff |nwt |w\d{2}\s+|la tour de garde)/i.test(raw)) {
+   }else if(/^(?:w\d{2}(?:\.?\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|lmd\b|cl |lff |nwt |w\d{2}\s+|la tour de garde)/i.test(raw)) {
      push(raw,wolLookup(raw),'brackets','publication');
    }
  }
