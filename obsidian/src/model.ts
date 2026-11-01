@@ -1,3 +1,4 @@
+import { normalizedReaderPreferences, type ReaderPreferences } from './researchPreferences';
 import type { AtlasEntityKey, AtlasEntityType, AtlasNavigationState } from '../../src/atlasIntegration';
 import { emptyAtlasNavigation } from '../../src/atlasIntegration.ts';
 import type { BiblicalPlace, CategoryData, EventData } from '../../src/types';
@@ -22,8 +23,19 @@ export interface VaultNote {
   edit?: EntityEdit;
 }
 
-export interface AtlasSettings { noteFolder: string; allowOnlineMaps: boolean }
-export const DEFAULT_SETTINGS: AtlasSettings = { noteFolder: 'Atlas biblique', allowOnlineMaps: false };
+export interface AtlasSettings extends ReaderPreferences {
+  /** Folder used for Atlas customizations and maps. */
+  noteFolder:string;
+  /** Daily reflections, meeting notes and talk outlines (existing files never move). */
+  studyFolder:string;
+  /** JWPUB/JW Library imports and exports; always processed locally. */
+  jwFolder:string;
+  allowOnlineMaps:boolean;
+}
+export const DEFAULT_SETTINGS: AtlasSettings = {
+ noteFolder:'Atlas biblique',studyFolder:'Atlas biblique',jwFolder:'Atlas biblique',
+ allowOnlineMaps:false,...normalizedReaderPreferences(null)
+};
 
 export function validFolder(value: unknown): string {
   if (typeof value !== 'string') throw new Error('Choisis un dossier dans ton coffre.');
