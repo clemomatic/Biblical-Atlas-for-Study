@@ -146,6 +146,23 @@ await plugin.onload();
 await plugin.openAtlas();
 window.atlasTest = {
   plugin, app, notices, ready: true,
+  // A minimal native Markdown editor double for the research capture flow.
+  openMarkdownEditor(path) {
+    const file = vault.files.get(path);
+    if (!(file instanceof TFile)) throw Error('Unknown Markdown file: ' + path);
+    const view = new MarkdownView();
+    view.file = file;
+    view.editor = { replaceSelection(markdown) {
+      file.content += markdown;
+      vault.trigger('modify', file);
+      app.metadataCache.trigger('changed', file);
+    } };
+    const leaf = { type: 'markdown', view };
+    workspace.leaves.push(leaf);
+    workspace.activeFile = file;
+    workspace.trigger('file-open', file);
+    return leaf;
+  },
   file(path) { return vault.files.get(path)?.content; },
   files() { return [...vault.files.values()].filter(file => file instanceof TFile).map(file => ({ path: file.path, content: file.content })); },
   async metadata(path, changes) { const file = vault.files.get(path); await app.fileManager.processFrontMatter(file, data => Object.assign(data, changes)); },
