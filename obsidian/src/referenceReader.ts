@@ -41,7 +41,7 @@ export function passageUrl(reference:string):string {
 export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  const results:ReferenceEntry[]=[];const keys=new Set<string>();
  const push=(label:string,url:string,origin:ReferenceEntry['origin'],kind?:ReferenceKind)=>{
-   label=label.replace(/\s+/g,' ').trim();
+   label=cleanReadingText(label);
    if(!label)return;
    const normalized=cleanWolUrl(url);
    if(!normalized)return;
@@ -79,7 +79,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  }
  // Plain scripture references. Avoid detecting verse-like strings in web URLs
  // by removing URLs before scanning.
- const remainder=text.replace(urlPattern,'');
+ const remainder=cleanReadingText(text.replace(urlPattern,' '));
  for(const label of extractReferences(remainder)){
    if(parseScripture(label))push(label,passageUrl(label),'verse','scripture');
  }
