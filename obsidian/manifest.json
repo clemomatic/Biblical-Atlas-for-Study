@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "minAppVersion": "1.6.0",
-  "description": "Studio d'étude biblique : références WOL dépliables, versets avec notes et articles, Atlas et passerelle JW Library.",
+  "description": "Lecteur de références WOL amélioré : résolution des publications, texte intégral, versets et notes de la Bible d’étude.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
