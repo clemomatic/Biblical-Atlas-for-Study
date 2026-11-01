@@ -15,7 +15,7 @@ export interface ArchiveReport {
 const MAX_FILE_SIZE=140*1024*1024;
 const MAX_UNCOMPRESSED=340*1024*1024;
 const MAX_ENTRIES=1500;
-function validateZip(bytes:Uint8Array):string[]{
+export function validateZip(bytes:Uint8Array):string[]{
   const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
   // Locate end-of-central-directory. Do not scan file bodies: a compressed entry
   // may contain the same signature by chance.
