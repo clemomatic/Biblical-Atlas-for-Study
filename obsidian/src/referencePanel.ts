@@ -1,6 +1,7 @@
-import { Notice, requestUrl, setIcon } from 'obsidian';
+import { setIcon } from 'obsidian';
 import { jwLibraryLink } from './bibleLabData';
-import { parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
+import { type ReaderResult, type ReferenceEntry } from './referenceReader';
+import { fetchReferenceContent } from './wolReferenceFetcher';
 
 export interface ReaderState {
  expanded:Set<string>;
@@ -27,11 +28,13 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const chevron=summary.createSpan({cls:'biblelab-reader-chevron'});setIcon(chevron,'chevron-down');
  const body=details.createDiv({cls:'biblelab-reader-body'});
  const buttons=body.createDiv({cls:'biblelab-reader-actions'});
- action(buttons,'WOL','external-link',()=>state.open(ref.url));
- action(buttons,'Copier','copy',()=>state.copy(ref.url));
+ let currentUrl=ref.url;
+ action(buttons,'WOL','external-link',()=>state.open(currentUrl));
+ action(buttons,'Copier','copy',()=>state.copy(currentUrl));
  if(ref.kind==='scripture'){const jw=jwLibraryLink(ref.label);if(jw)action(buttons,'JW Library','book-marked',()=>state.open(jw));}
  const contents=body.createDiv({cls:'biblelab-reader-contents'});
  const draw=(result:ReaderResult):void=>{
+   currentUrl=result.sourceUrl;
    contents.empty();
    if(result.title && result.title!==ref.label)contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
    if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:result.notice});
@@ -60,11 +63,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    try{
      let task=state.pending.get(id);
      if(!task){
-       task=(async()=>{
-         const response=await requestUrl({url:ref.url,throw:false});
-         if(response.status!==200)throw Error('WOL indisponible ('+response.status+').');
-         return parseWolDocument(response.text,ref.url,ref.label);
-       })();
+       task=fetchReferenceContent(ref);
        state.pending.set(id,task);
      }
      const result=await task;
@@ -74,7 +73,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      if(contents.isConnected){
        contents.empty();
        contents.createDiv({cls:'biblelab-reader-failure',text:error instanceof Error?error.message:'Lecture impossible'});
-       action(contents,'Ouvrir WOL','external-link',()=>state.open(ref.url));
+       action(contents,'Ouvrir WOL','external-link',()=>state.open(currentUrl));
      }
    }finally{state.pending.delete(id);}
  };
