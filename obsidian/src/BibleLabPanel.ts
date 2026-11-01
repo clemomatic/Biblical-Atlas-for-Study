@@ -76,7 +76,7 @@ export class BibleLabSidebarView extends ItemView {
   private referenceHistory:ReferenceEntry[]=[];
   private referencePosition:number[]=[];
   private referenceCursor=-1;
-  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label)};
+  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label),remember:ref=>this.rememberReference(ref)};
   private noteTitle='';
   private lastMarkdownPath:string|null=null;
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
@@ -117,22 +117,23 @@ export class BibleLabSidebarView extends ItemView {
     this.render();
   }
   async onClose():Promise<void>{this.sequence++;this.contentEl.empty();}
+  private rememberReference(ref:ReferenceEntry):void{
+    const current=this.referenceHistory[this.referenceCursor];
+    if(current?.url===ref.url && current.label===ref.label)return;
+    if(this.referenceCursor>=0&&this.scroller)
+      this.referencePosition[this.referenceCursor]=this.scroller.scrollTop;
+    this.referenceHistory=this.referenceHistory.slice(0,this.referenceCursor+1);
+    this.referencePosition=this.referencePosition.slice(0,this.referenceCursor+1);
+    this.referenceHistory.push(ref);this.referencePosition.push(0);
+    if(this.referenceHistory.length>40){this.referenceHistory.shift();this.referencePosition.shift();}
+    this.referenceCursor=this.referenceHistory.length-1;
+  }
   focusReference(value:string,displayLabel?:string):void{
     const label=cleanReadingText(displayLabel||value);if(!label)return;
     const direct=cleanWolUrl(value);
     const ref:ReferenceEntry={label,url:direct||passageUrl(label),
       kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
-    if(this.referenceCursor>=0&&this.scroller)
-      this.referencePosition[this.referenceCursor]=this.scroller.scrollTop;
-    if(!this.referenceHistory[this.referenceCursor]||
-      this.referenceHistory[this.referenceCursor].url!==ref.url||
-      this.referenceHistory[this.referenceCursor].label!==ref.label){
-      this.referenceHistory=this.referenceHistory.slice(0,this.referenceCursor+1);
-      this.referencePosition=this.referencePosition.slice(0,this.referenceCursor+1);
-      this.referenceHistory.push(ref);this.referencePosition.push(0);
-      if(this.referenceHistory.length>40){this.referenceHistory.shift();this.referencePosition.shift();}
-      this.referenceCursor=this.referenceHistory.length-1;
-    }
+    this.rememberReference(ref);
     this.query=label;
     this.pinnedRef=ref;
     this.reader.expanded.add(ref.url+'#'+label);
