@@ -3,10 +3,11 @@
  * Le HTML WOL peut évoluer : une liste vide doit toujours proposer le site.
  */
 import { cleanWolUrl } from './referenceReader.ts';
+import { wolPrefix,wolRoute,WOL_LANGUAGES,type BibleLabLanguage } from './researchPreferences.ts';
 
 export type WolMatchMode='par'|'sen';
 export type WolSearchScope='all'|'index';
-export interface WolSearchOptions {match:WolMatchMode;scope:WolSearchScope}
+export interface WolSearchOptions {match:WolMatchMode;scope:WolSearchScope;language?:BibleLabLanguage}
 export interface WolSearchHit {title:string;url:string;excerpt:string}
 export const MAX_WOL_RESULTS=25;
 export const JW_STUDY_TOOLS='https://www.jw.org/fr/la-bible-et-vous/outils-etude-bible/';
@@ -20,18 +21,18 @@ export function wolResearchUrl(query:string,options:WolSearchOptions):string {
  params.set('r','occ');
  params.set('st','g');
  if(options.scope==='index')params.append('fc[]','dx');
- return 'https://wol.jw.org/fr/wol/s/r30/lp-f?'+params.toString();
+ return wolPrefix(options.language)+'s/'+wolRoute(options.language)+'?'+params.toString();
 }
-export function jwOrgResearchUrl(query:string):string {
+export function jwOrgResearchUrl(query:string,language:BibleLabLanguage='fr'):string {
  const q=query.trim().slice(0,250);
  if(!q)throw Error('Saisis un sujet ou une expression.');
- return 'https://www.jw.org/fr/rechercher/?'+new URLSearchParams({q}).toString();
+ return 'https://www.jw.org/'+language+'/'+WOL_LANGUAGES[language].org+'/?'+new URLSearchParams({q}).toString();
 }
 const compact=(v:string,max=220)=>v.replace(/[\u00a0\u202f]/g,' ').replace(/\s+/g,' ').trim().slice(0,max);
 function officialResultHref(href:string,base:string):string|null {
  try {
   const safe=cleanWolUrl(new URL(href,base).toString());
-  return safe && /^\/fr\/wol\/d\/r30\/lp-f\/\d+/.test(new URL(safe).pathname)?safe:null;
+  return safe && /^\/(?:fr|en|pt|es)\/wol\/d\/r\d+\/lp-[a-z]\/\d+/.test(new URL(safe).pathname)?safe:null;
  }catch{return null;}
 }
 /** Parse links only: never insert HTML returned by WOL into the Obsidian DOM. */
