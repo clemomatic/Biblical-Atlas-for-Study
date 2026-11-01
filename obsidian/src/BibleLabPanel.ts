@@ -7,6 +7,8 @@ import {
 } from './bibleLabData';
 import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
 import { dayLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
+import { extractReferenceEntries, cleanWolUrl, passageUrl, type ReferenceEntry } from './referenceReader';
+import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -54,7 +56,9 @@ export class BibleLabSidebarView extends ItemView {
   private query='Matthieu 10:29';
   private mapTerm='';
   private libraryTerm='';
-  private noteRefs: string[] = [];
+  private noteRefs: ReferenceEntry[] = [];
+  private pinnedRef: ReferenceEntry|null=null;
+  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external};
   private noteTitle='';
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
   private indexLoaded=false;
@@ -99,9 +103,11 @@ export class BibleLabSidebarView extends ItemView {
   }
   async onClose():Promise<void>{this.sequence++;this.contentEl.empty();}
   focusReference(value:string):void{
-    this.query=value.trim() || this.query;
-    this.tab='wol';this.previewFor='';this.previewLines=[];
-    if(this.scroller){this.render();this.scroller.querySelector('input')?.focus();}
+    const label=value.trim();if(!label)return;
+    this.query=label;const direct=cleanWolUrl(label);
+    this.pinnedRef={label,url:direct||passageUrl(label),kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
+    this.reader.expanded.add(this.pinnedRef.url+'#'+label);
+    this.tab='refs';if(this.scroller)this.render();
   }
   async updateActiveNote(file:TFile|null):Promise<void>{
     const generation=++this.sequence;
@@ -113,7 +119,7 @@ export class BibleLabSidebarView extends ItemView {
     try{
       const text=await this.app.vault.cachedRead(file);
       if(generation!==this.sequence)return;
-      this.noteTitle=file.basename;this.noteRefs=extractReferences(text);
+      this.noteTitle=file.basename;this.noteRefs=extractReferenceEntries(text);
     }catch{
       if(generation!==this.sequence)return;
       this.noteTitle=file.basename;this.noteRefs=[];
@@ -126,7 +132,7 @@ export class BibleLabSidebarView extends ItemView {
     const entries:{key:Tab;label:string;icon:string}[]=[
       {key:'home',label:'Accueil',icon:'layout-dashboard'},
       {key:'wol',label:'WOL',icon:'scan-search'},
-      {key:'refs',label:'Versets',icon:'book-open'},
+      {key:'refs',label:'Références',icon:'book-open-text'},
       {key:'maps',label:'Atlas',icon:'map-pinned'},
       {key:'library',label:'Sources',icon:'library-big'},
       {key:'studio',label:'Studio',icon:'notebook-pen'}
@@ -323,22 +329,24 @@ export class BibleLabSidebarView extends ItemView {
     }finally{this.previewLoading=false;if(this.scroller)this.render();}
   }
   private renderRefs():void{
-    heading(this.scroller,'Références de ma note','Les expressions !!référence!! sont détectées, ainsi que les références bibliques explicites.');
-    if(this.noteTitle)this.scroller.createEl('div',{cls:'biblelab-pill',text:'Note : '+this.noteTitle});
-    if(!this.noteRefs.length){
-      this.scroller.createDiv({cls:'biblelab-empty',text:'Ouvre une note contenant des versets, ou écris !!Jean 3:16!! pour voir les références ici.'});
+    heading(this.scroller,'Références','Versets, notes d’étude et articles, sans quitter le panneau.');
+    if(this.noteTitle){
+      const context=this.scroller.createDiv({cls:'biblelab-ref-context'});
+      context.createSpan({text:'NOTE ACTIVE'});
+      context.createEl('strong',{text:this.noteTitle});
     }
-    for(const ref of this.noteRefs){
-      const c=card(this.scroller,ref,parseScripture(ref)?'Verset reconnu':'Recherche documentaire');
-      const row=c.createDiv({cls:'biblelab-buttons'});
-      button(row,'WOL','external-link',()=>external(this.referenceUrl(ref)));
-      const jw=jwLibraryLink(ref);
-      if(jw)button(row,'JW Library','book-open',()=>external(jw));
-      button(row,'Copier','copy',()=>void this.copy(ref));
-      button(row,'Insérer','link',()=>this.insertLink(ref));
-      button(row,'Explorer','search',()=>this.focusReference(ref));
+    const pinned=this.pinnedRef;
+    const entries=pinned?[pinned,...this.noteRefs.filter(x=>!(x.label===pinned.label&&x.url===pinned.url))]:this.noteRefs;
+    if(!entries.length)this.scroller.createDiv({cls:'biblelab-empty',text:'Ouvre une note contenant Jean 7:24, !!Mt 10:29!! ou [w24 Novembre p. 14-19].'});
+    if(entries.length){
+      const row=this.scroller.createDiv({cls:'biblelab-reader-count'});
+      row.createSpan({text:entries.length+' références détectées'});
+      button(row,'Replier','chevrons-up',()=>{this.reader.expanded.clear();this.render();});
+      for(const item of entries)renderReferenceAccordion(this.scroller,item,this.reader);
     }
-    this.scroller.createDiv({cls:'biblelab-alert',text:'Astuce : les marqueurs !!Jean 3:16!! restent du Markdown ordinaire et ne modifient pas tes notes.'});
+    const info=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
+    info.createEl('summary',{text:'Formats reconnus'});
+    info.createEl('p',{text:'Versets en clair, !!référence!!, [référence de publication] et [titre](lien WOL). Déplie une référence pour lire le texte officiel, puis les notes ou les articles cités.'});
   }
   private async loadIndex():Promise<void>{
     if(this.indexLoading)return;
@@ -423,7 +431,7 @@ export class BibleLabSidebarView extends ItemView {
     try{await navigator.clipboard.writeText(text);new Notice('Copié dans le presse-papiers.');}
     catch{new Notice('Copie indisponible sur cet appareil.');}
   }
-  private referenceUrl(reference:string):string{return parseScripture(reference)?wolLookup(reference):wolSearch(reference);}
+  private referenceUrl(reference:string):string{return cleanWolUrl(reference)||passageUrl(reference);}
   private async copyLink(reference:string):Promise<void>{await this.copy(this.referenceUrl(reference));}
   private insertLink(reference:string):void{this.insertMarkdownLink(reference,this.referenceUrl(reference));}
   private insertMarkdownLink(title:string,url:string):void{
