@@ -3,10 +3,11 @@
  * the keyword search route /wol/s/. No HTML from the web is injected into Obsidian.
  */
 import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
+import { cleanReadingText, readableOfficialElement } from './readerText';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
-export interface ReaderLine {type:'heading'|'paragraph'|'note';text:string}
+export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption';text:string;source?:string;number?:string}
 export interface ReaderLink {label:string;url:string}
 export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string}
 export const MAX_REFERENCES=60;
@@ -53,8 +54,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  // Exclude code and YAML headers: non-source material can contain thousands
  // of URLs, fenced examples and internal metadata.
  let text=markdown.replace(/^---\s*\n[\s\S]*?\n---\s*(?:\n|$)/,'')
-    .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
-    .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
+    .replace(/^(`{3,}|~{3,})[^\n]*\n[\s\S]*?^\1\s*$/gm,'')
     .replace(/`[^`\r\n]+`/g,'');
  // Markdown links: [label](https://wol.jw.org/fr/wol/...)
  const linked=/\[([^\]\n]{1,240})\]\(\s*(https?:\/\/[^\s)]+)(?:\s+["'][^"']+["'])?\s*\)/gi;
@@ -86,7 +86,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  return results.slice(0,MAX_REFERENCES);
 }
 function normalizedText(node:Element|null,max=2200):string {
- return (node?.textContent||'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim().slice(0,max);
+ return cleanReadingText(node?.textContent||'').slice(0,max);
 }
 function findDocumentRoot(doc:Document):Element {
  return doc.querySelector('.bodyTxt, .document .bodyTxt, #article, article, main, #content, .document, .article')||doc.body;
@@ -105,59 +105,66 @@ function relevantVerseNode(doc:Document,scripture:ScriptureRef):Element|null {
  })||null;
 }
 function verseRelatedAnchors(root:Element,scripture:ScriptureRef):HTMLAnchorElement[]{
-  const wanted=scripture.label.replace(/[-–]\d+$/,'');
-  const headings=[...root.querySelectorAll('h2,h3,h4,h5')];
-  const header=headings.find(x=>normalizedText(x,180)===wanted);
-  if(!header)return [];
-  const items:HTMLAnchorElement[]=[];
-  let following=header.nextElementSibling,visited=0;
-  while(following&&visited++<90){
-    if(/^H[2-5]$/.test(following.tagName)&&
-       /^.+\\s+\\d{1,3}:\\d{1,3}$/.test(normalizedText(following,160)))break;
-    if(following.matches('a[href]'))items.push(following as HTMLAnchorElement);
-    items.push(...following.querySelectorAll<HTMLAnchorElement>('a[href]'));
-    following=following.nextElementSibling;
-  }
-  return items;
+ const heading=[...root.querySelectorAll('h2,h3,h4,h5')].find(el=>normalizedText(el,180)===scripture.label.replace(/[-–]\d+$/,''));
+ if(!heading)return [];
+ const results:HTMLAnchorElement[]=[];
+ let next=heading.nextElementSibling,visited=0;
+ while(next&&visited++<90){
+  if(/^H[2-5]$/.test(next.tagName)&&/:\d{1,3}$/.test(normalizedText(next,180)))break;
+  results.push(...next.querySelectorAll<HTMLAnchorElement>('a[href]'));
+  if(next.matches('a[href]'))results.push(next as HTMLAnchorElement);
+  next=next.nextElementSibling;
+ }
+ return results;
 }
 function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
-  const name=scripture.label.replace(/[-–]\d+$/,'');
-  // WOL's Bible study view also renders a verse-keyed apparatus with
-  // "Notes", "Renvois" and "Index". Take only the requested verse apparatus,
-  // not the surrounding chapter's footnotes.
-  const headings=[...root.querySelectorAll('h2,h3,h4,h5')];
-  const start=headings.find(el=>normalizedText(el,180)===name);
-  if(!start)return [];
-  const lines:ReaderLine[]=[];
-  let node=start.nextElementSibling;let scanned=0;let section='Note';
-  while(node && scanned++<65 && lines.length<35){
-    const current=node;
-    if(/^H[2-5]$/.test(current.tagName)){
-      const t=normalizedText(current,160);
-      if(/^.+\s+\d{1,3}:\d{1,3}$/.test(t))break;
-      if(/^(Notes|Renvois|Index|Guide de recherche|Index des publications)$/i.test(t))section=t;
-      else if(t)lines.push({type:'heading',text:t});
-    }else{
-      const t=normalizedText(current,1200);
-      if(t)lines.push({type:/note|renvoi/i.test(section)?'note':'paragraph',text:t});
-    }
-    node=node.nextElementSibling;
+ const name=scripture.label.replace(/[-–]\d+$/,'');
+ const start=[...root.querySelectorAll('h2,h3,h4,h5')].find(el=>normalizedText(el,180)===name);
+ if(!start)return [];
+ const lines:ReaderLine[]=[];
+ let node=start.nextElementSibling,scanned=0;
+ let section:'note'|'crossref'|'study'='note';
+ while(node&&scanned++<65&&lines.length<28){
+  if(/^H[2-5]$/.test(node.tagName)){
+   const heading=normalizedText(node,160);
+   if(/^.+\s+\d{1,3}:\d{1,3}$/.test(heading))break;
+   if(/^renvois$/i.test(heading))section='crossref';
+   else if(/^(index|guide de recherche|index des publications)$/i.test(heading))section='study';
+   else if(/^notes$/i.test(heading))section='note';
+  }else{
+   const text=readableOfficialElement(node,'note',950).replace(/^[+*†‡]\s*/,'').trim();
+   if(text&&text.length>2&&text!=='Index des publications')lines.push({type:section,text});
   }
-  return lines;
+  node=node.nextElementSibling;
+ }
+ return lines;
 }
-function gatherSections(root:Element,limit=32):ReaderLine[]{
- const lines:ReaderLine[]=[];const seen=new Set<string>();
- for(const el of [...root.querySelectorAll('h1,h2,h3,h4,p,li,blockquote,dt,dd')]){
-   if(el.closest('script,style,nav,footer,header,aside,[role="navigation"],.js-hidden'))continue;
-   // Avoid copying ancestor and descendant text multiple times.
-   if(el.matches('p,li,dd')&&el.querySelector('p,li,dd'))continue;
-   const text=normalizedText(el,1400);
-   if(!text||text.length<2||seen.has(text))continue;
-   if(/^\s*(?:se connecter|partager|imprimer|précédent|suivant)$/i.test(text))continue;
-   seen.add(text);
-   const type:ReaderLine['type']=/^H[1-4]$/.test(el.tagName)?'heading':/note|renvoi|référence/i.test(el.className||'')?'note':'paragraph';
-   lines.push({type,text});
-   if(lines.length>=limit)break;
+function articleParagraphNumber(node:Element):string|undefined{
+ const mark=node.querySelector('.parNum, .pNum, [class~="parnum"]');
+ const value=mark&&normalizedText(mark,6);
+ return value&&/^\d{1,3}$/.test(value)?value:undefined;
+}
+function gatherSections(root:Element,limit=145):ReaderLine[]{
+ const lines:ReaderLine[]=[];
+ const seen=new Set<string>();
+ const selectors='h1,h2,h3,h4,p,li,blockquote,dt,dd,figcaption';
+ for(const el of root.querySelectorAll(selectors)){
+  if(el.closest('script,style,nav,footer,header,aside,[role="navigation"],.js-hidden,[hidden]'))continue;
+  if(el.matches('p,li,dd')&&el.querySelector('p,li,dd'))continue;
+  const number=articleParagraphNumber(el);
+  const text=readableOfficialElement(el,'article',3500).replace(/^\s*(?:\d{1,3})\s+(?=[A-ZÀ-Ö])/,
+   prefix=>number&&prefix.trim()===number?'':prefix);
+  if(text.length<3||seen.has(text)||/^ta réponse$/i.test(text)||/^(?:précédent|suivant|imprimer|partager)$/i.test(text))continue;
+  seen.add(text);
+  const classes=typeof el.className==='string'?el.className:'';
+  let type:ReaderLine['type']='paragraph';
+  if(/^H[1-4]$/.test(el.tagName))type='heading';
+  else if(el.tagName==='FIGCAPTION'||/caption|legend/i.test(classes))type='caption';
+  else if(/question|studyQ|questionText/i.test(classes)||/^\d{1,2}\.\s+.{6,}\?$/.test(text))type='question';
+  else if(/studyNote|footnote/i.test(classes))type='note';
+  else if(/crossRef|xref/i.test(classes))type='crossref';
+  lines.push({type,text,number});
+  if(lines.length>=limit)break;
  }
  return lines;
 }
@@ -174,7 +181,8 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  const links:ReaderLink[]=[];
  const keys=new Set<string>();
  const targeted=scripture&&isVerse?verseRelatedAnchors(root,scripture):[];
- const candidateLinks=[...targeted,...root.querySelectorAll<HTMLAnchorElement>('a[href]')];
+ // On chapter pages, links from other verses aren't pertinent.
+ const candidateLinks=isVerse&&targeted.length?targeted:root.querySelectorAll<HTMLAnchorElement>('a[href]');
  for(const a of candidateLinks){
    const href=allowLink(a.getAttribute('href')||'',official);
    const label=normalizedText(a,150);
@@ -186,18 +194,20 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  if(isVerse&&scripture){
    const node=relevantVerseNode(doc,scripture);
    if(node){
-     const wrap=node.closest('p, li, div')||node;
-     const verseText=normalizedText(wrap,1100);
-     if(verseText)lines.push({type:'paragraph',text:verseText});
+     const candidate=node.closest('p, li, [data-verse]')||node.parentElement||node;
+     const wrap=(candidate.textContent||'').length<1400?candidate:node;
+     const verseText=readableOfficialElement(wrap,'verse',1300);
+     if(verseText)lines.push({type:'verse',text:verseText});
      const apparatus=studyNotesForVerse(root,scripture);
      for(const part of apparatus)if(!lines.some(x=>x.text===part.text))lines.push(part);
      // The 2013 study Bible places notes, cross-references and research
      // indexes next to or beneath the verse, sometimes inside a sibling.
      const local=wrap.parentElement;
      if(local){
-       const noteEls=[...local.querySelectorAll('.studyNote, .f, .fn, .xref, .reference, [class*="note"], [class*="xref"]')].slice(0,16);
+       const noteEls=[...local.querySelectorAll('.studyNote, .footnoteText, .crossReferenceText')].slice(0,12);
        for(const item of noteEls){
-         const t=normalizedText(item,750);if(t&&t!==verseText)lines.push({type:'note',text:t});
+         const t=readableOfficialElement(item,'note',950);
+         if(t&&t!==verseText&&!lines.some(x=>x.text===t))lines.push({type:item.matches('.crossReferenceText')?'crossref':'note',text:t});
        }
      }
    }else{
@@ -214,7 +224,7 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
    lines=gatherSections(root,isLookup?22:145);
  }
  if(!lines.length&&normalizedText(root)){
-   lines=[{type:'paragraph',text:normalizedText(root,2400)}];
+   lines=[{type:'paragraph',text:readableOfficialElement(root,'article',2400)}];
  }
  if(!lines.length)notice='Le contenu n’a pas pu être extrait : ouvre le document sur WOL.';
  return {title:heading||(scripture?.label||requested||'Document WOL'),sourceUrl:official,lines,
