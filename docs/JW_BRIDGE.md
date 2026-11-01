@@ -19,7 +19,7 @@ dans un dépôt GitHub.**
   d'étiquettes, les surlignages et les signets ne sont pas exportés.
 - SHA-256 de la base vérifié à l'import, recalculé après export ;
   `PRAGMA integrity_check`, `foreign_key_check`, nombre et GUID des notes
-  vérifiés avant production d'une nouvelle archive.
+  vérifiés avant production d'une nouvelle archive. La comparaison des relations SQLite se fait par rapport à l'état d'origine : une anomalie préexistante est préservée et signalée, sans accepter de nouvelle anomalie.
 
 ## Installation
 
@@ -73,8 +73,10 @@ export sans changement produit zéro modification. Après un ajout de texte de
 test à une note, le nouvel export conserve le nombre de fichiers de l'archive,
 les médias inchangés et les 1 911 GUID, et modifie uniquement cette note.
 La sauvegarde du 27 octobre 2026 contenait 2 233 notes (schéma 16),
-48 000 surlignages et 375 étiquettes : son import Markdown et la
-comparaison d'absence de modification ont été validés.
+48 000 surlignages et 375 étiquettes : son import Markdown, le contrôle
+d'absence de modification et le réexport d'une note modifiée ont été validés.
+Une relation SQLite incohérente était déjà présente dans la sauvegarde
+originale et reste signalée ; aucune nouvelle anomalie n'est admise.
 
 ## Sécurité
 
