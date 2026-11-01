@@ -22,8 +22,12 @@ export interface VaultNote {
   edit?: EntityEdit;
 }
 
-export interface AtlasSettings { noteFolder: string; allowOnlineMaps: boolean }
-export const DEFAULT_SETTINGS: AtlasSettings = { noteFolder: 'Atlas biblique', allowOnlineMaps: false };
+export type ReferenceOpenMode='sidebar'|'popup'|'browser';
+export interface AtlasSettings { noteFolder: string; allowOnlineMaps: boolean; referenceOpenMode: ReferenceOpenMode }
+export const DEFAULT_SETTINGS: AtlasSettings = { noteFolder: 'Atlas biblique', allowOnlineMaps: false, referenceOpenMode: 'sidebar' };
+export function validReferenceOpenMode(value:unknown):ReferenceOpenMode {
+ return value==='popup'||value==='browser'?'popup'===value?'popup':'browser':'sidebar';
+}
 
 export function validFolder(value: unknown): string {
   if (typeof value !== 'string') throw new Error('Choisis un dossier dans ton coffre.');
