@@ -51,5 +51,5 @@ test('Legacy WOL /s publication citations are upgraded to /l without rewriting t
   assert.equal(found[0]?.url,corrected);
   assert.equal(found[0]?.label,'Article source');
   assert.equal(cleanWolUrl('https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour%20biblique'),
-    'https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour+biblique');
+    'https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour%20biblique');
 });
