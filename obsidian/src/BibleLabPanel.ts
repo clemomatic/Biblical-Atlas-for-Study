@@ -251,7 +251,7 @@ export class BibleLabSidebarView extends ItemView {
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'CONTINUER'});
     const research=card(this.scroller,'Reprendre ma recherche','Accéder à mes versets et aux références de la note ouverte.');
     const researchRow=research.createDiv({cls:'biblelab-buttons'});
-    button(researchRow,'Lire mes références','book-open-text',()=>this.setTab('refs'),true);
+    button(researchRow,'Reprendre la lecture','book-open-text',()=>this.setTab('refs'),true);
     button(researchRow,'Atelier discours','mic-2',()=>this.setTab('studio'));
     if(this.liveLastUpdated) this.scroller.createEl('p',{cls:'biblelab-mini',text:'Mise à jour depuis WOL · '+new Date(this.liveLastUpdated).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
   }
