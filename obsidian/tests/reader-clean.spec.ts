@@ -25,7 +25,8 @@ test('Bible verse removes encoded spaces, superscript markers and number-only no
  await expect(reading).toHaveText('Deux moineaux ne se vendent-ils pas pour une pièce de monnaie ?');
  await expect(reading).not.toContainText('*');
  await expect(reading).not.toContainText('29');
- await expect(pane.locator('.biblelab-reader-note-source')).toContainText(['moineaux','petit oiseau']);
+ await expect(pane.locator('.biblelab-reader-note-source').filter({hasText:'moineaux'})).toBeVisible();
+ await expect(pane.locator('.biblelab-reader-note-source').filter({hasText:'petit oiseau'})).toBeVisible();
  await expect(pane.getByText('Notes de traduction')).toBeVisible();
  await expect(pane.getByText('Notes d’étude')).toBeVisible();
  await pane.getByText('Renvois bibliques').click();
