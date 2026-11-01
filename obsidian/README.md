@@ -1,6 +1,14 @@
-# Bible Lab — Study Studio (0.7.0)
+# Bible Lab — Study Studio (0.7.1)
 
 **Bible Lab Study Studio 0.4** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+
+### Correctif du lecteur WOL — 0.7.1
+
+- Les références bibliographiques telles que `w24 Novembre p. 14-19` ouvrent `/wol/l/` (espaces encodés en `+`), y compris lorsqu'une ancienne note possède un hyperlien `/wol/s/`.
+- Le panneau ne confond plus la page de résolution bibliographique avec l'article : il sélectionne l'URL officielle `/wol/d/` correspondante, télécharge le document puis affiche les paragraphes de l'article. Si WOL ne permet pas la résolution, un lien explicite est proposé plutôt que de présenter une page de recherche comme un article.
+- Pour les versets, Bible Lab demande en priorité les données JSON de la Bible d’étude sur `jw.org` (texte, notes, renvois et commentaires), selon la technique de traVERture ; WOL reste la solution de repli.
+- Aucun contenu personnel n'est envoyé à un service tiers. Les anciennes URL des notes ne sont réparées que lors du rendu : aucun fichier Markdown existant n'est modifié.
+- Le contenu des articles est récupéré sur demande et n'est conservé que temporairement en mémoire ; la structure du site officiel peut évoluer.
 
 ### Nouveau lecteur de références — 0.7
 
