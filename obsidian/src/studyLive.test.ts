@@ -37,3 +37,15 @@ test('Real WOL meeting week headings: same-month, cross-month and ordinal 1er',(
  assert.equal(isMeetingWeek('26 octobre – 1er novembre',new Date(2026,10,2)),false);
  assert.equal(isMeetingWeek('2-8 décembre',new Date(2026,10,2)),false);
 });
+
+test('Meeting headings recognise November boundaries and full programme titles',()=>{
+ const date=new Date(2026,10,1);
+ assert.equal(isMeetingWeek('26 octobre – 1er novembre',date),true);
+ assert.equal(isMeetingWeek('26 octobre – 1er novembre',date),true);
+ assert.equal(isMeetingWeek('Programme pour la réunion du 26 octobre – 1er novembre 2026',date),true);
+ assert.equal(isMeetingWeek('2-8 novembre',date),false);
+ assert.equal(isMeetingWeek('26 septembre – 1er octobre',date),false);
+ assert.equal(isMeetingWeek('2-8 novembre',new Date(2026,10,2)),true);
+ assert.equal(isMeetingWeek('30 novembre – 6 décembre',new Date(2026,11,1)),true);
+ assert.equal(isMeetingWeek('28 décembre 2026 – 3 janvier 2027',new Date(2027,0,1)),true);
+});
