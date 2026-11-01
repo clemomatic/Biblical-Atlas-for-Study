@@ -11,6 +11,7 @@ export interface ReaderState {
  open:(url:string)=>void;
  navigate?:(ref:ReferenceEntry)=>void;
  articleFontSize?:number;
+ remember?:(ref:ReferenceEntry)=>void;
 }
 function key(item:ReferenceEntry):string{return item.url+'#'+item.label;}
 function action(parent:HTMLElement,label:string,icon:string,callback:()=>void):void {
@@ -212,7 +213,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    }finally{state.pending.delete(id);}
  };
  details.addEventListener('toggle',()=>{
-   if(details.open){state.expanded.add(id);void load();}
+   if(details.open){const wasOpen=state.expanded.has(id);state.expanded.add(id);if(depth===0&&!wasOpen)state.remember?.(ref);void load();}
    else state.expanded.delete(id);
  });
  if(state.expanded.has(id)){details.open=true;void load();}
