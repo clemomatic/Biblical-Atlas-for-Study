@@ -127,7 +127,8 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
  const scripture=parseScripture(ref.label);
  if(!scripture)throw Error('Référence de verset invalide.');
  const lines:ReaderResult['lines']=[];
- const text=readableOfficialHtml(entry.html,'verse');
+ const text=readableOfficialHtml(entry.html,'verse')
+   .replace(new RegExp('^'+scripture.verse+'(?=\\s)'),'').trim();
  if(text)lines.push({type:'verse',text});
  for(const note of entry.footnotes||[]){
    const value=readableOfficialHtml(note.content||'','note');
