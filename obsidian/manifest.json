@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "minAppVersion": "1.6.0",
-  "description": "Sources WOL et JW.org : texte du jour et réunion réparés, liens officiels et diagnostic.",
+  "description": "Espace d’étude repensé : recherche unifiée, lecture contextualisée et outils accessibles.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
