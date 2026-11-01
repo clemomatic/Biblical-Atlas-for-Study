@@ -1,3 +1,14 @@
+## Bible Lab 0.8.2 — liens WOL cliquables dans les notes
+
+En mode Lecture d’Obsidian, un simple clic sur un lien d’article ou de référence WOL ouvre immédiatement la source dans Bible Lab, dans le volet latéral par défaut. Les liens `!!Matthieu 10:29!!` suivent la même préférence.
+
+Depuis **Réglages → Modules communautaires → Bible Lab → Clic sur un lien WOL**, choisir **Panneau latéral**, **Fenêtre de lecture** ou **Navigateur externe**. Le choix est sauvegardé dans les paramètres locaux. Les anciennes installations utilisent le panneau latéral par défaut.
+
+Le panneau et la popup utilisent le lecteur de sources officielles WOL déjà intégré : articles, versets, notes et renvois. Les liens bibliographiques précédemment écrits avec `/wol/s/` continuent d’être corrigés à l’affichage vers `/wol/l/` sans réécriture du Markdown. Les clics avec Ctrl ou Cmd et les liens étrangers à WOL conservent leur comportement normal. Les recherches thématiques `/wol/s/` ne sont pas interceptées.
+
+Limitations : l’interception directe s’applique aux liens **rendus en mode Lecture** et aux marqueurs Bible Lab. En mode Édition/Live Preview, la navigation de l’éditeur Obsidian reste prioritaire. Si WOL empêche le chargement ou ne résout pas une référence, utiliser le bouton **WOL** du lecteur.
+
+
 ## Correctif Bible Lab 0.8.1 — toutes les références bibliographiques WOL
 
 - Correction générale des anciens liens WOL `/s/` vers l’outil bibliographique `/l/`, sans toucher aux recherches thématiques ordinaires. Les espaces sont encodés en `+`, les accents restent correctement encodés.
