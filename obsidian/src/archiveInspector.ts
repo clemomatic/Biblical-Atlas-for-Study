@@ -12,10 +12,10 @@ export interface ArchiveReport {
   warnings:string[];
   hasDatabase:boolean;
 }
-const MAX_FILE_SIZE=65*1024*1024;
-const MAX_UNCOMPRESSED=160*1024*1024;
+const MAX_FILE_SIZE=140*1024*1024;
+const MAX_UNCOMPRESSED=340*1024*1024;
 const MAX_ENTRIES=1500;
-function validateZip(bytes:Uint8Array):void{
+function validateZip(bytes:Uint8Array):string[]{
   const view=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength);
   // Locate end-of-central-directory. Do not scan file bodies: a compressed entry
   // may contain the same signature by chance.
@@ -28,6 +28,8 @@ function validateZip(bytes:Uint8Array):void{
   if(count>MAX_ENTRIES||count===0)throw Error('Nombre de fichiers ZIP non valide.');
   if(offset+size>eocd||offset+size>bytes.length)throw Error('Table centrale ZIP invalide.');
   let p=offset,total=0;
+  const filenames:string[]=[];
+  const decode=new TextDecoder();
   for(let n=0;n<count;n++){
     if(p+46>bytes.length||view.getUint32(p,true)!==0x02014b50)throw Error('Entrée ZIP centrale invalide.');
     const flags=view.getUint16(p+8,true),method=view.getUint16(p+10,true);
@@ -37,18 +39,27 @@ function validateZip(bytes:Uint8Array):void{
     if(method!==0&&method!==8)throw Error('Compression ZIP non prise en charge.');
     if(uncompressed===0xffffffff)throw Error('Archives ZIP64 non prises en charge.');
     total+=uncompressed;
+    if(p+46+nameLength+extra+comment>bytes.length)throw Error('Nom de fichier ZIP tronqué.');
+    const filename=decode.decode(bytes.subarray(p+46,p+46+nameLength));
+    if(filename.startsWith('/') || filename.split('/').includes('..'))throw Error('Chemin ZIP interdit.');
+    if(filenames.includes(filename))throw Error('Fichier ZIP en double.');
+    filenames.push(filename);
     if(uncompressed>MAX_UNCOMPRESSED||total>MAX_UNCOMPRESSED)throw Error('Archive trop volumineuse une fois décompressée.');
     p+=46+nameLength+extra+comment;
   }
   if(p!==offset+size)throw Error('Taille de table centrale incohérente.');
+  return filenames;
 }
 export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
   const kind=file.name.toLowerCase().endsWith('.jwlibrary')?'jwlibrary':file.name.toLowerCase().endsWith('.jwpub')?'jwpub':null;
   if(!kind)throw Error('Choisis un fichier .jwpub ou .jwlibrary.');
-  if(file.size>MAX_FILE_SIZE)throw Error('Archive trop volumineuse (limite 65 Mo).');
-  const raw=new Uint8Array(await file.arrayBuffer());validateZip(raw);
-  const entries=unzipSync(raw);
-  const names=Object.keys(entries);
+  if(file.size>MAX_FILE_SIZE)throw Error('Archive trop volumineuse (limite 140 Mo).');
+  const raw=new Uint8Array(await file.arrayBuffer());
+  const names=validateZip(raw);
+  // Avoid decompressing photos, media and playlists. A modern JW backup can
+  // exceed 80 MB; only the manifest and database are needed for inspection.
+  const entries=unzipSync(raw,{filter:entry=>entry.name==='manifest.json'||/userData\\.db$/i.test(entry.name)});
+
   const manifest=names.find(x=>x==='manifest.json'||x.endsWith('/manifest.json'));
   if(!manifest)throw Error('Le manifest.json attendu est absent.');
   let metadata:Record<string,any>;
@@ -58,9 +69,19 @@ export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
   if(kind==='jwlibrary'&&!hasDatabase)warnings.push('Aucune base userData.db : archive incomplète.');
   const dbName=names.find(x=>/^(?:.*\/)?userData\.db$/i.test(x));
   let databaseVersion:number|null=null, databaseSize=0;
+  let checksum='Non vérifié';
   if(dbName){
     const db=entries[dbName];databaseSize=db.length;
-    const isSqlite=db.length>=100 && strFromU8(db.subarray(0,15))==='SQLite format 3';
+    const isSqlite=db.length>=100 && strFromU8(db.subarray(0,16))==='SQLite format 3\\0';
+    if(isSqlite && kind==='jwlibrary'){
+      const expected=typeof metadata.userDataBackup?.hash==='string'?metadata.userDataBackup.hash:'';
+      if(expected){
+        const digest=await crypto.subtle.digest('SHA-256',db as BufferSource);
+        const computed=[...new Uint8Array(digest)].map(x=>x.toString(16).padStart(2,'0')).join('');
+        if(computed!==expected)throw Error('Empreinte SHA-256 incorrecte : sauvegarde potentiellement corrompue.');
+        checksum='SHA-256 conforme';
+      }
+    }
     if(!isSqlite)warnings.push('En-tête SQLite incomplet ou non valide : inspection structurelle seulement.');
     else databaseVersion=new DataView(db.buffer,db.byteOffset,db.byteLength).getUint32(60,false);
   }
@@ -77,7 +98,8 @@ export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
     {label:'Fichiers',value:String(names.length)},
     {label:'Base personnelle',value:hasDatabase?'Présente':'Non présente'},
     {label:'Taille base SQLite',value:databaseSize?Math.round(databaseSize/1024)+' Kio':'Non présente'},
-    {label:'SQLite user_version',value:databaseVersion===null?'Non disponible':String(databaseVersion)}
+    {label:'SQLite user_version',value:databaseVersion===null?'Non disponible':String(databaseVersion)},
+    {label:'Intégrité du manifeste',value:checksum}
   ];
   return {kind,filename:file.name,entries:names,title,details,warnings,hasDatabase};
 }
