@@ -287,7 +287,8 @@ export class BibleLabSidebarView extends ItemView {
   }
   private openSearch():void{
     const term=this.query.trim();if(!term){new Notice('Saisis une référence ou un sujet.');return;}
-    external(wolSearch(term));
+    const isCitation=/^(?:w\\d{2}(?:\\.\\d{1,2})?|g\\d{2}|mwb\\d{2}|it-\\d|km\\d{2})\\b/i.test(term);
+    external(isCitation?this.referenceUrl(term):wolSearch(term));
   }
   private renderRefs():void{
     heading(this.scroller,'Références','Versets, notes d’étude et articles, sans quitter le panneau.');
