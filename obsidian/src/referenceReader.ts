@@ -54,7 +54,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  // of URLs, fenced examples and internal metadata.
  let text=markdown.replace(/^---\s*\n[\s\S]*?\n---\s*(?:\n|$)/,'')
     .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
-    .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
+    .replace(/^~{3,}[^\n]*\n[\s\S]*?^~{3,}\s*$/gm,'')
     .replace(/`[^`\r\n]+`/g,'');
  // Markdown links: [label](https://wol.jw.org/fr/wol/...)
  const linked=/\[([^\]\n]{1,240})\]\(\s*(https?:\/\/[^\s)]+)(?:\s+["'][^"']+["'])?\s*\)/gi;
