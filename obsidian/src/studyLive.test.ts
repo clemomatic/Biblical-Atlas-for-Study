@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { dayLink, weekMonday, weekTitle } from './studyLive.ts';
+import { dayLink, weekMonday, weekTitle, meetingIssueLink } from './studyLive.ts';
 
 test('WOL date URLs use local calendar components and handle leap days',()=>{
   assert.equal(dayLink(new Date(2024,1,29)),'https://wol.jw.org/fr/wol/dt/r30/lp-f/2024/2/29');
@@ -17,4 +17,14 @@ test('meeting Monday/week title handles month and year boundaries without ISO am
   assert.equal(mondayYear.getFullYear(),2026);
   assert.equal(mondayYear.getMonth(),11);
   assert.equal(mondayYear.getDate(),28);
+});
+
+test('weekly meeting source is separate from Daily Text and follows the Monday issue date',()=>{
+ const sunday=new Date(2026,10,1);
+ assert.equal(meetingIssueLink(sunday),
+  'https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/mwb-septembre-octobre-2026/');
+ assert.equal(meetingIssueLink(new Date(2026,10,2)),
+  'https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/mwb-novembre-decembre-2026/');
+ assert.equal(meetingIssueLink(new Date(2027,0,1)),
+  'https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/mwb-novembre-decembre-2026/');
 });
