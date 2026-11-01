@@ -161,7 +161,8 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  if(!docUrl){
    const page=publicationPages(query);
    // Prefer an issue search for citations inside a document's page range.
-   const searchTerms=page?[page.issue,query]:[query];
+   const issueLabel=page?query.trim().replace(/\s+p\.?\s*\d{1,3}(?:\s*[-–]\s*\d{1,3})?\s*$/i,''):'';
+   const searchTerms=page?[issueLabel||page.issue,query]:[query];
    for(const term of searchTerms){
      const fallback=WOL+'s/r30/lp-f?'+new URLSearchParams({q:term});
      try{
