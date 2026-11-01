@@ -16,10 +16,8 @@ export function wolResearchUrl(query:string,options:WolSearchOptions):string {
  const q=query.trim().slice(0,250);
  if(!q)throw Error('Saisis un sujet ou une expression.');
  const params=new URLSearchParams();
- params.set('p',options.match==='sen'?'sen':'par');
  params.set('q',q);
- params.set('r','occ');
- params.set('st','g');
+ params.set('p',options.match==='sen'?'sen':'par');
  if(options.scope==='index')params.append('fc[]','dx');
  return 'https://wol.jw.org/fr/wol/s/r30/lp-f?'+params.toString();
 }
@@ -39,22 +37,30 @@ function officialResultHref(href:string,base:string):string|null {
 export function parseWolSearchResults(html:string,requestedUrl:string):WolSearchHit[] {
  const doc=new DOMParser().parseFromString(html,'text/html');
  for(const node of [...doc.querySelectorAll('script,style,noscript,nav,footer,header,form')])node.remove();
- const root=doc.querySelector('.searchResults,.search-results,#searchResults,#results,main,#content')||doc.body;
+ const roots=[...doc.querySelectorAll('.searchResults,.search-results,#searchResults,#results,.resultList,main,#content')];
+ if(!roots.includes(doc.body))roots.push(doc.body);
  const seen=new Set<string>(),hits:WolSearchHit[]=[];
- for(const link of root.querySelectorAll<HTMLAnchorElement>('a[href]')){
-  const url=officialResultHref(link.getAttribute('href')||'',requestedUrl);
-  if(!url||seen.has(url))continue;
-  const title=compact(link.textContent||'',170);
-  if(title.length<4||/^(?:image|imprimer|précédent|suivant|sommaire|ouvrir|lire|écouter|watchtower)$/i.test(title))continue;
-  const item=link.closest('li,article,.result,.searchResult,.search-result,.item')||link.parentElement;
-  let excerpt='';
-  if(item){
-   // Keep only context from the matching item, not the whole results page.
-   const small=compact(item.textContent||'',320);
-   if(small.length>title.length+25 && small.length<320)excerpt=compact(small.replace(title,''),190);
+ for(const root of roots){
+  for(const link of root.querySelectorAll<HTMLAnchorElement>('a[href]')){
+   const url=officialResultHref(link.getAttribute('href')||'',requestedUrl);
+   if(!url||seen.has(url))continue;
+   const item=link.closest('li,article,.result,.searchResult,.search-result,.item')||link.parentElement;
+   const heading=item?.querySelector('h2,h3,h4');
+   const title=compact(link.textContent||heading?.textContent||link.getAttribute('title')||'',170);
+   if(title.length<4||/^(?:image|imprimer|précédent|suivant|sommaire|ouvrir|lire|écouter|watchtower)$/i.test(title))continue;
+   let excerpt='';
+   if(item){
+    const surrounding=compact(item.textContent||'',400);
+    const small=surrounding.replace(title,'').trim();
+    if(small.length>14)excerpt=compact(small,190);
+   }
+   seen.add(url);hits.push({title,url,excerpt});
+   if(hits.length>=MAX_WOL_RESULTS)return hits;
   }
-  seen.add(url);hits.push({title,url,excerpt});
-  if(hits.length>=MAX_WOL_RESULTS)break;
+  // Prefer a dedicated result root when it contains matches, but permit
+  // a document-wide fallback if the named result shell is empty.
+  if(hits.length)break;
  }
+
  return hits;
 }
