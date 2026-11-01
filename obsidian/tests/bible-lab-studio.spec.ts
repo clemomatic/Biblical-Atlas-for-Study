@@ -65,3 +65,32 @@ test('local JW archive inspection creates a Markdown inventory without changing 
   expect(report.content).toContain('archive_type: jwlibrary');
   expect(report.content).toContain('Version du schéma');
 });
+
+test('converted JW Markdown ZIP imports as separate editable notes and never overwrites existing documents',async({page})=>{
+  const pane=page.locator('.biblelab-side');
+  await pane.getByRole('button',{name:'Studio'}).click();
+  const payload=zipSync({
+    'BibleLab_notes/Jean 3.16.md':strToU8('# Jean 3:16\n\nUne observation personnelle'),
+    'BibleLab_notes/_BIBLE_LAB_IMPORT.json':strToU8('{"schema_version":16,"note_count":1}')
+  });
+  for(let attempt=0;attempt<2;attempt++){
+    const choice=page.waitForEvent('filechooser');
+    await pane.getByRole('button',{name:'Importer des notes'}).click();
+    await (await choice).setFiles({name:'notes-jw.zip',mimeType:'application/zip',buffer:Buffer.from(payload)});
+    await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().filter((f:any)=>f.path.includes('Jean 3.16.md')).length)).toBe(attempt+1);
+  }
+  const paths=await page.evaluate(()=>(window as any).atlasTest.files().filter((f:any)=>f.path.includes('Jean 3.16.md')).map((f:any)=>f.path));
+  expect(paths[0]).not.toBe(paths[1]);
+  expect(paths.every((x:string)=>x.includes('Imports/notes-jw'))).toBeTruthy();
+});
+
+test('ZIP import rejects path traversal instead of writing outside import root',async({page})=>{
+  const pane=page.locator('.biblelab-side');
+  await pane.getByRole('button',{name:'Studio'}).click();
+  const payload=zipSync({'../intrusion.md':strToU8('must never be created')});
+  const chooser=page.waitForEvent('filechooser');
+  await pane.getByRole('button',{name:'Importer des notes'}).click();
+  await (await chooser).setFiles({name:'invalid.zip',mimeType:'application/zip',buffer:Buffer.from(payload)});
+  await page.waitForTimeout(350);
+  expect(await page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.includes('intrusion.md')))).toBe(false);
+});
