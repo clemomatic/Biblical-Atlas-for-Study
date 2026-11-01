@@ -38,6 +38,13 @@ test('public daily source loads only on command and meeting content remains link
     <h2>VIE CHRÉTIENNE</h2><h3>3. Étude de l’assemblée</h3>
     </body></html>`;
   await page.route('https://wol.jw.org/fr/wol/dt/**',route=>route.fulfill({status:200,contentType:'text/html',body:html}));
+  const issue='<html><main><a href="/fr/biblioth%C3%A8que/reunion-tj-cahier/mwb-septembre-octobre-2026/Programme-pour-la-reunion-du-26-octobre-au-1er-novembre-2026/">26 octobre – 1er novembre</a></main></html>';
+  await page.route(/www\.jw\.org\/fr\/biblioth%C3%A8que\/reunion-tj-cahier\/.*/,route=>{
+    const url=route.request().url();
+    return route.fulfill({status:200,contentType:'text/html',
+      body:url.includes('Programme-')?html:issue});
+  });
+
   const pane=page.locator('.biblelab-side');
   await expect(pane.getByText('Aperçu disponible à la demande.')).toBeVisible();
   await pane.getByRole('button',{name:'Actualiser'}).click();
