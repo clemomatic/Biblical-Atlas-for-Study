@@ -605,32 +605,55 @@ export class BibleLabSidebarView extends ItemView {
     external(isCitation?this.referenceUrl(term):this.searchMatch==='par'&&this.searchScope==='all'?wolSearch(term):wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope}));
   }
   private renderRefs():void{
-    heading(this.scroller,'Références','Versets, notes d’étude et articles, sans quitter le panneau.');
+    heading(this.scroller,'Lecture','Les sources, leurs notes et leurs renvois, sans perdre le fil.');
     if(this.referenceHistory.length>1){
       const trail=this.scroller.createDiv({cls:'biblelab-reader-history'});
       const previous=button(trail,'Précédent','arrow-left',()=>this.moveReference(-1));
       previous.disabled=this.referenceCursor<=0;
-      trail.createSpan({cls:'biblelab-reader-history-count',text:(this.referenceCursor+1)+' / '+this.referenceHistory.length});
+      trail.createSpan({cls:'biblelab-reader-history-count',
+        text:(this.referenceCursor+1)+' / '+this.referenceHistory.length});
       const next=button(trail,'Suivant','arrow-right',()=>this.moveReference(1));
       next.disabled=this.referenceCursor>=this.referenceHistory.length-1;
+    }
+    if(this.pinnedRef){
+      const focus=this.scroller.createDiv({cls:'biblelab-focused-reading'});
+      const header=focus.createDiv({cls:'biblelab-focused-reading-header'});
+      const lead=header.createDiv({cls:'biblelab-focused-reading-caption'});
+      lead.createSpan({text:'EN COURS DE LECTURE'});
+      lead.createEl('strong',{text:this.pinnedRef.label});
+      button(header,'Autre source','search',()=>this.setTab('wol'));
+      renderReferenceAccordion(focus,this.pinnedRef,this.reader);
+    }else{
+      const intro=this.scroller.createDiv({cls:'biblelab-reader-intro'});
+      const symbol=intro.createSpan();setIcon(symbol,'book-open');
+      intro.createEl('p',{text:'Choisis une référence dans ta note ou recherche un passage pour commencer.'});
+      button(intro,'Rechercher une source','search',()=>this.setTab('wol'),true);
     }
     if(this.noteTitle){
       const context=this.scroller.createDiv({cls:'biblelab-ref-context'});
       context.createSpan({text:'NOTE ACTIVE'});
       context.createEl('strong',{text:this.noteTitle});
+      context.createSpan({text:this.noteRefs.length+' références'});
     }
-    const pinned=this.pinnedRef;
-    const entries=pinned?[pinned,...this.noteRefs.filter(x=>!(x.label===pinned.label&&x.url===pinned.url))]:this.noteRefs;
-    if(!entries.length)this.scroller.createDiv({cls:'biblelab-empty',text:'Ouvre une note contenant Jean 7:24, !!Mt 10:29!! ou [w24 Novembre p. 14-19].'});
+    const entries=this.pinnedRef
+      ?this.noteRefs.filter(x=>!(x.label===this.pinnedRef?.label&&x.url===this.pinnedRef?.url))
+      :this.noteRefs;
     if(entries.length){
-      const row=this.scroller.createDiv({cls:'biblelab-reader-count'});
-      row.createSpan({text:entries.length+' références détectées'});
-      button(row,'Replier','chevrons-up',()=>{this.reader.expanded.clear();this.render();});
-      for(const item of entries)renderReferenceAccordion(this.scroller,item,this.reader);
+      const group=this.scroller.createEl('details',{cls:'biblelab-note-references'});
+      group.open=!this.pinnedRef;
+      group.createEl('summary',{text:'Références de ma note · '+entries.length});
+      const list=group.createDiv({cls:'biblelab-note-reference-list'});
+      const actions=list.createDiv({cls:'biblelab-reader-count'});
+      button(actions,'Tout replier','chevrons-up',()=>{this.reader.expanded.clear();this.render();});
+      for(const item of entries)renderReferenceAccordion(list,item,this.reader);
+    }else if(!this.pinnedRef){
+      this.scroller.createDiv({cls:'biblelab-empty',
+        text:this.noteTitle?'Aucune référence biblique détectée dans cette note pour l’instant.':
+          'Ouvre une note avec des versets, ou lance une recherche pour consulter WOL.'});
     }
-    const info=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
-    info.createEl('summary',{text:'Formats reconnus'});
-    info.createEl('p',{text:'Versets en clair, !!référence!!, [référence de publication] et [titre](lien WOL). Déplie une référence pour lire le texte officiel, puis les notes ou les articles cités.'});
+    const help=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
+    help.createEl('summary',{text:'Reconnaissance des références'});
+    help.createEl('p',{text:'Sont reconnus les versets en clair, !!référence!!, [référence de publication] et [titre](lien WOL).'});
   }
   private async loadIndex():Promise<void>{
     if(this.indexLoading)return;
