@@ -1,6 +1,14 @@
-# Bible Lab — Study Studio (0.4.0)
+# Bible Lab — Study Studio (0.5.0)
 
 **Bible Lab Study Studio 0.4** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+
+### Passerelle JW — 0.5
+
+Le panneau **Studio → Importer des notes** accepte les archives ZIP contenant les notes Markdown produites par **Bible Lab Bridge**. Tous les fichiers sont placés dans un nouveau dossier, sans écraser de note existante ; les illustrations et les métadonnées JSON accompagnent l’import. La commande « Importer une archive ZIP Markdown » est également disponible dans la palette de commandes.
+
+L’inspection des archives JWPUB / JW Library vérifie désormais le hachage SHA-256 du fichier SQLite et ne décompresse pas les médias annexes. Elle prend en charge les sauvegardes volumineuses (jusqu’à 140 Mo de ZIP), comme la sauvegarde du 27 octobre 2026 testée hors dépôt.
+
+Pour le **véritable déchiffrement JWPUB → Markdown** et l’édition/réexport d’une sauvegarde JW Library sur des copies locales, utiliser le programme Python `tools/bible_lab_bridge.py`. Instructions et limites dans [JW_BRIDGE.md](../docs/JW_BRIDGE.md). Ce moteur n’est pas encore embarqué dans le plugin Android ; ne pas confondre les fonctions du script et celles de l'interface Obsidian.
 
 ### Nouvelle interface Study Studio 0.4
 
