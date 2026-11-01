@@ -9,6 +9,7 @@ import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
 import { dayLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, type ReferenceEntry } from './referenceReader';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
+import { filterReferenceEntries, researchCaptureMarkdown } from './researchCapture';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -57,8 +58,9 @@ export class BibleLabSidebarView extends ItemView {
   private mapTerm='';
   private libraryTerm='';
   private noteRefs: ReferenceEntry[] = [];
+  private referenceFilter='';
   private pinnedRef: ReferenceEntry|null=null;
-  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external};
+  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,capture:(ref,url)=>this.insertResearchLead(ref,url)};
   private noteTitle='';
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
   private indexLoaded=false;
@@ -301,10 +303,25 @@ export class BibleLabSidebarView extends ItemView {
     const entries=pinned?[pinned,...this.noteRefs.filter(x=>!(x.label===pinned.label&&x.url===pinned.url))]:this.noteRefs;
     if(!entries.length)this.scroller.createDiv({cls:'biblelab-empty',text:'Ouvre une note contenant Jean 7:24, !!Mt 10:29!! ou [w24 Novembre p. 14-19].'});
     if(entries.length){
-      const row=this.scroller.createDiv({cls:'biblelab-reader-count'});
-      row.createSpan({text:entries.length+' références détectées'});
-      button(row,'Replier','chevrons-up',()=>{this.reader.expanded.clear();this.render();});
-      for(const item of entries)renderReferenceAccordion(this.scroller,item,this.reader);
+      const search=this.scroller.createDiv({cls:'biblelab-search biblelab-reference-search'});
+      const input=search.createEl('input',{attr:{type:'search',placeholder:'Filtrer les versets ou les publications…','aria-label':'Filtrer les références'}});
+      input.value=this.referenceFilter;
+      const list=this.scroller.createDiv({cls:'biblelab-reference-results'});
+      const updateList=():void=>{
+        list.empty();
+        const filtered=filterReferenceEntries(entries,this.referenceFilter);
+        const row=list.createDiv({cls:'biblelab-reader-count'});
+        row.createSpan({text:filtered.length+' / '+entries.length+' références'});
+        const collapse=button(row,'Replier','chevrons-up',()=>{
+          this.reader.expanded.clear();
+          updateList();
+        });
+        collapse.disabled=this.reader.expanded.size===0;
+        for(const item of filtered)renderReferenceAccordion(list,item,this.reader);
+        if(!filtered.length)list.createDiv({cls:'biblelab-empty',text:'Aucune référence ne correspond à ce filtre.'});
+      };
+      input.addEventListener('input',()=>{this.referenceFilter=input.value;updateList();});
+      updateList();
     }
     const info=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
     info.createEl('summary',{text:'Formats reconnus'});
@@ -398,13 +415,31 @@ export class BibleLabSidebarView extends ItemView {
   private insertLink(reference:string):void{this.insertMarkdownLink(reference,this.referenceUrl(reference));}
   private insertMarkdownLink(title:string,url:string):void{
     const safeTitle=title.replace(/[\[\]]/g,'');
-    const currentFile=this.app.workspace.getActiveFile();
-    // The sidebar can take focus. Locate a Markdown editor for the active file.
-    const leaves=this.app.workspace.getLeavesOfType('markdown');
-    const view=leaves.map(leaf=>leaf.view).find(view=>view instanceof MarkdownView && view.file?.path===currentFile?.path)
-      || leaves.map(leaf=>leaf.view).find(view=>view instanceof MarkdownView);
-    if(!(view instanceof MarkdownView)){new Notice('Ouvre une note Markdown avant d’insérer un lien.');return;}
-    view.editor.replaceSelection('['+safeTitle+']('+url+')');
-    new Notice('Lien inséré dans la note.');
+    this.insertInActiveNote('['+safeTitle+']('+url+')','Lien inséré dans la note.');
+  }
+  private insertResearchLead(ref:ReferenceEntry,resolvedUrl:string):void{
+    try{
+      const markdown=researchCaptureMarkdown(ref,resolvedUrl);
+      this.insertInActiveNote(markdown,'Piste ajoutée à la note, prête à être approfondie.');
+    }catch(error){
+      new Notice(error instanceof Error?error.message:'Impossible de créer cette piste.');
+    }
+  }
+  /** Never guess an editor: unrelated notes must not receive the insertion. */
+  private insertInActiveNote(markdown:string,message:string):void{
+    const activeFile=this.app.workspace.getActiveFile();
+    if(!activeFile || activeFile.extension!=='md'){
+      new Notice('Sélectionne d’abord la note Markdown où insérer cette piste.');
+      return;
+    }
+    const view=this.app.workspace.getLeavesOfType('markdown')
+      .map(leaf=>leaf.view)
+      .find(view=>view instanceof MarkdownView && view.file?.path===activeFile.path);
+    if(!(view instanceof MarkdownView)){
+      new Notice('Cette note doit être ouverte dans l’éditeur Markdown.');
+      return;
+    }
+    view.editor.replaceSelection(markdown);
+    new Notice(message);
   }
 }
