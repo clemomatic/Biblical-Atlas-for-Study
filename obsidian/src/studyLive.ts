@@ -153,7 +153,7 @@ export function parseMeetingHtml(html:string,date:Date,source=dayLink(date)):Mee
     const sibling=el.nextElementSibling;
     const durationNode=sibling?.matches('p')?sibling:sibling?.querySelector('p');
     const duration=clear(durationNode?.textContent||'');
-    const time=/^\\(\\d{1,3}\\s*min\\)/i.test(duration)?' · '+keep(duration,25):'';
+    const time=/^\(\d{1,3}\s*min\)/i.test(duration)?' · '+keep(duration,25):'';
     section.items.push(keep(t,160)+time);
    }
   if(sections.length>=3&&/paroles de conclusion/i.test(value))break;
