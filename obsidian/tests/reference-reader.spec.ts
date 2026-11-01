@@ -18,7 +18,7 @@ test('References sidebar scans plain scripture, WOL markdown links and bracket p
    app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
  });
  const pane=page.locator('.biblelab-side');
- await pane.getByRole('button',{name:'Références'}).click();
+ await pane.locator('.biblelab-tab[aria-label="Références"]').click();
  await expect(pane.getByText('Enquête WOL')).toBeVisible();
  for(const label of ['Matthieu 10:29','Jean 7:24','w24 Novembre p. 14-19','Article cité'])
    await expect(pane.locator('.biblelab-reader-labels strong').filter({hasText:label})).toBeVisible();
@@ -39,7 +39,7 @@ test('Study Bible verse expands in place, displaying the verse, notes and nested
  const pane=page.locator('.biblelab-side');
  await page.evaluate(()=>{const node=document.createElement('p');node.textContent='!!Matthieu 10:29!!';document.body.appendChild(node);(window as any).atlasTest.plugin.markdownPostProcessor(node);});
  await page.getByText('Matthieu 10:29',{exact:true}).last().click();
- await expect(pane.getByRole('button',{name:'Références'})).toHaveAttribute('aria-selected','true');
+ await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
  await expect(pane.getByText('Deux moineaux ne se vendent-ils pas')).toBeVisible();
  const related=pane.getByText('Notes et références liées');
  await related.click();
@@ -57,7 +57,7 @@ test('Article link uses original WOL document URL and displays readable source p
    app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
  });
  const pane=page.locator('.biblelab-side');
- await pane.getByRole('button',{name:'Références'}).click();
+ await pane.locator('.biblelab-tab[aria-label="Références"]').click();
  await pane.locator('.biblelab-reader-summary').filter({hasText:'Article original'}).click();
  await expect(pane.getByText('Un raisonnement approfondi pour l’étude.')).toBeVisible();
  await expect(pane.getByText('Seconde idée à méditer.')).toBeVisible();
