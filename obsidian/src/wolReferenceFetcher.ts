@@ -1,6 +1,7 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
+import { readableOfficialHtml, meaningfulNoteSource } from './readerText';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
@@ -116,22 +117,57 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  article.kind='article';
  return article;
 }
-function readText(raw:string):string{
- const doc=new DOMParser().parseFromString(raw,'text/html');
- return (doc.body.textContent||'').replace(/[\u00a0\u202f]/g,' ').replace(/\s+/g,' ').trim();
-}
 interface JwVerseExtras {
  html:string;citation?:string;
  footnotes?:{content?:string;source?:string}[];
  crossReferences?:{source?:string;targets?:{vs?:string;standardCitation?:string}[]}[];
  commentaries?:{content?:string;source?:string}[];
 }
+export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry):ReaderResult {
+ const scripture=parseScripture(ref.label);
+ if(!scripture)throw Error('Référence de verset invalide.');
+ const lines:ReaderResult['lines']=[];
+ const text=readableOfficialHtml(entry.html,'verse');
+ if(text)lines.push({type:'verse',text});
+ for(const note of entry.footnotes||[]){
+   const value=readableOfficialHtml(note.content||'','note');
+   if(value)lines.push({type:'note',text:value,source:meaningfulNoteSource(note.source)});
+ }
+ for(const commentary of entry.commentaries||[]){
+   const value=readableOfficialHtml(commentary.content||'','note');
+   if(value)lines.push({type:'study',text:value,source:meaningfulNoteSource(commentary.source)});
+ }
+ const links:ReaderResult['links']=[];
+ const linked=new Set<string>();
+ for(const row of entry.crossReferences||[]){
+   const labels:string[]=[];
+   for(const target of row.targets||[]){
+     const citation=(target.standardCitation||'').trim();
+     if(citation)labels.push(citation);
+     const targetCode=(target.vs||'').replace(/[^0-9]/g,'');
+     if(citation&&/^\d{8}$/.test(targetCode)){
+       const book=Number(targetCode.slice(0,2)),chapter=Number(targetCode.slice(2,5));
+       if(book>=1&&book<=66&&chapter>=1&&chapter<=150){
+         const url=WOL+'b/r30/lp-f/nwt/'+book+'/'+chapter;
+         const key=citation+'|'+url;
+         if(!linked.has(key)){links.push({label:citation,url});linked.add(key);}
+       }
+     }
+   }
+   // Cross-references must not be mixed with commentary or footnotes.
+   if(labels.length)lines.push({type:'crossref',text:labels.join(' · '),
+     source:meaningfulNoteSource(row.source)});
+ }
+ if(!text)throw Error('Texte du verset absent.');
+ return {title:entry.citation||scripture.label,
+   sourceUrl:ref.url,kind:'verse',lines,links,
+   notice:'Bible d’étude · texte, notes et renvois · jw.org'};
+}
 export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
  const scripture=parseScripture(ref.label);
  if(!scripture)return fetchPublication(ref);
  const range=(n:number)=>String(scripture.book).padStart(2,'0')+String(scripture.chapter).padStart(3,'0')+String(n).padStart(3,'0');
  const one=range(scripture.verse), last=scripture.endVerse&&scripture.endVerse!==scripture.verse?range(scripture.endVerse):null;
- // Exact endpoint and response schema follow traVERture's fetchVerseWithExtras.
  const key=(p:string)=>String(Number(p.slice(0,2)))+p.slice(2);
  const code=key(one)+(last?'-'+key(last):'');
  try{
@@ -140,40 +176,9 @@ export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
    const data=response.json as {ranges?:Record<string,JwVerseExtras>};
    const entry=data?.ranges?.[code];
    if(!entry||typeof entry.html!=='string')throw Error('Verset absent des données reçues.');
-   const lines:ReaderResult['lines']=[];
-   const text=readText(entry.html);
-   if(text)lines.push({type:'paragraph',text});
-   for(const note of entry.footnotes||[]){
-     const value=readText(note.content||'');if(value)lines.push({type:'note',text:(note.source?readText(note.source)+' — ':'')+value});
-   }
-   for(const commentary of entry.commentaries||[]){
-     const value=readText(commentary.content||'');if(value)lines.push({type:'note',text:(commentary.source?readText(commentary.source)+' — ':'')+value});
-   }
-   const links:ReaderResult['links']=[];
-   const linked=new Set<string>();
-   for(const row of entry.crossReferences||[]){
-     const labels:string[]=[];
-     for(const target of row.targets||[]){
-       const citation=(target.standardCitation||'').trim();
-       if(citation)labels.push(citation);
-       const targetCode=(target.vs||'').replace(/[^0-9]/g,'');
-       if(citation&&/^\d{8}$/.test(targetCode)){
-         const book=Number(targetCode.slice(0,2)),chapter=Number(targetCode.slice(2,5));
-         if(book>=1&&book<=66&&chapter>=1&&chapter<=150){
-           const url=WOL+'b/r30/lp-f/nwt/'+book+'/'+chapter;
-           const key=citation+'|'+url;
-           if(!linked.has(key)){links.push({label:citation,url});linked.add(key);}
-         }
-       }
-     }
-     if(labels.length)lines.push({type:'note',text:'Renvois : '+labels.join(' · ')});
-   }
-   if(!lines.length)throw Error('Bible d’étude vide.');
-   return {title:entry.citation||scripture.label,
-      sourceUrl:ref.url,kind:'verse',lines,links,
-      notice:'Texte et notes de la Bible d’étude · jw.org'};
+   return parseOfficialVerseExtras(entry,ref);
  }catch{
-   // Official WOL remains the fallback for unsupported languages/older Bible editions.
+   // Official WOL remains the fallback for an unavailable passage.
    return fetchPublication(ref);
  }
 }
