@@ -149,14 +149,56 @@ function allowLink(raw:string,base:string):string|null {
 }
 function relevantVerseNode(doc:Document,scripture:ScriptureRef):Element|null {
  const {book,chapter,verse}=scripture;
- const ids=[`v${book}-${chapter}-${verse}`,`v${book}-${chapter}-${String(verse).padStart(2,'0')}`,`v${book}-${chapter}-${String(verse).padStart(3,'0')}`];
+ const compact=String(book).padStart(2,'0')+String(chapter).padStart(3,'0')+
+   String(verse).padStart(3,'0');
+ const ids=['v'+compact,'v'+book+'-'+chapter+'-'+verse,
+   'v'+book+'-'+chapter+'-'+String(verse).padStart(2,'0'),
+   'v'+book+'-'+chapter+'-'+String(verse).padStart(3,'0')];
  for(const id of ids){const node=doc.getElementById(id);if(node)return node;}
- const candidates=[...doc.querySelectorAll('[id^="v"], [data-verse], .verse')];
+ const candidates=[...doc.querySelectorAll(
+   '[id^="v"], [data-verse], [data-bid], [data-vs], .verse')];
  return candidates.find(el=>{
-   const id=el.id||el.getAttribute('data-verse')||'';
-   return ids.some(v=>id===v||id.startsWith(v+'-'))||id===String(verse);
+   const values=[el.id,el.getAttribute('data-verse'),el.getAttribute('data-bid'),
+     el.getAttribute('data-vs')].filter(Boolean) as string[];
+   return values.some(value=>ids.some(id=>value===id||value===id.slice(1))||
+     value===String(verse)||value===compact);
  })||null;
 }
+/** Isolate this single verse, including when the ID marks the number only. */
+function exactVerseText(marker:Element,scripture:ScriptureRef):string {
+ const n=String(scripture.verse);
+ const text=readableOfficialElement(marker,'verse',1600).trim();
+ if(text.length>25 && !/^\d{1,3}$/.test(text) &&
+   (marker.matches('p,li,[data-verse],.verse')||marker.querySelector('p')))
+   return text.replace(new RegExp('^'+n+'[\\s\\u00a0\\u202f]*'),'').trim();
+ const parent=marker.closest('p,li')||marker.parentElement;
+ if(!parent)return '';
+ const clone=parent.cloneNode(true) as Element;
+ const original=[...clone.querySelectorAll('[id],[data-verse]')].find(el=>
+   marker.id?el.id===marker.id:el.getAttribute('data-verse')===n);
+ if(original){
+   const range=clone.ownerDocument.createRange();
+   range.selectNodeContents(clone);range.setStartAfter(original);
+   const host=clone.ownerDocument.createElement('div');
+   host.appendChild(range.cloneContents());
+   const next=host.querySelector('[id^="v"],[data-verse],.verseNum,.v');
+   if(next){
+     const end=host.ownerDocument.createRange();
+     end.selectNodeContents(host);end.setEndBefore(next);
+     host.replaceChildren(end.cloneContents());
+   }
+   const isolated=readableOfficialElement(host,'verse',1600).trim();
+   if(isolated.length>8)return isolated;
+ }
+ const markers=parent.querySelectorAll('[id^="v"],[data-verse],.verseNum,.v');
+ if(markers.length===1){
+   const isolated=readableOfficialElement(parent,'verse',1600)
+     .replace(new RegExp('^'+n+'[\\s\\u00a0\\u202f]*'),'').trim();
+   if(isolated.length>8)return isolated;
+ }
+ return '';
+}
+
 function verseRelatedAnchors(root:Element,scripture:ScriptureRef):HTMLAnchorElement[]{
  const heading=[...root.querySelectorAll('h2,h3,h4,h5')].find(el=>normalizedText(el,180)===scripture.label.replace(/[-–]\d+$/,''));
  if(!heading)return [];
@@ -258,9 +300,9 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
    if(node){
      const candidate=node.closest('p, li, [data-verse]')||node.parentElement||node;
      const wrap=(candidate.textContent||'').length<1400?candidate:node;
-     const verseText=readableOfficialElement(wrap,'verse',1300)
-       .replace(new RegExp('^'+scripture.verse+'(?=\\s)'),'').trim();
+     const verseText=exactVerseText(node,scripture);
      if(verseText)lines.push({type:'verse',text:verseText});
+     else notice='Référence repérée, mais le texte exact du verset n’a pas été isolé. Vérifie sur WOL.';
      const apparatus=studyNotesForVerse(root,scripture);
      for(const part of apparatus)if(!lines.some(x=>x.text===part.text))lines.push(part);
      // The 2013 study Bible places notes, cross-references and research
