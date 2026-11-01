@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "minAppVersion": "1.6.0",
-  "description": "Recherche WOL, Atlas, étude quotidienne, plans de discours et passerelle JW : inspection SHA-256 et import de notes Markdown.",
+  "description": "Study Studio : import natif JWPUB, notes et sauvegardes JW Library, aperçu de différences, export local sur copie, Atlas WOL et discours.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
