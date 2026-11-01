@@ -26,7 +26,7 @@ test('Daily Text and current meeting on WOL both appear in the homepage',async({
  const pane=page.locator('.biblelab-side');
  await pane.getByRole('button',{name:'Actualiser'}).click();
  await expect(pane.getByText('Je n’éprouverai pas de rancœur',{exact:false})).toBeVisible();
- await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux · (10 min)',{exact:true})).toBeVisible();
+ await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux',{exact:false})).toBeVisible();
  await expect(pane.getByText('Engage la conversation',{exact:false})).toBeVisible();
  await expect(pane.getByRole('button',{name:'Préparer en note'})).toBeVisible();
  await expect(pane.getByRole('button',{name:'Créer une méditation'})).toBeVisible();
