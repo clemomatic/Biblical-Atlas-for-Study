@@ -64,10 +64,10 @@ function pickDocument(html:string,base:string,reference:string):string|null{
    if(!href)continue;
    let container:Element|null=anchor;
    for(let depth=0;container&&depth<5;depth++,container=container.parentElement){
-     const text=(container.textContent||'').slice(0,1400);
-     if(isExactBibliographicResult(reference,text))return href;
      // A full search page is never an individual result.
      if(container.matches('main,body,#content,.searchResults,.search-results'))break;
+     const text=(container.textContent||'').slice(0,1400);
+     if(isExactBibliographicResult(reference,text))return href;
    }
  }
  return null;
