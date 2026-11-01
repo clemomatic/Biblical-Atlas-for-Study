@@ -63,6 +63,8 @@ export class BibleLabSidebarView extends ItemView {
   private wolResultsQuery='';
   private wolResultsError='';
   private wolResultsLoading=false;
+  private sourceCheckLoading=false;
+  private sourceCheckMessage='';
   private wolResultsSequence=0;
   private localHits:LocalJwHit[]=[];
   private localHitsQuery='';
@@ -365,6 +367,7 @@ export class BibleLabSidebarView extends ItemView {
     const find=button(actions,this.wolResultsLoading?'Recherche…':'Voir les résultats','list-filter',()=>void this.loadWolResults(),true);
     find.disabled=this.wolResultsLoading;
     button(actions,'Rechercher WOL','external-link',()=>this.openSearch());
+    button(actions,'Tester les sources','activity',()=>void this.testOfficialAccess());
     button(actions,'Recherche JW.org','globe',()=>{
       try{external(jwOrgResearchUrl(this.query));}catch{new Notice('Saisis un sujet à rechercher.');}
     });
@@ -377,6 +380,11 @@ export class BibleLabSidebarView extends ItemView {
     button(actions2,'Copier le lien','copy',()=>void this.copyLink(this.query));
     button(actions2,'Insérer le lien','file-plus-2',()=>this.insertLink(this.query));
 
+    if(this.sourceCheckMessage){
+      const check=this.scroller.createDiv({cls:'biblelab-reader-hint'});
+      check.createSpan({text:this.sourceCheckMessage});
+      check.createEl('p',{text:'Si une source refuse la lecture automatisée, ouvre la page officielle : le plugin ne peut pas contourner ses restrictions.'});
+    }
     if(this.wolResultsLoading)this.scroller.createEl('p',{cls:'biblelab-reader-loading',text:'Consultation de la recherche WOL…'});
     if(this.wolResultsError){
       const info=this.scroller.createDiv({cls:'biblelab-alert'});
@@ -437,6 +445,13 @@ export class BibleLabSidebarView extends ItemView {
   private async loadWolResults():Promise<void>{
     const term=this.query.trim();
     if(!term){new Notice('Saisis un sujet ou une expression.');return;}
+    const direct=cleanWolUrl(term);
+    if(direct && /\/fr\/wol\/(?:d|b)\//.test(new URL(direct).pathname)){
+      this.focusReference(direct,'Document WOL');
+      return;
+    }
+    const scripture=parseScripture(term);
+    if(scripture){this.focusReference(scripture.label);return;}
     if(this.wolResultsLoading)return;
     const seq=++this.wolResultsSequence;
     const url=wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
@@ -446,7 +461,7 @@ export class BibleLabSidebarView extends ItemView {
       const response=await requestUrl({url,throw:false});
       if(response.status!==200)throw Error('WOL a répondu avec le code '+response.status+'.');
       const items=parseWolSearchResults(response.text,url);
-      if(!items.length)throw Error('La page ne fournit pas de résultats lisibles automatiquement.');
+      if(!items.length)throw Error('Réponse WOL reçue, mais aucun lien de document exploitable. La recherche peut dépendre de scripts ou d’une structure différente.');
       if(seq!==this.wolResultsSequence)return;
       this.wolResults=items;this.wolResultsQuery=term;
     }catch(error){
@@ -458,6 +473,31 @@ export class BibleLabSidebarView extends ItemView {
         this.wolResultsLoading=false;if(this.tab==='wol')this.render();
       }
     }
+  }
+  private async testOfficialAccess():Promise<void>{
+    if(this.sourceCheckLoading)return;
+    this.sourceCheckLoading=true;
+    this.sourceCheckMessage='Diagnostic des sources officielles…';
+    if(this.tab==='wol')this.render();
+    const examples=[
+      {name:'Texte du jour WOL',url:dayLink(new Date())},
+      {name:'Article WOL',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/2024642'},
+      {name:'Cahier JW.org',url:meetingIssueLink(new Date())}
+    ];
+    const results:string[]=[];
+    for(const item of examples){
+      try{
+        const response=await requestUrl({url:item.url,throw:false});
+        const ok=response.status===200 && /<(?:html|main|article|body)\b/i.test(response.text||'');
+        results.push(item.name+' : '+(ok?'page HTML accessible':'HTTP '+response.status+' / page illisible'));
+      }catch(error){
+        results.push(item.name+' : erreur de connexion ('+
+          (error instanceof Error?error.message:'inconnue')+').');
+      }
+    }
+    this.sourceCheckMessage=results.join(' · ');
+    this.sourceCheckLoading=false;
+    if(this.tab==='wol')this.render();
   }
   private async searchImportedNotes():Promise<void>{
     const term=this.query.trim();
