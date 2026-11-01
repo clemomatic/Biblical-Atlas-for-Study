@@ -138,6 +138,7 @@ export class BibleLabSidebarView extends ItemView {
     this.rememberReference(ref);
     this.query=label;
     this.pinnedRef=ref;
+    this.reader.expanded.clear();
     this.reader.expanded.add(ref.url+'#'+label);
     this.tab='refs';if(this.scroller){this.render();this.scroller.scrollTop=0;}
   }
@@ -148,6 +149,7 @@ export class BibleLabSidebarView extends ItemView {
     this.referenceCursor=next;
     const ref=this.referenceHistory[next];
     this.pinnedRef=ref;this.query=ref.label;this.tab='refs';
+    this.reader.expanded.clear();
     this.reader.expanded.add(ref.url+'#'+ref.label);
     this.render();
     const scroll=this.referencePosition[next]||0;
