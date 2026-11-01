@@ -54,9 +54,10 @@ function heading(parent:HTMLElement,title:string,desc:string): void {
 export class BibleLabSidebarView extends ItemView {
   private host: BibleLabHost;
   private tab: Tab = 'home';
+  private tabScroll=new Map<Tab,number>();
   private scroller!: HTMLElement;
   private tabs!: HTMLElement;
-  private query='Matthieu 10:29';
+  private query='';
   private searchMatch:WolMatchMode='par';
   private searchScope:WolSearchScope='all';
   private wolResults:WolSearchHit[]=[];
@@ -112,7 +113,7 @@ export class BibleLabSidebarView extends ItemView {
     this.tabs=this.contentEl.createDiv({cls:'biblelab-tabs'});
     this.scroller=this.contentEl.createDiv({cls:'biblelab-scroller'});
     const footer=this.contentEl.createDiv({cls:'biblelab-footer'});
-    footer.createSpan({text:'<SOURCE> · COFFRE LOCAL'});
+    footer.createSpan({text:'Notes locales · Sources officielles en ligne'});
     const atlas=footer.createEl('a',{cls:'biblelab-footlink',text:'Atlas ↗',href:'#'});
     atlas.addEventListener('click',event=>{event.preventDefault();void this.host.openAtlas();});
     await this.updateActiveNote(this.app.workspace.getActiveFile());
@@ -136,7 +137,6 @@ export class BibleLabSidebarView extends ItemView {
     const ref:ReferenceEntry={label,url:direct||passageUrl(label),
       kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
     this.rememberReference(ref);
-    this.query=label;
     this.pinnedRef=ref;
     this.reader.expanded.clear();
     this.reader.expanded.add(ref.url+'#'+label);
@@ -148,7 +148,7 @@ export class BibleLabSidebarView extends ItemView {
     this.referencePosition[this.referenceCursor]=this.scroller.scrollTop;
     this.referenceCursor=next;
     const ref=this.referenceHistory[next];
-    this.pinnedRef=ref;this.query=ref.label;this.tab='refs';
+    this.pinnedRef=ref;this.tab='refs';
     this.reader.expanded.clear();
     this.reader.expanded.add(ref.url+'#'+ref.label);
     this.render();
@@ -172,19 +172,30 @@ export class BibleLabSidebarView extends ItemView {
     }
     if(this.tab==='refs' && this.scroller)this.render();
   }
-  private setTab(tab:Tab):void{this.tab=tab;this.render();}
+  private setTab(tab:Tab):void{
+    if(this.tab===tab)return;
+    if(this.scroller)this.tabScroll.set(this.tab,this.scroller.scrollTop);
+    this.tab=tab;this.render();
+    const previous=this.tabScroll.get(tab)||0;
+    if(this.scroller)this.scroller.scrollTop=previous;
+  }
   private render():void{
     this.tabs.empty();
+    const primary=this.tabs.createDiv({cls:'biblelab-nav-primary',attr:{'role':'group','aria-label':'Parcours d’étude'}});
+    const secondary=this.tabs.createDiv({cls:'biblelab-nav-secondary',attr:{'role':'group','aria-label':'Outils complémentaires'}});
     const entries:{key:Tab;label:string;icon:string}[]=[
-      {key:'home',label:'Accueil',icon:'layout-dashboard'},
-      {key:'wol',label:'WOL',icon:'scan-search'},
-      {key:'refs',label:'Références',icon:'book-open-text'},
+      {key:'home',label:'Étudier',icon:'house'},
+      {key:'wol',label:'Chercher',icon:'search'},
+      {key:'refs',label:'Lire',icon:'book-open-text'},
       {key:'maps',label:'Atlas',icon:'map-pinned'},
       {key:'library',label:'Sources',icon:'library-big'},
       {key:'studio',label:'Studio',icon:'notebook-pen'}
     ];
     for(const entry of entries){
-      const tab=this.tabs.createEl('button',{cls:'biblelab-tab',attr:{'aria-selected':String(this.tab===entry.key),'aria-label':entry.label}});
+      const parent=['home','wol','refs'].includes(entry.key)?primary:secondary;
+      const tab=parent.createEl('button',{cls:'biblelab-tab',attr:{
+        type:'button','aria-selected':String(this.tab===entry.key),
+        'aria-label':entry.label,'title':entry.label}});
       const symbol=tab.createSpan();setIcon(symbol,entry.icon);
       tab.createSpan({text:entry.label});
       tab.addEventListener('click',()=>this.setTab(entry.key));
@@ -199,6 +210,28 @@ export class BibleLabSidebarView extends ItemView {
       case 'studio':this.renderStudio();break;
     }
   }
+  private launchStudy(value:string):void{
+    const term=cleanReadingText(value);
+    if(!term){this.setTab('wol');return;}
+    this.query=term;
+    if(parseScripture(term) || cleanWolUrl(term) || /^(?:w\d{2}|g\d{2}|mwb\d{2}|it-\d)/i.test(term)){
+      this.focusReference(term);
+      return;
+    }
+    this.setTab('wol');
+    void this.loadWolResults();
+  }
+  private renderStudySearch(parent:HTMLElement):void{
+    const form=parent.createEl('form',{cls:'biblelab-quick-search'});
+    const text=form.createEl('input',{attr:{
+      type:'search',autocomplete:'off',placeholder:'Sujet, verset ou lien WOL…',
+      'aria-label':'Rechercher dans Bible Lab'}});
+    text.value=this.query;
+    text.addEventListener('input',()=>{this.query=text.value;});
+    const submit=form.createEl('button',{attr:{type:'submit','aria-label':'Lancer une recherche'},cls:'biblelab-quick-submit'});
+    setIcon(submit,'arrow-right');
+    form.addEventListener('submit',(event)=>{event.preventDefault();this.launchStudy(text.value);});
+  }
   private hero(parent:HTMLElement,eyebrow:string,title:string,subtitle:string,icon:string):HTMLElement {
     const hero=parent.createDiv({cls:'biblelab-hero'});
     const top=hero.createDiv({cls:'biblelab-hero-top'});
@@ -211,19 +244,31 @@ export class BibleLabSidebarView extends ItemView {
   private renderHome():void{
     const now=new Date();
     const format=new Intl.DateTimeFormat('fr-FR',{weekday:'long',day:'numeric',month:'long'});
-    this.hero(this.scroller,format.format(now).toLocaleUpperCase('fr'),'Un espace pour explorer.','Versets · découvertes · méditation','sparkles');
-    const quick=this.scroller.createDiv({cls:'biblelab-launch-grid'});
-    for(const item of [
-      {label:'Rechercher',icon:'search',tab:'wol' as Tab},
-      {label:'Lire',icon:'book-open-text',tab:'refs' as Tab},
-      {label:'Explorer',icon:'map',tab:'maps' as Tab},
-      {label:'Créer',icon:'pen-line',tab:'studio' as Tab}
-    ]){
-      const action=quick.createEl('button',{cls:'biblelab-launch'});
-      const symbol=action.createSpan({cls:'biblelab-launch-icon'});setIcon(symbol,item.icon);
-      action.createSpan({text:item.label});
-      action.addEventListener('click',()=>this.setTab(item.tab));
+    const welcome=this.scroller.createDiv({cls:'biblelab-study-welcome'});
+    welcome.createSpan({cls:'biblelab-study-overline',text:format.format(now)});
+    welcome.createEl('h2',{text:'Que veux-tu approfondir ?'});
+    welcome.createEl('p',{text:'Une idée, un verset, une publication : commence ici.'});
+    this.renderStudySearch(welcome);
+    if(this.pinnedRef){
+      const resume=this.scroller.createDiv({cls:'biblelab-resume-card'});
+      const copy=resume.createDiv();
+      copy.createSpan({cls:'biblelab-study-overline',text:'DERNIÈRE LECTURE'});
+      copy.createEl('strong',{text:this.pinnedRef.label});
+      const b=button(resume,'Reprendre','book-open',()=>this.setTab('refs'),true);
+      b.setAttribute('aria-label','Reprendre '+this.pinnedRef.label);
     }
+    if(this.noteTitle){
+      const note=this.scroller.createDiv({cls:'biblelab-active-note'});
+      const symbol=note.createSpan();setIcon(symbol,'file-text');
+      const details=note.createDiv({cls:'biblelab-active-note-copy'});
+      details.createSpan({text:'NOTE ACTIVE'});
+      details.createEl('strong',{text:this.noteTitle});
+      details.createSpan({text:this.noteRefs.length+' références repérées'});
+      button(note,'Voir','arrow-right',()=>this.setTab('refs'));
+    }
+    const shortcuts=this.scroller.createDiv({cls:'biblelab-journey-actions'});
+    button(shortcuts,'Rechercher dans WOL','search',()=>this.setTab('wol'));
+    button(shortcuts,'Lire mes références','book-open-text',()=>this.setTab('refs'));
     const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
     headingRow.createEl('h3',{text:'AUJOURD’HUI'});
     const reload=button(headingRow,this.liveLoading?'Chargement…':'Actualiser','refresh-cw',()=>void this.loadLive());
@@ -253,11 +298,6 @@ export class BibleLabSidebarView extends ItemView {
     const weekActions=week.createDiv({cls:'biblelab-buttons'});
     button(weekActions,'Voir la réunion','external-link',()=>external(this.live.meeting?.source||dayLink(now)));
     if(this.live.meeting)button(weekActions,'Préparer en note','notebook-pen',()=>this.host.saveWeeklyStudy(this.live.meeting!,now),true);
-    this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'CONTINUER'});
-    const research=card(this.scroller,'Reprendre ma recherche','Accéder à mes versets et aux références de la note ouverte.');
-    const researchRow=research.createDiv({cls:'biblelab-buttons'});
-    button(researchRow,'Reprendre la lecture','book-open-text',()=>this.setTab('refs'),true);
-    button(researchRow,'Atelier discours','mic-2',()=>this.setTab('studio'));
     if(this.liveLastUpdated) this.scroller.createEl('p',{cls:'biblelab-mini',text:'Mise à jour depuis WOL · '+new Date(this.liveLastUpdated).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
   }
   private async loadLive():Promise<void>{
