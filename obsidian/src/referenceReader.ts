@@ -3,6 +3,7 @@
  * the keyword search route /wol/s/. No HTML from the web is injected into Obsidian.
  */
 import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
+import { wolLanguageFromUrl,wolPrefix,wolRoute,type BibleLabLanguage } from './researchPreferences.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
@@ -16,28 +17,29 @@ export function cleanWolUrl(raw:string):string|null {
  try{
    const url=new URL(raw.replace(/&amp;/g,'&').trim());
    if(url.protocol!=='https:'||url.username||url.password||url.hostname!=='wol.jw.org')return null;
-   if(!url.pathname.startsWith('/fr/wol/'))return null;
+   const language=wolLanguageFromUrl(url.href);
+   if(!language)return null;
    // Repair old citation URLs, including links written by earlier versions of
    // Bible Lab into the vault. The route /s/ searches keywords, whereas /l/
    // resolves bibliographic references such as "w24 Novembre p. 14-19".
-   if(url.pathname==='/fr/wol/s/r30/lp-f'){
+   if(url.pathname==='/'+language+'/wol/s/'+wolRoute(language)) {
      const query=url.searchParams.get('q')?.trim()||'';
      if(/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(query)){
-       url.pathname='/fr/wol/l/r30/lp-f';
+       url.pathname='/'+language+'/wol/l/'+wolRoute(language);
        url.search=new URLSearchParams({q:query}).toString();
      }
    }
    url.hash='';return url.toString();
  }catch{return null;}
 }
-export function bibleChapterUrl(scripture:ScriptureRef):string{
- return `https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/${scripture.book}/${scripture.chapter}`;
+export function bibleChapterUrl(scripture:ScriptureRef,language:BibleLabLanguage='fr'):string{
+ return wolPrefix(language)+'b/'+wolRoute(language)+'/nwt/'+scripture.book+'/'+scripture.chapter;
 }
-export function passageUrl(reference:string):string {
+export function passageUrl(reference:string,language:BibleLabLanguage='fr'):string {
  const scripture=parseScripture(reference);
- return scripture?bibleChapterUrl(scripture):wolLookup(reference);
+ return scripture?bibleChapterUrl(scripture,language):wolLookup(reference,language);
 }
-export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
+export function extractReferenceEntries(markdown:string,language:BibleLabLanguage='fr'):ReferenceEntry[]{
  const results:ReferenceEntry[]=[];const keys=new Set<string>();
  const push=(label:string,url:string,origin:ReferenceEntry['origin'],kind?:ReferenceKind)=>{
    label=label.replace(/\s+/g,' ').trim();
@@ -54,7 +56,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  // of URLs, fenced examples and internal metadata.
  let text=markdown.replace(/^---\s*\n[\s\S]*?\n---\s*(?:\n|$)/,'')
     .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
-    .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
+    .replace(/^~{3,}[^\n]*\n[\s\S]*?^~{3,}\s*$/gm,'')
     .replace(/`[^`\r\n]+`/g,'');
  // Markdown links: [label](https://wol.jw.org/fr/wol/...)
  const linked=/\[([^\]\n]{1,240})\]\(\s*(https?:\/\/[^\s)]+)(?:\s+["'][^"']+["'])?\s*\)/gi;
@@ -70,18 +72,18 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
    if(/^https?:\/\//i.test(raw)){
      const url=cleanWolUrl(raw);if(url)push(raw,url,'brackets');
    }else if(/^(?:w\d{2}(?:\.?\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|cl |lff |nwt |w\d{2}\s+|la tour de garde)/i.test(raw)) {
-     push(raw,wolLookup(raw),'brackets','publication');
+     push(raw,wolLookup(raw,language),'brackets','publication');
    }
  }
  // Marker citations must take precedence over the verse scanner.
  for(const m of text.matchAll(/!!([^!\r\n]{1,220})!!/g)){
-   for(const part of m[1].split(';')){const label=part.trim();if(label)push(label,passageUrl(label),'marker');}
+   for(const part of m[1].split(';')){const label=part.trim();if(label)push(label,passageUrl(label,language),'marker');}
  }
  // Plain scripture references. Avoid detecting verse-like strings in web URLs
  // by removing URLs before scanning.
  const remainder=text.replace(urlPattern,'');
  for(const label of extractReferences(remainder)){
-   if(parseScripture(label))push(label,passageUrl(label),'verse','scripture');
+   if(parseScripture(label))push(label,passageUrl(label,language),'verse','scripture');
  }
  return results.slice(0,MAX_REFERENCES);
 }
