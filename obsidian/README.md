@@ -1,3 +1,14 @@
+## Bible Lab 0.8.8 — Stabilisation de la lecture et des sources
+
+- **Historique du lecteur** : les articles ouverts manuellement depuis la liste des références entrent désormais dans l'historique. Les ouvertures programmatiques dues au retour, au suivi d’un lien ou à un re-rendu ne créent plus de doublon.
+- **Guide de recherche / Index** : identification de la série `rsg` / `dx` dans les métadonnées de publication officielles, sans mélanger le texte du titre de l’article et le nom de la série lorsque le HTML concatène les nœuds sans séparateur.
+- **Références bibliographiques** : les recherches par plage de pages n'utilisent plus un simple score de mots-clés risquant de renvoyer un article de la même édition, mais hors plage. Les résultats doivent posséder une plage compatible ou un lien canonique pertinent.
+- **Correspondances vérifiées** : possibilités de repli pour `w18 février p. 24-26` (article officiel couvrant les pages 23-27) et `lmd 11` (leçon « Rester simple ») lorsque la recherche bibliographique WOL échoue. Aucune construction arbitraire d'identifiants de documents.
+- **Reconnaissance des notes** : prise en charge des références `lmd` dans les références Markdown entre crochets, ainsi que dans les URL bibliographiques historiques.
+- **Tests** : adaptation du scénario du texte du jour à son chargement automatique ; test de récupération de `lmd 11` même lorsque les recherches WOL échouent ; validation des chemins article → citation → retour et Guide → document.
+
+Cette version s’appuie sur la 0.8.7. Les requêtes externes restent tributaires des accès autorisés par WOL/JW.org ; il n'existe pas d'API officielle documentée que Bible Lab pourrait utiliser pour garantir tous les textes. Le programme évite toute injection de HTML distant, ne transmet pas les notes privées et conserve l'ouverture dans le navigateur officiel.
+
 ## Bible Lab 0.8.7 — Chargement automatique et récupérations WOL
 
 - **Accueil** : le texte du jour et le programme de réunion sont chargés automatiquement au premier affichage du panneau, sans cliquer sur Actualiser. À chaque retour sur l'accueil, une vérification discrète intervient lorsque les données sont devenues anciennes. Actualiser reste disponible en forçage manuel.
