@@ -157,7 +157,7 @@ export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
        const citation=(target.standardCitation||'').trim();
        if(citation)labels.push(citation);
        const targetCode=(target.vs||'').replace(/[^0-9]/g,'');
-       if(citation&&/^\\d{8}$/.test(targetCode)){
+       if(citation&&/^\d{8}$/.test(targetCode)){
          const book=Number(targetCode.slice(0,2)),chapter=Number(targetCode.slice(2,5));
          if(book>=1&&book<=66&&chapter>=1&&chapter<=150){
            const url=WOL+'b/r30/lp-f/nwt/'+book+'/'+chapter;
