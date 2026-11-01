@@ -34,7 +34,7 @@ function simplified(text:string):string{
 /** Recognise e.g. "2-8 novembre", "26 octobre – 1er novembre", or "1-7 juin". */
 export function isMeetingWeek(text:string,date:Date):boolean{
  const normalized=simplified(text);
- const match=normalized.match(/^(\d{1,2})(?:er)?(?:\s+([a-z]+))?\s*-\s*(\d{1,2})(?:er)?(?:\s+([a-z]+))?/);
+ const match=normalized.match(/(?:^|\s)(\d{1,2})(?:er)?(?:\s+([a-z]+))?(?:\s+\d{4})?\s*-\s*(\d{1,2})(?:er)?(?:\s+([a-z]+))?/);
  if(!match)return false;
  const monday=weekMonday(date),sunday=new Date(monday);
  sunday.setDate(monday.getDate()+6);
