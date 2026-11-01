@@ -15,7 +15,7 @@ const dailyHtml='<html><body><main>'+
  '<a href="https://wol.jw.org/fr/wol/d/r30/lp-f/202026250">26&nbsp;octobre – 1<sup>er</sup>&nbsp;novembre Cahier Vie et ministère</a>'+
  '<h1>26 OCTOBRE – 1<sup>er</sup> NOVEMBRE</h1>'+
  '<h2>JÉRÉMIE 47-48</h2>'+
- '<h2>JOYAUX DE LA PAROLE DE DIEU</h2><h3>1. Jéhovah est un juge juste et miséricordieux</h3>'+
+ '<h2>JOYAUX DE LA PAROLE DE DIEU</h2><h3>1. Jéhovah est un juge juste et miséricordieux</h3><p>(10 min)</p>'+
  '<h2>APPLIQUE-TOI AU MINISTÈRE</h2><h3>4. Engage la conversation</h3>'+
  '<h2>VIE CHRÉTIENNE</h2><h3>7. Besoins de l’assemblée</h3>'+
  '</main></body></html>';
@@ -26,7 +26,7 @@ test('Daily Text and current meeting on WOL both appear in the homepage',async({
  const pane=page.locator('.biblelab-side');
  await pane.getByRole('button',{name:'Actualiser'}).click();
  await expect(pane.getByText('Je n’éprouverai pas de rancœur',{exact:false})).toBeVisible();
- await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux',{exact:false})).toBeVisible();
+ await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux · (10 min)',{exact:true})).toBeVisible();
  await expect(pane.getByText('Engage la conversation',{exact:false})).toBeVisible();
  await expect(pane.getByRole('button',{name:'Préparer en note'})).toBeVisible();
  await expect(pane.getByRole('button',{name:'Créer une méditation'})).toBeVisible();
