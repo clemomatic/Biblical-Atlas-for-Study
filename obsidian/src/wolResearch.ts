@@ -6,9 +6,9 @@ import { cleanReadingText } from './readerText.ts';
 import { cleanWolUrl } from './referenceReader.ts';
 
 export type WolMatchMode='par'|'sen';
-export type WolSearchScope='all'|'index';
+export type WolSearchScope='all'|'index'|'guide';
 export interface WolSearchOptions {match:WolMatchMode;scope:WolSearchScope}
-export interface WolSearchHit {title:string;url:string;excerpt:string}
+export interface WolSearchHit {title:string;url:string;excerpt:string;collection?:'index'|'guide'|'other'}
 export const MAX_WOL_RESULTS=25;
 export const JW_STUDY_TOOLS='https://www.jw.org/fr/la-bible-et-vous/outils-etude-bible/';
 
@@ -18,7 +18,8 @@ export function wolResearchUrl(query:string,options:WolSearchOptions):string {
  const params=new URLSearchParams();
  params.set('q',q);
  params.set('p',options.match==='sen'?'sen':'par');
- if(options.scope==='index')params.append('fc[]','dx');
+ // WOL groups Index and Guide de recherche under the official Index category.
+ if(options.scope==='index'||options.scope==='guide')params.append('fc[]','dx');
  return 'https://wol.jw.org/fr/wol/s/r30/lp-f?'+params.toString();
 }
 export function jwOrgResearchUrl(query:string):string {
@@ -54,7 +55,14 @@ export function parseWolSearchResults(html:string,requestedUrl:string):WolSearch
     const small=surrounding.replace(title,'').trim();
     if(small.length>14)excerpt=compact(small,190);
    }
-   seen.add(url);hits.push({title,url,excerpt});
+   // Labels from the same result entry are authoritative only when explicit.
+   // Do not infer a Guide result from a matched keyword in an article excerpt.
+   const metadata=compact(item?.textContent||'',700);
+   const collection:WolSearchHit['collection']=/(?:^|[^a-z0-9])rsg(?:\d{2})?(?:\s|\s*[-–]|$)|guide de recherche\s*\(/i.test(metadata)
+      ?'guide'
+      :/(?:^|[^a-z0-9])dx(?:\d{2}[-–]\d{2})?(?:\s|\s*[-–]|$)|index \d{4}[-–]\d{4}/i.test(metadata)
+      ?'index':'other';
+   seen.add(url);hits.push({title,url,excerpt,collection});
    if(hits.length>=MAX_WOL_RESULTS)return hits;
   }
   // Prefer a dedicated result root when it contains matches, but permit
