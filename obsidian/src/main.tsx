@@ -25,6 +25,7 @@ import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveI
 import { saveDailyStudy, saveWeeklyStudy } from './studyNoteBuilder';
 import type { DayPreview, MeetingPreview } from './studyLive';
 import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
+import { NativeJwModal, type JwAction } from './nativeJwModal';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -161,6 +162,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
     this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
     this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
+    this.addCommand({ id: 'native-import-jwpub', name: 'Importer un JWPUB directement en notes Markdown', callback:()=>this.openJwNative('jwpub') });
+    this.addCommand({ id: 'native-import-backup', name: 'Importer les notes d’une sauvegarde JW Library', callback:()=>this.openJwNative('backup') });
+    this.addCommand({ id: 'native-export-backup', name: 'Exporter mes modifications vers une nouvelle sauvegarde JW Library', callback:()=>this.openJwNative('export') });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (Bible Lab)', editorCallback: editor => this.run(this.openBibleLab(editor.getSelection() || editor.getLine(editor.getCursor().line))) });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({ id: 'manage-atlas', name: 'Gérer et personnaliser toutes les fiches', callback: this.manageAtlas });
@@ -233,6 +237,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       const result=await importMarkdownZip(this.app,file,this.settings.noteFolder);
       new Notice('Import terminé : '+result.notes+' notes Markdown.');
     })());
+  };
+  openJwNative = (action:JwAction):void => {
+    new NativeJwModal(this.app,action,this.settings.noteFolder).open();
   };
   inspectArchive = ():void => {
     this.run((async () => {
