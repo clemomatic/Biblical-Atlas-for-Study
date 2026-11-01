@@ -5,6 +5,11 @@ on:
     paths: ['obsidian/**', 'src/**', 'tools/bible_lab_bridge.py', 'tools/test_bible_lab_bridge.py', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
   pull_request:
     paths: ['obsidian/**', 'src/**', 'tools/bible_lab_bridge.py', 'tools/test_bible_lab_bridge.py', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
+# Cancel outdated previews while a PR is being updated. The full desktop
+# and mobile browser suite is expensive; only the newest commit is relevant.
+concurrency:
+  group: obsidian-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
