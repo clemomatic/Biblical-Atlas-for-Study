@@ -21,7 +21,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm obsidian:typecheck
-      - run: python tools/test_bible_lab_bridge.py\n      - run: pnpm obsidian:test
+      - run: python tools/test_bible_lab_bridge.py
+      - run: pnpm obsidian:test
       - run: pnpm obsidian:package
       # Publishing the build artifact independently of the optional graphical
       # smoke suite keeps an installable preview available if Chromium flakes.
