@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { dayLink, weekMonday, weekTitle, meetingIssueLink } from './studyLive.ts';
+import { dayLink, weekMonday, weekTitle, meetingIssueLink, isMeetingWeek } from './studyLive.ts';
 
 test('WOL date URLs use local calendar components and handle leap days',()=>{
   assert.equal(dayLink(new Date(2024,1,29)),'https://wol.jw.org/fr/wol/dt/r30/lp-f/2024/2/29');
@@ -27,4 +27,13 @@ test('weekly meeting source is separate from Daily Text and follows the Monday i
   'https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/mwb-novembre-decembre-2026/');
  assert.equal(meetingIssueLink(new Date(2027,0,1)),
   'https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/mwb-novembre-decembre-2026/');
+});
+
+test('Real WOL meeting week headings: same-month, cross-month and ordinal 1er',()=>{
+ assert.equal(isMeetingWeek('2-8 NOVEMBRE',new Date(2026,10,2)),true);
+ assert.equal(isMeetingWeek('2-8 novembre Cahier Vie et ministère',new Date(2026,10,4)),true);
+ assert.equal(isMeetingWeek('26 OCTOBRE – 1er NOVEMBRE',new Date(2026,10,1)),true);
+ assert.equal(isMeetingWeek('26 octobre – 1er novembre',new Date(2026,9,31)),true);
+ assert.equal(isMeetingWeek('26 octobre – 1er novembre',new Date(2026,10,2)),false);
+ assert.equal(isMeetingWeek('2-8 décembre',new Date(2026,10,2)),false);
 });
