@@ -1,3 +1,14 @@
+## Bible Lab 0.8.0 — recherche documentaire WOL, JW.org et notes JW Library
+
+Le nouvel onglet WOL favorise la recherche et la consultation plutôt que l’organisation d’enquêtes.
+
+- Résultats WOL intégrés : recherche par phrase ou paragraphe, corpus complet ou Index des publications ; aperçu limité à 25 liens de la première page. Un résultat s’ouvre dans le lecteur de références existant et conserve son lien officiel WOL.
+- JW.org : recherche par mots et expressions à partir du site officiel, sans API privée ni intermédiaire.
+- JW Library : les liens Finder pour versets reconnus sont conservés. Ils ouvrent l’application uniquement si l’appareil les gère ; aucune synchronisation temps réel n’est promise.
+- Mes notes JW Library importées : recherche locale, sur demande, parmi les fichiers Markdown produits par l’import de sauvegarde ; plafonds de 3 000 fichiers et 30 résultats. Aucune donnée personnelle envoyée à WOL ni à JW.org.
+- En cas de protection anti-robots ou de changement du HTML WOL, le plugin donne un message explicite et permet de poursuivre sur le site.
+- L’export .jwlibrary reste expérimental, à valider sur un profil de test vierge. La mise à jour conserve l’identifiant atlas-biblique et les notes existantes.
+
 ## Bible Lab 0.7.2 — export plus sûr et moins gourmand
 
 L’import, l’édition des notes en Markdown et la génération de sauvegardes `.jwlibrary` s’effectuent directement depuis **Bible Lab → Studio → Bibliothèque personnelle**. Une comparaison est présentée avant de créer un nouveau fichier de sauvegarde dans `Imports/../` et `Exports/` du coffre.
