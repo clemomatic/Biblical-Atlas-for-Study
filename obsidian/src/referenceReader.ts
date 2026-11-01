@@ -169,7 +169,7 @@ function exactVerseText(marker:Element,scripture:ScriptureRef):string {
  const n=String(scripture.verse);
  const text=readableOfficialElement(marker,'verse',1600).trim();
  if(text.length>25 && !/^\d{1,3}$/.test(text) &&
-   (marker.matches('p,li,[data-verse],.verse')||marker.querySelector('p')))
+   (marker.matches('p,li,[id^="v"],[data-verse],.verse')||marker.querySelector('p')))
    return text.replace(new RegExp('^'+n+'[\\s\\u00a0\\u202f]*'),'').trim();
  const parent=marker.closest('p,li')||marker.parentElement;
  if(!parent)return '';
