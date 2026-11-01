@@ -76,6 +76,10 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  const canonicalHref=canonical?.getAttribute('href')||canonical?.getAttribute('content');
  const canonicalDoc=canonicalHref&&validateDocument(canonicalHref,base);
  if(canonicalDoc)return canonicalDoc;
+ // Page-range citations cannot be resolved by keyword overlap alone:
+ // a WOL search often returns neighbouring articles from the same issue.
+ // Prefer a citation with matching page metadata, or a verified fallback.
+ if(publicationPages(reference))return null;
  const anchors=[...doc.querySelectorAll<HTMLAnchorElement>('a[href]')];
  let best:string|null=null,score=-1;
  const keywords=requested.split(' ').filter(x=>x.length>2);
