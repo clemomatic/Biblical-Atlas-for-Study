@@ -632,3 +632,47 @@
  .biblelab-nav-secondary{gap:3px}
  .biblelab-journey-actions .biblelab-btn{font-size:10px;padding:6px 4px}
 }
+
+
+/* Bible Lab 0.8.6 — Index & Guide de recherche */
+.biblelab-research-modes{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;
+ margin:1px 0 13px;padding:4px;background:var(--background-secondary);
+ border:1px solid var(--bl-ux-border);border-radius:13px;
+}
+.biblelab-research-mode{
+ min-width:0;min-height:41px;display:flex;align-items:center;justify-content:center;gap:5px;
+ padding:8px 4px;border:1px solid transparent;border-radius:9px;
+ color:var(--text-muted);background:transparent;font-size:10px;
+ line-height:1.25;font-weight:670;box-shadow:none;white-space:normal;cursor:pointer;
+}
+.biblelab-research-mode svg{flex-shrink:0;width:15px;height:15px}
+.biblelab-research-mode[aria-pressed=true]{
+ color:var(--text-normal);background:var(--background-primary);
+ border-color:var(--bl-ux-border);box-shadow:0 2px 9px #0000000c;
+}
+.biblelab-research-mode:hover{color:var(--text-accent)}
+.biblelab-research-mode:focus-visible{outline:2px solid var(--interactive-accent);outline-offset:2px}
+.biblelab-research-context{
+ display:flex;align-items:flex-start;flex-wrap:wrap;gap:7px;
+ background:var(--background-secondary);border:1px solid var(--bl-ux-border);
+ border-radius:11px;padding:11px 12px;margin-bottom:12px;
+}
+.biblelab-research-context>span{color:var(--text-accent);margin-top:2px}
+.biblelab-research-context>span svg{width:15px;height:15px}
+.biblelab-research-context p{flex:1;min-width:170px;color:var(--text-muted);
+ font-size:11px;line-height:1.5;margin:0}
+.biblelab-research-context .biblelab-btn{font-size:10px;min-height:29px;margin-left:auto}
+.biblelab-source-tag{display:inline-block;margin-top:5px;
+ font-size:9px;letter-spacing:.025em;font-weight:730;
+ color:var(--text-accent);background:var(--background-secondary);
+ border-radius:5px;padding:3px 6px}
+.biblelab-related-research{display:flex;flex-wrap:wrap;align-items:center;gap:6px;
+ padding:12px 2px;border-top:1px solid var(--bl-ux-border);margin-top:12px}
+.biblelab-related-research>span{display:block;width:100%;font-size:9px;letter-spacing:.1em;
+ font-weight:770;color:var(--text-muted)}
+.biblelab-related-research .biblelab-btn{font-size:10px;min-height:33px}
+@media(max-width:400px){
+ .biblelab-research-mode{font-size:9px;gap:3px}
+ .biblelab-research-mode svg{width:13px;height:13px}
+}
