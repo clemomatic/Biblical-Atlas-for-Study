@@ -1,6 +1,6 @@
 import { setIcon } from 'obsidian';
 import { jwLibraryLink } from './bibleLabData';
-import { type ReaderResult, type ReferenceEntry } from './referenceReader';
+import { linkifyReaderText, type ReaderResult, type ReaderLine, type ReferenceEntry } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
 
 export interface ReaderState {
@@ -35,6 +35,23 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  if(depth>0 && state.navigate)action(buttons,'Lire en grand','panel-top',()=>state.navigate?.(ref));
  if(ref.kind==='scripture'){const jw=jwLibraryLink(ref.label);if(jw)action(buttons,'JW Library','book-marked',()=>state.open(jw));}
  const contents=body.createDiv({cls:'biblelab-reader-contents'});
+ const readable=(container:HTMLElement,line:ReaderLine):void=>{
+   const fragments=line.parts||linkifyReaderText(line.text);
+   for(const part of fragments){
+     if(!part.url){container.appendText(part.text);continue;}
+     const clickable=container.createEl('button',{cls:'biblelab-reader-inline-link',
+       text:part.text,attr:{type:'button',title:'Consulter '+part.text,
+         'aria-label':'Lire la référence '+part.text}});
+     clickable.addEventListener('click',event=>{
+       event.preventDefault();event.stopPropagation();
+       if(!part.url)return;
+       const destination:ReferenceEntry={label:part.text,url:part.url,
+         kind:part.kind||'publication',origin:'pinned'};
+       if(state.navigate)state.navigate(destination);else state.open(part.url);
+     });
+   }
+ };
+
  const draw=(result:ReaderResult):void=>{
    currentUrl=result.sourceUrl;
    contents.empty();
@@ -49,7 +66,8 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      for(const line of verses){
        const verse=contents.createDiv({cls:'biblelab-verse-reading'});
        const marker=verse.createDiv({cls:'biblelab-verse-reading-label',text:'TEXTE BIBLIQUE'});
-       const content=verse.createEl('p',{cls:'biblelab-verse-reading-copy',text:line.text});
+       const content=verse.createEl('p',{cls:'biblelab-verse-reading-copy'});
+       readable(content,line);
        marker.setAttribute('aria-label','Texte biblique');
        content.setAttribute('lang','fr');
      }
@@ -71,7 +89,8 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        for(const part of parts){
          const note=list.createDiv({cls:'biblelab-reader-note-card'});
          if(part.source)note.createEl('strong',{cls:'biblelab-reader-note-source',text:part.source});
-         note.createEl('p',{text:part.text,attr:{lang:'fr'}});
+         const noteBody=note.createEl('p',{attr:{lang:'fr'}});
+         readable(noteBody,part);
        }
      }
      for(const part of result.lines.filter(x=>x.type==='heading'||x.type==='question')){
@@ -92,14 +111,17 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
          if(part.type==='heading'){
            article.createEl('h5',{cls:'biblelab-article-heading',text:part.text});
          }else if(part.type==='question'){
-           article.createEl('p',{cls:'biblelab-article-question',text:part.text});
+           const question=article.createEl('p',{cls:'biblelab-article-question'});
+           readable(question,part);
          }else if(part.type==='caption'){
-           article.createEl('p',{cls:'biblelab-article-caption',text:part.text});
+           const caption=article.createEl('p',{cls:'biblelab-article-caption'});
+           readable(caption,part);
          }else{
            const wrap=article.createDiv({cls:'biblelab-article-paragraph'});
            if(part.number)wrap.createSpan({cls:'biblelab-article-parnum',text:part.number});
-           wrap.createEl('p',{text:part.text,attr:{lang:'fr'},
+           const paragraph=wrap.createEl('p',{attr:{lang:'fr'},
              cls:part.type==='note'?'biblelab-reader-note':''});
+           readable(paragraph,part);
          }
        }
        more.remove();
