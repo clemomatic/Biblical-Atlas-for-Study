@@ -1,3 +1,16 @@
+## Bible Lab 0.8.1 — lecteur de références
+
+Cette version améliore la lecture **dans le panneau latéral** sans ajouter d’outils d’enquête.
+
+- Nettoyage des versets : espaces insécables, espaces étroites, caractères invisibles, entités HTML d’espacement et appels de note/superscripts non destinés au texte courant.
+- Les versets, notes de traduction, commentaires d’étude et renvois bibliques disposent de sections distinctes, avec leurs libellés réellement utiles ; les simples lettres et numéros d’appel ne sont pas répétés.
+- Lecture d’articles WOL : paragraphes, sous-titres et questions reconnaissables, suppression du bruit d’interface « Ta réponse », numéros de paragraphes affichés séparément quand disponibles, révélation progressive des articles longs.
+- Extraction de secours WOL : vise le verset demandé pour éviter de lire les autres versets d’un chapitre ; les renvois liés sont accessibles en panneaux repliables.
+- Affichage exclusivement en texte : aucun HTML distant injecté dans les notes ou le volet Obsidian.
+- Tests de régression Playwright avec des fragments officiels simulés pour les caractères spéciaux, notes, textes bibliques et articles longs.
+
+Les sites officiels peuvent changer de structure ; la page WOL reste accessible depuis le lecteur. Pas de synchronisation directe JW Library.
+
 ## Bible Lab 0.8.0 — recherche documentaire WOL, JW.org et notes JW Library
 
 Le nouvel onglet WOL favorise la recherche et la consultation plutôt que l’organisation d’enquêtes.
