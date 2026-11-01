@@ -89,7 +89,7 @@ test('Native export requires explicit consent and produces a new backup containi
   await page.evaluate(()=>(window as any).atlasTest.plugin.openJwNative('export'));
   modal=page.getByRole('dialog');
   await modal.getByLabel('Choisir une archive JW').setInputFiles({name:'synthetic.jwlibrary',mimeType:'application/octet-stream',buffer:original});
-  await expect(modal).toContainText('1 notes modifiées');
+  await expect(modal).toContainText('1 note modifiée');
   const run=modal.getByRole('button',{name:'Créer la sauvegarde'});
   await expect(run).toBeDisabled();
   await modal.getByLabel('Je veux créer une nouvelle sauvegarde').check();
