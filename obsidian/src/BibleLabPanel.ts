@@ -549,7 +549,7 @@ export class BibleLabSidebarView extends ItemView {
       return;
     }
     const scripture=parseScripture(term);
-    if(scripture){this.focusReference(scripture.label);return;}
+    if(scripture && this.searchScope==='all'){this.focusReference(scripture.label);return;}
     if(this.wolResultsLoading)return;
     const seq=++this.wolResultsSequence;
     const url=wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
