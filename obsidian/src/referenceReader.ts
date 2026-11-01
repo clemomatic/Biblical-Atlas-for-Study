@@ -24,7 +24,7 @@ export function cleanWolUrl(raw:string):string|null {
    // resolves bibliographic references such as "w24 Novembre p. 14-19".
    if(url.pathname==='/fr/wol/s/r30/lp-f'){
      const query=url.searchParams.get('q')?.trim()||'';
-     if(/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(query)){
+     if(/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2}|lmd)\b/i.test(query)){
        url.pathname='/fr/wol/l/r30/lp-f';
        url.search=new URLSearchParams({q:query}).toString();
      }
