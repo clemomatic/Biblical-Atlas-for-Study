@@ -11,7 +11,7 @@ test.beforeEach(async ({page})=>{
 
 test('research sidebar opens and sends only the current search to official URLs',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.getByRole('button',{name:'WOL'}).click();
+  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
   await expect(pane.getByPlaceholder('Mot, sujet ou verset…')).toHaveValue('Matthieu 10:29');
   await pane.getByPlaceholder('Mot, sujet ou verset…').fill('Jean 7:24');
   await pane.getByRole('button',{name:/JW Library$/}).first().click();
