@@ -261,10 +261,10 @@ export class BibleLabSidebarView extends ItemView {
   }
   private renderWol():void{
     heading(this.scroller,'Recherche documentaire','Trouve les publications de WOL et JW.org, puis consulte leurs références sans quitter Obsidian.');
-    this.searchField(this.scroller,this.query,'Mot, expression, publication ou verset…',text=>{
+    this.searchField(this.scroller,this.query,'Mot, sujet ou verset…',text=>{
       if(this.query!==text){
         this.query=text;this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
-        this.wolResultsSequence++;
+        this.wolResultsSequence++;this.wolResultsLoading=false;
       }
     },()=>void this.loadWolResults());
 
@@ -275,19 +275,19 @@ export class BibleLabSidebarView extends ItemView {
       const option=match.createEl('option',{text:label,attr:{value}});
       option.selected=this.searchMatch===value;
     }
-    match.addEventListener('change',()=>{this.searchMatch=match.value==='sen'?'sen':'par';this.wolResults=[];this.wolResultsError='';});
+    match.addEventListener('change',()=>{this.searchMatch=match.value==='sen'?'sen':'par';this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';this.wolResultsSequence++;this.wolResultsLoading=false;});
     const scopeLabel=controls.createEl('label',{text:'Sources'});
     const scope=scopeLabel.createEl('select',{attr:{'aria-label':'Sources WOL'}});
     for(const [value,label] of [['all','Toutes les publications'],['index','Index des publications']] as const){
       const option=scope.createEl('option',{text:label,attr:{value}});
       option.selected=this.searchScope===value;
     }
-    scope.addEventListener('change',()=>{this.searchScope=scope.value==='index'?'index':'all';this.wolResults=[];this.wolResultsError='';});
+    scope.addEventListener('change',()=>{this.searchScope=scope.value==='index'?'index':'all';this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';this.wolResultsSequence++;this.wolResultsLoading=false;});
 
     const actions=this.scroller.createDiv({cls:'biblelab-buttons'});
     const find=button(actions,this.wolResultsLoading?'Recherche…':'Voir les résultats','list-filter',()=>void this.loadWolResults(),true);
     find.disabled=this.wolResultsLoading;
-    button(actions,'Recherche WOL','external-link',()=>this.openSearch());
+    button(actions,'Rechercher WOL','external-link',()=>this.openSearch());
     button(actions,'Recherche JW.org','globe',()=>{
       try{external(jwOrgResearchUrl(this.query));}catch{new Notice('Saisis un sujet à rechercher.');}
     });
@@ -366,7 +366,7 @@ export class BibleLabSidebarView extends ItemView {
   private openSearch():void{
     const term=this.query.trim();if(!term){new Notice('Saisis une référence ou un sujet.');return;}
     const isCitation=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(term);
-    external(isCitation?this.referenceUrl(term):wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope}));
+    external(isCitation?this.referenceUrl(term):this.searchMatch==='par'&&this.searchScope==='all'?wolSearch(term):wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope}));
   }
   private renderRefs():void{
     heading(this.scroller,'Références','Versets, notes d’étude et articles, sans quitter le panneau.');
