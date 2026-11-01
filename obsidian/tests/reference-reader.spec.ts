@@ -181,3 +181,23 @@ test('No citation match: WOL stays accessible without showing an unrelated artic
  await expect(pane.getByText('Référence non résolue automatiquement.',{exact:false})).toBeVisible();
  await expect(pane.getByText('Un article différent')).toHaveCount(0);
 });
+
+
+test('Reading-mode Markdown shows corrected WOL bibliography URL without rewriting original note',async({page})=>{
+ const old='https://wol.jw.org/fr/wol/s/r30/lp-f?q=w24%20Novembre%20p.%2020-25';
+ const corrected='https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+20-25';
+ await page.evaluate(async(url)=>{
+   const {app,plugin}=(window as any).atlasTest;
+   await app.vault.create('Mes notes/Liens conservés.md','[Source]('+url+')');
+   const root=document.createElement('div');
+   root.id='legacy-link-test';
+   const anchor=document.createElement('a');anchor.setAttribute('href',url);
+   anchor.textContent=url;root.append(anchor);document.body.append(root);
+   plugin.markdownPostProcessor(root);
+ },old);
+ const link=page.locator('#legacy-link-test a');
+ await expect(link).toHaveAttribute('href',corrected);
+ await expect(link).toHaveText(corrected);
+ expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Liens conservés.md')))
+  .toContain(old);
+});
