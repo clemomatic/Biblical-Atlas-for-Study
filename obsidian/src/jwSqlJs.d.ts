@@ -5,6 +5,7 @@ declare module 'sql.js/dist/sql-wasm-inline.js' {
     step():boolean;
     get():unknown[];
     free():boolean;
+    reset():void;
   }
   interface Database {
     exec(sql:string):SqlResult[];
