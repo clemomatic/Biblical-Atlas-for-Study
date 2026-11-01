@@ -302,3 +302,18 @@
 .biblelab-wol-hit h3{overflow-wrap:anywhere;line-height:1.4}
 .biblelab-wol-hit .biblelab-buttons{margin-top:8px}
 @media(max-width:350px){.biblelab-search-controls{grid-template-columns:1fr}}
+
+
+/* An article-sized modal uses the same accordion reader as the sidebar. */
+.biblelab-reference-dialog { width:min(780px,calc(100vw - 24px)); max-width:780px; max-height:min(88vh,850px); }
+.biblelab-reference-dialog .modal-content {padding:0; overflow:hidden;}
+.biblelab-reference-popup {height:min(80vh,790px); max-height:80vh; min-height:300px; border-radius:12px;}
+.biblelab-popup-head {display:flex;align-items:center;gap:11px;padding:14px 18px;border-bottom:1px solid var(--bl-separator);flex-shrink:0;}
+.biblelab-popup-head .biblelab-reader-labels {flex:1;}
+.biblelab-popup-head .biblelab-btn {margin-left:auto;}
+.biblelab-popup-body {padding:13px 17px 20px;overflow-y:auto;min-height:0;flex:1;overscroll-behavior:contain;}
+.biblelab-reference-popup .biblelab-reader-text p {font-size:var(--font-text-size,14px);line-height:1.85;}
+@media(max-width:480px) {.biblelab-reference-dialog{width:calc(100vw - 12px);max-height:90vh;}
+ .biblelab-reference-popup{height:84vh;max-height:84vh;}
+ .biblelab-popup-head{padding:11px 12px;}
+ .biblelab-popup-body{padding:10px 12px 15px;}}
