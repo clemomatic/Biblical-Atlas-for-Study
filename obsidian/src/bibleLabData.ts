@@ -45,7 +45,7 @@ export function parseScripture(input: string): ScriptureRef | null {
   return {label:`${BOOKS[book-1]} ${chapter}:${verse}${end===undefined?'':`-${end}`}`,book,chapter,verse,endVerse:end};
 }
 export function wolSearch(query: string): string { return WOL_SEARCH + encodeURIComponent(query.trim()); }
-export function wolLookup(query: string): string { return WOL_LOOKUP + encodeURIComponent(query.trim()); }
+export function wolLookup(query: string): string { return WOL_LOOKUP + new URLSearchParams({q:query.trim()}).toString().slice(2); }
 export function jwLibraryLink(query: string): string | null {
   const parsed = parseScripture(query);
   if (!parsed) return null;
