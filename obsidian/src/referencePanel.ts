@@ -38,7 +38,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const readable=(container:HTMLElement,line:ReaderLine):void=>{
    const fragments=line.parts||linkifyReaderText(line.text);
    for(const part of fragments){
-     if(!part.url){container.appendText(part.text);continue;}
+     if(!part.url){container.appendChild(document.createTextNode(part.text));continue;}
      const clickable=container.createEl('button',{cls:'biblelab-reader-inline-link',
        text:part.text,attr:{type:'button',title:'Consulter '+part.text,
          'aria-label':'Lire la référence '+part.text}});
