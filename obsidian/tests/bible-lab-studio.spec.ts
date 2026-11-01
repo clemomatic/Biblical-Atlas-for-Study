@@ -70,6 +70,7 @@ test('local JW archive inspection creates a Markdown inventory without changing 
 test('converted JW Markdown ZIP imports as separate editable notes and never overwrites existing documents',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.getByRole('button',{name:'Studio'}).click();
+  await pane.getByText('Autres options').click();
   const payload=zipSync({
     'BibleLab_notes/Jean 3.16.md':strToU8('# Jean 3:16\n\nUne observation personnelle'),
     'BibleLab_notes/_BIBLE_LAB_IMPORT.json':strToU8('{"schema_version":16,"note_count":1}')
