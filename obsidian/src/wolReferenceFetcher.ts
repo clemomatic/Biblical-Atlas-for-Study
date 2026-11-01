@@ -1,66 +1,83 @@
 import { requestUrl } from 'obsidian';
-import { normalizeSearch, parseScripture } from './bibleLabData';
+import { parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
 const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
-const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i;
-const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
+import { isBibliographicCitation,isExactBibliographicResult } from './wolBibliography';
+
+const DOC=/^\/fr\/wol\/d\/r30\/lp-f\/\d+(?:\/|$)/;
 const validateDocument=(value:string,base:string):string|null=>{
  try{
    const final=cleanWolUrl(new URL(value,base).href);
    return final && DOC.test(new URL(final).pathname)?final:null;
  }catch{return null;}
 };
+/** Convert only bibliography searches. Ordinary topical searches keep their /s/ URL. */
 export function canonicalReferenceUrl(raw:string):string|null{
  const url=cleanWolUrl(raw);
  if(!url)return null;
  const u=new URL(url);
  if(u.pathname==='/fr/wol/s/r30/lp-f'){
    const query=u.searchParams.get('q')?.trim();
-   if(query && BIBLIO.test(query)){
-     return 'https://wol.jw.org/fr/wol/l/r30/lp-f?'+new URLSearchParams({q:query});
+   if(query && isBibliographicCitation(query)){
+     u.pathname='/fr/wol/l/r30/lp-f';
+     u.search=new URLSearchParams({q:query}).toString();
+     return u.toString();
    }
  }
  return url;
 }
+/** WOL's /l/ page can be an article, a redirect, or a bibliography listing.
+ * Only an official /d/ URL from explicit document metadata, a redirect,
+ * or an EXACT bibliographic match may be opened automatically.
+ */
 function pickDocument(html:string,base:string,reference:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
- const requested=simple(reference);
- // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
- const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
- const canonicalHref=canonical?.getAttribute('href')||canonical?.getAttribute('content');
- const canonicalDoc=canonicalHref&&validateDocument(canonicalHref,base);
- if(canonicalDoc)return canonicalDoc;
- const anchors=[...doc.querySelectorAll<HTMLAnchorElement>('a[href]')];
- let best:string|null=null,score=-1;
- const keywords=requested.split(' ').filter(x=>x.length>2);
- for(const anchor of anchors.slice(0,1400)){
+ for(const item of doc.querySelectorAll('link[rel="canonical"],meta[property="og:url"],meta[name="twitter:url"]')){
+   const url=validateDocument(item.getAttribute('href')||item.getAttribute('content')||'',base);
+   if(url)return url;
+ }
+ for(const item of doc.querySelectorAll('meta[http-equiv]')){
+   if(item.getAttribute('http-equiv')?.toLowerCase()!=='refresh')continue;
+   const content=item.getAttribute('content')||'';
+   const target=content.match(/(?:^|;)\s*url\s*=\s*['"]?([^'";\s]+)/i)?.[1];
+   const url=target&&validateDocument(target,base);
+   if(url)return url;
+ }
+ // A limited, explicit location-redirect extraction avoids evaluating WOL scripts.
+ for(const script of [...doc.querySelectorAll('script')].slice(0,25)){
+   const content=(script.textContent||'').slice(0,5000);
+   const patterns=[
+     /(?:window\.)?location(?:\.href)?\s*=\s*["']([^"']+)["']/gi,
+     /(?:window\.)?location\.(?:replace|assign)\s*\(\s*["']([^"']+)["']/gi
+   ];
+   for(const pattern of patterns)for(const match of content.matchAll(pattern)){
+     const url=validateDocument(match[1],base);
+     if(url)return url;
+   }
+ }
+ // A result heading alone is NOT a citation match. It must carry the
+ // requested symbol, month and complete page range within the same result row.
+ for(const anchor of [...doc.querySelectorAll<HTMLAnchorElement>('a[href]')].slice(0,1600)){
    const href=validateDocument(anchor.getAttribute('href')||'',base);
    if(!href)continue;
-   const surrounding=simple((anchor.closest('li,article,.result,.searchResult,.item')||anchor.parentElement||anchor).textContent||'').slice(0,600);
-   const label=simple(anchor.textContent||'');
-   let weight=0;
-   if(requested && (label.includes(requested)||surrounding.includes(requested)))weight+=100;
-   for(const word of keywords) if(surrounding.includes(word))weight+=word.length>4?6:3;
-   if(label.length>8)weight+=2;
-   if(weight>score){score=weight;best=href;}
+   let container:Element|null=anchor;
+   for(let depth=0;container&&depth<5;depth++,container=container.parentElement){
+     const text=(container.textContent||'').slice(0,1400);
+     if(isExactBibliographicResult(reference,text))return href;
+     // A full search page is never an individual result.
+     if(container.matches('main,body,#content,.searchResults,.search-results'))break;
+   }
  }
- // A direct reference lookup is normally an exact or near-exact match.
- // Never silently present an arbitrary keyword search result as a verified article.
- return score>=10?best:null;
+ return null;
 }
 function isDocument(html:string):boolean{
  const doc=new DOMParser().parseFromString(html,'text/html');
- const region=doc.querySelector('.bodyTxt, .document, article .bodyTxt, #article');
- return !!region && ((region.querySelectorAll('p').length>=2)||(region.textContent||'').trim().length>450);
-}
-function knownCitation(reference:string):string|null{
- // Verified WOL bibliographic reference. Useful when the /l/ endpoint
- // responds with a JS redirect that Obsidian requestUrl cannot follow.
- return /^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim())
-   ? WOL+'d/r30/lp-f/2024642':null;
+ if(doc.querySelector('.searchResults,.search-results,#searchResults'))return false;
+ const region=doc.querySelector('.bodyTxt,#article,article .bodyTxt,.document .bodyTxt');
+ return !!region && (region.querySelectorAll('p').length>=2 || (region.textContent||'').trim().length>450);
 }
 async function officialText(url:string):Promise<string>{
  const safe=canonicalReferenceUrl(url);
@@ -105,7 +122,6 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    const fallback=WOL+'s/r30/lp-f?'+new URLSearchParams({q:query});
    try{docUrl=pickDocument(await officialText(fallback),fallback,query);}catch{ /* no matching result */ }
  }
- docUrl=docUrl||knownCitation(query);
  if(!docUrl){
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
    empty.lines=[];
