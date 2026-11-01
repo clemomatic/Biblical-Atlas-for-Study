@@ -18,6 +18,7 @@ export interface BibleLabHost {
   createTalk: () => void;
   inspectArchive: () => void;
   importMarkdownArchive: () => void;
+  openJwNative: (action:import('./nativeJwModal').JwAction) => void;
   saveDailyStudy: (day: import('./studyLive').DayPreview,date:Date) => void;
   saveWeeklyStudy: (week: import('./studyLive').MeetingPreview,date:Date) => void;
 }
@@ -228,13 +229,20 @@ export class BibleLabSidebarView extends ItemView {
     button(talk.createDiv({cls:'biblelab-buttons'}),'Nouveau discours','mic-2',()=>this.host.createTalk(),true);
     const investigation=card(this.scroller,'Tableau d’enquête','Connexions visuelles avec les Canvas Obsidian.');
     button(investigation.createDiv({cls:'biblelab-buttons'}),'Nouvelle enquête','network',()=>this.host.newResearch([]),true);
-    const archive=card(this.scroller,'Passerelles JW Library','Publications, sauvegardes et notes Markdown.');
+    const archive=card(this.scroller,'Passerelles JW Library','Import local, modification et retour vers JW Library.');
+    archive.addClass('biblelab-feature-card');
     const archiveActions=archive.createDiv({cls:'biblelab-buttons'});
-    button(archiveActions,'Importer des notes','folder-input',()=>this.host.importMarkdownArchive(),true);
-    button(archiveActions,'Inspecter une archive','file-archive',()=>this.host.inspectArchive());
+    button(archiveActions,'Ouvrir JWPUB','book-open-check',()=>this.host.openJwNative('jwpub'),true);
+    button(archiveActions,'Importer mes notes','notebook-tabs',()=>this.host.openJwNative('backup'),true);
+    button(archiveActions,'Créer une sauvegarde','shield-check',()=>this.host.openJwNative('export'));
+    const legacy=archive.createEl('details',{cls:'biblelab-disclosure'});
+    legacy.createEl('summary',{text:'Autres options'});
+    const legacyLinks=legacy.createDiv({cls:'biblelab-buttons'});
+    button(legacyLinks,'Importer un ZIP Markdown','folder-input',()=>this.host.importMarkdownArchive());
+    button(legacyLinks,'Inspecter uniquement','file-archive',()=>this.host.inspectArchive());
     const archiveInfo=archive.createEl('details',{cls:'biblelab-disclosure'});
     archiveInfo.createEl('summary',{text:'Que fait l’inspection ?'});
-    archiveInfo.createEl('p',{text:'Lecture locale de manifestes et inventaire Markdown sans modifier les fichiers. La conversion intégrale et la réexportation ne sont pas encore disponibles.'});
+    archiveInfo.createEl('p',{text:'Import et conversion réalisés sur l’appareil, sans serveur. La réexportation crée toujours une nouvelle archive. Tester la restauration sur un profil JW Library vierge avant de l’utiliser.'});
     const prompt=card(this.scroller,'Bibliothèque de modèles','Tes notes restent des fichiers Markdown portables.');
     button(prompt.createDiv({cls:'biblelab-buttons'}),'Explorer les sources','library-big',()=>this.setTab('library'));
   }
