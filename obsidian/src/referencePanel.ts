@@ -215,7 +215,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    }finally{state.pending.delete(id);}
  };
  details.addEventListener('toggle',()=>{
-   if(details.open){const wasOpen=state.expanded.has(id);state.expanded.add(id);if(depth===0&&!wasOpen)state.remember?.(ref);void load();}
+   if(details.open){state.expanded.add(id);void load();}
    else state.expanded.delete(id);
  });
  if(state.expanded.has(id)){details.open=true;void load();}
