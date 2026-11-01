@@ -1,3 +1,4 @@
+import { cleanReadingText } from './readerText.ts';
 /** Bible Lab live source adapters.
  * Read only public WOL pages on user action; never send notes or vault content.
  * Content is shown as a short preview with official navigation, not archived.
@@ -25,7 +26,7 @@ export function weekTitle(date:Date):string {
     ? `${monday.getDate()}–${sunday.getDate()} ${month.format(monday)}`
     : `${monday.getDate()} ${month.format(monday)} – ${sunday.getDate()} ${month.format(sunday)}`;
 }
-const clear=(value:string):string=>value.replace(/\s+/g,' ').trim();
+const clear=(value:string):string=>cleanReadingText(value);
 function keep(text:string,max=500):string {
   const normalized=clear(text);
   return normalized.length>max ? normalized.slice(0,max).replace(/\s+\S*$/,'')+'…' : normalized;
