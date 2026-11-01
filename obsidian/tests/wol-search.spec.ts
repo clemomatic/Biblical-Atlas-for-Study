@@ -139,7 +139,7 @@ test('The source test shows site status without claiming inaccessible sources wo
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
  await pane.getByRole('button',{name:'Tester les sources'}).click();
- await expect(pane.getByText(/Texte du jour WOL : page HTML accessible/)).toBeVisible();
+ await expect(pane.getByText(/Texte du jour WOL : HTML accessible, mais texte du jour non reconnu/)).toBeVisible();
  await expect(pane.getByText(/Article WOL : HTTP 403/)).toBeVisible();
  await expect(pane.getByText(/Cahier JW.org : HTTP 503/)).toBeVisible();
 });
