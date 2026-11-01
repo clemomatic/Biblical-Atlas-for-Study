@@ -248,8 +248,28 @@ export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
    if(!entry||typeof entry.html!=='string')throw Error('Verset absent des données reçues.');
    return parseOfficialVerseExtras(entry,ref);
  }catch{
-   // Official WOL remains the fallback for an unavailable passage.
-   return fetchPublication(ref);
+   // WOL chapter pages have both an ordinary translation and the Study
+   // edition. A single unavailable JW.org fragment must not empty the reader.
+   const urls=[
+     WOL+'b/r30/lp-f/nwt/'+scripture.book+'/'+scripture.chapter,
+     WOL+'b/r30/lp-f/nwtsty/'+scripture.book+'/'+scripture.chapter
+   ];
+   let partial:ReaderResult|null=null;
+   for(const url of urls){
+     try{
+       const parsed=parseWolDocument(await officialText(url),url,scripture.label);
+       if(parsed.lines.some(line=>line.type==='verse'))return parsed;
+       if(parsed.lines.length&&!partial)partial=parsed;
+     }catch{ /* Try the next official translation. */ }
+   }
+   if(partial){
+     partial.notice='Texte du verset non isolé ; notes et sources officielles disponibles. Vérifie le passage sur WOL.';
+     return partial;
+   }
+   return {
+     title:scripture.label,sourceUrl:urls[0],kind:'verse',lines:[],links:[],
+     notice:'Aucune des deux sources officielles n’a fourni le texte exact du verset au lecteur. Utilise le lien WOL pour le consulter.'
+   };
  }
 }
 export async function fetchReferenceContent(ref:ReferenceEntry):Promise<ReaderResult>{
