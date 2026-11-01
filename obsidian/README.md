@@ -1,3 +1,12 @@
+## Correctif Bible Lab 0.8.1 — toutes les références bibliographiques WOL
+
+- Correction générale des anciens liens WOL `/s/` vers l’outil bibliographique `/l/`, sans toucher aux recherches thématiques ordinaires. Les espaces sont encodés en `+`, les accents restent correctement encodés.
+- Lecture de l’article complet : résolution des URL WOL `/d/` dans les métadonnées officielles, les redirections de page ou les résultats associés **exactement** à la citation demandée. Il n’existe plus d’exception codée en dur pour une seule référence.
+- Variantes de pagination acceptées (`p.24-26`, `p. 24-26`) et mois accentués ; tests de non-régression pour `w24 Novembre p. 20-25` et `w18 février p.24-26`.
+- Si la page de WOL est inaccessible ou si la citation ne peut pas être vérifiée, Bible Lab indique clairement la limite et offre le lien officiel plutôt que de montrer un autre article.
+- Ne modifie aucune de tes notes, archives ou sauvegardes JW Library.
+- Cette version ne comprend pas encore la refonte des paramètres, en cours dans une branche séparée ; elle cible uniquement la réparation du lecteur WOL.
+
 ## Bible Lab 0.8.0 — recherche documentaire WOL, JW.org et notes JW Library
 
 Le nouvel onglet WOL favorise la recherche et la consultation plutôt que l’organisation d’enquêtes.
