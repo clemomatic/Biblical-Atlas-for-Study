@@ -9,6 +9,7 @@ export interface ReaderState {
  pending:Map<string,Promise<ReaderResult>>;
  copy:(url:string)=>void;
  open:(url:string)=>void;
+ navigate?:(ref:ReferenceEntry)=>void;
 }
 function key(item:ReferenceEntry):string{return item.url+'#'+item.label;}
 function action(parent:HTMLElement,label:string,icon:string,callback:()=>void):void {
@@ -31,6 +32,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  let currentUrl=ref.url;
  action(buttons,'WOL','external-link',()=>state.open(currentUrl));
  action(buttons,'Copier','copy',()=>state.copy(currentUrl));
+ if(depth>0 && state.navigate)action(buttons,'Lire en grand','panel-top',()=>state.navigate?.(ref));
  if(ref.kind==='scripture'){const jw=jwLibraryLink(ref.label);if(jw)action(buttons,'JW Library','book-marked',()=>state.open(jw));}
  const contents=body.createDiv({cls:'biblelab-reader-contents'});
  const draw=(result:ReaderResult):void=>{
@@ -140,7 +142,14 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        state.pending.set(id,task);
      }
      const result=await task;
+     // Keep only a bounded number of parsed publications in memory.
+     state.cache.delete(id);
      state.cache.set(id,{date:Date.now(),result});
+     while(state.cache.size>48){
+       const oldest=state.cache.keys().next().value;
+       if(oldest===undefined)break;
+       state.cache.delete(oldest);
+     }
      if(contents.isConnected)draw(result);
    }catch(error){
      if(contents.isConnected){
