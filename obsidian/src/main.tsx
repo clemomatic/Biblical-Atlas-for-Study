@@ -24,6 +24,7 @@ import { TalkStudioModal, saveTalkToVault } from './talkStudio';
 import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveInspector';
 import { saveDailyStudy, saveWeeklyStudy } from './studyNoteBuilder';
 import type { DayPreview, MeetingPreview } from './studyLive';
+import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -159,6 +160,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le laboratoire biblique', callback: () => this.run(this.openBibleLab()) });
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
     this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
+    this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (Bible Lab)', editorCallback: editor => this.run(this.openBibleLab(editor.getSelection() || editor.getLine(editor.getCursor().line))) });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({ id: 'manage-atlas', name: 'Gérer et personnaliser toutes les fiches', callback: this.manageAtlas });
@@ -223,6 +225,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       await saveTalkToVault(this.app,this.settings.noteFolder,draft);
       new Notice('Plan de discours créé et ouvert.');
     }).open();
+  };
+  importMarkdownArchive = ():void => {
+    this.run((async()=>{
+      const file=await chooseMarkdownZip();
+      if(!file)return;
+      const result=await importMarkdownZip(this.app,file,this.settings.noteFolder);
+      new Notice('Import terminé : '+result.notes+' notes Markdown.');
+    })());
   };
   inspectArchive = ():void => {
     this.run((async () => {
