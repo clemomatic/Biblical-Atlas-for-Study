@@ -50,5 +50,6 @@ test('WOL style reference markers open the search sidebar without altering the n
     (window as any).atlasTest.plugin.markdownPostProcessor(node);
   });
   await page.getByText('Jean 3:16',{exact:true}).last().click();
-  await expect(page.locator('.biblelab-side').getByPlaceholder('Mot, sujet ou verset…')).toHaveValue('Jean 3:16');
+  await expect(page.locator('.biblelab-side').getByRole('button',{name:'Références'})).toHaveAttribute('aria-selected','true');
+  await expect(page.locator('.biblelab-reader-labels strong').filter({hasText:'Jean 3:16'})).toBeVisible();
 });
