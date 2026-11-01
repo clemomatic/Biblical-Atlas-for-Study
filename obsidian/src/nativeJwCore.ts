@@ -165,11 +165,11 @@ export function jwHtmlToMarkdown(html:string,title:string,images:Set<string>):Co
   walk(doc.body);
   return {markdown:'# '+title+'\n\n'+output.join('\n\n').replace(/\n{3,}/g,'\n\n')+'\n',imageNames:Array.from(usedImages)};
 }
-export function makeJwNote(guid:string,title:string,content:string,created:unknown,modified:unknown,location:unknown,mark:unknown,tags:string[]):string{
+export function makeJwNote(guid:string,title:string,content:string,created:unknown,modified:unknown,location:unknown,mark:unknown,tags:string[],originalHash:string):string{
   return ['---','bible_lab_kind: jw-library-note','jw_guid: '+JSON.stringify(guid),
   'title: '+JSON.stringify(title),'jw_created: '+JSON.stringify(created),
   'jw_last_modified: '+JSON.stringify(modified),'jw_location_id: '+JSON.stringify(location),
-  'jw_user_mark_id: '+JSON.stringify(mark),'jw_tags: '+JSON.stringify(tags),'---','',NOTE_MARKER.trimEnd(),content].join('\n');
+  'jw_user_mark_id: '+JSON.stringify(mark),'jw_tags: '+JSON.stringify(tags),'jw_original_hash: '+JSON.stringify(originalHash),'---','',NOTE_MARKER.trimEnd(),content].join('\n');
 }
 export function parseJwNote(raw:string):{guid:string;title:string;content:string;originalHash:string}|null{
   const marker=raw.indexOf(NOTE_MARKER);
