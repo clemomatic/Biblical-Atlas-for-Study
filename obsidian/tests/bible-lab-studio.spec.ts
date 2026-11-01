@@ -27,7 +27,7 @@ test('Study Studio dashboard offers compact navigation and opens a structured di
   expect(note.content).toContain('duration_minutes: 10');
 });
 
-test('public daily source loads only on command and meeting content remains linked',async({page})=>{
+test('daily source can be refreshed manually and the programme remains linked',async({page})=>{
   await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z'));
   await page.clock.install({time:new Date('2026-10-31T12:00:00Z')});
   const html=`<html><body>
@@ -48,7 +48,8 @@ test('public daily source loads only on command and meeting content remains link
   });
 
   const pane=page.locator('.biblelab-side');
-  await expect(pane.getByText('Aperçu disponible à la demande.')).toBeVisible();
+  // Auto-load may already have started before the date was set in this test.
+  // Refresh is an explicit override and must always fetch the selected date.
   await pane.getByRole('button',{name:'Actualiser'}).click();
   await expect(pane.getByText('Jéhovah exige un attachement sans partage', {exact:false})).toBeVisible();
   await expect(pane.getByText('Un message pour nous')).toBeVisible();
