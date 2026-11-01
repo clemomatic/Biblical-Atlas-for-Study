@@ -7,7 +7,7 @@ import {
 } from './bibleLabData';
 import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
 import { dayLink, meetingIssueLink, findMeetingProgramme, wolMeetingLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
-import { extractReferenceEntries, cleanWolUrl, passageUrl, type ReferenceEntry } from './referenceReader';
+import { extractReferenceEntries, cleanWolUrl, passageUrl, parseWolDocument, type ReferenceEntry } from './referenceReader';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
@@ -612,8 +612,33 @@ export class BibleLabSidebarView extends ItemView {
     for(const item of examples){
       try{
         const response=await requestUrl({url:item.url,throw:false});
-        const ok=response.status===200 && /<(?:html|main|article|body)\b/i.test(response.text||'');
-        results.push(item.name+' : '+(ok?'page HTML accessible':'HTTP '+response.status+' / page illisible'));
+        if(response.status!==200){
+          results.push(item.name+' : HTTP '+response.status+' (accès indisponible)');
+          continue;
+        }
+        const html=response.text||'';
+        if(!/<(?:html|main|article|body)\b/i.test(html)){
+          results.push(item.name+' : réponse sans page HTML utilisable');
+          continue;
+        }
+        // A 200 response from WOL may only be a navigation shell. Check that
+        // its *content* is readable, rather than reporting a false success.
+        let label='';
+        if(item.name==='Texte du jour WOL'){
+          label=parseDailyHtml(html,new Date())
+            ?'texte du jour reconnu'
+            :'HTML accessible, mais texte du jour non reconnu';
+        }else if(item.name==='Article WOL'){
+          const reader=parseWolDocument(html,item.url,'Document WOL');
+          const count=reader.lines.filter(x=>x.type==='paragraph'||x.type==='verse'||x.type==='question').length;
+          label=count>0?'article exploitable ('+count+' blocs)':
+            'HTML accessible, mais aucun paragraphe d’article exploitable';
+        }else{
+          label=findMeetingProgramme(html,new Date(),item.url)
+            ?'cahier et semaine actuelle reconnus'
+            :'HTML accessible, mais semaine actuelle non trouvée';
+        }
+        results.push(item.name+' : '+label);
       }catch(error){
         results.push(item.name+' : erreur de connexion ('+
           (error instanceof Error?error.message:'inconnue')+').');
