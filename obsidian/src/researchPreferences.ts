@@ -4,8 +4,8 @@ export type ReaderSize='compact'|'comfortable'|'large';
 export const WOL_LANGUAGES={
  fr:{label:'Français',route:'r30/lp-f',jw:'F',org:'rechercher'},
  en:{label:'English',route:'r1/lp-e',jw:'E',org:'search'},
- pt:{label:'Português (Brasil)',route:'r5/lp-t',jw:'T',org:'pesquisar'},
- es:{label:'Español',route:'r4/lp-s',jw:'S',org:'buscar'}
+ pt:{label:'Português (Brasil)',route:'r5/lp-t',jw:'T',org:'busca'},
+ es:{label:'Español',route:'r4/lp-s',jw:'S',org:'búsquedas'}
 } as const;
 export function normalizeLanguage(value:unknown):BibleLabLanguage{
  return value==='en'||value==='pt'||value==='es'?value:'fr';
@@ -38,7 +38,7 @@ export function normalizedReaderPreferences(source:Partial<ReaderPreferences>|nu
   language:normalizeLanguage(source?.language),
   readerSize:source?.readerSize==='compact'||source?.readerSize==='large'?source.readerSize:'comfortable',
   showReaderNotes:source?.showReaderNotes!==false,
-  readerRelatedLimit:[10,20,35].includes(source?.readerRelatedLimit as number)?source!.readerRelatedLimit:20,
-  readerCacheMinutes:[0,15,30,60].includes(source?.readerCacheMinutes as number)?source!.readerCacheMinutes:30
+  readerRelatedLimit:[10,20,35].includes(source?.readerRelatedLimit as number)?source!.readerRelatedLimit as 10|20|35:20,
+  readerCacheMinutes:[0,15,30,60].includes(source?.readerCacheMinutes as number)?source!.readerCacheMinutes as 0|15|30|60:30
  };
 }
