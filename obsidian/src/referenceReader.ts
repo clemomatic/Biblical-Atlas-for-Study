@@ -89,7 +89,7 @@ function normalizedText(node:Element|null,max=2200):string {
  return (node?.textContent||'').replace(/\u00a0/g,' ').replace(/\s+/g,' ').trim().slice(0,max);
 }
 function findDocumentRoot(doc:Document):Element {
- return doc.querySelector('#content, #article, main, article, .bodyTxt, .document, .article')||doc.body;
+ return doc.querySelector('.bodyTxt, .document .bodyTxt, #article, article, main, #content, .document, .article')||doc.body;
 }
 function allowLink(raw:string,base:string):string|null {
  try{return cleanWolUrl(new URL(raw,base).toString());}catch{return null;}
