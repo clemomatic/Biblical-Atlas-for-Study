@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.8.3",
+  "version": "0.8.4",
   "minAppVersion": "1.6.0",
-  "description": "Lecteur WOL interactif : renvois cliquables dans les articles, sommaire et typographie réglable.",
+  "description": "Sources WOL et JW.org : texte du jour et réunion réparés, liens officiels et diagnostic.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
