@@ -114,7 +114,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    if(result.links.length&&depth<2){
      const related=contents.createEl('details',{cls:'biblelab-reader-related'});
      related.createEl('summary',{text:result.kind==='verse'?
-       'Ouvrir les références et documents liés ('+result.links.length+')':
+       'Notes et références liées':
        'Parcourir les références de l’article ('+result.links.length+')'});
      const list=related.createDiv({cls:'biblelab-reader-related-list'});
      const current=new URL(currentUrl);
