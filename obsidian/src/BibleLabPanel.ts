@@ -18,6 +18,7 @@ export interface BibleLabHost {
   createTalk: () => void;
   inspectArchive: () => void;
   importMarkdownArchive: () => void;
+  openNativeBridge: () => void;
   saveDailyStudy: (day: import('./studyLive').DayPreview,date:Date) => void;
   saveWeeklyStudy: (week: import('./studyLive').MeetingPreview,date:Date) => void;
 }
@@ -228,10 +229,11 @@ export class BibleLabSidebarView extends ItemView {
     button(talk.createDiv({cls:'biblelab-buttons'}),'Nouveau discours','mic-2',()=>this.host.createTalk(),true);
     const investigation=card(this.scroller,'Tableau d’enquête','Connexions visuelles avec les Canvas Obsidian.');
     button(investigation.createDiv({cls:'biblelab-buttons'}),'Nouvelle enquête','network',()=>this.host.newResearch([]),true);
-    const archive=card(this.scroller,'Passerelles JW Library','Publications, sauvegardes et notes Markdown.');
+    const archive=card(this.scroller,'Passerelles JW Library','Imports JWPUB et sauvegardes directement dans Obsidian.');
     const archiveActions=archive.createDiv({cls:'biblelab-buttons'});
-    button(archiveActions,'Importer des notes','folder-input',()=>this.host.importMarkdownArchive(),true);
-    button(archiveActions,'Inspecter une archive','file-archive',()=>this.host.inspectArchive());
+    button(archiveActions,'Ouvrir la passerelle','arrow-left-right',()=>this.host.openNativeBridge(),true);
+    button(archiveActions,'Importer un ZIP Markdown','folder-input',()=>this.host.importMarkdownArchive());
+    button(archiveActions,'Inspecter','file-archive',()=>this.host.inspectArchive());
     const archiveInfo=archive.createEl('details',{cls:'biblelab-disclosure'});
     archiveInfo.createEl('summary',{text:'Que fait l’inspection ?'});
     archiveInfo.createEl('p',{text:'Lecture locale de manifestes et inventaire Markdown sans modifier les fichiers. La conversion intégrale et la réexportation ne sont pas encore disponibles.'});
