@@ -21,7 +21,7 @@ export function wolLanguageFromUrl(url:string):BibleLabLanguage|null {
   const u=new URL(url);
   if(u.protocol!=='https:'||u.hostname!=='wol.jw.org'||u.username||u.password)return null;
   for(const lang of ['fr','en','pt','es'] as const){
-   if(u.pathname.startsWith('/'+lang+'/wol/') && u.pathname.includes('/'+WOL_LANGUAGES[lang].route+'/'))return lang;
+   if(u.pathname.startsWith('/'+lang+'/wol/') && (u.pathname.includes('/'+WOL_LANGUAGES[lang].route+'/')||u.pathname.endsWith('/'+WOL_LANGUAGES[lang].route)))return lang;
   }
  }catch{ /* no valid URL */ }
  return null;
