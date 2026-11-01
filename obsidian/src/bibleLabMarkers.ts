@@ -9,7 +9,12 @@ export function enhanceBibleLabMarkers(container: HTMLElement, open: (reference:
   for(const link of Array.from(container.querySelectorAll<HTMLAnchorElement>('a[href]'))){
     const old=link.getAttribute('href')||'';
     const repaired=cleanWolUrl(old);
-    if(repaired && repaired!==old)link.setAttribute('href',repaired);
+    // Only repair bibliographic lookups. Keep search links and in-article
+    // anchors intact. A bare URL label should display the corrected link too.
+    if(repaired && old.includes('/wol/s/') && new URL(repaired).pathname.includes('/wol/l/')){
+      link.setAttribute('href',repaired);
+      if(link.textContent?.trim()===old)link.textContent=repaired;
+    }
   }
   const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
   const nodes: Text[] = [];
