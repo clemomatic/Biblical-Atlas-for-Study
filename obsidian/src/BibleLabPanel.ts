@@ -73,7 +73,10 @@ export class BibleLabSidebarView extends ItemView {
   private libraryTerm='';
   private noteRefs: ReferenceEntry[] = [];
   private pinnedRef: ReferenceEntry|null=null;
-  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external};
+  private referenceHistory:ReferenceEntry[]=[];
+  private referencePosition:number[]=[];
+  private referenceCursor=-1;
+  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label)};
   private noteTitle='';
   private lastMarkdownPath:string|null=null;
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
@@ -115,11 +118,37 @@ export class BibleLabSidebarView extends ItemView {
   }
   async onClose():Promise<void>{this.sequence++;this.contentEl.empty();}
   focusReference(value:string,displayLabel?:string):void{
-    const label=(displayLabel||value).trim();if(!label)return;
-    this.query=label;const direct=cleanWolUrl(value);
-    this.pinnedRef={label,url:direct||passageUrl(label),kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
-    this.reader.expanded.add(this.pinnedRef.url+'#'+label);
-    this.tab='refs';if(this.scroller)this.render();
+    const label=cleanReadingText(displayLabel||value);if(!label)return;
+    const direct=cleanWolUrl(value);
+    const ref:ReferenceEntry={label,url:direct||passageUrl(label),
+      kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
+    if(this.referenceCursor>=0&&this.scroller)
+      this.referencePosition[this.referenceCursor]=this.scroller.scrollTop;
+    if(!this.referenceHistory[this.referenceCursor]||
+      this.referenceHistory[this.referenceCursor].url!==ref.url||
+      this.referenceHistory[this.referenceCursor].label!==ref.label){
+      this.referenceHistory=this.referenceHistory.slice(0,this.referenceCursor+1);
+      this.referencePosition=this.referencePosition.slice(0,this.referenceCursor+1);
+      this.referenceHistory.push(ref);this.referencePosition.push(0);
+      if(this.referenceHistory.length>40){this.referenceHistory.shift();this.referencePosition.shift();}
+      this.referenceCursor=this.referenceHistory.length-1;
+    }
+    this.query=label;
+    this.pinnedRef=ref;
+    this.reader.expanded.add(ref.url+'#'+label);
+    this.tab='refs';if(this.scroller){this.render();this.scroller.scrollTop=0;}
+  }
+  private moveReference(direction:-1|1):void{
+    const next=this.referenceCursor+direction;
+    if(next<0||next>=this.referenceHistory.length)return;
+    this.referencePosition[this.referenceCursor]=this.scroller.scrollTop;
+    this.referenceCursor=next;
+    const ref=this.referenceHistory[next];
+    this.pinnedRef=ref;this.query=ref.label;this.tab='refs';
+    this.reader.expanded.add(ref.url+'#'+ref.label);
+    this.render();
+    const scroll=this.referencePosition[next]||0;
+    window.requestAnimationFrame(()=>{if(this.scroller&&this.tab==='refs')this.scroller.scrollTop=scroll;});
   }
   async updateActiveNote(file:TFile|null):Promise<void>{
     const generation=++this.sequence;
@@ -440,6 +469,14 @@ export class BibleLabSidebarView extends ItemView {
   }
   private renderRefs():void{
     heading(this.scroller,'Références','Versets, notes d’étude et articles, sans quitter le panneau.');
+    if(this.referenceHistory.length>1){
+      const trail=this.scroller.createDiv({cls:'biblelab-reader-history'});
+      const previous=button(trail,'Précédent','arrow-left',()=>this.moveReference(-1));
+      previous.disabled=this.referenceCursor<=0;
+      trail.createSpan({cls:'biblelab-reader-history-count',text:(this.referenceCursor+1)+' / '+this.referenceHistory.length});
+      const next=button(trail,'Suivant','arrow-right',()=>this.moveReference(1));
+      next.disabled=this.referenceCursor>=this.referenceHistory.length-1;
+    }
     if(this.noteTitle){
       const context=this.scroller.createDiv({cls:'biblelab-ref-context'});
       context.createSpan({text:'NOTE ACTIVE'});
