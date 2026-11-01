@@ -1,3 +1,11 @@
+## Bible Lab 0.7.2 — export plus sûr et moins gourmand
+
+L’import, l’édition des notes en Markdown et la génération de sauvegardes `.jwlibrary` s’effectuent directement depuis **Bible Lab → Studio → Bibliothèque personnelle**. Une comparaison est présentée avant de créer un nouveau fichier de sauvegarde dans `Imports/../` et `Exports/` du coffre.
+
+L’export de cette version ne décompresse et ne recompresse **plus les médias inchangés**. Les enregistrements ZIP (illustrations, médias, etc.) sont conservés directement sous forme compressée, à l’octet près ; seuls `userData.db` et `manifest.json` sont remplacés, après contrôle SHA-256, intégrité SQLite et vérification des GUID et relations. L’archive originale n’est jamais écrasée.
+
+**Prudence** : la restauration des sauvegardes générées dans l’application JW Library sur un profil vierge reste une vérification indispensable avant toute utilisation sur son appareil principal. La taille d’une sauvegarde peut demander beaucoup de mémoire, en particulier sur Android.
+
 # Bible Lab — Study Studio (0.7.1)
 
 **Bible Lab Study Studio 0.4** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
