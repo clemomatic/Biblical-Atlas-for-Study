@@ -1,3 +1,11 @@
+## Bible Lab 0.7.3 — pistes d’enquête et filtre des références
+
+Depuis l’onglet **Références**, recherchez immédiatement un verset ou une publication parmi les références trouvées dans la note active, sans refermer les sources consultées. Chaque accordéon WOL dispose désormais de l’action **Noter une piste** : le bouton ajoute à la note Markdown active un court bloc Obsidian éditable (source officielle, observation, question, liens d’idées et mise en pratique).
+
+Bible Lab n’importe pas les textes des publications dans ce bloc : seul le lien officiel WOL est conservé. L’insertion refuse de choisir arbitrairement une autre note lorsque la note active n’est pas ouverte dans l’éditeur. Le scanner exclut aussi les exemples de code entre délimiteurs `~~~` en plus des délimiteurs ```.
+
+Cette version n’apporte aucune modification à l’import/export JW Library, et conserve l’identifiant de plugin `atlas-biblique`. Pour la mettre à jour, remplacez les fichiers du plugin compilé sans effacer vos notes ni `data.json`.
+
 ## Bible Lab 0.7.2 — export plus sûr et moins gourmand
 
 L’import, l’édition des notes en Markdown et la génération de sauvegardes `.jwlibrary` s’effectuent directement depuis **Bible Lab → Studio → Bibliothèque personnelle**. Une comparaison est présentée avant de créer un nouveau fichier de sauvegarde dans `Imports/../` et `Exports/` du coffre.
