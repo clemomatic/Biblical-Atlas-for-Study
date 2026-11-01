@@ -152,8 +152,9 @@ function gatherSections(root:Element,limit=360):ReaderLine[]{
   if(el.closest('script,style,nav,footer,header,aside,[role="navigation"],.js-hidden,[hidden]'))continue;
   if(el.matches('p,li,dd')&&el.querySelector('p,li,dd'))continue;
   const number=articleParagraphNumber(el);
-  const text=readableOfficialElement(el,'article',3500).replace(/^\s*(?:\d{1,3})\s+(?=[A-ZÀ-Ö])/,
-   prefix=>number&&prefix.trim()===number?'':prefix);
+  const readable=el.cloneNode(true) as Element;
+  if(number)for(const marker of readable.querySelectorAll('.parNum,.pNum,[class~="parnum"]'))marker.remove();
+  const text=readableOfficialElement(readable,'article',3500);
   if(text.length<3||seen.has(text)||/^ta réponse$/i.test(text)||/^(?:précédent|suivant|imprimer|partager)$/i.test(text))continue;
   seen.add(text);
   const classes=typeof el.className==='string'?el.className:'';
