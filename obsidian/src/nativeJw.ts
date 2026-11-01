@@ -3,7 +3,8 @@
  * The original source bytes are never modified. */
 import initSqlJs from 'sql.js/dist/sql-wasm.js';
 import wasmAsset from 'sql.js/dist/sql-wasm.wasm?inline';
-import { unzipSync, unzlibSync, zipSync, strFromU8, strToU8 } from 'fflate';
+import { unzipSync, unzlibSync, strFromU8, strToU8 } from 'fflate';
+import { patchZip } from './zipPatch';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
  run:(sql:string,params?:unknown[])=>Db; export:()=>Uint8Array; close:()=>void};
@@ -243,12 +244,16 @@ export async function createExport(plan:ExportPlan, original:File):Promise<Uint8
    const outDb=db.export();
    const manifest=structuredClone(plan.source.manifest);
    manifest.userDataBackup.hash=await digest(outDb);manifest.userDataBackup.lastModifiedDate=now;
-   const files=extract(u8(await original.arrayBuffer()));
-   files[plan.source.dbName]=outDb;
-   files['manifest.json']=strToU8(JSON.stringify(manifest));
-   const zipped=zipSync(Object.fromEntries(Object.entries(files).map(([name,data])=>[name,[data,{level:name==='manifest.json'||name===plan.source.dbName?6:0}]])) as any);
+   // Recompress ONLY the two changed entries. All media and unknown records
+   // remain byte-identical in their original compressed representation.
+   const originalBytes=u8(await original.arrayBuffer());
+   assert(await digest(originalBytes)===plan.source.hash,'La sauvegarde source a changé pendant l’export.');
+   const sourceNames=safeZip(originalBytes).sort();
+   const zipped=patchZip(originalBytes,{
+     [plan.source.dbName]:outDb,
+     'manifest.json':strToU8(JSON.stringify(manifest))
+   });
    const exportedNames=safeZip(zipped).sort();
-   const sourceNames=Object.keys(files).sort();
    assert(JSON.stringify(exportedNames)===JSON.stringify(sourceNames),'Fichiers de la sauvegarde modifiés ou perdus.');
    const checked=await openSource(zipped);
    assert(checked.schema===plan.source.schema,'Le schéma de la sauvegarde a changé.');
