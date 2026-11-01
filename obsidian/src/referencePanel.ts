@@ -149,6 +149,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      const sections=lines.map((line,i)=>({line,i})).filter(item=>item.line.type==='heading').slice(0,18);
      if(sections.length>=2){
        const outline=contents.createEl('details',{cls:'biblelab-article-outline'});
+       contents.insertBefore(outline,article);
        outline.createEl('summary',{text:'Plan de l’article · '+sections.length+' sections'});
        const list=outline.createDiv({cls:'biblelab-article-outline-list'});
        for(const section of sections){
