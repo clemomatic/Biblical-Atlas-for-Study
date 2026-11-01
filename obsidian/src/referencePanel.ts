@@ -62,8 +62,16 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    if(result.title&&result.title!==ref.label)
      contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
    if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:result.notice});
-   if(!result.lines.length)
-     contents.createDiv({cls:'biblelab-reader-hint',text:'Contenu indisponible ici. Consulte la page originale sur WOL.'});
+   if(!result.lines.length){
+     const empty=contents.createDiv({cls:'biblelab-reader-hint'});
+     empty.createSpan({text:'Le document n’a pas pu être affiché ici. Il reste accessible sur la source officielle.'});
+     const retries=empty.createDiv({cls:'biblelab-reader-actions'});
+     action(retries,'Réessayer','refresh-cw',()=>{
+       state.cache.delete(id);
+       void load();
+     });
+     action(retries,'Ouvrir sur WOL','external-link',()=>state.open(currentUrl));
+   }
 
    if(result.kind==='verse'){
      const verses=result.lines.filter(x=>x.type==='verse'||x.type==='paragraph');
@@ -188,7 +196,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  };
  const load=async():Promise<void>=>{
    const cached=state.cache.get(id);
-   if(cached&&Date.now()-cached.date<30*60*1000){draw(cached.result);return;}
+   if(cached&&cached.result.lines.length&&Date.now()-cached.date<30*60*1000){draw(cached.result);return;}
    contents.empty();contents.createDiv({cls:'biblelab-reader-loading',text:'Lecture de WOL…'});
    try{
      let task=state.pending.get(id);
@@ -199,7 +207,9 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      const result=await task;
      // Keep only a bounded number of parsed publications in memory.
      state.cache.delete(id);
-     state.cache.set(id,{date:Date.now(),result});
+     // Never retain an empty/failed lookup for 30 minutes: the user may
+     // regain network access or correct the source URL and retry immediately.
+     if(result.lines.length)state.cache.set(id,{date:Date.now(),result});
      while(state.cache.size>48){
        const oldest=state.cache.keys().next().value;
        if(oldest===undefined)break;
