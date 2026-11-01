@@ -15,7 +15,7 @@ const ENTITIES:Record<string,string>={
  lsquo:'‘',rsquo:'’',ldquo:'“',rdquo:'”',
  agrave:'à',aacute:'á',acirc:'â',eacute:'é',egrave:'è',
  ecirc:'ê',euml:'ë',icirc:'î',iuml:'ï',ocirc:'ô',
- ugrave:'ù',ucirc:'û',ugrave:'ù',ccedil:'ç'
+ ugrave:'ù',ucirc:'û',ccedil:'ç'
 };
 export function decodeReadingEntities(value:string):string {
  let result=value;
