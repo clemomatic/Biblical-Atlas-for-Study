@@ -10,7 +10,7 @@ import { editFromMetadata, newEntity, parseEditBody, selectionFromEntity, type E
 import { EntityEditorModal, AtlasManagerModal } from './editor';
 import type { BiblicalPlace, BiblicalRoute } from '../../src/types';
 import type { AtlasHost, AtlasSnapshot } from './host';
-import { atlasDeepLink, DEFAULT_SETTINGS, navigationForKey, noteFromMetadata, parseEntityKey, validFolder, type AtlasSettings, type VaultNote } from './model';
+import { atlasDeepLink, DEFAULT_SETTINGS, navigationForKey, noteFromMetadata, parseEntityKey, validFolder, validReferenceOpenMode, type AtlasSettings, type VaultNote } from './model';
 import { InvestigationModal, LinkNoteModal, ResearchModal } from './modals';
 import { PluginApp } from './PluginApp';
 import { AtlasVault } from './vault';
@@ -26,6 +26,9 @@ import { saveDailyStudy, saveWeeklyStudy } from './studyNoteBuilder';
 import type { DayPreview, MeetingPreview } from './studyLive';
 import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
 import { NativeJwModal } from './NativeJwModal';
+import { BibleLabReferenceModal } from './BibleLabReferenceModal';
+import { cleanWolUrl, passageUrl, type ReferenceEntry } from './referenceReader';
+import { parseScripture } from './bibleLabData';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -89,6 +92,15 @@ class AtlasSettingTab extends PluginSettingTab {
       text.setValue(this.plugin.settings.noteFolder);
       text.onChange(value => { try { validFolder(value); void this.plugin.updateSettings({ noteFolder: value }).catch(error => this.plugin.report(error)); } catch { /* Allow typing an incomplete path. */ } });
     });
+    this.containerEl.createEl('h3',{text:'Lecture des références'});
+    new Setting(this.containerEl).setName('Clic sur un lien WOL')
+      .setDesc('Dans les notes en mode Lecture : panneau latéral, fenêtre popup ou navigateur. Ctrl/Cmd-clic conserve l’ouverture habituelle du lien.')
+      .addDropdown(dropdown=>dropdown
+        .addOption('sidebar','Panneau latéral (par défaut)')
+        .addOption('popup','Fenêtre de lecture')
+        .addOption('browser','Navigateur externe')
+        .setValue(this.plugin.settings.referenceOpenMode)
+        .onChange(value=>void this.plugin.updateSettings({referenceOpenMode:validReferenceOpenMode(value)}).catch(error=>this.plugin.report(error))));
     new Setting(this.containerEl).setName('Charger les fonds de carte en ligne').setDesc('Charge les tuiles OpenFreeMap sans clé et les conserve dans le coffre. Désactivé : seules les tuiles déjà téléchargées et le fond Natural Earth inclus sont utilisés.').addToggle(toggle => toggle.setValue(this.plugin.settings.allowOnlineMaps).onChange(async value => { await this.plugin.updateSettings({ allowOnlineMaps: value }); }));
     new Setting(this.containerEl).setName('Cartes hors connexion').setDesc('Préparer une région, consulter les téléchargements ou libérer leur espace.').addButton(button => button.setButtonText('Préparer les cartes').onClick(this.plugin.openMapDownloads));
     this.containerEl.createEl('p', { text: 'Le corpus est inclus dans le plugin. Tes recherches restent des notes Markdown ; une mise à jour du plugin ne les réécrit pas. Aucun service d’IA ni compte distant n’est utilisé.' });
@@ -143,12 +155,12 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   }
   private async indexAll(): Promise<void> { await Promise.all(this.app.vault.getMarkdownFiles().map(file => this.indexFile(file, false))); this.publish(); }
   async updateSettings(change: Partial<AtlasSettings>): Promise<void> {
-    this.settings = { ...this.settings, ...change, noteFolder: validFolder(change.noteFolder ?? this.settings.noteFolder) };
+    this.settings = { ...this.settings, ...change, noteFolder: validFolder(change.noteFolder ?? this.settings.noteFolder), referenceOpenMode: validReferenceOpenMode(change.referenceOpenMode ?? this.settings.referenceOpenMode) };
     await this.saveData(this.settings); this.publish();
   }
   async onload(): Promise<void> {
     const stored = await this.loadData() as Partial<AtlasSettings> | null;
-    try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true }; }
+    try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true, referenceOpenMode: validReferenceOpenMode(stored?.referenceOpenMode) }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
@@ -175,7 +187,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       return true;
     } });
     this.addSettingTab(new AtlasSettingTab(this.app, this));
-    this.registerMarkdownPostProcessor(el => enhanceBibleLabMarkers(el, ref => this.run(this.openBibleLab(ref))));
+    this.registerMarkdownPostProcessor(el => enhanceBibleLabMarkers(el, (ref,label) => this.run(this.openLinkedReference(ref,label))));
     const refreshBibleLab = debounce(() => {
       const file = this.app.workspace.getActiveFile();
       for (const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)) {
@@ -253,6 +265,32 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     if (!selection) new Notice('Lieu non identifié dans l’Atlas interactif ; ouverture de la carte générale.');
     this.run(this.openAtlas(selection?.key));
   };
+  /** A click is routed at action time; changing the preference needs no reload. */
+  async openLinkedReference(value:string,displayLabel?:string):Promise<void>{
+    const raw=value.trim();
+    if(!raw)return;
+    const url=cleanWolUrl(raw)||passageUrl(raw);
+    if(!url){new Notice('Référence WOL non reconnue.');return;}
+    if(this.settings.referenceOpenMode==='browser'){
+      window.open(url,'_blank','noopener,noreferrer');
+      return;
+    }
+    const label=(displayLabel||raw).trim();
+    if(this.settings.referenceOpenMode==='popup'){
+      const scripture=parseScripture(label);
+      const path=new URL(url).pathname;
+      const item:ReferenceEntry={
+        label, url,
+        kind:path.includes('/wol/b/')&&scripture?'scripture':path.includes('/wol/d/')?'document':'publication',
+        origin:'markdown'
+      };
+      new BibleLabReferenceModal(this.app,item).open();
+      return;
+    }
+    await this.openBibleLab();
+    const leaf=this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
+    if(leaf?.view instanceof BibleLabSidebarView)leaf.view.focusReference(url,label);
+  }
   async openBibleLab(reference?: string): Promise<void> {
     await this.ready;
     let leaf = this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
