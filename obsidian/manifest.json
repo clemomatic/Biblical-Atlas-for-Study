@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.8.5",
+  "version": "0.8.6",
   "minAppVersion": "1.6.0",
-  "description": "Espace d’étude repensé : recherche unifiée, lecture contextualisée et outils accessibles.",
+  "description": "Recherche WOL enrichie : Index, Guide de recherche, versets et publications reliés.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
