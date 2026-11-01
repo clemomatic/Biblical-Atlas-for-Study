@@ -92,7 +92,7 @@ export class BibleLabSidebarView extends ItemView {
     super(leaf); this.host=host;
   }
   getViewType():string{return BIBLE_LAB_VIEW;}
-  getDisplayText():string{return 'Bible Lab · Explorateur';}
+  getDisplayText():string{return 'Bible Lab · Recherche';}
   getIcon():string{return 'book-open-check';}
 
   async onOpen():Promise<void>{
@@ -210,7 +210,7 @@ export class BibleLabSidebarView extends ItemView {
     const quick=this.scroller.createDiv({cls:'biblelab-launch-grid'});
     for(const item of [
       {label:'Rechercher',icon:'search',tab:'wol' as Tab},
-      {label:'Enquêter',icon:'network',tab:'refs' as Tab},
+      {label:'Lire',icon:'book-open-text',tab:'refs' as Tab},
       {label:'Explorer',icon:'map',tab:'maps' as Tab},
       {label:'Créer',icon:'pen-line',tab:'studio' as Tab}
     ]){
@@ -249,9 +249,9 @@ export class BibleLabSidebarView extends ItemView {
     button(weekActions,'Voir la réunion','external-link',()=>external(this.live.meeting?.source||meetingIssueLink(now)));
     if(this.live.meeting)button(weekActions,'Préparer en note','notebook-pen',()=>this.host.saveWeeklyStudy(this.live.meeting!,now),true);
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'CONTINUER'});
-    const research=card(this.scroller,'Une nouvelle découverte','Commencer une enquête ou reprendre une réflexion.');
+    const research=card(this.scroller,'Reprendre ma recherche','Accéder à mes versets et aux références de la note ouverte.');
     const researchRow=research.createDiv({cls:'biblelab-buttons'});
-    button(researchRow,'Nouvelle enquête','network',()=>this.host.newResearch([]),true);
+    button(researchRow,'Lire mes références','book-open-text',()=>this.setTab('refs'),true);
     button(researchRow,'Atelier discours','mic-2',()=>this.setTab('studio'));
     if(this.liveLastUpdated) this.scroller.createEl('p',{cls:'biblelab-mini',text:'Mise à jour depuis WOL · '+new Date(this.liveLastUpdated).toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'})});
   }
