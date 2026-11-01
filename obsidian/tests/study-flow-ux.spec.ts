@@ -69,7 +69,7 @@ test('Current note references stay tucked away while a focused source is read',a
  const refs=pane.locator('.biblelab-note-references');
  await expect(refs).toBeVisible();
  await expect(refs).not.toHaveAttribute('open','');
- await refs.locator('summary').click();
+ await refs.locator(':scope > summary').click();
  await expect(refs).toHaveAttribute('open','');
  await expect(refs.locator('.biblelab-reader-summary').first()).toBeVisible();
 });
