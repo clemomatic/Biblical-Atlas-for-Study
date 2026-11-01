@@ -20,7 +20,7 @@ const ENTITIES:Record<string,string>={
 export function decodeReadingEntities(value:string):string {
  let result=value;
  for(let round=0;round<4;round++){
-  const next=result.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z][a-z0-9]+)(?:;|:(?=\s|$|[.,!?]))?/gi,(whole,entity:string)=>{
+  const next=result.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z][a-z0-9]+)[;:]?/gi,(whole,entity:string)=>{
    const name=entity.toLowerCase();
    if(Object.prototype.hasOwnProperty.call(ENTITIES,name))return ENTITIES[name];
    if(name.startsWith('#')){
