@@ -53,7 +53,7 @@ test('local JW archive inspection creates a Markdown inventory without changing 
   const pane=page.locator('.biblelab-side');
   await pane.getByRole('button',{name:'Studio'}).click();
   const chooserPromise=page.waitForEvent('filechooser');
-  await pane.getByRole('button',{name:'Inspecter',exact:true}).click();
+  await pane.locator('.biblelab-buttons button').filter({hasText:'Inspecter'}).first().click();
   const chooser=await chooserPromise;
   const data=zipSync({
     'manifest.json':strToU8(JSON.stringify({name:'Ma sauvegarde',userDataBackup:{schemaVersion:16}})),
