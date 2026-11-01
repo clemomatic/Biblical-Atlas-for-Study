@@ -1,3 +1,17 @@
+## Bible Lab 0.8.6 — Index & Guide de recherche
+
+La recherche documentaire peut désormais être lancée dans trois modes clairement identifiés : publications, Index et Guide de recherche.
+
+- **Index des publications** : les mots-clés et références bibliques sont recherchés sur WOL avec le filtre officiel `fc[]=dx`. Seules les entrées identifiées comme provenant de l’Index sont affichées dans cette vue.
+- **Guide de recherche** : même catégorie officielle WOL, mais filtrage des notices visibles qui portent une identification de publication Guide (`rsg`, `rsg19` ou source explicite). Les résultats non attribuables avec certitude ne sont pas étiquetés Guide.
+- **Depuis la lecture** : une référence biblique ou une publication ouverte propose « Chercher dans l’Index » et « Consulter le Guide » pour prolonger l’étude. Le parcours conserve la référence comme requête.
+- **Consultation** : ouvrir une rubrique du résultat dans le lecteur latéral, puis ses liens WOL ou versets, avec retour en arrière à la recherche et insertion d’une source dans sa note.
+- **Sources officielles** : lien direct vers les instructions de l’Index sur WOL et la bibliothèque des index sur jw.org ; la recherche n'utilise aucune API privée et ne transmet aucun texte issu des notes locales.
+- **Résilience** : avertissement si les résultats sont absents, non attribuables, ou bloqués par un refus de requêtes automatisées. Le lecteur laisse toujours une sortie vers la recherche WOL officielle.
+- **Tests** : vérification des URL officielles et scénarios de navigation Index → article, Guide → article, résultat non attribué, et prolongement depuis un verset.
+
+Limites : seules les premières pages de résultats WOL sont analysées, et les pages peuvent nécessiter JavaScript ou refuser la consultation automatisée. L'accès à l'intégralité de l'Index et du Guide demeure assuré par WOL et JW Library ; cette version ne télécharge ni ne met en cache toute leur bibliothèque.
+
 ## Bible Lab 0.8.5 — Parcours d’étude et UX repensés
 
 Cette version introduit la première refonte structurelle du panneau, avec une priorité : **chercher → lire → exploiter une référence dans sa note sans se perdre dans l'interface**.
