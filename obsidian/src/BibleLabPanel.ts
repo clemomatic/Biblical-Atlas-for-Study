@@ -161,7 +161,7 @@ export class BibleLabSidebarView extends ItemView {
     const generation=++this.sequence;
     if(!file || file.extension!=='md'){
       this.noteTitle='';this.noteRefs=[];
-      if(this.tab==='refs' && this.scroller) this.render();
+      if((this.tab==='refs'||this.tab==='home')&&this.scroller)this.render();
       return;
     }
     try{
@@ -172,7 +172,7 @@ export class BibleLabSidebarView extends ItemView {
       if(generation!==this.sequence)return;
       this.noteTitle=file.basename;this.lastMarkdownPath=file.path;this.noteRefs=[];
     }
-    if(this.tab==='refs' && this.scroller)this.render();
+    if((this.tab==='refs'||this.tab==='home')&&this.scroller)this.render();
   }
   private setTab(tab:Tab):void{
     if(this.tab===tab)return;
