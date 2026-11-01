@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "minAppVersion": "1.6.0",
-  "description": "Recherche WOL et JW.org, lecteur de références et notes JW Library importées.",
+  "description": "Lecture WOL en un clic depuis les notes, avec panneau latéral ou popup configurable.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
