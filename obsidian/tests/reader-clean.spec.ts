@@ -11,7 +11,7 @@ test('Bible verse removes encoded spaces, superscript markers and number-only no
    citation:'Matthieu 10:29',
    html:'<p><span class="verseNum">29</span>Deux&nbsp;moineaux&#8239;ne se vendent-ils pas pour&nbsp;une pièce<sup class="fnRef">*</sup> de monnaie\u200b ? <a data-fnid="123" href="#fn">a</a></p>',
    footnotes:[
-    {source:'<sup>a</sup>',content:'<p>Litt.&nbsp;« une pièce de monnaie ».</p>'},
+    {source:'<sup>a</sup>',content:'<p><span class="fn">Litt.&nbsp;« une pièce de monnaie ».</span></p>'},
     {source:'<span class="label">moineaux</span>',content:'<p>Le mot grec désigne un petit oiseau.</p>'}
    ],
    commentaries:[{source:'<span>petit oiseau</span>',content:'<p>Une note d’étude sur le contexte.</p>'}],
