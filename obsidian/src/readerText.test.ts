@@ -14,3 +14,15 @@ test('Preserve meaningful numerical references, symbols and French punctuation',
  const input='En 2 Corinthiens 4:16, “l’homme intérieur” est renouvelé.';
  assert.equal(cleanReadingText(input),input);
 });
+
+test('Decode literal and doubly encoded nbsp, including malformed colon suffix',()=>{
+ assert.equal(cleanReadingText('Matthieu&nbsp;10:29'),'Matthieu 10:29');
+ assert.equal(cleanReadingText('Matthieu&nbsp: 10:29'),'Matthieu 10:29');
+ assert.equal(cleanReadingText('Matthieu&amp;nbsp;10:29'),'Matthieu 10:29');
+ assert.equal(cleanReadingText('Matthieu&amp;amp;nbsp;10:29'),'Matthieu 10:29');
+ assert.equal(cleanReadingText('Jean&amp;#160;7:24'),'Jean 7:24');
+});
+test('Convert quotation and punctuation entities without swallowing ordinary text',()=>{
+ assert.equal(cleanReadingText('«&nbsp;Jésus&nbsp;» &amp; son père — &hellip;'),'« Jésus » & son père — …');
+ assert.equal(cleanReadingText('A & B (x>y)'), 'A & B (x>y)');
+});
