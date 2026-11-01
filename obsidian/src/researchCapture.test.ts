@@ -37,6 +37,7 @@ test('Resolved WOL document is preferred but external URLs are rejected',()=>{
 test('Research capture sanitizes Markdown and control characters from titles',()=>{
   const entry={...scripture,label:'Titre [essai]_*\n> une piste'};
   const result=researchCaptureMarkdown(entry);
-  assert.ok(result.includes('Titre \\\\[essai\\\\]\\\\_\\\\*'));\n> une piste/);
+  assert.ok(result.includes('Titre \\[essai\\]\\_\\*'));
+  assert.doesNotMatch(result,/\n> une piste/);
   assert.match(result,/Source : /);
 });
