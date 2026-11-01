@@ -63,7 +63,7 @@ test('Long WOL article keeps section hierarchy, excludes answer widgets and prog
   app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
  });
  const pane=page.locator('.biblelab-side');
- await pane.getByRole('button',{name:'Références'}).click();
+ await pane.locator('.biblelab-tab[aria-label="Références"]').click();
  await pane.locator('.biblelab-reader-summary').filter({hasText:'Étude'}).first().click();
  await expect(pane.getByText('UN EXEMPLE DE BONTÉ')).toBeVisible();
  await expect(pane.getByText('1. Que montre cet exemple ?')).toBeVisible();
