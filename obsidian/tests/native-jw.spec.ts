@@ -66,7 +66,7 @@ test('JW Library backup imports GUIDs, tags and markdown index without Python',a
  await expect(page.getByText('notes personnelles')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
  await expect.poll(async()=>page.evaluate((guid:string)=>(window as any).atlasTest.files().some((f:any)=>f.path.includes(guid)), GUID)).toBeTruthy();
- const note=await page.evaluate(()=>(window as any).atlasTest.files().find((f:any)=>f.path.endsWith(GUID+'.md')).content);
+ const note=await page.evaluate((guid:string)=>(window as any).atlasTest.files().find((f:any)=>f.path.endsWith(guid+'.md')).content, GUID);
  expect(note).toContain('jw_guid: "'+GUID+'"');
  expect(note).toContain('jw_tags: ["Méditation"]');
  expect(note).toContain('<!-- BIBLE_LAB_NOTE_START -->');
@@ -80,7 +80,7 @@ test('native backup export previews only edited note and keeps original media',a
  await (await upload).setFiles({name:'example.jwlibrary',mimeType:'application/zip',buffer:Buffer.from(src)});
  await expect(page.getByText('notes personnelles')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
- await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.endsWith(GUID+'.md')))).toBeTruthy();
+ await expect.poll(async()=>page.evaluate((guid:string)=>(window as any).atlasTest.files().some((f:any)=>f.path.endsWith(guid+'.md')), GUID)).toBeTruthy();
  await page.evaluate(async()=>{
    const {app}= (window as any).atlasTest;
    const note=app.vault.getMarkdownFiles().find((f:any)=>f.path.endsWith('11111111-2222-3333-4444-555555555555.md'));
