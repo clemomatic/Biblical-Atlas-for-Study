@@ -52,9 +52,9 @@ test('public daily source loads only on command and meeting content remains link
 test('local JW archive inspection creates a Markdown inventory without changing source',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.getByRole('button',{name:'Studio'}).click();
-  await pane.getByText('Autres options').click();
+  await pane.locator('details').filter({hasText:'Autres options'}).evaluate((element:HTMLDetailsElement)=>{element.open=true;});
   const chooserPromise=page.waitForEvent('filechooser');
-  await pane.getByRole('button',{name:'Inspecter une archive'}).click();
+  await pane.getByRole('button',{name:'Inspecter uniquement'}).click();
   const chooser=await chooserPromise;
   const data=zipSync({
     'manifest.json':strToU8(JSON.stringify({name:'Ma sauvegarde',userDataBackup:{schemaVersion:16}})),
@@ -70,7 +70,7 @@ test('local JW archive inspection creates a Markdown inventory without changing 
 test('converted JW Markdown ZIP imports as separate editable notes and never overwrites existing documents',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.getByRole('button',{name:'Studio'}).click();
-  await pane.getByText('Autres options').click();
+  await pane.locator('details').filter({hasText:'Autres options'}).evaluate((element:HTMLDetailsElement)=>{element.open=true;});
   const payload=zipSync({
     'BibleLab_notes/Jean 3.16.md':strToU8('# Jean 3:16\n\nUne observation personnelle'),
     'BibleLab_notes/_BIBLE_LAB_IMPORT.json':strToU8('{"schema_version":16,"note_count":1}')
@@ -89,7 +89,7 @@ test('converted JW Markdown ZIP imports as separate editable notes and never ove
 test('ZIP import rejects path traversal instead of writing outside import root',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.getByRole('button',{name:'Studio'}).click();
-  await pane.getByText('Autres options').click();
+  await pane.locator('details').filter({hasText:'Autres options'}).evaluate((element:HTMLDetailsElement)=>{element.open=true;});
   const payload=zipSync({'../intrusion.md':strToU8('must never be created')});
   const chooser=page.waitForEvent('filechooser');
   await pane.getByRole('button',{name:'Importer un ZIP Markdown'}).click();
