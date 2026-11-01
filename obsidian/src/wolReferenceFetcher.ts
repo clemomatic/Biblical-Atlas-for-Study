@@ -1,10 +1,11 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
+import { wolLanguageFromUrl,wolPrefix,wolRoute } from './researchPreferences';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
-const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
+const DOC=/\/(?:fr\/wol\/d\/r30\/lp-f|en\/wol\/d\/r1\/lp-e|pt\/wol\/d\/r5\/lp-t|es\/wol\/d\/r4\/lp-s)\/\d+/;
 const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i;
 const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
 const validateDocument=(value:string,base:string):string|null=>{
@@ -17,10 +18,11 @@ export function canonicalReferenceUrl(raw:string):string|null{
  const url=cleanWolUrl(raw);
  if(!url)return null;
  const u=new URL(url);
- if(u.pathname==='/fr/wol/s/r30/lp-f'){
+ const language=wolLanguageFromUrl(url);
+ if(language && u.pathname==='/'+language+'/wol/s/'+wolRoute(language)) {
    const query=u.searchParams.get('q')?.trim();
    if(query && BIBLIO.test(query)){
-     return 'https://wol.jw.org/fr/wol/l/r30/lp-f?'+new URLSearchParams({q:query});
+     return wolPrefix(language)+'l/'+wolRoute(language)+'?'+new URLSearchParams({q:query});
    }
  }
  return url;
@@ -78,14 +80,15 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  const url=canonicalReferenceUrl(ref.url);
  if(!url)throw Error('Référence WOL non reconnue.');
  const path=new URL(url).pathname;
- if(DOC.test(path)||path.startsWith('/fr/wol/b/')){
+ const language=wolLanguageFromUrl(url)||'fr';
+ if(DOC.test(path)||path.startsWith('/'+language+'/wol/b/')){
    return readerForDocument(await officialText(url),url,ref.label);
  }
- if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
+ if(!path.startsWith('/'+language+'/wol/l/')&&!path.startsWith('/'+language+'/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
  const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
- const lookup=path.startsWith('/fr/wol/s/')
-   ? WOL+'l/r30/lp-f?'+new URLSearchParams({q:query}):url;
+ const lookup=path.startsWith('/'+language+'/wol/s/')
+   ? wolPrefix(language)+'l/'+wolRoute(language)+'?'+new URLSearchParams({q:query}):url;
  let text='';let docUrl:string|null=null;
  try{
    text=await officialText(lookup);
@@ -102,10 +105,10 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    // Try the official bibliographic result listing instead of fabricating content.
  }
  if(!docUrl){
-   const fallback=WOL+'s/r30/lp-f?'+new URLSearchParams({q:query});
+   const fallback=wolPrefix(language)+'s/'+wolRoute(language)+'?'+new URLSearchParams({q:query});
    try{docUrl=pickDocument(await officialText(fallback),fallback,query);}catch{ /* no matching result */ }
  }
- docUrl=docUrl||knownCitation(query);
+ docUrl=docUrl||(language==='fr'?knownCitation(query):null);
  if(!docUrl){
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
    empty.lines=[];
@@ -128,7 +131,7 @@ interface JwVerseExtras {
 }
 export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
  const scripture=parseScripture(ref.label);
- if(!scripture)return fetchPublication(ref);
+ if(!scripture || wolLanguageFromUrl(ref.url)!=='fr')return fetchPublication(ref);
  const range=(n:number)=>String(scripture.book).padStart(2,'0')+String(scripture.chapter).padStart(3,'0')+String(n).padStart(3,'0');
  const one=range(scripture.verse), last=scripture.endVerse&&scripture.endVerse!==scripture.verse?range(scripture.endVerse):null;
  // Exact endpoint and response schema follow traVERture's fetchVerseWithExtras.
