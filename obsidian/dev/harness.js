@@ -147,6 +147,19 @@ await plugin.openAtlas();
 window.atlasTest = {
   plugin, app, notices, ready: true,
   file(path) { return vault.files.get(path)?.content; },
+  openMarkdownEditor(path) {
+    const file=vault.files.get(path);
+    if(!(file instanceof TFile))throw Error('Not a Markdown file: '+path);
+    const view=new MarkdownView();
+    view.file=file;
+    view.editor={replaceSelection(text){file.content+=text;}};
+    const leaf={type:'markdown',view};
+    workspace.leaves.push(leaf);
+    workspace.activeFile=file;
+    workspace.trigger('file-open',file);
+    return leaf;
+  },
+
   files() { return [...vault.files.values()].filter(file => file instanceof TFile).map(file => ({ path: file.path, content: file.content })); },
   async metadata(path, changes) { const file = vault.files.get(path); await app.fileManager.processFrontMatter(file, data => Object.assign(data, changes)); },
   async rename(path, nextPath) { await vault.rename(vault.files.get(path), nextPath); },
