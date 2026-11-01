@@ -220,6 +220,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      if(contents.isConnected){
        contents.empty();
        contents.createDiv({cls:'biblelab-reader-failure',text:error instanceof Error?error.message:'Lecture impossible'});
+       action(contents,'Réessayer','refresh-cw',()=>{state.cache.delete(id);void load();});
        action(contents,'Ouvrir WOL','external-link',()=>state.open(currentUrl));
      }
    }finally{state.pending.delete(id);}
