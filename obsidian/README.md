@@ -1,6 +1,20 @@
-# Bible Lab — Study Studio (0.5.0)
+# Bible Lab — Study Studio (0.6.0)
 
 **Bible Lab Study Studio 0.4** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+
+### Nouvelle passerelle JW intégrée — 0.6.0
+
+**Plus besoin du script Python pour importer :** dans **Bible Lab → Studio → Ouvrir la passerelle**, les opérations s'exécutent dans Obsidian avec un moteur SQLite WebAssembly embarqué.
+
+- **Importer une publication JWPUB :** sélectionner le fichier `.jwpub`, consulter la liste des articles, puis importer les documents en Markdown. WebCrypto assure le déchiffrement, les fichiers images inclus dans la publication sont conservés dans `assets`.
+- **Importer une sauvegarde JW Library :** sélectionner le fichier `.jwlibrary`, vérifier l'empreinte SHA-256, le schéma SQLite (14, 15, 16) et le nombre de notes, puis créer dans un dossier neuf les notes éditables, l'index thématique et le manifeste de provenance. Les GUID et les étiquettes sont conservés.
+- **Créer une nouvelle sauvegarde :** sélectionner le fichier d'origine, choisir l'import correspondant, comparer la liste des titres et contenus modifiés, puis créer une **nouvelle copie** dans `Atlas biblique/Exports` après validation du hachage, du nombre de notes, de l'intégrité SQL et des relations SQLite. Le fichier source n'est jamais écrasé.
+
+Les modifications réexportées portent sur les **titres et contenus des notes existantes uniquement**. Les changements d'étiquettes, surlignages, annotations de publications et signets ne sont pas écrits dans la sauvegarde. Conserver le marqueur technique en bas du frontmatter des notes importées et modifier les titres via la propriété `title` du frontmatter, pas seulement via le nom du fichier.
+
+**Sécurité :** toutes les opérations sont effectuées sur l'appareil, sans connexion à Google Drive, WOL ou un serveur tiers. Une sauvegarde restaurée dans JW Library remplace les données locales. **Ne restaure pas un export sur ton appareil principal avant d'avoir vérifié son ouverture sur un profil de test vierge.** Les sauvegardes volumineuses peuvent saturer la mémoire sur certains téléphones ; l'export est expérimental sur Android jusqu'à vérification sur appareil réel.
+
+Le script `tools/bible_lab_bridge.py` reste une solution de secours/diagnostic facultative.
 
 ### Passerelle JW — 0.5
 
