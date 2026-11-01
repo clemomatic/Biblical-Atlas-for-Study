@@ -120,6 +120,8 @@ test('reference insertion never writes to an unrelated open Markdown file',async
  });
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Jean 7:24');
+ await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
  await pane.getByRole('button',{name:'Insérer le lien'}).click();
  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Autre.md'))).toBe('Note à préserver');
  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Source.md'))).toBe('Contenu original');
