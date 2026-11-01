@@ -1,3 +1,4 @@
+import { wolPrefix,wolRoute,WOL_LANGUAGES,type BibleLabLanguage } from './researchPreferences';
 /** Bible Lab link and document helpers.
  * No publication texts are shipped, and no unapproved remote service is contacted.
  */
@@ -44,13 +45,13 @@ export function parseScripture(input: string): ScriptureRef | null {
   if (chapter < 1 || chapter > 150 || verse < 1 || verse > 176 || (end !== undefined && (end < verse || end > 176))) return null;
   return {label:`${BOOKS[book-1]} ${chapter}:${verse}${end===undefined?'':`-${end}`}`,book,chapter,verse,endVerse:end};
 }
-export function wolSearch(query: string): string { return WOL_SEARCH + encodeURIComponent(query.trim()); }
-export function wolLookup(query: string): string { return WOL_LOOKUP + new URLSearchParams({q:query.trim()}).toString().slice(2); }
-export function jwLibraryLink(query: string): string | null {
+export function wolSearch(query: string,language:BibleLabLanguage='fr'): string { return wolPrefix(language)+'s/'+wolRoute(language)+'?q='+encodeURIComponent(query.trim()); }
+export function wolLookup(query: string,language:BibleLabLanguage='fr'): string { return wolPrefix(language)+'l/'+wolRoute(language)+'?'+new URLSearchParams({q:query.trim()}).toString(); }
+export function jwLibraryLink(query: string,language:BibleLabLanguage='fr'): string | null {
   const parsed = parseScripture(query);
   if (!parsed) return null;
   const n = (num:number,width:number) => String(num).padStart(width,'0');
-  return `https://www.jw.org/finder?wtlocale=F&bible=${n(parsed.book,2)}${n(parsed.chapter,3)}${n(parsed.verse,3)}`;
+  return `https://www.jw.org/finder?wtlocale=${WOL_LANGUAGES[language].jw}&bible=${n(parsed.book,2)}${n(parsed.chapter,3)}${n(parsed.verse,3)}`;
 }
 export function extractReferences(note: string): string[] {
   const found = new Set<string>();
