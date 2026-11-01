@@ -2,16 +2,49 @@
  * Render official biblical text as clean reading text, not a flattened HTML
  * widget tree. HTML never reaches the Obsidian reader as markup.
  */
+/**
+ * WOL/JW.org can contain doubly encoded HTML entities such as "&amp;nbsp;"
+ * in a text node. Decode *text only*: no remote markup is injected into UI.
+ * A colon sometimes appears in pasted references instead of the final
+ * semicolon ("&nbsp:") and should also be treated as a space.
+ */
+const ENTITIES:Record<string,string>={
+ amp:'&',nbsp:' ',thinsp:' ',ensp:' ',emsp:' ',shy:'',
+ quot:'"',apos:"'",lt:'<',gt:'>',hellip:'…',
+ ndash:'–',mdash:'—',laquo:'«',raquo:'»',
+ lsquo:'‘',rsquo:'’',ldquo:'“',rdquo:'”',
+ agrave:'à',aacute:'á',acirc:'â',eacute:'é',egrave:'è',
+ ecirc:'ê',euml:'ë',icirc:'î',iuml:'ï',ocirc:'ô',
+ ugrave:'ù',ucirc:'û',ugrave:'ù',ccedil:'ç'
+};
+export function decodeReadingEntities(value:string):string {
+ let result=value;
+ for(let round=0;round<4;round++){
+  const next=result.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z][a-z0-9]+)(?:;|:(?=\s|$|[.,!?]))?/gi,(whole,entity:string)=>{
+   const name=entity.toLowerCase();
+   if(Object.prototype.hasOwnProperty.call(ENTITIES,name))return ENTITIES[name];
+   if(name.startsWith('#')){
+    const hex=name.startsWith('#x'),digits=name.slice(hex?2:1);
+    const number=parseInt(digits,hex?16:10);
+    if(Number.isInteger(number)&&number>0&&number<=0x10ffff&&!(number>=0xd800&&number<=0xdfff))
+      return String.fromCodePoint(number);
+   }
+   return whole;
+  });
+  if(next===result)break;
+  result=next;
+ }
+ return result;
+}
 export function cleanReadingText(value:string):string {
- return value
-  // Some pages return non-breaking space entities as literal text twice encoded.
-  .replace(/&(?:nbsp|#0*160|#x0*a0|#0*8239|#x0*202f);?/gi,' ')
+ return decodeReadingEntities(value)
   .replace(/\\u(?:00a0|202f|200b|2060)/gi,' ')
   .replace(/[\u00a0\u202f\u2000-\u200a\u205f\u3000]/g,' ')
   .replace(/[\u200b-\u200d\u2060\ufeff\u00ad]/g,'')
   .replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f]/g,'')
   .replace(/\s+/g,' ').trim();
 }
+
 const NOISE='script,style,noscript,svg,iframe,form,button,[aria-hidden="true"],[hidden]';
 const VERSE_MARKERS=[
  'sup','[data-fnid]','[data-xref]','[class~="fn"]',
