@@ -221,3 +221,71 @@
 .biblelab-native-loading{font-size:12px;color:var(--interactive-accent)}
 .biblelab-native-modal select{width:100%;margin:10px 0}
 @media(prefers-reduced-motion:reduce){.biblelab-native-action{transition:none}.biblelab-native-action:hover{transform:none}}
+
+/* References 0.7: compact editorial source reader and nested study links. */
+.biblelab-ref-context{
+  display:flex;flex-direction:column;gap:4px;padding:11px 13px;margin:2px 0 14px;
+  background:color-mix(in srgb,var(--bl-brand) 7%,var(--background-primary));
+  border-radius:12px;border:1px solid color-mix(in srgb,var(--bl-brand) 13%,var(--bl-edge));
+}
+.biblelab-ref-context span{font-size:9px;letter-spacing:.15em;font-weight:820;color:var(--bl-muted)}
+.biblelab-ref-context strong{font-size:12px;font-weight:710;overflow-wrap:anywhere}
+.biblelab-reader-count{display:flex;align-items:center;justify-content:space-between;margin:11px 0 9px;color:var(--bl-muted);font-size:10px;letter-spacing:.025em}
+.biblelab-reader-count .biblelab-btn{font-size:10px;min-height:27px}
+.biblelab-reader{
+  margin:8px 0;border:1px solid var(--bl-separator);border-radius:14px;
+  background:var(--background-primary);overflow:hidden;
+  box-shadow:0 3px 10px #00000009;
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+.biblelab-reader[open]{border-color:color-mix(in srgb,var(--bl-brand) 35%,var(--bl-edge));box-shadow:0 7px 18px #0000000b}
+.biblelab-reader-summary{
+  cursor:pointer;display:flex;align-items:center;gap:10px;min-height:66px;padding:12px;
+  list-style:none;outline-offset:-2px;user-select:none
+}
+.biblelab-reader-summary::-webkit-details-marker{display:none}
+.biblelab-reader-summary:hover{background:color-mix(in srgb,var(--bl-brand) 4%,var(--background-primary))}
+.biblelab-reader-summary:focus-visible{outline:2px solid var(--bl-brand)}
+.biblelab-reader-glyph{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:11px;
+  color:var(--bl-brand);background:color-mix(in srgb,var(--bl-brand) 11%,var(--background-primary))}
+.biblelab-reader-glyph svg{width:18px;height:18px;stroke-width:1.9}
+.biblelab-reader-labels{display:flex;flex-direction:column;flex:1;min-width:0;gap:5px}
+.biblelab-reader-labels strong{font-size:12px;font-weight:750;line-height:1.3;letter-spacing:-.01em;overflow-wrap:anywhere}
+.biblelab-reader-labels>span{font-size:10px;color:var(--bl-muted);line-height:1.35}
+.biblelab-reader-chevron{color:var(--bl-muted);display:grid;place-items:center;transition:transform .17s ease}
+.biblelab-reader-chevron svg{height:16px;width:16px}
+.biblelab-reader[open]>.biblelab-reader-summary .biblelab-reader-chevron{transform:rotate(180deg)}
+.biblelab-reader-body{padding:0 13px 14px;border-top:1px solid var(--bl-separator)}
+.biblelab-reader-actions{display:flex;gap:5px;flex-wrap:wrap;padding:10px 0;margin:0 0 3px}
+.biblelab-reader-action{display:inline-flex;gap:5px;align-items:center;min-height:30px;
+  padding:5px 8px;border-radius:8px;border:1px solid var(--bl-edge);background:var(--background-primary);
+  color:var(--bl-muted);font-size:10px;font-weight:670}
+.biblelab-reader-action svg{width:14px;height:14px}
+.biblelab-reader-action:hover{color:var(--bl-brand);border-color:var(--bl-brand)}
+.biblelab-reader-text{padding:3px 0 10px;line-height:1.75;font-family:var(--font-text);
+  font-size:var(--font-text-size,13px);color:var(--text-normal);overflow-wrap:anywhere}
+.biblelab-reader-text p{margin:0 0 11px;line-height:1.75;font-size:12px;user-select:text}
+.biblelab-reader-text h5{margin:16px 0 7px;font-size:12px;font-family:var(--font-interface);
+  font-weight:760;line-height:1.4;color:var(--bl-brand)}
+.biblelab-reader-document-title{font-size:13px;font-weight:800;letter-spacing:-.02em;margin:7px 0 14px;line-height:1.4}
+.biblelab-reader-note{border-left:2px solid color-mix(in srgb,var(--bl-brand) 65%,transparent);
+  background:color-mix(in srgb,var(--bl-brand) 5%,var(--background-primary));border-radius:0 8px 8px 0;
+  padding:7px 9px!important;font-size:11px!important}
+.biblelab-reader-hint,.biblelab-reader-failure,.biblelab-reader-loading{font-size:11px;line-height:1.55;
+  padding:9px 10px;color:var(--bl-muted);background:var(--background-secondary);border-radius:8px}
+.biblelab-reader-failure{color:var(--text-error)}
+.biblelab-reader-loading{font-style:italic}
+.biblelab-reader-related{margin:9px 0 2px;border-top:1px solid var(--bl-separator);padding-top:9px}
+.biblelab-reader-related>summary{font-size:11px;color:var(--bl-brand);font-weight:760;cursor:pointer;padding:6px 0}
+.biblelab-reader-related-list{max-height:550px;overflow:auto;overscroll-behavior:contain;padding-right:2px}
+.biblelab-reader.is-nested{margin:5px 0;border-radius:10px;box-shadow:none}
+.biblelab-reader.is-nested .biblelab-reader-summary{min-height:46px;padding:8px}
+.biblelab-reader.is-nested .biblelab-reader-glyph{width:26px;height:26px;flex-basis:26px;border-radius:8px}
+.biblelab-reader.is-nested .biblelab-reader-glyph svg{width:14px;height:14px}
+.biblelab-reader.is-nested .biblelab-reader-labels strong{font-size:11px}
+.biblelab-reader-start{margin:13px 0 20px}
+.biblelab-reader-start>h3{font-size:11px;text-transform:uppercase;letter-spacing:.13em;font-weight:830;color:var(--bl-muted);margin:12px 0 4px}
+.biblelab-reader-start>p{font-size:11px;color:var(--bl-muted);line-height:1.5;margin:0 0 9px}
+.biblelab-reader-start>.biblelab-btn{margin-top:3px}
+@media(max-width:350px){.biblelab-reader-summary{padding:10px;gap:8px}.biblelab-reader-labels strong{font-size:11px}.biblelab-reader-body{padding:0 10px 11px}}
+@media(prefers-reduced-motion:reduce){.biblelab-reader,.biblelab-reader-chevron{transition:none}}
