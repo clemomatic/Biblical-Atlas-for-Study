@@ -1,3 +1,4 @@
+import { cleanReadingText } from './readerText.ts';
 /** Bible Lab link and document helpers.
  * No publication texts are shipped, and no unapproved remote service is contacted.
  */
@@ -18,7 +19,7 @@ const BOOKS = [
   '3 Jean','Jude','Révélation'
 ];
 export function normalizeSearch(text: string): string {
-  return text.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'")
+  return cleanReadingText(text).normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[’‘]/g,"'")
     .replace(/\s+/g, ' ').trim().toLocaleLowerCase('fr');
 }
 const ALIASES: Record<string,number> = {};
@@ -35,7 +36,7 @@ for (const [key,id] of Object.entries({
 })) ALIASES[normalizeSearch(key)] = id;
 export interface ScriptureRef { label:string; book:number; chapter:number; verse:number; endVerse?:number }
 export function parseScripture(input: string): ScriptureRef | null {
-  const trimmed = input.replace(/\s+/g,' ').trim();
+  const trimmed = cleanReadingText(input);
   const match = trimmed.match(/^(.+?)\s+(\d{1,3})\s*[:.]\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?$/u);
   if (!match) return null;
   const book = ALIASES[normalizeSearch(match[1])];
