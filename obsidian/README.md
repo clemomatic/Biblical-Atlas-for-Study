@@ -1,3 +1,15 @@
+## Bible Lab 0.8.4 — Réparation des sources officielles
+
+Cette version corrige la récupération du texte du jour et du programme de réunion depuis les structures réelles de WOL et améliore les parcours de lecture des liens officiels.
+
+- **Texte du jour** : reconnaissance précise de la date et récupération du texte à partir des paragraphes qui suivent le titre, y compris lorsqu’ils sont imbriqués dans des blocs HTML.
+- **Programme de réunion** : analyse des dates compactes (« 2-8 novembre »), transversales (« 26 octobre – 1er novembre ») et du suffixe « 1er ». La page `/dt/` de WOL contient aussi les sujets de la réunion de la semaine : le plugin tente désormais d’en extraire les deux contenus en une seule lecture.
+- **Seconde source** : si la partie réunion n’est pas lisible dans WOL, le lecteur peut rechercher la bonne semaine dans le cahier JW.org et accéder au document hebdomadaire.
+- **Recherche WOL** : un lien WOL d’article collé directement ou un verset comme « Jean 7:24 » ouvre maintenant le lecteur plutôt que d’envoyer ces données dans une recherche par mots-clés.
+- **Diagnostic explicite** : bouton « Tester les sources » dans l’onglet WOL affichant l’état HTTP réel du texte du jour, d’un article WOL et du cahier JW.org, sans inventer de résultats ni contourner une restriction de site.
+- **Dégradation honnête** : si les pages ne sont pas lisibles, un avertissement apparaît et le bouton vers le site officiel reste disponible. Une source refusant la récupération automatisée ne peut pas être rendue miraculeusement accessible.
+- **Tests** : exemples basés sur les titres réellement affichés par les pages officielles, notamment les semaines qui chevauchent deux mois, tests réseau simulés et parcours directs.
+
 ## Bible Lab 0.8.3 — lecture documentaire interactive
 
 Version de test centrée sur la consultation des publications et références WOL/JW.org dans le panneau latéral.
