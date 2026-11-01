@@ -449,3 +449,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 
 Cartographie téléchargeable : OpenFreeMap (https://openfreemap.org/), OpenMapTiles (https://openmaptiles.org/), © OpenStreetMap contributors (https://www.openstreetmap.org/copyright). Données OpenStreetMap sous ODbL. Relief Natural Earth : domaine public. Les attributions restent visibles sur la carte et dans les manifestes de téléchargement.
+
+SQL.js 1.14.1 — SQLite compiled to WebAssembly; MIT License.
+Project: https://github.com/sql-js/sql.js
+Uses SQLite (public domain). SQL.js WASM is embedded in the plugin main.js for offline operation.
