@@ -21,11 +21,19 @@ const VERSE_MARKERS=[
  'a[href^="#fn"]','a[href^="#xref"]',
  '[role="doc-noteref"]'
 ].join(',');
+// A note body may itself contain a wrapper with class "fn" or "xref".
+// Remove its citation markers, never the body of the note.
+const NOTE_MARKERS=[
+ 'sup','[class~="fnRef"]','[class~="xrefRef"]',
+ '[class~="verseNum"]','[class~="footnoteRef"]',
+ '[role="doc-noteref"]'
+].join(',');
 export function readableOfficialElement(element:Element,mode:'verse'|'note'|'article'='article',max=12000):string {
  const node=element.cloneNode(true) as Element;
  for(const item of [...node.querySelectorAll(NOISE)])item.remove();
  if(mode==='verse'||mode==='note'){
-  for(const item of [...node.querySelectorAll(VERSE_MARKERS)])item.remove();
+  const markers=mode==='verse'?VERSE_MARKERS:NOTE_MARKERS;
+  for(const item of [...node.querySelectorAll(markers)])item.remove();
  }
  // Paragraph boundaries are preserved in the source; for one verse all line
  // breaks become regular spaces instead of rendering literal HTML artifacts.
