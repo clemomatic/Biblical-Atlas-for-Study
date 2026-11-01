@@ -6,7 +6,7 @@ import { readableOfficialHtml, meaningfulNoteSource } from './readerText.ts';
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
 const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
-const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i;
+const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2}|lmd)\b/i;
 const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
 const validateDocument=(value:string,base:string):string|null=>{
  try{
@@ -104,11 +104,17 @@ function isDocument(html:string):boolean{
  const region=doc.querySelector('.bodyTxt, .document, article .bodyTxt, #article');
  return !!region && ((region.querySelectorAll('p').length>=2)||(region.textContent||'').trim().length>450);
 }
-function knownCitation(reference:string):string|null{
- // Verified WOL bibliographic reference. Useful when the /l/ endpoint
- // responds with a JS redirect that Obsidian requestUrl cannot follow.
- return /^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim())
-   ? WOL+'d/r30/lp-f/2024642':null;
+export function knownCitation(reference:string):string|null{
+ // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
+ // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
+ if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
+   return WOL+'d/r30/lp-f/2024642';
+ const pages=publicationPages(reference);
+ if(pages?.issue==='w18 fevrier' && pages.first>=23 && pages.last<=27)
+   return WOL+'d/r30/lp-f/2018287';
+ if(/^lmd\s+(?:leçon\s*)?11$/i.test(reference.trim()))
+   return WOL+'d/r30/lp-f/1102023311';
+ return null;
 }
 async function officialText(url:string):Promise<string>{
  const safe=canonicalReferenceUrl(url);
