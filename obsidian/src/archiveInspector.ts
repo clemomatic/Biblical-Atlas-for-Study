@@ -58,7 +58,7 @@ export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
   const names=validateZip(raw);
   // Avoid decompressing photos, media and playlists. A modern JW backup can
   // exceed 80 MB; only the manifest and database are needed for inspection.
-  const entries=unzipSync(raw,{filter:entry=>entry.name==='manifest.json'||/userData\\.db$/i.test(entry.name)});
+  const entries=unzipSync(raw,{filter:entry=>entry.name==='manifest.json'||/userData\.db$/i.test(entry.name)});
 
   const manifest=names.find(x=>x==='manifest.json'||x.endsWith('/manifest.json'));
   if(!manifest)throw Error('Le manifest.json attendu est absent.');
@@ -72,7 +72,7 @@ export async function inspectJwArchive(file:File):Promise<ArchiveReport>{
   let checksum='Non vérifié';
   if(dbName){
     const db=entries[dbName];databaseSize=db.length;
-    const isSqlite=db.length>=100 && strFromU8(db.subarray(0,16))==='SQLite format 3\\0';
+    const isSqlite=db.length>=100 && strFromU8(db.subarray(0,16))==='SQLite format 3\0';
     if(isSqlite && kind==='jwlibrary'){
       const expected=typeof metadata.userDataBackup?.hash==='string'?metadata.userDataBackup.hash:'';
       if(expected){
