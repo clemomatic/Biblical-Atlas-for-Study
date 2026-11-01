@@ -6,7 +6,7 @@ import {
   RESOURCES, wolSearch, type MapLocation, type Resource
 } from './bibleLabData';
 import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
-import { dayLink, meetingIssueLink, findMeetingProgramme, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
+import { dayLink, meetingIssueLink, findMeetingProgramme, wolMeetingLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, type ReferenceEntry } from './referenceReader';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
@@ -245,9 +245,9 @@ export class BibleLabSidebarView extends ItemView {
         sectionEl.createEl('strong',{text:section.section});
         for(const item of section.items) sectionEl.createEl('p',{text:item});
       }
-    }else week.createEl('p',{cls:'biblelab-mini',text:'Programme officiel et sujets de la semaine.'});
+    }else week.createEl('p',{cls:'biblelab-mini',text:this.liveError||'Programme officiel disponible sur WOL et dans le cahier Vie et ministère.'});
     const weekActions=week.createDiv({cls:'biblelab-buttons'});
-    button(weekActions,'Voir la réunion','external-link',()=>external(this.live.meeting?.source||meetingIssueLink(now)));
+    button(weekActions,'Voir la réunion','external-link',()=>external(this.live.meeting?.source||dayLink(now)));
     if(this.live.meeting)button(weekActions,'Préparer en note','notebook-pen',()=>this.host.saveWeeklyStudy(this.live.meeting!,now),true);
     this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'CONTINUER'});
     const research=card(this.scroller,'Reprendre ma recherche','Accéder à mes versets et aux références de la note ouverte.');
@@ -262,32 +262,51 @@ export class BibleLabSidebarView extends ItemView {
     const today=new Date();
     const warnings:string[]=[];
     let day:StudyLive['day']=null,meeting:StudyLive['meeting']=null;
+    const dailyUrl=dayLink(today);
     try{
-      // Daily text and weekly meeting are separate publications and sources.
+      // The WOL /dt/ page contains both the Daily Text and this week's
+      // full Life and Ministry programme. Read it once and validate both.
       try{
-        const response=await requestUrl({url:dayLink(today),throw:false});
-        if(response.status!==200)throw Error('Texte du jour indisponible ('+response.status+')');
+        const response=await requestUrl({url:dailyUrl,throw:false});
+        if(response.status!==200)throw Error('WOL HTTP '+response.status);
+        if(!response.text||response.text.length<150)throw Error('Page WOL vide');
         day=parseDailyHtml(response.text,today);
-        if(!day)warnings.push('Texte du jour illisible.');
-      }catch{warnings.push('Texte du jour indisponible.');}
-      const issueUrl=meetingIssueLink(today);
-      try{
-        const index=await requestUrl({url:issueUrl,throw:false});
-        if(index.status!==200)throw Error('Cahier inaccessible');
-        const source=findMeetingProgramme(index.text,today,issueUrl);
-        if(!source)throw Error('Semaine absente du cahier');
-        const response=await requestUrl({url:source,throw:false});
-        if(response.status!==200)throw Error('Programme inaccessible');
-        meeting=parseMeetingHtml(response.text,today);
-        if(meeting)meeting.source=source;
-        else warnings.push('Programme de la semaine illisible.');
-      }catch{warnings.push('Programme de la semaine indisponible : consulte le cahier officiel.');}
-      if(!day&&!meeting)throw Error(warnings.join(' '));
-      this.live={day,meeting};this.liveLastUpdated=Date.now();
+        const programmeLink=wolMeetingLink(response.text,today,dailyUrl)||dailyUrl;
+        meeting=parseMeetingHtml(response.text,today,programmeLink);
+        if(!day)warnings.push('Texte du jour non reconnu sur la page WOL.');
+      }catch(error){
+        warnings.push('Chargement WOL impossible ('+
+          (error instanceof Error?error.message:'connexion')+').');
+      }
+      if(!meeting){
+        // JW.org provides the same programme in a separate weekly document.
+        // This is a fallback; an unavailable index must not discard a good
+        // Daily Text loaded above.
+        const issueUrl=meetingIssueLink(today);
+        try{
+          const index=await requestUrl({url:issueUrl,throw:false});
+          if(index.status!==200)throw Error('JW.org HTTP '+index.status);
+          const source=findMeetingProgramme(index.text,today,issueUrl);
+          if(!source)throw Error('Semaine absente de la page du cahier');
+          const response=await requestUrl({url:source,throw:false});
+          if(response.status!==200)throw Error('JW.org HTTP '+response.status);
+          meeting=parseMeetingHtml(response.text,today,source);
+          if(!meeting)throw Error('Programme non reconnu');
+        }catch(error){
+          warnings.push('Programme non récupéré : '+
+            (error instanceof Error?error.message:'connexion')+'.');
+        }
+      }
+      if(day||meeting){
+        this.live={day,meeting};this.liveLastUpdated=Date.now();
+      }else{
+        this.live={day:null,meeting:null};
+      }
       this.liveError=warnings.join(' ');
-    }catch(error){
-      this.liveError=error instanceof Error?error.message:'Chargement indisponible.';
-    }finally{this.liveLoading=false;if(this.tab==='home')this.render();}
+    }finally{
+      this.liveLoading=false;
+      if(this.tab==='home')this.render();
+    }
   }
   private renderStudio():void{
     this.hero(this.scroller,'ATELIER','Créer, structurer, méditer.','Des supports clairs, modifiables et reliés à tes découvertes.','pen-tool');
