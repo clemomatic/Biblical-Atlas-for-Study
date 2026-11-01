@@ -63,7 +63,8 @@
     "pbf": "4.0.1",
     "react": "^19.0.1",
     "react-dom": "^19.0.1",
-    "vite": "^6.2.3"
+    "vite": "^6.2.3",
+    "sql.js": "1.15.2"
   },
   "devDependencies": {
     "@playwright/test": "^1.61.1",
