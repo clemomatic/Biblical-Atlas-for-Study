@@ -28,6 +28,7 @@ test('Study Studio dashboard offers compact navigation and opens a structured di
 });
 
 test('public daily source loads only on command and meeting content remains linked',async({page})=>{
+  await page.clock.setFixedTime(new Date('2026-10-31T12:00:00Z'));
   await page.clock.install({time:new Date('2026-10-31T12:00:00Z')});
   const html=`<html><body>
     <h2>Samedi 31 octobre</h2>
