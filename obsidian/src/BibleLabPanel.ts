@@ -372,7 +372,11 @@ export class BibleLabSidebarView extends ItemView {
       try{external(jwOrgResearchUrl(this.query));}catch{new Notice('Saisis un sujet à rechercher.');}
     });
     const actions2=this.scroller.createDiv({cls:'biblelab-buttons'});
-    button(actions2,'Lire un passage','book-open',()=>external(this.referenceUrl(this.query)));
+    button(actions2,'Lire dans le panneau','book-open',()=>{
+      const term=this.query.trim();
+      if(!term){new Notice('Saisis un verset, une référence ou un lien WOL.');return;}
+      this.focusReference(cleanWolUrl(term)||this.referenceUrl(term),term);
+    });
     button(actions2,'JW Library','book-marked',()=>{
       const link=jwLibraryLink(this.query);
       if(link)external(link);else new Notice('La passerelle JW Library ouvre des versets reconnus, pas une recherche de mots dans l’application.');
@@ -459,7 +463,8 @@ export class BibleLabSidebarView extends ItemView {
     if(this.tab==='wol')this.render();
     try{
       const response=await requestUrl({url,throw:false});
-      if(response.status!==200)throw Error('WOL a répondu avec le code '+response.status+'.');
+      if(response.status!==200)throw Error('WOL a répondu avec le code '+response.status+
+         (response.status===403||response.status===429?' (accès automatisé limité).':'.'));
       const items=parseWolSearchResults(response.text,url);
       if(!items.length)throw Error('Réponse WOL reçue, mais aucun lien de document exploitable. La recherche peut dépendre de scripts ou d’une structure différente.');
       if(seq!==this.wolResultsSequence)return;
