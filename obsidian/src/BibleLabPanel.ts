@@ -64,14 +64,10 @@ export class BibleLabSidebarView extends ItemView {
   private indexLoaded=false;
   private indexLoading=false;
   private sequence=0;
-  private previewFor='';
-  private previewLines:string[]=[];
-  private previewLoading=false;
   private live: StudyLive = { day:null, meeting:null };
   private liveLoading=false;
   private liveLastUpdated=0;
   private liveError='';
-  private readonly cache=new Map<string,{at:number;lines:string[]}>();
 
   constructor(leaf:WorkspaceLeaf,host:BibleLabHost) {
     super(leaf); this.host=host;
@@ -292,34 +288,6 @@ export class BibleLabSidebarView extends ItemView {
   private openSearch():void{
     const term=this.query.trim();if(!term){new Notice('Saisis une référence ou un sujet.');return;}
     external(wolSearch(term));
-  }
-  private async fetchPreview():Promise<void>{
-    const term=this.query.trim();
-    if(!term || this.previewLoading)return;
-    const cached=this.cache.get(term);
-    if(cached && Date.now()-cached.at<30*60*1000){
-      this.previewFor=term;this.previewLines=cached.lines;this.render();return;
-    }
-    this.previewLoading=true;this.render();
-    try{
-      const response=await requestUrl({url:'https://wol-worker.iaremark.us/'+encodeURIComponent(term),throw:false});
-      if(response.status!==200)throw Error('Service tiers indisponible ('+response.status+').');
-      const data=response.json as {results?:unknown};
-      const html=Array.isArray(data.results)?data.results:[];
-      const lines:string[]=[];
-      for(const part of html.slice(0,12)){
-        if(typeof part!=='string')continue;
-        // Do not inject remote HTML into the Obsidian DOM.
-        const parsed=new DOMParser().parseFromString(part,'text/html');
-        const text=(parsed.body.textContent||'').replace(/\s+/g,' ').trim();
-        if(text)lines.push(text.slice(0,1600));
-      }
-      this.cache.set(term,{at:Date.now(),lines});
-      if(this.query===term){this.previewFor=term;this.previewLines=lines;}
-    }catch(error){
-      if(this.query===term){this.previewFor=term;this.previewLines=[];}
-      new Notice(error instanceof Error?error.message:'Aperçu WOL indisponible.');
-    }finally{this.previewLoading=false;if(this.scroller)this.render();}
   }
   private renderRefs():void{
     heading(this.scroller,'Références','Versets, notes d’étude et articles, sans quitter le panneau.');
