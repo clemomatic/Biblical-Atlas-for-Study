@@ -115,3 +115,40 @@ test('publication reference search opens bibliographic lookup URL with + encoded
   expect(await page.evaluate(()=>(window as any).outbound)).toContain(
     'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+14-19');
 });
+
+
+test('Research filter finds one reference and capture writes only into the selected Markdown note',async({page})=>{
+  await page.evaluate(async()=>{
+    const {app,openMarkdownEditor}=(window as any).atlasTest;
+    const file=await app.vault.create('Mes notes/Recherche personnelle.md',[
+      '# Mes notes de méditation',
+      'Jérémie 45:3',
+      'Matthieu 10:29',
+      '[w24 Novembre p. 14-19]'
+    ].join('\n'));
+    await app.vault.create('Mes notes/À préserver.md','Ne pas modifier.');
+    openMarkdownEditor(file.path);
+  });
+  const pane=page.locator('.biblelab-side');
+  await pane.getByRole('button',{name:'Références'}).click();
+  const input=pane.getByRole('searchbox',{name:'Filtrer les références'});
+  await input.fill('matthieu');
+  await expect(pane.locator('.biblelab-reader-labels strong')).toHaveCount(1);
+  await expect(pane.getByText('1 / 3 références')).toBeVisible();
+  await pane.locator('.biblelab-reader-summary').click();
+  await pane.getByRole('button',{name:'Noter une piste'}).click();
+  const saved=await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Recherche personnelle.md'));
+  expect(saved).toContain('# Mes notes de méditation');
+  expect(saved).toContain('[!question] Piste à explorer · Matthieu 10:29');
+  expect(saved).toContain('**Question à approfondir :**');
+  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/À préserver.md'))).toBe('Ne pas modifier.');
+
+  // A sidebar action must never use the previous editor when another file is active.
+  await page.evaluate(()=>{
+    const {app}=(window as any).atlasTest;
+    app.workspace.activeFile=app.vault.getAbstractFileByPath('Mes notes/À préserver.md');
+  });
+  await pane.getByRole('button',{name:'Noter une piste'}).click();
+  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/À préserver.md'))).toBe('Ne pas modifier.');
+  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Recherche personnelle.md'))).toBe(saved);
+});
