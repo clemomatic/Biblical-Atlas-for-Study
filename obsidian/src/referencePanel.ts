@@ -36,22 +36,95 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const draw=(result:ReaderResult):void=>{
    currentUrl=result.sourceUrl;
    contents.empty();
-   if(result.title && result.title!==ref.label)contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
+   if(result.title&&result.title!==ref.label)
+     contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
    if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:result.notice});
-   if(result.lines.length){
-     const lines=contents.createDiv({cls:'biblelab-reader-text'});
-     for(const part of result.lines){
-       lines.createEl(part.type==='heading'?'h5':'p',{text:part.text,cls:part.type==='note'?'biblelab-reader-note':''});
+   if(!result.lines.length)
+     contents.createDiv({cls:'biblelab-reader-hint',text:'Contenu indisponible ici. Consulte la page originale sur WOL.'});
+
+   if(result.kind==='verse'){
+     const verses=result.lines.filter(x=>x.type==='verse'||x.type==='paragraph');
+     for(const line of verses){
+       const verse=contents.createDiv({cls:'biblelab-verse-reading'});
+       const marker=verse.createDiv({cls:'biblelab-verse-reading-label',text:'TEXTE BIBLIQUE'});
+       const content=verse.createEl('p',{cls:'biblelab-verse-reading-copy',text:line.text});
+       marker.setAttribute('aria-label','Texte biblique');
+       content.setAttribute('lang','fr');
      }
-   }else contents.createDiv({cls:'biblelab-reader-hint',text:'Texte indisponible sur cette page. Consulter WOL.'});
+     const sections=[
+       {kind:'study',title:'Notes d’étude',icon:'book-open-check'},
+       {kind:'note',title:'Notes de traduction',icon:'notebook-pen'},
+       {kind:'crossref',title:'Renvois bibliques',icon:'link-2'},
+     ] as const;
+     for(const section of sections){
+       const parts=result.lines.filter(x=>x.type===section.kind);
+       if(!parts.length)continue;
+       const group=contents.createEl('details',{cls:'biblelab-reader-section'});
+       if(section.kind!=='crossref')group.open=true;
+       const summary=group.createEl('summary',{cls:'biblelab-reader-section-title'});
+       const glyph=summary.createSpan();setIcon(glyph,section.icon);
+       summary.createSpan({text:section.title});
+       summary.createSpan({cls:'biblelab-reader-section-count',text:String(parts.length)});
+       const list=group.createDiv({cls:'biblelab-reader-section-list'});
+       for(const part of parts){
+         const note=list.createDiv({cls:'biblelab-reader-note-card'});
+         if(part.source)note.createEl('strong',{cls:'biblelab-reader-note-source',text:part.source});
+         note.createEl('p',{text:part.text,attr:{lang:'fr'}});
+       }
+     }
+     for(const part of result.lines.filter(x=>x.type==='heading'||x.type==='question')){
+       contents.createEl('p',{cls:'biblelab-reader-hint',text:part.text});
+     }
+   }else if(result.lines.length){
+     const article=contents.createDiv({cls:'biblelab-reader-text biblelab-article-reading'});
+     // Long articles should remain usable on narrow mobile sidebars.
+     // Rendering more is local and does not trigger extra website requests.
+     let displayed=0;
+     const batchSize=16;
+     const lines=result.lines.filter((line,i)=>
+       !(i===0&&line.type==='heading'&&line.text===result.title));
+     const append=(amount:number):void=>{
+       const to=Math.min(displayed+amount,lines.length);
+       for(;displayed<to;displayed++){
+         const part=lines[displayed];
+         if(part.type==='heading'){
+           article.createEl('h5',{cls:'biblelab-article-heading',text:part.text});
+         }else if(part.type==='question'){
+           article.createEl('p',{cls:'biblelab-article-question',text:part.text});
+         }else if(part.type==='caption'){
+           article.createEl('p',{cls:'biblelab-article-caption',text:part.text});
+         }else{
+           const wrap=article.createDiv({cls:'biblelab-article-paragraph'});
+           if(part.number)wrap.createSpan({cls:'biblelab-article-parnum',text:part.number});
+           wrap.createEl('p',{text:part.text,attr:{lang:'fr'},
+             cls:part.type==='note'?'biblelab-reader-note':''});
+         }
+       }
+       more.remove();
+       if(displayed<lines.length){
+         more.setText('Afficher la suite · '+(lines.length-displayed)+' blocs');
+         article.appendChild(more);
+       }
+     };
+     const more=article.createEl('button',{cls:'biblelab-reader-more',attr:{type:'button'}});
+     more.addEventListener('click',()=>append(batchSize));
+     append(batchSize);
+   }
+
    if(result.links.length&&depth<2){
      const related=contents.createEl('details',{cls:'biblelab-reader-related'});
-     related.createEl('summary',{text:result.kind==='verse'?'Notes et références liées':'Articles et références liées'});
+     related.createEl('summary',{text:result.kind==='verse'?
+       'Ouvrir les références et documents liés ('+result.links.length+')':
+       'Parcourir les références de l’article ('+result.links.length+')'});
      const list=related.createDiv({cls:'biblelab-reader-related-list'});
-     for(const link of result.links.slice(0,20)){
+     const current=new URL(currentUrl);
+     let shown=0;
+     for(const link of result.links){
+       if(link.url===current.href||shown++>=20)continue;
        renderReferenceAccordion(list,{
          label:link.label,url:link.url,
-         kind:link.url.includes('/wol/b/')?'scripture':link.url.includes('/wol/d/')?'document':'publication',origin:'markdown'
+         kind:link.url.includes('/wol/b/')?'scripture':link.url.includes('/wol/d/')?'document':'publication',
+         origin:'markdown'
        },state,depth+1);
      }
    }
