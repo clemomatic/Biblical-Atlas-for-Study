@@ -12,6 +12,7 @@ export interface ReaderState {
  navigate?:(ref:ReferenceEntry)=>void;
  articleFontSize?:number;
  remember?:(ref:ReferenceEntry)=>void;
+ insert?:(ref:ReferenceEntry)=>void;
 }
 function key(item:ReferenceEntry):string{return item.url+'#'+item.label;}
 function action(parent:HTMLElement,label:string,icon:string,callback:()=>void):void {
@@ -34,6 +35,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  let currentUrl=ref.url;
  action(buttons,'WOL','external-link',()=>state.open(currentUrl));
  action(buttons,'Copier','copy',()=>state.copy(currentUrl));
+ if(state.insert)action(buttons,'Insérer dans ma note','file-plus',()=>state.insert?.({...ref,url:currentUrl}));
  if(depth>0 && state.navigate)action(buttons,'Lire en grand','panel-top',()=>state.navigate?.(ref));
  if(ref.kind==='scripture'){const jw=jwLibraryLink(ref.label);if(jw)action(buttons,'JW Library','book-marked',()=>state.open(jw));}
  const contents=body.createDiv({cls:'biblelab-reader-contents'});
