@@ -106,3 +106,36 @@ test('Personal JW Library backup notes are searchable locally without any networ
  expect(await page.evaluate(()=>(window as any).atlasTest.app.workspace.lastOpened))
   .toBe('Atlas biblique/Imports/Exemple.md');
 });
+
+
+test('Pasting a direct official WOL article URL opens the integrated reader',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642',route=>
+   route.fulfill({status:200,contentType:'text/html',
+     body:'<html><main><h1>Article officiel</h1><p>Un texte documentaire lisible.</p></main></html>'}));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Mot, sujet ou verset…').fill('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
+ await expect(pane.getByText('Un texte documentaire lisible.')).toBeVisible();
+});
+
+test('An entered Bible reference opens a verse directly instead of running a keyword search',async({page})=>{
+ await page.route('**/json/html/43007024',route=>route.fulfill({status:200,contentType:'application/json',body:
+  JSON.stringify({ranges:{'43007024':{citation:'Jean 7:24',html:'<p>Jugez avec justice.</p>'}}})}));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Mot, sujet ou verset…').fill('Jean 7:24');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
+ await expect(pane.getByText('Jugez avec justice.')).toBeVisible();
+});
+
+test('The source test shows site status without claiming inaccessible sources work',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/dt/**',route=>route.fulfill({status:200,contentType:'text/html',body:'<html><main><h1>Daily</h1></main></html>'}));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642',route=>route.fulfill({status:403,body:'Forbidden'}));
+ await page.route('https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/**',route=>route.fulfill({status:503,body:'Unavailable'}));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByRole('button',{name:'Tester les sources'}).click();
+ await expect(pane.getByText(/Texte du jour WOL : page HTML accessible/)).toBeVisible();
+ await expect(pane.getByText(/Article WOL : HTTP 403/)).toBeVisible();
+ await expect(pane.getByText(/Cahier JW.org : HTTP 503/)).toBeVisible();
+});
