@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { cleanWolUrl, extractReferenceEntries, passageUrl } from './referenceReader.ts';
+import { cleanWolUrl, extractReferenceEntries, passageUrl, linkifyReaderText } from './referenceReader.ts';
 import { wolLookup } from './bibleLabData.ts';
 
 test('Correct WOL lookup endpoint and application/x-www-form-urlencoded encoding',()=>{
@@ -60,4 +60,29 @@ test('Bible references containing literal encoded nbsp are recognized and displa
  assert.ok(refs.some(ref=>ref.label==='Jean 7:24'),JSON.stringify(refs));
  assert.ok(refs.some(ref=>ref.label==='Matthieu 10:29'),JSON.stringify(refs));
  assert.equal(passageUrl('Jean&amp;nbsp;7:24'),'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/43/7');
+});
+
+test('Make exact scripture references clickable while preserving original prose',()=>{
+ const input='L’attitude de Jésus en Marc 10:14 rejoint Jean 7:24. Marc 10:14 nous éclaire.';
+ const parts=linkifyReaderText(input);
+ assert.equal(parts.map(x=>x.text).join(''),input);
+ assert.equal(parts.filter(x=>x.url).length,3);
+ assert.deepEqual(parts.filter(x=>x.url).map(x=>x.text),['Marc 10:14','Jean 7:24','Marc 10:14']);
+ assert.equal(parts.find(x=>x.text==='Jean 7:24')?.url,'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/43/7');
+});
+test('Use official WOL paragraph anchors and discard malicious or off-site links',()=>{
+ const text='Voir Étude complémentaire et Jean 7:24 pour la suite.';
+ const p=linkifyReaderText(text,[
+   {label:'Étude complémentaire',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/2024642'},
+   {label:'Jean 7:24',url:'https://other.example/fr/wol/d/r30/lp-f/123'},
+ ]);
+ assert.equal(p.map(x=>x.text).join(''),text);
+ assert.equal(p.find(x=>x.text==='Étude complémentaire')?.url,
+  'https://wol.jw.org/fr/wol/d/r30/lp-f/2024642');
+ assert.equal(p.find(x=>x.text==='Jean 7:24')?.kind,'scripture');
+ assert.ok(p.every(x=>!x.url||new URL(x.url).hostname==='wol.jw.org'));
+});
+test('Do not treat partial words as scripture links',()=>{
+ const p=linkifyReaderText('MonJean 7:24X ne doit pas être reconnu.');
+ assert.equal(p.filter(x=>x.url).length,0);
 });
