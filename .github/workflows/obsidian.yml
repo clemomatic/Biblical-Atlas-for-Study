@@ -2,9 +2,9 @@ name: Obsidian plugin
 on:
   push:
     branches: [main]
-    paths: ['obsidian/**', 'src/**', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
+    paths: ['obsidian/**', 'src/**', 'tools/bible_lab_bridge.py', 'tools/test_bible_lab_bridge.py', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
   pull_request:
-    paths: ['obsidian/**', 'src/**', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
+    paths: ['obsidian/**', 'src/**', 'tools/bible_lab_bridge.py', 'tools/test_bible_lab_bridge.py', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
 permissions:
   contents: read
 jobs:
@@ -21,7 +21,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm obsidian:typecheck
-      - run: pnpm obsidian:test
+      - run: python tools/test_bible_lab_bridge.py\n      - run: pnpm obsidian:test
       - run: pnpm obsidian:package
       # Publishing the build artifact independently of the optional graphical
       # smoke suite keeps an installable preview available if Chromium flakes.
