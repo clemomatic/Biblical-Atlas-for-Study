@@ -65,7 +65,7 @@ test('JW Library backup imports GUIDs, tags and markdown index without Python',a
  await (await choose).setFiles({name:'example.jwlibrary',mimeType:'application/zip',buffer:Buffer.from(src)});
  await expect(page.getByText('notes personnelles')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
- await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.includes(GUID)))).toBeTruthy();
+ await expect.poll(async()=>page.evaluate((guid:string)=>(window as any).atlasTest.files().some((f:any)=>f.path.includes(guid)), GUID)).toBeTruthy();
  const note=await page.evaluate(()=>(window as any).atlasTest.files().find((f:any)=>f.path.endsWith(GUID+'.md')).content);
  expect(note).toContain('jw_guid: "'+GUID+'"');
  expect(note).toContain('jw_tags: ["Méditation"]');
