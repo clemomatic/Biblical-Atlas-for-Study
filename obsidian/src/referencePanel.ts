@@ -30,6 +30,12 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  labels.createEl('strong',{text:ref.label});
  labels.createSpan({text:ref.kind==='scripture'?'Bible d’étude · notes / renvois':ref.kind==='document'?'Document WOL':'Publication · référence'});
  const chevron=summary.createSpan({cls:'biblelab-reader-chevron'});setIcon(chevron,'chevron-down');
+ // Only an explicit opening by the user adds a reference to history.
+ // Programmatic opening (restore/focus/back) uses details.open and must not
+ // insert phantom history entries via the asynchronous toggle event.
+ summary.addEventListener('click',()=>{
+   if(!details.open && depth===0)state.remember?.(ref);
+ });
  const body=details.createDiv({cls:'biblelab-reader-body'});
  const buttons=body.createDiv({cls:'biblelab-reader-actions'});
  let currentUrl=ref.url;
