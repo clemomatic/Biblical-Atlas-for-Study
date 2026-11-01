@@ -1,6 +1,23 @@
-# Bible Lab — Study Studio (0.6.0)
+# Bible Lab — Study Studio (0.7.0)
 
 **Bible Lab Study Studio 0.4** conserve le plugin Atlas biblique existant et y ajoute un panneau d'étude WOL/JW Library, un index des cartes bibliques et la bibliothèque des appendices. L'identifiant technique `atlas-biblique` ne change pas : la version 0.3 remplace la version 0.2 dans le même dossier, sans créer un second plugin ni réécrire les notes du coffre.
+
+### Nouveau lecteur de références — 0.7
+
+L'onglet **Références** remplace **Versets**. Le plugin détecte dans la note active :
+
+- les références bibliques classiques (`Matthieu 10:29`, `2 Co 4:16`...) ;
+- les marqueurs `!!référence!!` (plusieurs références séparées par `;`) ;
+- les mentions de publication entre crochets, par exemple `[w24 Novembre p. 14-19]` ;
+- les liens Markdown WOL `[Titre de l'article](https://wol.jw.org/fr/wol/d/...)`, y compris les URLs directes entre `[crochets]`.
+
+Chaque référence est un **panneau dépliable**, chargé seulement sur demande, avec le texte de la source WOL, les notes disponibles, les renvois et les documents cités. Les liens vers les documents repérés permettent d'ouvrir un deuxième niveau de lecture **dans le même panneau**, sans remplacer le texte consulté. Les liens WOL officiels restent disponibles si l'extraction ne fonctionne pas.
+
+Les versets ouvrent leur **chapitre de la Bible d'étude**, avec tentative d'isoler le verset exact, ses notes et renvois à partir du HTML officiel. La structure de WOL peut changer : un message le signale et le lien officiel permet de poursuivre. Les articles ne sont **pas** recopiés dans le coffre ; le panneau garde un cache temporaire en mémoire.
+
+**Correction importante :** les références de publication utilisent `https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+14-19` et non la route de recherche `/wol/s/`.
+
+Confidentialité : récupération à la demande depuis `wol.jw.org` uniquement, jamais via l'ancien service tiers d'aperçu. Le contenu externe est affiché en texte simple, sans exécuter de HTML provenant du site.
 
 ### Nouvelle passerelle JW intégrée — 0.6.0
 
