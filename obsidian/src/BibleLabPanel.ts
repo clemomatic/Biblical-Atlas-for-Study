@@ -10,6 +10,7 @@ import { dayLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } 
 import { extractReferenceEntries, cleanWolUrl, passageUrl, type ReferenceEntry } from './referenceReader';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
+import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -62,6 +63,11 @@ export class BibleLabSidebarView extends ItemView {
   private wolResultsError='';
   private wolResultsLoading=false;
   private wolResultsSequence=0;
+  private localHits:LocalJwHit[]=[];
+  private localHitsQuery='';
+  private localSearchLoading=false;
+  private localSearchError='';
+  private localSearchSequence=0;
   private mapTerm='';
   private libraryTerm='';
   private noteRefs: ReferenceEntry[] = [];
@@ -265,6 +271,7 @@ export class BibleLabSidebarView extends ItemView {
       if(this.query!==text){
         this.query=text;this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
         this.wolResultsSequence++;this.wolResultsLoading=false;
+        this.localSearchSequence++;this.localSearchLoading=false;this.localHits=[];this.localHitsQuery='';this.localSearchError='';
       }
     },()=>void this.loadWolResults());
 
@@ -320,6 +327,25 @@ export class BibleLabSidebarView extends ItemView {
       this.scroller.createEl('p',{cls:'biblelab-mini',text:'Aperçu des liens présents sur la première page seulement. Pour tous les résultats ou des filtres avancés, utilise WOL.'});
     }
 
+    this.scroller.createEl('div',{cls:'biblelab-eyebrow',text:'MES NOTES JW LIBRARY'});
+    const local=this.scroller.createDiv({cls:'biblelab-reader-start biblelab-local-jw'});
+    local.createEl('p',{text:'Recherche privée dans les notes déjà importées depuis une sauvegarde JW Library. Rien n’est envoyé en ligne.'});
+    const localBtn=button(local,this.localSearchLoading?'Recherche locale…':'Chercher mes notes','file-search',()=>void this.searchImportedNotes());
+    localBtn.disabled=this.localSearchLoading;
+    if(this.localSearchError)local.createEl('p',{cls:'biblelab-reader-hint',text:this.localSearchError});
+    if(this.localHitsQuery && !this.localSearchLoading){
+      local.createEl('p',{cls:'biblelab-mini',text:this.localHits.length+' note(s) trouvée(s) · recherche sur les 30 premiers résultats'});
+      for(const hit of this.localHits){
+        const item=card(local,hit.title,hit.excerpt);
+        item.addClass('biblelab-local-jw-result');
+        button(item,'Ouvrir la note','file-text',()=>{
+          const file=this.app.vault.getAbstractFileByPath(hit.path);
+          if(!(file instanceof TFile)){new Notice('La note a été déplacée ou supprimée.');return;}
+          void this.app.workspace.getLeaf('tab').openFile(file);
+        });
+      }
+    }
+
     const read=this.scroller.createDiv({cls:'biblelab-reader-start'});
     read.createEl('h3',{text:'Lire une référence précise'});
     read.createEl('p',{text:'Versets avec notes d’étude et renvois, ou publications officielles, chargés sur demande.'});
@@ -360,6 +386,48 @@ export class BibleLabSidebarView extends ItemView {
     }finally{
       if(seq===this.wolResultsSequence){
         this.wolResultsLoading=false;if(this.tab==='wol')this.render();
+      }
+    }
+  }
+  private async searchImportedNotes():Promise<void>{
+    const term=this.query.trim();
+    if(!term){new Notice('Saisis un terme pour retrouver tes notes importées.');return;}
+    if(this.localSearchLoading)return;
+    const seq=++this.localSearchSequence;
+    this.localSearchLoading=true;this.localSearchError='';this.localHits=[];this.localHitsQuery='';
+    if(this.tab==='wol')this.render();
+    try{
+      const files=this.app.vault.getMarkdownFiles().filter(f=>f.path.toLowerCase().includes('/imports/'));
+      let scanned=0;
+      const matches:LocalJwHit[]=[];
+      // Indexed on demand only. Keep a small bounded read queue to avoid
+      // exhausting mobile memory when the backup contains thousands of notes.
+      for(let i=0;i<Math.min(files.length,3000) && matches.length<30;i+=12){
+        const batch=files.slice(i,Math.min(i+12,3000));
+        const notes=await Promise.all(batch.map(async f=>{
+          try{return {path:f.path,markdown:await this.app.vault.cachedRead(f)};}
+          catch{return null;}
+        }));
+        if(seq!==this.localSearchSequence)return;
+        for(const note of notes){
+          if(!note)continue;
+          scanned++;
+          const hit=parseImportedJwNote(note.path,note.markdown,term);
+          if(hit){matches.push(hit);if(matches.length>=30)break;}
+        }
+      }
+      if(seq!==this.localSearchSequence)return;
+      this.localHits=matches;this.localHitsQuery=term;
+      if(!matches.length)this.localSearchError=files.length
+       ?'Aucune note JW Library importée ne correspond à ce terme.'
+       :'Aucune note JW Library importée : utilise Studio → Bibliothèque personnelle pour importer une sauvegarde.';
+      if(files.length>3000)this.localSearchError+=' Recherche limitée aux 3 000 premiers fichiers importés.';
+    }catch(error){
+      if(seq!==this.localSearchSequence)return;
+      this.localSearchError=error instanceof Error?error.message:'Lecture des notes impossible.';
+    }finally{
+      if(seq===this.localSearchSequence){
+        this.localSearchLoading=false;if(this.tab==='wol')this.render();
       }
     }
   }
