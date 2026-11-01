@@ -42,3 +42,14 @@ test('Only official WOL URLs are accepted, code and YAML links ignored',()=>{
  assert.equal(r.length,1);assert.equal(r[0].label,'Document');
  assert.equal(r[0].url,'https://wol.jw.org/fr/wol/d/r30/lp-f/11');
 });
+
+test('Legacy WOL /s publication citations are upgraded to /l without rewriting topical searches',()=>{
+  const legacy='https://wol.jw.org/fr/wol/s/r30/lp-f?q=w24%20Novembre%20p.%2014-19';
+  const corrected='https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+14-19';
+  assert.equal(cleanWolUrl(legacy),corrected);
+  const found=extractReferenceEntries('[Article source]('+legacy+')');
+  assert.equal(found[0]?.url,corrected);
+  assert.equal(found[0]?.label,'Article source');
+  assert.equal(cleanWolUrl('https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour%20biblique'),
+    'https://wol.jw.org/fr/wol/s/r30/lp-f?q=amour+biblique');
+});
