@@ -149,7 +149,13 @@ export function parseMeetingHtml(html:string,date:Date,source=dayLink(date)):Mee
   }
   // An official meeting may have captions or links inside its H3/H4 entries.
   if(section && el.matches('h3,h4,h5') && section.items.length<15 &&
-   !/^(?:notes|renvois|index)$/i.test(t))section.items.push(keep(t,160));
+   !/^(?:notes|renvois|index)$/i.test(t)){
+    const sibling=el.nextElementSibling;
+    const durationNode=sibling?.matches('p')?sibling:sibling?.querySelector('p');
+    const duration=clear(durationNode?.textContent||'');
+    const time=/^\\(\\d{1,3}\\s*min\\)/i.test(duration)?' · '+keep(duration,25):'';
+    section.items.push(keep(t,160)+time);
+   }
   if(sections.length>=3&&/paroles de conclusion/i.test(value))break;
  }
  return sections.length?{week:weekTitle(date),bibleReading,sections,source}:null;
