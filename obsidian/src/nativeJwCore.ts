@@ -1,5 +1,6 @@
 import initSqlJs from 'sql.js/dist/sql-wasm-inline.js';
-import { unzipSync, zipSync, strFromU8, strToU8 } from 'fflate';
+import { unzipSync, strFromU8, strToU8 } from 'fflate';
+import { replaceZipEntries } from './nativeZipPatch';
 import { validateZip } from './archiveInspector';
 
 type Database = InstanceType<(Awaited<ReturnType<typeof initSqlJs>>)['Database']>;
@@ -190,11 +191,9 @@ export async function encodeBackup(archive:JwBackup,newDb:Uint8Array):Promise<Ui
   const metadata=JSON.parse(JSON.stringify(archive.manifest));
   metadata.userDataBackup.hash=await digest(newDb);
   metadata.userDataBackup.lastModifiedDate=new Date().toISOString().replace(/\.\d{3}Z$/,'Z');
-  const all=unzipSync(archive.archive);
-  if(!all[archive.dbName])throw Error('Archive incomplète lors de la réexportation.');
-  all[archive.dbName]=newDb;
-  all['manifest.json']=strToU8(JSON.stringify(metadata));
-  const out=zipSync(all,{level:1});
+  const out=replaceZipEntries(archive.archive,new Map<string,Uint8Array>([
+    [archive.dbName,newDb],['manifest.json',strToU8(JSON.stringify(metadata))]
+  ]));
   if(out.length>170*1024*1024)throw Error('Sauvegarde exportée trop volumineuse.');
   return out;
 }
