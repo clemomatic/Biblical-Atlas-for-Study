@@ -94,6 +94,31 @@ function relevantVerseNode(doc:Document,scripture:ScriptureRef):Element|null {
    return ids.some(v=>id===v||id.startsWith(v+'-'))||id===String(verse);
  })||null;
 }
+function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
+  const name=scripture.label.replace(/[-–]\d+$/,'');
+  // WOL's Bible study view also renders a verse-keyed apparatus with
+  // "Notes", "Renvois" and "Index". Take only the requested verse apparatus,
+  // not the surrounding chapter's footnotes.
+  const headings=[...root.querySelectorAll('h2,h3,h4,h5')];
+  const start=headings.find(el=>normalizedText(el,180)===name);
+  if(!start)return [];
+  const lines:ReaderLine[]=[];
+  let node=start.nextElementSibling;let scanned=0;let section='Note';
+  while(node && scanned++<65 && lines.length<35){
+    const current=node;
+    if(/^H[2-5]$/.test(current.tagName)){
+      const t=normalizedText(current,160);
+      if(/^.+\s+\d{1,3}:\d{1,3}$/.test(t))break;
+      if(/^(Notes|Renvois|Index|Guide de recherche|Index des publications)$/i.test(t))section=t;
+      else if(t)lines.push({type:'heading',text:t});
+    }else{
+      const t=normalizedText(current,1200);
+      if(t)lines.push({type:/note|renvoi/i.test(section)?'note':'paragraph',text:t});
+    }
+    node=node.nextElementSibling;
+  }
+  return lines;
+}
 function gatherSections(root:Element,limit=32):ReaderLine[]{
  const lines:ReaderLine[]=[];const seen=new Set<string>();
  for(const el of [...root.querySelectorAll('h1,h2,h3,h4,p,li,blockquote,dt,dd')]){
@@ -136,6 +161,8 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
      const wrap=node.closest('p, li, div')||node;
      const verseText=normalizedText(wrap,1100);
      if(verseText)lines.push({type:'paragraph',text:verseText});
+     const apparatus=studyNotesForVerse(root,scripture);
+     for(const part of apparatus)if(!lines.some(x=>x.text===part.text))lines.push(part);
      // The 2013 study Bible places notes, cross-references and research
      // indexes next to or beneath the verse, sometimes inside a sibling.
      const local=wrap.parentElement;
@@ -146,11 +173,17 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
        }
      }
    }else{
-     notice='Le verset précis n’a pas pu être isolé : extrait du chapitre et accès à la Bible d’étude.';
-     lines=gatherSections(root,14);
+     const apparatus=studyNotesForVerse(root,scripture);
+     if(apparatus.length){
+       lines=apparatus;
+       notice='Notes et renvois trouvés ; utilise WOL pour vérifier le texte exact du verset.';
+     }else{
+       notice='Le verset précis n’a pas pu être isolé : extrait du chapitre et accès à la Bible d’étude.';
+       lines=gatherSections(root,14);
+     }
    }
  }else{
-   lines=gatherSections(root,isLookup?16:35);
+   lines=gatherSections(root,isLookup?22:145);
  }
  if(!lines.length&&normalizedText(root)){
    lines=[{type:'paragraph',text:normalizedText(root,2400)}];
