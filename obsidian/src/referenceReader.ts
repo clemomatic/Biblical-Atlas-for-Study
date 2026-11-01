@@ -185,7 +185,7 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  const selected=scripture&&isVerse?relevantVerseNode(doc,scripture):null;
  const local=selected?.closest('p,li,[data-verse]')||selected?.parentElement;
  const localLinks=local?[...local.querySelectorAll<HTMLAnchorElement>('a[href]'),
-   ...[local.nextElementSibling?.querySelectorAll<HTMLAnchorElement>('a[href]')||[]].flat()]:[];
+   ...(local.nextElementSibling?.querySelectorAll<HTMLAnchorElement>('a[href]')||[])]:[];
  const candidateLinks=isVerse?[...targeted,...localLinks]:root.querySelectorAll<HTMLAnchorElement>('a[href]');
  for(const a of candidateLinks){
    const href=allowLink(a.getAttribute('href')||'',official);
