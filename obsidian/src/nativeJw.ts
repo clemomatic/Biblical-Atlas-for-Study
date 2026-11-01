@@ -39,7 +39,7 @@ export async function openDb(bytes:Uint8Array):Promise<Db> {
 function query(db:Db,sql:string):any[]{const r=db.exec(sql);if(!r.length)return [];return r[0].values.map(values=>Object.fromEntries(r[0].columns.map((c,i)=>[c,values[i]])));}
 function one(db:Db,sql:string):any {return query(db,sql)[0]||null;}
 function safeName(name:string):string{return name.normalize('NFC').replace(/[\\/:*?"<>|\x00-\x1f]/g,' ').replace(/\s+/g,' ').trim().slice(0,82)||'Sans titre';}
-function safeZip(data:Uint8Array):void {
+function safeZip(data:Uint8Array):string[] {
  assert(data.length<=MAX_BYTES,'Archive trop volumineuse (150 Mo maximum).');
  const v=new DataView(data.buffer,data.byteOffset,data.byteLength);let end=-1;
  for(let i=data.length-22;i>=Math.max(0,data.length-65557);i--){
@@ -60,6 +60,7 @@ function safeZip(data:Uint8Array):void {
    names.add(name);pos+=46+len+extra+comment;
  }
  assert(pos===offset+size,'Table ZIP incohérente.');
+ return Array.from(names);
 }
 function extract(bytes:Uint8Array, filter?:(name:string)=>boolean):Record<string,Uint8Array>{
  safeZip(bytes);
@@ -246,8 +247,12 @@ export async function createExport(plan:ExportPlan, original:File):Promise<Uint8
    files[plan.source.dbName]=outDb;
    files['manifest.json']=strToU8(JSON.stringify(manifest));
    const zipped=zipSync(Object.fromEntries(Object.entries(files).map(([name,data])=>[name,[data,{level:name==='manifest.json'||name===plan.source.dbName?6:0}]])) as any);
+   const exportedNames=safeZip(zipped).sort();
+   const sourceNames=Object.keys(files).sort();
+   assert(JSON.stringify(exportedNames)===JSON.stringify(sourceNames),'Fichiers de la sauvegarde modifiés ou perdus.');
    const checked=await openSource(zipped);
-   assert(checked.schema===plan.source.schema&&Object.keys(files).length===Object.keys(checked.zip).length || checked.schema===plan.source.schema,'Export incorrect.');
+   assert(checked.schema===plan.source.schema,'Le schéma de la sauvegarde a changé.');
+   assert(checked.manifest.userDataBackup.hash===await digest(outDb),'Empreinte de la base modifiée.');
    return zipped;
  }finally{db.close();}
 }
