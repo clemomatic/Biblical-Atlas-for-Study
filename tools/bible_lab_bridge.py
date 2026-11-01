@@ -114,6 +114,7 @@ def export_backup(source:Path,notes:Path,dest:Path):
     with z,tempfile.TemporaryDirectory() as tmp:
         con,db_path,schema=sqlite_copy(db,type('Temp',(),{'name':tmp})())
         if schema!=report['schema_version']:raise ValueError('Schéma différent')
+        baseline_fk=set(map(tuple,con.execute('PRAGMA foreign_key_check').fetchall()))
         known={r[0]:(r[1],r[2] or '',r[3] or '') for r in con.execute('SELECT Guid,NoteId,Title,Content FROM Note')}
         changes=[];seen=set()
         for file in notes.glob('*.md'):
@@ -132,8 +133,8 @@ def export_backup(source:Path,notes:Path,dest:Path):
             con.executemany('UPDATE Note SET Title=?,Content=?,LastModified=? WHERE NoteId=?',[(title,content,now,nid) for title,content,nid in changes])
             con.execute('UPDATE LastModified SET LastModified=?',(now,))
         if con.execute('PRAGMA integrity_check').fetchone()[0]!='ok':raise ValueError('PRAGMA integrity_check échoué')
-        fk=con.execute('PRAGMA foreign_key_check').fetchall()
-        if fk:raise ValueError('PRAGMA foreign_key_check échoué')
+        fk=set(map(tuple,con.execute('PRAGMA foreign_key_check').fetchall()))
+        if fk!=baseline_fk:raise ValueError('Une relation SQLite a été modifiée ou corrompue : export refusé')
         if con.execute('SELECT COUNT(*) FROM Note').fetchone()[0]!=len(known):raise ValueError('Perte de notes détectée')
         con.close()
         new_bytes=db_path.read_bytes()
@@ -155,7 +156,7 @@ def export_backup(source:Path,notes:Path,dest:Path):
             partial.replace(dest)
         finally:
             if partial.exists():partial.unlink()
-        return {'changed':len(changes),'output':str(dest),'source_unchanged':True,'size_bytes':dest.stat().st_size}
+        return {'changed':len(changes),'output':str(dest),'source_unchanged':True,'size_bytes':dest.stat().st_size,'pre_existing_fk_issues':len(baseline_fk)}
 
 def import_jwpub(path:Path,dest:Path):
     try:
