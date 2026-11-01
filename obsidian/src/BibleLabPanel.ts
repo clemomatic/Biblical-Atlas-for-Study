@@ -60,6 +60,7 @@ export class BibleLabSidebarView extends ItemView {
   private query='';
   private searchMatch:WolMatchMode='par';
   private searchScope:WolSearchScope='all';
+  private researchContext='';
   private wolResults:WolSearchHit[]=[];
   private wolResultsQuery='';
   private wolResultsError='';
@@ -391,6 +392,40 @@ export class BibleLabSidebarView extends ItemView {
       }
     },()=>void this.loadWolResults());
 
+    const modes=this.scroller.createDiv({cls:'biblelab-research-modes',attr:{
+      role:'group','aria-label':'Outil de recherche'}});
+    const researchModes:{value:WolSearchScope;title:string;icon:string}[]=[
+      {value:'all',title:'Publications',icon:'library-big'},
+      {value:'index',title:'Index',icon:'list-tree'},
+      {value:'guide',title:'Guide de recherche',icon:'compass'}
+    ];
+    for(const mode of researchModes){
+      const active=this.searchScope===mode.value;
+      const toggle=modes.createEl('button',{cls:'biblelab-research-mode',attr:{
+        type:'button','aria-pressed':String(active),'aria-label':mode.title}});
+      const glyph=toggle.createSpan();setIcon(glyph,mode.icon);
+      toggle.createSpan({text:mode.title});
+      toggle.addEventListener('click',()=>{
+        if(this.searchScope===mode.value)return;
+        this.searchScope=mode.value;this.wolResults=[];
+        this.wolResultsQuery='';this.wolResultsError='';
+        this.wolResultsSequence++;this.wolResultsLoading=false;
+        this.render();
+        if(this.query.trim())void this.loadWolResults();
+      });
+    }
+    if(this.searchScope!=='all'){
+      const context=this.scroller.createDiv({cls:'biblelab-research-context'});
+      const icon=context.createSpan();setIcon(icon,'book-open-check');
+      context.createEl('p',{text:this.searchScope==='index'
+        ?'Index : retrouver les sujets et les versets traités dans les publications.'
+        :'Guide de recherche : partir des rubriques thématiques et suivre leurs références.'});
+      const direct=this.searchScope==='guide'
+        ?'https://www.jw.org/fr/biblioth%C3%A8que/index-2/'
+        :'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270070';
+      button(context,'Ouvrir l’ouvrage','external-link',()=>external(direct));
+    }
+
     const primary=this.scroller.createDiv({cls:'biblelab-search-primary'});
     const find=button(primary,this.wolResultsLoading?'Recherche…':'Voir les résultats','search',()=>void this.loadWolResults(),true);
     find.disabled=this.wolResultsLoading;
@@ -409,7 +444,7 @@ export class BibleLabSidebarView extends ItemView {
       const info=this.scroller.createDiv({cls:'biblelab-search-feedback'});
       const symbol=info.createSpan();setIcon(symbol,'info');
       info.createEl('p',{text:this.wolResultsError});
-      button(info,'Continuer sur WOL','external-link',()=>this.openSearch());
+      button(info,'Continuer sur WOL','external-link',()=>external(this.officialSearchUrl()));
     }
     if(this.wolResultsQuery&&!this.wolResultsLoading&&this.wolResults.length){
       const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
@@ -419,6 +454,8 @@ export class BibleLabSidebarView extends ItemView {
         const icon=el.createSpan({cls:'biblelab-search-result-icon'});setIcon(icon,'file-text');
         const copy=el.createDiv({cls:'biblelab-search-result-copy'});
         copy.createEl('strong',{text:hit.title});
+        if(this.searchScope==='all'&&hit.collection&&hit.collection!=='other')
+          copy.createSpan({cls:'biblelab-source-tag',text:hit.collection==='guide'?'Guide de recherche':'Index'});
         if(hit.excerpt)copy.createEl('p',{text:hit.excerpt});
         const row=el.createDiv({cls:'biblelab-search-result-actions'});
         button(row,'Lire ici','book-open',()=>this.focusReference(hit.url,hit.title),true);
@@ -449,12 +486,12 @@ export class BibleLabSidebarView extends ItemView {
     });
     const scopeLabel=controls.createEl('label',{text:'Sources'});
     const scope=scopeLabel.createEl('select',{attr:{'aria-label':'Sources WOL'}});
-    for(const [value,label] of [['all','Toutes les publications'],['index','Index des publications']] as const){
+    for(const [value,label] of [['all','Toutes les publications'],['index','Index des publications'],['guide','Guide de recherche']] as const){
       const option=scope.createEl('option',{text:label,attr:{value}});
       option.selected=this.searchScope===value;
     }
     scope.addEventListener('change',()=>{
-      this.searchScope=scope.value==='index'?'index':'all';
+      this.searchScope=scope.value==='index'?'index':scope.value==='guide'?'guide':'all';
       this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
       this.wolResultsSequence++;this.wolResultsLoading=false;
     });
@@ -522,7 +559,17 @@ export class BibleLabSidebarView extends ItemView {
       const response=await requestUrl({url,throw:false});
       if(response.status!==200)throw Error('WOL a répondu avec le code '+response.status+
          (response.status===403||response.status===429?' (accès automatisé limité).':'.'));
-      const items=parseWolSearchResults(response.text,url);
+      const all=parseWolSearchResults(response.text,url);
+      // The WOL category "Index" contains both dx* and rsg*; classify
+      // only entries whose visible source metadata identifies their series.
+      const items=this.searchScope==='guide'
+        ?all.filter(hit=>hit.collection==='guide')
+        :this.searchScope==='index'
+        ?all.filter(hit=>hit.collection==='index')
+        :all;
+      if(this.searchScope!=='all' && !items.length && all.length)
+        throw Error('WOL a répondu, mais aucune entrée '+(this.searchScope==='guide'?'du Guide':'de l’Index')+
+          ' n’a pu être identifiée avec certitude parmi les premiers résultats. Ouvre la recherche officielle pour poursuivre.');
       if(!items.length)throw Error('Réponse WOL reçue, mais aucun lien de document exploitable. La recherche peut dépendre de scripts ou d’une structure différente.');
       if(seq!==this.wolResultsSequence)return;
       this.wolResults=items;this.wolResultsQuery=term;
@@ -603,11 +650,22 @@ export class BibleLabSidebarView extends ItemView {
       }
     }
   }
-  private openSearch():void{
-    const term=this.query.trim();if(!term){new Notice('Saisis une référence ou un sujet.');return;}
-    const isCitation=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(term);
-    external(isCitation?this.referenceUrl(term):this.searchMatch==='par'&&this.searchScope==='all'?wolSearch(term):wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope}));
+  private officialSearchUrl():string{
+    const term=this.query.trim();
+    if(!term)return 'https://wol.jw.org/fr/wol/h/r30/lp-f';
+    const citation=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(term);
+    return citation&&this.searchScope==='all'
+      ?this.referenceUrl(term)
+      :wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
   }
+  private exploreReference(ref:ReferenceEntry,scope:WolSearchScope):void{
+    this.query=ref.label;this.searchScope=scope;
+    this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
+    this.wolResultsSequence++;this.wolResultsLoading=false;
+    this.setTab('wol');
+    void this.loadWolResults();
+  }
+  private openSearch():void{external(this.officialSearchUrl());}
   private renderRefs():void{
     heading(this.scroller,'Lecture','Les sources, leurs notes et leurs renvois, sans perdre le fil.');
     if(this.referenceHistory.length>1){
@@ -627,6 +685,10 @@ export class BibleLabSidebarView extends ItemView {
       lead.createEl('strong',{text:this.pinnedRef.label});
       button(header,'Autre source','search',()=>this.setTab('wol'));
       renderReferenceAccordion(focus,this.pinnedRef,this.reader);
+      const research=focus.createDiv({cls:'biblelab-related-research'});
+      research.createSpan({text:'PROLONGER L’ÉTUDE'});
+      button(research,'Chercher dans l’Index','list-tree',()=>this.exploreReference(this.pinnedRef!,'index'));
+      button(research,'Consulter le Guide','compass',()=>this.exploreReference(this.pinnedRef!,'guide'));
     }else{
       const intro=this.scroller.createDiv({cls:'biblelab-reader-intro'});
       const symbol=intro.createSpan();setIcon(symbol,'book-open');
