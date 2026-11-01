@@ -11,6 +11,7 @@ import { extractReferenceEntries, cleanWolUrl, passageUrl, type ReferenceEntry }
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
+import { cleanReadingText } from './readerText';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -74,6 +75,7 @@ export class BibleLabSidebarView extends ItemView {
   private pinnedRef: ReferenceEntry|null=null;
   private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external};
   private noteTitle='';
+  private lastMarkdownPath:string|null=null;
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
   private indexLoaded=false;
   private indexLoading=false;
@@ -129,10 +131,10 @@ export class BibleLabSidebarView extends ItemView {
     try{
       const text=await this.app.vault.cachedRead(file);
       if(generation!==this.sequence)return;
-      this.noteTitle=file.basename;this.noteRefs=extractReferenceEntries(text);
+      this.noteTitle=file.basename;this.lastMarkdownPath=file.path;this.noteRefs=extractReferenceEntries(text);
     }catch{
       if(generation!==this.sequence)return;
-      this.noteTitle=file.basename;this.noteRefs=[];
+      this.noteTitle=file.basename;this.lastMarkdownPath=file.path;this.noteRefs=[];
     }
     if(this.tab==='refs' && this.scroller)this.render();
   }
@@ -543,14 +545,18 @@ export class BibleLabSidebarView extends ItemView {
   private async copyLink(reference:string):Promise<void>{await this.copy(this.referenceUrl(reference));}
   private insertLink(reference:string):void{this.insertMarkdownLink(reference,this.referenceUrl(reference));}
   private insertMarkdownLink(title:string,url:string):void{
-    const safeTitle=title.replace(/[\[\]]/g,'');
+    const safeTitle=cleanReadingText(title).replace(/[\[\]]/g,'');
     const currentFile=this.app.workspace.getActiveFile();
-    // The sidebar can take focus. Locate a Markdown editor for the active file.
-    const leaves=this.app.workspace.getLeavesOfType('markdown');
-    const view=leaves.map(leaf=>leaf.view).find(view=>view instanceof MarkdownView && view.file?.path===currentFile?.path)
-      || leaves.map(leaf=>leaf.view).find(view=>view instanceof MarkdownView);
-    if(!(view instanceof MarkdownView)){new Notice('Ouvre une note Markdown avant d’insérer un lien.');return;}
+    // Sidebar focus can hide the active editor. Only use a previously
+    // validated Markdown path, never the first unrelated open editor.
+    const targetPath=currentFile?.extension==='md'?currentFile.path:this.lastMarkdownPath;
+    const view=this.app.workspace.getLeavesOfType('markdown').map(leaf=>leaf.view)
+      .find(v=>v instanceof MarkdownView && v.file?.path===targetPath);
+    if(!(view instanceof MarkdownView)){
+      new Notice('Ouvre une note Markdown dans un éditeur avant d’insérer un lien.');
+      return;
+    }
     view.editor.replaceSelection('['+safeTitle+']('+url+')');
-    new Notice('Lien inséré dans la note.');
+    new Notice('Lien inséré dans '+view.file?.basename+'.');
   }
 }
