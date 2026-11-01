@@ -186,7 +186,11 @@ export async function prepareBackupExport(app:App,file:File):Promise<BackupExpor
 export async function executeBackupExport(app:App,plan:BackupExportPlan,folder:string):Promise<string>{
   if(!plan.changes.length)throw Error('Aucune modification à exporter.');
   // Re-check the input archive against the original preview before writing.
-  const source=await readBackup(plan.source.file);
+  const latest=await prepareBackupExport(app,plan.source.file);
+  const fingerprint=(changes:BackupChange[])=>JSON.stringify(changes.map(x=>[x.guid,x.newTitle,x.newContent]).sort((a,b)=>String(a[0]).localeCompare(String(b[0]))));
+  if(fingerprint(latest.changes)!==fingerprint(plan.changes))
+    throw Error('Les notes ont changé après la prévisualisation. Recommence la comparaison avant d’exporter.');
+  const source=latest.source;
   if(source.sourceSha!==plan.source.sourceSha)throw Error('La sauvegarde a changé depuis la prévisualisation.');
   const db=await openDb(source.dbBytes);
   let output:Uint8Array;
