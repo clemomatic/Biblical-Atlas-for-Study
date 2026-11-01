@@ -94,6 +94,22 @@ function relevantVerseNode(doc:Document,scripture:ScriptureRef):Element|null {
    return ids.some(v=>id===v||id.startsWith(v+'-'))||id===String(verse);
  })||null;
 }
+function verseRelatedAnchors(root:Element,scripture:ScriptureRef):HTMLAnchorElement[]{
+  const wanted=scripture.label.replace(/[-–]\d+$/,'');
+  const headings=[...root.querySelectorAll('h2,h3,h4,h5')];
+  const header=headings.find(x=>normalizedText(x,180)===wanted);
+  if(!header)return [];
+  const items:HTMLAnchorElement[]=[];
+  let following=header.nextElementSibling,visited=0;
+  while(following&&visited++<90){
+    if(/^H[2-5]$/.test(following.tagName)&&
+       /^.+\\s+\\d{1,3}:\\d{1,3}$/.test(normalizedText(following,160)))break;
+    if(following.matches('a[href]'))items.push(following as HTMLAnchorElement);
+    items.push(...following.querySelectorAll<HTMLAnchorElement>('a[href]'));
+    following=following.nextElementSibling;
+  }
+  return items;
+}
 function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
   const name=scripture.label.replace(/[-–]\d+$/,'');
   // WOL's Bible study view also renders a verse-keyed apparatus with
@@ -147,7 +163,9 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  const isLookup=official.includes('/wol/l/');
  const links:ReaderLink[]=[];
  const keys=new Set<string>();
- for(const a of [...root.querySelectorAll('a[href]')]){
+ const targeted=scripture&&isVerse?verseRelatedAnchors(root,scripture):[];
+ const candidateLinks=[...targeted,...root.querySelectorAll<HTMLAnchorElement>('a[href]')];
+ for(const a of candidateLinks){
    const href=allowLink(a.getAttribute('href')||'',official);
    const label=normalizedText(a,150);
    if(!href||!label||keys.has(href)||href===official)continue;
