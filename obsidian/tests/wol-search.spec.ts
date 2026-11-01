@@ -139,3 +139,18 @@ test('The source test shows site status without claiming inaccessible sources wo
  await expect(pane.getByText(/Article WOL : HTTP 403/)).toBeVisible();
  await expect(pane.getByText(/Cahier JW.org : HTTP 503/)).toBeVisible();
 });
+
+
+test('WOL result parsing ignores an empty results shell and finds official article links',async({page})=>{
+ await page.route(/wol\.jw\.org\/fr\/wol\/s\/r30\/lp-f/,route=>route.fulfill({
+   status:200,contentType:'text/html',
+   body:'<html><div class="searchResults"></div><main>'+
+    '<article><h3><a href="/fr/wol/d/r30/lp-f/2024642">Frères, vous qualifiez-vous pour devenir assistants ?</a></h3>'+
+    '<p>Référence WOL de La Tour de Garde.</p></article></main></html>'
+ }));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Mot, sujet ou verset…').fill('assistants');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.locator('.biblelab-wol-hit')).toHaveCount(1);
+ await expect(pane.getByText('Frères, vous qualifiez-vous pour devenir assistants ?')).toBeVisible();
+});
