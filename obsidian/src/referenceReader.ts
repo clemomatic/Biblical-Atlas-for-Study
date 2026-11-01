@@ -140,7 +140,7 @@ function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
  return lines;
 }
 function articleParagraphNumber(node:Element):string|undefined{
- const mark=node.querySelector('.parNum, .pNum, [class~="parnum"]');
+ const mark=node.querySelector('.parNum, .pNum, [class~="parnum"], :scope > sup');
  const value=mark&&normalizedText(mark,6);
  return value&&/^\d{1,3}$/.test(value)?value:undefined;
 }
@@ -196,7 +196,8 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
    if(node){
      const candidate=node.closest('p, li, [data-verse]')||node.parentElement||node;
      const wrap=(candidate.textContent||'').length<1400?candidate:node;
-     const verseText=readableOfficialElement(wrap,'verse',1300);
+     const verseText=readableOfficialElement(wrap,'verse',1300)
+       .replace(new RegExp('^'+scripture.verse+'(?=\\s)'),'').trim();
      if(verseText)lines.push({type:'verse',text:verseText});
      const apparatus=studyNotesForVerse(root,scripture);
      for(const part of apparatus)if(!lines.some(x=>x.text===part.text))lines.push(part);
