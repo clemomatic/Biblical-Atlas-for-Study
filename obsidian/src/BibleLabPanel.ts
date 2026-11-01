@@ -236,7 +236,7 @@ export class BibleLabSidebarView extends ItemView {
     button(archiveActions,'Inspecter','file-archive',()=>this.host.inspectArchive());
     const archiveInfo=archive.createEl('details',{cls:'biblelab-disclosure'});
     archiveInfo.createEl('summary',{text:'Que fait l’inspection ?'});
-    archiveInfo.createEl('p',{text:'Lecture locale de manifestes et inventaire Markdown sans modifier les fichiers. La conversion intégrale et la réexportation ne sont pas encore disponibles.'});
+    archiveInfo.createEl('p',{text:'L’inspection produit un rapport de manifeste sans importer de contenu. Utilise « Ouvrir la passerelle » pour convertir un JWPUB, récupérer tes notes ou préparer une sauvegarde modifiée.'});
     const prompt=card(this.scroller,'Bibliothèque de modèles','Tes notes restent des fichiers Markdown portables.');
     button(prompt.createDiv({cls:'biblelab-buttons'}),'Explorer les sources','library-big',()=>this.setTab('library'));
   }
