@@ -3,6 +3,7 @@
  * the keyword search route /wol/s/. No HTML from the web is injected into Obsidian.
  */
 import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
+import { isBibliographicCitation } from './wolBibliography.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
@@ -22,7 +23,7 @@ export function cleanWolUrl(raw:string):string|null {
    // resolves bibliographic references such as "w24 Novembre p. 14-19".
    if(url.pathname==='/fr/wol/s/r30/lp-f'){
      const query=url.searchParams.get('q')?.trim()||'';
-     if(/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(query)){
+     if(isBibliographicCitation(query)){
        url.pathname='/fr/wol/l/r30/lp-f';
        url.search=new URLSearchParams({q:query}).toString();
      }
@@ -54,7 +55,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  // of URLs, fenced examples and internal metadata.
  let text=markdown.replace(/^---\s*\n[\s\S]*?\n---\s*(?:\n|$)/,'')
     .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
-    .replace(/^`{3,}[^\n]*\n[\s\S]*?^`{3,}\s*$/gm,'')
+    .replace(/^~{3,}[^\n]*\n[\s\S]*?^~{3,}\s*$/gm,'')
     .replace(/`[^`\r\n]+`/g,'');
  // Markdown links: [label](https://wol.jw.org/fr/wol/...)
  const linked=/\[([^\]\n]{1,240})\]\(\s*(https?:\/\/[^\s)]+)(?:\s+["'][^"']+["'])?\s*\)/gi;
@@ -69,7 +70,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
    const raw=m[1].trim();
    if(/^https?:\/\//i.test(raw)){
      const url=cleanWolUrl(raw);if(url)push(raw,url,'brackets');
-   }else if(/^(?:w\d{2}(?:\.?\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|cl |lff |nwt |w\d{2}\s+|la tour de garde)/i.test(raw)) {
+   }else if(isBibliographicCitation(raw)||/^(?:la tour de garde)/i.test(raw)) {
      push(raw,wolLookup(raw),'brackets','publication');
    }
  }
