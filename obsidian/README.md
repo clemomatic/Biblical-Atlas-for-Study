@@ -1,3 +1,14 @@
+## Bible Lab 0.8.7 — Chargement automatique et récupérations WOL
+
+- **Accueil** : le texte du jour et le programme de réunion sont chargés automatiquement au premier affichage du panneau, sans cliquer sur Actualiser. À chaque retour sur l'accueil, une vérification discrète intervient lorsque les données sont devenues anciennes. Actualiser reste disponible en forçage manuel.
+- **Données à jour, réseau limité** : au maximum une tentative par minute en cas d'erreur, ou une actualisation après vingt minutes pour les données chargées ; une nouvelle journée autorise aussitôt une nouvelle tentative.
+- **Références bibliques** : identifiants WOL du type `v21004006` ou `v21-4-6`, extraction limitée au verset demandé, sans afficher par erreur les versets voisins. En cas d'indisponibilité du fragment JSON JW.org, deux éditions officielles du chapitre WOL sont essayées.
+- **Publications** : résolution bibliographique sensible aux plages de pages. La référence `w18 février p. 24-26` peut trouver l'article `w18 février p. 23-27` qui contient les pages citées. Les résultats portant des dates ou des plages contradictoires ne sont pas présentés comme des correspondances vérifiées.
+- **Sortie de secours** : le lien officiel WOL reste accessible lorsque la source refuse les requêtes automatisées ou ne fournit pas le fragment exact. Le lecteur ne fabrique aucun texte biblique.
+- **Tests** : parcours E2E pour l'ouverture automatique, retour à l'accueil sans nouveau chargement, verset isolé par ID complet ou dans un paragraphe multi-versets, et publication comprenant une plage de pages intérieure.
+
+Limites : WOL/JW.org peuvent bloquer ou modifier leurs pages ; les tests d'extraction sont effectués sur des documents HTML représentatifs et ne garantissent pas la disponibilité réseau en toute situation. Les notes Obsidian ne sont pas envoyées aux sites.
+
 ## Bible Lab 0.8.6 — Index & Guide de recherche
 
 La recherche documentaire peut désormais être lancée dans trois modes clairement identifiés : publications, Index et Guide de recherche.
