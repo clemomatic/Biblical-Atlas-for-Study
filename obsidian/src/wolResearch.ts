@@ -57,10 +57,17 @@ export function parseWolSearchResults(html:string,requestedUrl:string):WolSearch
    }
    // Labels from the same result entry are authoritative only when explicit.
    // Do not infer a Guide result from a matched keyword in an article excerpt.
-   const metadata=compact(item?.textContent||'',700);
-   const collection:WolSearchHit['collection']=/(?:^|[^a-z0-9])rsg(?:\d{2})?(?:\s|\s*[-–]|$)|guide de recherche\s*\(/i.test(metadata)
+   // item.textContent may concatenate an article title and its series code:
+   // <a>Compassion</a><p>rsg19 — Guide de recherche</p> -> Compassionrsg19.
+   // Read metadata nodes independently and use official series designators.
+   const metadata=compact(item
+      ?[...item.querySelectorAll('p,small,span,.publication,.pubTitle')]
+        .map(node=>node.textContent||'').join(' ')
+      :'',
+      700);
+   const collection:WolSearchHit['collection']=/(?:^|[^a-z0-9])rsg(?:\d{2})?\b|\bguide de recherche(?:\s|\(|,|$)/i.test(metadata)
       ?'guide'
-      :/(?:^|[^a-z0-9])dx(?:\d{2}[-–]\d{2})?(?:\s|\s*[-–]|$)|index \d{4}[-–]\d{4}/i.test(metadata)
+      :/(?:^|[^a-z0-9])dx(?:\d{2}[-–]\d{2})?\b|\bindex \d{4}[-–]\d{4}\b/i.test(metadata)
       ?'index':'other';
    seen.add(url);hits.push({title,url,excerpt,collection});
    if(hits.length>=MAX_WOL_RESULTS)return hits;
