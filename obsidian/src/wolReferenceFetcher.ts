@@ -67,8 +67,15 @@ async function officialText(url:string):Promise<string>{
  const safe=canonicalReferenceUrl(url);
  if(!safe)throw Error('Adresse WOL externe non autorisée.');
  const response=await requestUrl({url:safe,throw:false});
- if(response.status!==200)throw Error('WOL indisponible ('+response.status+').');
- return response.text;
+ if(response.status!==200)throw Error('WOL HTTP '+response.status+
+   (response.status===403||response.status===429?' : accès automatisé limité.':''));
+ const html=response.text||'';
+ const title=new DOMParser().parseFromString(html,'text/html').title.toLowerCase();
+ if(/(?:access denied|just a moment|captcha|robot check|forbidden|accès refusé)/i.test(title))
+   throw Error('WOL refuse la consultation automatisée de cette page.');
+ if(!html.trim()||!/<(?:html|body|main|article|div|p)\b/i.test(html))
+   throw Error('WOL a répondu sans document HTML exploitable.');
+ return html;
 }
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
@@ -88,6 +95,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  const lookup=path.startsWith('/fr/wol/s/')
    ? WOL+'l/r30/lp-f?'+new URLSearchParams({q:query}):url;
  let text='';let docUrl:string|null=null;
+ let networkProblem='';
  try{
    text=await officialText(lookup);
    docUrl=pickDocument(text,lookup,query);
@@ -98,7 +106,8 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      direct.kind='article';
      return direct;
    }
- }catch{
+ }catch(error){
+   networkProblem=error instanceof Error?error.message:'Requête WOL interrompue';
    // WOL can fail to expose a JavaScript redirect on the /l/ endpoint.
    // Try the official bibliographic result listing instead of fabricating content.
  }
@@ -110,7 +119,9 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  if(!docUrl){
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
    empty.lines=[];
-   empty.notice='Référence non résolue automatiquement. Ouvre le lien WOL pour consulter la publication.';
+   empty.notice=networkProblem
+      ?'Impossible de récupérer cette référence depuis WOL : '+networkProblem+'. Ouvre la source officielle.'
+      :'Référence non résolue automatiquement. Vérifie le lien sur WOL.';
    empty.kind='results';return empty;
  }
  const article=readerForDocument(await officialText(docUrl),docUrl,query);
