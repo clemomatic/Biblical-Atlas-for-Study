@@ -53,7 +53,7 @@ test('local JW archive inspection creates a Markdown inventory without changing 
   const pane=page.locator('.biblelab-side');
   await pane.getByRole('button',{name:'Studio'}).click();
   const chooserPromise=page.waitForEvent('filechooser');
-  await pane.getByRole('button',{name:'Inspecter une archive'}).click();
+  await pane.getByRole('button',{name:'Inspecter',exact:true}).click();
   const chooser=await chooserPromise;
   const data=zipSync({
     'manifest.json':strToU8(JSON.stringify({name:'Ma sauvegarde',userDataBackup:{schemaVersion:16}})),
@@ -75,7 +75,7 @@ test('converted JW Markdown ZIP imports as separate editable notes and never ove
   });
   for(let attempt=0;attempt<2;attempt++){
     const choice=page.waitForEvent('filechooser');
-    await pane.getByRole('button',{name:'Importer des notes'}).click();
+    await pane.getByRole('button',{name:'Importer un ZIP Markdown'}).click();
     await (await choice).setFiles({name:'notes-jw.zip',mimeType:'application/zip',buffer:Buffer.from(payload)});
     await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files().filter((f:any)=>f.path.includes('Jean 3.16.md')).length)).toBe(attempt+1);
   }
@@ -89,7 +89,7 @@ test('ZIP import rejects path traversal instead of writing outside import root',
   await pane.getByRole('button',{name:'Studio'}).click();
   const payload=zipSync({'../intrusion.md':strToU8('must never be created')});
   const chooser=page.waitForEvent('filechooser');
-  await pane.getByRole('button',{name:'Importer des notes'}).click();
+  await pane.getByRole('button',{name:'Importer un ZIP Markdown'}).click();
   await (await chooser).setFiles({name:'invalid.zip',mimeType:'application/zip',buffer:Buffer.from(payload)});
   await page.waitForTimeout(350);
   expect(await page.evaluate(()=>(window as any).atlasTest.files().some((f:any)=>f.path.includes('intrusion.md')))).toBe(false);
