@@ -7,7 +7,7 @@ export const WOL_LOOKUP = 'https://wol.jw.org/fr/wol/l/r30/lp-f?q=';
 export const OFFICIAL_MAP_INDEX = 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102003130';
 export const OFFICIAL_ATLAS = 'https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/';
 
-const BOOKS = [
+export const BOOKS = [
   'Genèse','Exode','Lévitique','Nombres','Deutéronome','Josué','Juges','Ruth',
   '1 Samuel','2 Samuel','1 Rois','2 Rois','1 Chroniques','2 Chroniques','Esdras','Néhémie',
   'Esther','Job','Psaumes','Proverbes','Ecclésiaste','Chant de Salomon','Isaïe','Jérémie',
