@@ -39,7 +39,7 @@ export function parseScripture(input: string): ScriptureRef | null {
   const trimmed = cleanReadingText(input);
   const match = trimmed.match(/^(.+?)\s+(\d{1,3})\s*[:.]\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?$/u);
   if (!match) return null;
-  const book = ALIASES[normalizeSearch(match[1])];
+  const book = ALIASES[normalizeSearch(match[1]).replace(/\.$/,'')];
   if (!book) return null;
   const chapter=Number(match[2]), verse=Number(match[3]), end=match[4]?Number(match[4]):undefined;
   if (chapter < 1 || chapter > 150 || verse < 1 || verse > 176 || (end !== undefined && (end < verse || end > 176))) return null;
@@ -62,7 +62,7 @@ export function extractReferences(note: string): string[] {
   // Detect explicit scripture references even outside a marker, preserving a maximum result count.
   for (const book of [...BOOKS, ...Object.keys(ALIASES)]) {
     const escaped = book.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const expr = new RegExp(`(?:^|[^\\p{L}\\p{N}])(${escaped}\\s+\\d{1,3}\\s*:\\s*\\d{1,3}(?:[-–]\\d{1,3})?)`, 'gimu');
+    const expr = new RegExp(`(?:^|[^\\p{L}\\p{N}])(${escaped}\\.?\\s+\\d{1,3}\\s*:\\s*\\d{1,3}(?:[-–]\\d{1,3})?)`, 'gimu');
     for (const match of note.matchAll(expr)) if (parseScripture(match[1])) found.add(match[1]);
     if (found.size >= 40) break;
   }
