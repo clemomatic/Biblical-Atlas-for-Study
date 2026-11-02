@@ -8,6 +8,22 @@
 - Répare également l'affichage des images WOL : `/wol/mp/` est une page HTML de visionnage, et ne doit pas être utilisée comme source d'une balise `img`.
 - Les tests simulent des pages WOL/JW.org représentatives. Le chargement en conditions réelles dépend toujours de la disponibilité de ces sites.
 
+### Catalogue officiel des abréviations de publications
+
+Le détecteur bibliographique s'appuie sur **114 symboles mnémoniques** publiés dans
+[l'index WOL des abréviations (1986–2023)](https://wol.jw.org/fr/wol/d/r30/lp-f/1200270068).
+La liste est intégrée localement (`src/publicationAbbreviations.ts`) :
+**aucun appel réseau supplémentaire n'est effectué lors de la frappe**.
+Les nouveaux symboles publiés après cet index ne sont pas réputés couverts.
+
+Exemples reconnus : `cl chap. 3 §4`, `bt chap. 12 §7`,
+`it-1 p. 123 §2`, `scl p. 45`, `th leçon 12`,
+`S-38 §20, 25` et `w22 février p. 13 §15`.
+La reconnaissance ne suffit pas à prouver qu'une page WOL correspond à
+la référence : les documents inconnus passent par la recherche officielle.
+Le plugin ne fabrique pas d'identifiants de documents et n'envoie jamais
+les notes privées à un service d'indexation externe.
+
 ## Bible Lab 0.9.1 — Illustrations des publications comme sur WOL
 
 - **Images officielles** : les articles récupérés sur WOL affichent désormais les illustrations au fil du texte, en gardant leur ordre, leur format original (aucun recadrage 1:1 imposé) et leurs légendes.
