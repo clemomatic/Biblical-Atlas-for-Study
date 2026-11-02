@@ -256,7 +256,7 @@ function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
 function articleParagraphNumber(node:Element):string|undefined{
  const mark=node.querySelector('.parNum, .pNum, [class~="parnum"]');
  const value=mark&&normalizedText(mark,6);
- return value&&/^\d{1,3}$/.test(value)?value:undefined;
+ return value&&/^\d{1,3}\.?$/.test(value)?value.replace(/\.$/,''):undefined;
 }
 function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  const lines:ReaderLine[]=[];
