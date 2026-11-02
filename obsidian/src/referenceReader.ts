@@ -327,11 +327,22 @@ export function parseWolLookupResults(html:string,url:string,requested:string):R
  const block=document.querySelector('#lookupResults,.lookupResults');
  if(!block)return null;
  const result=parseWolDocument(html,official,requested);
+ // WOL may use nested divs instead of paragraphs to display a result.
+ // Recover only that block; never fall back to document.body for a lookup.
+ if(!result.lines.length){
+   const text=readableOfficialElement(block,'article',3000);
+   if(text.length>=25)result.lines.push({type:'paragraph',text});
+ }
  // A result card has actual readable content or official result anchors.
  // A navigation-only wrapper is not enough.
  const content=result.lines.filter(line=>line.type!=='heading')
    .map(line=>line.text).join(' ').trim();
  if(content.length<25&&!result.links.length)return null;
+ if(!result.lines.length&&result.links.length){
+   for(const link of result.links.slice(0,15))
+     result.lines.push({type:'paragraph',text:link.label,
+       parts:[{text:link.label,url:link.url,kind:'document'}]});
+ }
  return result;
 }
 export function parseWolDocument(html:string,url:string,requested?:string):ReaderResult{
