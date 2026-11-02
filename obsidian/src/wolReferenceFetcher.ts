@@ -7,7 +7,7 @@ import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.t
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
 const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
-const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2}|lmd)\b/i;
+const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|ws\d{2}|g\d{2}|mwb\d{2}|it(?:-[12])?|si|km|lmd)\b/i;
 const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
 const validateDocument=(value:string,base:string):string|null=>{
  try{
@@ -37,7 +37,16 @@ export function publicationPages(raw:string):PublicationPage|null{
  const match=t.match(new RegExp(
   '\\b(w\\d{2}|wp\\d{2}(?:\\.\\d+)?|g\\d{2}|mwb\\d{2})\\s+('+FRENCH_MONTHS+
   ')\\s+p\\.?\\s*(\\d{1,3})(?:\\s*-\\s*(\\d{1,3}))?\\b','i'));
- if(!match)return null;
+ if(!match){
+   // Issues from the 1980s-2015 are indexed as w14 15/11 28-29
+   // (and can include optional "p."), not "w14 novembre".
+   const legacy=t.match(/\b((?:w|ws|g)\d{2})\s+(\d{1,2})\/(\d{1,2})\s+(?:p\.?\s*)?(\d{1,3})(?:\s*-\s*(\d{1,3}))?\b/i);
+   if(!legacy)return null;
+   const day=Number(legacy[2]),month=Number(legacy[3]);
+   const first=Number(legacy[4]),last=Number(legacy[5]||legacy[4]);
+   if(day<1||day>31||month<1||month>12||first<1||last<first||last>300)return null;
+   return {issue:legacy[1]+' '+day+'/'+month,first,last};
+ }
  const first=Number(match[3]),last=Number(match[4]||match[3]);
  if(first<1||last<first||last>300)return null;
  return {issue:match[1]+' '+match[2],first,last};
@@ -46,6 +55,78 @@ export function matchingPublicationPages(requested:string,listing:string):boolea
  const a=publicationPages(requested),b=publicationPages(listing);
  return !!a&&!!b&&a.issue===b.issue&&b.first<=a.first&&b.last>=a.last;
 }
+interface BookPage {code:string;first:number;last:number}
+export function publicationBookPages(raw:string):BookPage|null{
+ const norm=normalizeSearch(raw).replace(/[–—]/g,'-');
+ const match=norm.match(/^(it-[12]|si)\s+(?:p\.?\s*)?(\d{1,4})(?:\s*-\s*(\d{1,4}))?(?=\s|$)/);
+ if(!match)return null;
+ const first=Number(match[2]),last=Number(match[3]||match[2]);
+ return first>0&&last>=first&&last<=2000?{code:match[1],first,last}:null;
+}
+export function selectBookPageCandidate(html:string,base:string,reference:string):string|null{
+ const wanted=publicationBookPages(reference);
+ if(!wanted)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ let best:string|null=null,span=Infinity;
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(a.getAttribute('href')||'',base);
+  if(!href)continue;
+  const row=a.closest('li,article,.result,.searchResult,.search-result,.item')||a.parentElement;
+  const visible=normalizeSearch((row?.textContent||'').slice(0,1100));
+  const labels=[...visible.matchAll(new RegExp('(?:^|[^a-z0-9])'+
+    wanted.code.replace('-','\\-')+'\\s+(?:p\\.?\\s*)?(\\d{1,4})(?:\\s*-\\s*(\\d{1,4}))?','g'))];
+  for(const item of labels){
+   const first=Number(item[1]),last=Number(item[2]||item[1]);
+   if(first<=wanted.first&&last>=wanted.last&&last-first<span){
+    span=last-first;best=href;
+   }
+  }
+ }
+ return best;
+}
+export function insightTitleReference(reference:string):{code:string;title:string}|null{
+ const normalized=normalizeSearch(reference).replace(/[«»“”"]/g,'"');
+ const match=normalized.match(/^(it(?:-[12])?)\s+"([^"]{2,95})"(?:\s*§\s*\d{1,3})?$/);
+ return match?{code:match[1],title:match[2].trim()}:null;
+}
+export function siStudyNumber(reference:string):number|null{
+ const m=normalizeSearch(reference).match(/^si\s+(?:etude(?:\s+numero)?|et\.)\s*(\d{1,2})$/);
+ if(!m)return null;
+ const number=Number(m[1]);
+ return number>=1&&number<=10?number:null;
+}
+export function selectSiStudyCandidate(html:string,base:string,reference:string):string|null{
+ const number=siStudyNumber(reference);
+ if(!number)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const check=new RegExp('(?:étude|etude)\\s+(?:numéro|numero|n°)?\\s*'+number+'\\b','i');
+ for(const link of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const target=validateDocument(link.getAttribute('href')||'',base);
+  if(!target)continue;
+  const row=link.closest('li,article,.result,.searchResult,.search-result,.item')||link.parentElement;
+  if(check.test(normalizeSearch((row?.textContent||'').slice(0,900))))return target;
+ }
+ return null;
+}
+export function selectInsightCandidate(html:string,base:string,reference:string):string|null{
+ const wanted=insightTitleReference(reference);
+ if(!wanted)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const query=normalizeSearch(wanted.title);
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(a.getAttribute('href')||'',base);
+  if(!href)continue;
+  const row=a.closest('li,article,.result,.searchResult,.search-result,.item')||a.parentElement;
+  const text=normalizeSearch((row?.textContent||'').slice(0,900));
+  if(!text.includes(query))continue;
+  // For unnumbered it citations, the volume is unknown. Only accept a
+  // title when its associated result explicitly identifies the publication.
+  if(wanted.code==='it'?/\bit-[12]\b/.test(text):text.includes(wanted.code))
+   return href;
+ }
+ return null;
+}
+
 /** Exact citations are resolved without silently accepting a wrong issue. */
 export function selectPublicationCandidate(html:string,base:string,reference:string):string|null{
  const request=publicationPages(reference);
@@ -88,6 +169,12 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  const requested=simple(reference);
  const exact=selectPublicationCandidate(html,base,reference);
  if(exact)return exact;
+ const bookPage=publicationBookPages(reference);
+ if(bookPage)return selectBookPageCandidate(html,base,reference);
+ const insight=insightTitleReference(reference);
+ if(insight)return selectInsightCandidate(html,base,reference);
+ const study=siStudyNumber(reference);
+ if(study)return selectSiStudyCandidate(html,base,reference);
  const chapter=bookChapterLocator(reference);
  if(chapter){
    // Do not silently open chapter 1 for a request about chapter 8.
@@ -101,7 +188,8 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // Page-range citations cannot be resolved by keyword overlap alone:
  // a WOL search often returns neighbouring articles from the same issue.
  // Prefer a citation with matching page metadata, or a verified fallback.
- if(publicationPages(reference))return null;
+ if(publicationPages(reference)||publicationBookPages(reference)||insightTitleReference(reference)||siStudyNumber(reference))
+   return null;
  const anchors=[...doc.querySelectorAll<HTMLAnchorElement>('a[href]')];
  let best:string|null=null,score=-1;
  const keywords=requested.split(' ').filter(x=>x.length>2);
@@ -146,6 +234,19 @@ function isDocument(html:string):boolean{
  return false;
 }
 export function knownCitation(reference:string):string|null{
+ if(siStudyNumber(reference)===10)
+   return WOL+'d/r30/lp-f/1101990137';
+ const historic=publicationPages(reference);
+ if(historic?.issue==='w14 15/11'&&historic.first>=28&&historic.last<=30)
+   return WOL+'d/r30/lp-f/2014847';
+ const insight=insightTitleReference(reference);
+ if(insight?.code==='it-2'&&insight.title==='sanctuaire')
+   return WOL+'d/r30/lp-f/1200003828';
+ const book=publicationBookPages(reference);
+ if(book?.code==='si'&&book.first>=337&&book.last<=349)
+   return WOL+'d/r30/lp-f/1101990137';
+ if(book?.code==='si'&&book.first>=5&&book.last<=6)
+   return WOL+'d/r30/lp-f/1101990140';
  // Full articles verified against WOL's own publication metadata.
  // A single cited page may fall inside the complete page range.
  const citation=publicationPages(reference);

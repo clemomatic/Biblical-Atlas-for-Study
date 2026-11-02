@@ -87,3 +87,26 @@ test('Monthly kingdom ministry is recognized even without page information',()=>
   assert.deepEqual(findPublicationMentions(invalid),[],invalid);
  }
 });
+
+test('Historic dated Watchtower and Insight / si references are captured as complete units',()=>{
+ const citations=[
+  'w14 15/11 28-29',
+  'w14 15/11 p. 28-30',
+  'it-1 875',
+  'it-2 « Sanctuaire » § 5',
+  'it-1 « Esprit » § 51',
+  'it « Sanctuaire »',
+  'si p. 337-349',
+  'si 263-264',
+  'si étude 10'
+ ];
+ for(const citation of citations){
+  const mentions=findPublicationMentions('Consulter '+citation+' pour approfondir.');
+  assert.deepEqual(mentions.map(ref=>ref.label),[citation],citation);
+ }
+ assert.equal(publicationUrl('w14 15/11 28-29'),
+  'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w14+15%2F11+p.+28-29');
+ for(const invalid of ['w14 32/11 28-29','w14 15/13 28-29','w14 15/11 30-28']){
+  assert.equal(findPublicationMentions(invalid).length,0,invalid);
+ }
+});

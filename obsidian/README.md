@@ -1,3 +1,12 @@
+## Bible Lab 0.9.5 — Références WOL historiques et livres
+
+- **Tours de Garde datées** : reconnaît les citations `w14 15/11 28-29`, avec ou sans `p.`. Distingue le jour, le mois et la pagination ; l’exemple exact renvoie au document officiel `2014847` (Questions des lecteurs, pages 28 à 30).
+- **Étude perspicace (`it`)** : distingue les volumes `it-1`/`it-2`, les citations de pages (`it-1 875`) et les articles titrés (`it-2 « Sanctuaire » § 5`). Le moteur valide le volume et le titre ou la plage de pages avant d’ouvrir le document, sinon il conserve la recherche officielle.
+- **Toute Écriture (`si`)** : détecte `si p. 337-349`, `si 263-264`, `si étude 10` et `si ét. 10`, et trouve les documents dont la plage de pages englobe celle de la référence.
+- **Résolution WOL** : recherche d’abord le document exact en exploitant les métadonnées bibliographiques des résultats `/wol/l/` ; limite les faux positifs et ne confond pas un lien de menu avec un document.
+- **Documents vérifiés** : `w14 15/11 p. 28-29` → `2014847`, `it-2 « Sanctuaire »` → `1200003828`, `si p. 337-349` → `1101990137`.
+- Tests unitaires et d’interface destinés aux formats de reconnaissance, à la sélection des pages et au chargement des textes.
+
 ## Bible Lab 0.9.4 — Lecture biblique sans interruption et résolution WOL
 
 - **Popup Bible** : les versets se lisent d'un seul tenant. Les notes d'étude, notes de traduction, renvois et sources complémentaires sont déplacés vers une colonne latérale, comme dans les lecteurs bibliques. Sur téléphone, le panneau est repliable. Les notes restent disponibles sans interrompre le texte.

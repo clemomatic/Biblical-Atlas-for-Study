@@ -14,14 +14,24 @@ const sourceCodes=PUBLICATION_CODES.slice().sort((a,b)=>b.length-a.length)
 // A bare "cl" or "be" is not necessarily a bibliographic citation.
 const locators=[
  chapters+'(?:\\s+'+page+')?(?:'+paragraph+')?',
- '(?:leçon|lecons?|hist(?:oire)?|partie|étude|annexe|appendice)\\.?\\s*\\d{1,3}(?:'+paragraph+')?',
+ '(?:leçon|lecons?|hist(?:oire)?|partie|étude(?:\\s+numéro)?|ét\\.|annexe|appendice)\\.?\\s*\\d{1,3}(?:'+paragraph+')?',
  page+'(?:'+paragraph+')?',
  '\\d{1,3}\\s*:\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?',
  paragraph,
  // Index quotations frequently omit "p." (e.g. "it-1 875", "od 42-43").
  '\\d{1,4}(?:\\s*[-–,]\\s*\\d{1,4})*(?:'+paragraph+')?'
 ].join('|');
+// Historic semimonthly Watchtower references use issue date then page,
+// with or without "p.": w14 15/11 28-29, w14 15/11 p. 28-30.
+// Source codes alone must not become links.
+const datedIssue='(?:w|ws|g)\\d{2}\\s+(?:[1-9]|[12]\\d|3[01])\\/(?:[1-9]|1[0-2])';
+const datedPages='(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?';
+// Insight articles are named by headword and volume, not a page. Treat the
+// headword as a locator; do not silently pick another volume.
+const insightTitle='it(?:-[12])?\\s+[«“"\\u201c][^»”"\\u201d\\n]{2,95}[»”"\\u201d](?:'+paragraph+')?';
 const sources=[
+ new RegExp(boundaries+'('+datedIssue+'\\s+'+datedPages+'(?:'+paragraph+')?)','giu'),
+ new RegExp(boundaries+'('+insightTitle+')','giu'),
  new RegExp(boundaries+'((?:w|wp|g)\\d{2}(?:\\.\\d{1,2})?\\s+(?:'+months+')\\s+'+page+'(?:'+paragraph+')?)','giu'),
  new RegExp(boundaries+'((?:w|wp|g)\\d{2}\\.\\d{1,2}\\s+'+page+'(?:'+paragraph+')?)','giu'),
  // Compact date/page references used by the official Index.
@@ -83,6 +93,13 @@ export function publicationUrl(reference:string):string{
  if(/^s\s*-\s*38\s*§\s*20\s*,\s*25$/.test(s))return finder('1201038',60);
  if(/^s\s*-\s*38\s*§\s*\d{1,3}(?:\s*[,;]\s*\d{1,3})*$/.test(s))
   return finder('1201038'); // known document, paragraph not verified
+ // Normalize historic issue/page labels to the exact WOL bibliography format.
+ const historic=s.match(/^((?:w|ws|g)\d{2})\s+(\d{1,2})\/(\d{1,2})\s+(?:p\.?\s*)?(\d{1,3})(?:\s*-\s*(\d{1,3}))?(?:\s*§\s*(\d{1,3}))?$/);
+ if(historic){
+  const [,code,day,month,first,last,section]=historic;
+  const issue=code+' '+Number(day)+'/'+Number(month);
+  return wolLookup(issue+' p. '+first+(last?'-'+last:'')+(section?' §'+section:''));
+ }
  if(/^od\s+8\s*:\s*8$/.test(s))return 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102014938';
  if(/^th\s+(?:leçon\s*)?12$/.test(s))
   return 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452';
@@ -104,6 +121,10 @@ export function findPublicationMentions(text:string):PublicationMention[]{
    const label=m[1],from=(m.index||0)+(m[0].length-label.length),to=from+label.length;
    if(/[\p{L}\p{N}]/u.test(text[to]||''))continue;
    if(text[to]==='/')continue; // Never turn invalid km 00/95 into km 00
+   // Never accept just "it-1 4" from a malformed split-date or bare code.
+   const dated=label.match(/^(?:w|ws|g)\d{2}\s+(\d{1,2})\/(\d{1,2})\s+(?:p\.?\s*)?(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?/i);
+   if(dated&&(Number(dated[1])>31||Number(dated[2])>12||
+      (dated[4]!==undefined&&Number(dated[4])<Number(dated[3]))))continue;
    if(parseScripture(label))continue; // e.g. jr 45:3 is Scripture
    if(found.some(x=>from<x.to&&to>x.from))continue;
    found.push({from,to,label,url:publicationUrl(label)});

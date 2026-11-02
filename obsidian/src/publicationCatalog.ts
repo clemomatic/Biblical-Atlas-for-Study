@@ -11,7 +11,7 @@
 export const PUBLICATION_ABBREVIATION_SOURCE='https://wol.jw.org/fr/wol/d/r30/lp-f/1200270068';
 export const PUBLICATION_CODES=Object.freeze((
  'ba be bh bhs bi12 bm br78 bt cf cl ct dg dp dx ed fg foa fy g gf gl gm gt gu hb hdu hf hl ia ie '+
- 'ijwbq ijwbv ijwcl ijwex ijwfq ijwhf ijwia ijwwd ijwyp ip-1 ip-2 it-1 it-2 jd je jl jr jt jv jy '+
+ 'ijwbq ijwbv ijwcl ijwex ijwfq ijwhf ijwia ijwwd ijwyp ip-1 ip-2 it it-1 it-2 jd je jl jr jt jv jy '+
  'kl km kp kr la lc ld lf lfb lff lffi lfs ll lmd Lmn lr lv lvs mb mrt mwb my nwt nwtstg nwtsty '+
  'od ol om op pc pe ph pr re rj rk rq rr rs rsg scl sg sh si sp syr th ti tp vi w we wfg wi wj wp '+
  'ws wt yb yc yp yp1 yp2 ypq'
