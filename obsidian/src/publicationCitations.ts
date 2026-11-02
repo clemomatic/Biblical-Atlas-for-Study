@@ -6,8 +6,11 @@ const MONTHS='janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|se
 const PAR='(?:\\s*(?:§|par(?:agraphe)?s?\\.?)\\s*\\d{1,3}(?:\\s*(?:,|;|et|[-–])\\s*\\d{1,3})*)?';
 // Official catalog includes everyday words (e.g. « la », « si »):
 // only recognize a code when a real section/page locator follows.
-const esc=(value:string)=>value.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&');
-const CODES=[...STRUCTURED_PUBLICATION_CODES].sort((a,b)=>b.length-a.length).map(esc).join('|');
+// All 114 official mnemonics contain only [a-z0-9-]; a hyphen outside a
+// regex character class is literal, and escaping it breaks Unicode regexes.
+const CODES=[...STRUCTURED_PUBLICATION_CODES]
+ .filter(code=>/^[a-z0-9-]+$/.test(code))
+ .sort((a,b)=>b.length-a.length).join('|');
 const LOCATOR='(?:\\s+(?:le[cç]on|chap(?:itre)?|partie|p(?:ages?)?)\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?|\\s*§\\s*\\d{1,3}(?:\\s*(?:,|;|et|[-–])\\s*\\d{1,3})*)';
 const MONTHLY='(?:w\\d{2}(?:\\.\\d{1,2})?|wp\\d{2}(?:\\.\\d{1,2})?|g\\d{2}(?:\\.\\d{1,2})?|mwb\\d{2}(?:\\.\\d{1,2})?)\\s+(?:(?:'+MONTHS+')\\s+)?p\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?'+PAR;
 const MANUAL='(?:th|lmd|lff)\\s+(?:le[cç]on\\s*)?\\d{1,3}'+PAR;
