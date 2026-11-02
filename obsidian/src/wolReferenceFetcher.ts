@@ -289,7 +289,11 @@ async function officialText(url:string):Promise<string>{
  if(response.status!==200)throw Error('WOL HTTP '+response.status+
    (response.status===403||response.status===429?' : accès automatisé limité.':''));
  const html=response.text||'';
- const title=new DOMParser().parseFromString(html,'text/html').title.toLowerCase();
+ const document=new DOMParser().parseFromString(html,'text/html');
+ const title=document.title.toLowerCase();
+ const preliminary=cleanReadingText(document.body?.textContent||'').slice(0,1300);
+ if(/javascript is disabled|verify that you(?:’|'| a)re not a robot|vérifi(?:er|cation).{0,45}(?:robot|navigateur)|enable javascript and then reload/i.test(preliminary))
+   throw Error('WOL demande une vérification du navigateur : la réponse ne contient pas le document.');
  if(/(?:access denied|just a moment|captcha|robot check|forbidden|accès refusé)/i.test(title))
    throw Error('WOL refuse la consultation automatisée de cette page.');
  if(!html.trim()||!/<(?:html|body|main|article|div|p)\b/i.test(html))
@@ -371,6 +375,10 @@ function hasReadableArticleBody(result:ReaderResult):boolean{
   line.type!=='image'&&line.text.trim().length>=8);
 }
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
+ const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
+   .querySelector('h1')?.textContent||'').toLowerCase();
+ if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
+   throw Error('WOL a renvoyé un menu de navigation, pas un article.');
  const result=parseWolDocument(html,url,label);
  if(!hasReadableArticleBody(result))
    throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
@@ -381,6 +389,11 @@ function readerForDocument(html:string,url:string,label:string):ReaderResult{
  * Keep the canonical source link and explain the local reader limitation.
  */
 function directDocumentReader(html:string,url:string,label:string):ReaderResult{
+ const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
+   .querySelector('h1')?.textContent||'').toLowerCase();
+ if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
+   return {title:label,sourceUrl:url,kind:'results',lines:[],links:[],
+     notice:'WOL a renvoyé son menu plutôt que le texte du document. Ouvre la source officielle.'};
  const result=parseWolDocument(html,url,label);
  if(!hasReadableArticleBody(result)){
    result.lines=[];
