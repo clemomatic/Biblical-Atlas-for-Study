@@ -84,6 +84,36 @@ export function selectBookPageCandidate(html:string,base:string,reference:string
  }
  return best;
 }
+/** The official Insight *index by subjects* supplies linked article headings
+ * whose printed page spans are explicit: e.g. Congrégation — 1:509-511.
+ * Unlike /wol/l, these links point to the actual article through /wol/pc.
+ * Do not use subordinate topic links: those often belong to other articles.
+ */
+export function selectInsightIndexArticle(html:string,reference:string):string|null{
+ const wanted=publicationBookPages(reference);
+ if(!wanted||!/^it-[12]$/.test(wanted.code))return null;
+ const volume=Number(wanted.code.slice(-1));
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const ranges=new RegExp('(?:^|[^\\d])'+volume+'\\s*:\\s*(\\d{1,4})(?:\\s*[-–—]\\s*(\\d{1,4}))?','g');
+ let best:{url:string;span:number}|null=null;
+ for(const heading of doc.querySelectorAll('h2,h3,h4')){
+  for(const anchor of heading.querySelectorAll<HTMLAnchorElement>('a[href]')){
+   const text=normalizeSearch(anchor.textContent||'').replace(/[–—]/g,'-');
+   for(const m of text.matchAll(ranges)){
+    const first=Number(m[1]),last=Number(m[2]||m[1]);
+    if(first>wanted.first||last<wanted.last||last<first)continue;
+    let href:string;
+    try{href=new URL(anchor.getAttribute('href')||'',WOL).toString();}catch{continue;}
+    const direct=validateDocument(href,WOL);
+    const related=/^https:\/\/wol\.jw\.org\/fr\/wol\/pc\/r30\/lp-f\/1200004775\/\d+\/\d+$/.test(href);
+    if(!direct&&!related)continue;
+    if(!best||last-first<best.span)best={url:direct||href,span:last-first};
+   }
+  }
+ }
+ return best?.url||null;
+}
+
 export function insightTitleReference(reference:string):{code:string;title:string}|null{
  const normalized=normalizeSearch(reference).replace(/[«»“”"]/g,'"');
  const match=normalized.match(/^(it(?:-[12])?)\s+"([^"]{2,95})"(?:\s*§\s*\d{1,3})?$/);
