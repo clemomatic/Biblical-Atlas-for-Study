@@ -31,7 +31,7 @@ const compact=(v:string,max=220)=>cleanReadingText(v).slice(0,max);
 function officialResultHref(href:string,base:string):string|null {
  try {
   const safe=cleanWolUrl(new URL(href,base).toString());
-  return safe && /^\/fr\/wol\/d\/r30\/lp-f\/\d+/.test(new URL(safe).pathname)?safe:null;
+  return safe && /^(?:\/fr\/wol\/d\/r30\/lp-f\/\d+|\/fr\/wol\/pc\/r30\/lp-f\/\d+\/\d+\/\d+\/?$)/.test(new URL(safe).pathname)?safe:null;
  }catch{return null;}
 }
 /** Parse links only: never insert HTML returned by WOL into the Obsidian DOM. */
