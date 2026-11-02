@@ -5,7 +5,7 @@
 import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
 import { cleanReadingText, readableOfficialElement } from './readerText.ts';
 import { articleImageFrom, type ArticleImage } from './articleImages.ts';
-import { findPublicationCitations, publicationLookupLabel, verifiedPublicationUrl } from './publicationCitations.ts';
+import { findPublicationCitations, publicationLookupLabel, citationParagraphs, verifiedPublicationUrl } from './publicationCitations.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
@@ -254,7 +254,7 @@ function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
 function articleParagraphNumber(node:Element):string|undefined{
  const mark=node.querySelector('.parNum, .pNum, [class~="parnum"]');
  const value=mark&&normalizedText(mark,6);
- return value&&/^\d{1,3}$/.test(value)?value:undefined;
+ return value&&/^\d{1,3}\.?$/.test(value)?value.replace(/\.$/,''):undefined;
 }
 function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  const lines:ReaderLine[]=[];
@@ -365,6 +365,20 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  }else{
    lines=gatherSections(root,official,isLookup?40:360);
    if(lines.length>=360)notice='Article très long : affichage limité. Ouvre WOL pour consulter la suite.';
+   const wanted=requested?citationParagraphs(requested):[];
+   if(wanted.length&&lines.length){
+     // Actual numbered paragraphs, not JW.org's internal `par` index.
+     const selected=lines.filter(line=>line.type==='paragraph'&&
+       wanted.some(number=>line.number===String(number)||
+         new RegExp('^'+number+'\\.\\s').test(line.text)));
+     if(selected.length){
+       lines=[{type:'heading',text:'Paragraphes demandés : '+wanted.join(', ')},
+         ...selected,{type:'heading',text:'Document complet'},...lines];
+     }else{
+       notice=(notice?notice+' ':'')+
+        'Les paragraphes demandés n’ont pas pu être isolés automatiquement ; vérifie leur numérotation sur WOL.';
+     }
+   }
  }
  if(!isVerse&&!lines.length&&normalizedText(root)){
    lines=[{type:'paragraph',text:readableOfficialElement(root,'article',2400)}];
