@@ -150,7 +150,18 @@ function normalizedText(node:Element|null,max=2200):string {
  return cleanReadingText(node?.textContent||'').slice(0,max);
 }
 function findDocumentRoot(doc:Document):Element {
- return doc.querySelector('.bodyTxt, .document .bodyTxt, #article, article, main, #content, .document, .article')||doc.body;
+ // A WOL layout may contain an empty .bodyTxt placeholder before the real
+ // article; selecting the first matching element hides its actual contents.
+ const selectors='.bodyTxt, .document .bodyTxt, #article, article, [role="main"], main, #content, .document, .article, .articleBody, .documentBody';
+ const candidates=[...doc.querySelectorAll(selectors)];
+ for(const candidate of candidates){
+   const readable=readableOfficialElement(candidate,'article',15000);
+   if(readable.length>=35&&candidate.querySelector('h1,h2,p,li,blockquote,dt,dd,[data-pid],.par,.paragraph'))
+     return candidate;
+ }
+ for(const candidate of candidates)
+   if(readableOfficialElement(candidate,'article',15000).length>=75)return candidate;
+ return doc.body;
 }
 function allowLink(raw:string,base:string):string|null {
  try{return cleanWolUrl(new URL(raw,base).toString());}catch{return null;}
@@ -250,7 +261,7 @@ function articleParagraphNumber(node:Element):string|undefined{
 function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  const lines:ReaderLine[]=[];
  const seen=new Set<string>();
- const selectors='h1,h2,h3,h4,p,li,blockquote,dt,dd,figure,img,figcaption';
+ const selectors='h1,h2,h3,h4,p,li,blockquote,dt,dd,figure,img,figcaption,div.p,div.par,div.paragraph,div[data-pid],section[data-pid],div.pGroup';
  const images=new Set<string>();
  const addImage=(img:HTMLImageElement):void=>{
   const image=articleImageFrom(img,sourceUrl);
@@ -273,7 +284,10 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
    if(lines.length>=limit)break;
    continue;
   }
-  if(el.matches('p,li,dd')&&el.querySelector('p,li,dd'))continue;
+  // Nested WOL groups must not duplicate their child paragraphs.
+  if(el.matches('div.pGroup')&&el.querySelector('p,li,dd,div.p,div.par,div.paragraph,div[data-pid],section[data-pid]'))continue;
+  if(el.matches('p,li,dd,div.p,div.par,div.paragraph,div[data-pid],section[data-pid]')&&
+     el.querySelector('p,li,dd,div.p,div.par,div.paragraph,div[data-pid],section[data-pid]'))continue;
   const number=articleParagraphNumber(el);
   const readable=el.cloneNode(true) as Element;
   if(number)for(const marker of readable.querySelectorAll('.parNum,.pNum,[class~="parnum"]'))marker.remove();
@@ -358,7 +372,11 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
    if(lines.length>=360)notice='Article très long : affichage limité. Ouvre WOL pour consulter la suite.';
  }
  if(!isVerse&&!lines.length&&normalizedText(root)){
-   lines=[{type:'paragraph',text:readableOfficialElement(root,'article',2400)}];
+   const fallback=readableOfficialElement(root,'article',2400);
+   const articleStructure=!!root.querySelector(
+     'h1,h2,p,li,blockquote,[data-pid],.par,.paragraph,.bodyTxt');
+   if(fallback.length>=35&&articleStructure)
+     lines=[{type:'paragraph',text:fallback}];
  }
  if(!lines.length)notice='Le contenu n’a pas pu être extrait : ouvre le document sur WOL.';
  return {title:heading||(scripture?.label||requested||'Document WOL'),sourceUrl:official,lines,
