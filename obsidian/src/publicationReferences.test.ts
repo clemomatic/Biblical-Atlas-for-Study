@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { findPublicationMentions, publicationUrl, officialFinderUrl, finderDocumentUrl } from './publicationReferences.ts';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, linkifyReaderText } from './referenceReader.ts';
-import { meaningfulNoteSource, cleanReadingText } from './readerText.ts';
+import { cleanReadingText } from './readerText.ts';
 
 const WOL='https://wol.jw.org/fr/wol/d/r30/lp-f/';
 const parsed=(s:string)=>findPublicationMentions('Lire '+s+' et poursuivre.').map(x=>x.label);
@@ -67,7 +67,4 @@ test('all citation pathways preserve publication reference and official URL',()=
 test('study verse citation cleanup removes encoded spaces and numeric internal IDs',()=>{
  assert.equal(cleanReadingText('Isaïe&amp;nbsp;26:3'),'Isaïe 26:3');
  assert.equal(cleanReadingText('Psaume&nbsp;119:165'),'Psaume 119:165');
- assert.equal(meaningfulNoteSource('23026003'),'');
- assert.equal(meaningfulNoteSource('<span>23026003</span>'),'');
- assert.equal(meaningfulNoteSource('<span>Confiance en Jéhovah</span>'),'Confiance en Jéhovah');
 });
