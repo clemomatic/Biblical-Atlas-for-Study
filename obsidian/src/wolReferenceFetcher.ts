@@ -307,11 +307,21 @@ async function officialText(url:string):Promise<string>{
  */
 export function siDocumentPageRange(html:string):{first:number;last:number}|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
- const body=cleanReadingText(doc.body?.textContent||'').slice(0,2600);
- const match=body.match(/(?:^|[^\p{L}\p{N}])si\s+p\.?\s*(\d{1,4})\s*[-–—]\s*(\d{1,4})(?=\s|$)/u);
- if(!match)return null;
- const first=Number(match[1]),last=Number(match[2]);
- return first>0&&last>=first&&last<=400?{first,last}:null;
+ // textContent joins neighbouring block tags without spaces. On real WOL
+ // pages the title may concatenate with "si p. 199-205", hiding the
+ // publication label from a naive whole-page regex.
+ const pattern=/(?:^|[^\p{L}\p{N}])si\s+p\.?\s*(\d{1,4})\s*[-–—]\s*(\d{1,4})(?=\s|$|[.,;])/u;
+ const candidates=[
+   ...doc.querySelectorAll('.pubRef,.pubCitation,.publicationCitation,[class*="publicationCitation"],p,span,div')
+ ].slice(0,180);
+ for(const node of candidates){
+   const text=cleanReadingText(node.textContent||'').slice(0,2000);
+   const match=text.match(pattern);
+   if(!match)continue;
+   const first=Number(match[1]),last=Number(match[2]);
+   if(first>0&&last>=first&&last<=400)return {first,last};
+ }
+ return null;
 }
 const siPageCache=new Map<string,string>();
 async function findSiDocumentByPage(reference:string):Promise<string|null>{
