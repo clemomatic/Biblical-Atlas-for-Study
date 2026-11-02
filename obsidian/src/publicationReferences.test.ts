@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findPublicationMentions, publicationUrl, officialFinderUrl, finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
+import { findPublicationMentions, publicationUrl, officialFinderUrl, finderDocumentUrl, bookChapterLocator, referencedParagraphs } from './publicationReferences.ts';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, linkifyReaderText } from './referenceReader.ts';
 import { cleanReadingText } from './readerText.ts';
 
@@ -11,6 +11,8 @@ test('recognizes complete article, paragraph, lesson and document references',()
   assert.deepEqual(parsed(reference),[reference],reference);
  }
  assert.deepEqual(parsed('S-38 §20, 25')[0],'S-38 §20, 25');
+ assert.deepEqual(referencedParagraphs('S-38 §20, 25'),['20','25']);
+ assert.deepEqual(referencedParagraphs('w22 Février p. 13 §15'),['15']);
 });
 test('official canonical references retain the exact verified paragraph destination',()=>{
  assert.equal(publicationUrl('w22 Février p. 13 §15'),WOL+'2022281');
