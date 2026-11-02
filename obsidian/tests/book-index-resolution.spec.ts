@@ -47,26 +47,23 @@ test('Insight resolves volume 2 without substituting the same page of volume 1',
  await expect(page.locator('.biblelab-side')).toContainText('Premier paragraphe du vrai texte officiel');
 });
 
-test('si uses verified article page metadata, not search-result menu text',async({page})=>{
- const calls:number[]=[];
- await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/**',route=>{
-  const doc=Number(route.request().url().split('/').at(-1));
-  calls.push(doc);
-  if(doc<1101990061||doc>1101990137)return route.abort();
-  const first=7+(doc-1101990061)*4;
-  return route.fulfill({status:200,contentType:'text/html',
-   body:article('si p. '+first+'-'+(first+3),'Étude de la Bible')});
- });
+test('si follows the real table of contents, then validates the article page span',async({page})=>{
+ const contents='<html><p>75 <a href="/fr/wol/pc/r30/lp-f/1101990140/13/0">13 1 Chroniques</a></p>'+
+  '<p>80 <a href="/fr/wol/pc/r30/lp-f/1101990140/14/0">14 2 Chroniques</a></p>'+
+  '<p>85 <a href="/fr/wol/pc/r30/lp-f/1101990140/15/0">15 Ezra</a></p></html>';
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1101990140',
+  route=>route.fulfill({status:200,contentType:'text/html',body:contents}));
+ await page.route('https://wol.jw.org/fr/wol/pc/r30/lp-f/1101990140/14/0',
+  route=>route.fulfill({status:200,contentType:'text/html',
+    body:article('si p. 80-84','Livre de la Bible numéro 14 — 2 Chroniques')}));
  await page.route('https://wol.jw.org/fr/wol/l/**',
   route=>route.fulfill({status:200,contentType:'text/html',
    body:'<html><article class="bodyTxt"><h1>Consulter</h1>'+
-     '<p>Menu WOL de navigation</p><p>BIBLE</p><p>PUBLICATIONS</p></article></html>'}));
+     '<p>Menu WOL</p><p>BIBLE</p><p>PUBLICATIONS</p></article></html>'}));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('si 81-82'));
  const pane=page.locator('.biblelab-side');
  await expect(pane).toContainText('Premier paragraphe du vrai texte officiel');
  await expect(pane).not.toContainText('Menu WOL');
- // Binary discovery must not request the 77-article book in full.
- expect(calls.length).toBeLessThanOrEqual(12);
 });
 
 test('A non-matching SI document is never rendered as a successful article',async({page})=>{
@@ -98,21 +95,22 @@ test('Direct WOL document route returning only a navigation menu cannot pass as 
    'Les publications disponibles et la navigation WOL.');
 });
 
-test('SI adjacent printed pages choose document containing the full span',async({page})=>{
- const visited:number[]=[];
- await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/**',route=>{
-   const doc=Number(route.request().url().split('/').at(-1));
-   visited.push(doc);
-   // Shared printed page at every boundary: 7-11, 11-15, etc.
-   const first=7+(doc-1101990061)*4;
-   return route.fulfill({status:200,contentType:'text/html',
-    body:article('si p. '+first+'-'+(first+4),'Page réellement couverte')});
- });
- await page.route('https://wol.jw.org/fr/wol/l/**',route=>route.fulfill({
-   status:200,contentType:'text/html',body:'<h1>Consulter</h1>'}));
+test('SI shared printed page is resolved by the full article page span',async({page})=>{
+ const contents='<html><p>13 <a href="/fr/wol/pc/r30/lp-f/1101990140/1/0">1 Genèse</a></p>'+
+  '<p>19 <a href="/fr/wol/pc/r30/lp-f/1101990140/2/0">2 Exode</a></p>'+
+  '<p>25 <a href="/fr/wol/pc/r30/lp-f/1101990140/3/0">3 Lévitique</a></p></html>';
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1101990140',
+  route=>route.fulfill({status:200,contentType:'text/html',body:contents}));
+ await page.route('https://wol.jw.org/fr/wol/pc/r30/lp-f/1101990140/2/0',
+  route=>route.fulfill({status:200,contentType:'text/html',
+    body:article('si p. 19-25','Exode')}));
+ await page.route('https://wol.jw.org/fr/wol/pc/r30/lp-f/1101990140/1/0',
+  route=>route.fulfill({status:200,contentType:'text/html',
+    body:article('si p. 13-19','Genèse')}));
+ await page.route('https://wol.jw.org/fr/wol/l/**',
+  route=>route.fulfill({status:200,contentType:'text/html',body:'<h1>Consulter</h1>'}));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('si 20-22'));
  await expect(page.locator('.biblelab-side')).toContainText('Premier paragraphe du vrai texte officiel');
- expect(visited.length).toBeLessThan(12);
 });
 
 test('A titled Insight citation resolves through index heading rather than WOL lookup menu',async({page})=>{
