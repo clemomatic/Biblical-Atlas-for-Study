@@ -1,3 +1,11 @@
+## Bible Lab 0.9.4 — Lecture biblique sans interruption et résolution WOL
+
+- **Popup Bible** : les versets se lisent d'un seul tenant. Les notes d'étude, notes de traduction, renvois et sources complémentaires sont déplacés vers une colonne latérale, comme dans les lecteurs bibliques. Sur téléphone, le panneau est repliable. Les notes restent disponibles sans interrompre le texte.
+- **Bibliographie WOL** : les pages `/wol/l/` peuvent fournir un menu de recherche et pas un article HTML directement exploitable. Le lecteur vérifie la présence d'un réel contenu et suit les documents directs `/wol/d/` plutôt que d'afficher le menu.
+- **Corrections vérifiées sur WOL** : `w16 août p. 25-29` → document 2016609, et `w20 juin p. 26` → document 2020441 (article couvrant les pages 24 à 29). Ces correspondances ne sont appliquées qu'aux plages de pages concordantes.
+- Le bouton **WOL** de la popup ouvre le document final effectivement résolu, pas seulement la recherche bibliographique initiale.
+- Tests Playwright de lecture continue et de résolution des deux articles, sur desktop et mobile.
+
 ## Bible Lab 0.9.3 — Reconnaissance biblique avancée
 
 - **Table des 66 livres** : abréviations officielles de la Bible d’étude (https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/), y compris Mat., Jér., 1Co, Php, Ézéch., 2 Tim. et Rév.

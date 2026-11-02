@@ -137,10 +137,22 @@ function documentChapterMatches(html:string,reference:string):boolean{
 
 function isDocument(html:string):boolean{
  const doc=new DOMParser().parseFromString(html,'text/html');
- const region=doc.querySelector('.bodyTxt, .document, article .bodyTxt, #article');
- return !!region && ((region.querySelectorAll('p').length>=2)||(region.textContent||'').trim().length>450);
+ // A bibliography menu has links and headings but no actual article body.
+ for(const region of doc.querySelectorAll('.bodyTxt, #article, .documentBody, .articleBody, article[role="article"]')){
+   const body=(region.textContent||'').trim();
+   const paragraphs=region.querySelectorAll('p,div.p,div.par,div.paragraph,[data-pid]');
+   if(body.length>300&&paragraphs.length>=3)return true;
+ }
+ return false;
 }
 export function knownCitation(reference:string):string|null{
+ // Full articles verified against WOL's own publication metadata.
+ // A single cited page may fall inside the complete page range.
+ const citation=publicationPages(reference);
+ if(citation?.issue==='w16 aout'&&citation.first>=25&&citation.last<=29)
+   return WOL+'d/r30/lp-f/2016609'; // w16 août p. 25-29
+ if(citation?.issue==='w20 juin'&&citation.first>=24&&citation.last<=29)
+   return WOL+'d/r30/lp-f/2020441'; // w20 juin p. 24-29
  // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
  // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
  if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
@@ -223,14 +235,13 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  let networkProblem='';
  try{
    text=await officialText(lookup);
-   docUrl=pickDocument(text,lookup,query);
-   if(!docUrl && isDocument(text) && documentChapterMatches(text,query)){
+   // Read the embedded document first, rather than links in the nav menu.
+   if(isDocument(text) && documentChapterMatches(text,query)){
      const direct=readerForDocument(text,lookup,query);
-     // The server supplied the full document instead of a list.
-     direct.sourceUrl=lookup;
-     direct.kind='article';
+     direct.sourceUrl=lookup;direct.kind='article';
      return direct;
    }
+   docUrl=pickDocument(text,lookup,query);
  }catch(error){
    networkProblem=error instanceof Error?error.message:'Requête WOL interrompue';
    // WOL can fail to expose a JavaScript redirect on the /l/ endpoint.
