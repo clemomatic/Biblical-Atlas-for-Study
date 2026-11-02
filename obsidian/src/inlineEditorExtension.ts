@@ -17,15 +17,16 @@ export function inlineBibleLabEditorExtension(open:(label:string,anchor:HTMLElem
      for(const range of view.visibleRanges){
        const first=doc.lineAt(range.from).number;
        const last=doc.lineAt(range.to).number;
+       // Compute fenced-code context once per viewport, not for every
+       // rendered line on every keystroke (important for Android notes).
+       let fence=false;
+       const isFence=(line:string)=>/^\s*(?:\x60{3,}|~{3,})/.test(line);
+       for(let i=Math.max(1,first-1200);i<first;i++)
+         if(isFence(doc.line(i).text))fence=!fence;
        for(let lineNumber=first;lineNumber<=last;lineNumber++){
-         if(visited.has(lineNumber))continue;visited.add(lineNumber);
          const line=doc.line(lineNumber),text=line.text;
-         // Never decorate a fenced code block. Search backwards for a fence
-         // with a bounded lookbehind for responsiveness on long notes.
-         let fence=false;
-         for(let i=Math.max(1,lineNumber-1200);i<lineNumber;i++){
-           if(/^\s*(?:\x60{3,}|~{3,})/.test(doc.line(i).text))fence=!fence;
-         }
+         if(isFence(text)){fence=!fence;continue;}
+         if(visited.has(lineNumber))continue;visited.add(lineNumber);
          if(fence)continue;
          for(const ref of findInlineReferences(text)){
            const from=line.from+ref.from,to=line.from+ref.to;
