@@ -33,7 +33,7 @@ export function inlineBibleLabEditorExtension(open:(label:string,anchor:HTMLElem
            if(from>=to)continue;
            result.push({from,to,value:Decoration.mark({
              class:'biblelab-inline-editor-ref',
-             attributes:{'data-biblelab-ref':encodeURIComponent(ref.label),
+             attributes:{'data-biblelab-ref':encodeURIComponent(ref.ref.label),
                title:'Lire '+ref.label+' dans Bible Lab'}
            })});
          }

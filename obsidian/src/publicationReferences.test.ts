@@ -110,3 +110,8 @@ test('Historic dated Watchtower and Insight / si references are captured as comp
   assert.equal(findPublicationMentions(invalid).length,0,invalid);
  }
 });
+
+test('Ranges after paragraph marker are inclusive',()=>{
+ assert.deepEqual(referencedParagraphs('it-1 510 § 3-4'),['3','4']);
+ assert.deepEqual(referencedParagraphs('S-38 § 20, 25'),['20','25']);
+});

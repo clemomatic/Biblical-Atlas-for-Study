@@ -1,6 +1,7 @@
 import { cleanWolUrl } from './referenceReader';
 import { passageUrl } from './referenceReader';
 import { findInlineReferences } from './inlineReferenceScanner';
+import { parseScripture, BOOKS } from './bibleLabData';
 
 /** Reading-mode source preview. Only mutate rendered DOM, never vault text.
  * No scanning of existing links, code, scripts, or form controls.
@@ -33,7 +34,15 @@ export function enhanceBibleLabMarkers(
  }
  for(const original of nodes){
   const text=original.textContent||'';
-  const candidates:Array<{from:number;to:number;label:string;url:string}>=[];
+  const candidates:Array<{from:number;to:number;label:string;url:string;resolved?:string}>=[];
+  // When the first cited verse is an existing Markdown link, its text lives
+  // in another DOM node. Retain its book for adjacent semicolon clauses.
+  const block=original.parentElement?.closest('p,li,blockquote,h1,h2,h3,h4,td,div.callout');
+  const prior=block?[...block.querySelectorAll<HTMLAnchorElement>('a[href]')]
+    .filter(link=>!!(link.compareDocumentPosition(original)&Node.DOCUMENT_POSITION_FOLLOWING))
+    .reverse().find(link=>parseScripture(link.dataset.biblelabResolvedLabel||link.textContent||'')):undefined;
+  const parsed=prior?parseScripture(prior.dataset.biblelabResolvedLabel||prior.textContent||''):null;
+  const inherited=parsed?BOOKS[parsed.book-1]:undefined;
   for(const marker of text.matchAll(/!!([^!\r\n]{2,220})!!/g)){
    const from=marker.index??0;
    const label=marker[1].trim();
@@ -42,10 +51,10 @@ export function enhanceBibleLabMarkers(
   // Text nodes may contain line breaks; preserve their offsets accurately.
   let position=0;
   for(const line of text.split('\n')){
-   for(const ref of findInlineReferences(line)){
+   for(const ref of findInlineReferences(line,inherited)){
     const from=position+ref.from,to=position+ref.to;
     if(!candidates.some(x=>from<x.to&&to>x.from))
-     candidates.push({from,to,label:ref.label,url:ref.ref.url});
+     candidates.push({from,to,label:ref.label,url:ref.ref.url,resolved:ref.ref.label});
    }
    position+=line.length+1;
   }
@@ -60,11 +69,12 @@ export function enhanceBibleLabMarkers(
    link.className='biblelab-ref biblelab-autolink';
    link.textContent=item.label;
    link.href=item.url;
+   if(item.resolved)link.dataset.biblelabResolvedLabel=item.resolved;
    link.setAttribute('aria-label','Lire la référence '+item.label);
    link.addEventListener('click',event=>{
      if(event.ctrlKey||event.metaKey||event.shiftKey||event.altKey)return;
      event.preventDefault();event.stopPropagation();
-     open(item.label,link);
+     open(item.resolved||item.label,link);
    });
    fragment.appendChild(link);
    cursor=item.to;

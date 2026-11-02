@@ -22,24 +22,25 @@ function protectedRanges(line:string):Array<[number,number]>{
 const isWord=(text:string)=>/[\p{L}\p{N}]/u.test(text);
 const safeBoundary=(text:string,start:number,end:number)=>
   (start===0||!isWord(text[start-1]))&&(end===text.length||!isWord(text[end]));
-export function findInlineReferences(line:string):InlineReference[]{
+export function findInlineReferences(line:string,inheritedBook?:string):InlineReference[]{
  if(line.length>14000||!line.trim()||/^\s*(?:>|#{1,6}\s+)?(?:\x60{3}|~~~)/.test(line)||
    /^\s*(?:---|<!--)/.test(line))return [];
  const protectedSpans=protectedRanges(line);
  const result:InlineReference[]=[];
- const add=(start:number,end:number,label:string,sourceUrl?:string):void=>{
+ const add=(start:number,end:number,label:string,sourceUrl?:string,canonicalLabel?:string):void=>{
   if(!safeBoundary(line,start,end))return;
   if(protectedSpans.some(([a,b])=>start<b&&end>a))return;
   if(result.some(x=>start<x.to&&end>x.from))return;
-  const scripture=parseScripture(label);
-  const ref:ReferenceEntry={label,url:sourceUrl||passageUrl(label),
+  const finalLabel=canonicalLabel||label;
+  const scripture=parseScripture(finalLabel);
+  const ref:ReferenceEntry={label:finalLabel,url:sourceUrl||passageUrl(finalLabel),
    kind:scripture?'scripture':'publication',origin:'pinned'};
   result.push({from:start,to:end,label,ref});
  };
  // Use source offsets rather than re-searching a normalized label:
  // abbreviation punctuation, case and repeated occurrences remain exact.
- for(const citation of findScriptureMentions(line).slice(0,35)){
-  add(citation.from,citation.to,citation.label);
+ for(const citation of findScriptureMentions(line,inheritedBook).slice(0,35)){
+  add(citation.from,citation.to,citation.label,undefined,citation.ref.label);
  }
  for(const item of findPublicationMentions(line)){
   add(item.from,item.to,item.label,item.url);

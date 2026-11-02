@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { extractReferences, jwLibraryLink, normalizeSearch, parseScripture, wolLookup, wolSearch, MAP_CHAPTERS, RESOURCES } from './bibleLabData.ts';
+import { findScriptureMentions, extractReferences, jwLibraryLink, normalizeSearch, parseScripture, wolLookup, wolSearch, MAP_CHAPTERS, RESOURCES } from './bibleLabData.ts';
 
 test('French and abbreviated scripture references yield stable JW Library links', () => {
   assert.equal(jwLibraryLink('Matthieu 10:29'),'https://www.jw.org/finder?wtlocale=F&bible=40010029');
@@ -75,4 +75,16 @@ test('Extract citations without splitting comma lists or swallowing punctuation'
  const text='Lire Mat. 4:2, 3 ; Jér. 3:1-4 et Php 2:5, 6. Puis 1Co 13:4-7.';
  assert.deepEqual(extractReferences(text),
   ['Mat. 4:2, 3','Jér. 3:1-4','Php 2:5, 6','1Co 13:4-7']);
+});
+
+test('Semicolon continuations inherit the preceding canonical Bible book, not its chapter',()=>{
+ const sample='Actes 1:8 ; 2:1-4, 32, 33 ; 3:6, 7 ; 7:56 ; 9:3-6, 10-16 ; 11:15-17 ; 13:2-4 ; 16:6-10';
+ const matches=findScriptureMentions(sample);
+ assert.deepEqual(matches.map(x=>x.ref.label),[
+  'Actes 1:8','Actes 2:1-4, 32, 33','Actes 3:6, 7','Actes 7:56',
+  'Actes 9:3-6, 10-16','Actes 11:15-17','Actes 13:2-4','Actes 16:6-10']);
+ assert.deepEqual(matches[1].ref.verses,[1,2,3,4,32,33]);
+ assert.deepEqual(matches[4].ref.verses,[3,4,5,6,10,11,12,13,14,15,16]);
+ assert.deepEqual(findScriptureMentions('Rendez-vous à 2:30 ; 3:15'),[],
+  'No bare chapters without an explicit book');
 });

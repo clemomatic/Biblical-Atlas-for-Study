@@ -86,3 +86,12 @@ test('Do not treat partial words as scripture links',()=>{
  const p=linkifyReaderText('MonJean 7:24X ne doit pas être reconnu.');
  assert.equal(p.filter(x=>x.url).length,0);
 });
+
+test('Indexed note preserves same-book references after Markdown link',()=>{
+ const source='[Actes 1:8](https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/44/1) ; 2:1-4, 32, 33 ; 3:6, 7';
+ const entries=extractReferenceEntries(source);
+ assert.ok(entries.some(x=>x.label==='Actes 2:1-4, 32, 33'&&x.url.endsWith('/44/2')));
+ assert.ok(entries.some(x=>x.label==='Actes 3:6, 7'&&x.url.endsWith('/44/3')));
+ const tokens=linkifyReaderText('Actes 1:8 ; 2:1-4, 32, 33 ; 3:6, 7');
+ assert.deepEqual(tokens.filter(p=>p.url).map(p=>p.text),['Actes 1:8','2:1-4, 32, 33','3:6, 7']);
+});

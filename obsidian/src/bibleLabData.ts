@@ -7,7 +7,7 @@ export const WOL_LOOKUP = 'https://wol.jw.org/fr/wol/l/r30/lp-f?q=';
 export const OFFICIAL_MAP_INDEX = 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102003130';
 export const OFFICIAL_ATLAS = 'https://www.jw.org/fr/biblioth%C3%A8que/brochures/Voyez-le-bon-pays/';
 
-const BOOKS = [
+export const BOOKS = [
   'Genèse','Exode','Lévitique','Nombres','Deutéronome','Josué','Juges','Ruth',
   '1 Samuel','2 Samuel','1 Rois','2 Rois','1 Chroniques','2 Chroniques','Esdras','Néhémie',
   'Esther','Job','Psaumes','Proverbes','Ecclésiaste','Chant de Salomon','Isaïe','Jérémie',
@@ -107,17 +107,48 @@ const scriptureReferencePattern=new RegExp(
   '\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?(?:\\s*,\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)*)',
   'giu');
 export interface ScriptureMention {from:number;to:number;label:string;ref:ScriptureRef}
-export function findScriptureMentions(note:string):ScriptureMention[]{
+// A semicolon followed by a chapter number inherits the last explicit book.
+// Require an adjacent clause; do not link unrelated "2:15" numbers in prose.
+const CONTINUED_VERSES=/^\s*[;；]\s*(\d{1,3}\s*:\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3})?(?:\s*,\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3})?)*)/u;
+export function findScriptureMentions(note:string,inheritedBook?:string):ScriptureMention[]{
  const mentions:ScriptureMention[]=[];
+ const known=new Set<string>();
+ const add=(from:number,to:number,label:string,ref:ScriptureRef):void=>{
+  if(to<note.length&&/[\p{L}\p{N}]/u.test(note[to]))return;
+  const key=from+':'+to;
+  if(!known.has(key)){known.add(key);mentions.push({from,to,label,ref});}
+ };
+ const continuations=(start:number,book:string):void=>{
+  let pos=start;
+  // Support Markdown's linked initial reference: [Actes 1:8](url) ; 2:1...
+  if(note[pos]===']'){
+   const tail=note.slice(pos).match(/^\]\(https?:\/\/[^)\r\n]{1,350}\)/);
+   if(tail)pos+=tail[0].length;
+  }
+  const marks=(text:string)=>text.match(/^(?:\*{1,2}|_{1,2})*/)?.[0].length||0;
+  pos+=marks(note.slice(pos));
+  for(let i=0;i<40;i++){
+   const match=note.slice(pos).match(CONTINUED_VERSES);
+   if(!match)break;
+   const ref=parseScripture(book+' '+match[1]);
+   if(!ref)break;
+   const from=pos+match[0].lastIndexOf(match[1]);
+   add(from,from+match[1].length,match[1],ref);
+   pos=from+match[1].length;
+   pos+=marks(note.slice(pos));
+  }
+ };
+ if(inheritedBook&&parseScripture(inheritedBook+' 1:1'))
+  continuations(0,inheritedBook);
  for(const match of note.matchAll(scriptureReferencePattern)){
   const ref=parseScripture(match[1]);
   if(!ref)continue;
   const from=match.index||0,to=from+match[1].length;
-  if(to<note.length&&/[\p{L}\p{N}]/u.test(note[to]))continue;
-  mentions.push({from,to,label:match[1],ref});
+  add(from,to,match[1],ref);
+  continuations(to,BOOKS[ref.book-1]);
   if(mentions.length>=80)break;
  }
- return mentions;
+ return mentions.sort((a,b)=>a.from-b.from).slice(0,80);
 }
 export function extractReferences(note:string):string[]{
  const found=new Set<string>();
@@ -128,7 +159,7 @@ export function extractReferences(note:string):string[]{
   }
  }
  for(const mention of findScriptureMentions(note)){
-  found.add(mention.label);
+  found.add(parseScripture(mention.label)?mention.label:mention.ref.label);
   if(found.size>=40)break;
  }
  return [...found];
