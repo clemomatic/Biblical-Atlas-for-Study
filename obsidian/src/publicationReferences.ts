@@ -14,7 +14,7 @@ const sourceCodes=PUBLICATION_CODES.slice().sort((a,b)=>b.length-a.length)
 // A bare "cl" or "be" is not necessarily a bibliographic citation.
 const locators=[
  chapters+'(?:\\s+'+page+')?(?:'+paragraph+')?',
- '(?:leçon|lecons?|hist(?:oire)?|partie|étude|annexe|appendice)\\.?\\s*\\d{1,3}(?:'+paragraph+')?',
+ '(?:leçon|lecons?|hist(?:oire)?|partie|étude(?:\\s+numéro)?|ét\\.|annexe|appendice)\\.?\\s*\\d{1,3}(?:'+paragraph+')?',
  page+'(?:'+paragraph+')?',
  '\\d{1,3}\\s*:\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?',
  paragraph,
