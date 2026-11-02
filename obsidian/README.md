@@ -1,3 +1,11 @@
+## Bible Lab 0.9.1 — Illustrations des publications comme sur WOL
+
+- **Images officielles** : les articles récupérés sur WOL affichent désormais les illustrations au fil du texte, en gardant leur ordre, leur format original (aucun recadrage 1:1 imposé) et leurs légendes.
+- **Zoom** : toucher ou cliquer sur une image ouvre un agrandissement dans Obsidian, refermable avec Échap, le bouton Fermer ou un clic à l’extérieur.
+- **Lecteur + aperçu** : la fenêtre flottante et le panneau latéral montrent les mêmes images ; affichage responsive, chargement différé par le navigateur, sans télécharger l’ensemble d’une publication.
+- **Confidentialité et sécurité** : seules les URL HTTPS d’hébergeurs officiels connus sont acceptées. Aucun HTML distant, pixel tiers ou image incluse dans les notes ; les images sont chargées uniquement si l'article est ouvert.
+- **Limites** : si WOL/JW.org ne livre pas l'image ou refuse la requête depuis Obsidian, le texte et le lien vers la page officielle restent disponibles. Les tests automatisés vérifient des exemples HTML représentatifs, pas toutes les mises en page des publications.
+
 ## Bible Lab 0.9.0 — Stabilisation de la saisie et des aperçus
 
 Cette mise à jour consolide le fonctionnement des références cliquables et des fenêtres de lecture introduits par la version 0.8.9.
