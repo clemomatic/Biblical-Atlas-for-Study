@@ -402,6 +402,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
  const linked=new Set<string>();
  for(const row of entry.crossReferences||[]){
    const labels:string[]=[];
+   const rowLinks:ReaderResult['links']=[];
    for(const target of row.targets||[]){
      const citation=cleanReadingText(target.standardCitation||'');
      if(citation)labels.push(citation);
@@ -411,15 +412,20 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
        if(book>=1&&book<=66&&chapter>=1&&chapter<=150){
          const url=WOL+'b/r30/lp-f/nwt/'+book+'/'+chapter;
          const key=citation+'|'+url;
-         if(!linked.has(key)){links.push({label:citation,url});linked.add(key);}
+         const item={label:citation,url};
+         if(!rowLinks.some(link=>link.label===citation&&link.url===url))rowLinks.push(item);
+         if(!linked.has(key)){links.push(item);linked.add(key);}
        }
      }
    }
    // Cross-references must not be mixed with commentary or footnotes.
    if(labels.length)lines.push({type:'crossref',text:labels.join(' · '),
-     source:meaningfulNoteSource(row.source)});
+     source:meaningfulNoteSource(row.source),references:rowLinks});
  }
  if(!text)throw Error('Texte du verset absent.');
+ // Associate the discreet '+' cross-reference marker with this exact verse.
+ const verse=lines.find(line=>line.type==='verse');
+ if(verse&&links.length)verse.references=links;
  return {title:cleanReadingText(entry.citation||scripture.label),
    sourceUrl:ref.url,kind:'verse',lines,links,
    notice:'Bible d’étude · texte, notes et renvois · jw.org'};
