@@ -316,6 +316,68 @@ async function officialText(url:string):Promise<string>{
    throw Error('WOL a répondu sans document HTML exploitable.');
  return html;
 }
+/** The SI book and study articles occupy an ordered official WOL document
+ * sequence. IDs are used ONLY as candidates: each downloaded document must
+ * state its actual SI page range, or it is discarded. No guessed link is shown.
+ * A binary search needs at most seven requests rather than 78 full articles.
+ */
+export function siDocumentPageRange(html:string):{first:number;last:number}|null{
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const body=cleanReadingText(doc.body?.textContent||'').slice(0,2600);
+ const match=body.match(/(?:^|[^\p{L}\p{N}])si\s+p\.?\s*(\d{1,4})\s*[-–—]\s*(\d{1,4})(?=\s|$)/u);
+ if(!match)return null;
+ const first=Number(match[1]),last=Number(match[2]);
+ return first>0&&last>=first&&last<=400?{first,last}:null;
+}
+const siPageCache=new Map<string,string>();
+async function findSiDocumentByPage(reference:string):Promise<string|null>{
+ const request=publicationBookPages(reference);
+ if(!request||request.code!=='si')return null;
+ const key=request.first+'-'+request.last;
+ const cached=siPageCache.get(key);
+ if(cached)return cached;
+ // Official 1990s SI articles are ordered: introductory chapter, 66 Bible
+ // books, then 10 studies. Always inspect real article metadata before use.
+ let low=1101990061,high=1101990137,iterations=0;
+ while(low<=high&&iterations++<9){
+  const middle=Math.floor((low+high)/2);
+  const url=WOL+'d/r30/lp-f/'+middle;
+  let html:string;
+  try{html=await officialText(url);}catch{break;}
+  const range=siDocumentPageRange(html);
+  if(!range)break; // Missing metadata: do not assume candidate is correct
+  if(range.first<=request.first&&range.last>=request.last){
+   siPageCache.set(key,url);return url;
+  }
+  if(request.first>range.last)low=middle+1;
+  else if(request.last<range.first)high=middle-1;
+  else break; // Crosses two articles; cannot claim one exact match
+ }
+ return null;
+}
+const insightPageCache=new Map<string,string>();
+async function findInsightDocumentByIndex(reference:string):Promise<string|null>{
+ const requested=publicationBookPages(reference);
+ if(!requested||!/^it-[12]$/.test(requested.code))return null;
+ const key=requested.code+':'+requested.first+'-'+requested.last;
+ const cached=insightPageCache.get(key);
+ if(cached)return cached;
+ const indexUrl=WOL+'d/r30/lp-f/1200004775';
+ const index=await officialText(indexUrl);
+ const link=selectInsightIndexArticle(index,reference);
+ if(!link)return null;
+ // The index links /wol/pc/ resolve to the full article. Check the actual
+ // volume in the returned HTML to avoid using index links as document text.
+ const html=await officialText(link);
+ const document=new DOMParser().parseFromString(html,'text/html');
+ const intro=cleanReadingText(document.body?.textContent||'').slice(0,1600);
+ const expected=new RegExp('(?:^|[^a-z0-9])'+requested.code.replace('-','\\-')+
+  '\\s+[«“"\\u201c]','i');
+ if(!expected.test(normalizeSearch(intro)))return null;
+ if(!hasReadableArticleBody(parseWolDocument(html,link,reference)))return null;
+ insightPageCache.set(key,link);
+ return link;
+}
 function hasReadableArticleBody(result:ReaderResult):boolean{
  return result.lines.some(line=>line.type!=='heading'&&line.type!=='caption'&&
   line.type!=='image'&&line.text.trim().length>=8);
