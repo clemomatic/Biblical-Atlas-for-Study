@@ -19,6 +19,10 @@ import { MapTileCache } from './MapTiles';
 import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
 import { enhanceBibleLabMarkers } from './bibleLabMarkers';
+import { inlineBibleLabEditorExtension } from './inlineEditorExtension';
+import { BibleLabInlinePopover } from './BibleLabInlinePopover';
+import { linkReferencesInMarkdown } from './inlineReferenceScanner';
+import inlineReferenceCss from './inlineReferences.css?inline';
 import { normalizeSearch } from './bibleLabData';
 import { TalkStudioModal, saveTalkToVault } from './talkStudio';
 import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveInspector';
@@ -100,6 +104,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   settings: AtlasSettings = { ...DEFAULT_SETTINGS };
   private indexedNotes = new Map<string, VaultNote>();
   private listeners = new Set<() => void>();
+  private inlinePopup?:BibleLabInlinePopover;
   private snapshot: AtlasSnapshot = { notes: [], settings: this.settings, atlas: buildWorkspace([]) };
   private indexVersions = new Map<string, number>();
   private ready: Promise<void> = Promise.resolve();
@@ -175,7 +180,27 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       return true;
     } });
     this.addSettingTab(new AtlasSettingTab(this.app, this));
-    this.registerMarkdownPostProcessor(el => enhanceBibleLabMarkers(el, ref => this.run(this.openBibleLab(ref))));
+    // Reading view and Live Preview use the same preview, without rewriting
+    // Markdown as the user types or opening untrusted HTML inside Obsidian.
+    const floatingStyle=document.head.createEl('style',{text:inlineReferenceCss});
+    this.register(()=>floatingStyle.remove());
+    this.inlinePopup=new BibleLabInlinePopover(ref=>
+      this.run(this.openBibleLab(ref.kind==='scripture'?ref.label:ref.url)));
+    this.register(()=>{this.inlinePopup?.destroy();this.inlinePopup=undefined;});
+    const showInline=(label:string,anchor:HTMLElement)=>
+      this.inlinePopup?.open(label,anchor);
+    this.registerMarkdownPostProcessor(el=>enhanceBibleLabMarkers(el,showInline));
+    this.registerEditorExtension(inlineBibleLabEditorExtension(showInline));
+    this.addCommand({id:'link-bible-references-in-selection',
+      name:'Transformer les références de la sélection en liens Markdown',
+      editorCallback:editor=>{
+        const selection=editor.getSelection();
+        if(!selection){new Notice('Sélectionne un passage de note contenant des références.');return;}
+        const result=linkReferencesInMarkdown(selection);
+        if(result.count){editor.replaceSelection(result.text);
+          new Notice(result.count+' référence(s) reliée(s), annulation possible avec Ctrl+Z.');}
+        else new Notice('Aucune nouvelle référence détectée dans la sélection.');
+      }});
     const refreshBibleLab = debounce(() => {
       const file = this.app.workspace.getActiveFile();
       for (const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)) {
@@ -219,7 +244,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }));
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
-  onunload(): void { this.listeners.clear(); this.maps?.dispose(); }
+  onunload(): void { this.inlinePopup?.destroy();this.listeners.clear(); this.maps?.dispose(); }
   saveDailyStudy = (day:DayPreview,date:Date):void => {this.run(saveDailyStudy(this.app,this.settings.noteFolder,day,date));};
   saveWeeklyStudy = (week:MeetingPreview,date:Date):void => {this.run(saveWeeklyStudy(this.app,this.settings.noteFolder,week,date));};
   createTalk = ():void => {
