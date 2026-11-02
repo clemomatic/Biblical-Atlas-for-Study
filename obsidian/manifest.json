@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.6",
+  "version": "0.9.7",
   "minAppVersion": "1.6.0",
-  "description": "Renvois bibliques sans doublons, petits liens + dans les versets et popup plus fluide.",
+  "description": "Lecture WOL it/si fiabilisée et références bibliques successives après point-virgule.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
