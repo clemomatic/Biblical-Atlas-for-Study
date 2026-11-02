@@ -15,5 +15,5 @@ export const PUBLICATION_CODES=Object.freeze((
  'kl km kp kr la lc ld lf lfb lff lffi lfs ll lmd Lmn lr lv lvs mb mrt mwb my nwt nwtstg nwtsty '+
  'od ol om op pc pe ph pr re rj rk rq rr rs rsg scl sg sh si sp syr th ti tp vi w we wfg wi wj wp '+
  'ws wt yb yc yp yp1 yp2 ypq'
-).split(/\s+/).map(code=>code.toLowerCase())));
+).split(/\s+/).map(code=>code.toLowerCase()));
 export const PUBLICATION_CODE_SET:ReadonlySet<string>=new Set(PUBLICATION_CODES);
