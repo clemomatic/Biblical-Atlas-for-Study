@@ -343,12 +343,9 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  let networkProblem='';
  try{
    text=await officialText(lookup);
-   // Read the embedded document first, rather than links in the nav menu.
-   if(isDocument(text) && documentChapterMatches(text,query)){
-     const direct=readerForDocument(text,lookup,query);
-     direct.sourceUrl=lookup;direct.kind='article';
-     return direct;
-   }
+   // /wol/l and /wol/s are search and navigation pages. Even if their
+   // HTML contains several paragraphs, it must NEVER be read as the article.
+   // Only a resolved /wol/d or verified publication-index /wol/pc may be read.
    docUrl=pickDocument(text,lookup,query);
  }catch(error){
    networkProblem=error instanceof Error?error.message:'Requête WOL interrompue';
