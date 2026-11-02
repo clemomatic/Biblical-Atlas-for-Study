@@ -2,6 +2,7 @@ import { setIcon } from 'obsidian';
 import { jwLibraryLink } from './bibleLabData';
 import { linkifyReaderText, type ReaderResult, type ReaderLine, type ReferenceEntry } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
+import { referencedParagraph } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 
 export interface ReaderState {
@@ -131,7 +132,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
 
      const lines=result.lines.filter((line,i)=>
        !(i===0&&line.type==='heading'&&line.text===result.title));
-     const requestedParagraph=ref.label.match(/§\s*(\d{1,3})/)?.[1];
+     const requestedParagraph=referencedParagraph(ref.label);
      let focusedBlock:HTMLElement|null=null;
      let displayed=0;
      const batchSize=18;
