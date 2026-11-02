@@ -3,6 +3,8 @@ import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
 import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
+import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
+export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
@@ -28,33 +30,6 @@ export function canonicalReferenceUrl(raw:string):string|null{
  return url;
 }
 
-interface PublicationPage {issue:string;first:number;last:number}
-const FRENCH_MONTHS='janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre';
-/** The citation may refer to pages INSIDE a longer article. */
-export function publicationPages(raw:string):PublicationPage|null{
- const t=raw.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-   .toLocaleLowerCase('fr').replace(/\u00a0/g,' ').replace(/[–—]/g,'-');
- const match=t.match(new RegExp(
-  '\\b(w\\d{2}|wp\\d{2}(?:\\.\\d+)?|g\\d{2}|mwb\\d{2})\\s+('+FRENCH_MONTHS+
-  ')\\s+p\\.?\\s*(\\d{1,3})(?:\\s*-\\s*(\\d{1,3}))?\\b','i'));
- if(!match){
-   // Issues from the 1980s-2015 are indexed as w14 15/11 28-29
-   // (and can include optional "p."), not "w14 novembre".
-   const legacy=t.match(/\b((?:w|ws|g)\d{2})\s+(\d{1,2})\/(\d{1,2})\s+(?:p\.?\s*)?(\d{1,3})(?:\s*-\s*(\d{1,3}))?\b/i);
-   if(!legacy)return null;
-   const day=Number(legacy[2]),month=Number(legacy[3]);
-   const first=Number(legacy[4]),last=Number(legacy[5]||legacy[4]);
-   if(day<1||day>31||month<1||month>12||first<1||last<first||last>300)return null;
-   return {issue:legacy[1]+' '+day+'/'+month,first,last};
- }
- const first=Number(match[3]),last=Number(match[4]||match[3]);
- if(first<1||last<first||last>300)return null;
- return {issue:match[1]+' '+match[2],first,last};
-}
-export function matchingPublicationPages(requested:string,listing:string):boolean{
- const a=publicationPages(requested),b=publicationPages(listing);
- return !!a&&!!b&&a.issue===b.issue&&b.first<=a.first&&b.last>=a.last;
-}
 interface BookPage {code:string;first:number;last:number}
 export function publicationBookPages(raw:string):BookPage|null{
  const norm=normalizeSearch(raw).replace(/[–—]/g,'-');
@@ -325,16 +300,16 @@ export function knownCitation(reference:string):string|null{
  // Full articles verified against WOL's own publication metadata.
  // A single cited page may fall inside the complete page range.
  const citation=publicationPages(reference);
- if(citation?.issue==='w16 aout'&&citation.first>=25&&citation.last<=29)
+ if(citation?.issue==='w16.08'&&citation.first>=25&&citation.last<=29)
    return WOL+'d/r30/lp-f/2016609'; // w16 août p. 25-29
- if(citation?.issue==='w20 juin'&&citation.first>=24&&citation.last<=29)
+ if(citation?.issue==='w20.06'&&citation.first>=24&&citation.last<=29)
    return WOL+'d/r30/lp-f/2020441'; // w20 juin p. 24-29
  // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
  // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
  if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
    return WOL+'d/r30/lp-f/2024642';
  const pages=publicationPages(reference);
- if(pages?.issue==='w18 fevrier' && pages.first>=23 && pages.last<=27)
+ if(pages?.issue==='w18.02' && pages.first>=23 && pages.last<=27)
    return WOL+'d/r30/lp-f/2018287';
  if(/^lmd\s+(?:leçon\s*)?11$/i.test(reference.trim()))
    return WOL+'d/r30/lp-f/1102023311';
