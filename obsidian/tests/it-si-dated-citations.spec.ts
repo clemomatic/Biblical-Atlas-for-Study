@@ -79,3 +79,28 @@ test('si page lookup resolves by containing range, not by the first WOL result',
  await expect(page.locator('.biblelab-side').getByText('Premier paragraphe long',{exact:false}))
   .toBeVisible();
 });
+
+
+test('si étude 10 resolves the officially verified study article',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1101990137',route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:textArticle('Étude numéro 10 — La Bible : authentique et véridique',
+    'si p. 337-349')}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('si étude 10'));
+ await expect(page.locator('.biblelab-side').getByText('Premier paragraphe long',{exact:false}))
+  .toBeVisible();
+});
+test('si ét. 7 selects the study number from a WOL result and ignores a neighboring study',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/l/**',route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:'<main class="searchResults">'+
+   '<article class="result"><a href="/fr/wol/d/r30/lp-f/1100011111">Étude numéro 6</a></article>'+
+   '<article class="result"><a href="/fr/wol/d/r30/lp-f/1100012222">Étude numéro 7</a></article>'+
+   '</main>'}));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1100012222',route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:textArticle('Étude numéro 7 : La Bible aux temps modernes','si p. 320-327')}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('si ét. 7'));
+ await expect(page.locator('.biblelab-side').getByText('Premier paragraphe long',{exact:false}))
+  .toBeVisible();
+});
