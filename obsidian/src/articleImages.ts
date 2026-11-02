@@ -41,11 +41,10 @@ export function articleImageFrom(img:HTMLImageElement,base:string):ArticleImage|
  const anchor=img.closest('a[href]');
  const href=anchor?.getAttribute('href')||'';
  const resolvedHref=href?officialImageUrl(href,base):null;
- // WOL's image zoom links use /wol/mp/ rather than a file extension.
- const full=resolvedHref&&(
-   /\.(?:png|jpe?g|webp|avif|gif)(?:[?#]|$)/i.test(resolvedHref)||
-   /^\/fr\/wol\/mp\/r30\/lp-f\//.test(new URL(resolvedHref).pathname)
- )?resolvedHref:null;
+ // A WOL /wol/mp/ link is an HTML image-viewer PAGE, not an image.
+ // Never use that URL as <img src>, otherwise the image appears broken.
+ const full=resolvedHref&&/\.(?:png|jpe?g|webp|avif|gif)(?:[?#]|$)/i.test(resolvedHref)
+   ?resolvedHref:null;
  const candidates=[
   img.getAttribute('data-imgsrc'),img.getAttribute('data-full-image'),
   img.getAttribute('data-original'),anchor?.getAttribute('data-imgsrc'),
