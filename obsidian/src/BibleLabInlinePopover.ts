@@ -20,6 +20,10 @@ export class BibleLabInlinePopover {
  isOpen():boolean{return !!this.root;}
  open(label:string,anchor:HTMLElement):void{
   const ref=fromLabel(label);
+  // A rendered Markdown link already contains its authoritative WOL URL.
+  // Never replace it with a guessed bibliographic search based on its title.
+  const href=anchor instanceof HTMLAnchorElement?cleanWolUrl(anchor.href):null;
+  if(href){ref.url=href;if(ref.kind!=='scripture')ref.kind='document';}
   this.backFocus=anchor;
   this.history=[ref];
   this.render(ref,anchor);
