@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {citationParagraphs,findPublicationCitations,publicationLookupLabel,verifiedPublicationUrl} from './publicationCitations.ts';
 import {cleanWolUrl,passageUrl,extractReferenceEntries} from './referenceReader.ts';
 import {findInlineReferences,linkReferencesInMarkdown} from './inlineReferenceScanner.ts';
-import {meaningfulNoteSource,cleanReadingText} from './readerText.ts';
+import {cleanReadingText} from './readerText.ts';
 
 test('Recognize S-38, th lesson and Watchtower paragraphs without swallowing neighbouring prose',()=>{
  const note='Voir S-38 §20, 25 puis w22 Février p. 13 §15, enfin th leçon 12.';
@@ -37,9 +37,7 @@ test('Plain notes and opt-in link conversion include all publication references'
  assert.equal(linkReferencesInMarkdown(linked.text).count,0);
  assert.ok(linked.text.includes('[S-38 §20, 25](https://wol.jw.org/fr/wol/d/r30/lp-f/1201038)'));
 });
-test('Remove encoded nonbreaking spaces and JW numeric note IDs',()=>{
+test('Decode encoded nonbreaking spaces without a browser DOM',()=>{
  assert.equal(cleanReadingText('Psaume&amp;nbsp;119:165'),'Psaume 119:165');
- assert.equal(meaningfulNoteSource('23026003'),'');
- assert.equal(meaningfulNoteSource('<span>23026003 · </span>'),'');
- assert.equal(meaningfulNoteSource('<strong>petit oiseau</strong>'),'petit oiseau');
+ // Numeric note labels are tested with a real DOMParser in Playwright.
 });
