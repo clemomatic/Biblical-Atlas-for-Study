@@ -81,5 +81,9 @@ export function readableOfficialHtml(html:string,mode:'verse'|'note'|'article'='
 export function meaningfulNoteSource(html:string|undefined):string {
  if(!html)return '';
  const source=readableOfficialHtml(html,'note');
- return /^[+*†‡\da-z]$/i.test(source)||/^(?:note|renvoi|verset)\s*\d+$/i.test(source)||/^\d{1,3}:\d{1,3}$/.test(source)?'':source.slice(0,110);
+ const cleaned=source.replace(/^\d{6,}(?:\s*[·:—-]\s*)?/,'').trim();
+ return !cleaned||/^[+*†‡\da-z]$/i.test(cleaned)||
+  /^(?:note|renvoi|verset)\s*\d+$/i.test(cleaned)||
+  /^\d{1,3}:\d{1,3}$/.test(cleaned)||
+  /^[\d._-]{6,}$/.test(cleaned)?'':cleaned.slice(0,110);
 }
