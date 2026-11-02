@@ -114,6 +114,33 @@ export function selectInsightIndexArticle(html:string,reference:string):string|n
  return best?.url||null;
 }
 
+/** Resolve an Insight headword from the same official index (not WOL search).
+ * Headings are article titles; their linked page span identifies the volume.
+ */
+export function selectInsightIndexTitle(html:string,reference:string):string|null{
+ const wanted=insightTitleReference(reference);
+ if(!wanted||!/^it-[12]$/.test(wanted.code))return null;
+ const volume=Number(wanted.code.slice(-1));
+ const title=normalizeSearch(wanted.title).replace(/[^a-z0-9]+/g,' ').trim();
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ for(const heading of doc.querySelectorAll('h2,h3,h4')){
+  const clone=heading.cloneNode(true) as Element;
+  for(const link of [...clone.querySelectorAll('a')])link.remove();
+  const headingTitle=normalizeSearch(clone.textContent||'')
+    .replace(/[^a-z0-9]+/g,' ').trim();
+  if(headingTitle!==title)continue;
+  for(const link of heading.querySelectorAll<HTMLAnchorElement>('a[href]')){
+   if(!new RegExp('(?:^|[^\\d])'+volume+'\\s*:\\s*\\d{1,4}').test(link.textContent||''))continue;
+   let href:string;
+   try{href=new URL(link.getAttribute('href')||'',WOL).toString();}catch{continue;}
+   if(/^https:\/\/wol\.jw\.org\/fr\/wol\/pc\/r30\/lp-f\/1200004775\/\d+\/\d+$/.test(href))return href;
+   const direct=validateDocument(href,WOL);
+   if(direct)return direct;
+  }
+ }
+ return null;
+}
+
 export function insightTitleReference(reference:string):{code:string;title:string}|null{
  const normalized=normalizeSearch(reference).replace(/[«»“”"]/g,'"');
  const match=normalized.match(/^(it(?:-[12])?)\s+"([^"]{2,95})"(?:\s*§\s*\d{1,3})?$/);
@@ -364,6 +391,22 @@ function loadInsightIndex():Promise<string>{
      .catch(error=>{insightIndexPromise=null;throw error;});
  return insightIndexPromise;
 }
+async function findInsightDocumentByTitle(reference:string):Promise<string|null>{
+ const title=insightTitleReference(reference);
+ if(!title||!/^it-[12]$/.test(title.code))return null;
+ const key=title.code+':"'+normalizeSearch(title.title)+'"';
+ const cached=insightPageCache.get(key);
+ if(cached)return cached;
+ const link=selectInsightIndexTitle(await loadInsightIndex(),reference);
+ if(!link)return null;
+ const html=await officialText(link);
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const intro=normalizeSearch(cleanReadingText(doc.body?.textContent||'').slice(0,1400));
+ if(!intro.includes(title.code)||!intro.includes(normalizeSearch(title.title)))return null;
+ if(!hasReadableArticleBody(parseWolDocument(html,link,reference)))return null;
+ insightPageCache.set(key,link);
+ return link;
+}
 async function findInsightDocumentByIndex(reference:string):Promise<string|null>{
  const requested=publicationBookPages(reference);
  if(!requested||!/^it-[12]$/.test(requested.code))return null;
@@ -448,11 +491,12 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  // Book page numbers are not keywords. Resolve them using the official
  // publication structure instead of expecting /l?q=it-1+118 to be an article.
  const bookPages=publicationBookPages(query);
- if(bookPages){
+ const insightTitle=insightTitleReference(query);
+ if(bookPages||insightTitle){
    try{
-     const matched=bookPages.code==='si'
-       ?await findSiDocumentByPage(query)
-       :await findInsightDocumentByIndex(query);
+     const matched=bookPages
+       ?(bookPages.code==='si'?await findSiDocumentByPage(query):await findInsightDocumentByIndex(query))
+       :await findInsightDocumentByTitle(query);
      if(matched){
        const article=readerForDocument(await officialText(matched),matched,query);
        article.kind='article';return article;
