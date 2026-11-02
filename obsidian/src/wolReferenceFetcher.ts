@@ -512,12 +512,16 @@ function hasReadableArticleBody(result:ReaderResult):boolean{
  return result.lines.some(line=>line.type!=='heading'&&line.type!=='caption'&&
   line.type!=='image'&&line.text.trim().length>=8);
 }
+function isNavigationShell(result:ReaderResult):boolean{
+ // Test the TITLE OF THE ISOLATED DOCUMENT, not the first <h1> in the entire
+ // WOL page: a real article may follow a generic site navigation heading.
+ const title=cleanReadingText(result.title).toLowerCase();
+ return /^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(title);
+}
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
- const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
-   .querySelector('h1')?.textContent||'').toLowerCase();
- if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
-   throw Error('WOL a renvoyé un menu de navigation, pas un article.');
  const result=parseWolDocument(html,url,label);
+ if(isNavigationShell(result))
+   throw Error('WOL a renvoyé un menu de navigation, pas un article.');
  if(!hasReadableArticleBody(result))
    throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
  return result;
@@ -527,12 +531,10 @@ function readerForDocument(html:string,url:string,label:string):ReaderResult{
  * Keep the canonical source link and explain the local reader limitation.
  */
 function directDocumentReader(html:string,url:string,label:string):ReaderResult{
- const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
-   .querySelector('h1')?.textContent||'').toLowerCase();
- if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
+ const result=parseWolDocument(html,url,label);
+ if(isNavigationShell(result))
    return {title:label,sourceUrl:url,kind:'results',lines:[],links:[],
      notice:'WOL a renvoyé son menu plutôt que le texte du document. Ouvre la source officielle.'};
- const result=parseWolDocument(html,url,label);
  if(!hasReadableArticleBody(result)){
    result.lines=[];
    result.notice='La page officielle a répondu, mais son texte ne peut pas être extrait dans Obsidian (structure HTML ou chargement dynamique). Ouvre ce document sur WOL pour le lire.';
