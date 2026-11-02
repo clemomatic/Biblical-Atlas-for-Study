@@ -8,6 +8,7 @@ import {
 import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
 import { dayLink, meetingIssueLink, findMeetingProgramme, wolMeetingLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, parseWolDocument, type ReferenceEntry } from './referenceReader';
+import { findPublicationMentions } from './publicationReferences';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
@@ -224,7 +225,7 @@ export class BibleLabSidebarView extends ItemView {
     const term=cleanReadingText(value);
     if(!term){this.setTab('wol');return;}
     this.query=term;
-    if(parseScripture(term) || cleanWolUrl(term) || /^(?:w\d{2}|g\d{2}|mwb\d{2}|it-\d)/i.test(term)){
+    if(parseScripture(term) || cleanWolUrl(term) || findPublicationMentions(term).some(x=>x.from===0&&x.to===term.length) || /^(?:w\d{2}|g\d{2}|mwb\d{2}|it-\d)/i.test(term)){
       this.focusReference(term);
       return;
     }
@@ -559,12 +560,15 @@ export class BibleLabSidebarView extends ItemView {
     const term=this.query.trim();
     if(!term){new Notice('Saisis un sujet ou une expression.');return;}
     const direct=cleanWolUrl(term);
-    if(direct && /\/fr\/wol\/(?:d|b)\//.test(new URL(direct).pathname)){
+    if(direct && (/\/fr\/wol\/(?:d|b)\//.test(new URL(direct).pathname)||new URL(direct).pathname==='/finder')){
       this.focusReference(direct,'Document WOL');
       return;
     }
     const scripture=parseScripture(term);
     if(scripture && this.searchScope==='all'){this.focusReference(scripture.label);return;}
+    if(this.searchScope==='all'&&findPublicationMentions(term).some(x=>x.from===0&&x.to===term.length)){
+      this.focusReference(term);return;
+    }
     if(this.wolResultsLoading)return;
     const seq=++this.wolResultsSequence;
     const url=wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
