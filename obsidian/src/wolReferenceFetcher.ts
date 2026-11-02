@@ -1,7 +1,7 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
-import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText } from './readerText.ts';
+import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
 import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
 
 const WOL='https://wol.jw.org/fr/wol/';
@@ -400,6 +400,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
  }
  const links:ReaderResult['links']=[];
  const linked=new Set<string>();
+ const markerTargets:ReaderResult['links'][]=[];
  for(const row of entry.crossReferences||[]){
    const labels:string[]=[];
    const rowLinks:ReaderResult['links']=[];
@@ -419,13 +420,22 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
      }
    }
    // Cross-references must not be mixed with commentary or footnotes.
-   if(labels.length)lines.push({type:'crossref',text:labels.join(' · '),
-     source:meaningfulNoteSource(row.source),references:rowLinks});
+   if(labels.length){
+     lines.push({type:'crossref',text:labels.join(' · '),
+       source:meaningfulNoteSource(row.source),references:rowLinks});
+     markerTargets.push(rowLinks);
+   }
  }
  if(!text)throw Error('Texte du verset absent.');
  // Associate the discreet '+' cross-reference marker with this exact verse.
  const verse=lines.find(line=>line.type==='verse');
- if(verse&&links.length)verse.references=links;
+ if(verse&&links.length){
+   verse.references=links;
+   const positions=verseCrossReferenceOffsets(entry.html,scripture.verse);
+   if(positions.length)verse.referenceMarkers=positions.map((offset,i)=>({
+     offset,targets:markerTargets[i]||links
+   }));
+ }
  return {title:cleanReadingText(entry.citation||scripture.label),
    sourceUrl:ref.url,kind:'verse',lines,links,
    notice:'Bible d’étude · texte, notes et renvois · jw.org'};
