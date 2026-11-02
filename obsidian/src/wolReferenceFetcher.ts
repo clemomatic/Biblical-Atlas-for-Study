@@ -315,23 +315,53 @@ export function knownCitation(reference:string):string|null{
    return WOL+'d/r30/lp-f/1102023311';
  return null;
 }
+/** Validated HTML only: small memory cache to avoid repeated WOL calls for
+ * a citation, its popup and its reading pane. Rejected/blocked responses are
+ * never cached; concurrent requests for one official URL are deduplicated.
+ * No background crawl, persistent site mirror or undocumented endpoint.
+ */
+const htmlCache=new Map<string,{html:string;expires:number}>();
+const pendingHtml=new Map<string,Promise<string>>();
+const MAX_HTML_ENTRIES=12;
+const MAX_CACHED_HTML_LENGTH=180_000;
 async function officialText(url:string):Promise<string>{
  const safe=canonicalReferenceUrl(url);
  if(!safe)throw Error('Adresse WOL externe non autorisée.');
- const response=await requestUrl({url:safe,throw:false});
- if(response.status!==200)throw Error('WOL HTTP '+response.status+
-   (response.status===403||response.status===429?' : accès automatisé limité.':''));
- const html=response.text||'';
- const document=new DOMParser().parseFromString(html,'text/html');
- const title=document.title.toLowerCase();
- const preliminary=cleanReadingText(document.body?.textContent||'').slice(0,1300);
- if(/javascript is disabled|verify that you(?:’|'| a)re not a robot|vérifi(?:er|cation).{0,45}(?:robot|navigateur)|enable javascript and then reload/i.test(preliminary))
-   throw Error('WOL demande une vérification du navigateur : la réponse ne contient pas le document.');
- if(/(?:access denied|just a moment|captcha|robot check|forbidden|accès refusé)/i.test(title))
-   throw Error('WOL refuse la consultation automatisée de cette page.');
- if(!html.trim()||!/<(?:html|body|main|article|div|p)\b/i.test(html))
-   throw Error('WOL a répondu sans document HTML exploitable.');
- return html;
+ const cached=htmlCache.get(safe);
+ if(cached){
+   htmlCache.delete(safe);
+   if(cached.expires>Date.now()){
+     htmlCache.set(safe,cached); // LRU: recently read documents stay hot.
+     return cached.html;
+   }
+ }
+ const pending=pendingHtml.get(safe);
+ if(pending)return pending;
+ const work=(async()=>{
+   const response=await requestUrl({url:safe,throw:false});
+   if(response.status!==200)throw Error('WOL HTTP '+response.status+
+     (response.status===403||response.status===429?' : accès automatisé limité.':''));
+   const html=response.text||'';
+   const document=new DOMParser().parseFromString(html,'text/html');
+   const title=document.title.toLowerCase();
+   const preliminary=cleanReadingText(document.body?.textContent||'').slice(0,1300);
+   if(/javascript is disabled|verify that you(?:’|'| a)re not a robot|vérifi(?:er|cation).{0,45}(?:robot|navigateur)|enable javascript and then reload/i.test(preliminary))
+     throw Error('WOL demande une vérification du navigateur : la réponse ne contient pas le document.');
+   if(/(?:access denied|just a moment|captcha|robot check|forbidden|accès refusé)/i.test(title))
+     throw Error('WOL refuse la consultation automatisée de cette page.');
+   if(!html.trim()||!/<(?:html|body|main|article|div|p)\b/i.test(html))
+     throw Error('WOL a répondu sans document HTML exploitable.');
+   if(html.length<=MAX_CACHED_HTML_LENGTH){
+     const brief=/\/wol\/(?:l|s)\//.test(safe);
+     htmlCache.set(safe,{html,expires:Date.now()+(brief?60_000:600_000)});
+     while(htmlCache.size>MAX_HTML_ENTRIES)
+       htmlCache.delete(htmlCache.keys().next().value!);
+   }
+   return html;
+ })();
+ pendingHtml.set(safe,work);
+ try{return await work;}
+ finally{pendingHtml.delete(safe);}
 }
 /** The SI book and study articles occupy an ordered official WOL document
  * sequence. IDs are used ONLY as candidates: each downloaded document must
