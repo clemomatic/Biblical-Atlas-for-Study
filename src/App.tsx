@@ -44,6 +44,7 @@ import {
   getBiographyLaneIdForEvent
 } from './domain/history/timelineBiography';
 import { buildFocusedTimeline } from './domain/history/focusedTimeline';
+import { emptyAtlasNavigation, type AtlasIntegration, type AtlasSelection } from './atlasIntegration';
 
 const LocalDataEditor = __ATLAS_EDITOR_ENABLED__
   ? lazy(() => import('./components/editor/LocalDataEditor'))
@@ -157,18 +158,19 @@ const getNavigationKey = (state: {
     state.historicalControlOpen ? 'historical-overlaps' : ''
   ].join('|');
 
-const readInitialCategories = (): Set<string> => {
+const readInitialCategories = (extraIds: string[] = []): Set<string> => {
+  const allIds = [...CATEGORIES.map(category => category.id), ...extraIds];
   if (typeof window === 'undefined') {
-    return new Set(CATEGORIES.map(category => category.id));
+    return new Set(allIds);
   }
   try {
     const saved = window.localStorage.getItem('atlas-visible-categories');
-    if (!saved) return new Set(CATEGORIES.map(category => category.id));
+    if (!saved) return new Set(allIds);
     const ids = JSON.parse(saved) as string[];
-    const availableIds = new Set(CATEGORIES.map(category => category.id));
+    const availableIds = new Set(allIds);
     return new Set(ids.filter(id => availableIds.has(id)));
   } catch {
-    return new Set(CATEGORIES.map(category => category.id));
+    return new Set(allIds);
   }
 };
 
@@ -177,13 +179,18 @@ const readInitialSidebarState = () => {
   return window.localStorage.getItem(SIDEBAR_COLLAPSE_KEY) === 'true';
 };
 
-export default function App() {
-  const initialLocation = useMemo(readLocationState, []);
+export default function App({ integration }: { integration?: AtlasIntegration } = {}) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const people = integration?.dataset?.people ?? HISTORICAL_PEOPLE;
+  const initialLocation = useMemo(() => integration
+    ? integration.initialState ?? emptyAtlasNavigation()
+    : readLocationState(), []);
+  const categories = useMemo(() => [...CATEGORIES, ...(integration?.categories ?? [])], [integration?.categories]);
   const [activeTab, setActiveTab] = useState<ActiveTab>(
     initialLocation.activeTab
   );
   const [activeCategoryIds, setActiveCategoryIds] =
-    useState<Set<string>>(readInitialCategories);
+    useState<Set<string>>(() => readInitialCategories((integration?.categories ?? []).map(category => category.id)));
   const [activeBiographyLaneIds, setActiveBiographyLaneIds] =
     useState<Set<HistoricalPersonLaneId>>(readInitialBiographyLanes);
   const [visiblePeriod, setVisiblePeriod] = useState<TimelinePeriod | null>(
@@ -226,13 +233,13 @@ export default function App() {
     places,
     routes
   } = useMemo(
-    () =>
+    () => integration?.dataset ??
       normalizeDataRelations(
-        TIMELINE_EVENTS,
-        BIBLICAL_PLACES,
-        BIBLICAL_ROUTES
+        integration?.dataset?.events ?? [...TIMELINE_EVENTS, ...(integration?.events ?? [])],
+        integration?.dataset?.places ?? [...BIBLICAL_PLACES, ...(integration?.places ?? [])],
+        integration?.dataset?.routes ?? BIBLICAL_ROUTES
       ),
-    []
+    [integration?.events, integration?.places, integration?.dataset]
   );
 
   const selectedEvent =
@@ -242,7 +249,7 @@ export default function App() {
   const selectedRoute =
     routes.find(route => route.id === selectedRouteId) || null;
   const selectedPerson =
-    HISTORICAL_PEOPLE.find(
+    people.find(
       person =>
         person.id ===
         canonicalizeHistoricalPersonId(selectedPersonId ?? undefined)
@@ -252,17 +259,17 @@ export default function App() {
       buildFocusedTimeline({
         person: selectedPerson,
         event: selectedEvent,
-        people: HISTORICAL_PEOPLE,
+        people: people,
         events: linkedEvents,
         relationships: AUTHORITATIVE_PERSON_RELATIONSHIPS
       }),
-    [linkedEvents, selectedEvent, selectedPerson]
+    [linkedEvents, selectedEvent, selectedPerson, people]
   );
 
   const filteredCategories = useMemo(
     () =>
-      CATEGORIES.filter(category => activeCategoryIds.has(category.id)),
-    [activeCategoryIds]
+      categories.filter(category => activeCategoryIds.has(category.id)),
+    [activeCategoryIds, categories]
   );
   const filteredEvents = useMemo(
     () =>
@@ -298,6 +305,12 @@ export default function App() {
   }, [isSidebarCollapsed]);
 
   useEffect(() => {
+    if (integration) {
+      integration.onNavigate?.({ activeTab, eventId: selectedEventId, placeId: selectedPlaceId,
+        routeId: selectedRouteId, personId: selectedPersonId, visiblePeriod,
+        historicalControlOpen: isHistoricalControlOpen });
+      return;
+    }
     const params = new URLSearchParams();
     params.set('view', activeTab);
     if (selectedEventId) params.set('event', selectedEventId);
@@ -347,10 +360,12 @@ export default function App() {
     selectedRouteId,
     selectedPersonId,
     visiblePeriod,
-    isHistoricalControlOpen
+    isHistoricalControlOpen,
+    integration?.onNavigate
   ]);
 
   useEffect(() => {
+    if (integration) return;
     const handlePopState = () => {
       const next = readLocationState();
       hasSyncedUrlRef.current = true;
@@ -376,8 +391,34 @@ export default function App() {
   }, []);
 
   useEffect(() => {
+    const request = integration?.navigation;
+    if (!request) return;
+    const next = request.state;
+    setActiveTab(next.activeTab);
+    setSelectedEventId(next.eventId);
+    setSelectedPlaceId(next.placeId);
+    setSelectedRouteId(next.routeId);
+    setSelectedPersonId(next.personId);
+    setVisiblePeriod(next.visiblePeriod);
+    setTimelinePeriodRequest(previous => ({ period: next.visiblePeriod, key: previous.key + 1 }));
+    setIsMobileFocusOpen(Boolean(next.personId || next.eventId));
+    setIsSearchOpen(false);
+  }, [integration?.navigation]);
+
+  const selection = useMemo<AtlasSelection | null>(() => {
+    if (selectedPlace) return { type: 'place', key: `place:${selectedPlace.id}`, id: selectedPlace.id, title: selectedPlace.name, entity: selectedPlace };
+    if (selectedRoute) return { type: 'route', key: `route:${selectedRoute.id}`, id: selectedRoute.id, title: selectedRoute.name, entity: selectedRoute };
+    if (selectedEvent) return { type: 'event', key: `event:${selectedEvent.id}`, id: selectedEvent.id, title: selectedEvent.text, entity: selectedEvent };
+    if (selectedPerson) return { type: 'person', key: `person:${selectedPerson.id}`, id: selectedPerson.id, title: selectedPerson.name, entity: selectedPerson };
+    return null;
+  }, [selectedPlace, selectedRoute, selectedEvent, selectedPerson]);
+
+  useEffect(() => { integration?.onSelectionChange?.(selection); }, [selection, integration?.onSelectionChange]);
+
+  useEffect(() => {
     const handleShortcut = (event: KeyboardEvent) => {
-      const target = event.target as HTMLElement | null;
+      if (integration && !event.composedPath().includes(rootRef.current!)) return;
+      const target = event.composedPath()[0] as HTMLElement | null;
       const isTyping =
         target?.tagName === 'INPUT' ||
         target?.tagName === 'TEXTAREA' ||
@@ -529,7 +570,7 @@ export default function App() {
         }
       >
         <LocalDataEditor
-          people={HISTORICAL_PEOPLE}
+          people={people}
           events={linkedEvents}
           places={places}
           sources={HISTORICAL_SOURCE_CATALOG}
@@ -548,19 +589,20 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-dvh min-h-0 flex-col overflow-hidden bg-[var(--color-canvas)] font-sans text-[var(--color-ink)]">
+    <div ref={rootRef} className={`flex ${integration ? 'h-full' : 'h-dvh'} min-h-0 flex-col overflow-hidden bg-[var(--color-canvas)] font-sans text-[var(--color-ink)]`}>
       <AppHeader
         activeTab={activeTab}
         onChangeTab={setActiveTab}
         onOpenFilters={() => setIsFiltersOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
+        shareUrl={integration?.linkForSelection?.(selection)}
       />
 
       <div className="flex min-h-0 flex-1">
         <StudySidebar
           isOpen={isFiltersOpen}
           isCollapsed={isSidebarCollapsed || hasSelection}
-          categories={CATEGORIES}
+          categories={categories}
           events={linkedEvents}
           activeCategoryIds={activeCategoryIds}
           activeBiographyLaneIds={activeBiographyLaneIds}
@@ -574,7 +616,7 @@ export default function App() {
           onToggleBiographyLane={toggleBiographyLane}
           onResetCategories={() => {
             setActiveCategoryIds(
-              new Set(CATEGORIES.map(category => category.id))
+              new Set(categories.map(category => category.id))
             );
             setActiveBiographyLaneIds(
               new Set(BIOGRAPHY_LANES.map(lane => lane.id))
@@ -589,6 +631,7 @@ export default function App() {
           >
             {isMobileFocusOpen && focusedTimelineModel && (
               <FocusedTimelineMobile
+                ageProbe={integration?.ageProbe}
                 model={focusedTimelineModel}
                 places={places}
                 onBack={clearSelection}
@@ -608,7 +651,7 @@ export default function App() {
                 eras={ERAS}
                 categories={filteredCategories}
                 events={filteredEvents}
-                people={HISTORICAL_PEOPLE}
+                people={people}
                 places={places}
                 selectedEventId={selectedEvent?.id || null}
                 requestedPeriod={timelinePeriodRequest.period}
@@ -618,6 +661,7 @@ export default function App() {
                 onVisiblePeriodChange={handleVisiblePeriodChange}
                 onOpenAtThisMoment={() => setIsAtThisMomentOpen(true)}
                 searchQuery=""
+                ageProbe={integration?.ageProbe}
               />
             </div>
           </section>
@@ -637,21 +681,27 @@ export default function App() {
               onSelectPlace={handleSelectPlace}
               onSelectRoute={handleSelectRoute}
               searchQuery=""
+              allowOnlineTiles={integration?.allowOnlineMaps ?? true}
+              offlineBackground={integration?.offlineBackground}
+              editing={integration?.mapEditing}
+              replaceHistoricalRoads={integration?.replaceHistoricalRoads}
+              mapTiles={integration?.mapTiles}
+              onViewport={integration?.onMapViewport}
             />
           </section>
         </main>
 
-        {hasSelection && (
+        {hasSelection && !integration?.mapEditing && (
           <DetailPanel
             selectedEvent={selectedEvent}
             selectedPlace={selectedPlace}
             selectedRoute={selectedRoute}
             selectedPerson={selectedPerson}
-            categories={CATEGORIES}
+            categories={categories}
             places={places}
             routes={routes}
             events={linkedEvents}
-            people={HISTORICAL_PEOPLE}
+            people={people}
             onClose={clearSelection}
             onSelectPlace={handleSelectPlace}
             onSelectEvent={handleSelectEvent}
@@ -659,6 +709,7 @@ export default function App() {
             onSelectPerson={handleSelectPerson}
             onSwitchTab={setActiveTab}
             hideOnMobile={Boolean(isMobileFocusOpen && focusedTimelineModel)}
+            renderMarkdown={integration?.renderMarkdown}
           />
         )}
       </div>
@@ -704,7 +755,7 @@ export default function App() {
         events={linkedEvents}
         places={places}
         routes={routes}
-        people={HISTORICAL_PEOPLE}
+        people={people}
         onClose={() => setIsSearchOpen(false)}
         onQueryChange={setSearchQuery}
         onSelectEvent={handleSelectEvent}
@@ -714,6 +765,8 @@ export default function App() {
       />
 
       <AtThisMomentPanel
+        snapshotForPeriod={integration?.snapshotForPeriod}
+        placeNames={integration?.dataset ? new Map(places.map(place => [place.id, place.name])) : undefined}
         isOpen={isAtThisMomentOpen}
         period={visiblePeriod}
         onClose={() => setIsAtThisMomentOpen(false)}
@@ -728,7 +781,7 @@ export default function App() {
         }}
       />
 
-      <PwaInstallPrompt />
+      {!integration && <PwaInstallPrompt />}
     </div>
   );
 }

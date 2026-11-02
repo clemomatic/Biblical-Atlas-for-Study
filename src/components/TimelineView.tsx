@@ -20,6 +20,7 @@ import {
   TIMELINE_SEMANTIC_LANE_BY_ID
 } from '../domain/history/timelineSemanticLanes';
 import { BiographicalRibbon } from './BiographicalRibbon';
+import type { AtlasAgeProbe } from '../atlasIntegration';
 import { EventContextPreview } from './EventContextPreview';
 import {
   ZoomIn,
@@ -56,6 +57,7 @@ interface TimelineViewProps {
   onVisiblePeriodChange: (period: TimelinePeriod) => void;
   onOpenAtThisMoment: () => void;
   searchQuery: string;
+  ageProbe?: AtlasAgeProbe;
 }
 
 const MIN_PX_PER_YEAR = 0.35;
@@ -157,7 +159,8 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   onSelectEvent,
   onVisiblePeriodChange,
   onOpenAtThisMoment,
-  searchQuery
+  searchQuery,
+  ageProbe
 }) => {
   // Category visibility toggle
   const [visibleCategories, setVisibleCategories] = useState<Set<string>>(() => {
@@ -205,8 +208,10 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
   const pinchAnchorOffsetRef = useRef<number>(0);
 
   // Calculate timeline min & max bounds
-  const minYear = -4100;
-  const maxYear = 2050;
+  const [minYear, maxYear] = useMemo(() => events.reduce(([from, to], event) => [
+    Math.min(from, Number.isFinite(event.startPos) ? event.startPos - 1 : from),
+    Math.max(to, Number.isFinite(event.endPos) ? event.endPos + 1 : to)
+  ], [-4100, 2050]), [events]);
   const totalYears = maxYear - minYear;
   const overviewMaxPxPerYear = 0.75;
   const detailMinPxPerYear = 8;
@@ -259,6 +264,22 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
       });
     }
   };
+
+  useEffect(() => {
+    if (!ageProbe || !isActive) return;
+    const container = containerRef.current; if (!container) return;
+    const reveal = () => {
+      if (!hasInitializedViewportRef.current || container.clientWidth === 0) return;
+      const x = getXFromYear(ageProbe.position);
+      if (x < container.scrollLeft || x > container.scrollLeft + container.clientWidth) {
+        container.scrollLeft = Math.max(0, Math.min(timelineWidth - container.clientWidth, x - container.clientWidth / 2));
+        updateViewport();
+      }
+    };
+    reveal();
+    const observer = new ResizeObserver(reveal); observer.observe(container);
+    return () => observer.disconnect();
+  }, [ageProbe?.position, isActive, timelineWidth]);
 
   useEffect(() => {
     updateViewport();
@@ -1914,6 +1935,17 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
           style={{ width: `${timelineWidth}px` }}
           className="min-h-full relative pb-20"
         >
+          {ageProbe && <div style={{ position: 'absolute', left: getXFromYear(ageProbe.position), top: 0, bottom: 0, zIndex: 42, width: 1, borderLeft: '1px dashed var(--color-bronze)', pointerEvents: 'none' }}>
+            <button type="button" role="slider" aria-label="Curseur de calcul des âges" aria-valuemin={minYear} aria-valuemax={maxYear} aria-valuenow={ageProbe.position} aria-valuetext={ageProbe.dateLabel}
+              title={`Âges au ${ageProbe.dateLabel} · Déplacer le repère`}
+              style={{ position: 'sticky', top: 4, transform: 'translateX(-50%)', pointerEvents: 'auto', touchAction: 'none', minWidth: 36, minHeight: 38, padding: '4px 8px', background: 'var(--color-bronze)', color: 'white', border: 0, borderRadius: 5, cursor: 'ew-resize' }}
+              onMouseDown={event => event.stopPropagation()} onTouchStart={event => event.stopPropagation()}
+              onPointerDown={event => { event.stopPropagation(); event.currentTarget.setPointerCapture(event.pointerId); }}
+              onPointerMove={event => { if (event.currentTarget.hasPointerCapture(event.pointerId) && containerRef.current) { const rect = containerRef.current.getBoundingClientRect(); ageProbe.onPosition(getYearFromX(event.clientX - rect.left + containerRef.current.scrollLeft)); } }}
+              onPointerUp={event => { if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId); }}
+              onKeyDown={event => { const step = event.shiftKey ? 10 : 1 / 12; if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') { event.preventDefault(); ageProbe.onPosition(Math.max(minYear, Math.min(maxYear, ageProbe.position + (event.key === 'ArrowLeft' ? -step : step)))); } }}
+            >↔</button>
+          </div>}
           {/* 1. HISTORICAL ERA CHAPTER RAIL */}
           <div
             style={{ height: `${ERA_RAIL_HEIGHT}px` }}
@@ -2551,6 +2583,11 @@ export const TimelineView: React.FC<TimelineViewProps> = ({
                                           : undefined
                                       }
                                       calculation={participantCalculation}
+                                      probe={ageProbe && ev.historicalPersonId && ageProbe.position >= ev.startPos && ageProbe.position <= ev.endPos ? {
+                                        offset: getXFromYear(ageProbe.position) - startX,
+                                        label: ageProbe.ages.get(ev.historicalPersonId)?.label ?? 'Âge inconnu',
+                                        explanation: ageProbe.ages.get(ev.historicalPersonId)?.explanation ?? ''
+                                      } : undefined}
                                     />
                                   ) : (
                                   <div

@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { formatDateFrench } from '../utils/dateUtils';
 import { EmptyState, StatusNotice } from './ui/AtlasUi';
+import type { AtlasMapBounds, AtlasMapEditing, AtlasMapTiles, AtlasOfflineBackground } from '../atlasIntegration';
 import {
   HISTORICAL_ROAD_SEGMENTS,
   HISTORICAL_ROAD_WARNING,
@@ -39,6 +40,12 @@ interface MapViewProps {
   onSelectPlace: (place: BiblicalPlace) => void;
   onSelectRoute: (route: BiblicalRoute) => void;
   searchQuery: string;
+  allowOnlineTiles?: boolean;
+  offlineBackground?: AtlasOfflineBackground;
+  editing?: AtlasMapEditing;
+  replaceHistoricalRoads?: boolean;
+  mapTiles?: AtlasMapTiles;
+  onViewport?: (bounds: AtlasMapBounds) => void;
 }
 
 const overlapsPeriod = (
@@ -116,6 +123,28 @@ const createBaseMapLayer = (baseMap: BaseMapId): L.TileLayer => {
       maxZoom: 20
     }
   );
+};
+
+// A coordinate grid is deliberately not presented as an historical basemap.
+// It keeps the documented markers usable without any network request.
+const createOfflineGrid = (background?: AtlasOfflineBackground): L.LayerGroup => {
+  const grid = L.layerGroup();
+  if (background) {
+    L.geoJSON(background.land, { pane: 'atlasOfflineBase', interactive: false,
+      style: { color: 'var(--atlas-offline-shore, #b9b6a4)', weight: 1, fillColor: 'var(--atlas-offline-land, #f4f0df)', fillOpacity: 1 }
+    }).addTo(grid);
+    L.geoJSON(background.lakes, { pane: 'atlasOfflineBase', interactive: false,
+      style: { color: 'var(--atlas-offline-shore, #b9b6a4)', weight: 0.6, fillColor: 'var(--atlas-offline-water, #e0edf0)', fillOpacity: 1 }
+    }).addTo(grid);
+  }
+  const style = { pane: 'atlasOfflineBase', color: '#a7b8b7', weight: 1, opacity: 0.25, interactive: false };
+  for (let latitude = -80; latitude <= 80; latitude += 5) {
+    L.polyline([[latitude, -180], [latitude, 180]], style).addTo(grid);
+  }
+  for (let longitude = -180; longitude <= 180; longitude += 5) {
+    L.polyline([[-85, longitude], [85, longitude]], style).addTo(grid);
+  }
+  return grid;
 };
 
 const MAP_MARKER_STYLES: Record<
@@ -237,15 +266,22 @@ export const MapView: React.FC<MapViewProps> = ({
   isActive,
   onSelectPlace,
   onSelectRoute,
-  searchQuery
+  searchQuery,
+  allowOnlineTiles = true,
+  offlineBackground,
+  editing,
+  replaceHistoricalRoads = false,
+  mapTiles,
+  onViewport
 }) => {
   const mapContainerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<L.Map | null>(null);
-  const baseMapLayerRef = useRef<L.TileLayer | null>(null);
+  const baseMapLayerRef = useRef<L.Layer | null>(null);
   const markerLayerRef = useRef<L.LayerGroup | null>(null);
   const routeLayerRef = useRef<L.LayerGroup | null>(null);
   const historicalRoadLayerRef = useRef<L.LayerGroup | null>(null);
   const selectedItineraryLayerRef = useRef<L.LayerGroup | null>(null);
+  const routePointLayerRef = useRef<L.LayerGroup | null>(null);
   const markersRef = useRef<Record<string, L.Marker>>({});
   const hasReliefFallbackRef = useRef(false);
 
@@ -271,6 +307,9 @@ export const MapView: React.FC<MapViewProps> = ({
 
     L.control.zoom({ position: 'bottomright' }).addTo(map);
 
+    map.createPane('atlasOfflineBase');
+    map.getPane('atlasOfflineBase')!.style.zIndex = '180';
+
     map.createPane('historicalRoads');
     map.getPane('historicalRoads')!.style.zIndex = '320';
     map.createPane('selectedItinerary');
@@ -280,18 +319,24 @@ export const MapView: React.FC<MapViewProps> = ({
     markerLayerRef.current = L.layerGroup().addTo(map);
     routeLayerRef.current = L.layerGroup().addTo(map);
     selectedItineraryLayerRef.current = L.layerGroup().addTo(map);
+    routePointLayerRef.current = L.layerGroup().addTo(map);
     mapRef.current = map;
     const handleZoomEnd = () => setMapZoom(map.getZoom());
     map.on('zoomend', handleZoomEnd);
 
-    window.setTimeout(() => map.invalidateSize(), 0);
+    const initialResize = window.setTimeout(() => map.invalidateSize(), 0);
+    const resizeObserver = new ResizeObserver(() => map.invalidateSize({ pan: false }));
+    resizeObserver.observe(mapContainerRef.current);
 
     return () => {
+      window.clearTimeout(initialResize);
+      resizeObserver.disconnect();
       map.off('zoomend', handleZoomEnd);
       markerLayerRef.current?.clearLayers();
       routeLayerRef.current?.clearLayers();
       historicalRoadLayerRef.current?.clearLayers();
       selectedItineraryLayerRef.current?.clearLayers();
+      routePointLayerRef.current?.clearLayers();
       markersRef.current = {};
       baseMapLayerRef.current = null;
       map.remove();
@@ -300,6 +345,7 @@ export const MapView: React.FC<MapViewProps> = ({
       routeLayerRef.current = null;
       historicalRoadLayerRef.current = null;
       selectedItineraryLayerRef.current = null;
+      routePointLayerRef.current = null;
     };
   }, []);
 
@@ -309,6 +355,26 @@ export const MapView: React.FC<MapViewProps> = ({
 
     if (baseMapLayerRef.current) {
       map.removeLayer(baseMapLayerRef.current);
+    }
+
+    if (mapTiles) {
+      const group = L.layerGroup([createOfflineGrid(offlineBackground), mapTiles.createLayer(baseMap)]).addTo(map);
+      baseMapLayerRef.current = group;
+      map.getContainer().style.backgroundColor = 'var(--atlas-offline-water, #e0edf0)';
+      setIsBaseMapLoading(false); setMapNotice(null);
+      try { window.localStorage.setItem(BASE_MAP_STORAGE_KEY, baseMap); } catch { /* Preferences are optional. */ }
+      return () => { map.removeLayer(group); map.getContainer().style.backgroundColor = ''; };
+    }
+
+    if (!allowOnlineTiles) {
+      const grid = createOfflineGrid(offlineBackground).addTo(map);
+      baseMapLayerRef.current = grid;
+      const attribution = offlineBackground ? 'Fond simplifié : <a href="https://www.naturalearthdata.com/" target="_blank" rel="noopener noreferrer">Natural Earth</a>' : 'Grille de coordonnées locale';
+      map.attributionControl.addAttribution(attribution);
+      map.getContainer().style.backgroundColor = offlineBackground ? 'var(--atlas-offline-water, #e0edf0)' : '';
+      setIsBaseMapLoading(false);
+      setMapNotice(null);
+      return () => { map.removeLayer(grid); map.attributionControl.removeAttribution(attribution); map.getContainer().style.backgroundColor = ''; };
     }
 
     const nextLayer = createBaseMapLayer(baseMap);
@@ -343,7 +409,13 @@ export const MapView: React.FC<MapViewProps> = ({
       nextLayer.off('load', handleLoad);
       nextLayer.off('tileerror', handleTileError);
     };
-  }, [baseMap]);
+  }, [baseMap, allowOnlineTiles, offlineBackground, mapTiles]);
+
+  useEffect(() => {
+    const map = mapRef.current; if (!map || !isActive || !onViewport) return;
+    const update = () => { const bounds = map.getBounds(); if (bounds.getWest() < bounds.getEast() && bounds.getSouth() < bounds.getNorth()) onViewport({ west: Math.max(-180,bounds.getWest()), east: Math.min(180,bounds.getEast()), south: Math.max(-85,bounds.getSouth()), north: Math.min(85,bounds.getNorth()) }); };
+    map.on('moveend', update); update(); return () => { map.off('moveend', update); };
+  }, [isActive, onViewport]);
 
   useEffect(() => {
     if (!isActive || !mapRef.current) return;
@@ -413,7 +485,7 @@ export const MapView: React.FC<MapViewProps> = ({
       const isHighlighted =
         selectedPlace?.id === place.id ||
         selectedEvent?.associatedLocationIds?.includes(place.id);
-      const markerStyle = place.mapCategory
+      const categoryStyle = place.mapCategory
         ? MAP_MARKER_STYLES[place.mapCategory]
         : {
             label: 'Lieu biblique',
@@ -421,6 +493,7 @@ export const MapView: React.FC<MapViewProps> = ({
             color: '#4338ca',
             background: '#ffffff'
           };
+      const markerStyle = place.mapColor ? { ...categoryStyle, color: place.mapColor } : categoryStyle;
       const labelLevel = place.mapLabelLevel || 'local';
       const showLabel =
         mapZoom >= MAP_LABEL_MIN_ZOOM[labelLevel] || isHighlighted;
@@ -468,6 +541,8 @@ export const MapView: React.FC<MapViewProps> = ({
         </div>`;
 
       const marker = L.marker(place.coordinates, {
+        draggable: Boolean(editing),
+        title: editing ? `Déplacer ${place.name}` : place.name,
         icon: L.divIcon({
           html: markerHtml,
           className: 'map-label-host',
@@ -476,6 +551,7 @@ export const MapView: React.FC<MapViewProps> = ({
         })
       });
       marker.on('click', () => onSelectPlace(place));
+      if (editing) marker.on('dragend', () => { const coordinates = marker.getLatLng(); editing.onMovePlace(place.id, [coordinates.lat, coordinates.lng]); });
       marker.bindTooltip(escapeHtml(place.name), {
         direction: 'top',
         offset: [0, -8]
@@ -491,21 +567,22 @@ export const MapView: React.FC<MapViewProps> = ({
     visiblePeriod,
     searchQuery,
     mapZoom,
-    onSelectPlace
+    onSelectPlace,
+    editing
   ]);
 
   useEffect(() => {
     const routeLayer = routeLayerRef.current;
     if (!routeLayer) return;
     routeLayer.clearLayers();
-    if (!showSchematicRoutes && !selectedRoute) return;
+    if (!showSchematicRoutes && !showHistoricalRoadNetwork && !selectedRoute) return;
 
     let selectedPolyline: L.Polyline | null = null;
 
     routes
       .filter(route => {
         if (route.id === selectedRoute?.id) return true;
-        if (!showSchematicRoutes) return false;
+        if (route.mapLayer === 'road-network' ? !showHistoricalRoadNetwork : !showSchematicRoutes) return false;
         if (!overlapsPeriod(route.startYear, route.endYear, visiblePeriod)) {
           return false;
         }
@@ -526,11 +603,12 @@ export const MapView: React.FC<MapViewProps> = ({
             dashArray: isSelected ? '10 6' : '7 7',
             lineCap: 'round',
             lineJoin: 'round',
-            interactive: true
+            interactive: true,
+            bubblingMouseEvents: !editing
           }
         );
         polyline.bindTooltip(
-          `${escapeHtml(route.name)} · tracé schématique`,
+          `${escapeHtml(route.name)} · ${route.mapLayer === 'road-network' ? 'corridor historique' : 'tracé schématique'}`,
           { sticky: true }
         );
         polyline.on('click', () => onSelectRoute(route));
@@ -550,7 +628,9 @@ export const MapView: React.FC<MapViewProps> = ({
     selectedEvent,
     selectedRoute,
     showSchematicRoutes,
-    onSelectRoute
+    onSelectRoute,
+    showHistoricalRoadNetwork,
+    editing
   ]);
 
 
@@ -558,7 +638,7 @@ export const MapView: React.FC<MapViewProps> = ({
     const layer = historicalRoadLayerRef.current;
     if (!layer) return;
     layer.clearLayers();
-    if (!showHistoricalRoadNetwork) return;
+    if (!showHistoricalRoadNetwork || replaceHistoricalRoads) return;
 
     HISTORICAL_ROAD_SEGMENTS
       .filter(segment => historicalRoadOverlapsPeriod(segment, visiblePeriod))
@@ -587,12 +667,13 @@ export const MapView: React.FC<MapViewProps> = ({
         `);
         line.addTo(layer);
       });
-  }, [showHistoricalRoadNetwork, visiblePeriod]);
+  }, [showHistoricalRoadNetwork, visiblePeriod, replaceHistoricalRoads]);
 
   useEffect(() => {
     const layer = selectedItineraryLayerRef.current;
     if (!layer) return;
     layer.clearLayers();
+    if (replaceHistoricalRoads) return;
     const itineraryIds = selectedEvent?.authoritativeItineraryIds ?? [];
     if (itineraryIds.length === 0) return;
 
@@ -622,11 +703,32 @@ export const MapView: React.FC<MapViewProps> = ({
         `${summaries.map(summary => summary.name).join(' · ')} — ${HISTORICAL_ROAD_WARNING}`
       );
     }
-  }, [selectedEvent]);
+  }, [selectedEvent, replaceHistoricalRoads]);
+
+  useEffect(() => {
+    const layer = routePointLayerRef.current;
+    const map = mapRef.current;
+    if (!layer || !map) return;
+    layer.clearLayers();
+    if (!editing || !selectedRoute) return;
+    selectedRoute.points.forEach((point, index) => {
+      const marker = L.marker(point.coordinates, { draggable: true, bubblingMouseEvents: false,
+        title: `Déplacer l’étape ${index + 1} : ${point.name}`,
+        icon: L.divIcon({ className: 'atlas-route-edit-handle', html: String(index + 1), iconSize: [30, 30], iconAnchor: [15, 15] }), zIndexOffset: 2000 });
+      marker.on('dragend', () => { const coordinates = marker.getLatLng(); editing.onMoveRoutePoint(selectedRoute.id, point.id!, [coordinates.lat, coordinates.lng]); });
+      marker.on('contextmenu', event => { L.DomEvent.preventDefault(event.originalEvent); L.DomEvent.stopPropagation(event.originalEvent); editing.onRemoveRoutePoint(selectedRoute.id, point.id!); });
+      marker.addTo(layer);
+    });
+    const addPoint = (event: L.LeafletMouseEvent) => editing.onAddRoutePoint(selectedRoute.id, [event.latlng.lat, event.latlng.lng]);
+    map.on('click', addPoint);
+    const doubleClickZoom = map.doubleClickZoom.enabled(); map.doubleClickZoom.disable();
+    return () => { map.off('click', addPoint); if (doubleClickZoom) map.doubleClickZoom.enable(); layer.clearLayers(); };
+  }, [editing, selectedRoute]);
 
   useEffect(() => {
     if (
       !isActive ||
+      editing ||
       !selectedPlace ||
       !mapRef.current ||
       !markersRef.current[selectedPlace.id]
@@ -643,10 +745,10 @@ export const MapView: React.FC<MapViewProps> = ({
       map.flyTo(selectedPlace.coordinates, 11, { duration: 1.2 });
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [selectedPlace, isActive]);
+  }, [selectedPlace, isActive, editing]);
 
   useEffect(() => {
-    if (!isActive || !selectedRoute || !mapRef.current) return;
+    if (!isActive || editing || !selectedRoute || !mapRef.current) return;
     const coordinates = selectedRoute.points
       .map(point => point.coordinates)
       .filter(
@@ -667,7 +769,7 @@ export const MapView: React.FC<MapViewProps> = ({
       });
     });
     return () => window.cancelAnimationFrame(frame);
-  }, [isActive, selectedRoute]);
+  }, [isActive, selectedRoute, editing]);
 
   return (
     <div data-testid="map-view" className="relative flex h-full flex-col overflow-hidden bg-[var(--color-paper-muted)]">
@@ -685,7 +787,7 @@ export const MapView: React.FC<MapViewProps> = ({
             <MapIcon className="size-4 text-[var(--color-primary)]" />
           )}
           <span>
-            {baseMap === 'natural-relief' ? 'Relief naturel' : 'Carte claire'}
+            {!allowOnlineTiles ? offlineBackground ? 'Carte hors connexion' : 'Repères hors connexion' : baseMap === 'natural-relief' ? 'Relief naturel' : 'Carte claire'}
           </span>
           <ChevronDown
             aria-hidden="true"
@@ -751,6 +853,7 @@ export const MapView: React.FC<MapViewProps> = ({
             </div>
 
             <fieldset className="mt-5">
+              {!allowOnlineTiles && <p className="mb-3 text-xs text-[var(--color-ink-soft)]">{offlineBackground ? 'Fond géographique actuel simplifié, inclus dans le plugin. Il situe les repères documentés sans représenter le relief ni les frontières historiques.' : 'Les lieux sont positionnés sur une grille de coordonnées.'} Active les fonds en ligne dans les réglages du plugin pour afficher une carte plus détaillée.</p>}
               <legend className="text-sm font-semibold text-[var(--color-ink)]">
                 Fond de carte
               </legend>
@@ -763,15 +866,16 @@ export const MapView: React.FC<MapViewProps> = ({
                   [
                     'natural-relief',
                     'Relief naturel',
-                    'Sans routes modernes',
+                    mapTiles ? 'Natural Earth et OpenFreeMap' : 'Sans routes modernes',
                     Mountain
                   ],
-                  ['light-map', 'Carte claire', 'Fond CartoDB', MapIcon]
+                  ['light-map', 'Carte claire', mapTiles ? 'Fond clair OpenFreeMap' : 'Fond CartoDB', MapIcon]
                 ] as const).map(([id, label, description, Icon]) => (
                   <button
                     key={id}
                     type="button"
                     role="radio"
+                    disabled={!allowOnlineTiles && !mapTiles}
                     aria-checked={baseMap === id}
                     onClick={() => {
                       if (id === 'natural-relief') {
@@ -957,6 +1061,7 @@ export const MapView: React.FC<MapViewProps> = ({
               <button
                 type="button"
                 role="radio"
+                disabled={!allowOnlineTiles && !mapTiles}
                 aria-checked={baseMap === 'natural-relief'}
                 onClick={() => setBaseMap('natural-relief')}
                 className={`flex min-w-0 flex-col items-start gap-0.5 rounded-lg px-2.5 py-2 text-left transition ${
@@ -977,6 +1082,7 @@ export const MapView: React.FC<MapViewProps> = ({
               <button
                 type="button"
                 role="radio"
+                disabled={!allowOnlineTiles && !mapTiles}
                 aria-checked={baseMap === 'light-map'}
                 onClick={() => setBaseMap('light-map')}
                 className={`flex min-w-0 flex-col items-start gap-0.5 rounded-lg px-2.5 py-2 text-left transition ${

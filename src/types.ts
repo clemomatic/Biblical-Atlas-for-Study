@@ -93,6 +93,7 @@ export interface MediaAsset {
 }
 
 export interface EntityMetadata {
+  personalization?: { path: string; created: boolean; revision: number };
   biblicalReferences?: string[];
   documentaryReferences?: string[];
   sources?: SourceReference[];
@@ -196,6 +197,7 @@ export interface EventData extends EntityMetadata {
 }
 
 export interface BiblicalPlace extends EntityMetadata {
+  mapColor?: string;
   id: string;
   name: string;
   alternateNames?: string[];
@@ -238,6 +240,7 @@ export interface BiblicalPlace extends EntityMetadata {
 }
 
 export interface BiblicalRoute extends EntityMetadata {
+  mapLayer?: 'road-network' | 'route';
   id: string;
   name: string;
   description: string;

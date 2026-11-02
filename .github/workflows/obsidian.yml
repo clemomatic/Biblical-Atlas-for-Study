@@ -1,0 +1,48 @@
+name: Obsidian plugin
+on:
+  push:
+    branches: [main]
+    paths: ['obsidian/**', 'src/**', 'tools/bible_lab_bridge.py', 'tools/test_bible_lab_bridge.py', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
+  pull_request:
+    paths: ['obsidian/**', 'src/**', 'tools/bible_lab_bridge.py', 'tools/test_bible_lab_bridge.py', 'content/**', 'package.json', 'pnpm-lock.yaml', 'scripts/package-obsidian.mjs', '.github/workflows/obsidian.yml']
+# Cancel outdated previews while a PR is being updated. The full desktop
+# and mobile browser suite is expensive; only the newest commit is relevant.
+concurrency:
+  group: obsidian-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+permissions:
+  contents: read
+jobs:
+  plugin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm obsidian:typecheck
+      - run: python tools/test_bible_lab_bridge.py
+      - run: pnpm obsidian:test
+      - run: pnpm obsidian:package
+      # Publishing the build artifact independently of the optional graphical
+      # smoke suite keeps an installable preview available if Chromium flakes.
+      # The run conclusion still reports full E2E success or failure.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: atlas-biblique-obsidian
+          path: obsidian/artifacts/
+      - run: pnpm exec playwright install --with-deps chromium
+      # Browser boot and the inline popover must work before running the
+      # slower desktop/mobile suite. Stop quickly if the harness is broken.
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/inline-popover.spec.ts --project=desktop --workers=1 --max-failures=1
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts --workers=2 --max-failures=6
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: obsidian-test-results
+          path: test-results/

@@ -21,6 +21,7 @@ interface BiographicalRibbonProps {
   labelWidth: number;
   markerOffset?: number;
   calculation?: PersonAtEventCalculation;
+  probe?: { offset: number; label: string; explanation: string };
 }
 
 interface ActivitySegment {
@@ -100,7 +101,8 @@ export function BiographicalRibbon({
   labelOffset,
   labelWidth,
   markerOffset,
-  calculation
+  calculation,
+  probe
 }: BiographicalRibbonProps) {
   const segments = layoutActivities(event);
   const lane = BIOGRAPHY_LANE_BY_ID.get(
@@ -132,6 +134,7 @@ export function BiographicalRibbon({
       data-person-id={event.historicalPersonId}
       data-person-subcategory={lane?.id ?? 'people'}
     >
+      {probe && <span data-testid="cursor-person-age" title={probe.explanation} style={{ left: Math.max(0, Math.min(width - 25, probe.offset + 5)), top: 18, position: 'absolute', zIndex: 35, background: 'var(--color-paper)', color: 'var(--color-primary)', padding: '1px 5px', borderRadius: 4, fontSize: 10, whiteSpace: 'nowrap', border: '1px solid var(--color-bronze)', pointerEvents: 'auto' }}>{probe.label}</span>}
       <div
         className="absolute inset-x-0 top-[22px] h-3 rounded-[3px] border"
         style={{

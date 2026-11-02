@@ -15,13 +15,15 @@ interface AppHeaderProps {
   onChangeTab: (tab: ActiveTab) => void;
   onOpenFilters: () => void;
   onOpenSearch: () => void;
+  shareUrl?: string;
 }
 
 export function AppHeader({
   activeTab,
   onChangeTab,
   onOpenFilters,
-  onOpenSearch
+  onOpenSearch,
+  shareUrl
 }: AppHeaderProps) {
   const [hasCopied, setHasCopied] = useState(false);
 
@@ -33,7 +35,7 @@ export function AppHeader({
 
   const copyView = async () => {
     try {
-      await window.navigator.clipboard.writeText(window.location.href);
+      await window.navigator.clipboard.writeText(shareUrl ?? window.location.href);
       setHasCopied(true);
     } catch {
       // Le navigateur peut refuser le presse-papiers : l’URL reste partageable.
