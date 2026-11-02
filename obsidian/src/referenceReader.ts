@@ -318,16 +318,35 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  }
  return lines;
 }
+/** Read WOL's lookup results, without accidentally returning the
+ * publication menu or implying that a search excerpt is a full article. */
+export function parseWolLookupResults(html:string,url:string,requested:string):ReaderResult|null{
+ const official=cleanWolUrl(url);
+ if(!official||!/\/wol\/(?:l|s)\//.test(official))return null;
+ const document=new DOMParser().parseFromString(html,'text/html');
+ const block=document.querySelector('#lookupResults,.lookupResults');
+ if(!block)return null;
+ const result=parseWolDocument(html,official,requested);
+ // A result card has actual readable content or official result anchors.
+ // A navigation-only wrapper is not enough.
+ const content=result.lines.filter(line=>line.type!=='heading')
+   .map(line=>line.text).join(' ').trim();
+ if(content.length<25&&!result.links.length)return null;
+ return result;
+}
 export function parseWolDocument(html:string,url:string,requested?:string):ReaderResult{
  const official=cleanWolUrl(url);
  if(!official)throw Error('Seules les pages officielles WOL sont acceptées.');
  const doc=new DOMParser().parseFromString(html,'text/html');
  for(const node of [...doc.querySelectorAll('script,style,noscript,svg,form,iframe,nav,footer')])node.remove();
- const root=findDocumentRoot(doc);
+ const isLookup=/\/wol\/(?:l|s)\//.test(official);
+ // WOL's lookup results can contain useful excerpts / publication text,
+ // whereas the surrounding page is only the navigation shell.
+ const lookupResults=isLookup?doc.querySelector('#lookupResults,.lookupResults'):null;
+ const root=lookupResults||findDocumentRoot(doc);
  const heading=normalizedText(root.querySelector('h1, h2'),190);
  const scripture=requested?parseScripture(requested):null;
  const isVerse=!!scripture&&official.includes('/wol/b/');
- const isLookup=official.includes('/wol/l/');
  const links:ReaderLink[]=[];
  const keys=new Set<string>();
  const targeted=scripture&&isVerse?verseRelatedAnchors(root,scripture):[];
@@ -387,6 +406,10 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
      lines=[{type:'paragraph',text:fallback}];
  }
  if(!lines.length)notice='Le contenu n’a pas pu être extrait : ouvre le document sur WOL.';
+ // Lookup results are not necessarily complete article text. Never present
+ // a search-result excerpt as a verified, complete publication article.
+ if(isLookup&&lookupResults&&lines.length)
+   notice='Résultat affiché par WOL. Pour lire l’article intégral, ouvre son lien officiel.';
  return {title:heading||(scripture?.label||requested||'Document WOL'),sourceUrl:official,lines,
    links,kind:isVerse?'verse':isLookup?'results':'article',notice};
 }
