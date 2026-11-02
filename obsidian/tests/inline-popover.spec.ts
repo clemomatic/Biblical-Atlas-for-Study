@@ -76,3 +76,22 @@ test('Reference link command registers and does not silently mutate vault notes'
  expect(result.hasExtension).toBe(true);
  expect(result.hasCommand).toBe(true);
 });
+
+
+test('Real CodeMirror Live Preview auto-links citations while typing without changing source',async({page})=>{
+ await page.route('**/json/html/40010029',route=>route.fulfill({status:200,contentType:'application/json',body:
+  JSON.stringify({ranges:{'40010029':{
+    citation:'Matthieu 10:29',html:'<p>Deux moineaux ne se vendent-ils pas pour une pièce de monnaie ?</p>',
+    footnotes:[],crossReferences:[],commentaries:[]}}})}));
+ await page.evaluate(()=>(window as any).atlasTest.mountInlineEditor('Matthieu 10:29 et '));
+ const editor=page.locator('#test-inline-editor');
+ await expect(editor.locator('.biblelab-inline-editor-ref')).toHaveCount(1);
+ await page.evaluate(()=>(window as any).atlasTest.typeIntoInlineEditor('Éph. 5:28'));
+ await expect(editor.locator('.biblelab-inline-editor-ref')).toHaveCount(2);
+ await editor.locator('.biblelab-inline-editor-ref').first().click();
+ const popup=page.getByRole('dialog',{name:'Aperçu biblique : Matthieu 10:29'});
+ await expect(popup).toBeVisible();
+ await expect(popup.getByText('Deux moineaux ne se vendent-ils pas',{exact:false})).toBeVisible();
+ expect(await page.evaluate(()=>(window as any).atlasTest.editorView.state.doc.toString()))
+  .toBe('Matthieu 10:29 et Éph. 5:28');
+});
