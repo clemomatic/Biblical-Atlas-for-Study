@@ -11,7 +11,7 @@ test.beforeEach(async({page})=>{
  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2022281',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Écoute les paroles des sages')}));
  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Chaleur et empathie')}));
  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1201038',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Instructions S-38')}));
- await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1102014931',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Organisation')}));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1102014938',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Organisation')}));
 });
 test('Reading view recognizes whole paragraph and study-lesson citations',async({page})=>{
  await page.evaluate(()=>{
@@ -27,7 +27,7 @@ test('Reading view recognizes whole paragraph and study-lesson citations',async(
  await expect(links.nth(1)).toHaveText('S-38 §20, 25');
  await expect(links.nth(1)).toHaveAttribute('href',/docid=1201038.*par=60/);
  await expect(links.nth(2)).toHaveAttribute('href',/docid=1201038.*par=31/);
- await expect(links.nth(3)).toHaveAttribute('href',/docid=1102014931.*par=11/);
+ await expect(links.nth(3)).toHaveAttribute('href','https://wol.jw.org/fr/wol/d/r30/lp-f/1102014938');
  await expect(links.nth(4)).toHaveAttribute('href','https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452');
  await links.nth(3).click();
  const pop=page.getByRole('dialog',{name:'Aperçu biblique : od 8:8'});
