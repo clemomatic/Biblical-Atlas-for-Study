@@ -154,6 +154,8 @@ export class BibleLabInlinePopover {
   }
   let visible=0;
   const chunks=result.lines.filter(x=>x.type!=='caption').slice(0,85);
+  const requestedParagraph=this.current?.label.match(/§\s*(\d{1,3})/)?.[1];
+  let focus:HTMLElement|null=null;
   const append=(size:number):void=>{
    const end=Math.min(chunks.length,visible+size);
    for(;visible<end;visible++){
@@ -164,6 +166,10 @@ export class BibleLabInlinePopover {
     }
     const element=container.createEl(line.type==='heading'?'h4':'p',{
       cls:'biblelab-popover-line biblelab-popover-'+line.type});
+    if(line.number===requestedParagraph&&requestedParagraph){
+      element.addClass('biblelab-article-target-paragraph');
+      focus=element;
+    }
     if(line.source)element.createEl('strong',{text:line.source+' · '});
     this.linkLine(element,line,anchor);
    }
@@ -172,7 +178,13 @@ export class BibleLabInlinePopover {
   };
   const more=container.createEl('button',{cls:'biblelab-popover-more',attr:{type:'button'}});
   more.addEventListener('click',()=>append(10));
-  append(12);
+  // Load through the requested paragraph when available, rather than
+  // making §15 inaccessible behind the "Afficher la suite" control.
+  const index=requestedParagraph?chunks.findIndex(x=>x.number===requestedParagraph):-1;
+  append(Math.max(12,index+1));
+  if(focus)window.requestAnimationFrame(()=>{
+    if(focus?.isConnected)focus.scrollIntoView({block:'nearest',behavior:'instant'});
+  });
   if(result.links.length){
    const moreLinks=container.createEl('details',{cls:'biblelab-popover-related'});
    moreLinks.createEl('summary',{text:'Renvois et publications ('+result.links.length+')'});
