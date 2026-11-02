@@ -1,3 +1,13 @@
+## Bible Lab 0.9.3 — Reconnaissance biblique avancée
+
+- **Table des 66 livres** : abréviations officielles de la Bible d’étude (https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/), y compris Mat., Jér., 1Co, Php, Ézéch., 2 Tim. et Rév.
+- **Listes** : `Mat. 4:2, 3` forme une seule référence qui demande précisément les versets 2 et 3, sans prendre un intervalle implicite.
+- **Plages** : `Jér. 3:1-4` demande tous les versets 1, 2, 3 et 4. Les tirets courts et moyens sont pris en charge, les bornes invalides rejetées.
+- **Lecteur** : chaque verset reconnu est présenté distinctement, dans l’ordre, avec son numéro. Les sources partielles ne sont jamais inventées.
+- **Détection dans Obsidian** : texte brut, lecture, Live Preview et notes ; détection des positions exactes pour protéger la ponctuation et les autres liens existants.
+- **Publications anciennes** : `km 05/95` (mai 1995) est reconnu sans page et recherché sous la forme officielle `km 5/95`. On ne fabrique pas de lien vers un article précis sans page ou titre.
+- **Sécurité** : maximum de 40 versets par référence, chargement par groupes de quatre, texte des notes non modifié par la reconnaissance automatique.
+
 ## Bible Lab 0.9.2 — Résolution des citations documentaires
 
 - **Catalogue officiel** : codes du tableau « Abréviations des titres de publications » de l’Index WOL (https://wol.jw.org/fr/wol/d/r30/lp-f/1200270068) ; les codes courts doivent être accompagnés d'un repère (page, chapitre, leçon ou paragraphe) pour éviter les faux liens.

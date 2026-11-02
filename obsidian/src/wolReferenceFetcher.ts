@@ -315,6 +315,42 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
 export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
  const scripture=parseScripture(ref.label);
  if(!scripture)return fetchPublication(ref);
+ const requested=scripture.verses||[];
+ if(requested.length>1){
+   // Lists (2, 3) and ranges (1-4) are not single verses.
+   // Fetch separately so that the UI never silently displays only verse 2.
+   // A bounded queue avoids flooding JW.org for longer references.
+   const chapters=scripture.label.split(':')[0];
+   const collected:ReaderResult['lines']=[];
+   const links:ReaderResult['links']=[];
+   const known=new Set<string>();
+   const missing:number[]=[];
+   for(let offset=0;offset<requested.length;offset+=4){
+     const batch=requested.slice(offset,offset+4);
+     const results=await Promise.all(batch.map(verse=>
+       fetchStudyVerse({...ref,label:chapters+':'+verse}).catch(()=>null)));
+     for(let i=0;i<batch.length;i++){
+       const verse=batch[i],result=results[i];
+       if(!result){missing.push(verse);continue;}
+       const content=result.lines.filter(line=>line.type==='verse'||line.type==='paragraph');
+       if(!content.length){missing.push(verse);continue;}
+       for(const line of content)collected.push({...line,type:'verse',number:String(verse),
+         source:chapters+':'+verse});
+       for(const line of result.lines)if(line.type!=='verse'&&line.type!=='paragraph')
+         collected.push({...line,source:line.source||chapters+':'+verse});
+       for(const link of result.links){
+         const key=link.label+'|'+link.url;
+         if(!known.has(key)){known.add(key);links.push(link);}
+       }
+     }
+   }
+   return {
+     title:scripture.label,sourceUrl:WOL+'b/r30/lp-f/nwt/'+scripture.book+'/'+scripture.chapter,
+     kind:'verse',lines:collected,links,
+     ...(missing.length?{notice:'Certains versets ne sont pas disponibles dans le lecteur ('+
+       missing.join(', ')+'). Consulte le chapitre sur WOL.'}:{})
+   };
+ }
  const range=(n:number)=>String(scripture.book).padStart(2,'0')+String(scripture.chapter).padStart(3,'0')+String(n).padStart(3,'0');
  const one=range(scripture.verse), last=scripture.endVerse&&scripture.endVerse!==scripture.verse?range(scripture.endVerse):null;
  const key=(p:string)=>String(Number(p.slice(0,2)))+p.slice(2);

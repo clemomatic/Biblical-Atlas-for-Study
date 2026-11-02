@@ -85,7 +85,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      const verses=result.lines.filter(x=>x.type==='verse'||x.type==='paragraph');
      for(const line of verses){
        const verse=contents.createDiv({cls:'biblelab-verse-reading'});
-       const marker=verse.createDiv({cls:'biblelab-verse-reading-label',text:'TEXTE BIBLIQUE'});
+       const marker=verse.createDiv({cls:'biblelab-verse-reading-label',text:line.number?'VERSET '+line.number:'TEXTE BIBLIQUE'});
        const content=verse.createEl('p',{cls:'biblelab-verse-reading-copy'});
        readable(content,line);
        marker.setAttribute('aria-label','Texte biblique');

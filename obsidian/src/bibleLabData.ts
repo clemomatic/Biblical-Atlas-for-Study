@@ -35,16 +35,58 @@ for (const [key,id] of Object.entries({
   jer:24, heb:58, eccl:21, mat:40, matt:40, '1 cor':46, '2 cor':47,
   he:58, jc:59,'1 p':60,'2 p':61,'1 jn':62,'2 jn':63,'3 jn':64, jude:65, rev:66, ap:66
 })) ALIASES[normalizeSearch(key)] = id;
-export interface ScriptureRef { label:string; book:number; chapter:number; verse:number; endVerse?:number }
-export function parseScripture(input: string): ScriptureRef | null {
-  const trimmed = cleanReadingText(input);
-  const match = trimmed.match(/^(.+?)\s+(\d{1,3})\s*[:.]\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?$/u);
-  if (!match) return null;
-  const book = ALIASES[normalizeSearch(match[1]).replace(/\.$/,'')];
-  if (!book) return null;
-  const chapter=Number(match[2]), verse=Number(match[3]), end=match[4]?Number(match[4]):undefined;
-  if (chapter < 1 || chapter > 150 || verse < 1 || verse > 176 || (end !== undefined && (end < verse || end > 176))) return null;
-  return {label:`${BOOKS[book-1]} ${chapter}:${verse}${end===undefined?'':`-${end}`}`,book,chapter,verse,endVerse:end};
+// Official French Bible book abbreviations from JW.org's Bible table.
+const OFFICIAL_BOOK_ALIASES:string[][]=[
+ ['Gen','Gn'],['Ex'],['Lév','Lev','Lv'],['Nomb','Nb'],['Deut','Dt'],
+ ['Jos'],['Juges','Jg'],['Ru'],['1 Sam','1S','1Sam'],['2 Sam','2S','2Sam'],
+ ['1 R','1R'],['2 R','2R'],['1 Chron','1Ch'],['2 Chron','2Ch'],
+ ['Esd'],['Néh','Ne'],['Est'],['Jb'],['Ps'],['Prov','Pr'],['Eccl','Ec'],
+ ['Chant de S','Ct'],['Is'],['Jér','Jer','Jr'],['Lam','Lm'],['Ézéch','Ezech','Ez'],
+ ['Dan','Dn'],['Os'],['Jl'],['Am'],['Abd','Ab'],['Jon'],['Mich','Mi'],
+ ['Nah','Na'],['Hab'],['Soph','Sph'],['Agg','Ag'],['Zach','Za'],['Mal','Ml'],
+ ['Mat','Matt','Mt'],['Marc','Mc'],['Luc','Lc'],['Jean','Jn'],
+ ['Actes','Ac'],['Rom','Rm'],['1 Cor','1Co'],['2 Cor','2Co'],
+ ['Gal','Ga'],['Éph','Eph'],['Phil','Php'],['Col'],
+ ['1 Thess','1Th'],['2 Thess','2Th'],['1 Tim','1Tm'],['2 Tim','2Tm'],
+ ['Tite','Tt'],['Philém','Philem','Phm'],['Héb','Heb','He'],['Jacq','Jc'],
+ ['1 Pierre','1P'],['2 Pierre','2P'],['1 Jean','1J'],['2 Jean','2J'],['3 Jean','3J'],
+ ['Jude'],['Rév','Rev','Ré','Re']
+];
+OFFICIAL_BOOK_ALIASES.forEach((items,i)=>{
+ for(const item of items)ALIASES[normalizeSearch(item).replace(/\.$/,'')]=i+1;
+});
+export interface ScriptureRef {
+ label:string;book:number;chapter:number;verse:number;endVerse?:number;
+ /** Exact requested verses, preserving comma list vs range semantics. */
+ verses?:number[];
+}
+export function parseScripture(input:string):ScriptureRef|null{
+ const trimmed=cleanReadingText(input);
+ const match=trimmed.match(/^(.+?)\s+(\d{1,3})\s*[:.]\s*(\d{1,3}(?:\s*[-–—]\s*\d{1,3})?(?:\s*,\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3})?)*)$/u);
+ if(!match)return null;
+ const book=ALIASES[normalizeSearch(match[1]).replace(/\.$/,'')];
+ if(!book)return null;
+ const chapter=Number(match[2]);
+ if(chapter<1||chapter>150)return null;
+ const expressions=match[3].split(/\s*,\s*/);
+ const selected:number[]=[];
+ for(const expression of expressions){
+  const segment=expression.match(/^(\d{1,3})(?:\s*[-–—]\s*(\d{1,3}))?$/u);
+  if(!segment)return null;
+  const first=Number(segment[1]),last=Number(segment[2]||segment[1]);
+  if(first<1||last>176||last<first||last-first>39)return null;
+  for(let verse=first;verse<=last;verse++){
+   if(!selected.includes(verse))selected.push(verse);
+   if(selected.length>40)return null;
+  }
+ }
+ if(!selected.length)return null;
+ const first=selected[0];
+ const onlyRange=expressions.length===1&&/[-–—]/u.test(expressions[0]);
+ const endVerse=onlyRange?selected[selected.length-1]:undefined;
+ const label=BOOKS[book-1]+' '+chapter+':'+match[3].replace(/\s*[-–—]\s*/g,'-').replace(/\s*,\s*/g,', ');
+ return {label,book,chapter,verse:first,...(endVerse!==undefined?{endVerse}:{}),
+   ...(selected.length>1?{verses:selected}:{})};
 }
 export function wolSearch(query: string): string { return WOL_SEARCH + encodeURIComponent(query.trim()); }
 export function wolLookup(query: string): string { return WOL_LOOKUP + new URLSearchParams({q:query.trim()}).toString().slice(2); }
@@ -54,14 +96,30 @@ export function jwLibraryLink(query: string): string | null {
   const n = (num:number,width:number) => String(num).padStart(width,'0');
   return `https://www.jw.org/finder?wtlocale=F&bible=${n(parsed.book,2)}${n(parsed.chapter,3)}${n(parsed.verse,3)}`;
 }
-// Compile once instead of testing every alias separately per keystroke.
+// Compile once, recognizing an entire citation and not only its first verse.
+// A comma is a list separator; a dash is a contiguous inclusive range.
 const SCRIPTURE_BOOKS=[...new Set([...BOOKS,...Object.keys(ALIASES),
   'Éph','Jér','Éz','Héb','Rév'])].sort((a,b)=>b.length-a.length);
-const scriptureBookAlternates=SCRIPTURE_BOOKS.map(book=>book.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
+const scriptureBookAlternates=SCRIPTURE_BOOKS
+ .map(book=>book.replace(/[.*+?^$()|[\]{}\\]/g,'\\$&')).join('|');
 const scriptureReferencePattern=new RegExp(
-  '(?:^|[^\\p{L}\\p{N}])((?:'+scriptureBookAlternates+')\\.?\\s+\\d{1,3}\\s*:\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)',
-  'gimu');
-export function extractReferences(note: string): string[] {
+  '(?<![\\p{L}\\p{N}])((?:'+scriptureBookAlternates+')\\.?\\s+\\d{1,3}\\s*[:.]\\s*'+
+  '\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?(?:\\s*,\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)*)',
+  'giu');
+export interface ScriptureMention {from:number;to:number;label:string;ref:ScriptureRef}
+export function findScriptureMentions(note:string):ScriptureMention[]{
+ const mentions:ScriptureMention[]=[];
+ for(const match of note.matchAll(scriptureReferencePattern)){
+  const ref=parseScripture(match[1]);
+  if(!ref)continue;
+  const from=match.index||0,to=from+match[1].length;
+  if(to<note.length&&/[\p{L}\p{N}]/u.test(note[to]))continue;
+  mentions.push({from,to,label:match[1],ref});
+  if(mentions.length>=80)break;
+ }
+ return mentions;
+}
+export function extractReferences(note:string):string[]{
  const found=new Set<string>();
  for(const match of note.matchAll(/!!([^!\r\n]{1,220})!!/g)){
   for(const ref of match[1].split(';')){
@@ -69,9 +127,8 @@ export function extractReferences(note: string): string[] {
    if(found.size>=40)return [...found];
   }
  }
- for(const match of note.matchAll(scriptureReferencePattern)){
-  const label=match[1];
-  if(parseScripture(label))found.add(label);
+ for(const mention of findScriptureMentions(note)){
+  found.add(mention.label);
   if(found.size>=40)break;
  }
  return [...found];

@@ -44,3 +44,35 @@ test('Compiled citation matcher preserves original French text order, ranges and
  assert.equal(result[0],'Psaumes 1:1');
  assert.equal(result[39],'Psaumes 40:1');
 });
+
+test('Official French Bible abbreviations and exact verse list/range semantics',()=>{
+ const examples=[
+  ['Mat. 4:2, 3',40,4,[2,3]],
+  ['Matt. 4:2,3',40,4,[2,3]],
+  ['Jér. 3:1-4',24,3,[1,2,3,4]],
+  ['Jér. 3:1–4',24,3,[1,2,3,4]],
+  ['1Co 13:4-7',46,13,[4,5,6,7]],
+  ['Php 2:5, 6',50,2,[5,6]],
+  ['Sph 3:9',36,3,[9]],
+  ['Ézéch. 36:26',26,36,[26]],
+  ['2 Tim. 3:16, 17',55,3,[16,17]],
+  ['Rév. 21:3, 4',66,21,[3,4]]
+ ] as const;
+ for(const [citation,book,chapter,verses] of examples){
+  const parsed=parseScripture(citation);
+  assert.equal(parsed?.book,book,citation);
+  assert.equal(parsed?.chapter,chapter,citation);
+  assert.deepEqual(parsed?.verses||[parsed?.verse],verses,citation);
+ }
+ assert.equal(parseScripture('Mat. 4:2, 3')?.endVerse,undefined,
+  'Comma lists are not ranges');
+ assert.equal(parseScripture('Jér. 3:1-4')?.endVerse,4,
+  'Dash ranges include their upper endpoint');
+ for(const invalid of ['Mat. 4:2-1','Mat. 4:2, 0','Mat. 4:170-300',
+  'Mat. 4:2, 500','km 05/95','1Co 0:1'])assert.equal(parseScripture(invalid),null,invalid);
+});
+test('Extract citations without splitting comma lists or swallowing punctuation',()=>{
+ const text='Lire Mat. 4:2, 3 ; Jér. 3:1-4 et Php 2:5, 6. Puis 1Co 13:4-7.';
+ assert.deepEqual(extractReferences(text),
+  ['Mat. 4:2, 3','Jér. 3:1-4','Php 2:5, 6','1Co 13:4-7']);
+});
