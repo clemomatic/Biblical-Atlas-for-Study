@@ -3,7 +3,7 @@ import {test,expect} from '@playwright/test';
 const ARTICLE='https://wol.jw.org/fr/wol/d/r30/lp-f/2024663';
 const FIGURE='<html><main class="bodyTxt"><h1>Une étude illustrée</h1>'+
  '<p>Introduction avant l’image.</p>'+
- '<figure><a href="https://cms-imgp.jw-cdn.org/img/p/example/full.jpg">'+
+ '<figure><a href="https://wol.jw.org/fr/wol/mp/r30/lp-f/w26/2026/5">'+
  '<picture><source srcset="https://cms-imgp.jw-cdn.org/img/p/example/medium.webp 700w, https://cms-imgp.jw-cdn.org/img/p/example/large.webp 1400w">'+
  '<img src="https://cms-imgp.jw-cdn.org/img/p/example/low.jpg" alt="Un chemin entre les arbres" width="900" height="540"></picture></a>'+
  '<figcaption>Un paysage qui illustre le récit biblique.</figcaption></figure>'+
