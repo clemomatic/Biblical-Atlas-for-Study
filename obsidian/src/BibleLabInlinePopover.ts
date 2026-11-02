@@ -2,6 +2,7 @@ import { setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
+import { renderArticleImage } from './articleImages';
 
 const fromLabel=(label:string):ReferenceEntry=>{
  const scripture=parseScripture(label);
@@ -152,6 +153,10 @@ export class BibleLabInlinePopover {
    const end=Math.min(chunks.length,visible+size);
    for(;visible<end;visible++){
     const line=chunks[visible];
+    if(line.type==='image'&&line.image){
+      renderArticleImage(container,line.image);
+      continue;
+    }
     const element=container.createEl(line.type==='heading'?'h4':'p',{
       cls:'biblelab-popover-line biblelab-popover-'+line.type});
     if(line.source)element.createEl('strong',{text:line.source+' · '});
