@@ -168,7 +168,20 @@ async function officialText(url:string):Promise<string>{
 }
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
- if(!result.lines.length)throw Error('WOL n’a pas fourni de texte exploitable.');
+ if(!result.lines.some(line=>line.text.trim().length>=3))
+   throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
+ return result;
+}
+/** An existing official page may send a dynamic shell instead of its article
+ * body to Obsidian's HTTP client. Do not claim WOL has no text.
+ * Keep the canonical source link and explain the local reader limitation.
+ */
+function directDocumentReader(html:string,url:string,label:string):ReaderResult{
+ const result=parseWolDocument(html,url,label);
+ if(!result.lines.some(line=>line.type!=='image'&&line.text.trim().length>=3)){
+   result.lines=[];
+   result.notice='La page officielle a répondu, mais son texte ne peut pas être extrait dans Obsidian (structure HTML ou chargement dynamique). Ouvre ce document sur WOL pour le lire.';
+ }
  return result;
 }
 export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>{
@@ -177,14 +190,14 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  const path=new URL(url).pathname;
  const finderDocument=finderDocumentUrl(url);
  if(finderDocument){
-   const result=readerForDocument(await officialText(finderDocument),finderDocument,ref.label);
+   const result=directDocumentReader(await officialText(finderDocument),finderDocument,ref.label);
    // Preserve the exact paragraph destination for the official-site button.
    result.sourceUrl=url;
    result.kind='article';
    return result;
  }
  if(DOC.test(path)||path.startsWith('/fr/wol/b/')){
-   return readerForDocument(await officialText(url),url,ref.label);
+   return directDocumentReader(await officialText(url),url,ref.label);
  }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
