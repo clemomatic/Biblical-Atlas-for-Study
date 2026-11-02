@@ -1,3 +1,12 @@
+## Bible Lab Studio 0.9.7 — Liens d'articles et références bibliques contextuelles
+
+- **Cas réels corrigés** : `si 203-205` ouvre directement « Livre de la Bible numéro 44 — Actes » (WOL `1101990105` ; article pages 199-205) et `it-1 510 § 3-4` ouvre « Congrégation » (WOL `1200001021`) plutôt que le menu de navigation.
+- **Références successives** : après `Actes 1:8`, des suites telles que `; 2:1-4, 32, 33 ; 3:6, 7 ; 9:3-6, 10-16` conservent automatiquement le livre Actes, mais pointent vers le chapitre correspondant. Prend en charge le texte brut, la Lecture et les notes Markdown avec le premier verset déjà lié.
+- **Pas de faux liens** : une séquence isolée `2:30 ; 3:15` n’est pas identifiée comme une Bible sans nom de livre hérité.
+- **Présentation inchangée** : la forme abrégée reste affichée dans la note ; l’URL et la popup utilisent la référence complète.
+- **Paragraphes de publication** : `§ 3-4` cible les deux paragraphes 3 et 4 lorsqu’ils existent dans l'article.
+- Tests Node et Playwright reproduisant précisément les exemples d’une note Obsidian comportant un lien Markdown, et des pages WOL renvoyant un menu sans texte.
+
 ## Bible Lab Studio 0.9.6 — Renvois bibliques discrets
 
 - **Une seule liste de renvois** : les références de la Bible d'étude ne sont plus répétées entre les sections « Renvois bibliques » et « Autres références ». Les sources réellement supplémentaires restent accessibles sous « Autres références ».
