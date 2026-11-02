@@ -85,3 +85,32 @@ test('A non-matching SI document is never rendered as a successful article',asyn
  await expect(pane).not.toContainText('Autre partie de la publication');
  await expect(pane).not.toContainText('WOL BIBLE');
 });
+
+test('Direct WOL document route returning only a navigation menu cannot pass as an article',async({page})=>{
+ const fakeDoc='https://wol.jw.org/fr/wol/d/r30/lp-f/1200001021';
+ await page.route(fakeDoc,route=>route.fulfill({status:200,
+   contentType:'text/html',
+   body:'<html><article class="bodyTxt"><h1>Consulter</h1>'+
+    '<p>La Bible</p><p>Publications</p><p>Réunions</p>'+
+    '<p>Les publications disponibles et la navigation WOL.</p></article></html>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('it-1 510 § 3-4'));
+ await expect(page.locator('.biblelab-side')).not.toContainText(
+   'Les publications disponibles et la navigation WOL.');
+});
+
+test('SI adjacent printed pages choose document containing the full span',async({page})=>{
+ const visited:number[]=[];
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/**',route=>{
+   const doc=Number(route.request().url().split('/').at(-1));
+   visited.push(doc);
+   // Shared printed page at every boundary: 7-11, 11-15, etc.
+   const first=7+(doc-1101990061)*4;
+   return route.fulfill({status:200,contentType:'text/html',
+    body:article('si p. '+first+'-'+(first+4),'Page réellement couverte')});
+ });
+ await page.route('https://wol.jw.org/fr/wol/l/**',route=>route.fulfill({
+   status:200,contentType:'text/html',body:'<h1>Consulter</h1>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('si 20-22'));
+ await expect(page.locator('.biblelab-side')).toContainText('Premier paragraphe du vrai texte officiel');
+ expect(visited.length).toBeLessThan(12);
+});
