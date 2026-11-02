@@ -8,6 +8,7 @@ const IMAGE_HOSTS=new Set([
  'assetsnffrgf-a.akamaihd.net','download-a.akamaihd.net'
 ]);
 export function officialImageUrl(raw:string,base:string):string|null{
+ if(!raw.trim())return null;
  try{
   const url=new URL(raw.trim(),base);
   if(url.protocol!=='https:'||url.username||url.password||!IMAGE_HOSTS.has(url.hostname))return null;
