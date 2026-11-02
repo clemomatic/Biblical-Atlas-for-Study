@@ -52,3 +52,47 @@ test('An empty lookupResults does not expose WOL navigation as article text',asy
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('si 142-143'));
  await expect(page.locator('.biblelab-side')).not.toContainText('PUBLICATIONS');
 });
+
+for(const [citation,id] of [
+ ['w19 juillet p. 17','2019555'],
+ ['km 7/15 1','2015771'],
+ ['it-2 450','1200490450'],
+ ['si 142-143','1101990088']
+] as const){
+ test('A unique WOL lookup result opens the article for '+citation,async({page})=>{
+  await page.route('https://wol.jw.org/fr/wol/l/**',route=>
+   route.fulfill({status:200,contentType:'text/html',body:
+    '<html><body><header><a href="/fr/wol/d/r30/lp-f/1999999">Navigation</a></header>'+
+    '<div id="lookupResults"><div class="result">'+
+    '<a href="/fr/wol/d/r30/lp-f/'+id+'">Article correspondant</a>'+
+    '<p>Publication trouvée par le moteur de recherche WOL.</p></div></div></body></html>'}));
+  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/'+id,route=>
+   route.fulfill({status:200,contentType:'text/html',body:
+    '<html><article class="bodyTxt"><h1>Article recherché</h1>'+
+    '<p>Premier paragraphe du texte intégral de cet article.</p>'+
+    '<p>Deuxième paragraphe du texte intégral de cet article.</p></article></html>'}));
+  await page.evaluate(q=>(window as any).atlasTest.plugin.openBibleLab(q),citation);
+  const pane=page.locator('.biblelab-side');
+  await expect(pane).toContainText('Premier paragraphe du texte intégral');
+  await expect(pane).not.toContainText('Publication trouvée par le moteur');
+  await expect(pane).not.toContainText('Navigation');
+ });
+}
+test('Multiple lookup articles remain choices, never silently select first result',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/l/**',route=>
+  route.fulfill({status:200,contentType:'text/html',
+   body:'<html><main><nav>Menu WOL</nav><div id="lookupResults">'+
+    '<article class="result"><a href="/fr/wol/d/r30/lp-f/1200002001">Premier article</a>'+
+    '<p>Le premier résultat décrit ce sujet dans une publication.</p></article>'+
+    '<article class="result"><a href="/fr/wol/d/r30/lp-f/1200002002">Deuxième article</a>'+
+    '<p>Le second résultat offre une autre étude sur ce sujet.</p></article>'+
+    '</div></main></html>'}));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/**',route=>
+  route.fulfill({status:200,contentType:'text/html',
+   body:'<article class="bodyTxt"><p>MAUVAIS ARTICLE OUVERT SANS CHOIX</p></article>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('it-2 927'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane).toContainText('Premier article');
+ await expect(pane).toContainText('Deuxième article');
+ await expect(pane).not.toContainText('MAUVAIS ARTICLE OUVERT');
+});
