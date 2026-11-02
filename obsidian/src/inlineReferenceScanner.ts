@@ -1,5 +1,5 @@
-import { extractReferences, parseScripture } from './bibleLabData';
-import { passageUrl, type ReferenceEntry } from './referenceReader';
+import { extractReferences, parseScripture } from './bibleLabData.ts';
+import { passageUrl, type ReferenceEntry } from './referenceReader.ts';
 
 /** Matches in an individual visible line, not in Markdown syntax or code. */
 export interface InlineReference {from:number;to:number;label:string;ref:ReferenceEntry}
