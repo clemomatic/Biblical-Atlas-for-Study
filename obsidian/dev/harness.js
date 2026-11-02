@@ -82,6 +82,7 @@ class Plugin {
   registerMarkdownCodeBlockProcessor(language, callback) { this.codeBlock = callback; }
   registerMarkdownPostProcessor(callback) { this.markdownPostProcessor = callback; }
   registerEditorExtension(extension) { this.editorExtension = extension; }
+  register(callback) { this.cleanups.push(callback); }
   registerEvent(reference) { this.cleanups.push(() => reference.off()); }
   async unload() { for (const leaf of app.workspace.leaves) await leaf.view?.onClose?.(); this.cleanups.forEach(callback => callback()); this.onunload(); }
 }
