@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "minAppVersion": "1.6.0",
-  "description": "Références bibliques françaises complètes : listes, plages, abréviations officielles et km mois/année.",
+  "description": "Lecture continue des versets, renvois latéraux et résolution améliorée des références WOL.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
