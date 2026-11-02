@@ -350,36 +350,66 @@ export function siDocumentPageRange(html:string):{first:number;last:number}|null
  }
  return null;
 }
+/** WOL's own SI table of contents links every study directly and lists
+ * its printed starting page. This is safer than guessing document IDs.
+ */
+const SI_CONTENTS=WOL+'d/r30/lp-f/1101990140';
+let siContentsPromise:Promise<string>|null=null;
+function loadSiContents():Promise<string>{
+ if(!siContentsPromise)
+  siContentsPromise=officialText(SI_CONTENTS)
+   .catch(error=>{siContentsPromise=null;throw error;});
+ return siContentsPromise;
+}
+export function selectSiContentsCandidates(html:string,reference:string):string[]{
+ const request=publicationBookPages(reference);
+ if(!request||request.code!=='si')return [];
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const entries:{start:number;url:string}[]=[];
+ // The volume's table has items "199 44 Actes" and "337 10 La Bible...".
+ // The later illustration links must not be interpreted as chapters.
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  let url:URL;
+  try{url=new URL(a.getAttribute('href')||'',SI_CONTENTS);}catch{continue;}
+  const match=url.pathname.match(/^\/fr\/wol\/pc\/r30\/lp-f\/1101990140\/(\d+)\/\d+$/);
+  if(url.protocol!=='https:'||url.hostname!=='wol.jw.org'||!match||
+    Number(match[1])>76)continue;
+  const row=a.closest('p,li,tr')||a.parentElement;
+  if(!row)continue;
+  // In actual WOL markup the page number appears before the article link.
+  // Do not treat the book/study number inside the linked title as a page.
+  const full=cleanReadingText(row.textContent||'');
+  const label=cleanReadingText(a.textContent||'');
+  const before=full.slice(0,full.indexOf(label));
+  const candidates=[before,cleanReadingText(a.previousSibling?.textContent||'')];
+  const page=candidates.map(x=>x.match(/(?:^|[^\d])(\d{1,3})\s*$/))
+    .find(Boolean);
+  if(!page)continue;
+  const start=Number(page[1]);
+  if(start>=5&&start<=360&&start<=request.first)
+   entries.push({start,url:url.toString()});
+ }
+ // The nearest preceding entry is usually correct; inspect up to four
+ // competing/overlapping articles and verify their own printed page spans.
+ return [...new Map(entries.sort((a,b)=>b.start-a.start)
+   .map(row=>[row.url,row.url])).values()].slice(0,4);
+}
 const siPageCache=new Map<string,string>();
-const siRangeCache=new Map<number,{first:number;last:number}>();
 async function findSiDocumentByPage(reference:string):Promise<string|null>{
  const request=publicationBookPages(reference);
  if(!request||request.code!=='si')return null;
  const key=request.first+'-'+request.last;
  const cached=siPageCache.get(key);
  if(cached)return cached;
- // Official 1990s SI articles are ordered: introductory chapter, 66 Bible
- // books, then 10 studies. Always inspect real article metadata before use.
- let low=1101990061,high=1101990137,iterations=0;
- while(low<=high&&iterations++<9){
-  const middle=Math.floor((low+high)/2);
-  const url=WOL+'d/r30/lp-f/'+middle;
-  let range=siRangeCache.get(middle)||null;
-  if(!range){
-   let html:string;
-   try{html=await officialText(url);}catch{break;}
-   range=siDocumentPageRange(html);
-   if(range)siRangeCache.set(middle,range);
-  }
-  if(!range)break; // Missing metadata: do not assume candidate is correct
-  if(range.first<=request.first&&range.last>=request.last){
-   siPageCache.set(key,url);return url;
-  }
-  // Adjacent chapters can share a printed page. For partial overlap,
-  // walk toward the article that could contain the *entire* requested span.
-  if(request.first>range.last||request.last>range.last)low=middle+1;
-  else if(request.last<range.first||request.first<range.first)high=middle-1;
-  else break;
+ const candidateUrls=selectSiContentsCandidates(await loadSiContents(),reference);
+ for(const url of candidateUrls){
+  let html:string;
+  try{html=await officialText(url);}catch{continue;}
+  const range=siDocumentPageRange(html);
+  if(!range||range.first>request.first||range.last<request.last)continue;
+  if(!hasReadableArticleBody(parseWolDocument(html,url,reference)))continue;
+  siPageCache.set(key,url);
+  return url;
  }
  return null;
 }
