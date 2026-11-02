@@ -1,3 +1,12 @@
+## Bible Lab Studio 0.9.6 — Renvois bibliques discrets
+
+- **Une seule liste de renvois** : les références de la Bible d'étude ne sont plus répétées entre les sections « Renvois bibliques » et « Autres références ». Les sources réellement supplémentaires restent accessibles sous « Autres références ».
+- **Petits symboles `+` dans les versets** : lorsqu'un verset contient des renvois, un symbole discret ouvre la colonne de renvois et place le focus sur les destinations cliquables.
+- **Navigation précise** : les références de la Bible d’étude conservent leur cible officielle ; en cliquant sur une destination biblique, le lecteur ouvre le verset correspondant, avec retour possible au passage précédent.
+- **Lecture continue** : le symbole `+` ne modifie pas la hauteur de ligne et les listes de renvois ne s’intercalent pas entre les versets. La colonne reste repliable sur mobile.
+- **Sans faux symboles** : lorsqu’un verset n’a pas de renvoi, aucun `+` n'est ajouté.
+- Tests Playwright : doublons, liste multi-versets, clic du `+`, navigation et retour, versets sans renvois.
+
 ## Bible Lab 0.9.5 — Références WOL historiques et livres
 
 - **Tours de Garde datées** : reconnaît les citations `w14 15/11 28-29`, avec ou sans `p.`. Distingue le jour, le mois et la pagination ; l’exemple exact renvoie au document officiel `2014847` (Questions des lecteurs, pages 28 à 30).
