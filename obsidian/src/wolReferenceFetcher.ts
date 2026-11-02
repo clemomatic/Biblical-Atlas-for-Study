@@ -221,22 +221,53 @@ export function selectBookChapterCandidate(html:string,base:string,reference:str
  return null;
 }
 
+/** A validated WOL /d result link must come from the lookup-result panel,
+ * not from navigation, the sidebar or the site's footer.
+ * WOL sometimes returns only one article and omits page metadata entirely.
+ */
+export function selectSingleLookupDocument(html:string,base:string):string|null{
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const results=doc.querySelector('#lookupResults,.lookupResults');
+ if(!results)return null;
+ const candidates=new Set<string>();
+ for(const anchor of results.querySelectorAll<HTMLAnchorElement>('a[href]')){
+   const url=validateDocument(anchor.getAttribute('href')||'',base);
+   if(url)candidates.add(url);
+   if(candidates.size>1)return null; // Ambiguous result: show WOL's choices.
+ }
+ return candidates.size===1?[...candidates][0]:null;
+}
 function pickDocument(html:string,base:string,reference:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
+ // Scope all bibliographic matching to results; a navigation link can
+ // otherwise outscore the article returned by the actual WOL lookup.
+ const resultNode=doc.querySelector('#lookupResults,.lookupResults');
+ const matchHtml=resultNode?.outerHTML||html;
  const requested=simple(reference);
- const exact=selectPublicationCandidate(html,base,reference);
+ const exact=selectPublicationCandidate(matchHtml,base,reference);
  if(exact)return exact;
  const bookPage=publicationBookPages(reference);
- if(bookPage)return selectBookPageCandidate(html,base,reference);
+ if(bookPage){
+   const identified=selectBookPageCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
+ }
  const insight=insightTitleReference(reference);
- if(insight)return selectInsightCandidate(html,base,reference);
+ if(insight){
+   const identified=selectInsightCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
+ }
  const study=siStudyNumber(reference);
- if(study)return selectSiStudyCandidate(html,base,reference);
+ if(study){
+   const identified=selectSiStudyCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
+ }
  const chapter=bookChapterLocator(reference);
  if(chapter){
-   // Do not silently open chapter 1 for a request about chapter 8.
-   return selectBookChapterCandidate(html,base,reference);
+   const identified=selectBookChapterCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
  }
+ const onlyResult=selectSingleLookupDocument(html,base);
+ if(onlyResult)return onlyResult;
  // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
  const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
  const canonicalHref=canonical?.getAttribute('href')||canonical?.getAttribute('content');
@@ -247,7 +278,7 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // Prefer a citation with matching page metadata, or a verified fallback.
  if(publicationPages(reference)||publicationBookPages(reference)||insightTitleReference(reference)||siStudyNumber(reference))
    return null;
- const anchors=[...doc.querySelectorAll<HTMLAnchorElement>('a[href]')];
+ const anchors=[...(resultNode||doc).querySelectorAll<HTMLAnchorElement>('a[href]')];
  let best:string|null=null,score=-1;
  const keywords=requested.split(' ').filter(x=>x.length>2);
  for(const anchor of anchors.slice(0,1400)){
