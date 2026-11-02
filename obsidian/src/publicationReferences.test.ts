@@ -115,3 +115,10 @@ test('Ranges after paragraph marker are inclusive',()=>{
  assert.deepEqual(referencedParagraphs('it-1 510 § 3-4'),['3','4']);
  assert.deepEqual(referencedParagraphs('S-38 § 20, 25'),['20','25']);
 });
+
+test('Old Awake and yearbook forms are captured as a whole citation',()=>{
+ for(const citation of ['g 2/12 3-13','g 11/07 3-13','yb17 197','yb96 218']){
+  assert.deepEqual(parsed(citation),[citation],citation);
+  assert.ok(publicationUrl(citation).startsWith('https://wol.jw.org/fr/wol/l/r30/lp-f?q='));
+ }
+});
