@@ -38,6 +38,8 @@ test('validated finder URLs are accepted but arbitrary hosts and parameters are 
  assert.equal(url,WOL+'1102014938');
  const s38=publicationUrl('S-38 §1');
  assert.equal(officialFinderUrl(s38),s38);
+ assert.equal(officialFinderUrl(s38.replaceAll('&','\\&')),s38);
+ assert.equal(officialFinderUrl(s38.replace('www.jw.org','jw.org')),s38);
  assert.equal(finderDocumentUrl(s38),WOL+'1201038');
  const suppliedOdFinder='https://www.jw.org/finder?wtlocale=F&docid=1102014931&srctype=wol&srcid=share&par=11';
  assert.ok(officialFinderUrl(suppliedOdFinder));
