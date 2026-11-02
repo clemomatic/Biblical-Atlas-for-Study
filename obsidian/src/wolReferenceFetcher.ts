@@ -547,14 +547,19 @@ function directDocumentReader(html:string,url:string,label:string):ReaderResult{
  */
 export function canonicalContextDestination(html:string,base:string):string|null {
  const doc=new DOMParser().parseFromString(html,'text/html');
- const meta=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
- const raw=meta?.getAttribute('href')||meta?.getAttribute('content');
- if(!raw)return null;
- let safe:string|null=null;
- try{safe=cleanWolUrl(new URL(raw,base).href);}catch{return null;}
- if(!safe||safe===base)return null;
- const path=new URL(safe).pathname;
- return DOC.test(path)||/^\/fr\/wol\/b\/r30\/lp-f\/[^/]+\/\d+\/\d+$/.test(path)?safe:null;
+ // The canonical tag may point back to /pc/ while og:url identifies /d/.
+ // Check all official page metadata rather than stopping at the first tag.
+ for(const meta of doc.querySelectorAll('link[rel="canonical"],meta[property="og:url"]')){
+   const raw=meta.getAttribute('href')||meta.getAttribute('content');
+   if(!raw)continue;
+   let safe:string|null=null;
+   try{safe=cleanWolUrl(new URL(raw,base).href);}catch{continue;}
+   if(!safe||safe===base)continue;
+   const path=new URL(safe).pathname;
+   if(DOC.test(path)||/^\/fr\/wol\/b\/r30\/lp-f\/[^/]+\/\d+\/\d+$/.test(path))
+     return safe;
+ }
+ return null;
 }
 async function contextualDocumentReader(url:string,label:string):Promise<ReaderResult>{
  const html=await officialText(url);
