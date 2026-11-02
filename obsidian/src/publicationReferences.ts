@@ -1,17 +1,45 @@
 import { cleanReadingText } from './readerText.ts';
-import { wolLookup } from './bibleLabData.ts';
+import { wolLookup, parseScripture } from './bibleLabData.ts';
+import { PUBLICATION_CODES } from './publicationCatalog.ts';
 
 /** Bibliographical citations are not Bible verses; recognize them separately. */
 export interface PublicationMention {from:number;to:number;label:string;url:string}
 const months='janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre';
 const boundaries='(?<![\\p{L}\\p{N}])';
+const paragraph='\\s*§\\s*\\d{1,3}(?:\\s*[,;–-]\\s*\\d{1,3})*';
+const page='p\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?';
+const chapters='chap(?:itre)?\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*';
+const sourceCodes=PUBLICATION_CODES.slice().sort((a,b)=>b.length-a.length)
+ .map(v=>v.replace(/[.*+?^$()|[\]{}\\]/g,'\\$&')).join('|');
+// A bare "cl" or "be" is not necessarily a bibliographic citation.
+const locators=[
+ chapters+'(?:\\s+'+page+')?(?:'+paragraph+')?',
+ '(?:leçon|lecons?|hist(?:oire)?|partie|étude|annexe|appendice)\\.?\\s*\\d{1,3}(?:'+paragraph+')?',
+ page+'(?:'+paragraph+')?',
+ '\\d{1,3}\\s*:\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?',
+ paragraph
+].join('|');
 const sources=[
- new RegExp(boundaries+'((?:w|wp|g)\\d{2}(?:\\.\\d{1,2})?\\s+(?:'+months+')\\s+p\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?(?:\\s*§\\s*\\d{1,3}(?:\\s*[-–,]\\s*\\d{1,3})*)?)','giu'),
- new RegExp(boundaries+'((?:w|wp|g)\\d{2}\\.\\d{1,2}\\s+p\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?(?:\\s*§\\s*\\d{1,3})?)','giu'),
- new RegExp(boundaries+'(s\\s*[-–]\\s*\\d{1,3}\\s*§\\s*\\d{1,3}(?:\\s*[,;]\\s*\\d{1,3})*)','giu'),
- new RegExp(boundaries+'(od\\s+\\d{1,2}\\s*:\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)','giu'),
- new RegExp(boundaries+'((?:th|lmd|lff)\\s+(?:leçon\\s*)?\\d{1,3})','giu')
+ new RegExp(boundaries+'((?:w|wp|g)\\d{2}(?:\\.\\d{1,2})?\\s+(?:'+months+')\\s+'+page+'(?:'+paragraph+')?)','giu'),
+ new RegExp(boundaries+'((?:w|wp|g)\\d{2}\\.\\d{1,2}\\s+'+page+'(?:'+paragraph+')?)','giu'),
+ new RegExp(boundaries+'(s\\s*[-–]\\s*\\d{1,3}'+paragraph+')','giu'),
+ new RegExp(boundaries+'(('+sourceCodes+')\\s+(?:'+locators+'))','giu'),
+ new RegExp(boundaries+'((?:th|lmd|lff|lffi)\\s+\\d{1,3})','giu')
 ];
+export function referencedParagraph(reference:string):string|undefined{
+ const clean=cleanReadingText(reference);
+ const marked=clean.match(/§\s*(\d{1,3})/);
+ if(marked)return marked[1];
+ const colon=clean.match(/^od\s+\d{1,3}\s*:\s*(\d{1,3})$/i);
+ return colon?.[1];
+}
+export function bookChapterLocator(reference:string):{code:string;chapter:number}|null{
+ const clean=cleanReadingText(reference).toLocaleLowerCase('fr');
+ const m=clean.match(/^([a-z][a-z0-9-]{0,9})\s+chap(?:itre)?\.?\s*(\d{1,3})\b/);
+ if(!m||!PUBLICATION_CODES.includes(m[1]))return null;
+ return {code:m[1],chapter:Number(m[2])};
+}
+
 function finder(docid:string,par?:number):string{
  const q=new URLSearchParams({wtlocale:'F',docid,srctype:'wol',srcid:'share'});
  if(par!==undefined)q.set('par',String(par));
@@ -44,7 +72,7 @@ export function publicationUrl(reference:string):string{
  if(/^s\s*-\s*38\s*§\s*20\s*,\s*25$/.test(s))return finder('1201038',60);
  if(/^s\s*-\s*38\s*§\s*\d{1,3}(?:\s*[,;]\s*\d{1,3})*$/.test(s))
   return finder('1201038'); // known document, paragraph not verified
- if(/^od\s+8\s*:\s*8$/.test(s))return finder('1102014931',11);
+ if(/^od\s+8\s*:\s*8$/.test(s))return 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102014938';
  if(/^th\s+(?:leçon\s*)?12$/.test(s))
   return 'https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452';
  const w22=s.match(/^w22\s+f[ée]vrier\s+p\.?\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?(?:\s*§\s*\d{1,3}(?:\s*[-–,]\s*\d{1,3})*)?$/);
@@ -58,6 +86,7 @@ export function findPublicationMentions(text:string):PublicationMention[]{
   for(const m of text.matchAll(pattern)){
    const label=m[1],from=(m.index||0)+(m[0].length-label.length),to=from+label.length;
    if(/[\p{L}\p{N}]/u.test(text[to]||''))continue;
+   if(parseScripture(label))continue; // e.g. jr 45:3 is Scripture
    if(found.some(x=>from<x.to&&to>x.from))continue;
    found.push({from,to,label,url:publicationUrl(label)});
    if(found.length>=60)return found.sort((a,b)=>a.from-b.from);
