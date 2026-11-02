@@ -2,6 +2,7 @@
 import bundle from '../dist/atlas-biblique/main.js?raw';
 import { parse, stringify } from 'yaml';
 import * as codeMirrorView from '@codemirror/view';
+import { EditorState } from '@codemirror/state';
 
 const element = (tag, options = {}) => {
   const el = document.createElement(tag);
@@ -149,6 +150,22 @@ await plugin.openAtlas();
 window.atlasTest = {
   plugin, app, notices, ready: true,
   file(path) { return vault.files.get(path)?.content; },
+  mountInlineEditor(text) {
+    this.editorView?.destroy();
+    document.querySelector('#test-inline-editor')?.remove();
+    const root=document.createElement('div');
+    root.id='test-inline-editor';
+    document.body.appendChild(root);
+    this.editorView=new codeMirrorView.EditorView({
+      state:EditorState.create({doc:text,extensions:[plugin.editorExtension]}),
+      parent:root
+    });
+  },
+  typeIntoInlineEditor(text) {
+    const view=this.editorView;
+    if(!view)throw Error('Editor is not mounted');
+    view.dispatch({changes:{from:view.state.doc.length,insert:text}});
+  },
   openMarkdownEditor(path) {
     const file=vault.files.get(path);
     if(!(file instanceof TFile))throw Error('Not a Markdown file: '+path);
