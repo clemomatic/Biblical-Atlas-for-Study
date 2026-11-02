@@ -21,5 +21,5 @@ export const OFFICIAL_PUBLICATION_CODES = Object.freeze(
  * « la » and « si ». Never recognize a bare code as a reference.
  */
 export const STRUCTURED_PUBLICATION_CODES = Object.freeze(
- OFFICIAL_PUBLICATION_CODES.filter(code=>!['w','wp','g','mwb','dx','km'].includes(code))
+ OFFICIAL_PUBLICATION_CODES.filter(code=>!['w','wp','g','mwb'].includes(code))
 );
