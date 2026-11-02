@@ -15,7 +15,9 @@ export class BibleLabInlinePopover {
  private history:ReferenceEntry[]=[];
  private backFocus:HTMLElement|null=null;
  private serial=0;
- private cache=new Map<string,ReaderResult>();
+ private cache=new Map<string,{value:ReaderResult;date:number}>();
+ private inFlight=new Map<string,Promise<ReaderResult>>();
+ private readonly cacheDuration=20*60*1000;
  constructor(private readonly openPanel:(ref:ReferenceEntry)=>void){}
  isOpen():boolean{return !!this.root;}
  open(label:string,anchor:HTMLElement):void{
@@ -28,22 +30,23 @@ export class BibleLabInlinePopover {
   this.history=[ref];
   this.render(ref,anchor);
  }
- close():void{
+ close(restoreFocus=false):void{
   this.serial++;
   const previous=this.root;
+  const focusInside=!!previous?.contains(document.activeElement);
   this.root=null;this.current=null;this.history=[];
   previous?.remove();
   document.removeEventListener('pointerdown',this.outside,true);
   document.removeEventListener('keydown',this.keydown,true);
-  // Do not forcibly move focus when the source editor is gone.
-  if(this.backFocus?.isConnected&&document.activeElement===previous?.querySelector(':focus'))
-    this.backFocus.focus();
+  if(restoreFocus&&focusInside&&this.backFocus?.isConnected)
+    this.backFocus.focus({preventScroll:true});
+  this.backFocus=null;
  }
  private outside=(ev:PointerEvent):void=>{
   if(this.root&&!this.root.contains(ev.target as Node))this.close();
  };
  private keydown=(ev:KeyboardEvent):void=>{
-  if(ev.key==='Escape'&&this.root){ev.preventDefault();ev.stopPropagation();this.close();}
+  if(ev.key==='Escape'&&this.root){ev.preventDefault();ev.stopPropagation();this.close(true);}
  };
  private button(parent:HTMLElement,name:string,icon:string,fn:()=>void):HTMLButtonElement{
   const b=parent.createEl('button',{cls:'biblelab-popover-btn',attr:{type:'button',title:name,'aria-label':name}});
@@ -80,7 +83,7 @@ export class BibleLabInlinePopover {
   const title=header.createDiv({cls:'biblelab-popover-title'});
   title.createSpan({text:ref.kind==='scripture'?'BIBLE D’ÉTUDE':'PUBLICATION',cls:'biblelab-popover-eyebrow'});
   title.createEl('strong',{text:ref.label});
-  const close=this.button(header,'Fermer','x',()=>this.close());close.addClass('biblelab-popover-close');
+  const close=this.button(header,'Fermer','x',()=>this.close(true));close.addClass('biblelab-popover-close');
   const content=root.createDiv({cls:'biblelab-popover-content'});
   const footer=root.createDiv({cls:'biblelab-popover-footer'});
   const prev=this.button(footer,'Retour','arrow-left',()=>{
@@ -90,6 +93,9 @@ export class BibleLabInlinePopover {
   });
   prev.disabled=this.history.length<=1;
   this.button(footer,'Dans le panneau','panel-right',()=>{this.openPanel(ref);this.close();});
+  const jw=ref.kind==='scripture'?jwLibraryLink(ref.label):null;
+  if(jw)this.button(footer,'JW Library','book-open-check',()=>
+    window.open(jw,'_blank','noopener,noreferrer'));
   this.button(footer,'WOL','external-link',()=>{
     window.open(ref.url,'_blank','noopener,noreferrer');
   });
@@ -98,13 +104,30 @@ export class BibleLabInlinePopover {
   document.removeEventListener('keydown',this.keydown,true);
   document.addEventListener('pointerdown',this.outside,true);
   document.addEventListener('keydown',this.keydown,true);
-  const cached=this.cache.get(ref.url+'#'+ref.label);
-  if(cached){this.draw(content,cached,anchor);return;}
-  content.createDiv({cls:'biblelab-popover-loading',text:'Chargement de la référence…'});
-  void fetchReferenceContent(ref).then(result=>{
+  const key=ref.url+'#'+ref.label;
+  const cached=this.cache.get(key);
+  if(cached&&Date.now()-cached.date<this.cacheDuration){
+    this.cache.delete(key);this.cache.set(key,cached);
+    this.draw(content,cached.value,anchor);return;
+  }
+  if(cached)this.cache.delete(key);
+  content.createDiv({cls:'biblelab-popover-loading',attr:{role:'status'},
+    text:'Chargement de la référence…'});
+  let request=this.inFlight.get(key);
+  if(!request){
+    request=fetchReferenceContent(ref);
+    this.inFlight.set(key,request);
+    // Keep the request shared until it settles, then release it even if the
+    // popup was closed or navigated elsewhere.
+    void request.then(()=>this.inFlight.delete(key),()=>this.inFlight.delete(key));
+  }
+  void request.then(result=>{
     if(token!==this.serial||!root.isConnected)return;
-    this.cache.set(ref.url+'#'+ref.label,result);
-    if(this.cache.size>35)this.cache.delete(this.cache.keys().next().value!);
+    if(result.lines.length){
+      this.cache.delete(key);
+      this.cache.set(key,{value:result,date:Date.now()});
+      while(this.cache.size>35)this.cache.delete(this.cache.keys().next().value!);
+    }
     content.empty();this.draw(content,result,anchor);
   }).catch(error=>{
     if(token!==this.serial||!root.isConnected)return;
@@ -112,6 +135,7 @@ export class BibleLabInlinePopover {
     content.createEl('p',{cls:'biblelab-popover-feedback',text:
       (error instanceof Error?error.message:'Source indisponible')+
       ' — Utilise le site officiel ou le panneau latéral.'});
+    this.button(content,'Réessayer','refresh-cw',()=>this.render(ref,anchor));
   });
  }
  private draw(container:HTMLElement,result:ReaderResult,anchor:HTMLElement):void{
@@ -163,5 +187,5 @@ export class BibleLabInlinePopover {
    });
   }
  }
- destroy():void{this.close();this.cache.clear();}
+ destroy():void{this.close();this.cache.clear();this.inFlight.clear();}
 }
