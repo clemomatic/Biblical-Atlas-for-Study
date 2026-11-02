@@ -1,3 +1,19 @@
+## Bible Lab 0.8.9 — Références automatiques et aperçu de lecture
+
+La première étape de la refonte inspirée des **aperçus contextuels de WOL**, du **panneau d'étude de JW Library** et des fonctionnalités d'Obsidian **traVERture**.
+
+### Dans tes notes
+
+- **Mode Lecture** : les citations bibliques reconnues (par exemple Jean 7:24 ou Marc 10:14), les références de périodiques (w18 février p. 24-26), les leçons (lmd 11) et les anciens marqueurs !!Jean 7:24!! deviennent des liens consultables directement au clic, sans altérer le Markdown original.
+- **Mode édition / Live Preview** : une extension CodeMirror 6 signale les références des lignes visibles et ouvre le même aperçu au clic. L'extension ne réécrit pas la note au fil des frappes et ne contacte pas Internet avant d'ouvrir une référence.
+- **Références déjà liées** : un lien Markdown vers un document WOL s'ouvre dans l'aperçu sans remplacer sa destination d'origine par une recherche approximative.
+- **Fenêtre flottante** : s'affiche près de la référence, contient l'article ou le verset, des notes et des renvois, un bouton Retour, un bouton Dans le panneau et un bouton vers la source WOL ; se ferme avec Échap ou clic extérieur.
+- **Liens permanents facultatifs** : commande Obsidian « Transformer les références de la sélection en liens Markdown ». Elle remplace uniquement une sélection explicitement choisie, et l'opération s'annule via Ctrl+Z. Le traitement ignore les liens déjà présents et le code Markdown.
+- **Compatibilité et sûreté** : pas d'iframe, pas de HTML distant injecté dans la note, pas de modification silencieuse des fichiers, pas de transmission des contenus personnels. La récupération des sources reste sujette aux éventuels blocages WOL/JW.org.
+
+### Validation
+Tests automatiques de détection, conservation du contenu original, absence de doublons de liens, fenêtre flottante, navigation vers le panneau et test de l'extension d'éditeur. Vérifier aussi les vraies interactions tactiles dans Obsidian Android.
+
 ## Bible Lab 0.8.8 — Stabilisation de la lecture et des sources
 
 - **Historique du lecteur** : les articles ouverts manuellement depuis la liste des références entrent désormais dans l'historique. Les ouvertures programmatiques dues au retour, au suivi d’un lien ou à un re-rendu ne créent plus de doublon.
