@@ -35,8 +35,14 @@ test('official WOL index supplies book and course citation families without fals
 test('validated finder URLs are accepted but arbitrary hosts and parameters are refused',()=>{
  const url=publicationUrl('od 8:8');
  assert.equal(cleanWolUrl(url),url);
- assert.equal(officialFinderUrl('https://www.jw.org/finder?wtlocale=F&docid=1102014931&srctype=wol&srcid=share&par=11'),url);
- assert.equal(finderDocumentUrl(url),WOL+'1102014931');
+ assert.equal(url,WOL+'1102014938');
+ const s38=publicationUrl('S-38 §1');
+ assert.equal(officialFinderUrl(s38),s38);
+ assert.equal(finderDocumentUrl(s38),WOL+'1201038');
+ const suppliedOdFinder='https://www.jw.org/finder?wtlocale=F&docid=1102014931&srctype=wol&srcid=share&par=11';
+ assert.ok(officialFinderUrl(suppliedOdFinder));
+ assert.notEqual(finderDocumentUrl(suppliedOdFinder),url,
+   'The supplied finder targets chapter 1, not the chapter 8 citation');
  for(const invalid of ['https://evil.example/finder?wtlocale=F&docid=1201038',
   'https://www.jw.org.evil.example/finder?wtlocale=F&docid=1201038',
   'https://www.jw.org/finder?wtlocale=F&docid=1234567&redirect=https://evil.example',
