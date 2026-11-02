@@ -175,7 +175,8 @@ test('A real article in a later main container is not hidden by an empty WOL bod
 test('A dynamic WOL shell is reported as a reader limitation with official access, not a missing article',async({page})=>{
  const url='https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452';
  await page.route(url,route=>route.fulfill({status:200,contentType:'text/html',body:
-   '<html><head><title>Chaleur et empathie</title></head><body><main id="article"></main>'+
+   '<html><head><title>Chaleur et empathie</title></head><body><main id="article">'+
+   '<h1>Chaleur et empathie</h1></main>'+
    '<script>/* article is hydrated later */</script></body></html>'}));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('th leçon 12'));
  const pane=page.locator('.biblelab-side');
