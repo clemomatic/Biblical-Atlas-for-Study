@@ -329,21 +329,29 @@ async function findSiDocumentByPage(reference:string):Promise<string|null>{
   if(range.first<=request.first&&range.last>=request.last){
    siPageCache.set(key,url);return url;
   }
-  if(request.first>range.last)low=middle+1;
-  else if(request.last<range.first)high=middle-1;
-  else break; // Crosses two articles; cannot claim one exact match
+  // Adjacent chapters can share a printed page. For partial overlap,
+  // walk toward the article that could contain the *entire* requested span.
+  if(request.first>range.last||request.last>range.last)low=middle+1;
+  else if(request.last<range.first||request.first<range.first)high=middle-1;
+  else break;
  }
  return null;
 }
 const insightPageCache=new Map<string,string>();
+let insightIndexPromise:Promise<string>|null=null;
+function loadInsightIndex():Promise<string>{
+ if(!insightIndexPromise)
+   insightIndexPromise=officialText(WOL+'d/r30/lp-f/1200004775')
+     .catch(error=>{insightIndexPromise=null;throw error;});
+ return insightIndexPromise;
+}
 async function findInsightDocumentByIndex(reference:string):Promise<string|null>{
  const requested=publicationBookPages(reference);
  if(!requested||!/^it-[12]$/.test(requested.code))return null;
  const key=requested.code+':'+requested.first+'-'+requested.last;
  const cached=insightPageCache.get(key);
  if(cached)return cached;
- const indexUrl=WOL+'d/r30/lp-f/1200004775';
- const index=await officialText(indexUrl);
+ const index=await loadInsightIndex();
  const link=selectInsightIndexArticle(index,reference);
  if(!link)return null;
  // The index links /wol/pc/ resolve to the full article. Check the actual
