@@ -72,7 +72,8 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  // as the book for each subsequent chapter, although only the first
  // passage has an explicit book name in the note.
  for(const mention of findScriptureMentions(text))
-   push(mention.ref.label,passageUrl(mention.ref.label),'verse','scripture');
+   if(!parseScripture(mention.label))
+     push(mention.ref.label,passageUrl(mention.ref.label),'verse','scripture');
  // [w24 Novembre p. 14-19] and [https://wol.jw.org/...] as independent
  // bracket references. Ignore Obsidian wiki links and ordinary checkboxes.
  text=text.replace(linked,'');
