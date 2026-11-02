@@ -178,7 +178,8 @@
    superscript block disrupting line spacing or a second link inventory. */
 .biblelab-popover-verse-plus{
  display:inline-flex;align-items:center;justify-content:center;
- vertical-align:super;min-width:15px;min-height:16px;
+ position:relative;top:-.25em;vertical-align:baseline;
+ min-width:17px;min-height:16px;
  margin:0 2px 0 5px;padding:0 2px;border:0;border-radius:5px;
  background:transparent;color:var(--text-accent);
  font:700 12px/1 var(--font-interface);opacity:.68;cursor:pointer;
