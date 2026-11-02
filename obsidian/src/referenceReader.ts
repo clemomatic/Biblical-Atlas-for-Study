@@ -4,6 +4,7 @@
  */
 import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
 import { cleanReadingText, readableOfficialElement } from './readerText.ts';
+import { findPublicationMentions, officialFinderUrl, publicationUrl } from './publicationReferences.ts';
 import { articleImageFrom, type ArticleImage } from './articleImages.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
@@ -16,6 +17,8 @@ export const MAX_REFERENCES=60;
 const urlPattern=/https?:\/\/(?:wol\.jw\.org|www\.jw\.org)\/[^\s<>\])]+/gi;
 
 export function cleanWolUrl(raw:string):string|null {
+ const finder=officialFinderUrl(raw);
+ if(finder)return finder;
  try{
    const url=new URL(raw.replace(/&amp;/g,'&').trim());
    if(url.protocol!=='https:'||url.username||url.password||url.hostname!=='wol.jw.org')return null;
@@ -38,7 +41,7 @@ export function bibleChapterUrl(scripture:ScriptureRef):string{
 }
 export function passageUrl(reference:string):string {
  const scripture=parseScripture(reference);
- return scripture?bibleChapterUrl(scripture):wolLookup(reference);
+ return scripture?bibleChapterUrl(scripture):publicationUrl(reference);
 }
 export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  const results:ReferenceEntry[]=[];const keys=new Set<string>();
@@ -71,8 +74,8 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
    const raw=m[1].trim();
    if(/^https?:\/\//i.test(raw)){
      const url=cleanWolUrl(raw);if(url)push(raw,url,'brackets');
-   }else if(/^(?:w\d{2}(?:\.?\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|lmd\b|cl |lff |nwt |w\d{2}\s+|la tour de garde)/i.test(raw)) {
-     push(raw,wolLookup(raw),'brackets','publication');
+   }else if(/^(?:w\d{2}(?:\.?\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|lmd\b|th\b|od\b|s\s*[-–]\s*\d+|cl |lff |nwt |w\d{2}\s+|la tour de garde)/i.test(raw)) {
+     push(raw,publicationUrl(raw),'brackets','publication');
    }
  }
  // Marker citations must take precedence over the verse scanner.
@@ -85,6 +88,8 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  for(const label of extractReferences(remainder)){
    if(parseScripture(label))push(label,passageUrl(label),'verse','scripture');
  }
+ for(const mention of findPublicationMentions(remainder))
+   push(mention.label,mention.url,'brackets','publication');
  return results.slice(0,MAX_REFERENCES);
 }
 /**
@@ -126,6 +131,8 @@ export function linkifyReaderText(
   if(!scripture)continue;
   add(label,bibleChapterUrl(scripture),'scripture',1);
  }
+ for(const mention of findPublicationMentions(text).slice(0,30))
+   add(mention.label,mention.url,'publication',1);
  candidates.sort((a,b)=>a.start-b.start||a.priority-b.priority||(b.end-b.start)-(a.end-a.start));
  const parts:ReaderPart[]=[];
  let offset=0;
