@@ -1,3 +1,16 @@
+## Bible Lab 0.9.0 — Stabilisation de la saisie et des aperçus
+
+Cette mise à jour consolide le fonctionnement des références cliquables et des fenêtres de lecture introduits par la version 0.8.9.
+
+- **Tests navigateur** : le simulateur Obsidian reproduit maintenant correctement `Plugin.register()` et le cycle de vie des composants. Sans cela, tous les tests Playwright restaient bloqués avant l’ouverture de l’application, alors même que le code du plugin se compilait.
+- **Détection** : une seule expression compilée parcourt les références françaises, au lieu de créer et exécuter des dizaines d’expressions régulières à chaque frappe ; références abrégées, noms composés et versets longs préservés.
+- **Fenêtre flottante** : les textes déjà chargés sont gardés temporairement en cache et les requêtes simultanées identiques sont regroupées. Les pages vides et erreurs réseau ne sont plus mémorisées. Les demandes abandonnées ne réaffichent pas un article après fermeture.
+- **Lecture** : bouton dédié à JW Library pour les passages bibliques, accès WOL toujours présent, possibilité de relancer une récupération échouée, restauration du focus clavier lors d'une fermeture volontaire.
+- **Sécurité** : URL WOL conservées, pas de service tiers ni de modification automatique des notes ; aucune page HTML distante injectée dans Obsidian.
+- **Validation** : vérification des fonctions de base et de l’intégration CodeMirror par Playwright, en priorité sur ordinateur et smartphone.
+
+La compatibilité réelle avec d’autres extensions qui transforment les mêmes références (notamment traVERture) doit encore être essayée dans un coffre contenant les deux plugins. Cette version ne désactive pas automatiquement les autres extensions.
+
 ## Bible Lab 0.8.9 — Références automatiques et aperçu de lecture
 
 La première étape de la refonte inspirée des **aperçus contextuels de WOL**, du **panneau d'étude de JW Library** et des fonctionnalités d'Obsidian **traVERture**.
