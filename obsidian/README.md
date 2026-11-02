@@ -1,3 +1,12 @@
+## Bible Lab 0.9.2 — Résolution des citations documentaires
+
+- **Reconnaissance des sources** en lecture et Live Preview : références de publications avec numéro de page et de paragraphe, `S-38 §1`, `S-38 §20, 25`, `od 8:8`, `th leçon 12`, y compris dans le panneau latéral et les aperçus.
+- **Liens officiels vérifiés** : `th leçon 12` → WOL 1102018452 ; `w22 Février p. 13 §15` → WOL 2022281, avec mise en évidence du paragraphe 15 ; `S-38 §1` et `S-38 §20, 25` → liens JW.org finder fournis ; `od 8:8` → JW.org finder fourni.
+- **Pas de liens inventés** : quand on connaît le document mais pas la correspondance exacte de paragraphe, Bible Lab ouvre le document ou utilise la recherche bibliographique WOL. Les URL `jw.org/finder` sont strictement validées.
+- **Texte nettoyé** : les citations issues de la Bible d'étude décodent les espaces HTML `&nbsp;` et ne montrent plus les identifiants numériques internes des notes.
+- **Images de la 0.9.1** : une adresse `/wol/mp/` est un visualiseur HTML, pas une image. Le lecteur utilise maintenant les vraies ressources images issues de `srcset` pour éviter les visuels cassés.
+- **Tests** : analyseur unitaire et parcours navigateur ordinateur/mobile couvrant ces cas. À vérifier en natif et selon l'accès réel à WOL/JW.org.
+
 ## Bible Lab 0.9.1 — Illustrations des publications comme sur WOL
 
 - **Images officielles** : les articles récupérés sur WOL affichent désormais les illustrations au fil du texte, en gardant leur ordre, leur format original (aucun recadrage 1:1 imposé) et leurs légendes.
