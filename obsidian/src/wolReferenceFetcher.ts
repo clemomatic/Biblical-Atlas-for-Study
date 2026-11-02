@@ -87,7 +87,7 @@ export function selectBookPageCandidate(html:string,base:string,reference:string
 export function insightTitleReference(reference:string):{code:string;title:string}|null{
  const normalized=normalizeSearch(reference).replace(/[«»“”"]/g,'"');
  const match=normalized.match(/^(it(?:-[12])?)\s+"([^"]{2,95})"(?:\s*§\s*\d{1,3})?$/);
- return match?{code:match[1],title:match[2]}:null;
+ return match?{code:match[1],title:match[2].trim()}:null;
 }
 export function selectInsightCandidate(html:string,base:string,reference:string):string|null{
  const wanted=insightTitleReference(reference);
