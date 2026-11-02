@@ -2,7 +2,7 @@ import { setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
-import { referencedParagraph } from './publicationReferences';
+import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 
 const fromLabel=(label:string):ReferenceEntry=>{
@@ -155,7 +155,7 @@ export class BibleLabInlinePopover {
   }
   let visible=0;
   const chunks=result.lines.filter(x=>x.type!=='caption').slice(0,85);
-  const requestedParagraph=this.current?referencedParagraph(this.current.label):undefined;
+  const requestedParagraphs=this.current?referencedParagraphs(this.current.label):[];
   let focus:HTMLElement|null=null;
   const append=(size:number):void=>{
    const end=Math.min(chunks.length,visible+size);
@@ -167,9 +167,9 @@ export class BibleLabInlinePopover {
     }
     const element=container.createEl(line.type==='heading'?'h4':'p',{
       cls:'biblelab-popover-line biblelab-popover-'+line.type});
-    if(line.number===requestedParagraph&&requestedParagraph){
+    if(line.number&&requestedParagraphs.includes(line.number)){
       element.addClass('biblelab-article-target-paragraph');
-      focus=element;
+      if(!focus)focus=element;
     }
     if(line.source)element.createEl('strong',{text:line.source+' · '});
     this.linkLine(element,line,anchor);
@@ -181,7 +181,7 @@ export class BibleLabInlinePopover {
   more.addEventListener('click',()=>append(10));
   // Load through the requested paragraph when available, rather than
   // making §15 inaccessible behind the "Afficher la suite" control.
-  const index=requestedParagraph?chunks.findIndex(x=>x.number===requestedParagraph):-1;
+  const index=requestedParagraphs.length?chunks.reduce((n,x,i)=>x.number&&requestedParagraphs.includes(x.number)?i:n,-1):-1;
   append(Math.max(12,index+1));
   if(focus)window.requestAnimationFrame(()=>{
     if(focus?.isConnected)focus.scrollIntoView({block:'nearest',behavior:'instant'});
