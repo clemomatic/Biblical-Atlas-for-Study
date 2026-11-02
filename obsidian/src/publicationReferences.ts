@@ -46,8 +46,19 @@ const sources=[
 /** Numbers cited after a § marker, including separated paragraph lists. */
 export function referencedParagraphs(reference:string):string[]{
  const clean=cleanReadingText(reference);
- const marked=clean.match(/§\s*(\d{1,3}(?:\s*[,;]\s*\d{1,3})*)/);
- if(marked)return [...new Set((marked[1].match(/\d{1,3}/g)||[]))].slice(0,12);
+ const marked=clean.match(/§\s*(\d{1,3}(?:\s*[-–,;]\s*\d{1,3})*)/);
+ if(marked){
+   const values:string[]=[];
+   for(const term of marked[1].split(/\s*[,;]\s*/)){
+     const range=term.match(/^(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?$/);
+     if(!range)continue;
+     const from=Number(range[1]),to=Number(range[2]||range[1]);
+     if(from<1||to<from||to-from>30)continue;
+     for(let i=from;i<=to;i++)if(!values.includes(String(i)))values.push(String(i));
+     if(values.length>=35)break;
+   }
+   return values.slice(0,35);
+ }
  const colon=clean.match(/^od\s+\d{1,3}\s*:\s*(\d{1,3})$/i);
  return colon?[colon[1]]:[];
 }
