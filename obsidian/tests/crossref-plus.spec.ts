@@ -45,6 +45,11 @@ test('Verse plus cues replace duplicate references and lead to the requested ver
  const plus=reading.locator('button.biblelab-popover-verse-plus');
  await expect(reading.locator('.biblelab-popover-scripture-verse')).toHaveCount(2);
  await expect(plus).toHaveCount(2);
+ // Preserve the source HTML marker position, not merely append "+" at the end.
+ await expect(reading.locator('.biblelab-popover-scripture-copy').first())
+  .toHaveText('Texte biblique du verset 2+ et sa fin.');
+ await expect(reading.locator('.biblelab-popover-scripture-copy').last())
+  .toHaveText('Texte biblique du verset 3+ et sa fin.');
  await expect(plus.nth(0)).toHaveAttribute('aria-label','Afficher les renvois du verset 2');
  await expect(plus.nth(1)).toHaveAttribute('aria-label','Afficher les renvois du verset 3');
  await expect(reading).not.toContainText('Psaume 119:165');
