@@ -26,7 +26,9 @@ const sources=[
  new RegExp(boundaries+'((?:w|wp|g)\\d{2}\\.\\d{1,2}\\s+'+page+'(?:'+paragraph+')?)','giu'),
  // Compact date/page references used by the official Index.
  new RegExp(boundaries+'((?:w|wp|g|mwb)\\d{2}\\.\\d{1,2}\\s+\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*)','giu'),
- new RegExp(boundaries+'((?:km)\\s+\\d{1,2}/\\d{2}\\s+\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*)','giu'),
+ // Ministry of the Kingdom is cited by month/year without a page, e.g.
+ // "km 05/95" = May 1995; WOL's own short form is "km 5/95".
+ new RegExp(boundaries+'(km\\s+(?:0?[1-9]|1[0-2])/\\d{2}(?:\\s+p\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)?)','giu'),
  new RegExp(boundaries+'(s\\s*[-–]\\s*\\d{1,3}'+paragraph+')','giu'),
  new RegExp(boundaries+'(('+sourceCodes+')\\s+(?:'+locators+'))','giu'),
  new RegExp(boundaries+'((?:th|lmd|lff|lffi)\\s+\\d{1,3})','giu')
@@ -87,6 +89,12 @@ export function publicationUrl(reference:string):string{
  const w22=s.match(/^w22\s+f[ée]vrier\s+p\.?\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?(?:\s*§\s*\d{1,3}(?:\s*[-–,]\s*\d{1,3})*)?$/);
  if(w22&&Number(w22[1])>=8&&Number(w22[2]||w22[1])<=13)
   return 'https://wol.jw.org/fr/wol/d/r30/lp-f/2022281';
+ const km=s.match(/^km\\s+0?([1-9]|1[0-2])\\/(\\d{2})(?:\\s+p\\.?\\s*(\\d{1,3}))?$/);
+ if(km){
+   // Never infer an article ID from only the month and year. Resolve through
+   // WOL's official bibliography using its canonical non-zero-padded code.
+   return wolLookup('km '+Number(km[1])+'/'+km[2]+(km[3]?' p. '+km[3]:''));
+ }
  return wolLookup(cleanReadingText(reference).replace(/\s*§\s*\d{1,3}(?:\s*[-–,]\s*\d{1,3})*\s*$/,''));
 }
 export function findPublicationMentions(text:string):PublicationMention[]{
