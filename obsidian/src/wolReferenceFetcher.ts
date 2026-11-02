@@ -234,6 +234,13 @@ function isDocument(html:string):boolean{
  return false;
 }
 export function knownCitation(reference:string):string|null{
+ // Verified book spans: links into the middle of a chapter/article must open
+ // the document itself rather than the WOL site's bibliographic navigation.
+ const exact=publicationBookPages(reference);
+ if(exact?.code==='si'&&exact.first>=199&&exact.last<=205)
+   return WOL+'d/r30/lp-f/1101990105'; // Livre de la Bible numéro 44 — Actes
+ if(exact?.code==='it-1'&&exact.first===510&&exact.last===510)
+   return WOL+'d/r30/lp-f/1200001021'; // Congrégation, tome 1, p. 510
  if(siStudyNumber(reference)===10)
    return WOL+'d/r30/lp-f/1101990137';
  const historic=publicationPages(reference);
