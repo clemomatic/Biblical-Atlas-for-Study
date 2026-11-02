@@ -324,6 +324,7 @@ export function siDocumentPageRange(html:string):{first:number;last:number}|null
  return null;
 }
 const siPageCache=new Map<string,string>();
+const siRangeCache=new Map<number,{first:number;last:number}>();
 async function findSiDocumentByPage(reference:string):Promise<string|null>{
  const request=publicationBookPages(reference);
  if(!request||request.code!=='si')return null;
@@ -336,9 +337,13 @@ async function findSiDocumentByPage(reference:string):Promise<string|null>{
  while(low<=high&&iterations++<9){
   const middle=Math.floor((low+high)/2);
   const url=WOL+'d/r30/lp-f/'+middle;
-  let html:string;
-  try{html=await officialText(url);}catch{break;}
-  const range=siDocumentPageRange(html);
+  let range=siRangeCache.get(middle)||null;
+  if(!range){
+   let html:string;
+   try{html=await officialText(url);}catch{break;}
+   range=siDocumentPageRange(html);
+   if(range)siRangeCache.set(middle,range);
+  }
   if(!range)break; // Missing metadata: do not assume candidate is correct
   if(range.first<=request.first&&range.last>=request.last){
    siPageCache.set(key,url);return url;
