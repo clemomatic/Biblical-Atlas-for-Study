@@ -13,10 +13,11 @@ test('Bible verse removes encoded spaces, superscript markers and number-only no
    html:'<p><span class="verseNum">29</span>Deux&nbsp;moineaux&#8239;ne se vendent-ils pas pour&nbsp;une pièce<sup class="fnRef">*</sup> de monnaie\u200b ? <a data-fnid="123" href="#fn">a</a></p>',
    footnotes:[
     {source:'<sup>a</sup>',content:'<p><span class="fn">Litt.&nbsp;« une pièce de monnaie ».</span></p>'},
-    {source:'<span class="label">moineaux</span>',content:'<p>Le mot grec désigne un petit oiseau.</p>'}
+    {source:'<span class="label">moineaux</span>',content:'<p>Le mot grec désigne un petit oiseau.</p>'},
+    {source:'23026003 · ',content:'<p>Une autre note.</p>'}
    ],
    commentaries:[{source:'<span>petit oiseau</span>',content:'<p>Une note d’étude sur le contexte.</p>'}],
-   crossReferences:[{source:'<sup>+</sup>',targets:[{vs:'43003016',standardCitation:'Jean 3:16'}]}]
+   crossReferences:[{source:'<sup>+</sup>',targets:[{vs:'43003016',standardCitation:'Jean&amp;nbsp;3:16'}]}]
  }}};
  await page.route('**/json/html/40010029',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(result)}));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('Matthieu 10:29'));
@@ -30,6 +31,8 @@ test('Bible verse removes encoded spaces, superscript markers and number-only no
  await expect(pane.locator('.biblelab-reader-note-source').filter({hasText:'petit oiseau'})).toBeVisible();
  await expect(pane.getByText('Notes de traduction',{exact:true})).toBeVisible();
  await expect(pane.getByText('Notes d’étude',{exact:true})).toBeVisible();
+ await expect(pane).not.toContainText('23026003');
+ await expect(pane).not.toContainText('&nbsp;');
  await pane.getByText('Renvois bibliques').click();
  await expect(pane.getByText('Jean 3:16',{exact:true}).first()).toBeVisible();
 });
