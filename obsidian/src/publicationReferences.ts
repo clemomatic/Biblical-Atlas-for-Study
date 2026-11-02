@@ -31,12 +31,16 @@ const sources=[
  new RegExp(boundaries+'(('+sourceCodes+')\\s+(?:'+locators+'))','giu'),
  new RegExp(boundaries+'((?:th|lmd|lff|lffi)\\s+\\d{1,3})','giu')
 ];
-export function referencedParagraph(reference:string):string|undefined{
+/** Numbers cited after a § marker, including separated paragraph lists. */
+export function referencedParagraphs(reference:string):string[]{
  const clean=cleanReadingText(reference);
- const marked=clean.match(/§\s*(\d{1,3})/);
- if(marked)return marked[1];
+ const marked=clean.match(/§\s*(\d{1,3}(?:\s*[,;]\s*\d{1,3})*)/);
+ if(marked)return [...new Set((marked[1].match(/\d{1,3}/g)||[]))].slice(0,12);
  const colon=clean.match(/^od\s+\d{1,3}\s*:\s*(\d{1,3})$/i);
- return colon?.[1];
+ return colon?[colon[1]]:[];
+}
+export function referencedParagraph(reference:string):string|undefined{
+ return referencedParagraphs(reference)[0];
 }
 export function bookChapterLocator(reference:string):{code:string;chapter:number}|null{
  const clean=cleanReadingText(reference).toLocaleLowerCase('fr');
