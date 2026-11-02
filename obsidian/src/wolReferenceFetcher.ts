@@ -166,9 +166,13 @@ async function officialText(url:string):Promise<string>{
    throw Error('WOL a répondu sans document HTML exploitable.');
  return html;
 }
+function hasReadableArticleBody(result:ReaderResult):boolean{
+ return result.lines.some(line=>line.type!=='heading'&&line.type!=='caption'&&
+  line.type!=='image'&&line.text.trim().length>=8);
+}
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
- if(!result.lines.some(line=>line.text.trim().length>=3))
+ if(!hasReadableArticleBody(result))
    throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
  return result;
 }
@@ -178,7 +182,7 @@ function readerForDocument(html:string,url:string,label:string):ReaderResult{
  */
 function directDocumentReader(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
- if(!result.lines.some(line=>line.type!=='image'&&line.text.trim().length>=3)){
+ if(!hasReadableArticleBody(result)){
    result.lines=[];
    result.notice='La page officielle a répondu, mais son texte ne peut pas être extrait dans Obsidian (structure HTML ou chargement dynamique). Ouvre ce document sur WOL pour le lire.';
  }
