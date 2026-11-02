@@ -17,11 +17,16 @@ const locators=[
  '(?:leçon|lecons?|hist(?:oire)?|partie|étude|annexe|appendice)\\.?\\s*\\d{1,3}(?:'+paragraph+')?',
  page+'(?:'+paragraph+')?',
  '\\d{1,3}\\s*:\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?',
- paragraph
+ paragraph,
+ // Index quotations frequently omit "p." (e.g. "it-1 875", "od 42-43").
+ '\\d{1,4}(?:\\s*[-–,]\\s*\\d{1,4})*(?:'+paragraph+')?'
 ].join('|');
 const sources=[
  new RegExp(boundaries+'((?:w|wp|g)\\d{2}(?:\\.\\d{1,2})?\\s+(?:'+months+')\\s+'+page+'(?:'+paragraph+')?)','giu'),
  new RegExp(boundaries+'((?:w|wp|g)\\d{2}\\.\\d{1,2}\\s+'+page+'(?:'+paragraph+')?)','giu'),
+ // Compact date/page references used by the official Index.
+ new RegExp(boundaries+'((?:w|wp|g|mwb)\\d{2}\\.\\d{1,2}\\s+\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*)','giu'),
+ new RegExp(boundaries+'((?:km)\\s+\\d{1,2}/\\d{2}\\s+\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*)','giu'),
  new RegExp(boundaries+'(s\\s*[-–]\\s*\\d{1,3}'+paragraph+')','giu'),
  new RegExp(boundaries+'(('+sourceCodes+')\\s+(?:'+locators+'))','giu'),
  new RegExp(boundaries+'((?:th|lmd|lff|lffi)\\s+\\d{1,3})','giu')
