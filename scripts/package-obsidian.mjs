@@ -17,7 +17,7 @@ for (const file of ['main.js', 'manifest.json', 'styles.css', 'README.md', 'THIR
 }
 const runtime = new TextDecoder().decode(archive[`${manifest.id}/main.js`]);
 const dependencies = [...runtime.matchAll(/require\(["']([^"']+)["']\)/g)].map(match => match[1]);
-if (dependencies.some(dependency => dependency !== 'obsidian')) throw new Error(`Unexpected runtime dependencies: ${dependencies.join(', ')}`);
+if (dependencies.some(dependency => !['obsidian', '@codemirror/view'].includes(dependency))) throw new Error(`Unexpected runtime dependencies: ${dependencies.join(', ')}`);
 if (/\bimport\s*\(/.test(runtime)) throw new Error('The plugin must not download JavaScript chunks at runtime.');
 archive[`${manifest.id}/SHA256SUMS.txt`] = strToU8(`${checksums.join('\n')}\n`);
 await mkdir(output, { recursive: true });
@@ -25,4 +25,4 @@ const zip = zipSync(archive, { level: 9 });
 const filename = `${manifest.id}-${manifest.version}.zip`;
 await writeFile(path.join(output, filename), zip);
 await writeFile(path.join(output, 'Guide-installation-Atlas-Obsidian.md'), await readFile(path.join(root, 'obsidian/README.md')));
-console.log(`Created ${filename} (${Math.round(zip.length / 1024)} KiB). All dependencies are bundled except the Obsidian API.`);
+console.log(`Created ${filename} (${Math.round(zip.length / 1024)} KiB). All dependencies are bundled except Obsidian-provided APIs and CodeMirror.`);
