@@ -60,4 +60,11 @@ test('Inline preview displays the identical original illustration and its captio
  await expect(pop.locator('.biblelab-article-figure').first().locator('figcaption'))
   .toHaveText('Un paysage qui illustre le récit biblique.');
  await expect(pop.locator('img[src*="evil.example"]')).toHaveCount(0);
+ await pop.locator('.biblelab-article-figure').first()
+   .getByRole('button',{name:'Agrandir l’illustration'}).click();
+ const zoom=page.getByRole('dialog',{name:'Illustration agrandie'});
+ await expect(zoom).toBeVisible();
+ await page.keyboard.press('Escape');
+ await expect(zoom).toHaveCount(0);
+ await expect(pop).toBeVisible();
 });
