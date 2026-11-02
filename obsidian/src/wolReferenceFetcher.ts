@@ -200,14 +200,24 @@ export function selectBookChapterCandidate(html:string,base:string,reference:str
  * not from navigation, the sidebar or the site's footer.
  * WOL sometimes returns only one article and omits page metadata entirely.
  */
-export function selectSingleLookupDocument(html:string,base:string):string|null{
+export function selectSingleLookupDocument(html:string,base:string,reference?:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
  const results=doc.querySelector('#lookupResults,.lookupResults');
  if(!results)return null;
  const candidates=new Set<string>();
  for(const anchor of results.querySelectorAll<HTMLAnchorElement>('a[href]')){
    const url=validateDocument(anchor.getAttribute('href')||'',base);
-   if(url)candidates.add(url);
+   if(url){
+     // A single result must never override explicit evidence that its issue
+     // or page range contradicts the citation in the note.
+     if(reference&&publicationPages(reference)){
+       const row=anchor.closest('li,article,.result,.searchResult,.search-result,.item')||anchor.parentElement;
+       const metadata=row?.textContent||'';
+       if(publicationPages(metadata)&&!matchingPublicationPages(reference,metadata))
+         return null;
+     }
+     candidates.add(url);
+   }
    if(candidates.size>1)return null; // Ambiguous result: show WOL's choices.
  }
  return candidates.size===1?[...candidates][0]:null;
@@ -224,24 +234,24 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  const bookPage=publicationBookPages(reference);
  if(bookPage){
    const identified=selectBookPageCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
  const insight=insightTitleReference(reference);
  if(insight){
    const identified=selectInsightCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
  const study=siStudyNumber(reference);
  if(study){
    const identified=selectSiStudyCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
  const chapter=bookChapterLocator(reference);
  if(chapter){
    const identified=selectBookChapterCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
- const onlyResult=selectSingleLookupDocument(html,base);
+ const onlyResult=selectSingleLookupDocument(html,base,reference);
  if(onlyResult)return onlyResult;
  // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
  const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
