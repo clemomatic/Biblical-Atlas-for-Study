@@ -2,7 +2,7 @@
  * Explicit links are preserved; other publication citations use /wol/l/, not
  * the keyword search route /wol/s/. No HTML from the web is injected into Obsidian.
  */
-import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
+import { extractReferences, findScriptureMentions, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
 import { cleanReadingText, readableOfficialElement } from './readerText.ts';
 import { findPublicationMentions, officialFinderUrl, publicationUrl } from './publicationReferences.ts';
 import { articleImageFrom, type ArticleImage } from './articleImages.ts';
@@ -67,6 +67,12 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
    const href=cleanWolUrl(m[2]);
    if(href)push(m[1],href,'markdown');
  }
+ // Scan before removing Markdown links. A passage such as
+ // [Actes 1:8](https://wol.jw.org/...) ; 2:1-4 ; 3:6,7 keeps "Actes"
+ // as the book for each subsequent chapter, although only the first
+ // passage has an explicit book name in the note.
+ for(const mention of findScriptureMentions(text))
+   push(mention.ref.label,passageUrl(mention.ref.label),'verse','scripture');
  // [w24 Novembre p. 14-19] and [https://wol.jw.org/...] as independent
  // bracket references. Ignore Obsidian wiki links and ordinary checkboxes.
  text=text.replace(linked,'');
