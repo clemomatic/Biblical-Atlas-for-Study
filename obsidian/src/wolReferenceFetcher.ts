@@ -1,7 +1,8 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
-import { readableOfficialHtml, meaningfulNoteSource } from './readerText.ts';
+import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText } from './readerText.ts';
+import { finderDocumentUrl } from './publicationReferences.ts';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
@@ -143,6 +144,14 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  const url=canonicalReferenceUrl(ref.url);
  if(!url)throw Error('Référence WOL non reconnue.');
  const path=new URL(url).pathname;
+ const finderDocument=finderDocumentUrl(url);
+ if(finderDocument){
+   const result=readerForDocument(await officialText(finderDocument),finderDocument,ref.label);
+   // Preserve the exact paragraph destination for the official-site button.
+   result.sourceUrl=url;
+   result.kind='article';
+   return result;
+ }
  if(DOC.test(path)||path.startsWith('/fr/wol/b/')){
    return readerForDocument(await officialText(url),url,ref.label);
  }
@@ -234,7 +243,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
  for(const row of entry.crossReferences||[]){
    const labels:string[]=[];
    for(const target of row.targets||[]){
-     const citation=(target.standardCitation||'').trim();
+     const citation=cleanReadingText(target.standardCitation||'');
      if(citation)labels.push(citation);
      const targetCode=(target.vs||'').replace(/[^0-9]/g,'');
      if(citation&&/^\d{8}$/.test(targetCode)){
@@ -251,7 +260,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
      source:meaningfulNoteSource(row.source)});
  }
  if(!text)throw Error('Texte du verset absent.');
- return {title:entry.citation||scripture.label,
+ return {title:cleanReadingText(entry.citation||scripture.label),
    sourceUrl:ref.url,kind:'verse',lines,links,
    notice:'Bible d’étude · texte, notes et renvois · jw.org'};
 }
