@@ -1,14 +1,21 @@
 import { cleanReadingText } from './readerText.ts';
+import { STRUCTURED_PUBLICATION_CODES } from './publicationAbbreviations.ts';
 
 /** The visible citation is preserved; the lookup excludes its paragraph suffix. */
 const MONTHS='janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre';
 const PAR='(?:\\s*(?:§|par(?:agraphe)?s?\\.?)\\s*\\d{1,3}(?:\\s*(?:,|;|et|[-–])\\s*\\d{1,3})*)?';
+// Official catalog includes everyday words (e.g. « la », « si »):
+// only recognize a code when a real section/page locator follows.
+const esc=(value:string)=>value.replace(/[-/\\^$*+?.()|[\]{}]/g,'\\$&');
+const CODES=[...STRUCTURED_PUBLICATION_CODES].sort((a,b)=>b.length-a.length).map(esc).join('|');
+const LOCATOR='(?:\\s+(?:le[cç]on|chap(?:itre)?|partie|p(?:ages?)?)\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?|\\s*§\\s*\\d{1,3}(?:\\s*(?:,|;|et|[-–])\\s*\\d{1,3})*)';
+const MONTHLY='(?:w\\d{2}(?:\\.\\d{1,2})?|wp\\d{2}(?:\\.\\d{1,2})?|g\\d{2}(?:\\.\\d{1,2})?|mwb\\d{2}(?:\\.\\d{1,2})?)\\s+(?:(?:'+MONTHS+')\\s+)?p\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?'+PAR;
+const MANUAL='(?:th|lmd|lff)\\s+(?:le[cç]on\\s*)?\\d{1,3}'+PAR;
+const INSTRUCTIONS='s\\s*[-‐‑–]\\s*\\d{1,3}'+PAR;
+const STRUCTURED='(?:'+CODES+')(?=\\s)(?:'+LOCATOR+')+';
 const pattern=new RegExp(
- '(?<![\\p{L}\\p{N}])(?:'+
- '(?:w\\d{2}(?:\\.\\d{1,2})?|wp\\d{2}(?:\\.\\d{1,2})?|g\\d{2}(?:\\.\\d{1,2})?)\\s+(?:'+MONTHS+')\\s+p\\.?\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?'+PAR+
- '|s\\s*[-‐‑–]\\s*\\d{1,3}'+PAR+
- '|(?:th|lmd|lff)\\s+(?:leçon\\s*)?\\d{1,3}'+PAR+
- ')','giu'
+ '(?<![\\p{L}\\p{N}])(?:'+MONTHLY+'|'+INSTRUCTIONS+'|'+MANUAL+'|'+STRUCTURED+')',
+ 'giu'
 );
 const suffix=/\s*(?:§|par(?:agraphe)?s?\.?)\s*\d{1,3}(?:\s*(?:,|;|et|[-–])\s*\d{1,3})*\s*$/iu;
 export function publicationLookupLabel(reference:string):string{
