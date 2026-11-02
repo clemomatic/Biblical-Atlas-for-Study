@@ -1,3 +1,13 @@
+## Bible Lab 0.9.2 — Références bibliographiques et citations ciblées
+
+- Détecte désormais les références **S-38 §20, 25**, **w22 Février p. 13 §15**, **th leçon 12**, ainsi que les variantes similaires des périodiques, des leçons et des paragraphes en texte brut (lecture et édition).
+- Associe les publications à des **identifiants WOL vérifiés** pour ces trois exemples, et recherche les autres références sans ajouter artificiellement leur suffixe § aux mots-clés bibliographiques.
+- Les paragraphes expressément cités sont présentés en premier lorsque la page officielle fournit une numérotation identifiable ; l'intégralité du document reste consultable.
+- Reconnaît les liens de partage JW.org `/finder?wtlocale=F&docid=...` et affiche le document WOL français, sans supposer que le paramètre interne `par` représente le numéro de paragraphe.
+- Nettoie les entités HTML échappées (`&nbsp;`) et supprime les identifiants numériques techniques des notes et renvois, sans supprimer leur contenu.
+- Répare également l'affichage des images WOL : `/wol/mp/` est une page HTML de visionnage, et ne doit pas être utilisée comme source d'une balise `img`.
+- Les tests simulent des pages WOL/JW.org représentatives. Le chargement en conditions réelles dépend toujours de la disponibilité de ces sites.
+
 ## Bible Lab 0.9.1 — Illustrations des publications comme sur WOL
 
 - **Images officielles** : les articles récupérés sur WOL affichent désormais les illustrations au fil du texte, en gardant leur ordre, leur format original (aucun recadrage 1:1 imposé) et leurs légendes.
