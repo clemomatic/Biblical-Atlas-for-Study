@@ -114,3 +114,22 @@ test('SI adjacent printed pages choose document containing the full span',async(
  await expect(page.locator('.biblelab-side')).toContainText('Premier paragraphe du vrai texte officiel');
  expect(visited.length).toBeLessThan(12);
 });
+
+test('A titled Insight citation resolves through index heading rather than WOL lookup menu',async({page})=>{
+ const index='<html><h2>Sanctuaire '+
+  '<a href="/fr/wol/pc/r30/lp-f/1200004775/25/0">2:881-883</a></h2>'+
+  '<h2>Autre sanctuaire '+
+  '<a href="/fr/wol/pc/r30/lp-f/1200004775/26/0">2:990-991</a></h2></html>';
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1200004775',route=>
+  route.fulfill({status:200,contentType:'text/html',body:index}));
+ await page.route('https://wol.jw.org/fr/wol/pc/r30/lp-f/1200004775/25/0',route=>
+  route.fulfill({status:200,contentType:'text/html',
+   body:article('it-2 « Sanctuaire »','SANCTUAIRE')}));
+ await page.route('https://wol.jw.org/fr/wol/l/**',route=>
+  route.fulfill({status:200,contentType:'text/html',
+   body:'<h1>Consulter</h1><p>Menu de la bibliothèque</p>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('it-2 « Sanctuaire » § 1'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane).toContainText('Premier paragraphe du vrai texte officiel');
+ await expect(pane).not.toContainText('Menu de la bibliothèque');
+});
