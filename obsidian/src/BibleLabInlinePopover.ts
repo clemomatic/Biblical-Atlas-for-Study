@@ -235,14 +235,13 @@ export class BibleLabInlinePopover {
    number.setAttribute('aria-hidden','true');
    const text=row.createEl('p',{cls:'biblelab-popover-scripture-copy'});
    text.setAttribute('lang','fr');
-   this.linkLine(text,line,anchor);
-   // Restore the tiny "+" associated with the official Bible cross-reference
-   // marker. It opens the apparatus; verses stay uninterrupted by link lists.
+   // Restore the original "+" positions when the official verse HTML
+   // contains them; otherwise keep one unobtrusive fallback marker.
    const verseRef=line.references||[];
    const source=line.source||'';
    const hasFallback=apparatus.some(item=>item.type==='crossref'&&
      (verses.length===1||(source&&item.source===source)));
-   if(verseRef.length||hasFallback){
+   const addPlus=(targets:readonly {label:string;url:string}[]):void=>{
      const marker=text.createEl('button',{
        cls:'biblelab-popover-verse-plus',text:'+',
        attr:{type:'button',title:'Renvois bibliques',
@@ -252,12 +251,28 @@ export class BibleLabInlinePopover {
      marker.addEventListener('click',()=>{
        if(!aside)return;
        aside.open=true;
-       const first=aside.querySelector<HTMLElement>(
-         '.biblelab-popover-apparatus-crossref .biblelab-popover-inline-link');
-       // Focus the first actual scripture destination for keyboard access.
-       if(first){first.focus({preventScroll:true});}
+       const buttons=[...aside.querySelectorAll<HTMLElement>(
+         '.biblelab-popover-apparatus-crossref .biblelab-popover-inline-link')];
+       const matching=buttons.find(btn=>btn.getAttribute('aria-label')==='Lire '+targets[0]?.label);
+       const focus=matching||buttons[0];
+       if(focus)focus.focus({preventScroll:true});
        aside.scrollIntoView({block:'nearest',behavior:'smooth'});
      });
+   };
+   const markers=(line.referenceMarkers||[])
+     .filter(marker=>marker.offset>=0&&marker.offset<=line.text.length)
+     .sort((a,b)=>a.offset-b.offset);
+   if((verseRef.length||hasFallback)&&markers.length){
+     let cursor=0;
+     for(const marker of markers){
+       this.linkLine(text,{...line,text:line.text.slice(cursor,marker.offset),parts:undefined},anchor);
+       addPlus(marker.targets);
+       cursor=marker.offset;
+     }
+     this.linkLine(text,{...line,text:line.text.slice(cursor),parts:undefined},anchor);
+   }else{
+     this.linkLine(text,line,anchor);
+     if(verseRef.length||hasFallback)addPlus(verseRef);
    }
   }
   if(!verses.length){
