@@ -89,6 +89,25 @@ export function insightTitleReference(reference:string):{code:string;title:strin
  const match=normalized.match(/^(it(?:-[12])?)\s+"([^"]{2,95})"(?:\s*§\s*\d{1,3})?$/);
  return match?{code:match[1],title:match[2].trim()}:null;
 }
+export function siStudyNumber(reference:string):number|null{
+ const m=normalizeSearch(reference).match(/^si\s+(?:étude(?:\s+numéro)?|ét\.)\s*(\d{1,2})$/);
+ if(!m)return null;
+ const number=Number(m[1]);
+ return number>=1&&number<=10?number:null;
+}
+export function selectSiStudyCandidate(html:string,base:string,reference:string):string|null{
+ const number=siStudyNumber(reference);
+ if(!number)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const check=new RegExp('(?:étude|etude)\\s+(?:numéro|numero|n°)?\\s*'+number+'\\b','i');
+ for(const link of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const target=validateDocument(link.getAttribute('href')||'',base);
+  if(!target)continue;
+  const row=link.closest('li,article,.result,.searchResult,.search-result,.item')||link.parentElement;
+  if(check.test(normalizeSearch((row?.textContent||'').slice(0,900))))return target;
+ }
+ return null;
+}
 export function selectInsightCandidate(html:string,base:string,reference:string):string|null{
  const wanted=insightTitleReference(reference);
  if(!wanted)return null;
@@ -154,6 +173,8 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  if(bookPage)return selectBookPageCandidate(html,base,reference);
  const insight=insightTitleReference(reference);
  if(insight)return selectInsightCandidate(html,base,reference);
+ const study=siStudyNumber(reference);
+ if(study)return selectSiStudyCandidate(html,base,reference);
  const chapter=bookChapterLocator(reference);
  if(chapter){
    // Do not silently open chapter 1 for a request about chapter 8.
@@ -167,7 +188,7 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // Page-range citations cannot be resolved by keyword overlap alone:
  // a WOL search often returns neighbouring articles from the same issue.
  // Prefer a citation with matching page metadata, or a verified fallback.
- if(publicationPages(reference)||publicationBookPages(reference)||insightTitleReference(reference))
+ if(publicationPages(reference)||publicationBookPages(reference)||insightTitleReference(reference)||siStudyNumber(reference))
    return null;
  const anchors=[...doc.querySelectorAll<HTMLAnchorElement>('a[href]')];
  let best:string|null=null,score=-1;
@@ -213,6 +234,8 @@ function isDocument(html:string):boolean{
  return false;
 }
 export function knownCitation(reference:string):string|null{
+ if(siStudyNumber(reference)===10)
+   return WOL+'d/r30/lp-f/1101990137';
  const historic=publicationPages(reference);
  if(historic?.issue==='w14 15/11'&&historic.first>=28&&historic.last<=30)
    return WOL+'d/r30/lp-f/2014847';
