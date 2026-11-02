@@ -14,6 +14,7 @@ const fromLabel=(label:string):ReferenceEntry=>{
 export class BibleLabInlinePopover {
  private root:HTMLElement|null=null;
  private current:ReferenceEntry|null=null;
+ private currentSource:string|null=null;
  private history:ReferenceEntry[]=[];
  private backFocus:HTMLElement|null=null;
  private serial=0;
@@ -36,7 +37,7 @@ export class BibleLabInlinePopover {
   this.serial++;
   const previous=this.root;
   const focusInside=!!previous?.contains(document.activeElement);
-  this.root=null;this.current=null;this.history=[];
+  this.root=null;this.current=null;this.currentSource=null;this.history=[];
   previous?.remove();
   document.removeEventListener('pointerdown',this.outside,true);
   document.removeEventListener('keydown',this.keydown,true);
@@ -83,7 +84,7 @@ export class BibleLabInlinePopover {
   this.serial++;
   const token=this.serial;
   const root=this.root||document.body.createDiv({cls:'biblelab-inline-popover'});
-  this.root=root;this.current=ref;root.empty();
+  this.root=root;this.current=ref;this.currentSource=ref.url;root.empty();
   root.classList.toggle('is-scripture',ref.kind==='scripture');
   root.setAttribute('role','dialog');root.setAttribute('aria-label','Aperçu biblique : '+ref.label);
   root.setAttribute('aria-modal','false');
@@ -105,7 +106,7 @@ export class BibleLabInlinePopover {
   if(jw)this.button(footer,'JW Library','book-open-check',()=>
     window.open(jw,'_blank','noopener,noreferrer'));
   this.button(footer,'WOL','external-link',()=>{
-    window.open(ref.url,'_blank','noopener,noreferrer');
+    window.open(this.currentSource||ref.url,'_blank','noopener,noreferrer');
   });
   this.position(root,anchor);
   document.removeEventListener('pointerdown',this.outside,true);
@@ -147,6 +148,7 @@ export class BibleLabInlinePopover {
   });
  }
  private draw(container:HTMLElement,result:ReaderResult,anchor:HTMLElement):void{
+  this.currentSource=cleanWolUrl(result.sourceUrl)||this.current?.url||null;
   if(result.title&&result.title!==this.current?.label)
    container.createEl('h3',{cls:'biblelab-popover-document-title',text:result.title});
   if(result.notice)container.createEl('p',{cls:'biblelab-popover-notice',text:result.notice});
