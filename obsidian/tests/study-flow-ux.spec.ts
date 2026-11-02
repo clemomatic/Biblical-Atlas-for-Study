@@ -71,7 +71,9 @@ test('Current note references stay tucked away while a focused source is read',a
  await expect(refs).not.toHaveAttribute('open','');
  await refs.locator(':scope > summary').click();
  await expect(refs).toHaveAttribute('open','');
- await expect(refs.locator('.biblelab-reader-summary').first()).toBeVisible();
+ const firstReference=refs.locator('.biblelab-reader').first();
+ await expect(firstReference).toBeVisible();
+ await expect(firstReference.locator('.biblelab-reader-summary').first()).toHaveCount(1);
 });
 
 test('Search advanced actions are progressive but available after a failed source request',async({page})=>{
