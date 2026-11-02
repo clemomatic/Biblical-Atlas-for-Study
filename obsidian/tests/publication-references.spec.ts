@@ -10,7 +10,7 @@ test.beforeEach(async({page})=>{
  await page.waitForFunction(()=>(window as any).atlasTest?.ready);
  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2022281',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Écoute les paroles des sages')}));
  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Chaleur et empathie')}));
- await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1201038',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Instructions S-38')}));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1201038',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Instructions S-38',30)}));
  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1102014938',route=>route.fulfill({status:200,contentType:'text/html',body:doc('Organisation')}));
 });
 test('Reading view recognizes whole paragraph and study-lesson citations',async({page})=>{
@@ -43,3 +43,13 @@ test('A page-and-paragraph citation opens the verified article and highlights §
  await expect(focus).toContainText('Texte du paragraphe 15.');
  await expect(pane.locator('.biblelab-reader-document-title')).toHaveText('Écoute les paroles des sages');
 });
+
+test('S-38 multiple paragraphs are both highlighted in the reader',async({page})=>{
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('S-38 §20, 25'));
+ const pane=page.locator('.biblelab-side');
+ const targets=pane.locator('.biblelab-article-target-paragraph');
+ await expect(targets).toHaveCount(2);
+ await expect(targets.first().locator('.biblelab-article-parnum')).toHaveText('20');
+ await expect(targets.last().locator('.biblelab-article-parnum')).toHaveText('25');
+});
+
