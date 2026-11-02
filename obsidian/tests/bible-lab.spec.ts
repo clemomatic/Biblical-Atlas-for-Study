@@ -46,13 +46,16 @@ test('study Bible resources include individual maps and the main appendices',asy
   await expect(pane.getByText('B10 — Israël au temps de Jésus')).toBeVisible();
 });
 
-test('WOL style reference markers open the search sidebar without altering the note',async({page})=>{
+test('Legacy WOL markers open a floating verse preview without altering the note',async({page})=>{
   await page.evaluate(()=>{
     const node=document.createElement('p');node.textContent='Regarder !!Jean 3:16!! dans mon étude.';
     document.body.appendChild(node);
     (window as any).atlasTest.plugin.markdownPostProcessor(node);
   });
   await page.getByText('Jean 3:16',{exact:true}).last().click();
+  await expect(page.getByRole('dialog',{name:'Aperçu biblique : Jean 3:16'})).toBeVisible();
   await expect(page.locator('.biblelab-side').locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
-  await expect(page.locator('.biblelab-reader-labels strong').filter({hasText:'Jean 3:16'})).toBeVisible();
+  await page.getByRole('dialog',{name:'Aperçu biblique : Jean 3:16'})
+    .getByRole('button',{name:'Fermer'}).click();
+  await expect(page.getByRole('dialog',{name:'Aperçu biblique : Jean 3:16'})).toHaveCount(0);
 });
