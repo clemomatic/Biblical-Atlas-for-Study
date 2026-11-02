@@ -2,7 +2,7 @@ import { setIcon } from 'obsidian';
 import { jwLibraryLink } from './bibleLabData';
 import { linkifyReaderText, type ReaderResult, type ReaderLine, type ReferenceEntry } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
-import { referencedParagraph } from './publicationReferences';
+import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 
 export interface ReaderState {
@@ -132,7 +132,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
 
      const lines=result.lines.filter((line,i)=>
        !(i===0&&line.type==='heading'&&line.text===result.title));
-     const requestedParagraph=referencedParagraph(ref.label);
+     const requestedParagraphs=referencedParagraphs(ref.label);
      let focusedBlock:HTMLElement|null=null;
      let displayed=0;
      const batchSize=18;
@@ -155,9 +155,9 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
            readable(caption,part);
          }else{
            const wrap=article.createDiv({cls:'biblelab-article-paragraph'});
-           if(part.number&&part.number===requestedParagraph){
+           if(part.number&&requestedParagraphs.includes(part.number)){
              wrap.addClass('biblelab-article-target-paragraph');
-             focusedBlock=wrap;
+             if(!focusedBlock)focusedBlock=wrap;
            }
            if(part.number)wrap.createSpan({cls:'biblelab-article-parnum',text:part.number});
            const paragraph=wrap.createEl('p',{attr:{lang:'fr'},
@@ -190,7 +190,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        }
      }
      append(batchSize);
-     if(requestedParagraph&&lines.some(x=>x.number===requestedParagraph)){
+     if(requestedParagraphs.length&&lines.some(x=>x.number&&requestedParagraphs.includes(x.number))){
        while(!focusedBlock&&displayed<lines.length)append(batchSize);
        // Native Obsidian pane handles its own scrolling; avoid resetting it
        // when the referenced paragraph is beyond the initial article batch.
