@@ -32,3 +32,15 @@ test('Resources remain official links and map chapters are indexed',()=>{
   assert.ok(RESOURCES.some(r=>r.id==='appendix-c'&&r.url.startsWith('https://www.jw.org/')));
   assert.ok(MAP_CHAPTERS.some(([title,page])=>title==='La Terre promise'&&page===18));
 });
+
+
+test('Compiled citation matcher preserves original French text order, ranges and 40-entry cap',()=>{
+ const line='Éph. 5:28-29 ; Ps. 145:16 ; 1 Corinthiens 13:4 ; Jean 7:24';
+ assert.deepEqual(extractReferences(line),['Éph. 5:28-29','Ps. 145:16','1 Corinthiens 13:4','Jean 7:24']);
+ assert.equal(extractReferences('Jean 7:24 et Jean 7:24').length,1);
+ const large=Array.from({length:60},(_,i)=>'Psaumes '+(i+1)+':1').join('; ');
+ const result=extractReferences(large);
+ assert.equal(result.length,40);
+ assert.equal(result[0],'Psaumes 1:1');
+ assert.equal(result[39],'Psaumes 40:1');
+});
