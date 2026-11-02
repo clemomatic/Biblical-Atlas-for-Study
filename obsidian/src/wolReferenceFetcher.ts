@@ -125,6 +125,16 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // Never silently present an arbitrary keyword search result as a verified article.
  return score>=10?best:null;
 }
+function documentChapterMatches(html:string,reference:string):boolean{
+ const chapter=bookChapterLocator(reference);
+ if(!chapter)return true;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const visible=normalizeSearch((doc.body?.textContent||'').slice(0,2800));
+ const pattern=new RegExp('(?:^|[^a-z0-9])'+chapter.code.replace(/-/g,'\\-')+
+  '\\s+chap(?:itre)?\\.?\\s*'+chapter.chapter+'\\b','i');
+ return pattern.test(visible);
+}
+
 function isDocument(html:string):boolean{
  const doc=new DOMParser().parseFromString(html,'text/html');
  const region=doc.querySelector('.bodyTxt, .document, article .bodyTxt, #article');
@@ -197,7 +207,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  try{
    text=await officialText(lookup);
    docUrl=pickDocument(text,lookup,query);
-   if(!docUrl && isDocument(text)){
+   if(!docUrl && isDocument(text) && documentChapterMatches(text,query)){
      const direct=readerForDocument(text,lookup,query);
      // The server supplied the full document instead of a list.
      direct.sourceUrl=lookup;
