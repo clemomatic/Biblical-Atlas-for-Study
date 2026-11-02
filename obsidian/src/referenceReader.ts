@@ -132,10 +132,11 @@ export function linkifyReaderText(
   const label=cleanReadingText(item.label);
   if(label.length>=2)add(label,url,parseScripture(label)?'scripture':url.includes('/wol/d/')?'document':'publication',0);
  }
- for(const label of extractReferences(text).slice(0,30)){
-  const scripture=parseScripture(label);
-  if(!scripture)continue;
-  add(label,bibleChapterUrl(scripture),'scripture',1);
+ // Offset-aware matches allow "2:1-4" to link to Actes chapter 2 even
+ // when the book name appears only before the previous semicolon.
+ for(const mention of findScriptureMentions(text).slice(0,60)){
+   candidates.push({start:mention.from,end:mention.to,
+     url:bibleChapterUrl(mention.ref),kind:'scripture',priority:1});
  }
  for(const mention of findPublicationMentions(text).slice(0,30))
    add(mention.label,mention.url,'publication',1);
