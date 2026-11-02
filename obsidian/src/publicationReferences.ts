@@ -53,8 +53,8 @@ function finder(docid:string,par?:number):string{
 /** Restrict finder to an actual official WOL document, never arbitrary URLs. */
 export function officialFinderUrl(value:string):string|null{
  try{
-  const url=new URL(value.replace(/&amp;/g,'&'));
-  if(url.protocol!=='https:'||url.hostname!=='www.jw.org'||url.pathname!=='/finder'||url.username||url.password)return null;
+  const url=new URL(value.replace(/\\&/g,'&').replace(/&amp;/gi,'&'));
+  if(url.protocol!=='https:'||!['www.jw.org','jw.org'].includes(url.hostname)||url.pathname!=='/finder'||url.username||url.password)return null;
   const q=url.searchParams;
   const docid=q.get('docid')||'';
   const par=q.get('par');
