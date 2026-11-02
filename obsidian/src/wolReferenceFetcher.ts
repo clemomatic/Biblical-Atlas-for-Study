@@ -1,6 +1,6 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
-import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
+import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
 import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
 
@@ -518,6 +518,28 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      return article;
    }catch{ /* Continue through official bibliography lookup. */ }
  }
+ // First inspect the content WOL actually provides for this lookup.
+ // The result container is often present while the rest of the HTML is
+ // only the library navigation. Prefer a real article link when available,
+ // otherwise display the result content, not the website menu.
+ const lookup=path.startsWith('/fr/wol/s/')
+   ? WOL+'l/r30/lp-f?'+new URLSearchParams({q:query}):url;
+ let lookupHtml:string|undefined;
+ let lookupExcerpt:ReaderResult|null=null;
+ try{
+   lookupHtml=await officialText(lookup);
+   lookupExcerpt=parseWolLookupResults(lookupHtml,lookup,query);
+   if(lookupExcerpt){
+     const target=pickDocument(lookupHtml,lookup,query);
+     if(target){
+       try{
+         const full=readerForDocument(await officialText(target),target,query);
+         full.kind='article';return full;
+       }catch{ /* The official result is available even if its full article fails. */ }
+     }
+     if(lookupExcerpt.lines.length)return lookupExcerpt;
+   }
+ }catch{ /* Continue with the book index and standard lookup fallback. */ }
  // Book page numbers are not keywords. Resolve them using the official
  // publication structure instead of expecting /l?q=it-1+118 to be an article.
  const bookPages=publicationBookPages(query);
@@ -533,12 +555,10 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      }
    }catch{ /* One structured source failed: try the standard WOL results. */ }
  }
- const lookup=path.startsWith('/fr/wol/s/')
-   ? WOL+'l/r30/lp-f?'+new URLSearchParams({q:query}):url;
  let text='';let docUrl:string|null=null;
  let networkProblem='';
  try{
-   text=await officialText(lookup);
+   text=lookupHtml||await officialText(lookup);
    // /wol/l and /wol/s are search and navigation pages. Even if their
    // HTML contains several paragraphs, it must NEVER be read as the article.
    // Only a resolved /wol/d or verified publication-index /wol/pc may be read.
@@ -566,6 +586,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  }
  docUrl=docUrl||knownCitation(query);
  if(!docUrl){
+   if(lookupExcerpt&&lookupExcerpt.lines.length)return lookupExcerpt;
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
    empty.lines=[];
    empty.notice=networkProblem
