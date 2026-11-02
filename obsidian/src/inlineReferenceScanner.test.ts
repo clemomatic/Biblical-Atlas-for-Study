@@ -33,3 +33,17 @@ test('Ignore fenced code and YAML frontmatter during explicit conversion',()=>{
 test('Do not detect incomplete scripture references',()=>{
  assert.deepEqual(findInlineReferences('Jean 7: et un texte normal.'),[]);
 });
+
+
+test('Dotted French Bible abbreviations render exactly as typed',()=>{
+ const value='Éph. 5:28-29, Ps. 145:16 et Luc 10:21';
+ const refs=findInlineReferences(value);
+ assert.deepEqual(refs.map(x=>x.label),['Éph. 5:28-29','Ps. 145:16','Luc 10:21']);
+ assert.ok(refs.every(x=>x.ref.kind==='scripture'));
+});
+test('Bracketed publication citations convert to valid links without nested brackets',()=>{
+ const result=linkReferencesInMarkdown('Voyez [w18 février p. 24-26] pour la suite.');
+ assert.equal(result.count,1);
+ assert.ok(result.text.includes('[w18 février p. 24-26](https://wol.jw.org/'));
+ assert.equal(result.text.includes('[[w18'),false);
+});
