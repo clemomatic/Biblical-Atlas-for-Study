@@ -12,6 +12,7 @@ import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
+import { findPublicationCitations } from './publicationCitations';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -224,7 +225,9 @@ export class BibleLabSidebarView extends ItemView {
     const term=cleanReadingText(value);
     if(!term){this.setTab('wol');return;}
     this.query=term;
-    if(parseScripture(term) || cleanWolUrl(term) || /^(?:w\d{2}|g\d{2}|mwb\d{2}|it-\d)/i.test(term)){
+    const bibliography=findPublicationCitations(term).some(ref=>ref.from===0&&ref.to===term.length);
+    if(parseScripture(term) || cleanWolUrl(term) || bibliography ||
+      /^(?:w\d{2}|g\d{2}|mwb\d{2}|it-\d)/i.test(term)){
       this.focusReference(term);
       return;
     }
@@ -565,6 +568,9 @@ export class BibleLabSidebarView extends ItemView {
     }
     const scripture=parseScripture(term);
     if(scripture && this.searchScope==='all'){this.focusReference(scripture.label);return;}
+    if(this.searchScope==='all'&&findPublicationCitations(term).some(ref=>ref.from===0&&ref.to===term.length)){
+      this.focusReference(term);return;
+    }
     if(this.wolResultsLoading)return;
     const seq=++this.wolResultsSequence;
     const url=wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
