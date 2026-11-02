@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.7",
+  "version": "0.9.8",
   "minAppVersion": "1.6.0",
-  "description": "Lecture WOL it/si fiabilisée et références bibliques successives après point-virgule.",
+  "description": "Résolution générique des pages it/si par index WOL et vérification des documents.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
