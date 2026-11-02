@@ -1,0 +1,56 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { findPublicationMentions, publicationUrl, officialFinderUrl, finderDocumentUrl } from './publicationReferences.ts';
+import { extractReferenceEntries, cleanWolUrl, passageUrl, linkifyReaderText } from './referenceReader.ts';
+import { meaningfulNoteSource, cleanReadingText } from './readerText.ts';
+
+const WOL='https://wol.jw.org/fr/wol/d/r30/lp-f/';
+const parsed=(s:string)=>findPublicationMentions('Lire '+s+' et poursuivre.').map(x=>x.label);
+test('recognizes complete article, paragraph, lesson and document references',()=>{
+ for(const reference of ['w22 Février p. 13 §15','S-38 §20, 25','S-38 §1','od 8:8','th leçon 12','w18 février p. 24-26','lmd leçon 11']){
+  assert.deepEqual(parsed(reference),[reference],reference);
+ }
+ assert.deepEqual(parsed('S-38 §20, 25')[0],'S-38 §20, 25');
+});
+test('official canonical references retain the exact verified paragraph destination',()=>{
+ assert.equal(publicationUrl('w22 Février p. 13 §15'),WOL+'2022281');
+ assert.equal(publicationUrl('th leçon 12'),WOL+'1102018452');
+ assert.equal(new URL(publicationUrl('S-38 §1')).searchParams.get('par'),'31');
+ assert.equal(new URL(publicationUrl('S-38 §20, 25')).searchParams.get('par'),'60');
+ assert.equal(new URL(publicationUrl('od 8:8')).searchParams.get('par'),'11');
+ assert.equal(new URL(publicationUrl('S-38 §9')).searchParams.get('par'),null,
+  'Do not invent an offset to guess unknown paragraphs');
+});
+test('validated finder URLs are accepted but arbitrary hosts and parameters are refused',()=>{
+ const url=publicationUrl('od 8:8');
+ assert.equal(cleanWolUrl(url),url);
+ assert.equal(officialFinderUrl('https://www.jw.org/finder?wtlocale=F&docid=1102014931&srctype=wol&srcid=share&par=11'),url);
+ assert.equal(finderDocumentUrl(url),WOL+'1102014931');
+ for(const invalid of ['https://evil.example/finder?wtlocale=F&docid=1201038',
+  'https://www.jw.org.evil.example/finder?wtlocale=F&docid=1201038',
+  'https://www.jw.org/finder?wtlocale=F&docid=1234567&redirect=https://evil.example',
+  'http://www.jw.org/finder?wtlocale=F&docid=1201038',
+  'https://www.jw.org/finder?wtlocale=E&docid=1201038',
+  'https://www.jw.org/finder?wtlocale=F&docid=1201038&par=-2']){
+   assert.equal(officialFinderUrl(invalid),null,invalid);
+ }
+});
+test('all citation pathways preserve publication reference and official URL',()=>{
+ const refs=extractReferenceEntries('Voir S-38 §1, od 8:8, th leçon 12 et w22 Février p. 13 §15.');
+ for(const label of ['S-38 §1','od 8:8','th leçon 12','w22 Février p. 13 §15']){
+  const ref=refs.find(r=>r.label===label);
+  assert.ok(ref,label);
+  assert.equal(ref?.url,publicationUrl(label),label);
+ }
+ const inline=linkifyReaderText('Consulte th leçon 12 et S-38 §20, 25.');
+ assert.equal(inline.map(x=>x.text).join(''),'Consulte th leçon 12 et S-38 §20, 25.');
+ assert.equal(inline.filter(x=>x.url).length,2);
+ assert.equal(passageUrl('od 8:8'),publicationUrl('od 8:8'));
+});
+test('study verse citation cleanup removes encoded spaces and numeric internal IDs',()=>{
+ assert.equal(cleanReadingText('Isaïe&amp;nbsp;26:3'),'Isaïe 26:3');
+ assert.equal(cleanReadingText('Psaume&nbsp;119:165'),'Psaume 119:165');
+ assert.equal(meaningfulNoteSource('23026003'),'');
+ assert.equal(meaningfulNoteSource('<span>23026003</span>'),'');
+ assert.equal(meaningfulNoteSource('<span>Confiance en Jéhovah</span>'),'Confiance en Jéhovah');
+});
