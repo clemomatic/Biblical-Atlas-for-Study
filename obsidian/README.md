@@ -1,3 +1,11 @@
+## Bible Lab Studio 0.9.8 — Résolution structurelle WOL
+
+- **Fin du faux contenu menu** : les pages WOL de recherche `/wol/s/` et de consultation `/wol/l/` sont des *pages de navigation*, jamais des articles affichables. Le plugin exige un document `/wol/d/` ou un renvoi documentaire officiel vérifié.
+- **Étude perspicace, volumes 1 et 2** : une référence `it-1 118 § 1` (ou n'importe quelle page référencée dans l’Index) est résolue grâce aux liens de l’*Index par sujets* officiel, `1200004775` : les titres d’articles contiennent les plages imprimées par volume et des liens ouvrant les articles. Le lecteur contrôle le volume du document avant de l’afficher.
+- **Toute Écriture (`si`)** : les pages sont vérifiées en lisant la pagination des documents WOL. La découverte interroge la série officielle de documents dans l’ordre et compare réellement les pages retournées ; aucun identifiant candidat n’est accepté sans correspondance. Recherche binaire bornée (moins de dix documents pour une référence) et cache mémoire pour éviter de répéter les requêtes. Les exemples vérifiés précédemment restent pris en charge.
+- **Résultats incomplets** : si la source ne fournit pas de contenu article fiable ou si une plage chevauche plusieurs articles, Bible Lab conserve l'accès WOL, plutôt que d’inventer un texte ou d'afficher le menu.
+- **Tests Playwright** : volume 1 versus volume 2, page ciblée dans l'index, pagination `si` de plusieurs chapitres et rejets des pages de navigation.
+
 ## Bible Lab Studio 0.9.7 — Liens d'articles et références bibliques contextuelles
 
 - **Cas réels corrigés** : `si 203-205` ouvre directement « Livre de la Bible numéro 44 — Actes » (WOL `1101990105` ; article pages 199-205) et `it-1 510 § 3-4` ouvre « Congrégation » (WOL `1200001021`) plutôt que le menu de navigation.
