@@ -71,7 +71,11 @@ export function linkReferencesInMarkdown(markdown:string):{text:string;count:num
   let next=line;
   for(const item of refs.slice().reverse()){
    const target=item.ref.url.replaceAll(')','%29');
-   next=next.slice(0,item.from)+'['+item.label+']('+target+')'+next.slice(item.to);
+   const isBracketed=line[item.from-1]==='['&&line[item.to]===']'&&
+     line[item.from-2]!=='['&&line[item.to+1]!==']';
+   const from=isBracketed?item.from-1:item.from;
+   const to=isBracketed?item.to+1:item.to;
+   next=next.slice(0,from)+'['+item.label+']('+target+')'+next.slice(to);
   }
   return next;
  });
