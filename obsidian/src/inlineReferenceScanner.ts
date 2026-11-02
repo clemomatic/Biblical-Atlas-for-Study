@@ -1,9 +1,9 @@
 import { extractReferences, parseScripture } from './bibleLabData.ts';
 import { passageUrl, type ReferenceEntry } from './referenceReader.ts';
+import { findPublicationCitations } from './publicationCitations.ts';
 
 /** Matches in an individual visible line, not in Markdown syntax or code. */
 export interface InlineReference {from:number;to:number;label:string;ref:ReferenceEntry}
-const publication=/\b(?:w\d{2}(?:\.\d{1,2})?|wp\d{2}(?:\.\d{1,2})?|g\d{2}(?:\.\d{1,2})?)\s+(?:janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre)\s+p\.?\s*\d{1,3}(?:\s*[-–]\s*\d{1,3})?|\b(?:lmd|lff)\s+(?:leçon\s*)?\d{1,3}\b/giu;
 
 /** Skip code, Markdown links, wiki links, autolinks, and raw URLs. */
 function protectedRanges(line:string):Array<[number,number]>{
@@ -47,9 +47,8 @@ export function findInlineReferences(line:string):InlineReference[]{
    offset=at+citation.length;
   }
  }
- for(const match of line.matchAll(publication)){
-  const at=match.index??0;
-  add(at,at+match[0].length,match[0]);
+ for(const ref of findPublicationCitations(line)){
+  add(ref.from,ref.to,ref.label);
  }
  return result.sort((a,b)=>a.from-b.from);
 }
