@@ -38,7 +38,7 @@ function officialResultHref(href:string,base:string):string|null {
 export function parseWolSearchResults(html:string,requestedUrl:string):WolSearchHit[] {
  const doc=new DOMParser().parseFromString(html,'text/html');
  for(const node of [...doc.querySelectorAll('script,style,noscript,nav,footer,header,form')])node.remove();
- const roots=[...doc.querySelectorAll('.searchResults,.search-results,#searchResults,#results,.resultList,main,#content')];
+ const roots=[...doc.querySelectorAll('#lookupResults,.lookupResults,.searchResults,.search-results,#searchResults,#results,.resultList,main,#content')];
  if(!roots.includes(doc.body))roots.push(doc.body);
  const seen=new Set<string>(),hits:WolSearchHit[]=[];
  for(const root of roots){
