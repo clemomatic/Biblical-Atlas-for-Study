@@ -1,6 +1,7 @@
 // Development-only host. It loads the actual CJS artifact; none of this is shipped.
 import bundle from '../dist/atlas-biblique/main.js?raw';
 import { parse, stringify } from 'yaml';
+import * as codeMirrorView from '@codemirror/view';
 
 const element = (tag, options = {}) => {
   const el = document.createElement(tag);
@@ -140,7 +141,7 @@ if (new URLSearchParams(location.search).get('theme') === 'dark') document.body.
 await vault.createFolder('Mes notes');
 await vault.create('Mes notes/Une idée précieuse.md', '---\ntags: [personnel]\npriorite: 3\n---\nMon texte personnel **à conserver**.\n\nUne seconde ligne.\n');
 const module = { exports: {} };
-new Function('module', 'exports', 'require', bundle)(module, module.exports, id => { if (id !== 'obsidian') throw Error(`Unexpected runtime dependency: ${id}`); return api; });
+new Function('module', 'exports', 'require', bundle)(module, module.exports, id => { if (id === '@codemirror/view') return codeMirrorView; if (id !== 'obsidian') throw Error(`Unexpected runtime dependency: ${id}`); return api; });
 const PluginClass = module.exports.default ?? module.exports;
 let plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.3.0', name: 'Bible Lab — Atlas et recherche biblique' });
 await plugin.onload();
