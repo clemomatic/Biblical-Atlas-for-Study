@@ -2,6 +2,7 @@ import { setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
+import { referencedParagraph } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 
 const fromLabel=(label:string):ReferenceEntry=>{
@@ -154,7 +155,7 @@ export class BibleLabInlinePopover {
   }
   let visible=0;
   const chunks=result.lines.filter(x=>x.type!=='caption').slice(0,85);
-  const requestedParagraph=this.current?.label.match(/§\s*(\d{1,3})/)?.[1];
+  const requestedParagraph=this.current?referencedParagraph(this.current.label):undefined;
   let focus:HTMLElement|null=null;
   const append=(size:number):void=>{
    const end=Math.min(chunks.length,visible+size);
