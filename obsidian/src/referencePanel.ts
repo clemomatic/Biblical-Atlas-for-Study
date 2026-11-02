@@ -131,6 +131,8 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
 
      const lines=result.lines.filter((line,i)=>
        !(i===0&&line.type==='heading'&&line.text===result.title));
+     const requestedParagraph=ref.label.match(/§\s*(\d{1,3})/)?.[1];
+     let focusedBlock:HTMLElement|null=null;
      let displayed=0;
      const batchSize=18;
      const headings=new Map<number,HTMLElement>();
@@ -152,6 +154,10 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
            readable(caption,part);
          }else{
            const wrap=article.createDiv({cls:'biblelab-article-paragraph'});
+           if(part.number&&part.number===requestedParagraph){
+             wrap.addClass('biblelab-article-target-paragraph');
+             focusedBlock=wrap;
+           }
            if(part.number)wrap.createSpan({cls:'biblelab-article-parnum',text:part.number});
            const paragraph=wrap.createEl('p',{attr:{lang:'fr'},
              cls:part.type==='note'?'biblelab-reader-note':''});
@@ -183,6 +189,15 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        }
      }
      append(batchSize);
+     if(requestedParagraph&&lines.some(x=>x.number===requestedParagraph)){
+       while(!focusedBlock&&displayed<lines.length)append(batchSize);
+       // Native Obsidian pane handles its own scrolling; avoid resetting it
+       // when the referenced paragraph is beyond the initial article batch.
+       window.requestAnimationFrame(()=>{
+         if(focusedBlock&&(focusedBlock as HTMLElement).isConnected)
+           (focusedBlock as HTMLElement).scrollIntoView({block:'nearest',behavior:'instant'});
+       });
+     }
    }
 
    if(result.links.length&&depth<2){
