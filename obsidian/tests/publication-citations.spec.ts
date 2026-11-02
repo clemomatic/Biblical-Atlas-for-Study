@@ -11,13 +11,14 @@ test('S-38 §§20,25 show the exact requested paragraphs before the full instruc
   body:'<html><article class="bodyTxt"><h1>Instructions pour la réunion Vie chrétienne et ministère</h1>'+
   '<p><span class="parNum">19.</span> Une autre directive.</p>'+
   '<p><span class="parNum">20.</span> Durée des interventions.</p>'+
-  '<p><span class="parNum">25.</span> Président de la réunion.</p></article></html>'}));
+  '<p>25. Président de la réunion.</p></article></html>'}));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('S-38 §20, 25'));
  const pane=page.locator('.biblelab-side');
  const reader=pane.locator('.biblelab-article-reading').first();
  await expect(reader.getByText('Paragraphes demandés : 20, 25')).toBeVisible();
  await expect(reader.getByText('Durée des interventions.').first()).toBeVisible();
  await expect(reader.getByText('Président de la réunion.').first()).toBeVisible();
+ await expect(reader.locator('.biblelab-article-parnum').filter({hasText:'25'}).first()).toBeVisible();
  const source=pane.locator('.biblelab-reader-action[aria-label="WOL"]').first();
  await expect(source).toHaveCount(1);
 });
