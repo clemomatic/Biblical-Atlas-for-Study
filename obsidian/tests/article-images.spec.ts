@@ -27,7 +27,7 @@ test('Sidebar preserves official article images, captions, order and proportions
  const article=pane.locator('.biblelab-article-reading').first();
  await expect(article.locator('.biblelab-article-figure')).toHaveCount(2);
  const first=article.locator('.biblelab-article-figure').first();
- await expect(first.locator('img')).toHaveAttribute('src','https://cms-imgp.jw-cdn.org/img/p/example/full.jpg');
+ await expect(first.locator('img')).toHaveAttribute('src','https://cms-imgp.jw-cdn.org/img/p/example/large.webp');
  await expect(first.locator('img')).toHaveAttribute('loading','lazy');
  await expect(first.locator('img')).toHaveAttribute('width','900');
  await expect(first.locator('img')).toHaveAttribute('height','540');
@@ -41,7 +41,7 @@ test('Sidebar preserves official article images, captions, order and proportions
  await first.getByRole('button',{name:'Agrandir l’illustration'}).click();
  const dialog=page.getByRole('dialog',{name:'Illustration agrandie'});
  await expect(dialog).toBeVisible();
- await expect(dialog.locator('img')).toHaveAttribute('src','https://cms-imgp.jw-cdn.org/img/p/example/full.jpg');
+ await expect(dialog.locator('img')).toHaveAttribute('src','https://cms-imgp.jw-cdn.org/img/p/example/large.webp');
  await dialog.getByRole('button',{name:'Fermer ×'}).click();
  await expect(dialog).toHaveCount(0);
 });
