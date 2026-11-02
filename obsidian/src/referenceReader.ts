@@ -254,7 +254,14 @@ function studyNotesForVerse(root:Element,scripture:ScriptureRef):ReaderLine[]{
 function articleParagraphNumber(node:Element):string|undefined{
  const mark=node.querySelector('.parNum, .pNum, [class~="parnum"]');
  const value=mark&&normalizedText(mark,6);
- return value&&/^\d{1,3}\.?$/.test(value)?value.replace(/\.$/,''):undefined;
+ if(value&&/^\d{1,3}\.?$/.test(value))return value.replace(/\.$/,'');
+ // Some WOL pages render the number as plain text at the start of a <p>,
+ // not in a dedicated parNum element. Never use opaque data-pid IDs.
+ if(node.matches('p')){
+   const direct=normalizedText(node,32).match(/^(\d{1,3})[.)]\s+/);
+   if(direct)return direct[1];
+ }
+ return undefined;
 }
 function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  const lines:ReaderLine[]=[];
@@ -286,7 +293,9 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
   const number=articleParagraphNumber(el);
   const readable=el.cloneNode(true) as Element;
   if(number)for(const marker of readable.querySelectorAll('.parNum,.pNum,[class~="parnum"]'))marker.remove();
-  const text=readableOfficialElement(readable,'article',3500);
+  const extracted=readableOfficialElement(readable,'article',3500);
+  const text=number&&el.matches('p')?
+    extracted.replace(new RegExp('^'+number+'[.)]\\s+'),''):extracted;
   if(text.length<3||seen.has(text)||/^ta réponse$/i.test(text)||/^(?:précédent|suivant|imprimer|partager)$/i.test(text))continue;
   seen.add(text);
   const classes=typeof el.className==='string'?el.className:'';
