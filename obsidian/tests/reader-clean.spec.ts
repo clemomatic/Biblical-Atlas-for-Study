@@ -129,3 +129,23 @@ test('reference insertion never writes to an unrelated open Markdown file',async
  await pane.getByRole('button',{name:'Insérer le lien'}).click();
  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Source.md'))).toContain('wol.jw.org');
 });
+
+test('Encoded cross-references and technical study IDs are cleaned in the actual Bible popup',async({page})=>{
+ const result={ranges:{'23026003':{
+  citation:'Isaïe&amp;nbsp;26:3',
+  html:'<p><span class="verseNum">3</span>Tu protégeras ceux qui te font confiance.</p>',
+  footnotes:[{source:'23026003',content:'<p>Une note sans identifiant affiché.</p>'}],
+  crossReferences:[{source:'23026003',targets:[
+   {vs:'191190165',standardCitation:'Psaume&amp;nbsp;119:165'},
+   {vs:'230540013',standardCitation:'Isaïe&nbsp;54:13'}
+  ]}]
+ }}};
+ await page.route('**/json/html/23026003',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(result)}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('Isaïe 26:3'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.locator('.biblelab-verse-reading-copy')).toContainText('Tu protégeras');
+ await pane.getByText('Renvois bibliques').click();
+ await expect(pane).toContainText('Psaume 119:165');
+ await expect(pane).not.toContainText('23026003');
+ await expect(pane).not.toContainText('&nbsp;');
+});
