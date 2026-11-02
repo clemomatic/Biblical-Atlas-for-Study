@@ -41,3 +41,19 @@ test('Decode encoded nonbreaking spaces without a browser DOM',()=>{
  assert.equal(cleanReadingText('Psaume&amp;nbsp;119:165'),'Psaume 119:165');
  // Numeric note labels are tested with a real DOMParser in Playwright.
 });
+
+test('Use the official publication mnemonic index with explicit section locators',()=>{
+ const note='cl chap. 3 §4, bt chap. 12 §7, it-1 p. 123 §2, scl p. 45 et lff leçon 12.';
+ const refs=findInlineReferences(note).map(x=>x.label);
+ assert.deepEqual(refs,[
+  'cl chap. 3 §4','bt chap. 12 §7','it-1 p. 123 §2','scl p. 45','lff leçon 12'
+ ]);
+ assert.deepEqual(citationParagraphs('bt chap. 12 §7'),[7]);
+ assert.equal(publicationLookupLabel('it-1 p. 123 §2'),'it-1 p. 123');
+});
+test('Reject bare mnemonics, ordinary French words and unknown publication prefixes',()=>{
+ const plain='Si la vie est belle, je pense à la paix et je parle de si 12 et la 5 sans indication de publication.';
+ assert.deepEqual(findPublicationCitations(plain),[]);
+ assert.deepEqual(findPublicationCitations('xyz chap. 3 §5'),[]);
+ assert.deepEqual(findPublicationCitations('voir cl, bt, rr et th'),[]);
+});
