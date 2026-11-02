@@ -44,9 +44,14 @@ export class BibleLabInlinePopover {
   this.backFocus=null;
  }
  private outside=(ev:PointerEvent):void=>{
-  if(this.root&&!this.root.contains(ev.target as Node))this.close();
+  // A zoom dialog belongs to this preview, even though it is mounted on body.
+  const target=ev.target as Element;
+  if(target.closest?.('.biblelab-image-lightbox'))return;
+  if(this.root&&!this.root.contains(target))this.close();
  };
  private keydown=(ev:KeyboardEvent):void=>{
+  // Let Escape close the picture first, not the underlying article preview.
+  if(document.querySelector('dialog.biblelab-image-lightbox[open]'))return;
   if(ev.key==='Escape'&&this.root){ev.preventDefault();ev.stopPropagation();this.close(true);}
  };
  private button(parent:HTMLElement,name:string,icon:string,fn:()=>void):HTMLButtonElement{
