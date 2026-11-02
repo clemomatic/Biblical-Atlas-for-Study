@@ -23,7 +23,8 @@ test('official canonical references retain the exact verified paragraph destinat
 });
 test('official WOL index supplies book and course citation families without false positives',()=>{
  const samples=['bt chap. 3 §6','cl chapitre 20 §1','it-1 p. 24','lfb hist. 103',
-  'lff leçon 27','rr chap. 14 §12','od chap. 8 p. 71-86'];
+  'lff leçon 27','rr chap. 14 §12','od chap. 8 p. 71-86',
+  'it-1 875','od 42-43','w22.11 5-6','mwb18.04 8','km 7/15 1', ];
  for(const item of samples){
   assert.deepEqual(parsed(item),[item],item);
  }
