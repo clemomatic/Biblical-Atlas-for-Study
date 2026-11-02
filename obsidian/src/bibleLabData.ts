@@ -32,6 +32,7 @@ for (const [key,id] of Object.entries({
   soph:36, ag:37, za:38, mal:39, mt:40, mc:41, lc:42, jn:43,
   ac:44, rm:45, '1 co':46,'2 co':47, ga:48, eph:49, ph:50, col:51,
   '1 th':52,'2 th':53,'1 tm':54,'2 tm':55, tt:56, phm:57,
+  jer:24, heb:58, eccl:21, mat:40, matt:40, '1 cor':46, '2 cor':47,
   he:58, jc:59,'1 p':60,'2 p':61,'1 jn':62,'2 jn':63,'3 jn':64, jude:65, rev:66, ap:66
 })) ALIASES[normalizeSearch(key)] = id;
 export interface ScriptureRef { label:string; book:number; chapter:number; verse:number; endVerse?:number }
@@ -60,7 +61,7 @@ export function extractReferences(note: string): string[] {
     match[1].split(';').forEach(ref => { if (ref.trim()) found.add(ref.trim()); });
   }
   // Detect explicit scripture references even outside a marker, preserving a maximum result count.
-  for (const book of [...BOOKS, ...Object.keys(ALIASES)]) {
+  for (const book of [...BOOKS, ...Object.keys(ALIASES), 'Éph', 'Jér', 'Éz', 'Héb', 'Rév']) {
     const escaped = book.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const expr = new RegExp(`(?:^|[^\\p{L}\\p{N}])(${escaped}\\.?\\s+\\d{1,3}\\s*:\\s*\\d{1,3}(?:[-–]\\d{1,3})?)`, 'gimu');
     for (const match of note.matchAll(expr)) if (parseScripture(match[1])) found.add(match[1]);
