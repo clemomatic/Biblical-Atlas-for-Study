@@ -105,3 +105,25 @@ test('clicking an inline WOL /pc/ link navigates inside Bible Lab, then returns 
  await page.locator('.biblelab-reader-history button').filter({hasText:'Précédent'}).click();
  await waitFor(page,'Premier article et sa source');
 });
+
+test('search results linking to WOL /pc/ remain readable from the Obsidian panel',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/s/**',route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:'<html><main id="lookupResults">'+
+    '<article><a href="'+context+'">Une question biblique</a>'+
+    '<p>Étude perspicace des Écritures.</p></article></main></html>'
+ }));
+ await page.route(context,route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:'<article class="bodyTxt"><h1>Une question biblique</h1>'+
+    '<p>La recherche ouvre correctement une référence contextuelle.</p></article>'
+ }));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
+ await page.locator('.biblelab-tab[aria-label="WOL"]').click();
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('congrégation');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.getByText('Une question biblique')).toBeVisible();
+ await pane.locator('.biblelab-search-result').getByRole('button',{name:'Lire ici'}).click();
+ await waitFor(page,'La recherche ouvre correctement');
+});
