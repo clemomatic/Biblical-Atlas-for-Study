@@ -4,11 +4,12 @@
  */
 import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
 import { cleanReadingText, readableOfficialElement } from './readerText.ts';
+import { articleImageFrom, type ArticleImage } from './articleImages.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
 export interface ReaderPart {text:string;url?:string;kind?:ReferenceKind}
-export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption';text:string;source?:string;number?:string;parts?:ReaderPart[]}
+export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image';text:string;source?:string;number?:string;parts?:ReaderPart[];image?:ArticleImage}
 export interface ReaderLink {label:string;url:string}
 export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string}
 export const MAX_REFERENCES=60;
@@ -242,9 +243,29 @@ function articleParagraphNumber(node:Element):string|undefined{
 function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  const lines:ReaderLine[]=[];
  const seen=new Set<string>();
- const selectors='h1,h2,h3,h4,p,li,blockquote,dt,dd,figcaption';
+ const selectors='h1,h2,h3,h4,p,li,blockquote,dt,dd,figure,img,figcaption';
+ const images=new Set<string>();
+ const addImage=(img:HTMLImageElement):void=>{
+  const image=articleImageFrom(img,sourceUrl);
+  if(!image||images.has(image.src)||images.size>=35)return;
+  images.add(image.src);
+  lines.push({type:'image',text:image.caption||image.alt,image});
+ };
  for(const el of root.querySelectorAll(selectors)){
   if(el.closest('script,style,nav,footer,header,aside,[role="navigation"],.js-hidden,[hidden]'))continue;
+  if(el.matches('figure')){
+   for(const img of el.querySelectorAll<HTMLImageElement>('img'))addImage(img);
+   if(lines.length>=limit)break;
+   continue;
+  }
+  // A figure's picture and its caption are represented together in one
+  // image block; don't duplicate the text or its nested image nodes.
+  if(el.closest('figure'))continue;
+  if(el.matches('img')){
+   addImage(el as HTMLImageElement);
+   if(lines.length>=limit)break;
+   continue;
+  }
   if(el.matches('p,li,dd')&&el.querySelector('p,li,dd'))continue;
   const number=articleParagraphNumber(el);
   const readable=el.cloneNode(true) as Element;
