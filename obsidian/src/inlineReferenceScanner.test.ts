@@ -47,3 +47,16 @@ test('Bracketed publication citations convert to valid links without nested brac
  assert.ok(result.text.includes('[w18 février p. 24-26](https://wol.jw.org/'));
  assert.equal(result.text.includes('[[w18'),false);
 });
+
+test('An existing Markdown citation keeps the book for subsequent semicolon chapters',()=>{
+ const md='[Actes 1:8](https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/44/1) ; 2:1-4, 32, 33 ; 3:6, 7';
+ const matches=findInlineReferences(md);
+ assert.deepEqual(matches.map(x=>x.label),['2:1-4, 32, 33','3:6, 7']);
+ assert.deepEqual(matches.map(x=>x.ref.label),['Actes 2:1-4, 32, 33','Actes 3:6, 7']);
+ assert.deepEqual(matches.map(x=>x.ref.url),[
+  'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/44/2',
+  'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/44/3']);
+ const standalone=findInlineReferences(' ; 2:1-4 ; 3:6, 7','Actes');
+ assert.deepEqual(standalone.map(x=>x.ref.label),['Actes 2:1-4','Actes 3:6, 7']);
+ assert.equal(findInlineReferences(' ; 2:1-4 ; 3:6, 7').length,0);
+});
