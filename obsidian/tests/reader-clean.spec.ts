@@ -152,3 +152,34 @@ test('Encoded cross-references and technical study IDs are cleaned in the actual
  await expect(pane).not.toContainText('23026003');
  await expect(pane).not.toContainText('&nbsp;');
 });
+
+
+test('A real article in a later main container is not hidden by an empty WOL bodyTxt placeholder',async({page})=>{
+ const url='https://wol.jw.org/fr/wol/d/r30/lp-f/1201038';
+ const html='<html><body><div class="bodyTxt"></div><main class="publicationContent">'+
+  '<h1>Instructions pour la réunion Vie chrétienne et ministère</h1>'+
+  '<div class="pGroup"><div class="p" data-pid="p20"><span class="parNum">20.</span> La durée de la réunion doit être respectée.</div>'+
+  '<div class="p" data-pid="p25"><span class="parNum">25.</span> Le président donne des conseils.</div></div>'+
+  '</main></body></html>';
+ await page.route(url,route=>route.fulfill({status:200,contentType:'text/html',body:html}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('S-38 §20, 25'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.getByText('La durée de la réunion doit être respectée.')).toBeVisible();
+ await expect(pane.getByText('Le président donne des conseils.')).toBeVisible();
+ const targets=pane.locator('.biblelab-article-target-paragraph');
+ await expect(targets).toHaveCount(2);
+ await expect(targets.nth(0).locator('.biblelab-article-parnum')).toHaveText('20');
+ await expect(targets.nth(1).locator('.biblelab-article-parnum')).toHaveText('25');
+ await expect(pane).not.toContainText('WOL n’a pas fourni de texte exploitable');
+});
+test('A dynamic WOL shell is reported as a reader limitation with official access, not a missing article',async({page})=>{
+ const url='https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452';
+ await page.route(url,route=>route.fulfill({status:200,contentType:'text/html',body:
+   '<html><head><title>Chaleur et empathie</title></head><body><main id="article"></main>'+
+   '<script>/* article is hydrated later */</script></body></html>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('th leçon 12'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.getByText(/texte ne peut pas être extrait dans Obsidian/)).toBeVisible();
+ await expect(pane).not.toContainText('WOL n’a pas fourni de texte exploitable');
+ await expect(pane.locator('.biblelab-reader-action[aria-label="WOL"]').first()).toBeVisible();
+});
