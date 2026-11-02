@@ -77,6 +77,37 @@ export function readableOfficialHtml(html:string,mode:'verse'|'note'|'article'='
  const doc=new DOMParser().parseFromString(html,'text/html');
  return readableOfficialElement(doc.body,mode);
 }
+/**
+ * Capture the inline position of the Study Bible's "+" cross-reference cues
+ * before the reader strips superscripts and cross-reference anchor elements.
+ * The placeholders never enter the rendered text; remote HTML stays isolated.
+ */
+export function verseCrossReferenceOffsets(html:string,verseNumber:number):number[]{
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const sentinel='\uE000';
+ const candidates=[...doc.body.querySelectorAll(
+  'sup,a[href^="#xref"],[data-xref],.xrefRef,.crossReferenceRef')];
+ let count=0;
+ for(const candidate of candidates){
+  if(!candidate.isConnected||cleanReadingText(candidate.textContent||'')!=='+')continue;
+  candidate.replaceWith(doc.createTextNode(sentinel));
+  if(++count>=12)break;
+ }
+ if(!count)return [];
+ const trimNumber=(value:string)=>value
+  .replace(new RegExp('^'+verseNumber+'(?=\\s)'),'').trim();
+ const original=trimNumber(readableOfficialHtml(html,'verse'));
+ const withMarkers=trimNumber(readableOfficialElement(doc.body,'verse'));
+ if(cleanReadingText(withMarkers.replaceAll(sentinel,''))!==original)return [];
+ const offsets:number[]=[];
+ let start=0,index=withMarkers.indexOf(sentinel);
+ while(index>=0){
+  offsets.push(cleanReadingText(withMarkers.slice(0,index).replaceAll(sentinel,'')).length);
+  start=index+1;index=withMarkers.indexOf(sentinel,start);
+ }
+ return offsets;
+}
+
 /** Ignore verse/footnote marker IDs, keep a genuine word or expression. */
 export function meaningfulNoteSource(html:string|undefined):string {
  if(!html)return '';

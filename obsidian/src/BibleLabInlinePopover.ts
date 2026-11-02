@@ -212,11 +212,22 @@ export class BibleLabInlinePopover {
   const verses=result.lines.filter(line=>line.type==='verse'||line.type==='paragraph');
   const apparatus=result.lines.filter(line=>
     line.type==='crossref'||line.type==='note'||line.type==='study');
+  // JW.org returns each Bible cross-reference twice: as an apparatus row
+  // AND as a generic related link. Do not show both to the reader.
+  const normalizeLabel=(label:string)=>label.normalize('NFD')
+    .replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/\s+/g,' ').trim();
+  const crossrefLabels=new Set<string>();
+  for(const line of apparatus.filter(item=>item.type==='crossref')){
+    for(const link of line.references||[])crossrefLabels.add(normalizeLabel(link.label));
+    for(const label of line.text.split(/\s*·\s*/))crossrefLabels.add(normalizeLabel(label));
+  }
+  const extraLinks=result.links.filter(link=>!crossrefLabels.has(normalizeLabel(link.label)));
   const layout=container.createDiv({cls:'biblelab-popover-scripture-layout'});
   const reading=layout.createDiv({cls:'biblelab-popover-scripture-reading'});
   reading.setAttribute('role','region');
   reading.setAttribute('aria-label','Texte biblique');
   const parsed=this.current?parseScripture(this.current.label):null;
+  let aside:HTMLDetailsElement|null=null;
   for(const [index,line] of verses.entries()){
    const row=reading.createDiv({cls:'biblelab-popover-scripture-verse'});
    const number=row.createSpan({cls:'biblelab-popover-scripture-number',
@@ -224,17 +235,55 @@ export class BibleLabInlinePopover {
    number.setAttribute('aria-hidden','true');
    const text=row.createEl('p',{cls:'biblelab-popover-scripture-copy'});
    text.setAttribute('lang','fr');
-   this.linkLine(text,line,anchor);
+   // Restore the original "+" positions when the official verse HTML
+   // contains them; otherwise keep one unobtrusive fallback marker.
+   const verseRef=line.references||[];
+   const source=line.source||'';
+   const hasFallback=apparatus.some(item=>item.type==='crossref'&&
+     (verses.length===1||(source&&item.source===source)));
+   const addPlus=(targets:readonly {label:string;url:string}[]):void=>{
+     const marker=text.createEl('button',{
+       cls:'biblelab-popover-verse-plus',text:'+',
+       attr:{type:'button',title:'Renvois bibliques',
+         'aria-label':'Afficher les renvois du verset '+(line.number||
+           String(parsed?.verses?.[index]||parsed?.verse||index+1))}
+     });
+     marker.addEventListener('click',()=>{
+       if(!aside)return;
+       aside.open=true;
+       const buttons=[...aside.querySelectorAll<HTMLElement>(
+         '.biblelab-popover-apparatus-crossref .biblelab-popover-inline-link')];
+       const matching=buttons.find(btn=>btn.getAttribute('aria-label')==='Lire '+targets[0]?.label);
+       const focus=matching||buttons[0];
+       if(focus)focus.focus({preventScroll:true});
+       aside.scrollIntoView({block:'nearest',behavior:'smooth'});
+     });
+   };
+   const markers=(line.referenceMarkers||[])
+     .filter(marker=>marker.offset>=0&&marker.offset<=line.text.length)
+     .sort((a,b)=>a.offset-b.offset);
+   if((verseRef.length||hasFallback)&&markers.length){
+     let cursor=0;
+     for(const marker of markers){
+       this.linkLine(text,{...line,text:line.text.slice(cursor,marker.offset),parts:undefined},anchor);
+       addPlus(marker.targets);
+       cursor=marker.offset;
+     }
+     this.linkLine(text,{...line,text:line.text.slice(cursor),parts:undefined},anchor);
+   }else{
+     this.linkLine(text,line,anchor);
+     if(verseRef.length||hasFallback)addPlus(verseRef);
+   }
   }
   if(!verses.length){
    reading.createEl('p',{cls:'biblelab-popover-feedback',
      text:'Le texte des versets n’est pas disponible ici. Consulte WOL.'});
   }
-  if(!apparatus.length&&!result.links.length)return;
-  const aside=layout.createEl('details',{cls:'biblelab-popover-scripture-aside'});
+  if(!apparatus.length&&!extraLinks.length)return;
+  aside=layout.createEl('details',{cls:'biblelab-popover-scripture-aside'});
   aside.open=window.innerWidth>=700;
   aside.createEl('summary',{text:'Notes et renvois ('+
-    (apparatus.length+result.links.length)+')'});
+    (apparatus.length+extraLinks.length)+')'});
   const area=aside.createDiv({cls:'biblelab-popover-scripture-apparatus'});
   const groups=[
    {type:'study',title:'Notes d’étude'},
@@ -246,17 +295,19 @@ export class BibleLabInlinePopover {
    if(!items.length)continue;
    area.createEl('h4',{cls:'biblelab-popover-apparatus-heading',text:group.title});
    for(const line of items){
-    const item=area.createDiv({cls:'biblelab-popover-apparatus-item'});
+    const item=area.createDiv({cls:'biblelab-popover-apparatus-item biblelab-popover-apparatus-'+group.type});
     if(line.source)item.createEl('strong',{text:line.source});
     const content=item.createEl('p');
-    this.linkLine(content,line,anchor);
+    this.linkLine(content,line.references?.length
+      ?{...line,parts:linkifyReaderText(line.text,line.references)}
+      :line,anchor);
    }
   }
-  if(result.links.length){
+  if(extraLinks.length){
    area.createEl('h4',{cls:'biblelab-popover-apparatus-heading',
      text:'Autres références'});
    const links=area.createDiv({cls:'biblelab-popover-scripture-links'});
-   for(const link of result.links.slice(0,24)){
+   for(const link of extraLinks.slice(0,24)){
     const button=links.createEl('button',{
      cls:'biblelab-popover-scripture-link',text:link.label,
      attr:{type:'button','aria-label':'Lire '+link.label}

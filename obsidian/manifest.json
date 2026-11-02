@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.5",
+  "version": "0.9.6",
   "minAppVersion": "1.6.0",
-  "description": "Références WOL historiques, Étude perspicace et Toute Écriture : détection et extraction améliorées.",
+  "description": "Renvois bibliques sans doublons, petits liens + dans les versets et popup plus fluide.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false

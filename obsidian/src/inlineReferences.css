@@ -173,3 +173,22 @@
  }
  .biblelab-popover-scripture-aside>summary{position:static;}
 }
+
+/* Original study-Bible "+" cross-reference cues: visible without a
+   superscript block disrupting line spacing or a second link inventory. */
+.biblelab-popover-verse-plus{
+ display:inline-flex;align-items:center;justify-content:center;
+ position:relative;top:-.25em;vertical-align:baseline;
+ min-width:17px;min-height:16px;
+ margin:0 2px 0 5px;padding:0 2px;border:0;border-radius:5px;
+ background:transparent;color:var(--text-accent);
+ font:700 12px/1 var(--font-interface);opacity:.68;cursor:pointer;
+ text-decoration:none;touch-action:manipulation;
+}
+.biblelab-popover-verse-plus:hover,
+.biblelab-popover-verse-plus:focus-visible{
+ opacity:1;background:var(--background-modifier-hover);
+}
+.biblelab-popover-verse-plus:focus-visible{
+ outline:2px solid var(--interactive-accent);outline-offset:2px;
+}
