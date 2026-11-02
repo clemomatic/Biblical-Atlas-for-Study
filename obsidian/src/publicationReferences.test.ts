@@ -74,3 +74,16 @@ test('study verse citation cleanup removes encoded spaces and numeric internal I
  assert.equal(cleanReadingText('Isaïe&amp;nbsp;26:3'),'Isaïe 26:3');
  assert.equal(cleanReadingText('Psaume&nbsp;119:165'),'Psaume 119:165');
 });
+
+test('Monthly kingdom ministry is recognized even without page information',()=>{
+ const examples=['km 05/95','km 5/95','km 05/95 p. 2','km 12/99 p. 7'];
+ for(const example of examples)
+  assert.deepEqual(findPublicationMentions('Voir '+example+'.').map(x=>x.label),[example]);
+ assert.equal(publicationUrl('km 05/95'),
+  'https://wol.jw.org/fr/wol/l/r30/lp-f?q=km+5%2F95');
+ assert.equal(publicationUrl('km 05/95 p. 2'),
+  'https://wol.jw.org/fr/wol/l/r30/lp-f?q=km+5%2F95+p.+2');
+ for(const invalid of ['km 00/95','km 13/95','km 34/95']){
+  assert.deepEqual(findPublicationMentions(invalid),[],invalid);
+ }
+});
