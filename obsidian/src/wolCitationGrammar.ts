@@ -39,7 +39,7 @@ export function publicationPages(raw:string):PublicationPage|null {
  m=value.match(new RegExp('\\b((?:w|wp|g|mwb)\\d{2})\\.(\\d{1,2})'+pagePattern));
  if(m){
   const code=m[1],number=Number(m[2]);
-  if(number<1||number>(code.startsWith('wp')||code.startsWith('g')?12:12))return null;
+  if(number<1||number>12)return null;
   return pages(code+'.'+String(number).padStart(2, '0'),m[3],m[4]);
  }
 
