@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { findPublicationMentions, publicationUrl, officialFinderUrl, finderDocumentUrl } from './publicationReferences.ts';
+import { findPublicationMentions, publicationUrl, officialFinderUrl, finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, linkifyReaderText } from './referenceReader.ts';
 import { cleanReadingText } from './readerText.ts';
 
@@ -31,6 +31,8 @@ test('official WOL index supplies book and course citation families without fals
  assert.equal(findPublicationMentions('Le mot cl apparaît ici.').length,0);
  assert.equal(findPublicationMentions('Jr 45:3 et od 8:8').some(x=>x.label==='Jr 45:3'),false);
  assert.deepEqual(parsed('od 8:8'),['od 8:8']);
+ assert.deepEqual(bookChapterLocator('od 9:4'),{code:'od',chapter:9});
+ assert.deepEqual(bookChapterLocator('rr chap. 14 §12'),{code:'rr',chapter:14});
 });
 test('validated finder URLs are accepted but arbitrary hosts and parameters are refused',()=>{
  const url=publicationUrl('od 8:8');
