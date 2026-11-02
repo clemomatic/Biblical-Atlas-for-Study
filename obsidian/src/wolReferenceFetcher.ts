@@ -9,12 +9,14 @@ export { publicationPages, matchingPublicationPages } from './wolCitationGrammar
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
 const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
+// WOL contextual publication pointers are valid reading destinations too.
+const CONTEXT=/^\/fr\/wol\/pc\/r30\/lp-f\/\d+\/\d+\/\d+\/?$/;
 const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|ws\d{2}|g\d{2}|mwb\d{2}|it(?:-[12])?|si|km|lmd)\b/i;
 const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
 const validateDocument=(value:string,base:string):string|null=>{
  try{
    const final=cleanWolUrl(new URL(value,base).href);
-   return final && DOC.test(new URL(final).pathname)?final:null;
+   return final && (DOC.test(new URL(final).pathname)||CONTEXT.test(new URL(final).pathname))?final:null;
  }catch{return null;}
 };
 export function canonicalReferenceUrl(raw:string):string|null{
@@ -547,7 +549,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    result.kind='article';
    return result;
  }
- if(DOC.test(path)||path.startsWith('/fr/wol/b/')){
+ if(DOC.test(path)||CONTEXT.test(path)||path.startsWith('/fr/wol/b/')){
    return directDocumentReader(await officialText(url),url,ref.label);
  }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
@@ -583,7 +585,8 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
          full.kind='article';return full;
        }catch{ /* The official result is available even if its full article fails. */ }
      }
-     if(lookupExcerpt.lines.length)return lookupExcerpt;
+     // Keep the excerpt as a fallback; first try the publication's own
+     // index and verified article links to find the FULL reading text.
    }
  }catch{ /* Continue with the book index and standard lookup fallback. */ }
  // Book page numbers are not keywords. Resolve them using the official
