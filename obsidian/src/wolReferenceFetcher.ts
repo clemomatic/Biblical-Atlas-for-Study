@@ -90,7 +90,7 @@ export function insightTitleReference(reference:string):{code:string;title:strin
  return match?{code:match[1],title:match[2].trim()}:null;
 }
 export function siStudyNumber(reference:string):number|null{
- const m=normalizeSearch(reference).match(/^si\s+(?:étude(?:\s+numéro)?|ét\.)\s*(\d{1,2})$/);
+ const m=normalizeSearch(reference).match(/^si\s+(?:etude(?:\s+numero)?|et\.)\s*(\d{1,2})$/);
  if(!m)return null;
  const number=Number(m[1]);
  return number>=1&&number<=10?number:null;
