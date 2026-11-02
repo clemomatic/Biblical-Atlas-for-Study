@@ -1,3 +1,12 @@
+## Stratégie de résolution WOL (0.9.8)
+
+1. Pour les publications usuelles (`w`, `km`, `it`, `si`, etc.), utiliser d'abord le résultat direct de WOL : lire uniquement `#lookupResults` ou `.lookupResults`, jamais son menu général.
+2. Si la recherche fournit **un seul lien documentaire** vérifié (`/wol/d/`), ouvrir cet article puis en extraire le texte intégral. Si plusieurs documents existent, présenter leurs titres/liens plutôt que choisir arbitrairement le premier.
+3. Si l'article entier n'est pas accessible, afficher explicitement le **résultat ou extrait WOL** en indiquant qu'il peut être incomplet, avec accès au site officiel.
+4. Les références spéciales (par exemple `S-38`) et les cas où le HTML ne contient pas de résultat exploitable conservent leurs mécanismes de secours.
+
+**Limite vérifiable** : WOL peut remplir `lookupResults` après exécution de JavaScript ; Obsidian n'en reçoit alors pas forcément le contenu depuis une simple requête HTTP. Les tests automatisés utilisent du HTML simulé. Ils ne constituent pas une preuve que tous les renvois WOL réels se chargent sur chaque appareil.
+
 ## Bible Lab Studio 0.9.8 — Résolution structurelle WOL
 
 - **Fin du faux contenu menu** : les pages WOL de recherche `/wol/s/` et de consultation `/wol/l/` sont des *pages de navigation*, jamais des articles affichables. Le plugin exige un document `/wol/d/` ou un renvoi documentaire officiel vérifié.
