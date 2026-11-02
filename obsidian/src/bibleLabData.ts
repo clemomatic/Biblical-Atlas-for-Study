@@ -54,20 +54,27 @@ export function jwLibraryLink(query: string): string | null {
   const n = (num:number,width:number) => String(num).padStart(width,'0');
   return `https://www.jw.org/finder?wtlocale=F&bible=${n(parsed.book,2)}${n(parsed.chapter,3)}${n(parsed.verse,3)}`;
 }
+// Compile once instead of testing every alias separately per keystroke.
+const SCRIPTURE_BOOKS=[...new Set([...BOOKS,...Object.keys(ALIASES),
+  'Éph','Jér','Éz','Héb','Rév'])].sort((a,b)=>b.length-a.length);
+const scriptureBookAlternates=SCRIPTURE_BOOKS.map(book=>book.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')).join('|');
+const scriptureReferencePattern=new RegExp(
+  '(?:^|[^\\p{L}\\p{N}])((?:'+scriptureBookAlternates+')\\.?\\s+\\d{1,3}\\s*:\\s*\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)',
+  'gimu');
 export function extractReferences(note: string): string[] {
-  const found = new Set<string>();
-  // Inspired by WOL Reference Tools: !!reference!!, multiple separated by semicolons.
-  for (const match of note.matchAll(/!!([^!\r\n]{1,220})!!/g)) {
-    match[1].split(';').forEach(ref => { if (ref.trim()) found.add(ref.trim()); });
+ const found=new Set<string>();
+ for(const match of note.matchAll(/!!([^!\r\n]{1,220})!!/g)){
+  for(const ref of match[1].split(';')){
+   if(ref.trim())found.add(ref.trim());
+   if(found.size>=40)return [...found];
   }
-  // Detect explicit scripture references even outside a marker, preserving a maximum result count.
-  for (const book of [...BOOKS, ...Object.keys(ALIASES), 'Éph', 'Jér', 'Éz', 'Héb', 'Rév']) {
-    const escaped = book.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    const expr = new RegExp(`(?:^|[^\\p{L}\\p{N}])(${escaped}\\.?\\s+\\d{1,3}\\s*:\\s*\\d{1,3}(?:[-–]\\d{1,3})?)`, 'gimu');
-    for (const match of note.matchAll(expr)) if (parseScripture(match[1])) found.add(match[1]);
-    if (found.size >= 40) break;
-  }
-  return [...found].slice(0,40);
+ }
+ for(const match of note.matchAll(scriptureReferencePattern)){
+  const label=match[1];
+  if(parseScripture(label))found.add(label);
+  if(found.size>=40)break;
+ }
+ return [...found];
 }
 export type MapLocation = {name:string; coordinates:string; pages:number[]};
 export function parseMapIndex(html: string): MapLocation[] {
