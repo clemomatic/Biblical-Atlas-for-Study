@@ -1,7 +1,8 @@
 ## Bible Lab 0.9.2 — Résolution des citations documentaires
 
+- **Catalogue officiel** : codes du tableau « Abréviations des titres de publications » de l’Index WOL (https://wol.jw.org/fr/wol/d/r30/lp-f/1200270068) ; les codes courts doivent être accompagnés d'un repère (page, chapitre, leçon ou paragraphe) pour éviter les faux liens.
 - **Reconnaissance des sources** en lecture et Live Preview : références de publications avec numéro de page et de paragraphe, `S-38 §1`, `S-38 §20, 25`, `od 8:8`, `th leçon 12`, y compris dans le panneau latéral et les aperçus.
-- **Liens officiels vérifiés** : `th leçon 12` → WOL 1102018452 ; `w22 Février p. 13 §15` → WOL 2022281, avec mise en évidence du paragraphe 15 ; `S-38 §1` et `S-38 §20, 25` → liens JW.org finder fournis ; `od 8:8` → JW.org finder fourni.
+- **Liens officiels vérifiés** : `th leçon 12` → WOL 1102018452 ; `w22 Février p. 13 §15` → WOL 2022281, avec mise en évidence du paragraphe 15 ; `S-38 §1` et `S-38 §20, 25` → liens JW.org finder fournis ; `od 8:8` → chapitre 8 de l’ouvrage *Organisés*, WOL 1102014938 (le lien finder 1102014931 fourni auparavant mène en réalité au chapitre 1).
 - **Pas de liens inventés** : quand on connaît le document mais pas la correspondance exacte de paragraphe, Bible Lab ouvre le document ou utilise la recherche bibliographique WOL. Les URL `jw.org/finder` sont strictement validées.
 - **Texte nettoyé** : les citations issues de la Bible d'étude décodent les espaces HTML `&nbsp;` et ne montrent plus les identifiants numériques internes des notes.
 - **Images de la 0.9.1** : une adresse `/wol/mp/` est un visualiseur HTML, pas une image. Le lecteur utilise maintenant les vraies ressources images issues de `srcset` pour éviter les visuels cassés.
