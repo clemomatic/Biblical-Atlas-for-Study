@@ -159,7 +159,7 @@ export function extractReferences(note:string):string[]{
   }
  }
  for(const mention of findScriptureMentions(note)){
-  found.add(mention.ref.label);
+  found.add(parseScripture(mention.label)?mention.label:mention.ref.label);
   if(found.size>=40)break;
  }
  return [...found];
