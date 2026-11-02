@@ -17,9 +17,19 @@ test('official canonical references retain the exact verified paragraph destinat
  assert.equal(publicationUrl('th leçon 12'),WOL+'1102018452');
  assert.equal(new URL(publicationUrl('S-38 §1')).searchParams.get('par'),'31');
  assert.equal(new URL(publicationUrl('S-38 §20, 25')).searchParams.get('par'),'60');
- assert.equal(new URL(publicationUrl('od 8:8')).searchParams.get('par'),'11');
+ assert.equal(publicationUrl('od 8:8'),WOL+'1102014938');
  assert.equal(new URL(publicationUrl('S-38 §9')).searchParams.get('par'),null,
   'Do not invent an offset to guess unknown paragraphs');
+});
+test('official WOL index supplies book and course citation families without false positives',()=>{
+ const samples=['bt chap. 3 §6','cl chapitre 20 §1','it-1 p. 24','lfb hist. 103',
+  'lff leçon 27','rr chap. 14 §12','od chap. 8 p. 71-86'];
+ for(const item of samples){
+  assert.deepEqual(parsed(item),[item],item);
+ }
+ assert.equal(findPublicationMentions('Le mot cl apparaît ici.').length,0);
+ assert.equal(findPublicationMentions('Jr 45:3 et od 8:8').some(x=>x.label==='Jr 45:3'),false);
+ assert.deepEqual(parsed('od 8:8'),['od 8:8']);
 });
 test('validated finder URLs are accepted but arbitrary hosts and parameters are refused',()=>{
  const url=publicationUrl('od 8:8');
