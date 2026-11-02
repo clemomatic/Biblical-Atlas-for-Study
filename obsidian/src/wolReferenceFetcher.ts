@@ -539,6 +539,38 @@ function directDocumentReader(html:string,url:string,label:string):ReaderResult{
  }
  return result;
 }
+/** WOL /pc/ and /bc/ links are contextual navigation, not separate
+ * publications. If their response is only a navigation shell, follow ONLY
+ * the page's own canonical official document URL (never a menu/sidebar link).
+ */
+export function canonicalContextDestination(html:string,base:string):string|null {
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const meta=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
+ const raw=meta?.getAttribute('href')||meta?.getAttribute('content');
+ if(!raw)return null;
+ let safe:string|null=null;
+ try{safe=cleanWolUrl(new URL(raw,base).href);}catch{return null;}
+ if(!safe||safe===base)return null;
+ const path=new URL(safe).pathname;
+ return DOC.test(path)||/^\/fr\/wol\/b\/r30\/lp-f\/[^/]+\/\d+\/\d+$/.test(path)?safe:null;
+}
+async function contextualDocumentReader(url:string,label:string):Promise<ReaderResult>{
+ const html=await officialText(url);
+ const result=directDocumentReader(html,url,label);
+ if(result.lines.length)return result;
+ const canonical=canonicalContextDestination(html,url);
+ if(!canonical)return result;
+ try{
+   const resolved=directDocumentReader(await officialText(canonical),canonical,label);
+   if(resolved.lines.length){
+     // Keep the reference supplied by WOL for external navigation;
+     // the canonical page is only used for retrieving its readable text.
+     resolved.sourceUrl=url;
+     return resolved;
+   }
+ }catch{ /* Show the original official link if canonical retrieval fails. */ }
+ return result;
+}
 export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>{
  const url=canonicalReferenceUrl(ref.url);
  if(!url)throw Error('Référence WOL non reconnue.');
@@ -551,9 +583,10 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    result.kind='article';
    return result;
  }
- if(DOC.test(path)||CONTEXT.test(path)||BIBLE_CONTEXT.test(path)||path.startsWith('/fr/wol/b/')){
+ if(CONTEXT.test(path)||BIBLE_CONTEXT.test(path))
+   return contextualDocumentReader(url,ref.label);
+ if(DOC.test(path)||path.startsWith('/fr/wol/b/'))
    return directDocumentReader(await officialText(url),url,ref.label);
- }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
  const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
