@@ -39,6 +39,9 @@ test('Study Bible verse expands in place, displaying the verse, notes and nested
  const pane=page.locator('.biblelab-side');
  await page.evaluate(()=>{const node=document.createElement('p');node.textContent='!!Matthieu 10:29!!';document.body.appendChild(node);(window as any).atlasTest.plugin.markdownPostProcessor(node);});
  await page.getByText('Matthieu 10:29',{exact:true}).last().click();
+ const preview=page.getByRole('dialog',{name:'Aperçu biblique : Matthieu 10:29'});
+ await expect(preview).toBeVisible();
+ await preview.getByRole('button',{name:'Dans le panneau'}).click();
  await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
  await expect(pane.getByText('Deux moineaux ne se vendent-ils pas')).toBeVisible();
  const related=pane.getByText('Notes et références liées');
