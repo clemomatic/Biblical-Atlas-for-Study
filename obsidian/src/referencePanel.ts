@@ -2,6 +2,7 @@ import { setIcon } from 'obsidian';
 import { jwLibraryLink } from './bibleLabData';
 import { linkifyReaderText, type ReaderResult, type ReaderLine, type ReferenceEntry } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
+import { renderArticleImage } from './articleImages';
 
 export interface ReaderState {
  expanded:Set<string>;
@@ -137,7 +138,9 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        const to=Math.min(displayed+amount,lines.length);
        for(;displayed<to;displayed++){
          const part=lines[displayed];
-         if(part.type==='heading'){
+         if(part.type==='image'&&part.image){
+           renderArticleImage(article,part.image);
+         }else if(part.type==='heading'){
            const header=article.createEl('h5',{cls:'biblelab-article-heading',text:part.text});
            header.id='bl-article-section-'+depth+'-'+displayed;
            headings.set(displayed,header);
