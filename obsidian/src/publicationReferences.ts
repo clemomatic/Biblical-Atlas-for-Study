@@ -40,9 +40,9 @@ export function referencedParagraph(reference:string):string|undefined{
 }
 export function bookChapterLocator(reference:string):{code:string;chapter:number}|null{
  const clean=cleanReadingText(reference).toLocaleLowerCase('fr');
- const m=clean.match(/^([a-z][a-z0-9-]{0,9})\s+chap(?:itre)?\.?\s*(\d{1,3})\b/);
+ const m=clean.match(/^([a-z][a-z0-9-]{0,9})\s+(?:chap(?:itre)?\.?\s*(\d{1,3})\b|(\d{1,3})\s*:\s*\d{1,3}\b)/);
  if(!m||!PUBLICATION_CODES.includes(m[1]))return null;
- return {code:m[1],chapter:Number(m[2])};
+ return {code:m[1],chapter:Number(m[2]||m[3])};
 }
 
 function finder(docid:string,par?:number):string{
