@@ -127,3 +127,27 @@ test('search results linking to WOL /pc/ remain readable from the Obsidian panel
  await pane.locator('.biblelab-search-result').getByRole('button',{name:'Lire ici'}).click();
  await waitFor(page,'La recherche ouvre correctement');
 });
+
+test('a WOL navigation h1 before the article does not hide the actual article body',async({page})=>{
+ await page.route(direct,route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:'<html><header><h1>Consulter</h1><p>PUBLICATIONS</p></header>'+
+    '<article class="bodyTxt"><h1>CONGRÉGATION</h1>'+
+    '<p>Le véritable article est présent derrière l’en-tête de navigation.</p>'+
+    '<p>Il doit être lu dans le panneau Bible Lab.</p></article></html>'
+ }));
+ await page.evaluate((url)=>(window as any).atlasTest.plugin.openBibleLab(url),direct);
+ await waitFor(page,'Le véritable article est présent');
+ await expect(page.locator('.biblelab-focused-reading')).not.toContainText('PUBLICATIONS');
+});
+
+test('a WOL page with ONLY navigation still cannot pass as an article',async({page})=>{
+ await page.route(direct,route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:'<html><main><h1>Consulter</h1><p>PUBLICATIONS, BIBLE, RÉUNIONS</p>'+
+    '<p>Consulter les publications dans la bibliothèque en ligne.</p></main></html>'
+ }));
+ await page.evaluate((url)=>(window as any).atlasTest.plugin.openBibleLab(url),direct);
+ await waitFor(page,'WOL a renvoyé son menu');
+ await expect(page.locator('.biblelab-focused-reading')).not.toContainText('PUBLICATIONS, BIBLE');
+});
