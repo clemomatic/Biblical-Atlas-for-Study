@@ -32,7 +32,7 @@ test('Reading view recognizes whole paragraph and study-lesson citations',async(
  await links.nth(3).click();
  const pop=page.getByRole('dialog',{name:'Aperçu biblique : od 8:8'});
  await expect(pop).toBeVisible();
- await expect(pop.getByText('Organisation')).toBeVisible();
+ await expect(pop.locator('.biblelab-popover-document-title')).toHaveText('Organisation');
 });
 test('A page-and-paragraph citation opens the verified article and highlights §15',async({page})=>{
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('w22 Février p. 13 §15'));
