@@ -2,7 +2,7 @@ import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText } from './readerText.ts';
-import { finderDocumentUrl } from './publicationReferences.ts';
+import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
@@ -67,11 +67,32 @@ export function selectPublicationCandidate(html:string,base:string,reference:str
  return best;
 }
 
+/** Choose a book chapter only when the WOL results explicitly identify it. */
+export function selectBookChapterCandidate(html:string,base:string,reference:string):string|null{
+ const wanted=bookChapterLocator(reference);
+ if(!wanted)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const marker=new RegExp('(?:^|[^a-z0-9])'+wanted.code.replace(/[-]/g,'\\-')+
+  '\\s+chap(?:itre)?\\.?\\s*'+wanted.chapter+'\\b','i');
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(a.getAttribute('href')||'',base);
+  if(!href)continue;
+  const row=a.closest('li,article,.result,.searchResult,.search-result,.item')||a.parentElement;
+  if(marker.test(normalizeSearch((row?.textContent||'').slice(0,1200))))return href;
+ }
+ return null;
+}
+
 function pickDocument(html:string,base:string,reference:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
  const requested=simple(reference);
  const exact=selectPublicationCandidate(html,base,reference);
  if(exact)return exact;
+ const chapter=bookChapterLocator(reference);
+ if(chapter){
+   // Do not silently open chapter 1 for a request about chapter 8.
+   return selectBookChapterCandidate(html,base,reference);
+ }
  // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
  const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
  const canonicalHref=canonical?.getAttribute('href')||canonical?.getAttribute('content');
