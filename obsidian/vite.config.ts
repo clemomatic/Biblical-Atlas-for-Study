@@ -30,6 +30,8 @@ export default defineConfig({
   build: {
     outDir: destination, emptyOutDir: true, target: 'es2020', sourcemap: false,
     lib: { entry: path.join(root, 'obsidian/src/main.tsx'), formats: ['cjs'], fileName: () => 'main.js' },
-    rollupOptions: { external: ['obsidian'], output: { exports: 'default', inlineDynamicImports: true } }
+    // The editor runs on Obsidian's CodeMirror singleton. Bundling another copy
+    // would make Obsidian reject its decorations as foreign extensions.
+    rollupOptions: { external: ['obsidian','@codemirror/view','@codemirror/state'], output: { exports: 'default', inlineDynamicImports: true } }
   }
 });
