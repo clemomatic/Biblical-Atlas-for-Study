@@ -13,10 +13,11 @@ test('Bible verse removes encoded spaces, superscript markers and number-only no
    html:'<p><span class="verseNum">29</span>Deux&nbsp;moineaux&#8239;ne se vendent-ils pas pour&nbsp;une pièce<sup class="fnRef">*</sup> de monnaie\u200b ? <a data-fnid="123" href="#fn">a</a></p>',
    footnotes:[
     {source:'<sup>a</sup>',content:'<p><span class="fn">Litt.&nbsp;« une pièce de monnaie ».</span></p>'},
-    {source:'<span class="label">moineaux</span>',content:'<p>Le mot grec désigne un petit oiseau.</p>'}
+    {source:'<span class="label">moineaux</span>',content:'<p>Le mot grec désigne un petit oiseau.</p>'},
+    {source:'23026003 · ',content:'<p>Une autre note.</p>'}
    ],
    commentaries:[{source:'<span>petit oiseau</span>',content:'<p>Une note d’étude sur le contexte.</p>'}],
-   crossReferences:[{source:'<sup>+</sup>',targets:[{vs:'43003016',standardCitation:'Jean 3:16'}]}]
+   crossReferences:[{source:'<sup>+</sup>',targets:[{vs:'43003016',standardCitation:'Jean&amp;nbsp;3:16'}]}]
  }}};
  await page.route('**/json/html/40010029',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(result)}));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('Matthieu 10:29'));
@@ -30,6 +31,8 @@ test('Bible verse removes encoded spaces, superscript markers and number-only no
  await expect(pane.locator('.biblelab-reader-note-source').filter({hasText:'petit oiseau'})).toBeVisible();
  await expect(pane.getByText('Notes de traduction',{exact:true})).toBeVisible();
  await expect(pane.getByText('Notes d’étude',{exact:true})).toBeVisible();
+ await expect(pane).not.toContainText('23026003');
+ await expect(pane).not.toContainText('&nbsp;');
  await pane.getByText('Renvois bibliques').click();
  await expect(pane.getByText('Jean 3:16',{exact:true}).first()).toBeVisible();
 });
@@ -128,4 +131,56 @@ test('reference insertion never writes to an unrelated open Markdown file',async
  await page.evaluate(()=>(window as any).atlasTest.openMarkdownEditor('Mes notes/Source.md'));
  await pane.getByRole('button',{name:'Insérer le lien'}).click();
  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Source.md'))).toContain('wol.jw.org');
+});
+
+test('Encoded cross-references and technical study IDs are cleaned in the actual Bible popup',async({page})=>{
+ const result={ranges:{'23026003':{
+  citation:'Isaïe&amp;nbsp;26:3',
+  html:'<p><span class="verseNum">3</span>Tu protégeras ceux qui te font confiance.</p>',
+  footnotes:[{source:'23026003',content:'<p>Une note sans identifiant affiché.</p>'}],
+  crossReferences:[{source:'23026003',targets:[
+   {vs:'191190165',standardCitation:'Psaume&amp;nbsp;119:165'},
+   {vs:'230540013',standardCitation:'Isaïe&nbsp;54:13'}
+  ]}]
+ }}};
+ await page.route('**/json/html/23026003',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(result)}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('Isaïe 26:3'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.locator('.biblelab-verse-reading-copy')).toContainText('Tu protégeras');
+ await pane.getByText('Renvois bibliques').click();
+ await expect(pane).toContainText('Psaume 119:165');
+ await expect(pane).not.toContainText('23026003');
+ await expect(pane).not.toContainText('&nbsp;');
+});
+
+
+test('A real article in a later main container is not hidden by an empty WOL bodyTxt placeholder',async({page})=>{
+ const url='https://wol.jw.org/fr/wol/d/r30/lp-f/1201038';
+ const html='<html><body><div class="bodyTxt"></div><main class="publicationContent">'+
+  '<h1>Instructions pour la réunion Vie chrétienne et ministère</h1>'+
+  '<div class="pGroup"><div class="p" data-pid="p20"><span class="parNum">20.</span> La durée de la réunion doit être respectée.</div>'+
+  '<div class="p" data-pid="p25"><span class="parNum">25.</span> Le président donne des conseils.</div></div>'+
+  '</main></body></html>';
+ await page.route(url,route=>route.fulfill({status:200,contentType:'text/html',body:html}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('S-38 §20, 25'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.getByText('La durée de la réunion doit être respectée.')).toBeVisible();
+ await expect(pane.getByText('Le président donne des conseils.')).toBeVisible();
+ const targets=pane.locator('.biblelab-article-target-paragraph');
+ await expect(targets).toHaveCount(2);
+ await expect(targets.nth(0).locator('.biblelab-article-parnum')).toHaveText('20');
+ await expect(targets.nth(1).locator('.biblelab-article-parnum')).toHaveText('25');
+ await expect(pane).not.toContainText('WOL n’a pas fourni de texte exploitable');
+});
+test('A dynamic WOL shell is reported as a reader limitation with official access, not a missing article',async({page})=>{
+ const url='https://wol.jw.org/fr/wol/d/r30/lp-f/1102018452';
+ await page.route(url,route=>route.fulfill({status:200,contentType:'text/html',body:
+   '<html><head><title>Chaleur et empathie</title></head><body><main id="article">'+
+   '<h1>Chaleur et empathie</h1></main>'+
+   '<script>/* article is hydrated later */</script></body></html>'}));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab('th leçon 12'));
+ const pane=page.locator('.biblelab-side');
+ await expect(pane.getByText(/texte ne peut pas être extrait dans Obsidian/)).toBeVisible();
+ await expect(pane).not.toContainText('WOL n’a pas fourni de texte exploitable');
+ await expect(pane.locator('.biblelab-reader-action[aria-label="WOL"]').first()).toBeVisible();
 });

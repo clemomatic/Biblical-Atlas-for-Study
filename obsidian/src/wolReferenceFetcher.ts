@@ -1,7 +1,8 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
-import { readableOfficialHtml, meaningfulNoteSource } from './readerText.ts';
+import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText } from './readerText.ts';
+import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
@@ -66,11 +67,32 @@ export function selectPublicationCandidate(html:string,base:string,reference:str
  return best;
 }
 
+/** Choose a book chapter only when the WOL results explicitly identify it. */
+export function selectBookChapterCandidate(html:string,base:string,reference:string):string|null{
+ const wanted=bookChapterLocator(reference);
+ if(!wanted)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const marker=new RegExp('(?:^|[^a-z0-9])'+wanted.code.replace(/[-]/g,'\\-')+
+  '\\s+chap(?:itre)?\\.?\\s*'+wanted.chapter+'\\b','i');
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(a.getAttribute('href')||'',base);
+  if(!href)continue;
+  const row=a.closest('li,article,.result,.searchResult,.search-result,.item')||a.parentElement;
+  if(marker.test(normalizeSearch((row?.textContent||'').slice(0,1200))))return href;
+ }
+ return null;
+}
+
 function pickDocument(html:string,base:string,reference:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
  const requested=simple(reference);
  const exact=selectPublicationCandidate(html,base,reference);
  if(exact)return exact;
+ const chapter=bookChapterLocator(reference);
+ if(chapter){
+   // Do not silently open chapter 1 for a request about chapter 8.
+   return selectBookChapterCandidate(html,base,reference);
+ }
  // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
  const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
  const canonicalHref=canonical?.getAttribute('href')||canonical?.getAttribute('content');
@@ -103,6 +125,16 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // Never silently present an arbitrary keyword search result as a verified article.
  return score>=10?best:null;
 }
+function documentChapterMatches(html:string,reference:string):boolean{
+ const chapter=bookChapterLocator(reference);
+ if(!chapter)return true;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const visible=normalizeSearch((doc.body?.textContent||'').slice(0,2800));
+ const pattern=new RegExp('(?:^|[^a-z0-9])'+chapter.code.replace(/-/g,'\\-')+
+  '\\s+chap(?:itre)?\\.?\\s*'+chapter.chapter+'\\b','i');
+ return pattern.test(visible);
+}
+
 function isDocument(html:string):boolean{
  const doc=new DOMParser().parseFromString(html,'text/html');
  const region=doc.querySelector('.bodyTxt, .document, article .bodyTxt, #article');
@@ -134,17 +166,42 @@ async function officialText(url:string):Promise<string>{
    throw Error('WOL a répondu sans document HTML exploitable.');
  return html;
 }
+function hasReadableArticleBody(result:ReaderResult):boolean{
+ return result.lines.some(line=>line.type!=='heading'&&line.type!=='caption'&&
+  line.type!=='image'&&line.text.trim().length>=8);
+}
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
- if(!result.lines.length)throw Error('WOL n’a pas fourni de texte exploitable.');
+ if(!hasReadableArticleBody(result))
+   throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
+ return result;
+}
+/** An existing official page may send a dynamic shell instead of its article
+ * body to Obsidian's HTTP client. Do not claim WOL has no text.
+ * Keep the canonical source link and explain the local reader limitation.
+ */
+function directDocumentReader(html:string,url:string,label:string):ReaderResult{
+ const result=parseWolDocument(html,url,label);
+ if(!hasReadableArticleBody(result)){
+   result.lines=[];
+   result.notice='La page officielle a répondu, mais son texte ne peut pas être extrait dans Obsidian (structure HTML ou chargement dynamique). Ouvre ce document sur WOL pour le lire.';
+ }
  return result;
 }
 export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>{
  const url=canonicalReferenceUrl(ref.url);
  if(!url)throw Error('Référence WOL non reconnue.');
  const path=new URL(url).pathname;
+ const finderDocument=finderDocumentUrl(url);
+ if(finderDocument){
+   const result=directDocumentReader(await officialText(finderDocument),finderDocument,ref.label);
+   // Preserve the exact paragraph destination for the official-site button.
+   result.sourceUrl=url;
+   result.kind='article';
+   return result;
+ }
  if(DOC.test(path)||path.startsWith('/fr/wol/b/')){
-   return readerForDocument(await officialText(url),url,ref.label);
+   return directDocumentReader(await officialText(url),url,ref.label);
  }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
@@ -167,7 +224,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  try{
    text=await officialText(lookup);
    docUrl=pickDocument(text,lookup,query);
-   if(!docUrl && isDocument(text)){
+   if(!docUrl && isDocument(text) && documentChapterMatches(text,query)){
      const direct=readerForDocument(text,lookup,query);
      // The server supplied the full document instead of a list.
      direct.sourceUrl=lookup;
@@ -234,7 +291,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
  for(const row of entry.crossReferences||[]){
    const labels:string[]=[];
    for(const target of row.targets||[]){
-     const citation=(target.standardCitation||'').trim();
+     const citation=cleanReadingText(target.standardCitation||'');
      if(citation)labels.push(citation);
      const targetCode=(target.vs||'').replace(/[^0-9]/g,'');
      if(citation&&/^\d{8}$/.test(targetCode)){
@@ -251,7 +308,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
      source:meaningfulNoteSource(row.source)});
  }
  if(!text)throw Error('Texte du verset absent.');
- return {title:entry.citation||scripture.label,
+ return {title:cleanReadingText(entry.citation||scripture.label),
    sourceUrl:ref.url,kind:'verse',lines,links,
    notice:'Bible d’étude · texte, notes et renvois · jw.org'};
 }

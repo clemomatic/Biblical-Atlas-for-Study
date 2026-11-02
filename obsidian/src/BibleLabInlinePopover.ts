@@ -2,6 +2,8 @@ import { setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
+import { referencedParagraphs } from './publicationReferences';
+import { renderArticleImage } from './articleImages';
 
 const fromLabel=(label:string):ReferenceEntry=>{
  const scripture=parseScripture(label);
@@ -43,9 +45,14 @@ export class BibleLabInlinePopover {
   this.backFocus=null;
  }
  private outside=(ev:PointerEvent):void=>{
-  if(this.root&&!this.root.contains(ev.target as Node))this.close();
+  // A zoom dialog belongs to this preview, even though it is mounted on body.
+  const target=ev.target as Element;
+  if(target.closest?.('.biblelab-image-lightbox'))return;
+  if(this.root&&!this.root.contains(target))this.close();
  };
  private keydown=(ev:KeyboardEvent):void=>{
+  // Let Escape close the picture first, not the underlying article preview.
+  if(document.querySelector('dialog.biblelab-image-lightbox[open]'))return;
   if(ev.key==='Escape'&&this.root){ev.preventDefault();ev.stopPropagation();this.close(true);}
  };
  private button(parent:HTMLElement,name:string,icon:string,fn:()=>void):HTMLButtonElement{
@@ -148,12 +155,22 @@ export class BibleLabInlinePopover {
   }
   let visible=0;
   const chunks=result.lines.filter(x=>x.type!=='caption').slice(0,85);
+  const requestedParagraphs=this.current?referencedParagraphs(this.current.label):[];
+  let focus:HTMLElement|null=null;
   const append=(size:number):void=>{
    const end=Math.min(chunks.length,visible+size);
    for(;visible<end;visible++){
     const line=chunks[visible];
+    if(line.type==='image'&&line.image){
+      renderArticleImage(container,line.image);
+      continue;
+    }
     const element=container.createEl(line.type==='heading'?'h4':'p',{
       cls:'biblelab-popover-line biblelab-popover-'+line.type});
+    if(line.number&&requestedParagraphs.includes(line.number)){
+      element.addClass('biblelab-article-target-paragraph');
+      if(!focus)focus=element;
+    }
     if(line.source)element.createEl('strong',{text:line.source+' · '});
     this.linkLine(element,line,anchor);
    }
@@ -162,7 +179,13 @@ export class BibleLabInlinePopover {
   };
   const more=container.createEl('button',{cls:'biblelab-popover-more',attr:{type:'button'}});
   more.addEventListener('click',()=>append(10));
-  append(12);
+  // Load through the requested paragraph when available, rather than
+  // making §15 inaccessible behind the "Afficher la suite" control.
+  const index=requestedParagraphs.length?chunks.reduce((n,x,i)=>x.number&&requestedParagraphs.includes(x.number)?i:n,-1):-1;
+  append(Math.max(12,index+1));
+  if(focus)window.requestAnimationFrame(()=>{
+    if(focus?.isConnected)focus.scrollIntoView({block:'nearest',behavior:'instant'});
+  });
   if(result.links.length){
    const moreLinks=container.createEl('details',{cls:'biblelab-popover-related'});
    moreLinks.createEl('summary',{text:'Renvois et publications ('+result.links.length+')'});

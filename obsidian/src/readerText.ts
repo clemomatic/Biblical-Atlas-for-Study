@@ -80,6 +80,9 @@ export function readableOfficialHtml(html:string,mode:'verse'|'note'|'article'='
 /** Ignore verse/footnote marker IDs, keep a genuine word or expression. */
 export function meaningfulNoteSource(html:string|undefined):string {
  if(!html)return '';
- const source=readableOfficialHtml(html,'note');
- return /^[+*†‡\da-z]$/i.test(source)||/^(?:note|renvoi|verset)\s*\d+$/i.test(source)||/^\d{1,3}:\d{1,3}$/.test(source)?'':source.slice(0,110);
+ const source=readableOfficialHtml(html,'note')
+  .replace(/^\d{6,}(?:\s*[·:—-]\s*)?/,'').trim();
+ return /^[+*†‡\da-z]$/i.test(source)||
+  /^(?:note|renvoi|verset)\s*\d+$/i.test(source)||
+  /^\d{1,3}:\d{1,3}$/.test(source)||!source?'':source.slice(0,110);
 }

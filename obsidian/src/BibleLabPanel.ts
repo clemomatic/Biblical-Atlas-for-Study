@@ -8,6 +8,7 @@ import {
 import { OFFLINE_MAP_INDEX } from './bibleLabMapCorpus';
 import { dayLink, meetingIssueLink, findMeetingProgramme, wolMeetingLink, parseDailyHtml, parseMeetingHtml, weekTitle, type StudyLive } from './studyLive';
 import { extractReferenceEntries, cleanWolUrl, passageUrl, parseWolDocument, type ReferenceEntry } from './referenceReader';
+import { findPublicationMentions } from './publicationReferences';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
@@ -77,6 +78,7 @@ export class BibleLabSidebarView extends ItemView {
   private mapTerm='';
   private libraryTerm='';
   private noteRefs: ReferenceEntry[] = [];
+  private noteRefsOpen:boolean|null=null;
   private pinnedRef: ReferenceEntry|null=null;
   private referenceHistory:ReferenceEntry[]=[];
   private referencePosition:number[]=[];
@@ -146,6 +148,7 @@ export class BibleLabSidebarView extends ItemView {
       kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
     this.rememberReference(ref);
     this.pinnedRef=ref;
+    this.noteRefsOpen=null;
     if(this.tab!=='refs'&&this.scroller)this.tabScroll.set(this.tab,this.scroller.scrollTop);
     this.reader.expanded.clear();
     this.reader.expanded.add(ref.url+'#'+label);
@@ -158,6 +161,7 @@ export class BibleLabSidebarView extends ItemView {
     this.referenceCursor=next;
     const ref=this.referenceHistory[next];
     this.pinnedRef=ref;this.tab='refs';
+    this.noteRefsOpen=null;
     this.reader.expanded.clear();
     this.reader.expanded.add(ref.url+'#'+ref.label);
     this.render();
@@ -174,6 +178,7 @@ export class BibleLabSidebarView extends ItemView {
     try{
       const text=await this.app.vault.cachedRead(file);
       if(generation!==this.sequence)return;
+      if(this.lastMarkdownPath!==file.path)this.noteRefsOpen=null;
       this.noteTitle=file.basename;this.lastMarkdownPath=file.path;this.noteRefs=extractReferenceEntries(text);
     }catch{
       if(generation!==this.sequence)return;
@@ -224,7 +229,7 @@ export class BibleLabSidebarView extends ItemView {
     const term=cleanReadingText(value);
     if(!term){this.setTab('wol');return;}
     this.query=term;
-    if(parseScripture(term) || cleanWolUrl(term) || /^(?:w\d{2}|g\d{2}|mwb\d{2}|it-\d)/i.test(term)){
+    if(parseScripture(term) || cleanWolUrl(term) || findPublicationMentions(term).some(x=>x.from===0&&x.to===term.length) || /^(?:w\d{2}|g\d{2}|mwb\d{2}|it-\d)/i.test(term)){
       this.focusReference(term);
       return;
     }
@@ -559,12 +564,15 @@ export class BibleLabSidebarView extends ItemView {
     const term=this.query.trim();
     if(!term){new Notice('Saisis un sujet ou une expression.');return;}
     const direct=cleanWolUrl(term);
-    if(direct && /\/fr\/wol\/(?:d|b)\//.test(new URL(direct).pathname)){
+    if(direct && (/\/fr\/wol\/(?:d|b)\//.test(new URL(direct).pathname)||new URL(direct).pathname==='/finder')){
       this.focusReference(direct,'Document WOL');
       return;
     }
     const scripture=parseScripture(term);
     if(scripture && this.searchScope==='all'){this.focusReference(scripture.label);return;}
+    if(this.searchScope==='all'&&findPublicationMentions(term).some(x=>x.from===0&&x.to===term.length)){
+      this.focusReference(term);return;
+    }
     if(this.wolResultsLoading)return;
     const seq=++this.wolResultsSequence;
     const url=wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
@@ -746,8 +754,11 @@ export class BibleLabSidebarView extends ItemView {
       :this.noteRefs;
     if(entries.length){
       const group=this.scroller.createEl('details',{cls:'biblelab-note-references'});
-      group.open=!this.pinnedRef;
-      group.createEl('summary',{text:'Références de ma note · '+entries.length});
+      group.open=this.noteRefsOpen??!this.pinnedRef;
+      const summary=group.createEl('summary',{text:'Références de ma note · '+entries.length});
+      // Preserve expansion when a note refresh or async reader update rerenders.
+      summary.addEventListener('click',()=>{this.noteRefsOpen=!group.open;});
+      group.addEventListener('toggle',()=>{if(group.isConnected)this.noteRefsOpen=group.open;});
       const list=group.createDiv({cls:'biblelab-note-reference-list'});
       const actions=list.createDiv({cls:'biblelab-reader-count'});
       button(actions,'Tout replier','chevrons-up',()=>{this.reader.expanded.clear();this.render();});

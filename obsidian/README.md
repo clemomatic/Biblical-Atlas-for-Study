@@ -1,3 +1,21 @@
+## Bible Lab 0.9.2 — Résolution des citations documentaires
+
+- **Catalogue officiel** : codes du tableau « Abréviations des titres de publications » de l’Index WOL (https://wol.jw.org/fr/wol/d/r30/lp-f/1200270068) ; les codes courts doivent être accompagnés d'un repère (page, chapitre, leçon ou paragraphe) pour éviter les faux liens.
+- **Reconnaissance des sources** en lecture et Live Preview : références de publications avec numéro de page et de paragraphe, `S-38 §1`, `S-38 §20, 25`, `od 8:8`, `th leçon 12`, y compris dans le panneau latéral et les aperçus.
+- **Liens officiels vérifiés** : `th leçon 12` → WOL 1102018452 ; `w22 Février p. 13 §15` → WOL 2022281, avec mise en évidence du paragraphe 15 ; `S-38 §1` et `S-38 §20, 25` → liens JW.org finder fournis ; `od 8:8` → chapitre 8 de l’ouvrage *Organisés*, WOL 1102014938 (le lien finder 1102014931 fourni auparavant mène en réalité au chapitre 1).
+- **Pas de liens inventés** : quand on connaît le document mais pas la correspondance exacte de paragraphe, Bible Lab ouvre le document ou utilise la recherche bibliographique WOL. Les URL `jw.org/finder` sont strictement validées.
+- **Texte nettoyé** : les citations issues de la Bible d'étude décodent les espaces HTML `&nbsp;` et ne montrent plus les identifiants numériques internes des notes.
+- **Images de la 0.9.1** : une adresse `/wol/mp/` est un visualiseur HTML, pas une image. Le lecteur utilise maintenant les vraies ressources images issues de `srcset` pour éviter les visuels cassés.
+- **Tests** : analyseur unitaire et parcours navigateur ordinateur/mobile couvrant ces cas. À vérifier en natif et selon l'accès réel à WOL/JW.org.
+
+## Bible Lab 0.9.1 — Illustrations des publications comme sur WOL
+
+- **Images officielles** : les articles récupérés sur WOL affichent désormais les illustrations au fil du texte, en gardant leur ordre, leur format original (aucun recadrage 1:1 imposé) et leurs légendes.
+- **Zoom** : toucher ou cliquer sur une image ouvre un agrandissement dans Obsidian, refermable avec Échap, le bouton Fermer ou un clic à l’extérieur.
+- **Lecteur + aperçu** : la fenêtre flottante et le panneau latéral montrent les mêmes images ; affichage responsive, chargement différé par le navigateur, sans télécharger l’ensemble d’une publication.
+- **Confidentialité et sécurité** : seules les URL HTTPS d’hébergeurs officiels connus sont acceptées. Aucun HTML distant, pixel tiers ou image incluse dans les notes ; les images sont chargées uniquement si l'article est ouvert.
+- **Limites** : si WOL/JW.org ne livre pas l'image ou refuse la requête depuis Obsidian, le texte et le lien vers la page officielle restent disponibles. Les tests automatisés vérifient des exemples HTML représentatifs, pas toutes les mises en page des publications.
+
 ## Bible Lab 0.9.0 — Stabilisation de la saisie et des aperçus
 
 Cette mise à jour consolide le fonctionnement des références cliquables et des fenêtres de lecture introduits par la version 0.8.9.
