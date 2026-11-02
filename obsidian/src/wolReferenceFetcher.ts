@@ -1,6 +1,6 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
-import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
+import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
 import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
 
@@ -84,6 +84,63 @@ export function selectBookPageCandidate(html:string,base:string,reference:string
  }
  return best;
 }
+/** The official Insight *index by subjects* supplies linked article headings
+ * whose printed page spans are explicit: e.g. Congrégation — 1:509-511.
+ * Unlike /wol/l, these links point to the actual article through /wol/pc.
+ * Do not use subordinate topic links: those often belong to other articles.
+ */
+export function selectInsightIndexArticle(html:string,reference:string):string|null{
+ const wanted=publicationBookPages(reference);
+ if(!wanted||!/^it-[12]$/.test(wanted.code))return null;
+ const volume=Number(wanted.code.slice(-1));
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const ranges=new RegExp('(?:^|[^\\d])'+volume+'\\s*:\\s*(\\d{1,4})(?:\\s*[-–—]\\s*(\\d{1,4}))?','g');
+ let best:{url:string;span:number}|null=null;
+ for(const heading of doc.querySelectorAll('h2,h3,h4')){
+  for(const anchor of heading.querySelectorAll<HTMLAnchorElement>('a[href]')){
+   const text=normalizeSearch(anchor.textContent||'').replace(/[–—]/g,'-');
+   for(const m of text.matchAll(ranges)){
+    const first=Number(m[1]),last=Number(m[2]||m[1]);
+    if(first>wanted.first||last<wanted.last||last<first)continue;
+    let href:string;
+    try{href=new URL(anchor.getAttribute('href')||'',WOL).toString();}catch{continue;}
+    const direct=validateDocument(href,WOL);
+    const related=/^https:\/\/wol\.jw\.org\/fr\/wol\/pc\/r30\/lp-f\/1200004775\/\d+\/\d+$/.test(href);
+    if(!direct&&!related)continue;
+    if(!best||last-first<best.span)best={url:direct||href,span:last-first};
+   }
+  }
+ }
+ return best?.url||null;
+}
+
+/** Resolve an Insight headword from the same official index (not WOL search).
+ * Headings are article titles; their linked page span identifies the volume.
+ */
+export function selectInsightIndexTitle(html:string,reference:string):string|null{
+ const wanted=insightTitleReference(reference);
+ if(!wanted||!/^it-[12]$/.test(wanted.code))return null;
+ const volume=Number(wanted.code.slice(-1));
+ const title=normalizeSearch(wanted.title).replace(/[^a-z0-9]+/g,' ').trim();
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ for(const heading of doc.querySelectorAll('h2,h3,h4')){
+  const clone=heading.cloneNode(true) as Element;
+  for(const link of [...clone.querySelectorAll('a')])link.remove();
+  const headingTitle=normalizeSearch(clone.textContent||'')
+    .replace(/[^a-z0-9]+/g,' ').trim();
+  if(headingTitle!==title)continue;
+  for(const link of heading.querySelectorAll<HTMLAnchorElement>('a[href]')){
+   if(!new RegExp('(?:^|[^\\d])'+volume+'\\s*:\\s*\\d{1,4}').test(link.textContent||''))continue;
+   let href:string;
+   try{href=new URL(link.getAttribute('href')||'',WOL).toString();}catch{continue;}
+   if(/^https:\/\/wol\.jw\.org\/fr\/wol\/pc\/r30\/lp-f\/1200004775\/\d+\/\d+$/.test(href))return href;
+   const direct=validateDocument(href,WOL);
+   if(direct)return direct;
+  }
+ }
+ return null;
+}
+
 export function insightTitleReference(reference:string):{code:string;title:string}|null{
  const normalized=normalizeSearch(reference).replace(/[«»“”"]/g,'"');
  const match=normalized.match(/^(it(?:-[12])?)\s+"([^"]{2,95})"(?:\s*§\s*\d{1,3})?$/);
@@ -164,22 +221,53 @@ export function selectBookChapterCandidate(html:string,base:string,reference:str
  return null;
 }
 
+/** A validated WOL /d result link must come from the lookup-result panel,
+ * not from navigation, the sidebar or the site's footer.
+ * WOL sometimes returns only one article and omits page metadata entirely.
+ */
+export function selectSingleLookupDocument(html:string,base:string):string|null{
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const results=doc.querySelector('#lookupResults,.lookupResults');
+ if(!results)return null;
+ const candidates=new Set<string>();
+ for(const anchor of results.querySelectorAll<HTMLAnchorElement>('a[href]')){
+   const url=validateDocument(anchor.getAttribute('href')||'',base);
+   if(url)candidates.add(url);
+   if(candidates.size>1)return null; // Ambiguous result: show WOL's choices.
+ }
+ return candidates.size===1?[...candidates][0]:null;
+}
 function pickDocument(html:string,base:string,reference:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
+ // Scope all bibliographic matching to results; a navigation link can
+ // otherwise outscore the article returned by the actual WOL lookup.
+ const resultNode=doc.querySelector('#lookupResults,.lookupResults');
+ const matchHtml=resultNode?.outerHTML||html;
  const requested=simple(reference);
- const exact=selectPublicationCandidate(html,base,reference);
+ const exact=selectPublicationCandidate(matchHtml,base,reference);
  if(exact)return exact;
  const bookPage=publicationBookPages(reference);
- if(bookPage)return selectBookPageCandidate(html,base,reference);
+ if(bookPage){
+   const identified=selectBookPageCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
+ }
  const insight=insightTitleReference(reference);
- if(insight)return selectInsightCandidate(html,base,reference);
+ if(insight){
+   const identified=selectInsightCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
+ }
  const study=siStudyNumber(reference);
- if(study)return selectSiStudyCandidate(html,base,reference);
+ if(study){
+   const identified=selectSiStudyCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
+ }
  const chapter=bookChapterLocator(reference);
  if(chapter){
-   // Do not silently open chapter 1 for a request about chapter 8.
-   return selectBookChapterCandidate(html,base,reference);
+   const identified=selectBookChapterCandidate(matchHtml,base,reference);
+   return identified||selectSingleLookupDocument(html,base);
  }
+ const onlyResult=selectSingleLookupDocument(html,base);
+ if(onlyResult)return onlyResult;
  // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
  const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
  const canonicalHref=canonical?.getAttribute('href')||canonical?.getAttribute('content');
@@ -190,7 +278,7 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // Prefer a citation with matching page metadata, or a verified fallback.
  if(publicationPages(reference)||publicationBookPages(reference)||insightTitleReference(reference)||siStudyNumber(reference))
    return null;
- const anchors=[...doc.querySelectorAll<HTMLAnchorElement>('a[href]')];
+ const anchors=[...(resultNode||doc).querySelectorAll<HTMLAnchorElement>('a[href]')];
  let best:string|null=null,score=-1;
  const keywords=requested.split(' ').filter(x=>x.length>2);
  for(const anchor of anchors.slice(0,1400)){
@@ -212,26 +300,6 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // A direct reference lookup is normally an exact or near-exact match.
  // Never silently present an arbitrary keyword search result as a verified article.
  return score>=10?best:null;
-}
-function documentChapterMatches(html:string,reference:string):boolean{
- const chapter=bookChapterLocator(reference);
- if(!chapter)return true;
- const doc=new DOMParser().parseFromString(html,'text/html');
- const visible=normalizeSearch((doc.body?.textContent||'').slice(0,2800));
- const pattern=new RegExp('(?:^|[^a-z0-9])'+chapter.code.replace(/-/g,'\\-')+
-  '\\s+chap(?:itre)?\\.?\\s*'+chapter.chapter+'\\b','i');
- return pattern.test(visible);
-}
-
-function isDocument(html:string):boolean{
- const doc=new DOMParser().parseFromString(html,'text/html');
- // A bibliography menu has links and headings but no actual article body.
- for(const region of doc.querySelectorAll('.bodyTxt, #article, .documentBody, .articleBody, article[role="article"]')){
-   const body=(region.textContent||'').trim();
-   const paragraphs=region.querySelectorAll('p,div.p,div.par,div.paragraph,[data-pid]');
-   if(body.length>300&&paragraphs.length>=3)return true;
- }
- return false;
 }
 export function knownCitation(reference:string):string|null{
  // Verified book spans: links into the middle of a chapter/article must open
@@ -279,18 +347,157 @@ async function officialText(url:string):Promise<string>{
  if(response.status!==200)throw Error('WOL HTTP '+response.status+
    (response.status===403||response.status===429?' : accès automatisé limité.':''));
  const html=response.text||'';
- const title=new DOMParser().parseFromString(html,'text/html').title.toLowerCase();
+ const document=new DOMParser().parseFromString(html,'text/html');
+ const title=document.title.toLowerCase();
+ const preliminary=cleanReadingText(document.body?.textContent||'').slice(0,1300);
+ if(/javascript is disabled|verify that you(?:’|'| a)re not a robot|vérifi(?:er|cation).{0,45}(?:robot|navigateur)|enable javascript and then reload/i.test(preliminary))
+   throw Error('WOL demande une vérification du navigateur : la réponse ne contient pas le document.');
  if(/(?:access denied|just a moment|captcha|robot check|forbidden|accès refusé)/i.test(title))
    throw Error('WOL refuse la consultation automatisée de cette page.');
  if(!html.trim()||!/<(?:html|body|main|article|div|p)\b/i.test(html))
    throw Error('WOL a répondu sans document HTML exploitable.');
  return html;
 }
+/** The SI book and study articles occupy an ordered official WOL document
+ * sequence. IDs are used ONLY as candidates: each downloaded document must
+ * state its actual SI page range, or it is discarded. No guessed link is shown.
+ * A binary search needs at most seven requests rather than 78 full articles.
+ */
+export function siDocumentPageRange(html:string):{first:number;last:number}|null{
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ // textContent joins neighbouring block tags without spaces. On real WOL
+ // pages the title may concatenate with "si p. 199-205", hiding the
+ // publication label from a naive whole-page regex.
+ const pattern=/(?:^|[^\p{L}\p{N}])si\s+p\.?\s*(\d{1,4})\s*[-–—]\s*(\d{1,4})(?=\s|$|[.,;])/u;
+ const candidates=[
+   ...doc.querySelectorAll('.pubRef,.pubCitation,.publicationCitation,[class*="publicationCitation"],p,span,div')
+ ].slice(0,180);
+ for(const node of candidates){
+   const text=cleanReadingText(node.textContent||'').slice(0,2000);
+   const match=text.match(pattern);
+   if(!match)continue;
+   const first=Number(match[1]),last=Number(match[2]);
+   if(first>0&&last>=first&&last<=400)return {first,last};
+ }
+ return null;
+}
+/** WOL's own SI table of contents links every study directly and lists
+ * its printed starting page. This is safer than guessing document IDs.
+ */
+const SI_CONTENTS=WOL+'d/r30/lp-f/1101990140';
+let siContentsPromise:Promise<string>|null=null;
+function loadSiContents():Promise<string>{
+ if(!siContentsPromise)
+  siContentsPromise=officialText(SI_CONTENTS)
+   .catch(error=>{siContentsPromise=null;throw error;});
+ return siContentsPromise;
+}
+export function selectSiContentsCandidates(html:string,reference:string):string[]{
+ const request=publicationBookPages(reference);
+ if(!request||request.code!=='si')return [];
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const entries:{start:number;url:string}[]=[];
+ // The volume's table has items "199 44 Actes" and "337 10 La Bible...".
+ // The later illustration links must not be interpreted as chapters.
+ for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  let url:URL;
+  try{url=new URL(a.getAttribute('href')||'',SI_CONTENTS);}catch{continue;}
+  const match=url.pathname.match(/^\/fr\/wol\/pc\/r30\/lp-f\/1101990140\/(\d+)\/\d+$/);
+  if(url.protocol!=='https:'||url.hostname!=='wol.jw.org'||!match||
+    Number(match[1])>76)continue;
+  const row=a.closest('p,li,tr')||a.parentElement;
+  if(!row)continue;
+  // In actual WOL markup the page number appears before the article link.
+  // Do not treat the book/study number inside the linked title as a page.
+  const full=cleanReadingText(row.textContent||'');
+  const label=cleanReadingText(a.textContent||'');
+  const before=full.slice(0,full.indexOf(label));
+  const candidates=[before,cleanReadingText(a.previousSibling?.textContent||'')];
+  const page=candidates.map(x=>x.match(/(?:^|[^\d])(\d{1,3})\s*$/))
+    .find(Boolean);
+  if(!page)continue;
+  const start=Number(page[1]);
+  if(start>=5&&start<=360&&start<=request.first)
+   entries.push({start,url:url.toString()});
+ }
+ // The nearest preceding entry is usually correct; inspect up to four
+ // competing/overlapping articles and verify their own printed page spans.
+ return [...new Map(entries.sort((a,b)=>b.start-a.start)
+   .map(row=>[row.url,row.url])).values()].slice(0,4);
+}
+const siPageCache=new Map<string,string>();
+async function findSiDocumentByPage(reference:string):Promise<string|null>{
+ const request=publicationBookPages(reference);
+ if(!request||request.code!=='si')return null;
+ const key=request.first+'-'+request.last;
+ const cached=siPageCache.get(key);
+ if(cached)return cached;
+ const candidateUrls=selectSiContentsCandidates(await loadSiContents(),reference);
+ for(const url of candidateUrls){
+  let html:string;
+  try{html=await officialText(url);}catch{continue;}
+  const range=siDocumentPageRange(html);
+  if(!range||range.first>request.first||range.last<request.last)continue;
+  if(!hasReadableArticleBody(parseWolDocument(html,url,reference)))continue;
+  siPageCache.set(key,url);
+  return url;
+ }
+ return null;
+}
+const insightPageCache=new Map<string,string>();
+let insightIndexPromise:Promise<string>|null=null;
+function loadInsightIndex():Promise<string>{
+ if(!insightIndexPromise)
+   insightIndexPromise=officialText(WOL+'d/r30/lp-f/1200004775')
+     .catch(error=>{insightIndexPromise=null;throw error;});
+ return insightIndexPromise;
+}
+async function findInsightDocumentByTitle(reference:string):Promise<string|null>{
+ const title=insightTitleReference(reference);
+ if(!title||!/^it-[12]$/.test(title.code))return null;
+ const key=title.code+':"'+normalizeSearch(title.title)+'"';
+ const cached=insightPageCache.get(key);
+ if(cached)return cached;
+ const link=selectInsightIndexTitle(await loadInsightIndex(),reference);
+ if(!link)return null;
+ const html=await officialText(link);
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const intro=normalizeSearch(cleanReadingText(doc.body?.textContent||'').slice(0,1400));
+ if(!intro.includes(title.code)||!intro.includes(normalizeSearch(title.title)))return null;
+ if(!hasReadableArticleBody(parseWolDocument(html,link,reference)))return null;
+ insightPageCache.set(key,link);
+ return link;
+}
+async function findInsightDocumentByIndex(reference:string):Promise<string|null>{
+ const requested=publicationBookPages(reference);
+ if(!requested||!/^it-[12]$/.test(requested.code))return null;
+ const key=requested.code+':'+requested.first+'-'+requested.last;
+ const cached=insightPageCache.get(key);
+ if(cached)return cached;
+ const index=await loadInsightIndex();
+ const link=selectInsightIndexArticle(index,reference);
+ if(!link)return null;
+ // The index links /wol/pc/ resolve to the full article. Check the actual
+ // volume in the returned HTML to avoid using index links as document text.
+ const html=await officialText(link);
+ const document=new DOMParser().parseFromString(html,'text/html');
+ const intro=cleanReadingText(document.body?.textContent||'').slice(0,1600);
+ const expected=new RegExp('(?:^|[^a-z0-9])'+requested.code.replace('-','\\-')+
+  '\\s+[«“"\\u201c]','i');
+ if(!expected.test(normalizeSearch(intro)))return null;
+ if(!hasReadableArticleBody(parseWolDocument(html,link,reference)))return null;
+ insightPageCache.set(key,link);
+ return link;
+}
 function hasReadableArticleBody(result:ReaderResult):boolean{
  return result.lines.some(line=>line.type!=='heading'&&line.type!=='caption'&&
   line.type!=='image'&&line.text.trim().length>=8);
 }
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
+ const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
+   .querySelector('h1')?.textContent||'').toLowerCase();
+ if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
+   throw Error('WOL a renvoyé un menu de navigation, pas un article.');
  const result=parseWolDocument(html,url,label);
  if(!hasReadableArticleBody(result))
    throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
@@ -301,6 +508,11 @@ function readerForDocument(html:string,url:string,label:string):ReaderResult{
  * Keep the canonical source link and explain the local reader limitation.
  */
 function directDocumentReader(html:string,url:string,label:string):ReaderResult{
+ const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
+   .querySelector('h1')?.textContent||'').toLowerCase();
+ if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
+   return {title:label,sourceUrl:url,kind:'results',lines:[],links:[],
+     notice:'WOL a renvoyé son menu plutôt que le texte du document. Ouvre la source officielle.'};
  const result=parseWolDocument(html,url,label);
  if(!hasReadableArticleBody(result)){
    result.lines=[];
@@ -337,18 +549,50 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      return article;
    }catch{ /* Continue through official bibliography lookup. */ }
  }
+ // First inspect the content WOL actually provides for this lookup.
+ // The result container is often present while the rest of the HTML is
+ // only the library navigation. Prefer a real article link when available,
+ // otherwise display the result content, not the website menu.
  const lookup=path.startsWith('/fr/wol/s/')
    ? WOL+'l/r30/lp-f?'+new URLSearchParams({q:query}):url;
+ let lookupHtml:string|undefined;
+ let lookupExcerpt:ReaderResult|null=null;
+ try{
+   lookupHtml=await officialText(lookup);
+   lookupExcerpt=parseWolLookupResults(lookupHtml,lookup,query);
+   if(lookupExcerpt){
+     const target=pickDocument(lookupHtml,lookup,query);
+     if(target){
+       try{
+         const full=readerForDocument(await officialText(target),target,query);
+         full.kind='article';return full;
+       }catch{ /* The official result is available even if its full article fails. */ }
+     }
+     if(lookupExcerpt.lines.length)return lookupExcerpt;
+   }
+ }catch{ /* Continue with the book index and standard lookup fallback. */ }
+ // Book page numbers are not keywords. Resolve them using the official
+ // publication structure instead of expecting /l?q=it-1+118 to be an article.
+ const bookPages=publicationBookPages(query);
+ const insightTitle=insightTitleReference(query);
+ if(bookPages||insightTitle){
+   try{
+     const matched=bookPages
+       ?(bookPages.code==='si'?await findSiDocumentByPage(query):await findInsightDocumentByIndex(query))
+       :await findInsightDocumentByTitle(query);
+     if(matched){
+       const article=readerForDocument(await officialText(matched),matched,query);
+       article.kind='article';return article;
+     }
+   }catch{ /* One structured source failed: try the standard WOL results. */ }
+ }
  let text='';let docUrl:string|null=null;
  let networkProblem='';
  try{
-   text=await officialText(lookup);
-   // Read the embedded document first, rather than links in the nav menu.
-   if(isDocument(text) && documentChapterMatches(text,query)){
-     const direct=readerForDocument(text,lookup,query);
-     direct.sourceUrl=lookup;direct.kind='article';
-     return direct;
-   }
+   text=lookupHtml||await officialText(lookup);
+   // /wol/l and /wol/s are search and navigation pages. Even if their
+   // HTML contains several paragraphs, it must NEVER be read as the article.
+   // Only a resolved /wol/d or verified publication-index /wol/pc may be read.
    docUrl=pickDocument(text,lookup,query);
  }catch(error){
    networkProblem=error instanceof Error?error.message:'Requête WOL interrompue';
@@ -373,6 +617,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  }
  docUrl=docUrl||knownCitation(query);
  if(!docUrl){
+   if(lookupExcerpt&&lookupExcerpt.lines.length)return lookupExcerpt;
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
    empty.lines=[];
    empty.notice=networkProblem
