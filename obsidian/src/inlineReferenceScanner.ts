@@ -1,4 +1,4 @@
-import { extractReferences, parseScripture } from './bibleLabData.ts';
+import { findScriptureMentions, parseScripture } from './bibleLabData.ts';
 import { passageUrl, type ReferenceEntry } from './referenceReader.ts';
 import { findPublicationMentions } from './publicationReferences.ts';
 
@@ -36,17 +36,10 @@ export function findInlineReferences(line:string):InlineReference[]{
    kind:scripture?'scripture':'publication',origin:'pinned'};
   result.push({from:start,to:end,label,ref});
  };
- // Reuse the same French Bible book aliases as the sidebar.
- for(const citation of extractReferences(line).slice(0,35)){
-  let offset=0;
-  const lowered=line.toLocaleLowerCase('fr');
-  const needle=citation.toLocaleLowerCase('fr');
-  for(let n=0;n<12;n++){
-   const at=lowered.indexOf(needle,offset);
-   if(at<0)break;
-   add(at,at+citation.length,line.slice(at,at+citation.length));
-   offset=at+citation.length;
-  }
+ // Use source offsets rather than re-searching a normalized label:
+ // abbreviation punctuation, case and repeated occurrences remain exact.
+ for(const citation of findScriptureMentions(line).slice(0,35)){
+  add(citation.from,citation.to,citation.label);
  }
  for(const item of findPublicationMentions(line)){
   add(item.from,item.to,item.label,item.url);
