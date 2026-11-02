@@ -1,12 +1,13 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, type ReaderResult, type ReferenceEntry } from './referenceReader';
-import { readableOfficialHtml, meaningfulNoteSource } from './readerText.ts';
+import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText } from './readerText.ts';
+import { publicationLookupLabel, verifiedPublicationUrl } from './publicationCitations.ts';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
 const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
-const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2}|lmd)\b/i;
+const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2}|lmd|th|s\s*[-‐‑–]\s*\d+)\b/i;
 const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
 const validateDocument=(value:string,base:string):string|null=>{
  try{
@@ -21,7 +22,8 @@ export function canonicalReferenceUrl(raw:string):string|null{
  if(u.pathname==='/fr/wol/s/r30/lp-f'){
    const query=u.searchParams.get('q')?.trim();
    if(query && BIBLIO.test(query)){
-     return 'https://wol.jw.org/fr/wol/l/r30/lp-f?'+new URLSearchParams({q:query});
+     return 'https://wol.jw.org/fr/wol/l/r30/lp-f?'+
+       new URLSearchParams({q:publicationLookupLabel(query)});
    }
  }
  return url;
@@ -109,6 +111,8 @@ function isDocument(html:string):boolean{
  return !!region && ((region.querySelectorAll('p').length>=2)||(region.textContent||'').trim().length>450);
 }
 export function knownCitation(reference:string):string|null{
+ const official=verifiedPublicationUrl(reference);
+ if(official)return official;
  // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
  // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
  if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
@@ -148,14 +152,14 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
- const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
+ const query=publicationLookupLabel(new URL(url).searchParams.get('q')?.trim()||ref.label);
  // A small set of source IDs was verified directly on WOL. Try those
  // first, so a known article is not held hostage by broken /l/ redirects
  // or by the /s/ search HTML. Fall back to ordinary resolution if blocked.
  const verified=knownCitation(query);
  if(verified){
    try{
-     const article=readerForDocument(await officialText(verified),verified,query);
+     const article=readerForDocument(await officialText(verified),verified,ref.label);
      article.kind='article';
      return article;
    }catch{ /* Continue through official bibliography lookup. */ }
@@ -168,7 +172,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    text=await officialText(lookup);
    docUrl=pickDocument(text,lookup,query);
    if(!docUrl && isDocument(text)){
-     const direct=readerForDocument(text,lookup,query);
+     const direct=readerForDocument(text,lookup,ref.label);
      // The server supplied the full document instead of a list.
      direct.sourceUrl=lookup;
      direct.kind='article';
@@ -204,7 +208,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
       :'Référence non résolue automatiquement. Vérifie le lien sur WOL.';
    empty.kind='results';return empty;
  }
- const article=readerForDocument(await officialText(docUrl),docUrl,query);
+ const article=readerForDocument(await officialText(docUrl),docUrl,ref.label);
  article.kind='article';
  return article;
 }
@@ -234,7 +238,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
  for(const row of entry.crossReferences||[]){
    const labels:string[]=[];
    for(const target of row.targets||[]){
-     const citation=(target.standardCitation||'').trim();
+     const citation=cleanReadingText(target.standardCitation||'');
      if(citation)labels.push(citation);
      const targetCode=(target.vs||'').replace(/[^0-9]/g,'');
      if(citation&&/^\d{8}$/.test(targetCode)){
@@ -251,7 +255,7 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
      source:meaningfulNoteSource(row.source)});
  }
  if(!text)throw Error('Texte du verset absent.');
- return {title:entry.citation||scripture.label,
+ return {title:cleanReadingText(entry.citation||scripture.label),
    sourceUrl:ref.url,kind:'verse',lines,links,
    notice:'Bible d’étude · texte, notes et renvois · jw.org'};
 }
