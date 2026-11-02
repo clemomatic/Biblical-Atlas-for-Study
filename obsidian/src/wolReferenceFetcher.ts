@@ -11,6 +11,8 @@ const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/js
 const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
 // WOL contextual publication pointers are valid reading destinations too.
 const CONTEXT=/^\/fr\/wol\/pc\/r30\/lp-f\/\d+\/\d+\/\d+\/?$/;
+// Bible cross-reference links (/bc/) redirect to a WOL chapter; keep them readable.
+const BIBLE_CONTEXT=/^\/fr\/wol\/bc\/r30\/lp-f\/\d+\/\d+\/\d+\/?$/;
 const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|ws\d{2}|g\d{2}|mwb\d{2}|it(?:-[12])?|si|km|lmd)\b/i;
 const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
 const validateDocument=(value:string,base:string):string|null=>{
@@ -549,7 +551,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    result.kind='article';
    return result;
  }
- if(DOC.test(path)||CONTEXT.test(path)||path.startsWith('/fr/wol/b/')){
+ if(DOC.test(path)||CONTEXT.test(path)||BIBLE_CONTEXT.test(path)||path.startsWith('/fr/wol/b/')){
    return directDocumentReader(await officialText(url),url,ref.label);
  }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
