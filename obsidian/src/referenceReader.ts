@@ -10,7 +10,7 @@ import { articleImageFrom, type ArticleImage } from './articleImages.ts';
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
 export interface ReaderPart {text:string;url?:string;kind?:ReferenceKind}
-export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image';text:string;source?:string;number?:string;parts?:ReaderPart[];image?:ArticleImage;/** Exact official scripture targets associated with this verse or cross-reference. */references?:ReaderLink[]}
+export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image';text:string;source?:string;number?:string;parts?:ReaderPart[];image?:ArticleImage;/** Exact official scripture targets associated with this verse or cross-reference. */references?:ReaderLink[];/** Position of original '+' symbols in cleaned verse text. */referenceMarkers?:{offset:number;targets:ReaderLink[]}[]}
 export interface ReaderLink {label:string;url:string}
 export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string}
 export const MAX_REFERENCES=60;
