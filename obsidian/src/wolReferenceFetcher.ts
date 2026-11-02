@@ -243,26 +243,6 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  // Never silently present an arbitrary keyword search result as a verified article.
  return score>=10?best:null;
 }
-function documentChapterMatches(html:string,reference:string):boolean{
- const chapter=bookChapterLocator(reference);
- if(!chapter)return true;
- const doc=new DOMParser().parseFromString(html,'text/html');
- const visible=normalizeSearch((doc.body?.textContent||'').slice(0,2800));
- const pattern=new RegExp('(?:^|[^a-z0-9])'+chapter.code.replace(/-/g,'\\-')+
-  '\\s+chap(?:itre)?\\.?\\s*'+chapter.chapter+'\\b','i');
- return pattern.test(visible);
-}
-
-function isDocument(html:string):boolean{
- const doc=new DOMParser().parseFromString(html,'text/html');
- // A bibliography menu has links and headings but no actual article body.
- for(const region of doc.querySelectorAll('.bodyTxt, #article, .documentBody, .articleBody, article[role="article"]')){
-   const body=(region.textContent||'').trim();
-   const paragraphs=region.querySelectorAll('p,div.p,div.par,div.paragraph,[data-pid]');
-   if(body.length>300&&paragraphs.length>=3)return true;
- }
- return false;
-}
 export function knownCitation(reference:string):string|null{
  // Verified book spans: links into the middle of a chapter/article must open
  // the document itself rather than the WOL site's bibliographic navigation.
@@ -428,6 +408,20 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      article.kind='article';
      return article;
    }catch{ /* Continue through official bibliography lookup. */ }
+ }
+ // Book page numbers are not keywords. Resolve them using the official
+ // publication structure instead of expecting /l?q=it-1+118 to be an article.
+ const bookPages=publicationBookPages(query);
+ if(bookPages){
+   try{
+     const matched=bookPages.code==='si'
+       ?await findSiDocumentByPage(query)
+       :await findInsightDocumentByIndex(query);
+     if(matched){
+       const article=readerForDocument(await officialText(matched),matched,query);
+       article.kind='article';return article;
+     }
+   }catch{ /* One structured source failed: try the standard WOL results. */ }
  }
  const lookup=path.startsWith('/fr/wol/s/')
    ? WOL+'l/r30/lp-f?'+new URLSearchParams({q:query}):url;
