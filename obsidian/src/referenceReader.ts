@@ -5,6 +5,7 @@
 import { extractReferences, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
 import { cleanReadingText, readableOfficialElement } from './readerText.ts';
 import { articleImageFrom, type ArticleImage } from './articleImages.ts';
+import { findPublicationCitations, publicationLookupLabel, verifiedPublicationUrl } from './publicationCitations.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
@@ -18,14 +19,23 @@ const urlPattern=/https?:\/\/(?:wol\.jw\.org|www\.jw\.org)\/[^\s<>\])]+/gi;
 export function cleanWolUrl(raw:string):string|null {
  try{
    const url=new URL(raw.replace(/&amp;/g,'&').trim());
-   if(url.protocol!=='https:'||url.username||url.password||url.hostname!=='wol.jw.org')return null;
-   if(!url.pathname.startsWith('/fr/wol/'))return null;
+   if(url.protocol!=='https:'||url.username||url.password)return null;
+   // JW.org's official share links use /finder?docid=... (not a WOL /d/ URL).
+   // Convert only French document IDs; the 'par' parameter is an internal
+   // position, not the human-visible paragraph number.
+   if(url.hostname==='www.jw.org'&&url.pathname==='/finder'){
+     const docid=url.searchParams.get('docid')||'';
+     if(url.searchParams.get('wtlocale')==='F'&&/^\d{5,12}$/.test(docid))
+       return 'https://wol.jw.org/fr/wol/d/r30/lp-f/'+docid;
+     return null;
+   }
+   if(url.hostname!=='wol.jw.org'||!url.pathname.startsWith('/fr/wol/'))return null;
    // Repair old citation URLs, including links written by earlier versions of
    // Bible Lab into the vault. The route /s/ searches keywords, whereas /l/
    // resolves bibliographic references such as "w24 Novembre p. 14-19".
    if(url.pathname==='/fr/wol/s/r30/lp-f'){
      const query=url.searchParams.get('q')?.trim()||'';
-     if(/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2}|lmd)\b/i.test(query)){
+     if(/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2}|lmd|th|s\s*[-‐‑–]\s*\d+)\b/i.test(query)){
        url.pathname='/fr/wol/l/r30/lp-f';
        url.search=new URLSearchParams({q:query}).toString();
      }
@@ -38,7 +48,8 @@ export function bibleChapterUrl(scripture:ScriptureRef):string{
 }
 export function passageUrl(reference:string):string {
  const scripture=parseScripture(reference);
- return scripture?bibleChapterUrl(scripture):wolLookup(reference);
+ return scripture?bibleChapterUrl(scripture):
+  verifiedPublicationUrl(reference)||wolLookup(publicationLookupLabel(reference));
 }
 export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  const results:ReferenceEntry[]=[];const keys=new Set<string>();
@@ -72,7 +83,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
    if(/^https?:\/\//i.test(raw)){
      const url=cleanWolUrl(raw);if(url)push(raw,url,'brackets');
    }else if(/^(?:w\d{2}(?:\.?\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|lmd\b|cl |lff |nwt |w\d{2}\s+|la tour de garde)/i.test(raw)) {
-     push(raw,wolLookup(raw),'brackets','publication');
+     push(raw,passageUrl(raw),'brackets','publication');
    }
  }
  // Marker citations must take precedence over the verse scanner.
@@ -84,6 +95,9 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  const remainder=cleanReadingText(text.replace(urlPattern,' '));
  for(const label of extractReferences(remainder)){
    if(parseScripture(label))push(label,passageUrl(label),'verse','scripture');
+ }
+ for(const candidate of findPublicationCitations(remainder)){
+   push(candidate.label,passageUrl(candidate.label),'verse','publication');
  }
  return results.slice(0,MAX_REFERENCES);
 }
@@ -126,6 +140,8 @@ export function linkifyReaderText(
   if(!scripture)continue;
   add(label,bibleChapterUrl(scripture),'scripture',1);
  }
+ for(const reference of findPublicationCitations(text).slice(0,25))
+  add(reference.label,passageUrl(reference.label),'publication',2);
  candidates.sort((a,b)=>a.start-b.start||a.priority-b.priority||(b.end-b.start)-(a.end-a.start));
  const parts:ReaderPart[]=[];
  let offset=0;
