@@ -950,3 +950,15 @@
  .biblelab-search-result {transition:none}
  .biblelab-search-result:hover {transform:none}
 }
+
+
+.biblelab-article-reading .biblelab-article-paragraph.is-unnumbered {
+ display:block;
+ padding-left:0;
+}
+.biblelab-article-reading .biblelab-article-paragraph.is-numbered {
+ display:grid;
+}
+.biblelab-article-tab-reading .biblelab-reader-contents .biblelab-article-paragraph.is-unnumbered {
+ padding-left:0;
+}
