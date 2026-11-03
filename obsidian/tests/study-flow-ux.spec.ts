@@ -32,7 +32,7 @@ test('Typing a verse on the homepage opens the local reader directly',async({pag
  await expect(pane.getByRole('button',{name:'Insérer dans ma note'})).toBeVisible();
 });
 
-test('Topic search keeps the user's question and opens genuine WOL beside the sidebar',async({page})=>{
+test('Topic search keeps the original question and opens genuine WOL beside the sidebar',async({page})=>{
  const pane=page.locator('.biblelab-side');
  await pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'}).fill('justice');
  await pane.getByRole('button',{name:'Lancer une recherche'}).click();
