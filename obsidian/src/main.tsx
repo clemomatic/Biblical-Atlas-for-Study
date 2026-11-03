@@ -18,6 +18,8 @@ import { MarkdownContent } from './MarkdownContent';
 import { MapTileCache } from './MapTiles';
 import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
+import { BIBLE_LAB_ARTICLE_VIEW, BibleLabArticleView } from './BibleLabArticleView';
+import { cleanWolUrl, type ReferenceEntry } from './referenceReader';
 import { enhanceBibleLabMarkers } from './bibleLabMarkers';
 import { inlineBibleLabEditorExtension } from './inlineEditorExtension';
 import { BibleLabInlinePopover } from './BibleLabInlinePopover';
@@ -160,6 +162,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.publish();
     this.registerView(VIEW_TYPE, leaf => new AtlasView(leaf, this));
     this.registerView(BIBLE_LAB_VIEW, leaf => new BibleLabSidebarView(leaf, this));
+    this.registerView(BIBLE_LAB_ARTICLE_VIEW, leaf => new BibleLabArticleView(leaf, this.openWolArticleTab));
     this.addRibbonIcon('map', 'Ouvrir l’Atlas biblique', () => this.run(this.openAtlas()));
     this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
@@ -184,8 +187,10 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     // Markdown as the user types or opening untrusted HTML inside Obsidian.
     const floatingStyle=document.head.createEl('style',{text:inlineReferenceCss});
     this.register(()=>floatingStyle.remove());
-    this.inlinePopup=new BibleLabInlinePopover(ref=>
-      this.run(this.openBibleLab(ref.url,ref.label)));
+    this.inlinePopup=new BibleLabInlinePopover(
+      ref => this.run(this.openBibleLab(ref.url,ref.label)),
+      ref => this.run(this.openWolArticleTab(ref))
+    );
     this.register(()=>{this.inlinePopup?.destroy();this.inlinePopup=undefined;});
     const showInline=(label:string,anchor:HTMLElement)=>
       this.inlinePopup?.open(label,anchor);
@@ -277,6 +282,18 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       .find(item => item.key.startsWith('place:') && normalizeSearch(item.title) === normalized);
     if (!selection) new Notice('Lieu non identifié dans l’Atlas interactif ; ouverture de la carte générale.');
     this.run(this.openAtlas(selection?.key));
+  };
+  openWolArticleTab = async (ref: ReferenceEntry): Promise<void> => {
+    const url = cleanWolUrl(ref.url);
+    if (!url) { new Notice('Seules les pages WOL officielles peuvent être ouvertes dans Bible Lab.'); return; }
+    // A fresh workspace leaf creates a real, independent Obsidian tab. Its
+    // article URL is saved in the layout and restored at next startup.
+    const leaf = this.app.workspace.getLeaf('tab');
+    await leaf.setViewState({
+      type: BIBLE_LAB_ARTICLE_VIEW, active: true,
+      state: { url, label: ref.label }
+    });
+    await this.app.workspace.revealLeaf(leaf);
   };
   async openBibleLab(reference?: string, displayLabel?: string): Promise<void> {
     await this.ready;

@@ -25,7 +25,8 @@ export class BibleLabInlinePopover {
  private cache=new Map<string,{value:ReaderResult;date:number}>();
  private inFlight=new Map<string,Promise<ReaderResult>>();
  private readonly cacheDuration=20*60*1000;
- constructor(private readonly openPanel:(ref:ReferenceEntry)=>void){}
+ constructor(private readonly openPanel:(ref:ReferenceEntry)=>void,
+   private readonly openInTab:(ref:ReferenceEntry)=>void){}
  isOpen():boolean{return !!this.root;}
  open(label:string,anchor:HTMLElement):void{
   const ref=fromLabel(label);
@@ -168,7 +169,10 @@ export class BibleLabInlinePopover {
     this.render(this.history[this.history.length-1],anchor);
   });
   prev.disabled=this.history.length<=1;
-  this.button(footer,'Dans le panneau','panel-right',()=>{this.openPanel(ref);this.close();});
+  this.button(footer,'Dans le panneau','panel-right',()=>{this.openPanel(this.current||ref);this.close();});
+  this.button(footer,'Nouvel onglet','panels-top-left',()=>{
+    this.openInTab({...((this.current||ref)),url:this.currentSource||ref.url});this.close();
+  });
   this.button(footer,'Copier le texte','copy',()=>{
     const selection=window.getSelection();
     const selected=selection && selection.anchorNode && selection.focusNode &&

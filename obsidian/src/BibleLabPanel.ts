@@ -18,6 +18,7 @@ export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
 export interface BibleLabHost {
   openAtlas: () => Promise<void>;
+  openWolArticleTab: (ref: ReferenceEntry) => Promise<void>;
   openAtlasPlace: (name:string) => void;
   newResearch: (keys: []) => void;
   newInvestigation: (selections: []) => void;
@@ -85,7 +86,7 @@ export class BibleLabSidebarView extends ItemView {
   private referenceHistory:ReferenceEntry[]=[];
   private referencePosition:number[]=[];
   private referenceCursor=-1;
-  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label),remember:ref=>this.rememberReference(ref),insert:ref=>this.insertMarkdownLink(ref.label,ref.url)};
+  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label),openInTab:ref=>{void this.host.openWolArticleTab(ref);},remember:ref=>this.rememberReference(ref),insert:ref=>this.insertMarkdownLink(ref.label,ref.url)};
   private noteTitle='';
   private lastMarkdownPath:string|null=null;
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
@@ -487,6 +488,7 @@ export class BibleLabSidebarView extends ItemView {
         if(hit.excerpt)copy.createEl('p',{text:hit.excerpt});
         const row=el.createDiv({cls:'biblelab-search-result-actions'});
         button(row,'Lire ici','book-open',()=>this.focusReference(hit.url,hit.title),true);
+        button(row,'Nouvel onglet','panels-top-left',()=>void this.host.openWolArticleTab({label:hit.title,url:hit.url,kind:'document',origin:'pinned'}));
         button(row,'WOL','external-link',()=>external(hit.url));
       }
       this.scroller.createEl('p',{cls:'biblelab-mini',
@@ -759,6 +761,7 @@ export class BibleLabSidebarView extends ItemView {
       lead.createSpan({text:'EN COURS DE LECTURE'});
       lead.createEl('strong',{text:this.pinnedRef.label});
       button(header,'Autre source','search',()=>this.setTab('wol'));
+      button(header,'Nouvel onglet','panels-top-left',()=>{if(this.pinnedRef)void this.host.openWolArticleTab(this.pinnedRef);});
       renderReferenceAccordion(focus,this.pinnedRef,this.reader);
       const research=focus.createDiv({cls:'biblelab-related-research'});
       research.createSpan({text:'PROLONGER L’ÉTUDE'});
