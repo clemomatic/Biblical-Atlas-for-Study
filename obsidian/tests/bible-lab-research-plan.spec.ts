@@ -72,3 +72,15 @@ test('Phase 1: the plan can be put aside without deleting it', async ({ page }) 
   expect(desk.plans).toHaveLength(1);
   expect(desk.activeId).toBeNull();
 });
+
+test('Phase 1: quick Index search works from the first pane without an outline', async ({ page }) => {
+  const pane=page.locator('.biblelab-side');
+  await pane.getByPlaceholder('Mot-clé, verset ou publication WOL…').fill('ancien');
+  await pane.locator('.biblelab-home-wol-quick')
+    .getByRole('button',{name:'Index'}).click();
+  const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace
+    .getLeavesOfType('webviewer')[0].view.getState().url);
+  expect(new URL(url).searchParams.get('q')).toBe('ancien');
+  expect(new URL(url).searchParams.get('fc[]')).toBe('dx');
+  expect(await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchDesk().plans.length)).toBe(0);
+});
