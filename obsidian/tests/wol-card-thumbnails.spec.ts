@@ -121,3 +121,64 @@ test('Ambiguous WOL lookup gives every article its own small thumbnail',async({p
  const sidebar=page.locator('.biblelab-side');
  await expect(sidebar.locator('.biblelab-reader-related-list .biblelab-card-thumbnail img')).toHaveCount(2);
 });
+
+
+test('A known citation opened directly still retrieves its matching WOL cardThumbnailImage',async({page})=>{
+ let lookupCalls=0;
+ await page.route('https://wol.jw.org/fr/wol/l/**',route=>{
+  lookupCalls++;
+  return route.fulfill({status:200,contentType:'text/html',body:
+    '<main><div id="lookupResults">'+
+    '<article class="result"><span class="cardThumbnailImage" data-src="'+thumb+'"></span>'+
+    '<a href="'+article+'">Frères, vous qualifiez-vous pour devenir assistants ?</a>'+
+    '<p>w24 novembre p. 14-19</p>'+
+    '<p>Un résultat correspondant au document.</p></article>'+
+    '<article class="result"><span class="cardThumbnailImage" data-src="'+secondThumb+'"></span>'+
+    '<a href="'+secondArticle+'">Un autre document</a>'+
+    '<p>km 5/00 p. 8</p><p>Une autre publication.</p></article>'+
+    '</div></main>'});
+ });
+ await page.route(article,route=>route.fulfill({
+   status:200,contentType:'text/html',body
+ }));
+ await page.evaluate(()=>{
+  const node=document.createElement('p');node.id='known-thumbnail-note';
+  node.textContent='w24 novembre p. 17-19 § 15-20';
+  document.body.appendChild(node);
+  (window as any).atlasTest.plugin.markdownPostProcessor(node);
+ });
+ await page.locator('#known-thumbnail-note a.biblelab-autolink').click();
+ const popup=page.getByRole('dialog',{name:'Aperçu biblique : w24 novembre p. 17-19 § 15-20'});
+ await expect(popup).toContainText('Ce document donne une réponse');
+ await expect(popup.locator('.biblelab-popover-preview-head .biblelab-card-thumbnail img'))
+   .toHaveAttribute('src',thumb);
+ expect(lookupCalls).toBeGreaterThan(0);
+ await expect(popup.locator('.biblelab-article-figure')).toHaveCount(0);
+});
+
+test('A direct WOL document can use its own article illustration when the lookup has no card image',async({page})=>{
+ await page.route('https://wol.jw.org/fr/wol/l/**',route=>route.fulfill({
+   status:200,contentType:'text/html',body:'<main><h1>Consulter</h1><nav>Aucun résultat</nav></main>'
+ }));
+ await page.route(article,route=>route.fulfill({
+   status:200,contentType:'text/html',
+   body:'<article class="bodyTxt"><h1>Une étude illustrée</h1>'+
+    '<p>Le texte de la publication reste lisible normalement.</p>'+
+    '<figure><img src="'+thumb+'" alt="Illustration de cette étude"></figure>'+
+    '<p>La suite du contenu est conservée.</p></article>'
+ }));
+ await page.evaluate(()=>{
+  const node=document.createElement('p');node.id='direct-document-note';
+  node.innerHTML='<a href="'+ 'https://wol.jw.org/fr/wol/d/r30/lp-f/2024642'+
+    '">Article à lire</a>';
+  document.body.appendChild(node);
+  (window as any).atlasTest.plugin.markdownPostProcessor(node);
+ });
+ await page.locator('#direct-document-note a').click();
+ const popup=page.getByRole('dialog',{name:'Aperçu biblique : Article à lire'});
+ await expect(popup).toContainText('Le texte de la publication reste lisible');
+ await expect(popup.locator('.biblelab-popover-preview-head .biblelab-card-thumbnail img'))
+  .toHaveAttribute('src',thumb);
+ // Original article imagery remains independently available in the reader.
+ await expect(popup.locator('.biblelab-article-figure img')).toHaveAttribute('src',thumb);
+});
