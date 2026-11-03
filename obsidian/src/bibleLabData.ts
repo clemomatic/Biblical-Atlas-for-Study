@@ -40,15 +40,15 @@ const OFFICIAL_BOOK_ALIASES:string[][]=[
  ['Gen','Gn'],['Ex'],['Lév','Lev','Lv'],['Nomb','Nb'],['Deut','Dt'],
  ['Jos'],['Juges','Jg'],['Ru'],['1 Sam','1S','1Sam'],['2 Sam','2S','2Sam'],
  ['1 R','1R'],['2 R','2R'],['1 Chron','1Ch'],['2 Chron','2Ch'],
- ['Esd'],['Néh','Ne'],['Est'],['Jb'],['Ps'],['Prov','Pr'],['Eccl','Ec'],
- ['Chant de S','Ct'],['Is'],['Jér','Jer','Jr'],['Lam','Lm'],['Ézéch','Ezech','Ez'],
+ ['Esd'],['Néh','Né','Ne','Neh'],['Est'],['Jb'],['Ps'],['Prov','Pr'],['Eccl','Ec'],
+ ['Chant de S','Ct'],['Is'],['Jér','Jer','Jr'],['Lam','Lm'],['Ézéch','Éz','Ezech','Ez'],
  ['Dan','Dn'],['Os'],['Jl'],['Am'],['Abd','Ab'],['Jon'],['Mich','Mi'],
  ['Nah','Na'],['Hab'],['Soph','Sph'],['Agg','Ag'],['Zach','Za'],['Mal','Ml'],
  ['Mat','Matt','Mt'],['Marc','Mc'],['Luc','Lc'],['Jean','Jn'],
  ['Actes','Ac'],['Rom','Rm'],['1 Cor','1Co'],['2 Cor','2Co'],
  ['Gal','Ga'],['Éph','Eph'],['Phil','Php'],['Col'],
  ['1 Thess','1Th'],['2 Thess','2Th'],['1 Tim','1Tm'],['2 Tim','2Tm'],
- ['Tite','Tt'],['Philém','Philem','Phm'],['Héb','Heb','He'],['Jacq','Jc'],
+ ['Tite','Tt'],['Philém','Philem','Phm'],['Héb','Hé','Heb','He'],['Jacq','Jc'],
  ['1 Pierre','1P'],['2 Pierre','2P'],['1 Jean','1J'],['2 Jean','2J'],['3 Jean','3J'],
  ['Jude'],['Rév','Rev','Ré','Re']
 ];
@@ -114,8 +114,13 @@ export function jwLibraryLink(query: string): string | null {
 }
 // Compile once, recognizing an entire citation and not only its first verse.
 // A comma is a list separator; a dash is a contiguous inclusive range.
-const SCRIPTURE_BOOKS=[...new Set([...BOOKS,...Object.keys(ALIASES),
-  'Éph','Jér','Éz','Héb','Rév'])].sort((a,b)=>b.length-a.length);
+// ALIASES contains accent-stripped lookup keys; those are correct for
+// parseScripture but cannot match the original accented characters in a note.
+// Compile the detector from the original French spellings AND their normalized
+// aliases so "Hé 11:1", "Né. 2:1", "Éph." and "Jér." are all detected.
+const SCRIPTURE_BOOKS=[...new Set([
+  ...BOOKS,...Object.keys(ALIASES),...OFFICIAL_BOOK_ALIASES.flat()
+])].sort((a,b)=>b.length-a.length);
 const scriptureBookAlternates=SCRIPTURE_BOOKS
  .map(book=>book.replace(/[.*+?^$()|[\]{}\\]/g,'\\$&')).join('|');
 // Prefer a complete cross-chapter ending (3:30) before a simple verse span.

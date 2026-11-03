@@ -75,3 +75,22 @@ test('Full chapter-spanning Bible and paragraph-qualified magazine links are hig
  assert.ok(result.text.includes('[w16.06 20 § 11]('));
  assert.equal(linkReferencesInMarkdown(result.text).count,0);
 });
+
+test('Accented Hé and Né references become complete, clickable Obsidian links',()=>{
+ const text='Voir Hé 11:1, Hé. 4:12 et Né. 2:1 pour approfondir.';
+ const references=findInlineReferences(text);
+ assert.deepEqual(references.map(ref=>ref.label),['Hé 11:1','Hé. 4:12','Né. 2:1']);
+ assert.deepEqual(references.map(ref=>ref.ref.label),[
+  'Hébreux 11:1','Hébreux 4:12','Néhémie 2:1']);
+ assert.deepEqual(references.map(ref=>ref.ref.url),[
+  'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/58/11',
+  'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/58/4',
+  'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/16/2']);
+ assert.ok(references.every(ref=>ref.ref.kind==='scripture'));
+ const markdown=linkReferencesInMarkdown(text);
+ assert.equal(markdown.count,3);
+ assert.ok(markdown.text.includes('[Hé 11:1]('));
+ assert.ok(markdown.text.includes('[Hé. 4:12]('));
+ assert.ok(markdown.text.includes('[Né. 2:1]('));
+ assert.equal(linkReferencesInMarkdown(markdown.text).count,0);
+});

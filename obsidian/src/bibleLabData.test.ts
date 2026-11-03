@@ -112,3 +112,36 @@ test('A reference spanning chapters is one complete source, never chapter 1 vers
   assert.equal(findScriptureMentions(invalid).length,0,invalid);
  }
 });
+
+test('Accented abbreviated Bible books are recognized without stripping note spelling',()=>{
+ const samples=[
+  ['Hé 11:1','Hébreux 11:1',58,11,1],
+  ['Hé. 4:12','Hébreux 4:12',58,4,12],
+  ['Héb. 11:1','Hébreux 11:1',58,11,1],
+  ['He 11:1','Hébreux 11:1',58,11,1],
+  ['Né 2:1','Néhémie 2:1',16,2,1],
+  ['Né. 8:8','Néhémie 8:8',16,8,8],
+  ['Néh. 2:1','Néhémie 2:1',16,2,1],
+  ['Ne 2:1','Néhémie 2:1',16,2,1],
+  ['Jér. 17:7','Jérémie 17:7',24,17,7],
+  ['Lév. 19:18','Lévitique 19:18',3,19,18],
+  ['Éz. 36:26','Ézéchiel 36:26',26,36,26],
+  ['Éph. 4:25','Éphésiens 4:25',49,4,25]
+ ] as const;
+ for(const [input,canonical,book,chapter,verse] of samples){
+  const parsed=parseScripture(input);
+  assert.equal(parsed?.label,canonical,input);
+  assert.equal(parsed?.book,book,input);
+  assert.equal(parsed?.chapter,chapter,input);
+  assert.equal(parsed?.verse,verse,input);
+  const matches=findScriptureMentions('Étudier '+input+' ensemble.');
+  assert.deepEqual(matches.map(x=>x.label),[input],input);
+  assert.equal(matches[0]?.ref.label,canonical,input);
+ }
+ const line='Comparer Hé 11:1 et Né 2:1, puis Éz. 36:26.';
+ assert.deepEqual(extractReferences(line),['Hé 11:1','Né 2:1','Éz. 36:26']);
+ assert.equal(jwLibraryLink('Hé 11:1'),'https://www.jw.org/finder?wtlocale=F&bible=58011001');
+ assert.equal(jwLibraryLink('Né 2:1'),'https://www.jw.org/finder?wtlocale=F&bible=16002001');
+ // A short, accented word must not become a citation without chapter:verse.
+ assert.deepEqual(findScriptureMentions('Il est né hier. Hé ! Quelle surprise.'),[]);
+});

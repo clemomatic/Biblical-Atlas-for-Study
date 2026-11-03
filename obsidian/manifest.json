@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.11",
+  "version": "0.9.12",
   "minAppVersion": "1.6.0",
-  "description": "Fenêtre de lecture déplaçable à la souris et au doigt, recentrage et navigation stable, références WOL enrichies.",
+  "description": "Abréviations bibliques françaises accentuées (Hé, Né, Éz, etc.), liens et aperçu WOL améliorés.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
