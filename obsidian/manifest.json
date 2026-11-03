@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.22",
+  "version": "0.10.0",
   "minAppVersion": "1.6.0",
-  "description": "Lecture WOL structurée : typographie, paragraphes, questions, illustrations et onglets Obsidian.",
+  "description": "Recherche et articles WOL dans la visionneuse web native d’Obsidian, avec aperçus rapides dans les notes.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
