@@ -26,6 +26,11 @@ import {
 import { cleanWolUrl, extractReferenceEntries } from './referenceReader';
 import { quickCaptureCandidate } from './researchQuickCapture';
 import {
+  buildBibleLabBackup, BACKUP_DIRECTORY, backupFileName,
+  type BibleLabResearchState
+} from './researchBackup';
+import { BibleLabRestoreModal } from './researchBackupModal';
+import {
   emptyBibleLabArchive,normalizeBibleLabArchive,pruneMissingCaptures,
   type BibleLabArchive
 } from './researchArchive';
@@ -134,6 +139,60 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private researchDesk:ResearchDesk=emptyResearchDesk();
   private researchCollection:ResearchCollection=emptyResearchCollection();
   private researchArchive:BibleLabArchive=emptyBibleLabArchive();
+  private researchState=():BibleLabResearchState=>({
+    desk:this.researchDesk,collection:this.researchCollection,archive:this.researchArchive
+  });
+  exportResearchBackup=async():Promise<string>=>{
+    // Drain all pending data writes before capturing a consistent snapshot.
+    await this.dataWriteQueue;
+    if(!this.app.vault.getAbstractFileByPath(BACKUP_DIRECTORY))
+      await this.app.vault.createFolder(BACKUP_DIRECTORY);
+    const contents=buildBibleLabBackup(this.researchState());
+    const now=new Date();
+    let filename='';
+    for(let attempt=0;attempt<100;attempt++){
+      filename=BACKUP_DIRECTORY+'/'+backupFileName(now,attempt);
+      if(!this.app.vault.getAbstractFileByPath(filename))break;
+      if(attempt===99)throw Error('Impossible de créer un nom de sauvegarde unique.');
+    }
+    const file=await this.app.vault.create(filename,contents);
+    new Notice('Sauvegarde Bible Lab créée : '+file.path);
+    return file.path;
+  };
+  openRestoreResearchBackup=():void=>{
+    const backups=this.app.vault.getFiles()
+      .filter(file=>file.path.startsWith(BACKUP_DIRECTORY+'/')&&file.extension==='json')
+      .sort((a,b)=>b.name.localeCompare(a.name,'fr'));
+    if(!backups.length){
+      new Notice('Aucune sauvegarde Bible Lab trouvée. Crée d’abord une sauvegarde.');
+      return;
+    }
+    new BibleLabRestoreModal(this.app,backups,this.applyResearchRestore).open();
+  };
+  private applyResearchRestore=async(_source:TFile,next:BibleLabResearchState):Promise<string>=>{
+    // A restorable snapshot is created before ANY stored research data is replaced.
+    await this.dataWriteQueue;
+    const safetyCopy=await this.exportResearchBackup();
+    const before=this.researchState();
+    this.researchDesk=next.desk;
+    this.researchCollection=next.collection;
+    this.researchArchive=pruneMissingCaptures(next.archive,next.collection);
+    try{
+      await this.enqueuePluginData();
+    }catch(error){
+      // In-memory state is also rolled back if the storage write failed.
+      this.researchDesk=before.desk;
+      this.researchCollection=before.collection;
+      this.researchArchive=before.archive;
+      try{await this.enqueuePluginData();}catch{/* Safety file remains available. */}
+      throw error;
+    }
+    for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)){
+      if(leaf.view instanceof BibleLabSidebarView)leaf.view.reloadResearchState();
+    }
+    new Notice('Recherches Bible Lab restaurées. Les notes Markdown sont inchangées.');
+    return safetyCopy;
+  };
   getResearchArchive=():BibleLabArchive=>this.researchArchive;
   saveResearchArchive=(archive:BibleLabArchive):Promise<void>=>{
     this.researchArchive=pruneMissingCaptures(normalizeBibleLabArchive(archive),this.researchCollection);
@@ -245,6 +304,16 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (onglet web)', editorCallback: editor => { const term=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim(); if(term)this.run(this.openWolSearchTab(wolResearchUrl(term,{match:'par',scope:'all'}))); } });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
+    this.addCommand({
+      id:'bible-lab-backup-research',
+      name:'Sauvegarder mes recherches, idées et références Bible Lab',
+      callback:()=>this.run(this.exportResearchBackup())
+    });
+    this.addCommand({
+      id:'bible-lab-restore-research',
+      name:'Restaurer une sauvegarde de recherches Bible Lab',
+      callback:()=>this.openRestoreResearchBackup()
+    });
     this.addCommand({
       id:'bible-lab-quick-capture',
       name:'Capturer rapidement le texte copié ou l’onglet WOL dans Bible Lab',
