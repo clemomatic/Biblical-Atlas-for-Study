@@ -122,3 +122,21 @@ test('Old Awake and yearbook forms are captured as a whole citation',()=>{
   assert.ok(publicationUrl(citation).startsWith('https://wol.jw.org/fr/wol/l/r30/lp-f?q='));
  }
 });
+
+test('Compact Watchtower citations preserve paragraph numbers as part of the clickable reference',()=>{
+ const examples=['w16.06 20 § 11','w16.06 20 §11','w16.06 20 § 11-13',
+   'w24.08 28 § 7','mwb20.03 7 § 5','g22.1 3 § 2'];
+ for(const citation of examples){
+   assert.deepEqual(parsed(citation),[citation],citation);
+   const ref=findPublicationMentions(citation)[0];
+   assert.equal(ref.from,0,citation);
+   assert.equal(ref.to,citation.length,citation);
+   assert.ok(ref.url.startsWith('https://wol.jw.org/fr/wol/l/'),citation);
+   assert.ok(!new URL(ref.url).searchParams.get('q')?.includes('§'),
+     'The WOL lookup must use the page, while the complete label keeps the paragraph');
+ }
+ assert.deepEqual(referencedParagraphs('w16.06 20 § 11'),['11']);
+ assert.deepEqual(referencedParagraphs('w16.06 20 § 11-13'),['11','12','13']);
+ const matches=extractReferenceEntries('Étudier w16.06 20 § 11 et mwb20.03 7 § 5.');
+ assert.deepEqual(matches.map(item=>item.label),['w16.06 20 § 11','mwb20.03 7 § 5']);
+});
