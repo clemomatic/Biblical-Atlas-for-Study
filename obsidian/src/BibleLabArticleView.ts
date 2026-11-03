@@ -33,7 +33,7 @@ export class BibleLabArticleView extends ItemView {
   constructor(leaf: WorkspaceLeaf, private readonly openInNewTab: (ref: ReferenceEntry) => Promise<void>) {
     super(leaf);
     this.reader = {
-      expanded: new Set(), cache: new Map(), pending: new Map(),
+      expanded: new Set(), cache: new Map(), pending: new Map(), articleFontSize: 16,
       copy: text => {
         void navigator.clipboard.writeText(text).then(
           () => new Notice('Copié dans le presse-papiers.'),
