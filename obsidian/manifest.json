@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.18",
+  "version": "0.9.19",
   "minAppVersion": "1.6.0",
-  "description": "Recherche WOL par sujet et ouvrages, lecture et copie des références, sans miniatures expérimentales.",
+  "description": "Lecture des articles WOL dans des onglets Obsidian, recherches et copies des références.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
