@@ -38,11 +38,11 @@ const sources=[
  new RegExp(boundaries+'((?:w|wp|g|mwb)\\d{2}\\.\\d{1,2}\\s+\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*(?:'+paragraph+')?)','giu'),
  // Ministry of the Kingdom is cited by month/year without a page, e.g.
  // "km 05/95" = May 1995; WOL's own short form is "km 5/95".
- new RegExp(boundaries+'(km\\s+(?:0?[1-9]|1[0-2])/\\d{2}(?:\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)?)','giu'),
+ new RegExp(boundaries+'(km\\s+(?:0?[1-9]|1[0-2])/\\d{2}(?:\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?(?:'+paragraph+')?)?)','giu'),
  // Older Réveillez-vous! issues use g 2/12 3-13 rather than g12.02.
- new RegExp(boundaries+'(g\\s+(?:0?[1-9]|1[0-2])/\\d{2}\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)','giu'),
+ new RegExp(boundaries+'(g\\s+(?:0?[1-9]|1[0-2])/\\d{2}\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?(?:'+paragraph+')?)','giu'),
  // Printed yearbooks use yb17 197 (without a space after the code).
- new RegExp(boundaries+'(yb\\d{2}\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)','giu'),
+ new RegExp(boundaries+'(yb\\d{2}\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?(?:'+paragraph+')?)','giu'),
  new RegExp(boundaries+'(s\\s*[-–]\\s*\\d{1,3}'+paragraph+')','giu'),
  new RegExp(boundaries+'(('+sourceCodes+')\\s+(?:'+locators+'))','giu'),
  new RegExp(boundaries+'((?:th|lmd|lff|lffi)\\s+\\d{1,3})','giu')
@@ -121,7 +121,7 @@ export function publicationUrl(reference:string):string{
  const w22=s.match(/^w22\s+f[ée]vrier\s+p\.?\s*(\d{1,3})(?:\s*[-–]\s*(\d{1,3}))?(?:\s*§\s*\d{1,3}(?:\s*[-–,]\s*\d{1,3})*)?$/);
  if(w22&&Number(w22[1])>=8&&Number(w22[2]||w22[1])<=13)
   return 'https://wol.jw.org/fr/wol/d/r30/lp-f/2022281';
- const km=s.match(/^km\s+0?([1-9]|1[0-2])\/(\d{2})(?:\s+(?:p\.?\s*)?(\d{1,3}))?$/);
+ const km=s.match(/^km\s+0?([1-9]|1[0-2])\/(\d{2})(?:\s+(?:p\.?\s*)?(\d{1,3})(?:\s*-\s*\d{1,3})?)?(?:\s*§\s*\d{1,3}(?:\s*[-,;]\s*\d{1,3})*)?$/);
  if(km){
    // Never infer an article ID from only the month and year. Resolve through
    // WOL's official bibliography using its canonical non-zero-padded code.
