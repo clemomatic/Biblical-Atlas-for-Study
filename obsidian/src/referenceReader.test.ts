@@ -107,3 +107,15 @@ test('Side-panel references survive Markdown bold and italic inside the citation
  const km=refs.find(ref=>ref.label==='km 5/00 p. 8 § 2');
  assert.equal(km?.url,'https://wol.jw.org/fr/wol/l/r30/lp-f?q=km+5%2F00+p.+8');
 });
+
+test('Validated WOL paragraph anchors survive while untrusted or unrelated fragments are removed',()=>{
+ const article='https://wol.jw.org/fr/wol/d/r30/lp-f/202000163';
+ assert.equal(cleanWolUrl(article+'#h=3'),article+'#h=3');
+ assert.equal(cleanWolUrl(article+'#h=003'),article+'#h=003');
+ assert.equal(cleanWolUrl(article+'#h=abc'),article);
+ assert.equal(cleanWolUrl(article+'#navigate'),article);
+ assert.equal(cleanWolUrl('https://wol.jw.org/fr/wol/l/r30/lp-f?q=test#h=3'),
+  'https://wol.jw.org/fr/wol/l/r30/lp-f?q=test');
+ const refs=extractReferenceEntries('[Consulter le § 2]('+article+'#h=3)');
+ assert.equal(refs[0]?.url,article+'#h=3');
+});

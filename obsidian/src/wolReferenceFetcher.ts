@@ -2,7 +2,7 @@ import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, readableOfficialElement, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
-import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
+import { finderDocumentUrl, bookChapterLocator, referencedParagraphs, findPublicationMentions } from './publicationReferences.ts';
 import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 
@@ -163,6 +163,37 @@ export function selectInsightCandidate(html:string,base:string,reference:string)
  return null;
 }
 
+/** Choose a paragraph-specific result only when WOL includes an explicit
+ * matching bibliographic citation WITH § in that very result row. Without
+ * that evidence, two articles sharing a page remain an ambiguous choice. */
+export function selectExplicitParagraphCandidate(html:string,base:string,reference:string):string|null{
+ const paragraphs=referencedParagraphs(reference);
+ const page=publicationPages(reference);
+ if(!page||!paragraphs.length)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const root=doc.querySelector('#lookupResults,.lookupResults,#searchResults,.searchResults,.search-results');
+ if(!root)return null;
+ const matches=new Set<string>();
+ for(const anchor of root.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(anchor.getAttribute('href')||'',base);
+  if(!href)continue;
+  const row=anchor.closest('li,article,.result,.searchResult,.search-result,.item')||anchor.parentElement;
+  if(!row)continue;
+  const text=[
+   row.textContent||'',...Array.from(row.querySelectorAll('p,span,small,.pubRef'))
+     .map(node=>node.textContent||'')
+  ].join(' ');
+  const citations=findPublicationMentions(text);
+  if(!citations.some(item=>{
+    const found=referencedParagraphs(item.label);
+    return found.length===paragraphs.length&&found.every(n=>paragraphs.includes(n))&&
+      matchingPublicationPages(reference,item.label);
+  }))continue;
+  matches.add(href);
+  if(matches.size>1)return null;
+ }
+ return matches.size===1?[...matches][0]:null;
+}
 /** Exact citations are resolved without silently accepting a wrong issue. */
 export function selectPublicationCandidate(html:string,base:string,reference:string):string|null{
  const request=publicationPages(reference);
@@ -273,6 +304,9 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  const resultNode=doc.querySelector('#lookupResults,.lookupResults');
  const matchHtml=resultNode?.outerHTML||html;
  const requested=simple(reference);
+ // A WOL result carrying the exact § locator outranks a page-only match.
+ const paragraph=selectExplicitParagraphCandidate(matchHtml,base,reference);
+ if(paragraph)return paragraph;
  const exact=selectPublicationCandidate(matchHtml,base,reference);
  if(exact)return exact;
  const bookPage=publicationBookPages(reference);
@@ -362,6 +396,16 @@ export function knownCitation(reference:string):string|null{
  // a citation to pp. 21–24 is a subset, not a missing publication.
  if(citation?.issue==='w24.11'&&citation.first>=20&&citation.last<=25)
    return WOL+'d/r30/lp-f/2024643';
+ // Verified directly against the official article: pages 14-19 include
+ // paragraphs 15-20, even if the citation requests only pages 17-19.
+ if(citation?.issue==='w24.11'&&citation.first>=14&&citation.last<=19)
+   return WOL+'d/r30/lp-f/2024642';
+ // One confirmed page + paragraph destination from WOL. Do not assume
+ // that §2 means the second item in the issue, or synthesize #h=n offsets.
+ const paragraphs=referencedParagraphs(reference);
+ if(citation?.issue==='km 5/00'&&citation.first===8&&citation.last===8&&
+    paragraphs.length===1&&paragraphs[0]==='2')
+   return WOL+'d/r30/lp-f/202000163#h=3';
  // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
  // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
  if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
@@ -399,6 +443,11 @@ async function officialText(url:string,verbatimSearch=false):Promise<string>{
    }catch{safe=null;}
  }
  if(!safe)throw Error('Adresse WOL externe non autorisée.');
+ // Fragments such as #h=3 are client-side reading positions. Keep them
+ // for the WOL button, but never send them in an HTTP request or cache key.
+ const requestTarget=new URL(safe);
+ requestTarget.hash='';
+ safe=requestTarget.toString();
  const cached=htmlCache.get(safe);
  if(cached){
    htmlCache.delete(safe);
@@ -573,8 +622,11 @@ function hasReadableArticleBody(result:ReaderResult):boolean{
 function isNavigationShell(result:ReaderResult):boolean{
  // Test the TITLE OF THE ISOLATED DOCUMENT, not the first <h1> in the entire
  // WOL page: a real article may follow a generic site navigation heading.
- const title=cleanReadingText(result.title).toLowerCase();
- return /^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(title);
+ const title=normalizeSearch(result.title).replace(/\s+/g,' ');
+ // WOL may return "Rechercher — Bibliothèque en ligne Watchtower" or
+ // "Consulter - ..." with enough menu paragraphs to fool a length check.
+ // The actual article title is isolated before testing this predicate.
+ return /^(?:(?:consulter|rechercher)(?:\s*[-–—|:]\s*bibliotheque en ligne watchtower)?|bibliotheque en ligne watchtower|watchtower bibliotheque en ligne)$/.test(title);
 }
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
@@ -655,13 +707,16 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
  const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
+ // publicationUrl deliberately omits § from the /l query, but the reader
+ // must NEVER omit it from choosing between matching result articles.
+ const lookupReference=publicationPages(ref.label)?ref.label:query;
  // A small set of source IDs was verified directly on WOL. Try those
  // first, so a known article is not held hostage by broken /l/ redirects
  // or by the /s/ search HTML. Fall back to ordinary resolution if blocked.
- const verified=knownCitation(query);
+ const verified=knownCitation(ref.label)||knownCitation(query);
  if(verified){
    try{
-     const article=readerForDocument(await officialText(verified),verified,query);
+     const article=readerForDocument(await officialText(verified),verified,ref.label);
      article.kind='article';
      return article;
    }catch{ /* Continue through official bibliography lookup. */ }
@@ -678,7 +733,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    lookupHtml=await officialText(lookup);
    lookupExcerpt=parseWolLookupResults(lookupHtml,lookup,query);
    if(lookupExcerpt){
-     const target=pickDocument(lookupHtml,lookup,query);
+     const target=pickDocument(lookupHtml,lookup,lookupReference);
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,query);
@@ -697,7 +752,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    try{
      const fullHtml=await officialText(fullLookup);
      lookupExcerpt=parseWolLookupResults(fullHtml,fullLookup,query);
-     const target=pickDocument(fullHtml,fullLookup,query);
+     const target=pickDocument(fullHtml,fullLookup,lookupReference);
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,ref.label);
@@ -728,7 +783,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    // /wol/l and /wol/s are search and navigation pages. Even if their
    // HTML contains several paragraphs, it must NEVER be read as the article.
    // Only a resolved /wol/d or verified publication-index /wol/pc may be read.
-   docUrl=pickDocument(text,lookup,query);
+   docUrl=pickDocument(text,lookup,lookupReference);
  }catch(error){
    networkProblem=error instanceof Error?error.message:'Requête WOL interrompue';
    // WOL can fail to expose a JavaScript redirect on the /l/ endpoint.
@@ -751,7 +806,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
          lookupExcerpt=parseWolLookupResults(html,fallback,query)
            ||matchingSearchResultChoices(html,fallback,query);
        }
-       docUrl=pickDocument(html,fallback,query);
+       docUrl=pickDocument(html,fallback,lookupReference);
        if(docUrl||lookupExcerpt?.lines.length)break;
      }catch(error){
        networkProblem+=(networkProblem?' ; ':'')+
@@ -759,7 +814,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      }
    }
  }
- docUrl=docUrl||knownCitation(query);
+ docUrl=docUrl||knownCitation(ref.label)||knownCitation(query);
  if(!docUrl){
    if(lookupExcerpt&&lookupExcerpt.lines.length)return lookupExcerpt;
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
@@ -770,14 +825,17 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    empty.kind='results';return empty;
  }
  try{
-   const article=readerForDocument(await officialText(docUrl),docUrl,query);
+   const article=readerForDocument(await officialText(docUrl),docUrl,ref.label);
    article.kind='article';
    return article;
  }catch(error){
    // Never lose the content already extracted from #lookupResults just because
    // a linked /d page is blocked or contains only WOL's navigation shell.
    if(lookupExcerpt&&lookupExcerpt.lines.length){
-     lookupExcerpt.notice='Résultat de consultation WOL (extrait, pas forcément l’article intégral). Le document complet n’a pas pu être chargé dans Obsidian.';
+     // A set of candidate articles is useful information, not a generic
+     // excerpt; do not overwrite its ambiguity explanation.
+     if(!lookupExcerpt.notice?.startsWith('Plusieurs documents correspondent'))
+       lookupExcerpt.notice='Résultat de consultation WOL (extrait, pas forcément l’article intégral). Le document complet n’a pas pu être chargé dans Obsidian.';
      return lookupExcerpt;
    }
    const empty=parseWolDocument(text||'<main></main>',lookup,query);

@@ -34,7 +34,13 @@ export function cleanWolUrl(raw:string):string|null {
        url.search=new URLSearchParams({q:query}).toString();
      }
    }
-   url.hash='';return url.toString();
+   // WOL's #h=3 fragment is an official in-document location. Preserve
+   // only its narrowly validated form on direct article links so a § citation
+   // can retain the right place when opened on WOL. All other fragments
+   // remain stripped as before.
+   if(!/^\/fr\/wol\/d\/r30\/lp-f\/\d+$/.test(url.pathname)||
+      !/^#h=\d{1,5}$/.test(url.hash))url.hash='';
+   return url.toString();
  }catch{return null;}
 }
 export function bibleChapterUrl(scripture:ScriptureRef):string{
@@ -159,10 +165,23 @@ function normalizedText(node:Element|null,max=2200):string {
  return cleanReadingText(node?.textContent||'').slice(0,max);
 }
 function findDocumentRoot(doc:Document):Element {
- // A WOL layout may contain an empty .bodyTxt placeholder before the real
- // article; selecting the first matching element hides its actual contents.
- const selectors='.bodyTxt, .document .bodyTxt, #article, article, [role="main"], main, #content, .document, .article, .articleBody, .documentBody';
- const candidates=[...doc.querySelectorAll(selectors)];
+ // querySelectorAll("article,main,.bodyTxt") follows DOM order, NOT selector
+ // priority. On WOL, <main> may contain a complete navigation menu before
+ // the actual article. Always prefer a readable article subtree over the
+ // outer layout; ignore empty .bodyTxt placeholders.
+ const selectors=[
+  '.bodyTxt','.document .bodyTxt','.articleBody','.documentBody',
+  '#article','article','.article','.document',
+  '[role="main"]','#content','main'
+ ];
+ const candidates:Element[]=[];
+ const seen=new Set<Element>();
+ for(const selector of selectors){
+  for(const element of doc.querySelectorAll(selector)){
+   if(seen.has(element))continue;
+   seen.add(element);candidates.push(element);
+  }
+ }
  for(const candidate of candidates){
    const readable=readableOfficialElement(candidate,'article',15000);
    if(readable.length>=35&&candidate.querySelector('h1,h2,p,li,blockquote,dt,dd,[data-pid],.par,.paragraph'))
@@ -319,13 +338,27 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  }
  return lines;
 }
+/** WOL occasionally renders an empty lookup placeholder before a second
+ * populated results block. Selecting the first DOM match can incorrectly
+ * fall back to the global navigation menu.
+ */
+function findLookupRoot(doc:Document):Element|null{
+ const roots=[...doc.querySelectorAll('#lookupResults,.lookupResults')];
+ for(const candidate of roots){
+   if(candidate.closest('header,nav,footer,[role="navigation"]'))continue;
+   const text=readableOfficialElement(candidate,'article',8000);
+   if(text.length>=20||candidate.querySelector('a[href*="/wol/d/"],a[href*="/wol/pc/"]'))
+     return candidate;
+ }
+ return null;
+}
 /** Read WOL's lookup results, without accidentally returning the
  * publication menu or implying that a search excerpt is a full article. */
 export function parseWolLookupResults(html:string,url:string,requested:string):ReaderResult|null{
  const official=cleanWolUrl(url);
  if(!official||!/\/wol\/(?:l|s)\//.test(official))return null;
  const document=new DOMParser().parseFromString(html,'text/html');
- const block=document.querySelector('#lookupResults,.lookupResults');
+ const block=findLookupRoot(document);
  if(!block)return null;
  const result=parseWolDocument(html,official,requested);
  // WOL may use nested divs instead of paragraphs to display a result.
@@ -354,7 +387,7 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  const isLookup=/\/wol\/(?:l|s)\//.test(official);
  // WOL's lookup results can contain useful excerpts / publication text,
  // whereas the surrounding page is only the navigation shell.
- const lookupResults=isLookup?doc.querySelector('#lookupResults,.lookupResults'):null;
+ const lookupResults=isLookup?findLookupRoot(doc):null;
  const root=lookupResults||findDocumentRoot(doc);
  const heading=normalizedText(root.querySelector('h1, h2'),190);
  const scripture=requested?parseScripture(requested):null;
