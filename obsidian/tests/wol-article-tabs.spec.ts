@@ -46,11 +46,11 @@ test('Search opens multiple independent native reading tabs without leaving Obsi
 });
 
 test('Article links navigate inside the current tab, back works, selection remains copyable',async({page})=>{
-  const initial=await page.evaluate(async()=>{
+  const initial=await page.evaluate(async(url)=>{
     const {plugin,app}=(window as any).atlasTest;
-    await plugin.openWolArticleTab({label:'L’amour et la bonté',url:URL_A,kind:'document',origin:'pinned'});
+    await plugin.openWolArticleTab({label:'L’amour et la bonté',url,kind:'document',origin:'pinned'});
     return app.workspace.getLeavesOfType('bible-lab-wol-article').length;
-  });
+  },URL_A);
   expect(initial).toBe(1);
   const article=page.locator('.biblelab-article-tab');
   await expect(article.getByText('Un passage que je peux sélectionner',{exact:false})).toBeVisible();

@@ -37,6 +37,10 @@ jobs:
           name: atlas-biblique-obsidian
           path: obsidian/artifacts/
       - run: pnpm exec playwright install --with-deps chromium
+      # Run the new editorial reading coverage independently; the broad legacy
+      # suite can hit unrelated pre-existing failures before reaching these tests.
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/reader-editorial.spec.ts --project=desktop --workers=1
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/wol-article-tabs.spec.ts --project=desktop --workers=1
       # Browser boot and the inline popover must work before running the
       # slower desktop/mobile suite. Stop quickly if the harness is broken.
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/inline-popover.spec.ts --project=desktop --workers=1 --max-failures=1

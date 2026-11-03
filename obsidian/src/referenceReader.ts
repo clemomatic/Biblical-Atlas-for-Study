@@ -7,11 +7,12 @@ import { cleanReadingText, readableOfficialElement } from './readerText.ts';
 import { findPublicationMentions, officialFinderUrl, publicationUrl } from './publicationReferences.ts';
 import { articleImageFrom, type ArticleImage } from './articleImages.ts';
 import { markdownCitationScanText } from './markdownCitationScan.ts';
+import { preserveInlineEmphasis } from './readerInlineFormatting.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
-export interface ReaderPart {text:string;url?:string;kind?:ReferenceKind}
-export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image';text:string;source?:string;number?:string;parts?:ReaderPart[];image?:ArticleImage;/** Exact official scripture targets associated with this verse or cross-reference. */references?:ReaderLink[];/** Position of original '+' symbols in cleaned verse text. */referenceMarkers?:{offset:number;targets:ReaderLink[]}[]}
+export interface ReaderPart {text:string;url?:string;kind?:ReferenceKind;bold?:boolean;italic?:boolean}
+export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image'|'list'|'quote'|'theme';text:string;source?:string;number?:string;parts?:ReaderPart[];image?:ArticleImage;/** Exact official scripture targets associated with this verse or cross-reference. */references?:ReaderLink[];/** Position of original '+' symbols in cleaned verse text. */referenceMarkers?:{offset:number;targets:ReaderLink[]}[]}
 export interface ReaderLink {label:string;url:string}
 export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string}
 export const MAX_REFERENCES=60;
@@ -312,8 +313,9 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
    if(lines.length>=limit)break;
    continue;
   }
-  // Nested WOL groups must not duplicate their child paragraphs.
-  if(el.matches('div.pGroup')&&el.querySelector('p,li,dd,div.p,div.par,div.paragraph,div[data-pid],section[data-pid]'))continue;
+  // A heading/blockquote/container and its nested textual elements must
+  // never be emitted twice: preserve the inner paragraphs in document order.
+  if(el.matches('div.pGroup,blockquote')&&el.querySelector('p,li,dd,div.p,div.par,div.paragraph,div[data-pid],section[data-pid]'))continue;
   if(el.matches('p,li,dd,div.p,div.par,div.paragraph,div[data-pid],section[data-pid]')&&
      el.querySelector('p,li,dd,div.p,div.par,div.paragraph,div[data-pid],section[data-pid]'))continue;
   const number=articleParagraphNumber(el);
@@ -323,17 +325,24 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
   if(text.length<3||seen.has(text)||/^ta réponse$/i.test(text)||/^(?:précédent|suivant|imprimer|partager)$/i.test(text))continue;
   seen.add(text);
   const classes=typeof el.className==='string'?el.className:'';
+  const names=classes.split(/\s+/).map(name=>name.toLowerCase());
+  const hasClass=(...values:string[])=>names.some(name=>values.includes(name));
   let type:ReaderLine['type']='paragraph';
-  if(/^H[1-4]$/.test(el.tagName))type='heading';
+  if(/^H[1-4]$/.test(el.tagName)||hasClass('sb','sh','subheading','sectionheading','boxttl'))type='heading';
   else if(el.tagName==='FIGCAPTION'||/caption|legend/i.test(classes))type='caption';
-  else if(/question|studyQ|questionText/i.test(classes)||/^\d{1,2}\.\s+.{6,}\?$/.test(text))type='question';
+  else if(hasClass('qu','studyq','question','questiontext')||
+      /question|studyQ|questionText/i.test(classes)||/^\d{1,2}\.\s+.{6,}\?$/.test(text))type='question';
+  else if(hasClass('themescrp','theme-scripture'))type='theme';
   else if(/studyNote|footnote/i.test(classes))type='note';
   else if(/crossRef|xref/i.test(classes))type='crossref';
+  else if(el.tagName==='LI')type='list';
+  else if(el.tagName==='BLOCKQUOTE'||!!el.closest('blockquote'))type='quote';
   const explicit=[...el.querySelectorAll<HTMLAnchorElement>('a[href]')].slice(0,30)
    .map(a=>({label:cleanReadingText(a.textContent||''),
      url:allowLink(a.getAttribute('href')||'',sourceUrl)||''}))
    .filter(item=>item.url);
-  lines.push({type,text,number,parts:linkifyReaderText(text,explicit)});
+  const parts=preserveInlineEmphasis(readable,text,linkifyReaderText(text,explicit));
+  lines.push({type,text,number,parts});
   if(lines.length>=limit)break;
  }
  return lines;

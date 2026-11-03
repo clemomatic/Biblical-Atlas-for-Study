@@ -232,3 +232,76 @@
  .biblelab-popover-footer {flex-wrap:wrap}
  .biblelab-popover-footer .biblelab-popover-btn {flex:0 0 auto}
 }
+
+
+/* Bible Lab 0.9.20 — editorial pop-up reading. */
+.biblelab-inline-popover {
+ border:1px solid color-mix(in srgb,var(--interactive-accent) 23%,var(--background-modifier-border));
+ box-shadow:0 22px 65px #00000032,0 5px 17px #0000000f;
+}
+.biblelab-popover-header {
+ background:
+   linear-gradient(125deg,color-mix(in srgb,var(--interactive-accent) 11%,var(--background-secondary)),var(--background-secondary));
+}
+.biblelab-popover-eyebrow {
+ color:var(--text-accent);letter-spacing:.15em;
+}
+.biblelab-popover-document-title {
+ font:760 17px/1.4 var(--font-interface);letter-spacing:-.025em;
+ margin:0 0 18px;padding:0 0 13px;
+ border-bottom:1px solid var(--background-modifier-border);
+}
+.biblelab-popover-line {
+ font:400 13.5px/1.87 var(--font-text),Georgia,serif;
+ margin-bottom:16px;
+}
+.biblelab-popover-line strong {font-weight:750;color:var(--text-normal)}
+.biblelab-popover-line em {font-style:italic}
+.biblelab-popover-line.biblelab-popover-heading {
+ font:780 14.5px/1.5 var(--font-interface);
+ letter-spacing:-.02em;
+ margin:27px 0 15px;
+ padding:0 0 10px;
+ border-bottom:1px solid var(--background-modifier-border);
+ position:relative;
+}
+.biblelab-popover-line.biblelab-popover-heading::after {
+ content:"";position:absolute;left:0;bottom:-1px;width:39px;height:2px;
+ background:var(--interactive-accent);border-radius:2px;
+}
+.biblelab-popover-line.biblelab-popover-question {
+ padding:13px 14px!important;
+ border-left:3px solid var(--interactive-accent);
+ border-radius:0 10px 10px 0;
+ background:color-mix(in srgb,var(--interactive-accent) 7%,var(--background-primary));
+ font:750 12.5px/1.7 var(--font-interface);
+ margin:19px 0 21px;
+}
+.biblelab-popover-line.biblelab-popover-question::before {
+ content:"QUESTION";display:block;margin-bottom:5px;
+ color:var(--text-accent);
+ font:800 9px/1.4 var(--font-interface);letter-spacing:.14em;
+}
+.biblelab-popover-line.biblelab-popover-theme,
+.biblelab-popover-line.biblelab-popover-quote {
+ margin:18px 0;padding:13px 15px;
+ border-radius:0 10px 10px 0;
+ border-left:3px solid var(--interactive-accent);
+ background:var(--background-secondary);
+ font-style:italic;
+}
+.biblelab-popover-line.biblelab-popover-list {
+ position:relative;padding-left:21px;margin:9px 0 12px;
+}
+.biblelab-popover-line.biblelab-popover-list::before {
+ content:"•";position:absolute;left:4px;top:0;
+ color:var(--text-accent);font-size:19px;
+}
+.biblelab-popover-inline-link {
+ text-decoration-thickness:1px;text-underline-offset:3px;
+}
+.biblelab-popover-inline-link strong {color:inherit;font-weight:760}
+.biblelab-popover-inline-link em {color:inherit;font-style:italic}
+.biblelab-popover-content {
+ background:var(--background-primary);
+}
