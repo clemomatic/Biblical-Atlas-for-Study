@@ -338,13 +338,27 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
  }
  return lines;
 }
+/** WOL occasionally renders an empty lookup placeholder before a second
+ * populated results block. Selecting the first DOM match can incorrectly
+ * fall back to the global navigation menu.
+ */
+function findLookupRoot(doc:Document):Element|null{
+ const roots=[...doc.querySelectorAll('#lookupResults,.lookupResults')];
+ for(const candidate of roots){
+   if(candidate.closest('header,nav,footer,[role="navigation"]'))continue;
+   const text=readableOfficialElement(candidate,'article',8000);
+   if(text.length>=20||candidate.querySelector('a[href*="/wol/d/"],a[href*="/wol/pc/"]'))
+     return candidate;
+ }
+ return null;
+}
 /** Read WOL's lookup results, without accidentally returning the
  * publication menu or implying that a search excerpt is a full article. */
 export function parseWolLookupResults(html:string,url:string,requested:string):ReaderResult|null{
  const official=cleanWolUrl(url);
  if(!official||!/\/wol\/(?:l|s)\//.test(official))return null;
  const document=new DOMParser().parseFromString(html,'text/html');
- const block=document.querySelector('#lookupResults,.lookupResults');
+ const block=findLookupRoot(document);
  if(!block)return null;
  const result=parseWolDocument(html,official,requested);
  // WOL may use nested divs instead of paragraphs to display a result.
@@ -373,7 +387,7 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  const isLookup=/\/wol\/(?:l|s)\//.test(official);
  // WOL's lookup results can contain useful excerpts / publication text,
  // whereas the surrounding page is only the navigation shell.
- const lookupResults=isLookup?doc.querySelector('#lookupResults,.lookupResults'):null;
+ const lookupResults=isLookup?findLookupRoot(doc):null;
  const root=lookupResults||findDocumentRoot(doc);
  const heading=normalizedText(root.querySelector('h1, h2'),190);
  const scripture=requested?parseScripture(requested):null;
