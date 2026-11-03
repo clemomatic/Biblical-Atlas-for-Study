@@ -34,7 +34,13 @@ export function cleanWolUrl(raw:string):string|null {
        url.search=new URLSearchParams({q:query}).toString();
      }
    }
-   url.hash='';return url.toString();
+   // WOL's #h=3 fragment is an official in-document location. Preserve
+   // only its narrowly validated form on direct article links so a § citation
+   // can retain the right place when opened on WOL. All other fragments
+   // remain stripped as before.
+   if(!/^\/fr\/wol\/d\/r30\/lp-f\/\d+$/.test(url.pathname)||
+      !/^#h=\d{1,5}$/.test(url.hash))url.hash='';
+   return url.toString();
  }catch{return null;}
 }
 export function bibleChapterUrl(scripture:ScriptureRef):string{
