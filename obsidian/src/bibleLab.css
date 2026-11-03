@@ -1257,3 +1257,46 @@
 @media(prefers-reduced-motion:reduce){
   .biblelab-quick-capture *{transition:none!important;animation:none!important}
 }
+
+
+/* Bible Lab phase 5 — portable backups and explicit, reversible restore. */
+.biblelab-backup-actions{
+  display:flex;flex-direction:column;gap:10px;margin:0 0 14px;
+  border:1px solid var(--background-modifier-border);border-radius:13px;
+  padding:12px;background:var(--background-secondary);
+}
+.biblelab-backup-header{display:flex;gap:9px;align-items:flex-start}
+.biblelab-backup-header>span{display:grid;place-items:center;flex-shrink:0;
+  width:27px;height:27px;border-radius:8px;
+  color:var(--text-accent);
+  background:color-mix(in srgb,var(--interactive-accent) 11%,var(--background-primary))}
+.biblelab-backup-header svg{width:16px;height:16px}
+.biblelab-backup-header>div{flex:1;min-width:0}
+.biblelab-backup-header strong{font-size:12px;line-height:1.3}
+.biblelab-backup-header p{font-size:10px;color:var(--text-muted);
+  line-height:1.5;margin:5px 0 0}
+.biblelab-backup-buttons{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:6px}
+.biblelab-backup-buttons .biblelab-btn{
+  font-size:10px;min-height:34px;white-space:normal;padding:7px 5px;
+  text-align:center;justify-content:center}
+.biblelab-backup-buttons .biblelab-btn span:last-child{overflow-wrap:anywhere}
+.biblelab-restore-modal{display:flex;flex-direction:column;gap:11px}
+.biblelab-restore-modal h2{font-size:17px;margin:0}
+.biblelab-restore-modal>p{font-size:12px;color:var(--text-muted);line-height:1.6;margin:0}
+.biblelab-restore-modal select{width:100%;max-width:100%;padding:9px 10px;
+  color:var(--text-normal);background:var(--background-primary);
+  border:1px solid var(--background-modifier-border);border-radius:9px}
+.biblelab-backup-preview{padding:12px;border-radius:9px;
+  background:var(--background-secondary);color:var(--text-muted);
+  font-size:12px;line-height:1.6;overflow-wrap:anywhere}
+.biblelab-backup-consent{display:flex;gap:9px;align-items:flex-start;
+  font-size:12px;line-height:1.5}
+.biblelab-backup-consent input{flex:0 0 auto;margin-top:2px}
+.biblelab-backup-modal-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
+.biblelab-backup-modal-actions button{min-height:33px}
+@container (max-width:290px){
+  .biblelab-backup-buttons{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){
+  .biblelab-backup-actions *{transition:none!important;animation:none!important}
+}
