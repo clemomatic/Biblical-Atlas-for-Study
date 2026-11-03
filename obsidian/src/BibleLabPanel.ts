@@ -10,7 +10,7 @@ import { dayLink, meetingIssueLink, findMeetingProgramme, wolMeetingLink, parseD
 import { extractReferenceEntries, cleanWolUrl, passageUrl, parseWolDocument, type ReferenceEntry } from './referenceReader';
 import { findPublicationMentions } from './publicationReferences';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
-import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, preferredWolHits, hasWolNextPage, isWolAccessChallenge, WOL_RESULTS_PAGE_SIZE, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
+import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, preferredWolHits, hasWolNextPage, isWolAccessChallenge, wolHtmlHasExplicitlyNoResults, wolSearchAlternateUrls, WOL_RESULTS_PAGE_SIZE, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
 
@@ -604,19 +604,42 @@ export class BibleLabSidebarView extends ItemView {
     this.wolResultsLoading=true;this.wolResultsError='';this.wolResults=[];this.wolResultsQuery='';
     if(this.tab==='wol')this.render();
     try{
-      const response=await requestUrl({url,throw:false});
-      if(response.status!==200)throw Error('WOL a répondu avec le code '+response.status+
-         (response.status===403||response.status===429?' (accès automatisé limité).':'.'));
-      if(isWolAccessChallenge(response.text))
-        throw Error('WOL demande une vérification anti-robot. Les résultats ne sont pas disponibles via la requête directe d’Obsidian.');
-      const all=parseWolSearchResults(response.text,url);
+      // WOL sometimes returns a 200 HTML navigation shell to Obsidian while
+      // a regular browser eventually displays results. Retry official URL
+      // variants, but never turn navigation or JavaScript into fake hits.
+      let all:WolSearchHit[]=[];
+      let sourceHtml='',sourceUrl=url,explicitEmpty=false;
+      const attempts=[url,...wolSearchAlternateUrls(url)];
+      for(const [index,candidate] of attempts.entries()){
+        if(seq!==this.wolResultsSequence)return;
+        let response;
+        try{response=await requestUrl({url:candidate,throw:false});}
+        catch(error){if(index===0)throw error;continue;}
+        if(response.status!==200){
+          if(index===0)throw Error('WOL a répondu avec le code '+response.status+
+            (response.status===403||response.status===429?' (accès automatisé limité).':'.'));
+          continue;
+        }
+        if(isWolAccessChallenge(response.text)){
+          if(index===0)throw Error('WOL demande une vérification anti-robot. Les résultats ne sont pas disponibles via la requête directe d’Obsidian.');
+          continue;
+        }
+        all=parseWolSearchResults(response.text,candidate);
+        if(all.length){sourceHtml=response.text;sourceUrl=candidate;break;}
+        if(wolHtmlHasExplicitlyNoResults(response.text)){
+          explicitEmpty=true;
+          break;
+        }
+      }
       if(!all.length)
-        throw Error('La page WOL ne contient aucun résultat exploitable. Le moteur peut être inaccessible temporairement ou sa structure a changé.');
+        throw Error(explicitEmpty
+          ?'Cette page WOL ne renvoie aucun résultat exploitable pour la recherche.'
+          :'WOL a renvoyé une page sans liste de résultats lisible par Obsidian. Les résultats peuvent apparaître dans un navigateur après chargement du site, mais ils ne figurent pas dans la réponse HTML reçue.');
       // Do not truncate *before* filtering reference works. Index, Guide and
       // Perspicace share many common search matches on the same results page.
       const items=preferredWolHits(all,term,this.searchScope);
       if(seq!==this.wolResultsSequence)return;
-      this.wolHasNextPage=hasWolNextPage(response.text,url,all.length);
+      this.wolHasNextPage=sourceUrl.includes('/wol/s/')&&hasWolNextPage(sourceHtml,sourceUrl,all.length);
       // If a real WOL page has links but lacks readable publication metadata,
       // show its safe official links instead of declaring the search empty.
       this.wolResults=(items.length?items:all).slice(0,WOL_RESULTS_PAGE_SIZE);
