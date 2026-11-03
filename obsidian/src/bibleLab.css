@@ -1027,3 +1027,117 @@
 .biblelab-home-wol-quick .biblelab-search{margin:0}
 .biblelab-home-wol-quick .biblelab-plan-toolbar{margin:8px 0 0}
 .biblelab-home-wol-quick .biblelab-btn{padding:5px 8px;font-size:10px;min-height:29px}
+
+
+/* Bible Lab phase 2 — a persistent, non-linear source inbox and idea composer. */
+.biblelab-side .biblelab-nav-primary{grid-template-columns:repeat(4,minmax(0,1fr))}
+.biblelab-side .biblelab-nav-primary>.biblelab-tab{font-size:10.5px;gap:4px;padding:8px 4px}
+.biblelab-capture-shortcut{
+  display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;
+  padding:11px 12px;margin:0 0 13px;background:var(--background-primary);
+  border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  border-radius:12px;
+}
+.biblelab-capture-shortcut-info{display:flex;align-items:center;gap:9px;flex:1;min-width:0}
+.biblelab-capture-shortcut-info>span{display:grid;place-items:center;color:var(--text-accent)}
+.biblelab-capture-shortcut-info svg{width:19px;height:19px}
+.biblelab-capture-shortcut-info>div{display:flex;flex-direction:column;gap:3px;min-width:0}
+.biblelab-capture-shortcut-info strong{font-size:12px;color:var(--text-normal)}
+.biblelab-capture-shortcut-info div span{font-size:10px;color:var(--text-muted)}
+.biblelab-capture-shortcut .biblelab-btn{min-height:30px;font-size:10px;padding:5px 8px}
+.biblelab-capture-shortcut.is-compact{background:var(--background-secondary);padding:8px 10px}
+.biblelab-collect-form{
+  border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  padding:14px;margin:0 0 17px;border-radius:15px;
+  background:linear-gradient(135deg,
+    color-mix(in srgb,var(--interactive-accent) 7%,var(--background-secondary)),
+    var(--background-secondary) 75%);
+  display:flex;flex-direction:column;gap:8px
+}
+.biblelab-collect-form h3{font-size:14px;line-height:1.3;margin:0}
+.biblelab-collect-form>p{font-size:11px;line-height:1.55;color:var(--text-muted);margin:0}
+.biblelab-collect-form input,
+.biblelab-collect-form textarea,
+.biblelab-collect-url-picker select,
+.biblelab-capture-card select,
+.biblelab-idea-card textarea,
+.biblelab-idea-add-source select,
+.biblelab-collect-all input {
+  width:100%;min-width:0;max-width:100%;
+  border:1px solid var(--background-modifier-border);border-radius:9px;
+  color:var(--text-normal);background:var(--background-primary);
+  box-shadow:none;outline:0;padding:9px 10px;font:inherit;font-size:12px;line-height:1.5
+}
+.biblelab-collect-form textarea,.biblelab-idea-card textarea{resize:vertical}
+.biblelab-collect-form :focus-visible,.biblelab-idea-card :focus-visible,
+.biblelab-collect-all :focus-visible{outline:2px solid var(--interactive-accent);outline-offset:1px}
+.biblelab-collect-url-picker{display:flex;flex-wrap:wrap;gap:6px}
+.biblelab-collect-url-picker select{flex:1 1 145px;white-space:nowrap;text-overflow:ellipsis}
+.biblelab-collect-url-picker .biblelab-btn{flex:0 0 auto}
+.biblelab-collect-form .biblelab-plan-toolbar{margin:0}
+.biblelab-collect-groups>.biblelab-section-head{margin:13px 0 9px;display:flex;gap:7px;flex-wrap:wrap}
+.biblelab-collect-groups>.biblelab-section-head h3{font-size:10px;letter-spacing:.065em;margin:0;flex:1}
+.biblelab-collect-groups>.biblelab-section-head .biblelab-btn{font-size:10px;min-height:29px}
+.biblelab-capture-card{
+  min-width:0;margin:0 0 8px;padding:11px 12px;
+  border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  border-radius:11px;background:var(--background-primary)
+}
+.biblelab-capture-card>strong{font-size:12px;display:block;overflow-wrap:anywhere}
+.biblelab-capture-excerpt{
+  border-left:2px solid color-mix(in srgb,var(--interactive-accent) 42%,transparent);
+  padding-left:9px;white-space:pre-wrap;color:var(--text-normal)
+}
+.biblelab-capture-card p{font-size:11px;line-height:1.55;margin:7px 0}
+.biblelab-capture-comment{color:var(--text-muted);font-style:italic}
+.biblelab-capture-source{border:0;background:none;padding:3px 0;max-width:100%;min-width:0;
+  color:var(--text-accent);font-size:10px;text-align:left;cursor:pointer;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.biblelab-capture-no-source{display:block;color:var(--text-faint);font-size:10px;margin-top:4px}
+.biblelab-capture-card .biblelab-plan-toolbar{margin:8px 0 0}
+.biblelab-capture-card .biblelab-btn{font-size:10px;min-height:27px}
+.biblelab-capture-card select{flex:1 1 105px;width:auto;padding:5px;font-size:10px}
+.biblelab-idea-card{
+  min-width:0;margin:0 0 11px;padding:13px;
+  background:var(--background-secondary);
+  border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  border-radius:14px
+}
+.biblelab-idea-head{display:flex;justify-content:space-between;gap:5px;align-items:center;margin:0 0 8px}
+.biblelab-idea-head>span{color:var(--text-muted);font-size:10px;letter-spacing:.08em;font-weight:760}
+.biblelab-idea-head .biblelab-btn{font-size:10px;padding:5px}
+.biblelab-idea-card textarea{background:var(--background-primary);font-size:13px;font-weight:650}
+.biblelab-idea-sources{margin:10px 0;display:flex;flex-direction:column;gap:6px}
+.biblelab-idea-source{
+  display:grid;grid-template-columns:19px minmax(0,1fr);gap:4px 7px;
+  align-items:center;padding:8px;border-radius:9px;
+  background:var(--background-primary);border:1px solid var(--background-modifier-border)
+}
+.biblelab-idea-source-text{min-width:0}
+.biblelab-idea-source-text>strong{font-size:11px;overflow-wrap:anywhere}
+.biblelab-idea-source-text>p{font-size:10px;line-height:1.45;margin:4px 0 0;color:var(--text-muted);
+  display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;overflow:hidden}
+.biblelab-idea-source-actions{grid-column:2;display:flex;flex-wrap:wrap;gap:4px}
+.biblelab-idea-source-actions .biblelab-btn{padding:4px 6px;min-height:26px;font-size:10px}
+.biblelab-idea-source-actions .biblelab-btn span:last-child{display:none}
+.biblelab-idea-source-actions .biblelab-btn:disabled{opacity:.35}
+.biblelab-idea-add-source{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0}
+.biblelab-idea-add-source select{flex:1 1 125px;width:auto;font-size:11px}
+.biblelab-idea-preview{margin:10px 0;padding:11px;border-radius:10px;background:var(--background-primary);
+  border:1px dashed var(--background-modifier-border)}
+.biblelab-idea-preview>span{font-size:9px;color:var(--text-muted);letter-spacing:.08em;font-weight:760}
+.biblelab-idea-preview>p{margin:6px 0 0;font-size:12px;color:var(--text-normal);
+  line-height:1.5;overflow-wrap:anywhere;white-space:pre-wrap}
+.biblelab-idea-card>.biblelab-plan-toolbar{margin:8px 0 0}
+.biblelab-collect-all{border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  border-radius:11px;padding:10px;margin:15px 0;background:var(--background-primary)}
+.biblelab-collect-all>summary{font-size:12px;font-weight:700;cursor:pointer;color:var(--text-normal)}
+.biblelab-collect-all>input{margin:10px 0}
+.biblelab-collect-ref-row{display:flex;justify-content:flex-end;padding:4px 3px}
+.biblelab-collect-ref-row .biblelab-btn{font-size:10px;min-height:27px}
+@container (max-width:340px){
+  .biblelab-side .biblelab-nav-primary{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(prefers-reduced-motion:reduce){
+  .biblelab-capture-card,.biblelab-idea-card{transition:none!important}
+}
