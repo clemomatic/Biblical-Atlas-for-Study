@@ -185,7 +185,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     const floatingStyle=document.head.createEl('style',{text:inlineReferenceCss});
     this.register(()=>floatingStyle.remove());
     this.inlinePopup=new BibleLabInlinePopover(ref=>
-      this.run(this.openBibleLab(ref.kind==='scripture'?ref.label:ref.url)));
+      this.run(this.openBibleLab(ref.url,ref.label)));
     this.register(()=>{this.inlinePopup?.destroy();this.inlinePopup=undefined;});
     const showInline=(label:string,anchor:HTMLElement)=>
       this.inlinePopup?.open(label,anchor);
@@ -278,7 +278,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     if (!selection) new Notice('Lieu non identifié dans l’Atlas interactif ; ouverture de la carte générale.');
     this.run(this.openAtlas(selection?.key));
   };
-  async openBibleLab(reference?: string): Promise<void> {
+  async openBibleLab(reference?: string, displayLabel?: string): Promise<void> {
     await this.ready;
     let leaf = this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
     if (!leaf) {
@@ -288,7 +288,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     await this.app.workspace.revealLeaf(leaf);
     if (leaf.view instanceof BibleLabSidebarView) {
       await leaf.view.updateActiveNote(this.app.workspace.getActiveFile());
-      if (reference?.trim()) leaf.view.focusReference(reference.trim());
+      if (reference?.trim()) leaf.view.focusReference(reference.trim(),displayLabel?.trim());
     }
   }
   async openAtlas(key?: AtlasEntityKey): Promise<void> {

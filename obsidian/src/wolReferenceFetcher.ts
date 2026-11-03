@@ -1,7 +1,7 @@
 import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
-import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
+import { readableOfficialHtml, readableOfficialElement, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
 import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
 import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
@@ -752,9 +752,55 @@ export function parseOfficialVerseExtras(entry:JwVerseExtras,ref:ReferenceEntry)
    sourceUrl:ref.url,kind:'verse',lines,links,
    notice:'Bible d’étude · texte, notes et renvois · jw.org'};
 }
+/** Request a complete, bounded cross-chapter passage as ONE official Bible
+ * range, instead of mistaking the end chapter for a verse or issuing a
+ * hundred individual requests. Never silently truncate a long passage. */
+async function fetchCrossChapterPassage(ref:ReferenceEntry,scripture:NonNullable<ReturnType<typeof parseScripture>>):Promise<ReaderResult>{
+ const start=scripture.chapter,finish=scripture.endChapter!,last=scripture.endVerse!;
+ const digits=(chapter:number,verse:number)=>
+   String(scripture.book)+String(chapter).padStart(3,'0')+String(verse).padStart(3,'0');
+ const code=digits(start,scripture.verse)+'-'+digits(finish,last);
+ const sourceUrl=WOL+'b/r30/lp-f/nwt/'+scripture.book+'/'+start;
+ const label=scripture.label;
+ try{
+   const response=await requestUrl({url:API+code,throw:false});
+   if(response.status!==200)throw Error('Passage non disponible (HTTP '+response.status+').');
+   const body=response.json as {ranges?:Record<string,JwVerseExtras>};
+   const entry=body?.ranges?.[code];
+   if(!entry||typeof entry.html!=='string')throw Error('Passage absent des données officielles.');
+   const document=new DOMParser().parseFromString(entry.html,'text/html');
+   // A whole passage must not use readableOfficialHtml's normal 12k limit:
+   // silently cutting off the final chapter would misrepresent the citation.
+   const text=readableOfficialElement(document.body,'verse',100000);
+   if(!text)throw Error('Texte du passage indisponible.');
+   return {
+     title:label,sourceUrl,kind:'verse',links:[],
+     lines:[{type:'verse',number:start+':'+scripture.verse+'–'+finish+':'+last,text}],
+     notice:'Passage continu · chapitres '+start+' à '+finish+' · source officielle jw.org'
+   };
+ }catch{
+   // The official range endpoint isn't always available. Expose EVERY
+   // requested chapter rather than falsely presenting chapter 1 as the range.
+   const lines:ReaderResult['lines']=[];
+   const links:ReaderResult['links']=[];
+   for(let chapter=start;chapter<=finish;chapter++){
+     const url=WOL+'b/r30/lp-f/nwt/'+scripture.book+'/'+chapter;
+     const name=label.slice(0,label.indexOf(' '+start+':'))+' '+chapter;
+     const title='Chapitre '+chapter+(chapter===start?' (à partir du verset '+scripture.verse+')':
+       chapter===finish?' (jusqu’au verset '+last+')':' (entier)');
+     lines.push({type:'heading',text:title});
+     lines.push({type:'paragraph',text:'Lire '+title+' sur WOL.',
+       parts:[{text:'Lire '+title+' sur WOL',url,kind:'scripture'},{text:'.'}]});
+     links.push({label:name,url});
+   }
+   return {title:label,sourceUrl,kind:'article',lines,links,
+     notice:'Le texte intégral de cette plage sur plusieurs chapitres n’a pas pu être extrait automatiquement. Ouvre les chapitres officiels ci-dessous pour parcourir tout le passage.'};
+ }
+}
 export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
  const scripture=parseScripture(ref.label);
  if(!scripture)return fetchPublication(ref);
+ if(scripture.endChapter)return fetchCrossChapterPassage(ref,scripture);
  const requested=scripture.verses||[];
  if(requested.length>1){
    // Lists (2, 3) and ranges (1-4) are not single verses.

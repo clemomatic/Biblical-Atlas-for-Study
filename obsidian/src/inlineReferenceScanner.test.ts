@@ -60,3 +60,18 @@ test('An existing Markdown citation keeps the book for subsequent semicolon chap
  assert.deepEqual(standalone.map(x=>x.ref.label),['Actes 2:1-4','Actes 3:6, 7']);
  assert.equal(findInlineReferences(' ; 2:1-4 ; 3:6, 7').length,0);
 });
+
+test('Full chapter-spanning Bible and paragraph-qualified magazine links are highlighted and convertible',()=>{
+ const text='Lire Dn 1:1 – 3:30 puis w16.06 20 § 11.';
+ const refs=findInlineReferences(text);
+ assert.deepEqual(refs.map(x=>x.label),['Dn 1:1 – 3:30','w16.06 20 § 11']);
+ assert.deepEqual(refs.map(x=>x.ref.label),['Daniel 1:1-3:30','w16.06 20 § 11']);
+ assert.equal(refs[0]?.ref.kind,'scripture');
+ assert.equal(refs[1]?.ref.kind,'publication');
+ assert.equal(refs[0]?.ref.url,'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/27/1');
+ const result=linkReferencesInMarkdown(text);
+ assert.equal(result.count,2);
+ assert.ok(result.text.includes('[Dn 1:1 – 3:30]('));
+ assert.ok(result.text.includes('[w16.06 20 § 11]('));
+ assert.equal(linkReferencesInMarkdown(result.text).count,0);
+});

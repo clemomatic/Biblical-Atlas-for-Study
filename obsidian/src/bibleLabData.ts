@@ -57,11 +57,27 @@ OFFICIAL_BOOK_ALIASES.forEach((items,i)=>{
 });
 export interface ScriptureRef {
  label:string;book:number;chapter:number;verse:number;endVerse?:number;
- /** Exact requested verses, preserving comma list vs range semantics. */
+ /** Final chapter of a cross-chapter passage (e.g. Daniel 1:1–3:30). */
+ endChapter?:number;
+ /** Exact requested verses within one chapter; a cross-chapter range uses endChapter/endVerse. */
  verses?:number[];
 }
 export function parseScripture(input:string):ScriptureRef|null{
  const trimmed=cleanReadingText(input);
+ // Explicit chapter:verse – chapter:verse must be checked BEFORE a
+ // single-chapter verse range. Do not misread Daniel 1:1–3:30 as 1:1-3.
+ const cross=trimmed.match(/^(.+?)\s+(\d{1,3})\s*[:.]\s*(\d{1,3})\s*[-–—]\s*(\d{1,3})\s*[:.]\s*(\d{1,3})$/u);
+ if(cross){
+  const book=ALIASES[normalizeSearch(cross[1]).replace(/\.$/,'')];
+  const chapter=Number(cross[2]),verse=Number(cross[3]);
+  const endChapter=Number(cross[4]),endVerse=Number(cross[5]);
+  // Limit a single expanded reading to five consecutive chapters.
+  if(!book||chapter<1||chapter>150||verse<1||verse>176||
+     endChapter<=chapter||endChapter>150||endChapter-chapter>5||
+     endVerse<1||endVerse>176)return null;
+  return {label:BOOKS[book-1]+' '+chapter+':'+verse+'-'+endChapter+':'+endVerse,
+    book,chapter,verse,endChapter,endVerse};
+ }
  const match=trimmed.match(/^(.+?)\s+(\d{1,3})\s*[:.]\s*(\d{1,3}(?:\s*[-–—]\s*\d{1,3})?(?:\s*,\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3})?)*)$/u);
  if(!match)return null;
  const book=ALIASES[normalizeSearch(match[1]).replace(/\.$/,'')];
@@ -102,19 +118,24 @@ const SCRIPTURE_BOOKS=[...new Set([...BOOKS,...Object.keys(ALIASES),
   'Éph','Jér','Éz','Héb','Rév'])].sort((a,b)=>b.length-a.length);
 const scriptureBookAlternates=SCRIPTURE_BOOKS
  .map(book=>book.replace(/[.*+?^$()|[\]{}\\]/g,'\\$&')).join('|');
+// Prefer a complete cross-chapter ending (3:30) before a simple verse span.
+const verseTail='\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3}\\s*[:.]\\s*\\d{1,3}|'+
+ '\\s*[-–—]\\s*\\d{1,3}|)(?:\\s*,\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)*';
 const scriptureReferencePattern=new RegExp(
   '(?<![\\p{L}\\p{N}])((?:'+scriptureBookAlternates+')\\.?\\s+\\d{1,3}\\s*[:.]\\s*'+
-  '\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?(?:\\s*,\\s*\\d{1,3}(?:\\s*[-–—]\\s*\\d{1,3})?)*)',
-  'giu');
+  verseTail+')','giu');
 export interface ScriptureMention {from:number;to:number;label:string;ref:ScriptureRef}
 // A semicolon followed by a chapter number inherits the last explicit book.
 // Require an adjacent clause; do not link unrelated "2:15" numbers in prose.
-const CONTINUED_VERSES=/^\s*[;；]\s*(\d{1,3}\s*:\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3})?(?:\s*,\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3})?)*)/u;
+const CONTINUED_VERSES=/^\s*[;；]\s*(\d{1,3}\s*:\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3}\s*:\s*\d{1,3}|(?:\s*[-–—]\s*\d{1,3})?(?:\s*,\s*\d{1,3}(?:\s*[-–—]\s*\d{1,3})?)*))/u;
 export function findScriptureMentions(note:string,inheritedBook?:string):ScriptureMention[]{
  const mentions:ScriptureMention[]=[];
  const known=new Set<string>();
  const add=(from:number,to:number,label:string,ref:ScriptureRef):void=>{
-  if(to<note.length&&/[\p{L}\p{N}]/u.test(note[to]))return;
+  if(to<note.length&&/[\p{L}\p{N}:]/u.test(note[to]))return;
+  // Don't silently link a truncated prefix when the remainder looks like a
+  // cross-chapter citation but the whole input is invalid.
+  if(/^\s*[-–—]\s*\d{1,3}\s*[:.]\s*\d/.test(note.slice(to)))return;
   const key=from+':'+to;
   if(!known.has(key)){known.add(key);mentions.push({from,to,label,ref});}
  };

@@ -88,3 +88,27 @@ test('Semicolon continuations inherit the preceding canonical Bible book, not it
  assert.deepEqual(findScriptureMentions('Rendez-vous à 2:30 ; 3:15'),[],
   'No bare chapters without an explicit book');
 });
+
+test('A reference spanning chapters is one complete source, never chapter 1 verse 1-3',()=>{
+ const samples=['Dn 1:1 – 3:30','Dn 1:1-3:30','Dan. 1:1 — 3:30','Daniel 1:1–3:30'];
+ for(const value of samples){
+  const parsed=parseScripture(value);
+  assert.equal(parsed?.book,27,value);
+  assert.equal(parsed?.chapter,1,value);
+  assert.equal(parsed?.verse,1,value);
+  assert.equal(parsed?.endChapter,3,value);
+  assert.equal(parsed?.endVerse,30,value);
+  assert.equal(parsed?.label,'Daniel 1:1-3:30',value);
+  const matches=findScriptureMentions('Lire '+value+' puis méditer.');
+  assert.deepEqual(matches.map(x=>x.label),[value],value);
+  assert.equal(matches[0]?.ref.endChapter,3,value);
+ }
+ assert.deepEqual(extractReferences('Dn 1:1 – 3:30'),['Dn 1:1 – 3:30']);
+ const continued=findScriptureMentions('Daniel 1:1 ; 2:1 – 3:30');
+ assert.deepEqual(continued.map(x=>x.ref.label),['Daniel 1:1','Daniel 2:1-3:30']);
+ for(const invalid of ['Dn 3:30 – 1:1','Dn 1:1 – 0:30','Dn 1:1 – 9:30',
+   'Dn 1:1 – 3:0','Dn 1:1 – 3:500']){
+  assert.equal(parseScripture(invalid),null,invalid);
+  assert.equal(findScriptureMentions(invalid).length,0,invalid);
+ }
+});
