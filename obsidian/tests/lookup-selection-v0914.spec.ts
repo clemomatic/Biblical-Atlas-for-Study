@@ -31,7 +31,7 @@ test('The correct Watchtower article is read despite WOL navigation appearing be
  await expect(pane).not.toContainText('PUBLICATIONS BIBLE RECHERCHER');
 });
 
-test('When WOL serves only its menu for the article, the actual lookupResults excerpt is kept',async({page})=>{
+test('A populated lookupResults is preferred over an empty duplicate and the navigation shell',async({page})=>{
  await page.route(article,route=>route.fulfill({
   status:200,contentType:'text/html',
   body:'<html><main><h1>Consulter</h1>'+
@@ -40,7 +40,7 @@ test('When WOL serves only its menu for the article, the actual lookupResults ex
  await page.route('https://wol.jw.org/fr/wol/l/**',route=>route.fulfill({
   status:200,contentType:'text/html',
   body:'<html><main><h1>Consulter</h1><nav>MENU</nav>'+
-   '<div id="lookupResults"><article class="result">'+
+   '<div id="lookupResults"></div><div class="lookupResults"><article class="result">'+
    '<a href="'+article+'">Frères, vous qualifiez-vous pour devenir assistants ?</a>'+
    '<p>w24 novembre p. 14-19</p>'+
    '<p>Extrait du véritable résultat WOL, au-delà de son menu.</p>'+
