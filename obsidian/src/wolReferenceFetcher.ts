@@ -829,7 +829,10 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    // Never lose the content already extracted from #lookupResults just because
    // a linked /d page is blocked or contains only WOL's navigation shell.
    if(lookupExcerpt&&lookupExcerpt.lines.length){
-     lookupExcerpt.notice='Résultat de consultation WOL (extrait, pas forcément l’article intégral). Le document complet n’a pas pu être chargé dans Obsidian.';
+     // A set of candidate articles is useful information, not a generic
+     // excerpt; do not overwrite its ambiguity explanation.
+     if(!lookupExcerpt.notice?.startsWith('Plusieurs documents correspondent'))
+       lookupExcerpt.notice='Résultat de consultation WOL (extrait, pas forcément l’article intégral). Le document complet n’a pas pu être chargé dans Obsidian.';
      return lookupExcerpt;
    }
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
