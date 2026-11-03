@@ -2,7 +2,7 @@ import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, readableOfficialElement, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
-import { finderDocumentUrl, bookChapterLocator, referencedParagraphs } from './publicationReferences.ts';
+import { finderDocumentUrl, bookChapterLocator, referencedParagraphs, findPublicationMentions } from './publicationReferences.ts';
 import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 
@@ -163,6 +163,37 @@ export function selectInsightCandidate(html:string,base:string,reference:string)
  return null;
 }
 
+/** Choose a paragraph-specific result only when WOL includes an explicit
+ * matching bibliographic citation WITH § in that very result row. Without
+ * that evidence, two articles sharing a page remain an ambiguous choice. */
+export function selectExplicitParagraphCandidate(html:string,base:string,reference:string):string|null{
+ const paragraphs=referencedParagraphs(reference);
+ const page=publicationPages(reference);
+ if(!page||!paragraphs.length)return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const root=doc.querySelector('#lookupResults,.lookupResults,#searchResults,.searchResults,.search-results');
+ if(!root)return null;
+ const matches=new Set<string>();
+ for(const anchor of root.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(anchor.getAttribute('href')||'',base);
+  if(!href)continue;
+  const row=anchor.closest('li,article,.result,.searchResult,.search-result,.item')||anchor.parentElement;
+  if(!row)continue;
+  const text=[
+   row.textContent||'',...Array.from(row.querySelectorAll('p,span,small,.pubRef'))
+     .map(node=>node.textContent||'')
+  ].join(' ');
+  const citations=findPublicationMentions(text);
+  if(!citations.some(item=>{
+    const found=referencedParagraphs(item.label);
+    return found.length===paragraphs.length&&found.every(n=>paragraphs.includes(n))&&
+      matchingPublicationPages(reference,item.label);
+  }))continue;
+  matches.add(href);
+  if(matches.size>1)return null;
+ }
+ return matches.size===1?[...matches][0]:null;
+}
 /** Exact citations are resolved without silently accepting a wrong issue. */
 export function selectPublicationCandidate(html:string,base:string,reference:string):string|null{
  const request=publicationPages(reference);
@@ -273,6 +304,9 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  const resultNode=doc.querySelector('#lookupResults,.lookupResults');
  const matchHtml=resultNode?.outerHTML||html;
  const requested=simple(reference);
+ // A WOL result carrying the exact § locator outranks a page-only match.
+ const paragraph=selectExplicitParagraphCandidate(matchHtml,base,reference);
+ if(paragraph)return paragraph;
  const exact=selectPublicationCandidate(matchHtml,base,reference);
  if(exact)return exact;
  const bookPage=publicationBookPages(reference);
