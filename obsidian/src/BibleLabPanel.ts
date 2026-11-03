@@ -1249,7 +1249,9 @@ export class BibleLabSidebarView extends ItemView {
       toggle.setText(label);
       toggle.addEventListener('click',()=>{
         this.archiveFilter=filter;this.archiveVisible=35;
-        this.renderArchive();
+        const scroll=this.scroller.scrollTop;
+        this.render();
+        this.scroller.scrollTop=scroll;
       });
     }
     const controls=this.scroller.createDiv({cls:'biblelab-archive-controls'});
