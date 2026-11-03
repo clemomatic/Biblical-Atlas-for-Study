@@ -94,3 +94,47 @@ test('Accented Hé and Né references become complete, clickable Obsidian links'
  assert.ok(markdown.text.includes('[Né. 2:1]('));
  assert.equal(linkReferencesInMarkdown(markdown.text).count,0);
 });
+
+test('Bold, italic and Markdown headings do not split citations or change source offsets',()=>{
+ const examples=[
+  {
+   line:'## w24 **novembre** p. 21-24 § 4-16',
+   raw:'w24 **novembre** p. 21-24 § 4-16',
+   canonical:'w24 novembre p. 21-24 § 4-16'
+  },
+  {
+   line:'### *km 5/00 p. 8 § 2*',
+   raw:'km 5/00 p. 8 § 2',
+   canonical:'km 5/00 p. 8 § 2'
+  },
+  {
+   line:'- km *5/00* p. 8 § 2',
+   raw:'km *5/00* p. 8 § 2',
+   canonical:'km 5/00 p. 8 § 2'
+  },
+  {
+   line:'**w24 novembre p. 21-24 § 4-16**',
+   raw:'w24 novembre p. 21-24 § 4-16',
+   canonical:'w24 novembre p. 21-24 § 4-16'
+  }
+ ];
+ for(const {line,raw,canonical} of examples){
+  const refs=findInlineReferences(line);
+  assert.equal(refs.length,1,line);
+  assert.equal(line.slice(refs[0].from,refs[0].to),raw,line);
+  assert.equal(refs[0].label,raw,line);
+  assert.equal(refs[0].ref.label,canonical,line);
+  assert.ok(refs[0].ref.url.includes('wol.jw.org'),line);
+ }
+ const prose='**km 5/00 p. 8 § 2** et **w24 novembre p. 21-24 § 4-16**';
+ const refs=findInlineReferences(prose);
+ assert.deepEqual(refs.map(x=>x.ref.label),
+  ['km 5/00 p. 8 § 2','w24 novembre p. 21-24 § 4-16']);
+ const converted=linkReferencesInMarkdown('## **km 5/00 p. 8 § 2**');
+ assert.equal(converted.count,1);
+ assert.ok(converted.text.includes('[km 5/00 p. 8 § 2]('));
+ assert.equal(linkReferencesInMarkdown(converted.text).count,0);
+ const code=String.fromCharCode(96);
+ assert.deepEqual(findInlineReferences(code+'km 5/00 p. 8 § 2'+code),[]);
+ assert.deepEqual(findInlineReferences('[km 5/00 p. 8 § 2](https://wol.jw.org/fr/wol/d/r30/lp-f/202000163)'),[]);
+});
