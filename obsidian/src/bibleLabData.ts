@@ -41,7 +41,7 @@ const OFFICIAL_BOOK_ALIASES:string[][]=[
  ['Jos'],['Juges','Jg'],['Ru'],['1 Sam','1S','1Sam'],['2 Sam','2S','2Sam'],
  ['1 R','1R'],['2 R','2R'],['1 Chron','1Ch'],['2 Chron','2Ch'],
  ['Esd'],['Néh','Né','Ne','Neh'],['Est'],['Jb'],['Ps'],['Prov','Pr'],['Eccl','Ec'],
- ['Chant de S','Ct'],['Is'],['Jér','Jer','Jr'],['Lam','Lm'],['Ézéch','Ezech','Ez'],
+ ['Chant de S','Ct'],['Is'],['Jér','Jer','Jr'],['Lam','Lm'],['Ézéch','Éz','Ezech','Ez'],
  ['Dan','Dn'],['Os'],['Jl'],['Am'],['Abd','Ab'],['Jon'],['Mich','Mi'],
  ['Nah','Na'],['Hab'],['Soph','Sph'],['Agg','Ag'],['Zach','Za'],['Mal','Ml'],
  ['Mat','Matt','Mt'],['Marc','Mc'],['Luc','Lc'],['Jean','Jn'],
