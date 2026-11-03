@@ -6,6 +6,7 @@ import { extractReferences, findScriptureMentions, normalizeSearch, parseScriptu
 import { cleanReadingText, readableOfficialElement } from './readerText.ts';
 import { findPublicationMentions, officialFinderUrl, publicationUrl } from './publicationReferences.ts';
 import { articleImageFrom, type ArticleImage } from './articleImages.ts';
+import { markdownCitationScanText } from './markdownCitationScan.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
@@ -71,7 +72,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  // [Actes 1:8](https://wol.jw.org/...) ; 2:1-4 ; 3:6,7 keeps "Actes"
  // as the book for each subsequent chapter, although only the first
  // passage has an explicit book name in the note.
- for(const mention of findScriptureMentions(text))
+ for(const mention of findScriptureMentions(markdownCitationScanText(text)))
    if(!parseScripture(mention.label))
      push(mention.ref.label,passageUrl(mention.ref.label),'verse','scripture');
  // [w24 Novembre p. 14-19] and [https://wol.jw.org/...] as independent
@@ -91,7 +92,7 @@ export function extractReferenceEntries(markdown:string):ReferenceEntry[]{
  }
  // Plain scripture references. Avoid detecting verse-like strings in web URLs
  // by removing URLs before scanning.
- const remainder=cleanReadingText(text.replace(urlPattern,' '));
+ const remainder=cleanReadingText(markdownCitationScanText(text.replace(urlPattern,' ')));
  for(const label of extractReferences(remainder)){
    if(parseScripture(label))push(label,passageUrl(label),'verse','scripture');
  }
