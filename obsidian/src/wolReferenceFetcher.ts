@@ -3,7 +3,7 @@ import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, readableOfficialElement, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
 import { cardThumbnailFrom } from './articleImages.ts';
-import { finderDocumentUrl, bookChapterLocator, referencedParagraphs, findPublicationMentions } from './publicationReferences.ts';
+import { finderDocumentUrl, bookChapterLocator, referencedParagraphs, findPublicationMentions, publicationUrl } from './publicationReferences.ts';
 import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 
@@ -639,6 +639,37 @@ function withMatchedThumbnail(result:ReaderResult,excerpt:ReaderResult|null,url:
  if(matching?.thumbnail)result.thumbnail=matching.thumbnail;
  return result;
 }
+/** A reference opened directly skips WOL's result cards; v0.9.15 only
+ * captured cardThumbnailImage when going through lookupResults. If the
+ * reference names a publication, request its official lookup separately and
+ * associate the thumbnail only with the exact document ID. When WOL serves a
+ * menu or an image-free result, use an actual illustration from THIS article
+ * as the compact preview, never an unrelated card or site's logo.
+ */
+async function enrichDirectPublicationThumbnail(
+  ref:ReferenceEntry,result:ReaderResult
+):Promise<ReaderResult>{
+ if(result.kind==='verse'||result.thumbnail)return result;
+ if(ref.thumbnail){result.thumbnail=ref.thumbnail;return result;}
+ const page=publicationPages(ref.label);
+ const recognized=page||findPublicationMentions(ref.label).some(item=>
+   item.from===0&&item.to===ref.label.length);
+ if(recognized&&DOC.test(new URL(result.sourceUrl).pathname)){
+   const lookupUrl=publicationUrl(ref.label);
+   const url=lookupUrl&&/^https:\/\/wol\.jw\.org\/fr\/wol\/l\//.test(lookupUrl)
+     ?lookupUrl:WOL+'l/r30/lp-f?'+new URLSearchParams({q:ref.label});
+   try{
+     const html=await officialText(url);
+     const excerpt=parseWolLookupResults(html,url,ref.label);
+     withMatchedThumbnail(result,excerpt,result.sourceUrl);
+   }catch{ /* A thumbnail must never block or break the article's text. */ }
+ }
+ if(!result.thumbnail&&result.kind==='article'){
+   const illustration=result.lines.find(line=>line.type==='image'&&line.image)?.image;
+   if(illustration)result.thumbnail=illustration;
+ }
+ return result;
+}
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
  if(isNavigationShell(result))
@@ -713,8 +744,10 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  }
  if(CONTEXT.test(path)||BIBLE_CONTEXT.test(path))
    return contextualDocumentReader(url,ref.label);
- if(DOC.test(path)||path.startsWith('/fr/wol/b/'))
-   return directDocumentReader(await officialText(url),url,ref.label);
+ if(DOC.test(path)||path.startsWith('/fr/wol/b/')){
+   const result=directDocumentReader(await officialText(url),url,ref.label);
+   return DOC.test(path)?enrichDirectPublicationThumbnail(ref,result):result;
+ }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
  const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
@@ -729,7 +762,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    try{
      const article=readerForDocument(await officialText(verified),verified,ref.label);
      article.kind='article';
-     return article;
+     return enrichDirectPublicationThumbnail(ref,article);
    }catch{ /* Continue through official bibliography lookup. */ }
  }
  // First inspect the content WOL actually provides for this lookup.
@@ -748,7 +781,8 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,query);
-         full.kind='article';return withMatchedThumbnail(full,lookupExcerpt,target);
+         full.kind='article';return enrichDirectPublicationThumbnail(ref,
+           withMatchedThumbnail(full,lookupExcerpt,target));
        }catch{ /* The official result is available even if its full article fails. */ }
      }
      // Keep the excerpt as a fallback; first try the publication's own
@@ -767,7 +801,8 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,ref.label);
-         full.kind='article';return withMatchedThumbnail(full,lookupExcerpt,target);
+         full.kind='article';return enrichDirectPublicationThumbnail(ref,
+           withMatchedThumbnail(full,lookupExcerpt,target));
        }catch{ /* The lookup panel remains available as a fallback. */ }
      }
    }catch{ /* Continue with the original lookup and other official sources. */ }
@@ -838,7 +873,8 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  try{
    const article=readerForDocument(await officialText(docUrl),docUrl,ref.label);
    article.kind='article';
-   return withMatchedThumbnail(article,lookupExcerpt,docUrl);
+   return enrichDirectPublicationThumbnail(ref,
+     withMatchedThumbnail(article,lookupExcerpt,docUrl));
  }catch(error){
    // Never lose the content already extracted from #lookupResults just because
    // a linked /d page is blocked or contains only WOL's navigation shell.
