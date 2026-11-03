@@ -29,9 +29,9 @@ test('A saved WOL source can be tagged, starred, archived and recovered without 
   await expect(pane.getByText('#Amitié · #Jesus')).toBeVisible();
   await pane.getByRole('button',{name:'Favoris',exact:true}).click();
   await expect(pane.locator('.biblelab-archive-card')).toHaveCount(1);
-  await pane.getByRole('textbox',{name:'Rechercher dans mon index'}).fill('amitié');
+  await pane.getByRole('searchbox',{name:'Rechercher dans mon index'}).fill('amitié');
   await expect(pane.locator('.biblelab-archive-card')).toHaveCount(1);
-  await pane.getByRole('textbox',{name:'Rechercher dans mon index'}).fill('inexistant');
+  await pane.getByRole('searchbox',{name:'Rechercher dans mon index'}).fill('inexistant');
   await expect(pane.locator('.biblelab-archive-card')).toHaveCount(0);
   await page.waitForFunction(()=>(window as any).__savedSettings?.bibleLabArchive?.entries?.[0]?.tags?.length===2);
   const snapshot=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchArchive());
@@ -75,7 +75,7 @@ test('Indexing retains ideas and makes unclassified captures searchable by comme
   await pane.getByRole('textbox',{name:'Pourquoi garder cette découverte'}).fill('Courage face à l’injustice');
   await pane.getByRole('button',{name:'Ajouter au bac'}).click();
   await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
-  await pane.getByRole('textbox',{name:'Rechercher dans mon index'}).fill('injustice');
+  await pane.getByRole('searchbox',{name:'Rechercher dans mon index'}).fill('injustice');
   await expect(pane.locator('.biblelab-archive-card')).toHaveCount(1);
   await pane.getByRole('button',{name:'Non classées'}).click();
   await expect(pane.locator('.biblelab-archive-card')).toHaveCount(1);
