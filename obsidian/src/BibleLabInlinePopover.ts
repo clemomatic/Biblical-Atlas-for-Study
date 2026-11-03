@@ -4,6 +4,7 @@ import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type Ref
 import { fetchReferenceContent } from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
+import { appendStyledReaderText } from './readerInlineFormatting';
 import { clampPopoverPosition, type PopoverCoordinates } from './popoverPosition';
 
 const fromLabel=(label:string):ReferenceEntry=>{
@@ -260,7 +261,7 @@ export class BibleLabInlinePopover {
       renderArticleImage(container,line.image);
       continue;
     }
-    const element=container.createEl(line.type==='heading'?'h4':'p',{
+    const element=container.createEl(line.type==='heading'?'h4':line.type==='quote'||line.type==='theme'?'blockquote':'p',{
       cls:'biblelab-popover-line biblelab-popover-'+line.type});
     if(line.number&&requestedParagraphs.includes(line.number)){
       element.addClass('biblelab-article-target-paragraph');
@@ -408,12 +409,18 @@ export class BibleLabInlinePopover {
   }
  }
  private linkLine(target:HTMLElement,line:ReaderLine,anchor:HTMLElement):void{
-  for(const part of line.parts||linkifyReaderText(line.text)){
-   if(!part.url){target.appendChild(document.createTextNode(part.text));continue;}
-   const button=target.createEl('button',{cls:'biblelab-popover-inline-link',text:part.text,
-     attr:{type:'button','aria-label':'Lire '+part.text}});
+  const parts=line.parts||linkifyReaderText(line.text);
+  for(let i=0;i<parts.length;){
+   const part=parts[i];
+   if(!part.url){appendStyledReaderText(target,part);i++;continue;}
+   const group=[part];i++;
+   while(i<parts.length&&parts[i].url===part.url)group.push(parts[i++]);
+   const label=group.map(token=>token.text).join('');
+   const button=target.createEl('button',{cls:'biblelab-popover-inline-link',
+     attr:{type:'button','aria-label':'Lire '+label}});
+   for(const token of group)appendStyledReaderText(button,token);
    button.addEventListener('click',()=>{
-    const ref=fromLabel(part.text);ref.url=part.url!;
+    const ref=fromLabel(label);ref.url=part.url!;
     ref.kind=part.kind||ref.kind;this.history.push(ref);this.render(ref,anchor);
    });
   }
