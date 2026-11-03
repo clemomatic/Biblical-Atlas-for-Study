@@ -231,6 +231,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         if(typeof state?.url==='string'&&cleanWolUrl(state.url))
           this.lastActiveWolLeaf=leaf;
       }
+      this.refreshWolCaptureIndicators();
     }));
     this.registerView(BIBLE_LAB_ARTICLE_VIEW, leaf => new BibleLabArticleView(leaf, this.openWolArticleTab));
     this.addRibbonIcon('map', 'Ouvrir l’Atlas biblique', () => this.run(this.openAtlas()));
@@ -380,12 +381,20 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
    * genuine WOL browser tab. Follow links, use WOL search and Obsidian's
    * native Web viewer Reader mode without recreating WOL's HTML.
    */
+  private refreshWolCaptureIndicators():void{
+    for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)){
+      if(leaf.view instanceof BibleLabSidebarView)
+        leaf.view.refreshWolSourceIndicator();
+    }
+  }
   openWolArticleTab = async (ref: ReferenceEntry): Promise<void> => {
     await openWolInObsidian(this.app,ref.url);
+    this.refreshWolCaptureIndicators();
   };
   /** Subsequent searches reuse ONLY the dedicated search tab, not article tabs. */
   openWolSearchTab = async (url: string): Promise<void> => {
     this.wolSearchLeaf=await openWolInObsidian(this.app,url,this.wolSearchLeaf);
+    this.refreshWolCaptureIndicators();
   };
   private async quickCaptureToInbox():Promise<void>{
     // No clipboard reads in background: executed only by the explicit command.
