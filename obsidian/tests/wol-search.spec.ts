@@ -158,3 +158,49 @@ test('WOL result parsing ignores an empty results shell and finds official artic
  await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
  await expect(pane.getByText('Frères, vous qualifiez-vous pour devenir assistants ?')).toBeVisible();
 });
+
+
+test('A JavaScript-only WOL search is recovered through the native Obsidian Web viewer',async({page})=>{
+ const html='<html><main id="results">'+
+   '<ul class="resultContentDocument"><li class="caption"><a href="/fr/wol/d/r30/lp-f/2024663">La justice selon la Bible</a></li>'+
+   '<li class="ref">w24.09 — La Tour de Garde</li>'+
+   '<li><div class="document"><p>Un exemple de justice et de bonté.</p></div></li></ul></main></html>';
+ await page.route(/wol\.jw\.org\/fr\/wol\/(?:s|l)\/r30\/lp-f/,route=>
+   route.fulfill({status:200,contentType:'text/html',
+    body:'<html><main id="results"><div class="loading">Chargement...</div></main></html>'}));
+ await page.evaluate((renderedHTML)=>{
+   const {app}=(window as any).atlasTest;
+   const original=app.workspace.getLeaf.bind(app.workspace);
+   const container=document.createElement('div');
+   const webview=document.createElement('webview');
+   (webview as any).executeJavaScript=async (code:string)=>{
+     (window as any).wolInjectedScript=code;
+     return {url:'https://wol.jw.org/fr/wol/s/r30/lp-f?q=Justice',html:renderedHTML,status:'results'};
+   };
+   container.append(webview);
+   const fakeLeaf={
+     detached:false,
+     view:{containerEl:container,getViewType:()=> 'webviewer'},
+     setViewState:async ({state}:any)=>{(window as any).wolWebviewerUrl=state.url;},
+     detach(){this.detached=true;(window as any).wolWebviewerDetached=true;}
+   };
+   app.workspace.getLeaf=(kind:string)=>
+     kind==='tab'?fakeLeaf:original(kind);
+   app.workspace.revealLeaf=async()=>{};
+ },html);
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Justice');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
+ await expect(pane.getByText('La justice selon la Bible')).toBeVisible();
+ await expect(pane.getByText('Un exemple de justice et de bonté.')).toBeVisible();
+ await expect(pane.getByText(/sans liste de résultats lisible/i)).toHaveCount(0);
+ const data=await page.evaluate(()=>({
+   url:(window as any).wolWebviewerUrl,
+   detached:(window as any).wolWebviewerDetached,
+   script:(window as any).wolInjectedScript
+ }));
+ expect(data.url).toContain('https://wol.jw.org/fr/wol/s/r30/lp-f');
+ expect(data.detached).toBe(true);
+ expect(data.script).toContain("location.hostname!=='wol.jw.org'");
+});
