@@ -675,6 +675,23 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      // index and verified article links to find the FULL reading text.
    }
  }catch{ /* Continue with the book index and standard lookup fallback. */ }
+ // A paragraph belongs to the reading target, but WOL may need the FULL
+ // citation (with §) to populate #lookupResults on its /l endpoint.
+ // Query both forms, never discard the user's paragraph label.
+ if(!lookupExcerpt&&ref.label.trim()!==query){
+   const fullLookup=WOL+'l/r30/lp-f?'+new URLSearchParams({q:ref.label.trim()});
+   try{
+     const fullHtml=await officialText(fullLookup);
+     lookupExcerpt=parseWolLookupResults(fullHtml,fullLookup,query);
+     const target=pickDocument(fullHtml,fullLookup,query);
+     if(target){
+       try{
+         const full=readerForDocument(await officialText(target),target,ref.label);
+         full.kind='article';return full;
+       }catch{ /* The lookup panel remains available as a fallback. */ }
+     }
+   }catch{ /* Continue with the original lookup and other official sources. */ }
+ }
  // Book page numbers are not keywords. Resolve them using the official
  // publication structure instead of expecting /l?q=it-1+118 to be an article.
  const bookPages=publicationBookPages(query);
@@ -705,14 +722,23 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  }
  if(!docUrl){
    const page=publicationPages(query);
-   // Prefer an issue search for citations inside a document's page range.
-   const issueLabel=page?query.trim().replace(/\s+p\.?\s*\d{1,3}(?:\s*[-–]\s*\d{1,3})?\s*$/i,''):'';
-   const searchTerms=page?[issueLabel||page.issue,query]:[query];
-   for(const term of searchTerms){
+   // First search the exact printed page; a broad issue-only search can
+   // contain unrelated articles and must never be treated as an exact hit.
+   const searchTerms=page
+     ?[query,page.issue+' '+page.first+(page.last!==page.first?'-'+page.last:''),page.issue]
+     :[query];
+   for(const term of [...new Set(searchTerms)]){
      const fallback=WOL+'s/r30/lp-f?'+new URLSearchParams({q:term});
      try{
-       docUrl=pickDocument(await officialText(fallback),fallback,query);
-       if(docUrl)break;
+       const html=await officialText(fallback);
+       // Search pages often use #searchResults rather than #lookupResults.
+       // Retain only article rows carrying authoritative issue/page metadata.
+       if(!lookupExcerpt){
+         lookupExcerpt=parseWolLookupResults(html,fallback,query)
+           ||matchingSearchResultChoices(html,fallback,query);
+       }
+       docUrl=pickDocument(html,fallback,query);
+       if(docUrl||lookupExcerpt?.lines.length)break;
      }catch(error){
        networkProblem+=(networkProblem?' ; ':'')+
          (error instanceof Error?error.message:'Recherche WOL indisponible');
@@ -729,9 +755,25 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
       :'Référence non résolue automatiquement. Vérifie le lien sur WOL.';
    empty.kind='results';return empty;
  }
- const article=readerForDocument(await officialText(docUrl),docUrl,query);
- article.kind='article';
- return article;
+ try{
+   const article=readerForDocument(await officialText(docUrl),docUrl,query);
+   article.kind='article';
+   return article;
+ }catch(error){
+   // Never lose the content already extracted from #lookupResults just because
+   // a linked /d page is blocked or contains only WOL's navigation shell.
+   if(lookupExcerpt&&lookupExcerpt.lines.length){
+     lookupExcerpt.notice='Résultat de consultation WOL (extrait, pas forcément l’article intégral). Le document complet n’a pas pu être chargé dans Obsidian.';
+     return lookupExcerpt;
+   }
+   const empty=parseWolDocument(text||'<main></main>',lookup,query);
+   empty.kind='results';empty.lines=[];
+   empty.notice='La source WOL a été trouvée, mais son article est inaccessible dans le lecteur : '+
+     (error instanceof Error?error.message:'réponse incomplète')+
+     '. Ouvre le document sur WOL.';
+   empty.sourceUrl=docUrl;
+   return empty;
+ }
 }
 interface JwVerseExtras {
  html:string;citation?:string;
