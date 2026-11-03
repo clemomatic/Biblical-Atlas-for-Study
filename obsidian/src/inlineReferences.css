@@ -88,10 +88,19 @@
 
 /* Original article images: never square-crop, stretch, or reorder artwork. */
 .biblelab-article-figure{margin:13px 0 18px;max-width:100%;text-align:center}
-.biblelab-article-image-open{display:block;max-width:100%;margin:0 auto;padding:0;border:0;border-radius:9px;
- background:transparent;cursor:zoom-in;overflow:hidden}
-.biblelab-article-image-open img{display:block;width:auto;height:auto;max-width:100%;max-height:none;
- object-fit:contain;border-radius:8px}
+.biblelab-article-image-open{
+  /* Obsidian themes often apply a fixed height to ALL buttons. This button is
+     a figure container, not a one-line control: let the image set its height. */
+  display:block;width:fit-content;max-width:100%;
+  height:auto!important;min-height:0;max-height:none;
+  margin:0 auto;padding:0;border:0;border-radius:9px;
+  background:transparent;box-shadow:none;cursor:zoom-in;
+  overflow:visible;line-height:normal;white-space:normal;
+}
+.biblelab-article-image-open img{
+  display:block;width:auto;height:auto;max-width:100%;max-height:none;
+  object-fit:contain;border-radius:8px;
+}
 .biblelab-article-image-open:focus-visible{outline:2px solid var(--interactive-accent);outline-offset:3px}
 .biblelab-article-figure figcaption{margin:7px auto 0;max-width:65ch;font-size:11px;line-height:1.5;
  color:var(--text-muted);text-align:left}
