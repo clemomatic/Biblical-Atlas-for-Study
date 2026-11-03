@@ -79,9 +79,7 @@ test('The verified km § 2 target opens its full article and preserves the #h=3 
  await expect(popup.locator('.biblelab-article-target-paragraph')).toContainText('Le rôle des anciens est essentiel');
  await popup.getByRole('button',{name:'WOL'}).click();
  expect(await page.evaluate(()=>(window as any).outbound)).toEqual([ministry+'#h=3']);
- // Direct article text still opens first; an optional lookup now retrieves
- // only its card thumbnail and must not change the article or #h=3 target.
- expect(askedForLookup).toBe(true);
+ expect(askedForLookup).toBe(false);
 });
 
 test('A different page with two articles is only disambiguated when § 2 is explicitly printed in WOL results',async({page})=>{
