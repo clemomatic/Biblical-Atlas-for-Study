@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.8",
+  "version": "0.9.9",
   "minAppVersion": "1.6.0",
-  "description": "Résolution générique des pages it/si par index WOL et vérification des documents.",
+  "description": "Résolution bibliographique WOL normalisée, vérification des pages et cache contrôlé.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false

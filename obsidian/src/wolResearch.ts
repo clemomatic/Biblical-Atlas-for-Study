@@ -31,14 +31,14 @@ const compact=(v:string,max=220)=>cleanReadingText(v).slice(0,max);
 function officialResultHref(href:string,base:string):string|null {
  try {
   const safe=cleanWolUrl(new URL(href,base).toString());
-  return safe && /^\/fr\/wol\/d\/r30\/lp-f\/\d+/.test(new URL(safe).pathname)?safe:null;
+  return safe && /^(?:\/fr\/wol\/d\/r30\/lp-f\/\d+|\/fr\/wol\/pc\/r30\/lp-f\/\d+\/\d+\/\d+\/?$)/.test(new URL(safe).pathname)?safe:null;
  }catch{return null;}
 }
 /** Parse links only: never insert HTML returned by WOL into the Obsidian DOM. */
 export function parseWolSearchResults(html:string,requestedUrl:string):WolSearchHit[] {
  const doc=new DOMParser().parseFromString(html,'text/html');
  for(const node of [...doc.querySelectorAll('script,style,noscript,nav,footer,header,form')])node.remove();
- const roots=[...doc.querySelectorAll('.searchResults,.search-results,#searchResults,#results,.resultList,main,#content')];
+ const roots=[...doc.querySelectorAll('#lookupResults,.lookupResults,.searchResults,.search-results,#searchResults,#results,.resultList,main,#content')];
  if(!roots.includes(doc.body))roots.push(doc.body);
  const seen=new Set<string>(),hits:WolSearchHit[]=[];
  for(const root of roots){

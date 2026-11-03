@@ -39,6 +39,10 @@ const sources=[
  // Ministry of the Kingdom is cited by month/year without a page, e.g.
  // "km 05/95" = May 1995; WOL's own short form is "km 5/95".
  new RegExp(boundaries+'(km\\s+(?:0?[1-9]|1[0-2])/\\d{2}(?:\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)?)','giu'),
+ // Older Réveillez-vous! issues use g 2/12 3-13 rather than g12.02.
+ new RegExp(boundaries+'(g\\s+(?:0?[1-9]|1[0-2])/\\d{2}\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)','giu'),
+ // Printed yearbooks use yb17 197 (without a space after the code).
+ new RegExp(boundaries+'(yb\\d{2}\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)','giu'),
  new RegExp(boundaries+'(s\\s*[-–]\\s*\\d{1,3}'+paragraph+')','giu'),
  new RegExp(boundaries+'(('+sourceCodes+')\\s+(?:'+locators+'))','giu'),
  new RegExp(boundaries+'((?:th|lmd|lff|lffi)\\s+\\d{1,3})','giu')

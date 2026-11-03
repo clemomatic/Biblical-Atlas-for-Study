@@ -3,16 +3,22 @@ import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
 import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
+import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
+export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 
 const WOL='https://wol.jw.org/fr/wol/';
 const API='https://www.jw.org/fr/biblioth%C3%A8que/bible/bible-d-etude/livres/json/html/';
 const DOC=/\/fr\/wol\/d\/r30\/lp-f\/\d+/;
+// WOL contextual publication pointers are valid reading destinations too.
+const CONTEXT=/^\/fr\/wol\/pc\/r30\/lp-f\/\d+\/\d+\/\d+\/?$/;
+// Bible cross-reference links (/bc/) redirect to a WOL chapter; keep them readable.
+const BIBLE_CONTEXT=/^\/fr\/wol\/bc\/r30\/lp-f\/\d+\/\d+\/\d+\/?$/;
 const BIBLIO=/^(?:w\d{2}(?:\.\d{1,2})?|ws\d{2}|g\d{2}|mwb\d{2}|it(?:-[12])?|si|km|lmd)\b/i;
 const simple=(v:string)=>normalizeSearch(v).replace(/[^a-z0-9]+/g,' ').trim();
 const validateDocument=(value:string,base:string):string|null=>{
  try{
    const final=cleanWolUrl(new URL(value,base).href);
-   return final && DOC.test(new URL(final).pathname)?final:null;
+   return final && (DOC.test(new URL(final).pathname)||CONTEXT.test(new URL(final).pathname))?final:null;
  }catch{return null;}
 };
 export function canonicalReferenceUrl(raw:string):string|null{
@@ -28,33 +34,6 @@ export function canonicalReferenceUrl(raw:string):string|null{
  return url;
 }
 
-interface PublicationPage {issue:string;first:number;last:number}
-const FRENCH_MONTHS='janvier|février|fevrier|mars|avril|mai|juin|juillet|août|aout|septembre|octobre|novembre|décembre|decembre';
-/** The citation may refer to pages INSIDE a longer article. */
-export function publicationPages(raw:string):PublicationPage|null{
- const t=raw.normalize('NFD').replace(/[\u0300-\u036f]/g,'')
-   .toLocaleLowerCase('fr').replace(/\u00a0/g,' ').replace(/[–—]/g,'-');
- const match=t.match(new RegExp(
-  '\\b(w\\d{2}|wp\\d{2}(?:\\.\\d+)?|g\\d{2}|mwb\\d{2})\\s+('+FRENCH_MONTHS+
-  ')\\s+p\\.?\\s*(\\d{1,3})(?:\\s*-\\s*(\\d{1,3}))?\\b','i'));
- if(!match){
-   // Issues from the 1980s-2015 are indexed as w14 15/11 28-29
-   // (and can include optional "p."), not "w14 novembre".
-   const legacy=t.match(/\b((?:w|ws|g)\d{2})\s+(\d{1,2})\/(\d{1,2})\s+(?:p\.?\s*)?(\d{1,3})(?:\s*-\s*(\d{1,3}))?\b/i);
-   if(!legacy)return null;
-   const day=Number(legacy[2]),month=Number(legacy[3]);
-   const first=Number(legacy[4]),last=Number(legacy[5]||legacy[4]);
-   if(day<1||day>31||month<1||month>12||first<1||last<first||last>300)return null;
-   return {issue:legacy[1]+' '+day+'/'+month,first,last};
- }
- const first=Number(match[3]),last=Number(match[4]||match[3]);
- if(first<1||last<first||last>300)return null;
- return {issue:match[1]+' '+match[2],first,last};
-}
-export function matchingPublicationPages(requested:string,listing:string):boolean{
- const a=publicationPages(requested),b=publicationPages(listing);
- return !!a&&!!b&&a.issue===b.issue&&b.first<=a.first&&b.last>=a.last;
-}
 interface BookPage {code:string;first:number;last:number}
 export function publicationBookPages(raw:string):BookPage|null{
  const norm=normalizeSearch(raw).replace(/[–—]/g,'-');
@@ -225,14 +204,24 @@ export function selectBookChapterCandidate(html:string,base:string,reference:str
  * not from navigation, the sidebar or the site's footer.
  * WOL sometimes returns only one article and omits page metadata entirely.
  */
-export function selectSingleLookupDocument(html:string,base:string):string|null{
+export function selectSingleLookupDocument(html:string,base:string,reference?:string):string|null{
  const doc=new DOMParser().parseFromString(html,'text/html');
  const results=doc.querySelector('#lookupResults,.lookupResults');
  if(!results)return null;
  const candidates=new Set<string>();
  for(const anchor of results.querySelectorAll<HTMLAnchorElement>('a[href]')){
    const url=validateDocument(anchor.getAttribute('href')||'',base);
-   if(url)candidates.add(url);
+   if(url){
+     // A single result must never override explicit evidence that its issue
+     // or page range contradicts the citation in the note.
+     if(reference&&publicationPages(reference)){
+       const row=anchor.closest('li,article,.result,.searchResult,.search-result,.item')||anchor.parentElement;
+       const metadata=row?.textContent||'';
+       if(publicationPages(metadata)&&!matchingPublicationPages(reference,metadata))
+         return null;
+     }
+     candidates.add(url);
+   }
    if(candidates.size>1)return null; // Ambiguous result: show WOL's choices.
  }
  return candidates.size===1?[...candidates][0]:null;
@@ -249,24 +238,24 @@ function pickDocument(html:string,base:string,reference:string):string|null{
  const bookPage=publicationBookPages(reference);
  if(bookPage){
    const identified=selectBookPageCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
  const insight=insightTitleReference(reference);
  if(insight){
    const identified=selectInsightCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
  const study=siStudyNumber(reference);
  if(study){
    const identified=selectSiStudyCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
  const chapter=bookChapterLocator(reference);
  if(chapter){
    const identified=selectBookChapterCandidate(matchHtml,base,reference);
-   return identified||selectSingleLookupDocument(html,base);
+   return identified||selectSingleLookupDocument(html,base,reference);
  }
- const onlyResult=selectSingleLookupDocument(html,base);
+ const onlyResult=selectSingleLookupDocument(html,base,reference);
  if(onlyResult)return onlyResult;
  // WOL may redirect the /l/ query to a /d/ document in its canonical metadata.
  const canonical=doc.querySelector('link[rel="canonical"],meta[property="og:url"]');
@@ -325,38 +314,68 @@ export function knownCitation(reference:string):string|null{
  // Full articles verified against WOL's own publication metadata.
  // A single cited page may fall inside the complete page range.
  const citation=publicationPages(reference);
- if(citation?.issue==='w16 aout'&&citation.first>=25&&citation.last<=29)
+ if(citation?.issue==='w16.08'&&citation.first>=25&&citation.last<=29)
    return WOL+'d/r30/lp-f/2016609'; // w16 août p. 25-29
- if(citation?.issue==='w20 juin'&&citation.first>=24&&citation.last<=29)
+ if(citation?.issue==='w20.06'&&citation.first>=24&&citation.last<=29)
    return WOL+'d/r30/lp-f/2020441'; // w20 juin p. 24-29
  // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
  // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
  if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
    return WOL+'d/r30/lp-f/2024642';
  const pages=publicationPages(reference);
- if(pages?.issue==='w18 fevrier' && pages.first>=23 && pages.last<=27)
+ if(pages?.issue==='w18.02' && pages.first>=23 && pages.last<=27)
    return WOL+'d/r30/lp-f/2018287';
  if(/^lmd\s+(?:leçon\s*)?11$/i.test(reference.trim()))
    return WOL+'d/r30/lp-f/1102023311';
  return null;
 }
+/** Validated HTML only: small memory cache to avoid repeated WOL calls for
+ * a citation, its popup and its reading pane. Rejected/blocked responses are
+ * never cached; concurrent requests for one official URL are deduplicated.
+ * No background crawl, persistent site mirror or undocumented endpoint.
+ */
+const htmlCache=new Map<string,{html:string;expires:number}>();
+const pendingHtml=new Map<string,Promise<string>>();
+const MAX_HTML_ENTRIES=12;
+const MAX_CACHED_HTML_LENGTH=180_000;
 async function officialText(url:string):Promise<string>{
  const safe=canonicalReferenceUrl(url);
  if(!safe)throw Error('Adresse WOL externe non autorisée.');
- const response=await requestUrl({url:safe,throw:false});
- if(response.status!==200)throw Error('WOL HTTP '+response.status+
-   (response.status===403||response.status===429?' : accès automatisé limité.':''));
- const html=response.text||'';
- const document=new DOMParser().parseFromString(html,'text/html');
- const title=document.title.toLowerCase();
- const preliminary=cleanReadingText(document.body?.textContent||'').slice(0,1300);
- if(/javascript is disabled|verify that you(?:’|'| a)re not a robot|vérifi(?:er|cation).{0,45}(?:robot|navigateur)|enable javascript and then reload/i.test(preliminary))
-   throw Error('WOL demande une vérification du navigateur : la réponse ne contient pas le document.');
- if(/(?:access denied|just a moment|captcha|robot check|forbidden|accès refusé)/i.test(title))
-   throw Error('WOL refuse la consultation automatisée de cette page.');
- if(!html.trim()||!/<(?:html|body|main|article|div|p)\b/i.test(html))
-   throw Error('WOL a répondu sans document HTML exploitable.');
- return html;
+ const cached=htmlCache.get(safe);
+ if(cached){
+   htmlCache.delete(safe);
+   if(cached.expires>Date.now()){
+     htmlCache.set(safe,cached); // LRU: recently read documents stay hot.
+     return cached.html;
+   }
+ }
+ const pending=pendingHtml.get(safe);
+ if(pending)return pending;
+ const work=(async()=>{
+   const response=await requestUrl({url:safe,throw:false});
+   if(response.status!==200)throw Error('WOL HTTP '+response.status+
+     (response.status===403||response.status===429?' : accès automatisé limité.':''));
+   const html=response.text||'';
+   const document=new DOMParser().parseFromString(html,'text/html');
+   const title=document.title.toLowerCase();
+   const preliminary=cleanReadingText(document.body?.textContent||'').slice(0,1300);
+   if(/javascript is disabled|verify that you(?:’|'| a)re not a robot|vérifi(?:er|cation).{0,45}(?:robot|navigateur)|enable javascript and then reload/i.test(preliminary))
+     throw Error('WOL demande une vérification du navigateur : la réponse ne contient pas le document.');
+   if(/(?:access denied|just a moment|captcha|robot check|forbidden|accès refusé)/i.test(title))
+     throw Error('WOL refuse la consultation automatisée de cette page.');
+   if(!html.trim()||!/<(?:html|body|main|article|div|p)\b/i.test(html))
+     throw Error('WOL a répondu sans document HTML exploitable.');
+   if(html.length<=MAX_CACHED_HTML_LENGTH){
+     const brief=/\/wol\/(?:l|s)\//.test(safe);
+     htmlCache.set(safe,{html,expires:Date.now()+(brief?60_000:600_000)});
+     while(htmlCache.size>MAX_HTML_ENTRIES)
+       htmlCache.delete(htmlCache.keys().next().value!);
+   }
+   return html;
+ })();
+ pendingHtml.set(safe,work);
+ try{return await work;}
+ finally{pendingHtml.delete(safe);}
 }
 /** The SI book and study articles occupy an ordered official WOL document
  * sequence. IDs are used ONLY as candidates: each downloaded document must
@@ -493,12 +512,16 @@ function hasReadableArticleBody(result:ReaderResult):boolean{
  return result.lines.some(line=>line.type!=='heading'&&line.type!=='caption'&&
   line.type!=='image'&&line.text.trim().length>=8);
 }
+function isNavigationShell(result:ReaderResult):boolean{
+ // Test the TITLE OF THE ISOLATED DOCUMENT, not the first <h1> in the entire
+ // WOL page: a real article may follow a generic site navigation heading.
+ const title=cleanReadingText(result.title).toLowerCase();
+ return /^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(title);
+}
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
- const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
-   .querySelector('h1')?.textContent||'').toLowerCase();
- if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
-   throw Error('WOL a renvoyé un menu de navigation, pas un article.');
  const result=parseWolDocument(html,url,label);
+ if(isNavigationShell(result))
+   throw Error('WOL a renvoyé un menu de navigation, pas un article.');
  if(!hasReadableArticleBody(result))
    throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
  return result;
@@ -508,16 +531,51 @@ function readerForDocument(html:string,url:string,label:string):ReaderResult{
  * Keep the canonical source link and explain the local reader limitation.
  */
 function directDocumentReader(html:string,url:string,label:string):ReaderResult{
- const heading=cleanReadingText(new DOMParser().parseFromString(html,'text/html')
-   .querySelector('h1')?.textContent||'').toLowerCase();
- if(/^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(heading))
+ const result=parseWolDocument(html,url,label);
+ if(isNavigationShell(result))
    return {title:label,sourceUrl:url,kind:'results',lines:[],links:[],
      notice:'WOL a renvoyé son menu plutôt que le texte du document. Ouvre la source officielle.'};
- const result=parseWolDocument(html,url,label);
  if(!hasReadableArticleBody(result)){
    result.lines=[];
    result.notice='La page officielle a répondu, mais son texte ne peut pas être extrait dans Obsidian (structure HTML ou chargement dynamique). Ouvre ce document sur WOL pour le lire.';
  }
+ return result;
+}
+/** WOL /pc/ and /bc/ links are contextual navigation, not separate
+ * publications. If their response is only a navigation shell, follow ONLY
+ * the page's own canonical official document URL (never a menu/sidebar link).
+ */
+export function canonicalContextDestination(html:string,base:string):string|null {
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ // The canonical tag may point back to /pc/ while og:url identifies /d/.
+ // Check all official page metadata rather than stopping at the first tag.
+ for(const meta of doc.querySelectorAll('link[rel="canonical"],meta[property="og:url"]')){
+   const raw=meta.getAttribute('href')||meta.getAttribute('content');
+   if(!raw)continue;
+   let safe:string|null=null;
+   try{safe=cleanWolUrl(new URL(raw,base).href);}catch{continue;}
+   if(!safe||safe===base)continue;
+   const path=new URL(safe).pathname;
+   if(DOC.test(path)||/^\/fr\/wol\/b\/r30\/lp-f\/[^/]+\/\d+\/\d+$/.test(path))
+     return safe;
+ }
+ return null;
+}
+async function contextualDocumentReader(url:string,label:string):Promise<ReaderResult>{
+ const html=await officialText(url);
+ const result=directDocumentReader(html,url,label);
+ if(result.lines.length)return result;
+ const canonical=canonicalContextDestination(html,url);
+ if(!canonical)return result;
+ try{
+   const resolved=directDocumentReader(await officialText(canonical),canonical,label);
+   if(resolved.lines.length){
+     // Keep the reference supplied by WOL for external navigation;
+     // the canonical page is only used for retrieving its readable text.
+     resolved.sourceUrl=url;
+     return resolved;
+   }
+ }catch{ /* Show the original official link if canonical retrieval fails. */ }
  return result;
 }
 export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>{
@@ -532,9 +590,10 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    result.kind='article';
    return result;
  }
- if(DOC.test(path)||path.startsWith('/fr/wol/b/')){
+ if(CONTEXT.test(path)||BIBLE_CONTEXT.test(path))
+   return contextualDocumentReader(url,ref.label);
+ if(DOC.test(path)||path.startsWith('/fr/wol/b/'))
    return directDocumentReader(await officialText(url),url,ref.label);
- }
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
  const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
@@ -568,7 +627,8 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
          full.kind='article';return full;
        }catch{ /* The official result is available even if its full article fails. */ }
      }
-     if(lookupExcerpt.lines.length)return lookupExcerpt;
+     // Keep the excerpt as a fallback; first try the publication's own
+     // index and verified article links to find the FULL reading text.
    }
  }catch{ /* Continue with the book index and standard lookup fallback. */ }
  // Book page numbers are not keywords. Resolve them using the official
