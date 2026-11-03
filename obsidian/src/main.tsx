@@ -24,6 +24,7 @@ import {
   type ResearchCollection
 } from './researchCollection';
 import { cleanWolUrl, extractReferenceEntries } from './referenceReader';
+import { quickCaptureCandidate } from './researchQuickCapture';
 import {
   emptyBibleLabArchive,normalizeBibleLabArchive,pruneMissingCaptures,
   type BibleLabArchive
@@ -120,6 +121,16 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private listeners = new Set<() => void>();
   private inlinePopup?:BibleLabInlinePopover;
   private wolSearchLeaf: WorkspaceLeaf|null=null;
+  private lastActiveWolLeaf:WorkspaceLeaf|null=null;
+  getPreferredWolUrl=():string|null=>{
+    const leaves=this.app.workspace.getLeavesOfType('webviewer');
+    const active=this.app.workspace.activeLeaf;
+    const selected=leaves.find(leaf=>leaf===active);
+    const remembered=leaves.find(leaf=>leaf===this.lastActiveWolLeaf);
+    const preferred=selected||remembered||(leaves.length===1?leaves[0]:null);
+    const raw=preferred?.view.getState() as {url?:unknown}|undefined;
+    return typeof raw?.url==='string'?cleanWolUrl(raw.url):null;
+  };
   private researchDesk:ResearchDesk=emptyResearchDesk();
   private researchCollection:ResearchCollection=emptyResearchCollection();
   private researchArchive:BibleLabArchive=emptyBibleLabArchive();
@@ -214,6 +225,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.publish();
     this.registerView(VIEW_TYPE, leaf => new AtlasView(leaf, this));
     this.registerView(BIBLE_LAB_VIEW, leaf => new BibleLabSidebarView(leaf, this));
+    this.registerEvent(this.app.workspace.on('active-leaf-change',leaf=>{
+      if(leaf?.view.getViewType()==='webviewer'){
+        const state=leaf.view.getState() as {url?:unknown};
+        if(typeof state?.url==='string'&&cleanWolUrl(state.url))
+          this.lastActiveWolLeaf=leaf;
+      }
+      this.refreshWolCaptureIndicators();
+    }));
     this.registerView(BIBLE_LAB_ARTICLE_VIEW, leaf => new BibleLabArticleView(leaf, this.openWolArticleTab));
     this.addRibbonIcon('map', 'Ouvrir l’Atlas biblique', () => this.run(this.openAtlas()));
     this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
@@ -226,6 +245,11 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (onglet web)', editorCallback: editor => { const term=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim(); if(term)this.run(this.openWolSearchTab(wolResearchUrl(term,{match:'par',scope:'all'}))); } });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
+    this.addCommand({
+      id:'bible-lab-quick-capture',
+      name:'Capturer rapidement le texte copié ou l’onglet WOL dans Bible Lab',
+      callback:()=>this.run(this.quickCaptureToInbox())
+    });
     this.addCommand({
       id:'bible-lab-keep-selection',name:'Conserver la sélection dans le bac Bible Lab',
       editorCallback: editor=>{
@@ -357,13 +381,43 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
    * genuine WOL browser tab. Follow links, use WOL search and Obsidian's
    * native Web viewer Reader mode without recreating WOL's HTML.
    */
+  private refreshWolCaptureIndicators():void{
+    for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)){
+      if(leaf.view instanceof BibleLabSidebarView)
+        leaf.view.refreshWolSourceIndicator();
+    }
+  }
   openWolArticleTab = async (ref: ReferenceEntry): Promise<void> => {
     await openWolInObsidian(this.app,ref.url);
+    this.refreshWolCaptureIndicators();
   };
   /** Subsequent searches reuse ONLY the dedicated search tab, not article tabs. */
   openWolSearchTab = async (url: string): Promise<void> => {
     this.wolSearchLeaf=await openWolInObsidian(this.app,url,this.wolSearchLeaf);
+    this.refreshWolCaptureIndicators();
   };
+  private async quickCaptureToInbox():Promise<void>{
+    // No clipboard reads in background: executed only by the explicit command.
+    let clip='';
+    try{clip=await navigator.clipboard.readText();}
+    catch{new Notice('Presse-papiers indisponible : ouvre le bac pour coller manuellement.');}
+    const candidate=quickCaptureCandidate(clip,this.getPreferredWolUrl());
+    if(!candidate){
+      await this.openBibleLabCollection();
+      new Notice('Copie un passage WOL, ou ouvre une page WOL puis relance la capture.');
+      return;
+    }
+    const next=addResearchCapture(this.researchCollection,{
+      ...candidate,planId:this.researchDesk.activeId
+    });
+    if(next===this.researchCollection){
+      new Notice('Le bac à trouvailles est plein.');
+      return;
+    }
+    await this.saveResearchCollection(next);
+    await this.openBibleLabCollection();
+    new Notice('Trouvaille conservée. Tu peux maintenant la renommer ou la classer.');
+  }
   async openBibleLabCollection():Promise<void>{
     await this.openBibleLab();
     const leaf=this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
