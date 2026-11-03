@@ -997,6 +997,15 @@ export class BibleLabSidebarView extends ItemView {
     const title=header.createDiv();
     title.createEl('strong',{text:'Capture express'});
     if(!compact)title.createEl('p',{text:'Garde une source ou un extrait maintenant. Tu classeras plus tard.'});
+    const preferred=this.host.getPreferredWolUrl();
+    const openCount=this.host.getOpenWolUrls().length;
+    const source=area.createDiv({cls:'biblelab-quick-source'});
+    const sourceIcon=source.createSpan();
+    setIcon(sourceIcon,preferred?'link':'info');
+    source.createSpan({text:preferred?
+      'Source WOL : '+wolSourceLabel(preferred):
+      openCount>1?'Plusieurs pages WOL : sélection manuelle du lien':
+      'Aucune page WOL identifiée — copie un lien ou un extrait'});
     const actions=area.createDiv({cls:'biblelab-quick-capture-actions'});
     button(actions,'Garder le lien WOL','link',()=>this.captureCurrentWolTab());
     button(actions,'Garder le texte copié','clipboard-paste',()=>void this.captureClipboardQuick(),true);
