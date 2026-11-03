@@ -13,6 +13,7 @@ import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
+import { renderWolCardThumbnail } from './articleImages';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -471,7 +472,12 @@ export class BibleLabSidebarView extends ItemView {
       headingRow.createEl('h3',{text:'RÉSULTATS · '+this.wolResults.length+' LIENS'});
       for(const hit of this.wolResults){
         const el=this.scroller.createDiv({cls:'biblelab-search-result'});
-        const icon=el.createSpan({cls:'biblelab-search-result-icon'});setIcon(icon,'file-text');
+        if(hit.thumbnail){
+          el.addClass('has-thumbnail');
+          renderWolCardThumbnail(el,hit.thumbnail);
+        }else{
+          const icon=el.createSpan({cls:'biblelab-search-result-icon'});setIcon(icon,'file-text');
+        }
         const copy=el.createDiv({cls:'biblelab-search-result-copy'});
         copy.createEl('strong',{text:hit.title});
         if(this.searchScope==='all'&&hit.collection&&hit.collection!=='other')
