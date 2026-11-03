@@ -124,6 +124,30 @@ export function parseWolSearchResults(html: string, requestedUrl: string): WolSe
   return hits;
 }
 
+
+/**
+ * WOL does not promise a fixed page size. Prefer the next-page link in its
+ * public HTML; when pagination is built by script, a full-looking result page
+ * may still have more entries. A false positive is harmless: users can go back.
+ */
+export function hasWolNextPage(html: string, requestedUrl: string, resultCount: number): boolean {
+  const current = new URL(requestedUrl);
+  const page = Number(current.searchParams.get('pg') || 1);
+  if (page >= 100) return false;
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  for (const link of doc.querySelectorAll<HTMLAnchorElement>('a[href]')) {
+    try {
+      const next = new URL(link.getAttribute('href') || '', requestedUrl);
+      if (next.origin !== current.origin || next.pathname !== current.pathname) continue;
+      const nextPage = Number(next.searchParams.get('pg') || 1);
+      if (nextPage === page + 1) return true;
+    } catch { /* Ignore invalid page links. */ }
+  }
+  // WOL's own search pages commonly contain 10 or more entries, including
+  // its reference-work shortcuts. Never require an arbitrary 30 results.
+  return resultCount >= 10;
+}
+
 export function preferredWolHits(hits: WolSearchHit[], query: string, scope: WolSearchScope): WolSearchHit[] {
   const target = compact(query, 250).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const selected = scope === 'all' ? hits : hits.filter(hit => hit.collection === scope);
