@@ -10,16 +10,16 @@ import { dayLink, meetingIssueLink, findMeetingProgramme, wolMeetingLink, parseD
 import { extractReferenceEntries, cleanWolUrl, passageUrl, parseWolDocument, type ReferenceEntry } from './referenceReader';
 import { findPublicationMentions } from './publicationReferences';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
-import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, preferredWolHits, hasWolNextPage, isWolAccessChallenge, wolHtmlHasExplicitlyNoResults, wolSearchAlternateUrls, WOL_RESULTS_PAGE_SIZE, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
+import { jwOrgResearchUrl, wolResearchUrl, type WolMatchMode, type WolSearchScope } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
-import { searchRenderedWolInObsidian } from './wolWebViewerSearch';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
 export interface BibleLabHost {
   openAtlas: () => Promise<void>;
   openWolArticleTab: (ref: ReferenceEntry) => Promise<void>;
+  openWolSearchTab: (url: string) => Promise<void>;
   openAtlasPlace: (name:string) => void;
   newResearch: (keys: []) => void;
   newInvestigation: (selections: []) => void;
@@ -64,16 +64,9 @@ export class BibleLabSidebarView extends ItemView {
   private searchMatch:WolMatchMode='par';
   private searchScope:WolSearchScope='all';
   private researchContext='';
-  private wolResults:WolSearchHit[]=[];
-  private wolResultsQuery='';
-  private wolResultsError='';
-  private wolResultsLoading=false;
   private sourceCheckLoading=false;
   private searchAdvancedOpen=false;
   private sourceCheckMessage='';
-  private wolResultsSequence=0;
-  private wolSearchPage=1;
-  private wolHasNextPage=false;
   private localHits:LocalJwHit[]=[];
   private localHitsQuery='';
   private localSearchLoading=false;
@@ -238,7 +231,7 @@ export class BibleLabSidebarView extends ItemView {
       return;
     }
     this.setTab('wol');
-    void this.loadWolResults();
+    this.openSearch();
   }
   private renderStudySearch(parent:HTMLElement):void{
     const form=parent.createEl('form',{cls:'biblelab-quick-search'});
@@ -406,16 +399,17 @@ export class BibleLabSidebarView extends ItemView {
     button(area,'Go','arrow-right',submit,true);
     return input;
   }
+  /**
+   * WOL remains responsible for its search results, filters, page navigation
+   * and article links. Bible Lab simply opens the official search URL in
+   * Obsidian's native Chromium Web viewer. No requestUrl, scraper, retries or
+   * reconstructed result list is needed for the main research workflow.
+   */
   private renderWol():void{
-    heading(this.scroller,'Recherche documentaire','Un sujet ou une référence, puis les sources officielles.');
+    heading(this.scroller,'Recherche WOL','La vraie Bibliothèque en ligne, dans un onglet Obsidian.');
     this.searchField(this.scroller,this.query,'Sujet, publication ou verset…',text=>{
-      if(this.query!==text){
-        this.query=text;this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
-        this.wolSearchPage=1;this.wolHasNextPage=false;
-        this.wolResultsSequence++;this.wolResultsLoading=false;
-        this.localSearchSequence++;this.localSearchLoading=false;this.localHits=[];this.localHitsQuery='';this.localSearchError='';
-      }
-    },()=>void this.loadWolResults());
+      this.query=text;
+    },()=>this.openSearch());
 
     const modes=this.scroller.createDiv({cls:'biblelab-research-modes',attr:{
       role:'group','aria-label':'Outil de recherche'}});
@@ -426,91 +420,43 @@ export class BibleLabSidebarView extends ItemView {
       {value:'perspicace',title:'Perspicace',icon:'book-open-check'}
     ];
     for(const mode of researchModes){
-      const active=this.searchScope===mode.value;
+      const selected=this.searchScope===mode.value;
       const toggle=modes.createEl('button',{cls:'biblelab-research-mode',attr:{
-        type:'button','aria-pressed':String(active),'aria-label':mode.title}});
+        type:'button','aria-pressed':String(selected),'aria-label':mode.title}});
       const glyph=toggle.createSpan();setIcon(glyph,mode.icon);
       toggle.createSpan({text:mode.title});
       toggle.addEventListener('click',()=>{
         if(this.searchScope===mode.value)return;
-        this.searchScope=mode.value;this.wolResults=[];
-        this.wolSearchPage=1;this.wolHasNextPage=false;
-        this.wolResultsQuery='';this.wolResultsError='';
-        this.wolResultsSequence++;this.wolResultsLoading=false;
+        this.searchScope=mode.value;
         this.render();
-        if(this.query.trim())void this.loadWolResults();
+        // Replace only the plugin's own research tab when selecting a new
+        // collection. Independent WOL articles and notes remain untouched.
+        if(this.query.trim())this.openSearch();
       });
-    }
-    if(this.searchScope!=='all'){
-      const context=this.scroller.createDiv({cls:'biblelab-research-context'});
-      const icon=context.createSpan();setIcon(icon,'book-open-check');
-      context.createEl('p',{text:this.searchScope==='index'
-        ?'Index : retrouver les rubriques thématiques et leurs renvois.'
-        :this.searchScope==='guide'
-        ?'Guide de recherche : naviguer par rubriques, passages et publications.'
-        :'Perspicace : ouvrir les articles encyclopédiques par sujet.'});
-      const direct=this.searchScope==='guide'
-        ?'https://www.jw.org/fr/biblioth%C3%A8que/index-2/'
-        :'https://wol.jw.org/fr/wol/s/r30/lp-f?'+new URLSearchParams({q:this.query||'amour',p:'par','fc[]':this.searchScope==='perspicace'?'it':'dx'}).toString();
-      button(context,'Ouvrir l’ouvrage','external-link',()=>external(direct));
     }
 
     const primary=this.scroller.createDiv({cls:'biblelab-search-primary'});
-    const find=button(primary,this.wolResultsLoading?'Recherche…':'Voir les résultats','search',()=>void this.loadWolResults(),true);
-    find.disabled=this.wolResultsLoading;
-    button(primary,'Lire dans le panneau','book-open-text',()=>{
+    const find=button(primary,'Rechercher dans WOL','search',()=>this.openSearch(),true);
+    find.disabled=!this.query.trim();
+    button(primary,'Ouvrir WOL','panels-top-left',()=>
+      void this.host.openWolSearchTab('https://wol.jw.org/fr/wol/h/r30/lp-f'));
+
+    const hint=this.scroller.createDiv({cls:'biblelab-research-context'});
+    const glyph=hint.createSpan();setIcon(glyph,'panels-top-left');
+    hint.createEl('p',{text:'Les résultats et les articles s’ouvrent directement dans la visionneuse web d’Obsidian. Utilise les liens, le retour arrière et le mode lecture de WOL, tout en gardant tes notes à côté.'});
+    if(this.searchScope==='guide'||this.searchScope==='index')
+      hint.createEl('p',{text:'Sur WOL, Index et Guide de recherche utilisent le filtre officiel Index. Tu peux affiner la sélection dans la page WOL.'});
+
+    const quick=this.scroller.createDiv({cls:'biblelab-buttons'});
+    button(quick,'Lire dans le panneau','book-open-text',()=>{
       const term=this.query.trim();
       if(!term){new Notice('Saisis un verset, une référence ou un lien WOL.');return;}
       this.focusReference(cleanWolUrl(term)||this.referenceUrl(term),term);
     });
-
-    if(this.wolResultsLoading){
-      const status=this.scroller.createDiv({cls:'biblelab-search-state',attr:{role:'status','aria-live':'polite'}});
-      const icon=status.createSpan();setIcon(icon,'loader-circle');
-      status.createSpan({text:'Recherche de documents sur WOL…'});
-    }
-    if(this.wolResultsError){
-      const info=this.scroller.createDiv({cls:'biblelab-search-feedback'});
-      const symbol=info.createSpan();setIcon(symbol,'info');
-      info.createEl('p',{text:this.wolResultsError});
-      button(info,'Continuer sur WOL','external-link',()=>external(this.officialSearchUrl()));
-    }
-    if(this.wolResultsQuery&&!this.wolResultsLoading&&this.wolResults.length){
-      const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
-      headingRow.createEl('h3',{text:'RÉSULTATS WOL · PAGE '+this.wolSearchPage});
-      headingRow.createSpan({cls:'biblelab-mini',text:this.wolResults.length+' document(s)'});
-      for(const hit of this.wolResults){
-        const el=this.scroller.createDiv({cls:'biblelab-search-result'});
-        const icon=el.createSpan({cls:'biblelab-search-result-icon'});setIcon(icon,'file-text');
-        const copy=el.createDiv({cls:'biblelab-search-result-copy'});
-        copy.createEl('strong',{text:hit.title});
-        if(hit.collection&&hit.collection!=='other')
-          copy.createSpan({cls:'biblelab-source-tag',text:hit.collection==='guide'?'Guide de recherche':hit.collection==='index'?'Index':'Perspicace'});
-        if(hit.excerpt)copy.createEl('p',{text:hit.excerpt});
-        const row=el.createDiv({cls:'biblelab-search-result-actions'});
-        button(row,'Lire ici','book-open',()=>this.focusReference(hit.url,hit.title),true);
-        button(row,'Nouvel onglet','panels-top-left',()=>void this.host.openWolArticleTab({label:hit.title,url:hit.url,kind:'document',origin:'pinned'}));
-        button(row,'WOL','external-link',()=>external(hit.url));
-      }
-      this.scroller.createEl('p',{cls:'biblelab-mini',
-        text:'Sélectionne un résultat pour l’ouvrir ici, puis suis ses renvois sans quitter Obsidian.'});
+    if(this.query.trim()){
+      button(quick,'Navigateur externe','external-link',()=>external(this.officialSearchUrl()));
     }
 
-    if(this.wolResultsQuery && !this.wolResultsLoading){
-      const pagination=this.scroller.createDiv({cls:'biblelab-wol-pagination'});
-      if(this.wolSearchPage>1)
-        button(pagination,'Page précédente','chevron-left',()=>{
-          this.wolSearchPage--;void this.loadWolResults();
-        });
-      pagination.createSpan({text:'Page '+this.wolSearchPage});
-      if(this.wolHasNextPage)
-        button(pagination,'Page suivante','chevron-right',()=>{
-          this.wolSearchPage++;void this.loadWolResults();
-        });
-    }
-
-    // Progressive disclosure: occasional advanced tools should never obscure
-    // the result list or the reading workflow.
     const advanced=this.scroller.createEl('details',{cls:'biblelab-search-advanced'});
     advanced.open=this.searchAdvancedOpen;
     advanced.addEventListener('toggle',()=>{if(advanced.isConnected)this.searchAdvancedOpen=advanced.open;});
@@ -523,12 +469,7 @@ export class BibleLabSidebarView extends ItemView {
       const option=match.createEl('option',{text:label,attr:{value}});
       option.selected=this.searchMatch===value;
     }
-    match.addEventListener('change',()=>{
-      this.searchMatch=match.value==='sen'?'sen':'par';
-      this.wolSearchPage=1;this.wolHasNextPage=false;
-      this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
-      this.wolResultsSequence++;this.wolResultsLoading=false;
-    });
+    match.addEventListener('change',()=>{this.searchMatch=match.value==='sen'?'sen':'par';});
     const scopeLabel=controls.createEl('label',{text:'Sources'});
     const scope=scopeLabel.createEl('select',{attr:{'aria-label':'Sources WOL'}});
     for(const [value,label] of [['all','Toutes les publications'],['index','Index des publications'],['guide','Guide de recherche'],['perspicace','Étude perspicace']] as const){
@@ -537,12 +478,10 @@ export class BibleLabSidebarView extends ItemView {
     }
     scope.addEventListener('change',()=>{
       this.searchScope=scope.value==='index'?'index':scope.value==='guide'?'guide':scope.value==='perspicace'?'perspicace':'all';
-      this.wolSearchPage=1;this.wolHasNextPage=false;
-      this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
-      this.wolResultsSequence++;this.wolResultsLoading=false;
+      this.render();
     });
     const actions=advancedBody.createDiv({cls:'biblelab-buttons'});
-    button(actions,'Rechercher WOL','external-link',()=>this.openSearch());
+    button(actions,'Rechercher dans WOL','panels-top-left',()=>this.openSearch());
     button(actions,'Recherche JW.org','globe',()=>{
       try{external(jwOrgResearchUrl(this.query));}
       catch{new Notice('Saisis un sujet à rechercher.');}
@@ -559,7 +498,7 @@ export class BibleLabSidebarView extends ItemView {
     if(this.sourceCheckMessage){
       const check=advancedBody.createDiv({cls:'biblelab-reader-hint'});
       check.createSpan({text:this.sourceCheckMessage});
-      check.createEl('p',{text:'Les sites officiels peuvent limiter la consultation automatisée. Ouvre WOL si nécessaire.'});
+      check.createEl('p',{text:'Le diagnostic HTTP est distinct de la visionneuse web : celle-ci peut afficher WOL même lorsque requestUrl ne peut pas récupérer son texte.'});
     }
 
     const personal=this.scroller.createEl('details',{cls:'biblelab-search-advanced biblelab-personal-search'});
@@ -584,104 +523,10 @@ export class BibleLabSidebarView extends ItemView {
     }
     const links=this.scroller.createDiv({cls:'biblelab-search-shortcuts'});
     button(links,'Bibliothèque d’étude','library-big',()=>external('https://www.jw.org/fr/la-bible-et-vous/outils-etude-bible/'));
-    button(links,'Index WOL','book-open-check',()=>external('https://wol.jw.org/fr/wol/d/r30/lp-f/1200270070'));
-  }
-  private async loadWolResults():Promise<void>{
-    const term=this.query.trim();
-    if(!term){new Notice('Saisis un sujet ou une expression.');return;}
-    const direct=cleanWolUrl(term);
-    if(direct && (/\/fr\/wol\/(?:d|b)\//.test(new URL(direct).pathname)||new URL(direct).pathname==='/finder')){
-      this.focusReference(direct,'Document WOL');
-      return;
-    }
-    const scripture=parseScripture(term);
-    if(scripture && this.searchScope==='all'){this.focusReference(scripture.label);return;}
-    if(this.searchScope==='all'&&findPublicationMentions(term).some(x=>x.from===0&&x.to===term.length)){
-      this.focusReference(term);return;
-    }
-    if(this.wolResultsLoading)return;
-    const seq=++this.wolResultsSequence;
-    const url=wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope,page:this.wolSearchPage});
-    this.wolResultsLoading=true;this.wolResultsError='';this.wolResults=[];this.wolResultsQuery='';
-    if(this.tab==='wol')this.render();
-    try{
-      // WOL may deliver a 200 response containing only a JavaScript shell,
-      // or block a plain HTTP client while loading in a normal Chromium tab.
-      // Try the official HTTP variants first, then *render* the real page in
-      // Obsidian's native Web viewer and extract only safe official links.
-      let all:WolSearchHit[]=[];
-      let sourceHtml='',sourceUrl=url,explicitEmpty=false;
-      let accessProblem='';
-      const attempts=[url,...wolSearchAlternateUrls(url)];
-      for(const [index,candidate] of attempts.entries()){
-        if(seq!==this.wolResultsSequence)return;
-        let response;
-        try{response=await requestUrl({url:candidate,throw:false});}
-        catch(error){
-          if(index===0)accessProblem=error instanceof Error?error.message:'Connexion WOL impossible.';
-          continue;
-        }
-        if(response.status!==200){
-          if(index===0)accessProblem='WOL a répondu avec le code '+response.status+
-            (response.status===403||response.status===429?' (accès automatisé limité).':'.');
-          continue;
-        }
-        if(isWolAccessChallenge(response.text)){
-          if(index===0)accessProblem='WOL demande une vérification anti-robot. Les résultats ne sont pas disponibles via la requête directe d’Obsidian.';
-          continue;
-        }
-        all=parseWolSearchResults(response.text,candidate);
-        if(all.length){sourceHtml=response.text;sourceUrl=candidate;break;}
-        if(wolHtmlHasExplicitlyNoResults(response.text)){
-          explicitEmpty=true;break;
-        }
-      }
-      if(!all.length&&!explicitEmpty){
-        const rendered=await searchRenderedWolInObsidian(
-          this.app,url,()=>seq!==this.wolResultsSequence
-        );
-        if(seq!==this.wolResultsSequence)return;
-        if(rendered.hits.length){
-          all=rendered.hits;
-          sourceHtml=rendered.html;
-          sourceUrl=rendered.url;
-        }else if(rendered.browserOpen){
-          // The official WOL search is now visible in a real Chromium tab.
-          // No claim that the API returned 0 results: users can inspect WOL
-          // and follow its actual links in the workspace.
-          this.wolResultsError='WOL a été ouvert dans un nouvel onglet Obsidian pour afficher la recherche dans son navigateur complet. La page ne permet pas encore de transférer automatiquement ses résultats ici ; consulte-les dans cet onglet.';
-          this.wolResultsQuery=term;
-          this.wolHasNextPage=false;
-          return;
-        }
-      }
-      if(!all.length)
-        throw Error(explicitEmpty
-          ?'Cette page WOL ne renvoie aucun résultat exploitable pour la recherche.'
-          :accessProblem||
-          'WOL a renvoyé une page sans liste de résultats lisible par Obsidian. Active le module principal Visionneuse web d’Obsidian (ordinateur) pour lancer la recherche dans son navigateur intégré, ou ouvre-la sur WOL.');
-      // Do not truncate *before* filtering reference works. Index, Guide and
-      // Perspicace share many common search matches on the same results page.
-      const items=preferredWolHits(all,term,this.searchScope);
-      if(seq!==this.wolResultsSequence)return;
-      this.wolHasNextPage=sourceUrl.includes('/wol/s/')&&hasWolNextPage(sourceHtml,sourceUrl,all.length);
-      // If a real WOL page has links but lacks readable publication metadata,
-      // show its safe official links instead of declaring the search empty.
-      this.wolResults=(items.length?items:all).slice(0,WOL_RESULTS_PAGE_SIZE);
-      this.wolResultsQuery=term;
-      if(!items.length && this.searchScope!=='all')
-        this.wolResultsError='WOL a répondu, mais les ouvrages ne sont pas tous identifiables : résultats officiels affichés sans filtrage complémentaire.';
-    }catch(error){
-      if(seq!==this.wolResultsSequence)return;
-      this.wolResultsError=(error instanceof Error?error.message:'Recherche indisponible.')+
-        ' Tu peux toujours consulter les résultats sur le site officiel.';
-      // Keep previous-page navigation available after a failed later page.
-      this.wolResultsQuery=term;this.wolHasNextPage=false;
-    }finally{
-      if(seq===this.wolResultsSequence){
-        this.wolResultsLoading=false;if(this.tab==='wol')this.render();
-      }
-    }
+    button(links,'Index WOL','book-open-check',()=>void this.host.openWolArticleTab({
+      label:'Index des publications',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270070',
+      kind:'document',origin:'pinned'
+    }));
   }
   private async testOfficialAccess():Promise<void>{
     if(this.sourceCheckLoading)return;
@@ -784,13 +629,14 @@ export class BibleLabSidebarView extends ItemView {
       :wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
   }
   private exploreReference(ref:ReferenceEntry,scope:WolSearchScope):void{
-    this.query=ref.label;this.searchScope=scope;this.wolSearchPage=1;this.wolHasNextPage=false;
-    this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
-    this.wolResultsSequence++;this.wolResultsLoading=false;
+    this.query=ref.label;this.searchScope=scope;
     this.setTab('wol');
-    void this.loadWolResults();
+    this.openSearch();
   }
-  private openSearch():void{external(this.officialSearchUrl());}
+  private openSearch():void{
+    if(!this.query.trim()){new Notice('Saisis un sujet ou une référence à rechercher.');return;}
+    void this.host.openWolSearchTab(this.officialSearchUrl());
+  }
   private renderRefs():void{
     heading(this.scroller,'Lecture','Les sources, leurs notes et leurs renvois, sans perdre le fil.');
     if(this.referenceHistory.length>1){
