@@ -52,33 +52,30 @@ test('JW.org monthly issue is used when the WOL page has only Daily Text',async(
  await expect(pane.getByRole('button',{name:'Préparer en note'})).toBeVisible();
 });
 
-test('WOL search returns official document links and opens the article in the reference reader',async({page})=>{
- const search='<html><main><div class="searchResults"><article>'+
-  '<a href="/fr/wol/d/r30/lp-f/2024642">La compassion de Jésus</a>'+
-  '<p>Un article qui explique la compassion.</p></article></div></main></html>';
+test('Official WOL search opens its actual page in Obsidian while quick article reading stays available',async({page})=>{
  const article='<html><main class="bodyTxt"><h1>La compassion de Jésus</h1>'+
-  '<p>Jésus manifestait une compassion profonde envers autrui.</p>'+
-  '<p>Il nous invite à faire preuve de bonté.</p></main></html>';
- await page.route('https://wol.jw.org/fr/wol/s/**',route=>route.fulfill({
-   status:200,contentType:'text/html',body:search}));
- await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642',route=>route.fulfill({
-   status:200,contentType:'text/html',body:article}));
+  '<p>Jésus manifestait une compassion profonde envers autrui.</p></main></html>';
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642',route=>
+  route.fulfill({status:200,contentType:'text/html',body:article}));
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
  await pane.locator('input[type="search"]').first().fill('compassion');
- await pane.getByRole('button',{name:'Voir les résultats'}).click();
- await expect(pane.getByText('La compassion de Jésus',{exact:true}).first()).toBeVisible();
- await pane.getByRole('button',{name:'Lire ici'}).click();
+ await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
+ const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace
+   .getLeavesOfType('webviewer')[0].view.getState().url);
+ expect(new URL(url).searchParams.get('q')).toBe('compassion');
+ await pane.locator('input[type="search"]').first().fill('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642');
+ await pane.getByRole('button',{name:'Lire dans le panneau'}).click();
  await expect(pane.getByText('Jésus manifestait une compassion profonde envers autrui.')).toBeVisible();
 });
 
-test('Unreachable WOL search shows a clear fallback instead of misleading empty results',async({page})=>{
+test('WOL HTTP 403 does not prevent opening real WOL search in Obsidian Web viewer',async({page})=>{
  await page.route('https://wol.jw.org/fr/wol/s/**',route=>route.fulfill({
    status:403,contentType:'text/html',body:'<html>Access denied</html>'}));
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
  await pane.locator('input[type="search"]').first().fill('compassion');
- await pane.getByRole('button',{name:'Voir les résultats'}).click();
- await expect(pane.getByText('WOL a répondu avec le code 403',{exact:false})).toBeVisible();
- await expect(pane.getByRole('button',{name:'Continuer sur WOL'})).toBeVisible();
+ await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
+ await expect(page.locator('.mock-core-webviewer')).toHaveCount(1);
+ await expect(pane.getByText(/aucun résultat exploitable/i)).toHaveCount(0);
 });
