@@ -4,11 +4,12 @@ import { cleanReadingText } from './readerText.ts';
  * Le HTML WOL peut évoluer : une liste vide doit toujours proposer le site.
  */
 import { cleanWolUrl } from './referenceReader.ts';
+import { cardThumbnailFrom, wolResultCard, type ArticleImage } from './articleImages.ts';
 
 export type WolMatchMode='par'|'sen';
 export type WolSearchScope='all'|'index'|'guide';
 export interface WolSearchOptions {match:WolMatchMode;scope:WolSearchScope}
-export interface WolSearchHit {title:string;url:string;excerpt:string;collection?:'index'|'guide'|'other'}
+export interface WolSearchHit {title:string;url:string;excerpt:string;collection?:'index'|'guide'|'other';thumbnail?:ArticleImage}
 export const MAX_WOL_RESULTS=25;
 export const JW_STUDY_TOOLS='https://www.jw.org/fr/la-bible-et-vous/outils-etude-bible/';
 
@@ -44,8 +45,8 @@ export function parseWolSearchResults(html:string,requestedUrl:string):WolSearch
  for(const root of roots){
   for(const link of root.querySelectorAll<HTMLAnchorElement>('a[href]')){
    const url=officialResultHref(link.getAttribute('href')||'',requestedUrl);
-   if(!url||seen.has(url))continue;
-   const item=link.closest('li,article,.result,.searchResult,.search-result,.item')||link.parentElement;
+   if(!url||seen.has(url)||link.closest('.cardThumbnailImage'))continue;
+   const item=wolResultCard(link);
    const heading=item?.querySelector('h2,h3,h4');
    const title=compact(link.textContent||heading?.textContent||link.getAttribute('title')||'',170);
    if(title.length<4||/^(?:image|imprimer|précédent|suivant|sommaire|ouvrir|lire|écouter|watchtower)$/i.test(title))continue;
@@ -69,7 +70,8 @@ export function parseWolSearchResults(html:string,requestedUrl:string):WolSearch
       ?'guide'
       :/(?:^|[^a-z0-9])dx(?:\d{2}[-–]\d{2})?\b|\bindex \d{4}[-–]\d{4}\b/i.test(metadata)
       ?'index':'other';
-   seen.add(url);hits.push({title,url,excerpt,collection});
+   const thumbnail=cardThumbnailFrom(link,requestedUrl)||undefined;
+   seen.add(url);hits.push({title,url,excerpt,collection,...(thumbnail?{thumbnail}:{})});
    if(hits.length>=MAX_WOL_RESULTS)return hits;
   }
   // Prefer a dedicated result root when it contains matches, but permit
