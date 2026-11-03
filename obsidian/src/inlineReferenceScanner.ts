@@ -1,6 +1,7 @@
 import { findScriptureMentions, parseScripture } from './bibleLabData.ts';
 import { passageUrl, type ReferenceEntry } from './referenceReader.ts';
 import { findPublicationMentions } from './publicationReferences.ts';
+import { markdownCitationScanText } from './markdownCitationScan.ts';
 
 /** Matches in an individual visible line, not in Markdown syntax or code. */
 export interface InlineReference {from:number;to:number;label:string;ref:ReferenceEntry}
@@ -26,6 +27,7 @@ export function findInlineReferences(line:string,inheritedBook?:string):InlineRe
  if(line.length>14000||!line.trim()||/^\s*(?:>|#{1,6}\s+)?(?:\x60{3}|~~~)/.test(line)||
    /^\s*(?:---|<!--)/.test(line))return [];
  const protectedSpans=protectedRanges(line);
+ const scan=markdownCitationScanText(line);
  const result:InlineReference[]=[];
  const add=(start:number,end:number,label:string,sourceUrl?:string,canonicalLabel?:string):void=>{
   if(!safeBoundary(line,start,end))return;
@@ -39,11 +41,12 @@ export function findInlineReferences(line:string,inheritedBook?:string):InlineRe
  };
  // Use source offsets rather than re-searching a normalized label:
  // abbreviation punctuation, case and repeated occurrences remain exact.
- for(const citation of findScriptureMentions(line,inheritedBook).slice(0,35)){
-  add(citation.from,citation.to,citation.label,undefined,citation.ref.label);
+ for(const citation of findScriptureMentions(scan,inheritedBook).slice(0,35)){
+  add(citation.from,citation.to,line.slice(citation.from,citation.to),undefined,citation.ref.label);
  }
- for(const item of findPublicationMentions(line)){
-  add(item.from,item.to,item.label,item.url);
+ for(const item of findPublicationMentions(scan)){
+  const canonical=item.label.replace(/\s+/g,' ').trim();
+  add(item.from,item.to,line.slice(item.from,item.to),item.url,canonical);
  }
  return result.sort((a,b)=>a.from-b.from);
 }

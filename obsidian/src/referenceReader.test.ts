@@ -95,3 +95,15 @@ test('Indexed note preserves same-book references after Markdown link',()=>{
  const tokens=linkifyReaderText('Actes 1:8 ; 2:1-4, 32, 33 ; 3:6, 7');
  assert.deepEqual(tokens.filter(p=>p.url).map(p=>p.text),['Actes 1:8','2:1-4, 32, 33','3:6, 7']);
 });
+
+test('Side-panel references survive Markdown bold and italic inside the citation',()=>{
+ const note='# Recherche\n**w24 novembre** p. 21-24 § 4-16\n'+
+   'km *5/00* p. 8 **§ 2**\n'+
+   'Comparer Hé 11:1.';
+ const refs=extractReferenceEntries(note);
+ for(const label of ['w24 novembre p. 21-24 § 4-16','km 5/00 p. 8 § 2','Hé 11:1']){
+  assert.ok(refs.some(ref=>ref.label===label),label+' missing: '+JSON.stringify(refs));
+ }
+ const km=refs.find(ref=>ref.label==='km 5/00 p. 8 § 2');
+ assert.equal(km?.url,'https://wol.jw.org/fr/wol/l/r30/lp-f?q=km+5%2F00+p.+8');
+});

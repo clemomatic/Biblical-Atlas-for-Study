@@ -140,3 +140,27 @@ test('Compact Watchtower citations preserve paragraph numbers as part of the cli
  const matches=extractReferenceEntries('Étudier w16.06 20 § 11 et mwb20.03 7 § 5.');
  assert.deepEqual(matches.map(item=>item.label),['w16.06 20 § 11','mwb20.03 7 § 5']);
 });
+
+test('Watchtower and Kingdom Ministry references retain full page and paragraph spans',()=>{
+ const examples=[
+  'w24 novembre p. 21-24 § 4-16',
+  'w24 novembre p. 21-24 §4-16',
+  'km 5/00 p. 8 § 2',
+  'km 05/00 p. 8 §2',
+  'km 5/00 8 § 2',
+  'g 2/12 3-13 § 4',
+  'yb17 197 § 3'
+ ];
+ for(const citation of examples){
+  const matches=findPublicationMentions('Voir '+citation+'.');
+  assert.deepEqual(matches.map(x=>x.label),[citation],citation);
+  assert.ok(!new URL(matches[0].url).searchParams.get('q')?.includes('§'),citation);
+ }
+ assert.deepEqual(referencedParagraphs('w24 novembre p. 21-24 § 4-16'),
+  Array.from({length:13},(_,i)=>String(i+4)));
+ assert.deepEqual(referencedParagraphs('km 5/00 p. 8 § 2'),['2']);
+ assert.equal(publicationUrl('km 5/00 p. 8 § 2'),
+  'https://wol.jw.org/fr/wol/l/r30/lp-f?q=km+5%2F00+p.+8');
+ assert.equal(publicationUrl('km 05/00 p. 8 §2'),
+  publicationUrl('km 5/00 p. 8 § 2'));
+});

@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.12",
+  "version": "0.9.13",
   "minAppVersion": "1.6.0",
-  "description": "Abréviations bibliques françaises accentuées (Hé, Né, Éz, etc.), liens et aperçu WOL améliorés.",
+  "description": "Références WOL lookupResults plus robustes, paragraphes km et citations avec mise en forme Markdown.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
