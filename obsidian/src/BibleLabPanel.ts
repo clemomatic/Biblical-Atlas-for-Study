@@ -44,6 +44,8 @@ export interface BibleLabHost {
   getResearchCollection: () => ResearchCollection;
   saveResearchCollection: (collection:ResearchCollection) => Promise<void>;
   getResearchArchive: () => BibleLabArchive;
+  exportResearchBackup: () => Promise<string>;
+  openRestoreResearchBackup: () => void;
   saveResearchArchive: (archive:BibleLabArchive) => Promise<void>;
   getOpenWolUrls: () => string[];
   getPreferredWolUrl: () => string|null;
@@ -226,6 +228,16 @@ export class BibleLabSidebarView extends ItemView {
       this.noteTitle=file.basename;this.lastMarkdownPath=file.path;this.noteRefs=[];
     }
     if((this.tab==='refs'||this.tab==='home')&&this.scroller)this.render();
+  }
+  reloadResearchState():void{
+    this.researchDesk=normalizeResearchDesk(this.host.getResearchDesk());
+    this.collection=normalizeResearchCollection(this.host.getResearchCollection());
+    this.archive=normalizeBibleLabArchive(this.host.getResearchArchive());
+    this.archiveTerm='';
+    this.archiveFilter='all';
+    this.archivePlanFilter=null;
+    this.captureDraft={label:'',url:'',excerpt:'',comment:''};
+    if(this.scroller)this.render();
   }
   openCollection():void{
     this.collection=normalizeResearchCollection(this.host.getResearchCollection());
@@ -1304,6 +1316,18 @@ export class BibleLabSidebarView extends ItemView {
   private renderArchive():void{
     heading(this.scroller,'Mon index personnel',
       'Retrouve tes sources, classe-les librement et reprends tes recherches.');
+    const safety=this.scroller.createDiv({cls:'biblelab-backup-actions'});
+    const safetyHeader=safety.createDiv({cls:'biblelab-backup-header'});
+    const badge=safetyHeader.createSpan();setIcon(badge,'shield-check');
+    const description=safetyHeader.createDiv();
+    description.createEl('strong',{text:'Protéger mes recherches'});
+    description.createEl('p',{text:'Sauvegarde locale de tes plans, trouvailles, fiches et étiquettes, sans modifier les notes du coffre.'});
+    const safetyButtons=safety.createDiv({cls:'biblelab-backup-buttons'});
+    button(safetyButtons,'Créer une sauvegarde','download',()=>{
+      void this.host.exportResearchBackup().catch(error=>
+        new Notice('Sauvegarde impossible : '+(error instanceof Error?error.message:'erreur inconnue.')));
+    },true);
+    button(safetyButtons,'Restaurer','history',()=>this.host.openRestoreResearchBackup());
     const summary=this.scroller.createDiv({cls:'biblelab-archive-summary'});
     summary.createSpan({text:this.collection.captures.length+' sources conservées'});
     summary.createSpan({text:this.archive.entries.filter(entry=>entry.starred &&
