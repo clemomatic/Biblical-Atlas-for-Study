@@ -32,25 +32,18 @@ test('Typing a verse on the homepage opens the local reader directly',async({pag
  await expect(pane.getByRole('button',{name:'Insérer dans ma note'})).toBeVisible();
 });
 
-test('Topic search returns articles, preserves original query after opening and returning',async({page})=>{
- const search='<html><main class="searchResults"><article>'+
-   '<a href="/fr/wol/d/r30/lp-f/2024663">La justice et la bonté</a>'+
-   '<p>Quelques réflexions pour approfondir.</p></article></main></html>';
- const article='<html><main class="bodyTxt"><h1>La justice et la bonté</h1>'+
-   '<p>La justice véritable est liée à l’amour.</p>'+
-   '<p>Les Écritures nous aident à discerner le bien.</p></main></html>';
- await page.route('https://wol.jw.org/fr/wol/s/**',route=>route.fulfill({status:200,contentType:'text/html',body:search}));
- await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2024663',route=>route.fulfill({status:200,contentType:'text/html',body:article}));
+test('Topic search keeps the original question and opens genuine WOL beside the sidebar',async({page})=>{
  const pane=page.locator('.biblelab-side');
  await pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'}).fill('justice');
  await pane.getByRole('button',{name:'Lancer une recherche'}).click();
  await expect(pane.locator('.biblelab-tab[aria-label="WOL"]')).toHaveAttribute('aria-selected','true');
- await expect(pane.getByText('La justice et la bonté',{exact:true}).first()).toBeVisible();
- await pane.getByRole('button',{name:'Lire ici'}).click();
- await expect(pane.getByText('La justice véritable est liée à l’amour.')).toBeVisible();
+ await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('justice');
+ const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace
+   .getLeavesOfType('webviewer')[0].view.getState().url);
+ expect(new URL(url).searchParams.get('q')).toBe('justice');
+ await pane.locator('.biblelab-tab[aria-label="Références"]').click();
  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
  await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('justice');
- await expect(pane.getByText('La justice et la bonté',{exact:true}).first()).toBeVisible();
 });
 
 test('Current note references stay tucked away while a focused source is read',async({page})=>{
@@ -76,13 +69,12 @@ test('Current note references stay tucked away while a focused source is read',a
  await expect(firstReference.locator('.biblelab-reader-summary').first()).toHaveCount(1);
 });
 
-test('Search advanced actions are progressive but available after a failed source request',async({page})=>{
- await page.route('https://wol.jw.org/fr/wol/s/**',route=>route.fulfill({status:403,contentType:'text/html',body:'Forbidden'}));
+test('Advanced WOL actions stay progressive and separate from native search',async({page})=>{
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
  await pane.getByPlaceholder('Sujet, publication ou verset…').fill('paix');
- await pane.getByRole('button',{name:'Voir les résultats'}).click();
- await expect(pane.getByText('accès automatisé limité',{exact:false})).toBeVisible();
+ await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
+ await expect(page.locator('.mock-core-webviewer')).toHaveCount(1);
  const advanced=pane.locator('.biblelab-search-advanced').first();
  await expect(advanced).not.toHaveAttribute('open','');
  await advanced.locator('summary').click();

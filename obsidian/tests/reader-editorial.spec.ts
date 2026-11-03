@@ -42,23 +42,17 @@ test('Editorial sidebar preserves original WOL headings, questions, paragraph nu
  await expect(article.locator('.biblelab-article-paragraph.is-unnumbered')).toHaveCount(0);
 });
 
-test('Native Obsidian tab uses spacious editorial styles and keeps original text selectable',async({page})=>{
+test('Opening an article in another Obsidian tab uses official WOL with native Reader mode available',async({page})=>{
  await page.evaluate(article=> (window as any).atlasTest.plugin.openWolArticleTab({
    url:article,label:'Un amour qui se manifeste',kind:'document',origin:'pinned'
  }),ARTICLE);
- const tab=page.locator('.biblelab-article-tab');
- await expect(tab.getByText('Un amour qui se manifeste').first()).toBeVisible();
- await expect(tab.locator('.biblelab-article-heading')).toBeVisible();
- await expect(tab.locator('.biblelab-article-question')).toBeVisible();
- const paragraph=tab.locator('.biblelab-article-paragraph p').first();
- await expect(paragraph).toContainText('Jésus aimait profondément');
- expect(await paragraph.evaluate(el=>getComputedStyle(el).userSelect)).toBe('text');
- const size=await paragraph.evaluate(el=>parseFloat(getComputedStyle(el).fontSize));
- expect(size).toBeGreaterThanOrEqual(15);
- await tab.getByRole('button',{name:'Lire la référence cet autre article'}).first().click();
- await expect(tab.getByText('La compassion grandit.')).toBeVisible();
- expect(await page.evaluate(()=>(window as any).atlasTest.app.workspace
-   .getLeavesOfType('bible-lab-wol-article').length)).toBe(1);
+ await expect(page.locator('.biblelab-article-tab')).toHaveCount(0);
+ const tab=page.locator('.mock-core-webviewer');
+ await expect(tab).toHaveCount(1);
+ await expect(tab.locator('.mock-webviewer-address')).toHaveText(ARTICLE);
+ const state=await page.evaluate(()=>(window as any).atlasTest.app.workspace
+   .getLeavesOfType('webviewer')[0].view.getState());
+ expect(state).toEqual({url:ARTICLE,navigate:true});
 });
 
 test('Floating preview retains bold, italics, question styling and safe WOL links',async({page})=>{

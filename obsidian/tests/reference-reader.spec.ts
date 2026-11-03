@@ -115,7 +115,8 @@ test('publication reference search opens bibliographic lookup URL with + encoded
   await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('w24 Novembre p. 14-19');
   await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
-  await pane.getByRole('button',{name:'Rechercher WOL'}).click();
-  expect(await page.evaluate(()=>(window as any).outbound)).toContain(
-    'https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+14-19');
+  await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
+  const search=await page.evaluate(()=>(window as any).atlasTest.app.workspace
+    .getLeavesOfType('webviewer')[0].view.getState().url);
+  expect(search).toBe('https://wol.jw.org/fr/wol/l/r30/lp-f?q=w24+Novembre+p.+14-19');
 });

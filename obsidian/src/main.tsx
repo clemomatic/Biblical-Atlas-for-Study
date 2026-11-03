@@ -19,7 +19,9 @@ import { MapTileCache } from './MapTiles';
 import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
 import { BIBLE_LAB_ARTICLE_VIEW, BibleLabArticleView } from './BibleLabArticleView';
-import { cleanWolUrl, type ReferenceEntry } from './referenceReader';
+import { type ReferenceEntry } from './referenceReader';
+import { openWolInObsidian, WOL_HOME } from './wolWebViewer';
+import { wolResearchUrl } from './wolResearch';
 import { enhanceBibleLabMarkers } from './bibleLabMarkers';
 import { inlineBibleLabEditorExtension } from './inlineEditorExtension';
 import { BibleLabInlinePopover } from './BibleLabInlinePopover';
@@ -107,6 +109,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private indexedNotes = new Map<string, VaultNote>();
   private listeners = new Set<() => void>();
   private inlinePopup?:BibleLabInlinePopover;
+  private wolSearchLeaf: WorkspaceLeaf|null=null;
   private snapshot: AtlasSnapshot = { notes: [], settings: this.settings, atlas: buildWorkspace([]) };
   private indexVersions = new Map<string, number>();
   private ready: Promise<void> = Promise.resolve();
@@ -167,11 +170,12 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
     this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le laboratoire biblique', callback: () => this.run(this.openBibleLab()) });
+    this.addCommand({ id: 'open-wol-browser', name: 'Ouvrir la Bibliothèque en ligne WOL dans un onglet', callback: () => this.run(this.openWolSearchTab(WOL_HOME)) });
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
     this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
     this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
-    this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (Bible Lab)', editorCallback: editor => this.run(this.openBibleLab(editor.getSelection() || editor.getLine(editor.getCursor().line))) });
+    this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (onglet web)', editorCallback: editor => { const term=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim(); if(term)this.run(this.openWolSearchTab(wolResearchUrl(term,{match:'par',scope:'all'}))); } });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({ id: 'manage-atlas', name: 'Gérer et personnaliser toutes les fiches', callback: this.manageAtlas });
     this.addCommand({ id: 'offline-maps', name: 'Télécharger des cartes hors connexion', callback: this.openMapDownloads });
@@ -283,17 +287,17 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     if (!selection) new Notice('Lieu non identifié dans l’Atlas interactif ; ouverture de la carte générale.');
     this.run(this.openAtlas(selection?.key));
   };
+  /**
+   * A source clicked in notes, popovers or the Bible Lab sidebar becomes a
+   * genuine WOL browser tab. Follow links, use WOL search and Obsidian's
+   * native Web viewer Reader mode without recreating WOL's HTML.
+   */
   openWolArticleTab = async (ref: ReferenceEntry): Promise<void> => {
-    const url = cleanWolUrl(ref.url);
-    if (!url) { new Notice('Seules les pages WOL officielles peuvent être ouvertes dans Bible Lab.'); return; }
-    // A fresh workspace leaf creates a real, independent Obsidian tab. Its
-    // article URL is saved in the layout and restored at next startup.
-    const leaf = this.app.workspace.getLeaf('tab');
-    await leaf.setViewState({
-      type: BIBLE_LAB_ARTICLE_VIEW, active: true,
-      state: { url, label: ref.label }
-    });
-    await this.app.workspace.revealLeaf(leaf);
+    await openWolInObsidian(this.app,ref.url);
+  };
+  /** Subsequent searches reuse ONLY the dedicated search tab, not article tabs. */
+  openWolSearchTab = async (url: string): Promise<void> => {
+    this.wolSearchLeaf=await openWolInObsidian(this.app,url,this.wolSearchLeaf);
   };
   async openBibleLab(reference?: string, displayLabel?: string): Promise<void> {
     await this.ready;

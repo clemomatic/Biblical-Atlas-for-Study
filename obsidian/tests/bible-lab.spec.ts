@@ -18,9 +18,10 @@ test('research sidebar opens and sends only the current search to official URLs'
   await pane.getByRole('button',{name:/JW Library$/}).first().click();
   const opened=await page.evaluate(()=>(window as any).openedLabUrls);
   expect(opened[0]).toContain('bible=43007024');
-  await pane.getByRole('button',{name:'Rechercher WOL'}).click();
-  const updated=await page.evaluate(()=>(window as any).openedLabUrls);
-  expect(updated[1]).toContain('https://wol.jw.org/fr/wol/s/r30/lp-f?q=Jean+7%3A24');
+  await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
+  const search=await page.evaluate(()=>(window as any).atlasTest.app.workspace
+    .getLeavesOfType('webviewer')[0].view.getState().url);
+  expect(search).toContain('https://wol.jw.org/fr/wol/s/r30/lp-f?q=Jean+7%3A24');
   // Opening a pinned verse may fetch the official study Bible in the
   // reference pane; keyword search itself must still only open the official URL.
 });
