@@ -10,8 +10,8 @@ test.beforeEach(async({page})=>{
 test('Study-first homepage offers one search and a calmer navigation hierarchy',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await expect(pane.getByRole('heading',{name:'Que veux-tu approfondir ?'})).toBeVisible();
-  await expect(pane.locator('.biblelab-nav-primary .biblelab-tab')).toHaveCount(3);
-  await expect(pane.locator('.biblelab-nav-secondary .biblelab-tab')).toHaveCount(3);
+  await expect(pane.locator('.biblelab-nav-primary .biblelab-tab')).toHaveCount(4);
+  await expect(pane.locator('.biblelab-nav-secondary .biblelab-tab')).toHaveCount(4);
   await expect(pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'})).toBeVisible();
   await expect(pane.getByRole('button',{name:'Atlas'})).toBeVisible();
   await expect(pane.getByRole('button',{name:'Studio'})).toBeVisible();
