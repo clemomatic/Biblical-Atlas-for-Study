@@ -78,3 +78,36 @@ test('Reader text can be selected and copied separately from its source link',as
   const selectionStyle=await paragraph.evaluate(node=>getComputedStyle(node).userSelect);
   expect(selectionStyle).toBe('text');
 });
+
+
+test('Unknown WOL metadata still shows safe document links rather than a blank list',async({page})=>{
+ await page.route(/wol\.jw\.org\/fr\/wol\/s\/r30\/lp-f/,route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:'<html><main><article><a href="/fr/wol/d/r30/lp-f/2024663">Amour et bonté</a></article></main></html>'
+ }));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('amour');
+ await pane.getByRole('button',{name:'Guide de recherche'}).click();
+ await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
+ await expect(pane.getByText(/sans filtrage complémentaire/)).toBeVisible();
+});
+
+test('WOL pagination remains navigable when the next page is empty',async({page})=>{
+ await page.route(/wol\.jw\.org\/fr\/wol\/s\/r30\/lp-f/,route=>{
+  const url=new URL(route.request().url());
+  const next=url.searchParams.get('pg')==='2';
+  route.fulfill({
+   status:200,contentType:'text/html',
+   body:next?'<html><main><p>Aucun résultat</p></main></html>':
+    '<html><main><article><a href="/fr/wol/d/r30/lp-f/1200273529">Amour</a></article>'+
+    '<a href="/fr/wol/s/r30/lp-f?q=amour&p=par&pg=2">Suivant</a></main></html>'
+  });
+ });
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('amour');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await pane.getByRole('button',{name:'Page suivante'}).click();
+ await expect(pane.getByText(/aucun résultat exploitable/i)).toBeVisible();
+ await pane.getByRole('button',{name:'Page précédente'}).click();
+ await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
+});
