@@ -437,7 +437,7 @@ export class BibleLabSidebarView extends ItemView {
 
     const primary=this.scroller.createDiv({cls:'biblelab-search-primary'});
     const find=button(primary,'Rechercher dans WOL','search',()=>this.openSearch(),true);
-    find.disabled=!this.query.trim();
+    // Keep the action available as the user types; empty input gets a Notice.
     button(primary,'Ouvrir WOL','panels-top-left',()=>
       void this.host.openWolSearchTab('https://wol.jw.org/fr/wol/h/r30/lp-f'));
 
@@ -623,6 +623,8 @@ export class BibleLabSidebarView extends ItemView {
   private officialSearchUrl():string{
     const term=this.query.trim();
     if(!term)return 'https://wol.jw.org/fr/wol/h/r30/lp-f';
+    const direct=cleanWolUrl(term);
+    if(direct && new URL(direct).hostname==='wol.jw.org')return direct;
     const citation=/^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(term);
     return citation&&this.searchScope==='all'
       ?this.referenceUrl(term)
