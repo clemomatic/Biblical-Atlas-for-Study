@@ -962,3 +962,68 @@
 .biblelab-article-tab-reading .biblelab-reader-contents .biblelab-article-paragraph.is-unnumbered {
  padding-left:0;
 }
+
+
+/* Bible Lab phase 1 — flexible research plan, designed for a narrow side pane. */
+.biblelab-plan-board{
+  border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  border-radius:15px;padding:12px;margin:0 0 15px;
+  background:var(--background-secondary);min-width:0;
+}
+.biblelab-plan-header{display:flex;gap:8px;align-items:flex-start;
+  justify-content:space-between;margin-bottom:10px;}
+.biblelab-plan-heading{display:grid;grid-template-columns:auto 1fr;
+  column-gap:7px;align-items:center;flex:1;min-width:0}
+.biblelab-plan-heading>span{color:var(--text-accent);display:flex;align-items:center}
+.biblelab-plan-heading svg{width:17px;height:17px}
+.biblelab-plan-heading strong{font-size:13px;font-weight:750;letter-spacing:-.01em}
+.biblelab-plan-heading p{grid-column:1/-1;margin:5px 0 0;color:var(--text-muted);
+  font-size:11px;line-height:1.5;}
+.biblelab-plan-header-actions{display:flex;flex-shrink:0}
+.biblelab-plan-board .biblelab-btn{display:inline-flex;align-items:center;justify-content:center;
+  min-height:30px;gap:5px;padding:5px 8px;font-size:10px;max-width:100%;
+  white-space:normal;text-align:center}
+.biblelab-plan-board .biblelab-btn svg{width:13px;height:13px;flex-shrink:0}
+.biblelab-plan-selector,.biblelab-plan-title-input,.biblelab-plan-branch input{
+  min-width:0;max-width:100%;width:100%;padding:8px 9px;
+  background:var(--background-primary);color:var(--text-normal);
+  border:1px solid var(--background-modifier-border);border-radius:8px;
+  box-shadow:none;font-size:12px;
+}
+.biblelab-plan-selector{margin-bottom:10px;cursor:pointer}
+.biblelab-plan-title-input{font-size:13px;font-weight:700}
+.biblelab-plan-editor{margin:0 0 9px}
+.biblelab-plan-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.biblelab-plan-empty{font-size:11px;line-height:1.55;color:var(--text-muted);margin:9px 0}
+.biblelab-plan-list{display:flex;flex-direction:column;gap:7px;margin-top:9px}
+.biblelab-plan-branch{display:grid;grid-template-columns:23px minmax(0,1fr);
+  gap:6px 7px;align-items:center;padding:7px;
+  background:var(--background-primary);border:1px solid var(--background-modifier-border);
+  border-radius:10px}
+.biblelab-plan-counter{font-size:10px;font-weight:750;color:var(--text-faint);text-align:center}
+.biblelab-plan-branch-actions{grid-column:2;display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-start}
+.biblelab-plan-branch-actions .biblelab-btn{min-height:25px;padding:4px 5px}
+.biblelab-plan-branch-actions .biblelab-btn:not(:first-child){width:27px;padding:4px}
+.biblelab-plan-branch-actions .biblelab-btn:not(:first-child) span:last-child{display:none}
+.biblelab-plan-branch-actions .biblelab-btn:disabled{opacity:.35;cursor:not-allowed}
+.biblelab-plan-footnote{margin:10px 0 1px;font-size:10px;color:var(--text-faint);line-height:1.5}
+.biblelab-plan-board.is-compact{padding:10px 11px;margin-bottom:13px;
+  background:var(--background-secondary)}
+.biblelab-plan-board.is-compact .biblelab-plan-header{margin-bottom:5px}
+.biblelab-plan-compact-summary{display:flex;flex-direction:column;gap:2px;min-width:0}
+.biblelab-plan-compact-summary strong{font-size:12px;overflow-wrap:anywhere}
+.biblelab-plan-compact-summary span{font-size:10px;color:var(--text-muted)}
+.biblelab-plan-quick-branches{display:flex;gap:5px;flex-wrap:wrap;margin-top:9px}
+.biblelab-plan-board.is-compact .biblelab-plan-toolbar{margin:6px 0 0}
+@container (max-width:300px){
+  .biblelab-plan-header{flex-wrap:wrap}
+  .biblelab-plan-header-actions{width:100%}
+}
+
+.biblelab-home-wol-quick{padding:12px;border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  border-radius:13px;margin:0 0 13px;background:var(--background-primary)}
+.biblelab-home-wol-quick>strong{font-size:13px;color:var(--text-normal);font-weight:730}
+.biblelab-home-wol-quick>p{margin:4px 0 9px;font-size:11px;line-height:1.5;color:var(--text-muted)}
+.biblelab-home-wol-quick .biblelab-search{margin:0}
+.biblelab-home-wol-quick .biblelab-plan-toolbar{margin:8px 0 0}
+.biblelab-home-wol-quick .biblelab-btn{padding:5px 8px;font-size:10px;min-height:29px}

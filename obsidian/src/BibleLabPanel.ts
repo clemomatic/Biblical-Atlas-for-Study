@@ -13,11 +13,19 @@ import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, type WolMatchMode, type WolSearchScope } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
+import {
+  emptyResearchDesk, normalizeResearchDesk, activeResearchPlan,
+  addResearchPlan, activateResearchPlan, deleteResearchPlan, renameResearchPlan,
+  addResearchBranch, renameResearchBranch, moveResearchBranch, removeResearchBranch,
+  type ResearchDesk
+} from './researchDesk';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
 export interface BibleLabHost {
   openAtlas: () => Promise<void>;
+  getResearchDesk: () => ResearchDesk;
+  saveResearchDesk: (desk:ResearchDesk) => Promise<void>;
   openWolArticleTab: (ref: ReferenceEntry) => Promise<void>;
   openWolSearchTab: (url: string) => Promise<void>;
   openAtlasPlace: (name:string) => void;
@@ -57,6 +65,7 @@ function heading(parent:HTMLElement,title:string,desc:string): void {
 export class BibleLabSidebarView extends ItemView {
   private host: BibleLabHost;
   private tab: Tab = 'home';
+  private researchDesk:ResearchDesk=emptyResearchDesk();
   private tabScroll=new Map<Tab,number>();
   private scroller!: HTMLElement;
   private tabs!: HTMLElement;
@@ -97,6 +106,7 @@ export class BibleLabSidebarView extends ItemView {
 
   constructor(leaf:WorkspaceLeaf,host:BibleLabHost) {
     super(leaf); this.host=host;
+    this.researchDesk=normalizeResearchDesk(host.getResearchDesk());
   }
   getViewType():string{return BIBLE_LAB_VIEW;}
   getDisplayText():string{return 'Bible Lab · Recherche';}
@@ -222,6 +232,119 @@ export class BibleLabSidebarView extends ItemView {
       case 'studio':this.renderStudio();break;
     }
   }
+  /** Research outlines remain independent from the existing reference reader. */
+  private updateResearchDesk(desk:ResearchDesk,rerender=true):void{
+    if(desk===this.researchDesk)return;
+    this.researchDesk=desk;
+    void this.host.saveResearchDesk(desk).catch(()=>new Notice('Le plan de recherche n’a pas pu être enregistré.'));
+    if(rerender&&this.scroller){
+      const scroll=this.scroller.scrollTop;
+      this.render();
+      this.scroller.scrollTop=scroll;
+    }
+  }
+  private searchResearchBranch(term:string):void{
+    this.query=term;
+    if(this.tab!=='wol')this.setTab('wol');
+    this.openSearch();
+  }
+  /** Flexible outline: optional for free exploration and non-destructive to notes. */
+  private renderResearchPlan(parent:HTMLElement,compact=false):void{
+    const plan=activeResearchPlan(this.researchDesk);
+    const box=parent.createDiv({cls:'biblelab-plan-board'+(compact?' is-compact':'')});
+    const header=box.createDiv({cls:'biblelab-plan-header'});
+    const intro=header.createDiv({cls:'biblelab-plan-heading'});
+    const glyph=intro.createSpan();setIcon(glyph,'list-tree');
+    intro.createEl('strong',{text:'Mon plan de recherche'});
+    if(!compact)intro.createEl('p',{text:'Pars d’un plan clair ou explore librement. Les pistes restent modifiables.'});
+    const actions=header.createDiv({cls:'biblelab-plan-header-actions'});
+    button(actions,'Nouvelle recherche','plus',()=>{
+      const next=addResearchPlan(this.researchDesk);
+      this.updateResearchDesk(next);
+      if(compact)this.setTab('home');
+    });
+    if(compact){
+      const summary=box.createDiv({cls:'biblelab-plan-compact-summary'});
+      summary.createEl('strong',{text:plan?.title||'Recherche libre'});
+      summary.createSpan({text:plan
+        ?plan.branches.length+' piste(s) · enregistrées localement'
+        :'Aucun plan obligatoire pour chercher dans WOL.'});
+      if(plan&&plan.branches.length){
+        const branches=box.createDiv({cls:'biblelab-plan-quick-branches'});
+        for(const branch of plan.branches){
+          button(branches,branch.title,'search',()=>this.searchResearchBranch(branch.title));
+        }
+      }
+      const tools=box.createDiv({cls:'biblelab-plan-toolbar'});
+      button(tools,'Gérer mon plan','pencil',()=>this.setTab('home'));
+      return;
+    }
+    const choose=box.createEl('select',{cls:'biblelab-plan-selector',attr:{'aria-label':'Choisir une recherche'}});
+    choose.createEl('option',{text:'Recherche libre (sans plan)',attr:{value:''}});
+    for(const item of this.researchDesk.plans){
+      choose.createEl('option',{text:item.title,attr:{value:item.id}});
+    }
+    choose.value=plan?.id||'';
+    choose.addEventListener('change',()=>{
+      this.updateResearchDesk(activateResearchPlan(this.researchDesk,choose.value||null));
+    });
+    if(!plan){
+      box.createEl('p',{cls:'biblelab-plan-empty',text:'Tu peux lancer une recherche WOL sans préparer de plan, ou créer une recherche pour organiser tes pistes au fur et à mesure.'});
+      const controls=box.createDiv({cls:'biblelab-plan-toolbar'});
+      button(controls,'Créer un plan','plus',()=>this.updateResearchDesk(addResearchPlan(this.researchDesk)),true);
+      button(controls,'Chercher librement','search',()=>this.setTab('wol'));
+      return;
+    }
+    const planEditor=box.createDiv({cls:'biblelab-plan-editor'});
+    const name=planEditor.createEl('input',{cls:'biblelab-plan-title-input',attr:{
+      type:'text','aria-label':'Titre de la recherche',placeholder:'Question ou sujet de recherche…',maxlength:'180'}});
+    name.value=plan.title;
+    name.addEventListener('change',()=>{
+      this.updateResearchDesk(renameResearchPlan(this.researchDesk,plan.id,name.value),false);
+    });
+    const planActions=box.createDiv({cls:'biblelab-plan-toolbar'});
+    button(planActions,'Ajouter une piste','plus',()=>{
+      const next=addResearchBranch(this.researchDesk,plan.id);
+      const previous=new Set(plan.branches.map(branch=>branch.id));
+      const added=activeResearchPlan(next)?.branches.find(branch=>!previous.has(branch.id));
+      this.updateResearchDesk(next);
+      if(added){
+        const input=[...this.scroller.querySelectorAll<HTMLInputElement>('input[data-research-branch]')]
+          .find(element=>element.dataset.researchBranch===added.id);
+        input?.focus();input?.select();
+      }
+    },true);
+    button(planActions,'Supprimer le plan','trash-2',()=>{
+      if(!window.confirm('Supprimer ce plan de recherche et ses pistes ? Cette action ne modifie aucune note Obsidian.'))return;
+      this.updateResearchDesk(deleteResearchPlan(this.researchDesk,plan.id));
+    });
+    if(!plan.branches.length){
+      box.createEl('p',{cls:'biblelab-plan-empty',text:'Ajoute une piste, un titre de partie ou un simple mot-clé. Tu pourras les réordonner plus tard.'});
+    }
+    const list=box.createDiv({cls:'biblelab-plan-list',attr:{'aria-label':'Pistes du plan'}});
+    for(const [index,branch] of plan.branches.entries()){
+      const row=list.createDiv({cls:'biblelab-plan-branch'});
+      row.createSpan({cls:'biblelab-plan-counter',text:String(index+1).padStart(2,'0')});
+      const label=row.createEl('input',{attr:{
+        type:'text','aria-label':'Titre de la piste '+(index+1),
+        'data-research-branch':branch.id,maxlength:'180'}});
+      label.value=branch.title;
+      label.addEventListener('change',()=>{
+        this.updateResearchDesk(renameResearchBranch(this.researchDesk,plan.id,branch.id,label.value),false);
+      });
+      const commands=row.createDiv({cls:'biblelab-plan-branch-actions'});
+      button(commands,'Rechercher cette piste dans WOL','search',()=>this.searchResearchBranch(label.value));
+      const up=button(commands,'Monter la piste','arrow-up',()=>
+        this.updateResearchDesk(moveResearchBranch(this.researchDesk,plan.id,branch.id,-1)));
+      up.disabled=index===0;
+      const down=button(commands,'Descendre la piste','arrow-down',()=>
+        this.updateResearchDesk(moveResearchBranch(this.researchDesk,plan.id,branch.id,1)));
+      down.disabled=index===plan.branches.length-1;
+      button(commands,'Supprimer la piste','x',()=>
+        this.updateResearchDesk(removeResearchBranch(this.researchDesk,plan.id,branch.id)));
+    }
+    box.createEl('p',{cls:'biblelab-plan-footnote',text:'Plan enregistré dans les données locales du plugin. Les références et citations pourront s’y rattacher dans la prochaine phase.'});
+  }
   private launchStudy(value:string):void{
     const term=cleanReadingText(value);
     if(!term){this.setTab('wol');return;}
@@ -254,6 +377,25 @@ export class BibleLabSidebarView extends ItemView {
     return hero;
   }
   private renderHome():void{
+    this.renderResearchPlan(this.scroller);
+    const quick=this.scroller.createDiv({cls:'biblelab-home-wol-quick'});
+    quick.createEl('strong',{text:'Recherche rapide WOL'});
+    quick.createEl('p',{text:'Cherche un mot-clé, une publication ou un verset dans la vraie bibliothèque en ligne.'});
+    this.searchField(quick,this.query,'Mot-clé, verset ou publication WOL…',
+      value=>{this.query=value;},()=>this.openSearch());
+    const sources=quick.createDiv({cls:'biblelab-plan-toolbar'});
+    button(sources,'Publications','library-big',()=>{
+      this.searchScope='all';
+      if(this.query.trim())this.openSearch();else this.setTab('wol');
+    });
+    button(sources,'Index','list-tree',()=>{
+      this.searchScope='index';
+      if(this.query.trim())this.openSearch();else this.setTab('wol');
+    });
+    button(sources,'Guide','compass',()=>{
+      this.searchScope='guide';
+      if(this.query.trim())this.openSearch();else this.setTab('wol');
+    });
     const now=new Date();
     const format=new Intl.DateTimeFormat('fr-FR',{weekday:'long',day:'numeric',month:'long'});
     const welcome=this.scroller.createDiv({cls:'biblelab-study-welcome'});
@@ -406,6 +548,7 @@ export class BibleLabSidebarView extends ItemView {
    * reconstructed result list is needed for the main research workflow.
    */
   private renderWol():void{
+    this.renderResearchPlan(this.scroller,true);
     heading(this.scroller,'Recherche WOL','La vraie Bibliothèque en ligne, dans un onglet Obsidian.');
     this.searchField(this.scroller,this.query,'Sujet, publication ou verset…',text=>{
       this.query=text;
