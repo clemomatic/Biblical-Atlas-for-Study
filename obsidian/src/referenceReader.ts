@@ -5,15 +5,15 @@
 import { extractReferences, findScriptureMentions, normalizeSearch, parseScripture, wolLookup, type ScriptureRef } from './bibleLabData.ts';
 import { cleanReadingText, readableOfficialElement } from './readerText.ts';
 import { findPublicationMentions, officialFinderUrl, publicationUrl } from './publicationReferences.ts';
-import { articleImageFrom, type ArticleImage } from './articleImages.ts';
+import { articleImageFrom, cardThumbnailFrom, type ArticleImage } from './articleImages.ts';
 import { markdownCitationScanText } from './markdownCitationScan.ts';
 
 export type ReferenceKind='scripture'|'publication'|'document';
-export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
+export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned';thumbnail?:ArticleImage}
 export interface ReaderPart {text:string;url?:string;kind?:ReferenceKind}
 export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image';text:string;source?:string;number?:string;parts?:ReaderPart[];image?:ArticleImage;/** Exact official scripture targets associated with this verse or cross-reference. */references?:ReaderLink[];/** Position of original '+' symbols in cleaned verse text. */referenceMarkers?:{offset:number;targets:ReaderLink[]}[]}
-export interface ReaderLink {label:string;url:string}
-export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string}
+export interface ReaderLink {label:string;url:string;thumbnail?:ArticleImage}
+export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string;thumbnail?:ArticleImage}
 export const MAX_REFERENCES=60;
 const urlPattern=/https?:\/\/(?:wol\.jw\.org|www\.jw\.org)\/[^\s<>\])]+/gi;
 
@@ -298,7 +298,7 @@ function gatherSections(root:Element,sourceUrl:string,limit=360):ReaderLine[]{
   lines.push({type:'image',text:image.caption||image.alt,image});
  };
  for(const el of root.querySelectorAll(selectors)){
-  if(el.closest('script,style,nav,footer,header,aside,[role="navigation"],.js-hidden,[hidden]'))continue;
+  if(el.closest('script,style,nav,footer,header,aside,[role="navigation"],.js-hidden,[hidden],.cardThumbnail,.cardThumbnailImage'))continue;
   if(el.matches('figure')){
    for(const img of el.querySelectorAll<HTMLImageElement>('img'))addImage(img);
    if(lines.length>=limit)break;
@@ -404,8 +404,9 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  for(const a of candidateLinks){
    const href=allowLink(a.getAttribute('href')||'',official);
    const label=normalizedText(a,150);
-   if(!href||!label||keys.has(href)||href===official)continue;
-   keys.add(href);links.push({label,url:href});
+   if(!href||!label||keys.has(href)||href===official||a.closest('.cardThumbnailImage'))continue;
+   const thumbnail=!isVerse?cardThumbnailFrom(a,official):null;
+   keys.add(href);links.push({label,url:href,...(thumbnail?{thumbnail}:{})});
    if(links.length>=35)break;
  }
  let lines:ReaderLine[]=[];let notice:string|undefined;
@@ -455,6 +456,7 @@ export function parseWolDocument(html:string,url:string,requested?:string):Reade
  // a search-result excerpt as a verified, complete publication article.
  if(isLookup&&lookupResults&&lines.length)
    notice='Résultat affiché par WOL. Pour lire l’article intégral, ouvre son lien officiel.';
+ const thumbnail=isLookup&&links.length===1?links[0].thumbnail:undefined;
  return {title:heading||(scripture?.label||requested||'Document WOL'),sourceUrl:official,lines,
-   links,kind:isVerse?'verse':isLookup?'results':'article',notice};
+   links,kind:isVerse?'verse':isLookup?'results':'article',notice,...(thumbnail?{thumbnail}:{})};
 }
