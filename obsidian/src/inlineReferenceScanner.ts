@@ -19,6 +19,16 @@ function protectedRanges(line:string):Array<[number,number]>{
  }
  return ranges;
 }
+/**
+ * Markdown formatting must not interrupt a bibliography. Replace its syntax
+ * characters one-to-one rather than stripping them: the original source
+ * offsets still identify exactly which characters are clickable/editable.
+ * Protected code/link regions are filtered later using those same offsets.
+ */
+function citationScanText(line:string):string{
+ return line.replace(/[*_~]/g,' ')
+  .replace(/^(\s*)#{1,6}(?=\s)/,match=>' '.repeat(match.length));
+}
 const isWord=(text:string)=>/[\p{L}\p{N}]/u.test(text);
 const safeBoundary=(text:string,start:number,end:number)=>
   (start===0||!isWord(text[start-1]))&&(end===text.length||!isWord(text[end]));
@@ -26,6 +36,7 @@ export function findInlineReferences(line:string,inheritedBook?:string):InlineRe
  if(line.length>14000||!line.trim()||/^\s*(?:>|#{1,6}\s+)?(?:\x60{3}|~~~)/.test(line)||
    /^\s*(?:---|<!--)/.test(line))return [];
  const protectedSpans=protectedRanges(line);
+ const scan=citationScanText(line);
  const result:InlineReference[]=[];
  const add=(start:number,end:number,label:string,sourceUrl?:string,canonicalLabel?:string):void=>{
   if(!safeBoundary(line,start,end))return;
@@ -39,11 +50,12 @@ export function findInlineReferences(line:string,inheritedBook?:string):InlineRe
  };
  // Use source offsets rather than re-searching a normalized label:
  // abbreviation punctuation, case and repeated occurrences remain exact.
- for(const citation of findScriptureMentions(line,inheritedBook).slice(0,35)){
-  add(citation.from,citation.to,citation.label,undefined,citation.ref.label);
+ for(const citation of findScriptureMentions(scan,inheritedBook).slice(0,35)){
+  add(citation.from,citation.to,line.slice(citation.from,citation.to),undefined,citation.ref.label);
  }
- for(const item of findPublicationMentions(line)){
-  add(item.from,item.to,item.label,item.url);
+ for(const item of findPublicationMentions(scan)){
+  const canonical=item.label.replace(/\s+/g,' ').trim();
+  add(item.from,item.to,line.slice(item.from,item.to),item.url,canonical);
  }
  return result.sort((a,b)=>a.from-b.from);
 }
