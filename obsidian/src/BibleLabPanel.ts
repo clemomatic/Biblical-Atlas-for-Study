@@ -10,7 +10,7 @@ import { dayLink, meetingIssueLink, findMeetingProgramme, wolMeetingLink, parseD
 import { extractReferenceEntries, cleanWolUrl, passageUrl, parseWolDocument, type ReferenceEntry } from './referenceReader';
 import { findPublicationMentions } from './publicationReferences';
 import { renderReferenceAccordion, type ReaderState } from './referencePanel';
-import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, preferredWolHits, isWolAccessChallenge, WOL_RESULTS_PAGE_SIZE, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
+import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, preferredWolHits, hasWolNextPage, isWolAccessChallenge, WOL_RESULTS_PAGE_SIZE, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
 
@@ -614,15 +614,19 @@ export class BibleLabSidebarView extends ItemView {
       // Perspicace share many common search matches on the same results page.
       const items=preferredWolHits(all,term,this.searchScope);
       if(seq!==this.wolResultsSequence)return;
-      this.wolHasNextPage=all.length>=WOL_RESULTS_PAGE_SIZE;
-      this.wolResults=items.slice(0,WOL_RESULTS_PAGE_SIZE);
+      this.wolHasNextPage=hasWolNextPage(response.text,url,all.length);
+      // If a real WOL page has links but lacks readable publication metadata,
+      // show its safe official links instead of declaring the search empty.
+      this.wolResults=(items.length?items:all).slice(0,WOL_RESULTS_PAGE_SIZE);
       this.wolResultsQuery=term;
-      if(!items.length)
-        this.wolResultsError='Aucune entrée de cet ouvrage identifiée sur cette page. Tu peux consulter la page suivante ou ouvrir la recherche sur WOL.';
+      if(!items.length && this.searchScope!=='all')
+        this.wolResultsError='WOL a répondu, mais les ouvrages ne sont pas tous identifiables : résultats officiels affichés sans filtrage complémentaire.';
     }catch(error){
       if(seq!==this.wolResultsSequence)return;
       this.wolResultsError=(error instanceof Error?error.message:'Recherche indisponible.')+
         ' Tu peux toujours consulter les résultats sur le site officiel.';
+      // Keep previous-page navigation available after a failed later page.
+      this.wolResultsQuery=term;this.wolHasNextPage=false;
     }finally{
       if(seq===this.wolResultsSequence){
         this.wolResultsLoading=false;if(this.tab==='wol')this.render();
