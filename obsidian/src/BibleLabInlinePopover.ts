@@ -1,4 +1,4 @@
-import { setIcon } from 'obsidian';
+import { Notice, setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
@@ -169,6 +169,21 @@ export class BibleLabInlinePopover {
   });
   prev.disabled=this.history.length<=1;
   this.button(footer,'Dans le panneau','panel-right',()=>{this.openPanel(ref);this.close();});
+  this.button(footer,'Copier le texte','copy',()=>{
+    const selection=window.getSelection();
+    const selected=selection && selection.anchorNode && selection.focusNode &&
+      content.contains(selection.anchorNode) && content.contains(selection.focusNode)
+      ?selection.toString().trim():'';
+    const text=selected||[...content.querySelectorAll<HTMLElement>(
+      '.biblelab-popover-line,.biblelab-popover-scripture-copy,'+
+      '.biblelab-popover-apparatus-item p'
+    )].map(node=>node.textContent||'').filter(Boolean).join('\n\n');
+    if(!text){new Notice('Aucun texte à copier pour le moment.');return;}
+    void navigator.clipboard.writeText(text).then(
+      ()=>new Notice(selected?'Sélection copiée.':'Texte affiché copié.'),
+      ()=>new Notice('Copie indisponible. Utilise la sélection puis Copier.')
+    );
+  });
   const jw=ref.kind==='scripture'?jwLibraryLink(ref.label):null;
   if(jw)this.button(footer,'JW Library','book-open-check',()=>
     window.open(jw,'_blank','noopener,noreferrer'));

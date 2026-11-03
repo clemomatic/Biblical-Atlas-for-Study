@@ -462,3 +462,12 @@ pnpm exec playwright test --config obsidian/playwright.config.ts
 La sortie compilée est dans `obsidian/dist/atlas-biblique`. Le ZIP est créé dans `obsidian/artifacts`. Le paquet comprend les dépendances et les polices ; seule l’API Obsidian est externe. Le code utilise les API Vault/FileManager et aucune API Node.js/Electron à l’exécution.
 
 Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obsidian simulé. Ils vérifient les notes et leur préservation, l’édition des fiches/routes, les conflits, les calculs d’âge, les téléchargements et leur relecture sans réseau, la navigation, Canvas et l’isolation visuelle. Ils ne remplacent pas une validation dans les applications natives Windows et Android.
+
+### Bible Lab 0.9.18 — Recherche WOL et copie du texte
+
+- Recherche officielle WOL intégrée, résultats paginés et navigation vers les documents dans le lecteur latéral.
+- Quatre modes : Toutes les publications, Index, Guide de recherche et Étude perspicace. Les entrées thématiques correspondant exactement au sujet remontent en premier.
+- Les étiquettes de publication présentes sur la page de recherche permettent de classer les résultats ; le Guide et l'Index partagent la catégorie WOL `dx`.
+- Texte des articles et des versets sélectionnable dans la pop-up et le panneau latéral ; bouton **Copier le texte** (sélection ou texte chargé). Les boutons **Copier** existants continuent de copier l'URL.
+- Un écran de vérification anti-robot renvoyé par WOL n'est pas interprété comme une recherche vide : Bible Lab explique la restriction et propose le lien de recherche officiel.
+- La copie et la recherche n'envoient jamais les notes personnelles de l'utilisateur à un service tiers.

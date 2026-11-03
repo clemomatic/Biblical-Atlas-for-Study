@@ -676,3 +676,29 @@
  .biblelab-research-mode{font-size:9px;gap:3px}
  .biblelab-research-mode svg{width:13px;height:13px}
 }
+
+
+/* Bible Lab 0.9.18 — article text must remain selectable, including on touch. */
+.biblelab-side .biblelab-reader-contents,
+.biblelab-side .biblelab-reader-text,
+.biblelab-side .biblelab-verse-reading,
+.biblelab-side .biblelab-search-result-copy,
+.biblelab-side .biblelab-reader-note-card,
+.biblelab-side .biblelab-reader-document-title {
+  user-select:text !important;
+  -webkit-user-select:text !important;
+}
+.biblelab-side .biblelab-reader-contents p,
+.biblelab-side .biblelab-reader-contents h4,
+.biblelab-side .biblelab-reader-contents h5,
+.biblelab-side .biblelab-search-result-copy p {
+  user-select:text !important;
+  -webkit-user-select:text !important;
+}
+.biblelab-wol-pagination {display:flex;align-items:center;justify-content:center;gap:9px;
+ margin:9px 0 16px;flex-wrap:wrap;font-size:11px;color:var(--text-muted)}
+.biblelab-wol-pagination .biblelab-btn {min-height:32px}
+.biblelab-research-modes {grid-template-columns:repeat(4,minmax(0,1fr))}
+@media(max-width:390px){
+ .biblelab-research-modes {grid-template-columns:repeat(2,minmax(0,1fr))}
+}
