@@ -707,6 +707,9 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  if(!path.startsWith('/fr/wol/l/')&&!path.startsWith('/fr/wol/s/'))
    throw Error('Cette source ne correspond pas à une page WOL consultable.');
  const query=new URL(url).searchParams.get('q')?.trim()||ref.label;
+ // publicationUrl deliberately omits § from the /l query, but the reader
+ // must NEVER omit it from choosing between matching result articles.
+ const lookupReference=publicationPages(ref.label)?ref.label:query;
  // A small set of source IDs was verified directly on WOL. Try those
  // first, so a known article is not held hostage by broken /l/ redirects
  // or by the /s/ search HTML. Fall back to ordinary resolution if blocked.
@@ -730,7 +733,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    lookupHtml=await officialText(lookup);
    lookupExcerpt=parseWolLookupResults(lookupHtml,lookup,query);
    if(lookupExcerpt){
-     const target=pickDocument(lookupHtml,lookup,query);
+     const target=pickDocument(lookupHtml,lookup,lookupReference);
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,query);
@@ -749,7 +752,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    try{
      const fullHtml=await officialText(fullLookup);
      lookupExcerpt=parseWolLookupResults(fullHtml,fullLookup,query);
-     const target=pickDocument(fullHtml,fullLookup,query);
+     const target=pickDocument(fullHtml,fullLookup,lookupReference);
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,ref.label);
@@ -780,7 +783,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    // /wol/l and /wol/s are search and navigation pages. Even if their
    // HTML contains several paragraphs, it must NEVER be read as the article.
    // Only a resolved /wol/d or verified publication-index /wol/pc may be read.
-   docUrl=pickDocument(text,lookup,query);
+   docUrl=pickDocument(text,lookup,lookupReference);
  }catch(error){
    networkProblem=error instanceof Error?error.message:'Requête WOL interrompue';
    // WOL can fail to expose a JavaScript redirect on the /l/ endpoint.
@@ -803,7 +806,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
          lookupExcerpt=parseWolLookupResults(html,fallback,query)
            ||matchingSearchResultChoices(html,fallback,query);
        }
-       docUrl=pickDocument(html,fallback,query);
+       docUrl=pickDocument(html,fallback,lookupReference);
        if(docUrl||lookupExcerpt?.lines.length)break;
      }catch(error){
        networkProblem+=(networkProblem?' ; ':'')+
