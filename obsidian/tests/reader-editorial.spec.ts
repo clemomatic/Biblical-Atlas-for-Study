@@ -25,7 +25,7 @@ test.beforeEach(async ({page})=>{
 });
 
 test('Editorial sidebar preserves original WOL headings, questions, paragraph numbers and emphasis',async({page})=>{
- await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab(ARTICLE,'Un amour qui se manifeste'));
+ await page.evaluate(article=>(window as any).atlasTest.plugin.openBibleLab(article,'Un amour qui se manifeste'),ARTICLE);
  const pane=page.locator('.biblelab-side').filter({has:page.locator('.biblelab-tabs')});
  const article=pane.locator('.biblelab-article-reading');
  await expect(article.locator('.biblelab-article-heading')).toHaveText('UN AMOUR SINCÈRE');
@@ -43,9 +43,9 @@ test('Editorial sidebar preserves original WOL headings, questions, paragraph nu
 });
 
 test('Native Obsidian tab uses spacious editorial styles and keeps original text selectable',async({page})=>{
- await page.evaluate(()=> (window as any).atlasTest.plugin.openWolArticleTab({
-   url:ARTICLE,label:'Un amour qui se manifeste',kind:'document',origin:'pinned'
- }));
+ await page.evaluate(article=> (window as any).atlasTest.plugin.openWolArticleTab({
+   url:article,label:'Un amour qui se manifeste',kind:'document',origin:'pinned'
+ }),ARTICLE);
  const tab=page.locator('.biblelab-article-tab');
  await expect(tab.getByText('Un amour qui se manifeste').first()).toBeVisible();
  await expect(tab.locator('.biblelab-article-heading')).toBeVisible();
@@ -82,7 +82,7 @@ test('Floating preview retains bold, italics, question styling and safe WOL link
 test('Unknown remote HTML is never used as executable or injected markup',async({page})=>{
  const malicious=HTML.replace('Jésus <strong>','<script>window.__wolInjected=true</script>Jésus <strong>');
  await page.route(ARTICLE,route=>route.fulfill({status:200,contentType:'text/html',body:malicious}));
- await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab(ARTICLE,'Article sûr'));
+ await page.evaluate(article=>(window as any).atlasTest.plugin.openBibleLab(article,'Article sûr'),ARTICLE);
  await expect(page.locator('.biblelab-article-reading')).toContainText('Jésus aimait profondément');
  expect(await page.evaluate(()=>(window as any).__wolInjected)).not.toBe(true);
 });
