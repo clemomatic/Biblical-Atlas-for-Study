@@ -37,6 +37,7 @@ test('WOL search cards show small cardThumbnailImage next to titles, not full-si
       '<p>w18 février p. 24-27</p></article>'+
   '</div>'
  }));
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
  await page.locator('.biblelab-tab[aria-label="WOL"]').click();
  const panel=page.locator('.biblelab-side');
  await panel.getByPlaceholder('Sujet, publication ou verset…').fill('étude');
@@ -83,7 +84,7 @@ test('LookupResults retains its own thumbnail on the chosen article in a floatin
  await expect(link).toHaveCount(1);
  await link.click();
  const popup=page.getByRole('dialog',{name:'Aperçu biblique : w25 janvier p. 6'});
- await expect(popup).toContainText('Une étude');
+ await expect(popup).toContainText('Un article d’étude');
  await expect(popup).toContainText('Un second paragraphe');
  await expect(popup.locator('.biblelab-popover-preview-head .biblelab-card-thumbnail img'))
   .toHaveAttribute('src',thumb);
