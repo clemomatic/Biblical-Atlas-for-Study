@@ -12,6 +12,7 @@ export interface ReaderState {
  copy:(url:string)=>void;
  open:(url:string)=>void;
  navigate?:(ref:ReferenceEntry)=>void;
+ openInTab?:(ref:ReferenceEntry)=>void;
  articleFontSize?:number;
  remember?:(ref:ReferenceEntry)=>void;
  insert?:(ref:ReferenceEntry)=>void;
@@ -42,6 +43,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const buttons=body.createDiv({cls:'biblelab-reader-actions'});
  let currentUrl=ref.url;
  action(buttons,'WOL','external-link',()=>state.open(currentUrl));
+ if(state.openInTab)action(buttons,'Nouvel onglet','panels-top-left',()=>state.openInTab?.({...ref,url:currentUrl}));
  action(buttons,'Copier','copy',()=>state.copy(currentUrl));
  if(state.insert)action(buttons,'Insérer dans ma note','file-plus',()=>state.insert?.({...ref,url:currentUrl}));
  if(depth>0 && state.navigate)action(buttons,'Lire en grand','panel-top',()=>state.navigate?.(ref));
