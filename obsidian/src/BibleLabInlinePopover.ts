@@ -4,6 +4,7 @@ import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type Ref
 import { fetchReferenceContent } from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
+import { clampPopoverPosition, type PopoverCoordinates } from './popoverPosition';
 
 const fromLabel=(label:string):ReferenceEntry=>{
  const scripture=parseScripture(label);
@@ -17,6 +18,9 @@ export class BibleLabInlinePopover {
  private currentSource:string|null=null;
  private history:ReferenceEntry[]=[];
  private backFocus:HTMLElement|null=null;
+ private anchor:HTMLElement|null=null;
+ /** Kept only while this popup is open, including its reference history. */
+ private draggedPosition:PopoverCoordinates|null=null;
  private serial=0;
  private cache=new Map<string,{value:ReaderResult;date:number}>();
  private inFlight=new Map<string,Promise<ReaderResult>>();
@@ -30,6 +34,9 @@ export class BibleLabInlinePopover {
   const href=anchor instanceof HTMLAnchorElement?cleanWolUrl(anchor.href):null;
   if(href){ref.url=href;if(ref.kind!=='scripture')ref.kind='document';}
   this.backFocus=anchor;
+  this.anchor=anchor;
+  this.draggedPosition=null;
+  window.addEventListener('resize',this.onResize);
   this.history=[ref];
   this.render(ref,anchor);
  }
@@ -38,6 +45,8 @@ export class BibleLabInlinePopover {
   const previous=this.root;
   const focusInside=!!previous?.contains(document.activeElement);
   this.root=null;this.current=null;this.currentSource=null;this.history=[];
+  this.anchor=null;this.draggedPosition=null;
+  window.removeEventListener('resize',this.onResize);
   previous?.remove();
   document.removeEventListener('pointerdown',this.outside,true);
   document.removeEventListener('keydown',this.keydown,true);
@@ -63,22 +72,75 @@ export class BibleLabInlinePopover {
   b.addEventListener('click',fn);
   return b;
  }
+ private readonly onResize=():void=>{
+  if(this.root&&this.anchor)this.position(this.root,this.anchor);
+ };
+ /** Reapply a saved position after changing the document or window size. */
+ private keepVisible(root:HTMLElement):void{
+  const rect=root.getBoundingClientRect();
+  const position=clampPopoverPosition(rect.left,rect.top,root.offsetWidth,root.offsetHeight,
+    window.innerWidth,window.innerHeight);
+  root.style.left=position.left+'px';
+  root.style.top=position.top+'px';
+  if(this.draggedPosition)this.draggedPosition=position;
+ }
+ private moveTo(root:HTMLElement,left:number,top:number):void{
+  const position=clampPopoverPosition(left,top,root.offsetWidth,root.offsetHeight,
+    window.innerWidth,window.innerHeight);
+  this.draggedPosition=position;
+  root.style.left=position.left+'px';
+  root.style.top=position.top+'px';
+ }
+ private center(root:HTMLElement):void{
+  this.moveTo(root,(window.innerWidth-root.offsetWidth)/2,
+    (window.innerHeight-root.offsetHeight)/2);
+ }
+ /** The header is the drag handle; its real buttons remain independent. */
+ private enableDrag(root:HTMLElement,header:HTMLElement):void{
+  let active:{id:number;offsetX:number;offsetY:number}|null=null;
+  header.setAttribute('title','Faire glisser pour déplacer la fenêtre');
+  header.addEventListener('pointerdown',(event:PointerEvent)=>{
+   if(event.button!==0||!event.isPrimary)return;
+   const target=event.target;
+   if(target instanceof Element&&target.closest('button,a,input,select,textarea'))return;
+   const box=root.getBoundingClientRect();
+   active={id:event.pointerId,offsetX:event.clientX-box.left,offsetY:event.clientY-box.top};
+   header.setPointerCapture(event.pointerId);
+   header.addClass('is-dragging');
+   event.preventDefault();
+  });
+  header.addEventListener('pointermove',(event:PointerEvent)=>{
+   if(!active||event.pointerId!==active.id)return;
+   this.moveTo(root,event.clientX-active.offsetX,event.clientY-active.offsetY);
+   event.preventDefault();
+  });
+  const finish=(event:PointerEvent):void=>{
+   if(!active||event.pointerId!==active.id)return;
+   active=null;
+   header.removeClass('is-dragging');
+   if(header.hasPointerCapture(event.pointerId))header.releasePointerCapture(event.pointerId);
+  };
+  header.addEventListener('pointerup',finish);
+  header.addEventListener('pointercancel',finish);
+  header.addEventListener('lostpointercapture',finish);
+ }
  private position(root:HTMLElement,anchor:HTMLElement):void{
   const rect=anchor.getBoundingClientRect();
   const maxWidth=Math.min(this.current?.kind==='scripture'?750:430,window.innerWidth-24);
-  const left=Math.max(12,Math.min(rect.left,window.innerWidth-maxWidth-12));
   root.style.width=maxWidth+'px';
-  root.style.left=left+'px';
+  root.style.maxHeight=Math.max(190,Math.min(this.current?.kind==='scripture'?620:490,window.innerHeight-38))+'px';
+  if(this.draggedPosition){
+   this.moveTo(root,this.draggedPosition.left,this.draggedPosition.top);
+   return;
+  }
+  const left=Math.max(12,Math.min(rect.left,window.innerWidth-maxWidth-12));
   const below=window.innerHeight-rect.bottom;
   const above=rect.top;
+  root.style.left=left+'px';
   root.style.top=(below>=Math.min(360,window.innerHeight*.5)||below>=above
     ?Math.min(window.innerHeight-60,rect.bottom+9)
     :Math.max(10,rect.top-Math.min(440,above-12)))+'px';
-  root.style.maxHeight=Math.max(190,Math.min(this.current?.kind==='scripture'?620:490,window.innerHeight-38))+'px';
-  // Keep the popup within the viewport on mobile and in narrow side panes.
-  const bounds=root.getBoundingClientRect();
-  if(bounds.bottom>window.innerHeight-12)
-   root.style.top=Math.max(12,window.innerHeight-bounds.height-12)+'px';
+  this.keepVisible(root);
  }
  private render(ref:ReferenceEntry,anchor:HTMLElement):void{
   this.serial++;
@@ -89,10 +151,15 @@ export class BibleLabInlinePopover {
   root.setAttribute('role','dialog');root.setAttribute('aria-label','Aperçu biblique : '+ref.label);
   root.setAttribute('aria-modal','false');
   const header=root.createDiv({cls:'biblelab-popover-header'});
+  const grip=header.createSpan({cls:'biblelab-popover-drag-grip',
+    attr:{'aria-hidden':'true'}});setIcon(grip,'grip-vertical');
   const title=header.createDiv({cls:'biblelab-popover-title'});
   title.createSpan({text:ref.kind==='scripture'?'BIBLE D’ÉTUDE':'PUBLICATION',cls:'biblelab-popover-eyebrow'});
   title.createEl('strong',{text:ref.label});
+  const center=this.button(header,'Recentrer la fenêtre','focus',()=>this.center(root));
+  center.addClass('biblelab-popover-center');
   const close=this.button(header,'Fermer','x',()=>this.close(true));close.addClass('biblelab-popover-close');
+  this.enableDrag(root,header);
   const content=root.createDiv({cls:'biblelab-popover-content'});
   const footer=root.createDiv({cls:'biblelab-popover-footer'});
   const prev=this.button(footer,'Retour','arrow-left',()=>{
@@ -117,7 +184,7 @@ export class BibleLabInlinePopover {
   const cached=this.cache.get(key);
   if(cached&&Date.now()-cached.date<this.cacheDuration){
     this.cache.delete(key);this.cache.set(key,cached);
-    this.draw(content,cached.value,anchor);return;
+    this.draw(content,cached.value,anchor);this.keepVisible(root);return;
   }
   if(cached)this.cache.delete(key);
   content.createDiv({cls:'biblelab-popover-loading',attr:{role:'status'},
@@ -137,7 +204,7 @@ export class BibleLabInlinePopover {
       this.cache.set(key,{value:result,date:Date.now()});
       while(this.cache.size>35)this.cache.delete(this.cache.keys().next().value!);
     }
-    content.empty();this.draw(content,result,anchor);
+    content.empty();this.draw(content,result,anchor);this.keepVisible(root);
   }).catch(error=>{
     if(token!==this.serial||!root.isConnected)return;
     content.empty();
