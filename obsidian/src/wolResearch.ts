@@ -87,26 +87,20 @@ function nearestResult(link: HTMLAnchorElement): HTMLElement {
   ) || link.parentElement || link;
 }
 function getSource(item: HTMLElement): WolCollection {
-  const publication=item.querySelector('li.ref,.ref,.pubRef,.publication,.pubTitle,.documentMeta');
+  // Only the publication label of THIS result is authoritative. Ascending
+  // into <main> can silently tag every result as "Guide" just because
+  // another hit on the page contains "rsg".
+  const publication=item.querySelector('li.ref,.pubRef,.publication,.pubTitle,.documentMeta');
   const explicit=sourceCollection(compact(publication?.textContent||'',500));
   if(explicit!=='other')return explicit;
-  // The publication label can live beside the link, not in the same <li>.
-  // Never infer one result's category from another result or from navigation.
-  let current:HTMLElement|null=item;
-  for(let depth=0;current&&depth<3;depth++,current=current.parentElement){
-    if(depth>0&&(current.matches(WOL_RESULT_BLOCKS)||
-       current.querySelectorAll(WOL_RESULT_BLOCKS).length>1))break;
-    const nodes=current.querySelectorAll('small,.publication,.pubTitle,.pubRef,.documentMeta,p,span');
-    const metadata=[...nodes].slice(0,24).map(node=>compact(node.textContent||'',180)).join(' ').slice(0,1300);
-    const collection=sourceCollection(metadata);
-    if(collection!=='other')return collection;
-    if(depth===0){
-      const own=sourceCollection(compact(current.textContent||'',700));
-      if(own!=='other')return own;
-    }
-    if((current.textContent||'').length>1800)break;
-  }
-  return 'other';
+  const localMetadata=[...item.querySelectorAll('small,p,.ref,span')]
+    .filter(node=>!node.closest('.resultSubheadings,.resultNavigation,.document'))
+    .slice(0,24).map(node=>compact(node.textContent||'',130)).join(' ').slice(0,1100);
+  const inferred=sourceCollection(localMetadata);
+  if(inferred!=='other')return inferred;
+  // For bare article rows the title can itself identify the work.
+  const title=item.querySelector('h2,h3,h4,li.caption a');
+  return sourceCollection(compact(title?.textContent||'',200));
 }
 function appendSearchHit(
   hits:WolSearchHit[],seen:Set<string>,link:HTMLAnchorElement,base:string,item:HTMLElement
@@ -119,8 +113,11 @@ function appendSearchHit(
     /^(?:image|imprimer|pr.c.dent|suivant|sommaire|ouvrir|lire|.couter|watchtower)$/i.test(title))return;
   const snippet=item.querySelector('.document p,.resultSnippet,.resultExcerpt,.snippet,.searchSnippet');
   const snippetText=compact(snippet?.textContent||'',300);
+  // WOL topic rows carry navigation subheadings which must NOT be mistaken
+  // for the snippet of the selected document.
+  const publication=compact(item.querySelector('li.ref')?.textContent||'',190);
   const rowText=compact(item.textContent||'',700);
-  const excerpt=snippetText||compact(rowText.replace(title,'').trim(),190);
+  const excerpt=snippetText||publication||compact(rowText.replace(title,'').trim(),190);
   seen.add(url);
   hits.push({title,url,excerpt:excerpt.length>14?excerpt.slice(0,190):'',collection:getSource(item)});
 }
