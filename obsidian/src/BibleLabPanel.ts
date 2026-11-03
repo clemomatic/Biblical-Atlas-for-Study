@@ -436,7 +436,7 @@ export class BibleLabSidebarView extends ItemView {
     }
 
     const primary=this.scroller.createDiv({cls:'biblelab-search-primary'});
-    const find=button(primary,'Rechercher dans WOL','search',()=>this.openSearch(),true);
+    button(primary,'Rechercher dans WOL','search',()=>this.openSearch(),true);
     // Keep the action available as the user types; empty input gets a Notice.
     button(primary,'Ouvrir WOL','panels-top-left',()=>
       void this.host.openWolSearchTab('https://wol.jw.org/fr/wol/h/r30/lp-f'));
