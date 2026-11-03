@@ -506,3 +506,14 @@ Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obs
 - Si l'extraction reste impossible, conserve le nouvel onglet WOL consultable directement dans Obsidian ; aucun résultat n'est inventé.
 - Le navigateur intégré n'est pas disponible sur mobile ; le lien externe reste accessible.
 - Nouveau test Playwright d'extraction depuis une visionneuse simulée, en plus des tests 0.9.21.
+
+### Bible Lab 0.10.0 — WOL dans les vrais onglets web d’Obsidian
+
+**Changement de fonctionnement :** la recherche WOL et le bouton **Nouvel onglet** utilisent désormais le **module principal Visionneuse web** d’Obsidian, et non une reconstitution des pages WOL par Bible Lab.
+
+- Recherche : saisis un sujet, choisis Publications / Index / Guide / Perspicace, puis **Rechercher dans WOL**. La page officielle s’ouvre directement dans un onglet Obsidian. WOL gère lui-même les résultats, les renvois, les filtres, les pages suivantes et l’affichage des articles. Les recherches suivantes réutilisent uniquement cet onglet de recherche.
+- Lecture : le bouton **Nouvel onglet** d’une référence, du panneau de lecture ou d’un aperçu flottant ouvre la source officielle dans un nouvel onglet de la visionneuse web. Chaque article reste indépendant. Utilise le retour arrière, les liens WOL et le mode lecture natif d’Obsidian.
+- Les aperçus et le lecteur rapide Bible Lab restent disponibles dans les notes et le panneau latéral ; ils ne sont plus responsables de la recherche de documents.
+- Aucun scraping, requête HTTP de recherche, interprétation de HTML de résultats, ou extraction depuis le navigateur n’est utilisé dans le parcours de recherche principal.
+- **Prérequis ordinateur** : activer *Paramètres → Modules principaux → Visionneuse web*. Si ce module est indisponible, Bible Lab ouvre le lien WOL dans le navigateur par défaut. Sur mobile, la même solution de secours s’applique.
+- Les anciens onglets de lecture Bible Lab enregistrés dans un espace de travail restent reconnus pour compatibilité, mais aucun nouvel onglet de ce type n’est créé.
