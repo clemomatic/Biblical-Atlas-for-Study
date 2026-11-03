@@ -300,9 +300,8 @@
 .biblelab-popover-inline-link {
  text-decoration-thickness:1px;text-underline-offset:3px;
 }
-.biblelab-popover-inline-link strong,.biblelab-popover-inline-link em {
- color:inherit;font:inherit;
-}
+.biblelab-popover-inline-link strong {color:inherit;font-weight:760}
+.biblelab-popover-inline-link em {color:inherit;font-style:italic}
 .biblelab-popover-content {
  background:var(--background-primary);
 }
