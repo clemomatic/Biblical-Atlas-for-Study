@@ -1,3 +1,5 @@
+> **Installer et mettre à jour Bible Lab** — Le plugin est disponible via les [GitHub Releases](https://github.com/clemomatic/Biblical-Atlas-for-Study/releases). Pour éviter les installations ZIP répétées, utiliser BRAT dans Obsidian. Voir le [guide des mises à jour](./MISES-A-JOUR.md).
+
 ## Bible Lab 0.9.2 — Résolution des citations documentaires
 
 - **Catalogue officiel** : codes du tableau « Abréviations des titres de publications » de l’Index WOL (https://wol.jw.org/fr/wol/d/r30/lp-f/1200270068) ; les codes courts doivent être accompagnés d'un repère (page, chapitre, leçon ou paragraphe) pour éviter les faux liens.
