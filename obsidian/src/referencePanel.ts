@@ -4,6 +4,7 @@ import { linkifyReaderText, type ReaderResult, type ReaderLine, type ReferenceEn
 import { fetchReferenceContent } from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
+import { appendStyledReaderText } from './readerInlineFormatting';
 
 export interface ReaderState {
  expanded:Set<string>;
@@ -63,17 +64,23 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  });
  const readable=(container:HTMLElement,line:ReaderLine):void=>{
    const fragments=line.parts||linkifyReaderText(line.text);
-   for(const part of fragments){
-     if(!part.url){container.appendChild(document.createTextNode(part.text));continue;}
+   for(let i=0;i<fragments.length;){
+     const part=fragments[i];
+     if(!part.url){appendStyledReaderText(container,part);i++;continue;}
+     // A single official link may have multiple typography runs, but it
+     // remains one clickable reference with an accurate accessible label.
+     const group=[part];i++;
+     while(i<fragments.length&&fragments[i].url===part.url)group.push(fragments[i++]);
+     const label=group.map(token=>token.text).join('');
      const clickable=container.createEl('button',{cls:'biblelab-reader-inline-link',
-       text:part.text,attr:{type:'button',title:'Consulter '+part.text,
-         'aria-label':'Lire la référence '+part.text}});
+       attr:{type:'button',title:'Consulter '+label,
+         'aria-label':'Lire la référence '+label}});
+     for(const token of group)appendStyledReaderText(clickable,token);
      clickable.addEventListener('click',event=>{
        event.preventDefault();event.stopPropagation();
-       if(!part.url)return;
-       const destination:ReferenceEntry={label:part.text,url:part.url,
+       const destination:ReferenceEntry={label,url:part.url!,
          kind:part.kind||'publication',origin:'pinned'};
-       if(state.navigate)state.navigate(destination);else state.open(part.url);
+       if(state.navigate)state.navigate(destination);else state.open(part.url!);
      });
    }
  };
@@ -159,7 +166,8 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
          if(part.type==='image'&&part.image){
            renderArticleImage(article,part.image);
          }else if(part.type==='heading'){
-           const header=article.createEl('h5',{cls:'biblelab-article-heading',text:part.text});
+           const header=article.createEl('h5',{cls:'biblelab-article-heading'});
+           readable(header,part);
            header.id='bl-article-section-'+depth+'-'+displayed;
            headings.set(displayed,header);
          }else if(part.type==='question'){
@@ -168,6 +176,15 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
          }else if(part.type==='caption'){
            const caption=article.createEl('p',{cls:'biblelab-article-caption'});
            readable(caption,part);
+         }else if(part.type==='quote'||part.type==='theme'){
+           const box=article.createEl('blockquote',{cls:'biblelab-article-'+part.type});
+           const quote=box.createEl('p',{attr:{lang:'fr'}});
+           readable(quote,part);
+         }else if(part.type==='list'){
+           const item=article.createDiv({cls:'biblelab-article-list-item'});
+           item.createSpan({cls:'biblelab-article-list-bullet',text:'•',attr:{'aria-hidden':'true'}});
+           const body=item.createEl('p',{attr:{lang:'fr'}});
+           readable(body,part);
          }else{
            const wrap=article.createDiv({cls:'biblelab-article-paragraph'});
            if(part.number&&requestedParagraphs.includes(part.number)){
