@@ -1,4 +1,4 @@
-import { cleanWolUrl } from './referenceReader';
+import { cleanWolUrl } from './referenceReader.ts';
 
 export interface ResearchCapture {
   id:string;
