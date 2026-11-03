@@ -42,7 +42,7 @@ test('An idea groups sources and inserts one Markdown sentence with parenthesize
   await pane.getByRole('textbox',{name:'Phrase principale de l’idée'}).press('Tab');
   const idea=pane.locator('.biblelab-idea-card');
   await idea.getByRole('button',{name:'Ajouter cette référence'}).click();
-  await expect(idea.getByText('Jean 7:24')).toBeVisible();
+  await expect(idea.locator('.biblelab-idea-source-text strong').filter({hasText:'Jean 7:24'})).toBeVisible();
   await expect(pane.getByRole('heading',{name:'BAC À TROUVAILLES · 0'})).toBeVisible();
 
   await page.evaluate(()=> (window as any).atlasTest.openMarkdownEditor('Mes notes/Une idée précieuse.md'));
