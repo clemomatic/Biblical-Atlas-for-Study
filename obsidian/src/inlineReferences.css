@@ -213,3 +213,22 @@
 .biblelab-popover-verse-plus:focus-visible{
  outline:2px solid var(--interactive-accent);outline-offset:2px;
 }
+
+
+/* Bible Lab 0.9.18 — draggable header stays nonselectable; document is not. */
+.biblelab-inline-popover .biblelab-popover-content,
+.biblelab-inline-popover .biblelab-popover-content p,
+.biblelab-inline-popover .biblelab-popover-content h3,
+.biblelab-inline-popover .biblelab-popover-content h4,
+.biblelab-inline-popover .biblelab-popover-content span,
+.biblelab-inline-popover .biblelab-popover-content figcaption {
+  user-select:text !important;
+  -webkit-user-select:text !important;
+}
+.biblelab-inline-popover .biblelab-popover-content {
+  touch-action:pan-y;
+}
+@media(max-width:540px){
+ .biblelab-popover-footer {flex-wrap:wrap}
+ .biblelab-popover-footer .biblelab-popover-btn {flex:0 0 auto}
+}
