@@ -490,3 +490,11 @@ Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obs
 - Une direction de lecture commune est appliquée aux panneaux, pop-ups et onglets : colonne de lecture confortable, rythme typographique, espace autour des titres, encarts de questions et contrastes adaptatifs.
 - Les paragraphes sans numéro s'étendent sur la largeur du lecteur ; les articles ouverts en onglets disposent par défaut d'une police de lecture plus grande.
 - Des tests de rendu couvrent l'extraction de la structure, la copie/sélection, les liens internes et l'absence d'exécution des scripts distants.
+
+### Bible Lab 0.9.21 — Correction de la recherche WOL
+
+- Analyse prioritaire des vrais blocs de résultats WOL (`resultContentTopic` et `resultContentDocument`), y compris leurs titres, références de publication et extraits.
+- Utilisation des paramètres de tri de recherche officiels (`r=occ`, `st=a`).
+- Si la réponse WOL ne comporte que l'enveloppe HTML sans ses résultats, réessai de deux variantes officielles sans trier ou via la consultation `/wol/l/`.
+- Différenciation entre une vraie absence de résultats, un blocage d'accès et une page chargée dynamiquement uniquement dans le navigateur. Aucun résultat inventé.
+- Conserve les améliorations de lecture 0.9.20 et les nouveaux onglets 0.9.19.
