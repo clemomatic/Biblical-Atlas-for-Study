@@ -498,3 +498,11 @@ Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obs
 - Si la réponse WOL ne comporte que l'enveloppe HTML sans ses résultats, réessai de deux variantes officielles sans trier ou via la consultation `/wol/l/`.
 - Différenciation entre une vraie absence de résultats, un blocage d'accès et une page chargée dynamiquement uniquement dans le navigateur. Aucun résultat inventé.
 - Conserve les améliorations de lecture 0.9.20 et les nouveaux onglets 0.9.19.
+
+### Bible Lab 0.9.22 — Recherche WOL via visionneuse web Chromium
+
+- Si `requestUrl` obtient seulement une enveloppe HTML WOL sans résultats, ouvre la véritable page dans la visionneuse web native d'Obsidian (ordinateur, module principal **Visionneuse web** activé).
+- Extrait les résultats réellement rendus, conserve seulement les liens officiels WOL et leur texte, puis ferme automatiquement l'onglet transitoire en restaurant la note précédente lorsque l'import réussit.
+- Si l'extraction reste impossible, conserve le nouvel onglet WOL consultable directement dans Obsidian ; aucun résultat n'est inventé.
+- Le navigateur intégré n'est pas disponible sur mobile ; le lien externe reste accessible.
+- Nouveau test Playwright d'extraction depuis une visionneuse simulée, en plus des tests 0.9.21.
