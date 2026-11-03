@@ -168,20 +168,24 @@ export function selectPublicationCandidate(html:string,base:string,reference:str
  const request=publicationPages(reference);
  if(!request)return null;
  const doc=new DOMParser().parseFromString(html,'text/html');
- let best:string|null=null;
  let shortest=Number.POSITIVE_INFINITY;
+ const candidates=new Set<string>();
  for(const a of doc.querySelectorAll<HTMLAnchorElement>('a[href]')){
   const href=validateDocument(a.getAttribute('href')||'',base);
   if(!href)continue;
-  // WOL results commonly attach the publication/pages to the article row.
+  // The requested page(s) may be inside a wider article range (21-24
+  // belongs to 20-25). Require authoritative matching issue/page metadata.
   const box=a.closest('li,article,.result,.searchResult,.search-result,.item')||a.parentElement;
   const visible=(box?.textContent||'').slice(0,900);
   const page=publicationPages(visible);
   if(!page||!matchingPublicationPages(reference,visible))continue;
   const range=page.last-page.first;
-  if(range<shortest){best=href;shortest=range;}
+  if(range<shortest){candidates.clear();shortest=range;}
+  if(range===shortest)candidates.add(href);
  }
- return best;
+ // Multiple articles can have the SAME printed page (e.g. km 5/00 p. 8).
+ // Keep their choices in #lookupResults rather than pick the first one.
+ return candidates.size===1?[...candidates][0]:null;
 }
 
 /** Choose a book chapter only when the WOL results explicitly identify it. */
@@ -318,6 +322,10 @@ export function knownCitation(reference:string):string|null{
    return WOL+'d/r30/lp-f/2016609'; // w16 août p. 25-29
  if(citation?.issue==='w20.06'&&citation.first>=24&&citation.last<=29)
    return WOL+'d/r30/lp-f/2020441'; // w20 juin p. 24-29
+ // WOL explicitly identifies this 2024 study article as pages 20–25;
+ // a citation to pp. 21–24 is a subset, not a missing publication.
+ if(citation?.issue==='w24.11'&&citation.first>=20&&citation.last<=25)
+   return WOL+'d/r30/lp-f/2024643';
  // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
  // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
  if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
