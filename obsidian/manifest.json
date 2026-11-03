@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.10",
+  "version": "0.9.11",
   "minAppVersion": "1.6.0",
-  "description": "Références bibliques sur plusieurs chapitres, paragraphes complets des publications et lecture WOL améliorée.",
+  "description": "Fenêtre de lecture déplaçable à la souris et au doigt, recentrage et navigation stable, références WOL enrichies.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
