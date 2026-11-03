@@ -35,7 +35,7 @@ const sources=[
  new RegExp(boundaries+'((?:w|wp|g)\\d{2}(?:\\.\\d{1,2})?\\s+(?:'+months+')\\s+'+page+'(?:'+paragraph+')?)','giu'),
  new RegExp(boundaries+'((?:w|wp|g)\\d{2}\\.\\d{1,2}\\s+'+page+'(?:'+paragraph+')?)','giu'),
  // Compact date/page references used by the official Index.
- new RegExp(boundaries+'((?:w|wp|g|mwb)\\d{2}\\.\\d{1,2}\\s+\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*)','giu'),
+ new RegExp(boundaries+'((?:w|wp|g|mwb)\\d{2}\\.\\d{1,2}\\s+\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})*(?:'+paragraph+')?)','giu'),
  // Ministry of the Kingdom is cited by month/year without a page, e.g.
  // "km 05/95" = May 1995; WOL's own short form is "km 5/95".
  new RegExp(boundaries+'(km\\s+(?:0?[1-9]|1[0-2])/\\d{2}(?:\\s+(?:p\\.?\\s*)?\\d{1,3}(?:\\s*[-–]\\s*\\d{1,3})?)?)','giu'),
