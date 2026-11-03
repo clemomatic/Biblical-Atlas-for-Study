@@ -11,7 +11,7 @@ test('Phase 1: begin with an optional plan, rename and reorder its research bran
   const pane = page.locator('.biblelab-side');
   const plan = pane.locator('.biblelab-plan-board');
   await expect(plan.getByText('Mon plan de recherche')).toBeVisible();
-  await expect(plan.getByText('Recherche libre (sans plan)')).toBeVisible();
+  await expect(plan.getByRole('combobox', { name: 'Choisir une recherche' })).toHaveValue('');
 
   await plan.getByRole('button', { name: 'Créer un plan' }).click();
   const title = plan.getByRole('textbox', { name: 'Titre de la recherche' });
@@ -66,7 +66,7 @@ test('Phase 1: the plan can be put aside without deleting it', async ({ page }) 
   await plan.getByRole('textbox',{name:'Titre de la recherche'}).fill('Plan provisoire');
   await plan.getByRole('textbox',{name:'Titre de la recherche'}).press('Tab');
   await plan.getByRole('combobox',{name:'Choisir une recherche'}).selectOption('');
-  await expect(plan.getByText('Recherche libre (sans plan)')).toBeVisible();
+  await expect(plan.getByRole('combobox', { name: 'Choisir une recherche' })).toHaveValue('');
   await expect(plan.getByRole('combobox',{name:'Choisir une recherche'}).locator('option')).toHaveCount(2);
   const desk=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchDesk());
   expect(desk.plans).toHaveLength(1);
