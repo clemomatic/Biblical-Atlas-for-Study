@@ -20,7 +20,7 @@ import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
 import { BIBLE_LAB_ARTICLE_VIEW, BibleLabArticleView } from './BibleLabArticleView';
 import { type ReferenceEntry } from './referenceReader';
-import { openWolInObsidian } from './wolWebViewer';
+import { openWolInObsidian, WOL_HOME } from './wolWebViewer';
 import { wolResearchUrl } from './wolResearch';
 import { enhanceBibleLabMarkers } from './bibleLabMarkers';
 import { inlineBibleLabEditorExtension } from './inlineEditorExtension';
@@ -170,6 +170,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
     this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le laboratoire biblique', callback: () => this.run(this.openBibleLab()) });
+    this.addCommand({ id: 'open-wol-browser', name: 'Ouvrir la Bibliothèque en ligne WOL dans un onglet', callback: () => this.run(this.openWolSearchTab(WOL_HOME)) });
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
     this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
     this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
