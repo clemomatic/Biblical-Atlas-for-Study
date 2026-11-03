@@ -990,6 +990,18 @@ export class BibleLabSidebarView extends ItemView {
     }
     this.storeQuickCapture(candidate);
   }
+  /** Update a WOL source badge without rerendering (which would clear unsaved form edits). */
+  refreshWolSourceIndicator():void{
+    if(!this.scroller)return;
+    const preferred=this.host.getPreferredWolUrl();
+    const count=this.host.getOpenWolUrls().length;
+    const label=preferred?
+      'Source WOL : '+wolSourceLabel(preferred):
+      count>1?'Plusieurs pages WOL : sélection manuelle du lien':
+      'Aucune page WOL identifiée — copie un lien ou un extrait';
+    for(const node of this.scroller.querySelectorAll<HTMLElement>('.biblelab-quick-source-label'))
+      node.setText(label);
+  }
   private renderQuickCapture(parent:HTMLElement,compact=false):void{
     const area=parent.createDiv({cls:'biblelab-quick-capture'+(compact?' is-compact':'')});
     const header=area.createDiv({cls:'biblelab-quick-capture-head'});
@@ -1002,7 +1014,7 @@ export class BibleLabSidebarView extends ItemView {
     const source=area.createDiv({cls:'biblelab-quick-source'});
     const sourceIcon=source.createSpan();
     setIcon(sourceIcon,preferred?'link':'info');
-    source.createSpan({text:preferred?
+    source.createSpan({cls:'biblelab-quick-source-label',text:preferred?
       'Source WOL : '+wolSourceLabel(preferred):
       openCount>1?'Plusieurs pages WOL : sélection manuelle du lien':
       'Aucune page WOL identifiée — copie un lien ou un extrait'});
