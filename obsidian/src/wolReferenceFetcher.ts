@@ -622,8 +622,11 @@ function hasReadableArticleBody(result:ReaderResult):boolean{
 function isNavigationShell(result:ReaderResult):boolean{
  // Test the TITLE OF THE ISOLATED DOCUMENT, not the first <h1> in the entire
  // WOL page: a real article may follow a generic site navigation heading.
- const title=cleanReadingText(result.title).toLowerCase();
- return /^(?:consulter|rechercher|bibliothèque en ligne watchtower|bibliotheque en ligne watchtower)$/.test(title);
+ const title=normalizeSearch(result.title).replace(/\s+/g,' ');
+ // WOL may return "Rechercher — Bibliothèque en ligne Watchtower" or
+ // "Consulter - ..." with enough menu paragraphs to fool a length check.
+ // The actual article title is isolated before testing this predicate.
+ return /^(?:(?:consulter|rechercher)(?:\s*[-–—|:]\s*bibliotheque en ligne watchtower)?|bibliotheque en ligne watchtower|watchtower bibliotheque en ligne)$/.test(title);
 }
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
