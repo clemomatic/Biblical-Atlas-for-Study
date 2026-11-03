@@ -480,3 +480,13 @@ Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obs
 - Cliquer sur une référence à l’intérieur d’un onglet réutilise l’onglet et active l’historique Précédent/Suivant ; un bouton permet d’ouvrir une seconde copie dans un nouvel onglet.
 - L’adresse et le titre de chaque onglet sont préservés dans l’état de la mise en page Obsidian, sans modifier les notes ni créer de fichiers Markdown.
 - La disponibilité des documents dépend toujours de l’accès réel aux pages WOL : aucune méthode de contournement des restrictions d’accès n’est utilisée.
+
+### Bible Lab 0.9.20 — Lecture éditoriale fidèle à WOL
+
+- Les intertitres officiels `h1–h4`, `p.sb` et `p.sh` gardent leur hiérarchie de lecture, y compris dans la pop-up.
+- Les questions `p.qu` et `studyQuestion`, les numéros de paragraphes, les citations, les listes, les textes thématiques et les légendes reçoivent chacun une mise en forme distincte.
+- Les portions de texte en `<strong>/<b>` et `<em>/<i>` sont préservées au bon endroit, y compris à l'intérieur des liens de références officiels.
+- Les documents restent transcodés en éléments DOM natifs sûrs, sans injection de HTML provenant de WOL, et sans modification du contenu des notes.
+- Une direction de lecture commune est appliquée aux panneaux, pop-ups et onglets : colonne de lecture confortable, rythme typographique, espace autour des titres, encarts de questions et contrastes adaptatifs.
+- Les paragraphes sans numéro s'étendent sur la largeur du lecteur ; les articles ouverts en onglets disposent par défaut d'une police de lecture plus grande.
+- Des tests de rendu couvrent l'extraction de la structure, la copie/sélection, les liens internes et l'absence d'exécution des scripts distants.
