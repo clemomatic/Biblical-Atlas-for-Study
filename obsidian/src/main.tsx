@@ -19,6 +19,11 @@ import { MapTileCache } from './MapTiles';
 import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
 import { emptyResearchDesk, normalizeResearchDesk, type ResearchDesk } from './researchDesk';
+import {
+  emptyResearchCollection, normalizeResearchCollection, addResearchCapture,
+  type ResearchCollection
+} from './researchCollection';
+import { cleanWolUrl, extractReferenceEntries } from './referenceReader';
 import { BIBLE_LAB_ARTICLE_VIEW, BibleLabArticleView } from './BibleLabArticleView';
 import { type ReferenceEntry } from './referenceReader';
 import { openWolInObsidian, WOL_HOME } from './wolWebViewer';
@@ -112,10 +117,26 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private inlinePopup?:BibleLabInlinePopover;
   private wolSearchLeaf: WorkspaceLeaf|null=null;
   private researchDesk:ResearchDesk=emptyResearchDesk();
+  private researchCollection:ResearchCollection=emptyResearchCollection();
+  getResearchCollection=():ResearchCollection=>this.researchCollection;
+  saveResearchCollection=(store:ResearchCollection):Promise<void>=>{
+    this.researchCollection=normalizeResearchCollection(store);
+    return this.enqueuePluginData();
+  };
+  getOpenWolUrls=():string[]=>{
+    const leaves=this.app.workspace.getLeavesOfType('webviewer');
+    const urls:string[]=[];
+    for(const leaf of leaves){
+      const state=leaf.view.getState() as {url?:unknown};
+      const url=typeof state?.url==='string'?cleanWolUrl(state.url):null;
+      if(url&&!urls.includes(url))urls.push(url);
+    }
+    return urls;
+  };
   private dataWriteQueue:Promise<void>=Promise.resolve();
   getResearchDesk=():ResearchDesk=>this.researchDesk;
   private enqueuePluginData():Promise<void>{
-    const snapshot={...this.settings,bibleLabResearch:this.researchDesk};
+    const snapshot={...this.settings,bibleLabResearch:this.researchDesk,bibleLabCollection:this.researchCollection};
     // Serialize writes so rapid edits do not replace newer data with stale saves.
     this.dataWriteQueue=this.dataWriteQueue.catch(()=>undefined).then(()=>this.saveData(snapshot));
     return this.dataWriteQueue;
@@ -171,10 +192,11 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     await this.enqueuePluginData(); this.publish();
   }
   async onload(): Promise<void> {
-    const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown}) | null;
+    const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown;bibleLabCollection?:unknown}) | null;
     try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
     this.researchDesk=normalizeResearchDesk(stored?.bibleLabResearch);
+    this.researchCollection=normalizeResearchCollection(stored?.bibleLabCollection);
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
@@ -192,6 +214,22 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (onglet web)', editorCallback: editor => { const term=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim(); if(term)this.run(this.openWolSearchTab(wolResearchUrl(term,{match:'par',scope:'all'}))); } });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
+    this.addCommand({
+      id:'bible-lab-keep-selection',name:'Conserver la sélection dans le bac Bible Lab',
+      editorCallback: editor=>{
+        const selected=editor.getSelection().trim();
+        if(!selected){new Notice('Sélectionne une référence ou un extrait dans la note.');return;}
+        const refs=extractReferenceEntries(selected);
+        const first=refs[0];
+        this.researchCollection=addResearchCapture(this.researchCollection,{
+          label:first?.label||selected.slice(0,110),
+          excerpt:selected.length>180||first?.label!==selected?selected:'',
+          url:first?.url||'',
+          planId:this.researchDesk.activeId
+        });
+        this.run(this.enqueuePluginData().then(()=>this.openBibleLabCollection()));
+      }
+    });
     this.addCommand({ id: 'manage-atlas', name: 'Gérer et personnaliser toutes les fiches', callback: this.manageAtlas });
     this.addCommand({ id: 'offline-maps', name: 'Télécharger des cartes hors connexion', callback: this.openMapDownloads });
     this.addCommand({ id: 'explore-active-note', name: 'Explorer les fiches de la note active', checkCallback: checking => {
@@ -314,6 +352,11 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   openWolSearchTab = async (url: string): Promise<void> => {
     this.wolSearchLeaf=await openWolInObsidian(this.app,url,this.wolSearchLeaf);
   };
+  async openBibleLabCollection():Promise<void>{
+    await this.openBibleLab();
+    const leaf=this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
+    if(leaf?.view instanceof BibleLabSidebarView)leaf.view.openCollection();
+  }
   async openBibleLab(reference?: string, displayLabel?: string): Promise<void> {
     await this.ready;
     let leaf = this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0];
