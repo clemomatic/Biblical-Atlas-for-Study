@@ -471,3 +471,12 @@ Les tests navigateur chargent le véritable `main.js` compilé dans un hôte Obs
 - Texte des articles et des versets sélectionnable dans la pop-up et le panneau latéral ; bouton **Copier le texte** (sélection ou texte chargé). Les boutons **Copier** existants continuent de copier l'URL.
 - Un écran de vérification anti-robot renvoyé par WOL n'est pas interprété comme une recherche vide : Bible Lab explique la restriction et propose le lien de recherche officiel.
 - La copie et la recherche n'envoient jamais les notes personnelles de l'utilisateur à un service tiers.
+
+### Bible Lab 0.9.19 — Articles WOL en onglets Obsidian
+
+- Depuis les résultats de la recherche WOL, clique sur **Nouvel onglet** pour consulter l’article dans un vrai onglet Obsidian, indépendant du panneau Bible Lab.
+- Le bouton est également disponible dans la pop-up de référence et dans le lecteur latéral.
+- Le nouvel onglet réutilise le lecteur officiel : texte sélectionnable, bouton de copie, illustrations du corps de l’article, renvois cliquables, plan et navigation.
+- Cliquer sur une référence à l’intérieur d’un onglet réutilise l’onglet et active l’historique Précédent/Suivant ; un bouton permet d’ouvrir une seconde copie dans un nouvel onglet.
+- L’adresse et le titre de chaque onglet sont préservés dans l’état de la mise en page Obsidian, sans modifier les notes ni créer de fichiers Markdown.
+- La disponibilité des documents dépend toujours de l’accès réel aux pages WOL : aucune méthode de contournement des restrictions d’accès n’est utilisée.
