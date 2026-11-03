@@ -18,6 +18,7 @@ import { MarkdownContent } from './MarkdownContent';
 import { MapTileCache } from './MapTiles';
 import { MapDownloadModal } from './MapDownloadModal';
 import { BIBLE_LAB_VIEW, BibleLabSidebarView } from './BibleLabPanel';
+import { emptyResearchDesk, normalizeResearchDesk, type ResearchDesk } from './researchDesk';
 import { BIBLE_LAB_ARTICLE_VIEW, BibleLabArticleView } from './BibleLabArticleView';
 import { type ReferenceEntry } from './referenceReader';
 import { openWolInObsidian, WOL_HOME } from './wolWebViewer';
@@ -110,6 +111,19 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private listeners = new Set<() => void>();
   private inlinePopup?:BibleLabInlinePopover;
   private wolSearchLeaf: WorkspaceLeaf|null=null;
+  private researchDesk:ResearchDesk=emptyResearchDesk();
+  private dataWriteQueue:Promise<void>=Promise.resolve();
+  getResearchDesk=():ResearchDesk=>this.researchDesk;
+  private enqueuePluginData():Promise<void>{
+    const snapshot={...this.settings,bibleLabResearch:this.researchDesk};
+    // Serialize writes so rapid edits do not replace newer data with stale saves.
+    this.dataWriteQueue=this.dataWriteQueue.catch(()=>undefined).then(()=>this.saveData(snapshot));
+    return this.dataWriteQueue;
+  }
+  saveResearchDesk=(desk:ResearchDesk):Promise<void>=>{
+    this.researchDesk=normalizeResearchDesk(desk);
+    return this.enqueuePluginData();
+  };
   private snapshot: AtlasSnapshot = { notes: [], settings: this.settings, atlas: buildWorkspace([]) };
   private indexVersions = new Map<string, number>();
   private ready: Promise<void> = Promise.resolve();
@@ -154,12 +168,13 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private async indexAll(): Promise<void> { await Promise.all(this.app.vault.getMarkdownFiles().map(file => this.indexFile(file, false))); this.publish(); }
   async updateSettings(change: Partial<AtlasSettings>): Promise<void> {
     this.settings = { ...this.settings, ...change, noteFolder: validFolder(change.noteFolder ?? this.settings.noteFolder) };
-    await this.saveData(this.settings); this.publish();
+    await this.enqueuePluginData(); this.publish();
   }
   async onload(): Promise<void> {
-    const stored = await this.loadData() as Partial<AtlasSettings> | null;
+    const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown}) | null;
     try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
+    this.researchDesk=normalizeResearchDesk(stored?.bibleLabResearch);
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
