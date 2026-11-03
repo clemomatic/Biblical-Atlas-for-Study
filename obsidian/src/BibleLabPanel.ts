@@ -36,7 +36,7 @@ function external(url: string): void {
   window.open(url, '_blank', 'noopener,noreferrer');
 }
 function button(parent: HTMLElement, label: string, icon: string, fn: () => void, primary=false): HTMLButtonElement {
-  const el = parent.createEl('button', { cls: 'biblelab-btn' + (primary ? ' is-primary' : '') });
+  const el = parent.createEl('button', { cls: 'biblelab-btn' + (primary ? ' is-primary' : ''), attr: { 'aria-label': label } });
   el.type='button';
   const symbol=el.createSpan(); setIcon(symbol, icon);
   el.createSpan({text:label});
