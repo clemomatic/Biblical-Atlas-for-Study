@@ -1,0 +1,134 @@
+name: Publish Bible Lab release
+
+# The plugin lives in /obsidian/ in this multi-project repository.
+on:
+  push:
+    branches: [main]
+    paths:
+      - obsidian/manifest.json
+      - .github/workflows/obsidian-release.yml
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "Branch or commit to package (main for stable, feature branch for preview)"
+        required: true
+        default: main
+        type: string
+      prerelease:
+        description: "Mark as prerelease (required for a feature branch)"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: bible-lab-publish-${{ github.event.inputs.source_ref || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout requested version
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.source_ref || github.sha }}
+          persist-credentials: false
+
+      - name: Validate release metadata
+        id: meta
+        env:
+          SOURCE_REF: ${{ github.event.inputs.source_ref || 'main' }}
+          PRERELEASE: ${{ github.event.inputs.prerelease || 'false' }}
+          EVENT_NAME: ${{ github.event_name }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "workflow_dispatch" && "$SOURCE_REF" != "main" && "$PRERELEASE" != "true" ]]; then
+            echo "::error::Feature branches must be published as prereleases."
+            exit 1
+          fi
+          node --input-type=module <<'NODE'
+          import {readFileSync, appendFileSync} from 'node:fs';
+          const manifest=JSON.parse(readFileSync('obsidian/manifest.json','utf8'));
+          const versions=JSON.parse(readFileSync('obsidian/versions.json','utf8'));
+          if(!/^\d+\.\d+\.\d+$/.test(manifest.version))
+            throw Error('Release version must be x.y.z, without a prefix.');
+          if(manifest.id!=='atlas-biblique')
+            throw Error('Unexpected plugin ID.');
+          if(!versions[manifest.version]||versions[manifest.version]!==manifest.minAppVersion)
+            throw Error('versions.json must match the manifest version/minAppVersion.');
+          appendFileSync(process.env.GITHUB_OUTPUT, 'version='+manifest.version+'\n');
+          console.log('Verified Bible Lab '+manifest.version);
+          NODE
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm obsidian:typecheck
+      - run: python tools/test_bible_lab_bridge.py
+      - run: pnpm obsidian:test
+      - run: pnpm obsidian:package
+
+      - name: Validate installable release files
+        shell: bash
+        run: |
+          set -euo pipefail
+          source_dir="obsidian/dist/atlas-biblique"
+          for file in manifest.json main.js styles.css; do
+            test -s "$source_dir/$file" || { echo "::error::Missing $file"; exit 1; }
+          done
+          node --input-type=module <<'NODE'
+          import {readFileSync} from 'node:fs';
+          const src=JSON.parse(readFileSync('obsidian/manifest.json','utf8'));
+          const built=JSON.parse(readFileSync('obsidian/dist/atlas-biblique/manifest.json','utf8'));
+          if(src.id!==built.id||src.version!==built.version)throw Error('Built plugin manifest differs from source.');
+          NODE
+
+      - name: Install browser test runner
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Verify plugin behavior in Chromium before publishing
+        run: pnpm exec playwright test --config obsidian/playwright.config.ts --workers=2 --max-failures=6
+
+      - name: Publish GitHub release (BRAT compatible)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.meta.outputs.version }}
+          PRERELEASE: ${{ github.event.inputs.prerelease || 'false' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if gh release view "$VERSION" >/dev/null 2>&1; then
+            echo "::notice::Release $VERSION already exists; not overwriting its assets."
+            exit 0
+          fi
+          printf '%s\n' \
+            "Bible Lab $VERSION" \
+            "" \
+            "Plugin Obsidian : lecture de références WOL et JW.org, notes et étude biblique." \
+            "" \
+            "Installation / mise à jour recommandée : Obsidian BRAT (version récente), dépôt clemomatic/Biblical-Atlas-for-Study." \
+            "Installation manuelle : décompresser atlas-biblique-$VERSION.zip dans le répertoire .obsidian/plugins/ de ton coffre." \
+            "Les fichiers main.js, manifest.json et styles.css sont également joints pour BRAT." \
+            "" \
+            "Cette version a passé les tests de compilation, tests unitaires et parcours navigateur avant publication." \
+            > release-notes.md
+          args=()
+          if [[ "$PRERELEASE" == "true" ]]; then args+=(--prerelease); fi
+          gh release create "$VERSION" \
+            obsidian/dist/atlas-biblique/main.js \
+            obsidian/dist/atlas-biblique/manifest.json \
+            obsidian/dist/atlas-biblique/styles.css \
+            "obsidian/artifacts/atlas-biblique-$VERSION.zip" \
+            --title "$VERSION" \
+            --notes-file release-notes.md \
+            --target "$(git rev-parse HEAD)" \
+            "${args[@]}"
+          echo "Published release $VERSION"
