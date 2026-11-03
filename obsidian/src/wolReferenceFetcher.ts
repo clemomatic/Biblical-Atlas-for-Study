@@ -382,8 +382,22 @@ const htmlCache=new Map<string,{html:string;expires:number}>();
 const pendingHtml=new Map<string,Promise<string>>();
 const MAX_HTML_ENTRIES=12;
 const MAX_CACHED_HTML_LENGTH=180_000;
-async function officialText(url:string):Promise<string>{
- const safe=canonicalReferenceUrl(url);
+async function officialText(url:string,verbatimSearch=false):Promise<string>{
+ // /wol/s is the official search fallback. Do not rewrite it to /wol/l:
+ // that would repeat the *same* empty bibliographic shell instead of
+ // querying WOL's search-result list.
+ let safe:string|null=canonicalReferenceUrl(url);
+ if(verbatimSearch){
+   try{
+     const parsed=new URL(url);
+     if(parsed.protocol==='https:'&&parsed.hostname==='wol.jw.org'&&
+       !parsed.username&&!parsed.password&&
+       parsed.pathname==='/fr/wol/s/r30/lp-f'&&
+       !!parsed.searchParams.get('q')?.trim()){
+       parsed.hash='';safe=parsed.toString();
+     }else safe=null;
+   }catch{safe=null;}
+ }
  if(!safe)throw Error('Adresse WOL externe non autorisée.');
  const cached=htmlCache.get(safe);
  if(cached){
@@ -730,7 +744,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    for(const term of [...new Set(searchTerms)]){
      const fallback=WOL+'s/r30/lp-f?'+new URLSearchParams({q:term});
      try{
-       const html=await officialText(fallback);
+       const html=await officialText(fallback,true);
        // Search pages often use #searchResults rather than #lookupResults.
        // Retain only article rows carrying authoritative issue/page metadata.
        if(!lookupExcerpt){
