@@ -35,3 +35,30 @@ test('Index and Guide use the WOL reference-works category without inventing a p
   assert.equal(uri.searchParams.get('q'),'miséricorde');
  }
 });
+
+
+test('Perspicace search uses the official it filter, and later pages use pg',()=>{
+ const url=new URL(wolResearchUrl('amour',{match:'par',scope:'perspicace',page:2}));
+ assert.equal(url.searchParams.get('fc[]'),'it');
+ assert.equal(url.searchParams.get('pg'),'2');
+ assert.equal(url.searchParams.get('q'),'amour');
+});
+
+test('Official WOL verification pages are not mistaken for empty search results',async()=>{
+ const {isWolAccessChallenge}=await import('./wolResearch.ts');
+ assert.equal(isWolAccessChallenge('<html><h1>JavaScript is disabled</h1>In order to continue, we need to verify that you are not a robot.</html>'),true);
+ assert.equal(isWolAccessChallenge('<html><main><h2>Amour</h2><p>Guide de recherche</p></main></html>'),false);
+});
+
+test('Exact reference-work subjects are prioritised, and filters do not discard all other search hits',async()=>{
+ const {preferredWolHits}=await import('./wolResearch.ts');
+ const hits=[
+  {title:'Pourquoi montrer de l’amour ?',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/111',excerpt:'',collection:'other' as const},
+  {title:'Amour',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/222',excerpt:'',collection:'index' as const},
+  {title:'Amour',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/333',excerpt:'',collection:'perspicace' as const},
+  {title:'Amour',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/444',excerpt:'',collection:'guide' as const},
+ ];
+ assert.equal(preferredWolHits(hits,'amour','all')[0].collection,'index');
+ assert.deepEqual(preferredWolHits(hits,'amour','guide').map(x=>x.url),[hits[3].url]);
+ assert.deepEqual(preferredWolHits(hits,'amour','perspicace').map(x=>x.url),[hits[2].url]);
+});
