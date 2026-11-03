@@ -188,6 +188,42 @@ export function selectPublicationCandidate(html:string,base:string,reference:str
  return candidates.size===1?[...candidates][0]:null;
 }
 
+/** A WOL search may return several different articles printed on the same
+ * page, especially the old Kingdom Ministry. Show those official choices
+ * rather than silently selecting a wrong paragraph-2 article. */
+export function matchingSearchResultChoices(html:string,base:string,reference:string):ReaderResult|null{
+ if(!publicationPages(reference))return null;
+ const doc=new DOMParser().parseFromString(html,'text/html');
+ const root=doc.querySelector('#lookupResults,.lookupResults,#searchResults,.searchResults,.search-results,#results,.resultList');
+ if(!root)return null; // Never turn global navigation links into results.
+ const links:ReaderResult['links']=[];
+ const seen=new Set<string>();
+ for(const anchor of root.querySelectorAll<HTMLAnchorElement>('a[href]')){
+  const href=validateDocument(anchor.getAttribute('href')||'',base);
+  if(!href||seen.has(href))continue;
+  const row=anchor.closest('li,article,.result,.searchResult,.search-result,.item')||anchor.parentElement;
+  if(!row)continue;
+  const metadata=[
+   row.textContent||'',
+   ...[...row.querySelectorAll('.pubRef,.publication,p,small,span')].slice(0,20)
+     .map(el=>el.textContent||'')
+  ];
+  if(!metadata.some(text=>matchingPublicationPages(reference,text)))continue;
+  const label=cleanReadingText(anchor.textContent||row.querySelector('h2,h3,h4')?.textContent||'').slice(0,150);
+  if(label.length<5)continue;
+  seen.add(href);links.push({label,url:href});
+  if(links.length>=12)break;
+ }
+ if(!links.length)return null;
+ return {
+  title:'Références officielles WOL',sourceUrl:base,kind:'results',links,
+  lines:links.map(link=>({type:'paragraph',text:link.label,
+   parts:[{text:link.label,url:link.url,kind:'document'}]})),
+  notice:links.length>1
+    ?'Plusieurs documents correspondent à cette page imprimée. Choisis le bon article sur WOL ; le numéro de paragraphe seul ne permet pas de les départager.'
+    :'Document identifié dans les résultats WOL. Ouvre le lien pour lire son texte intégral.'
+ };
+}
 /** Choose a book chapter only when the WOL results explicitly identify it. */
 export function selectBookChapterCandidate(html:string,base:string,reference:string):string|null{
  const wanted=bookChapterLocator(reference);
