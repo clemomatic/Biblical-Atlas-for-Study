@@ -785,7 +785,7 @@ async function fetchCrossChapterPassage(ref:ReferenceEntry,scripture:NonNullable
    const links:ReaderResult['links']=[];
    for(let chapter=start;chapter<=finish;chapter++){
      const url=WOL+'b/r30/lp-f/nwt/'+scripture.book+'/'+chapter;
-     const name=label.split(' ')[0]+' '+chapter;
+     const name=label.slice(0,label.indexOf(' '+start+':'))+' '+chapter;
      const title='Chapitre '+chapter+(chapter===start?' (à partir du verset '+scripture.verse+')':
        chapter===finish?' (jusqu’au verset '+last+')':' (entier)');
      lines.push({type:'heading',text:title});
@@ -793,7 +793,7 @@ async function fetchCrossChapterPassage(ref:ReferenceEntry,scripture:NonNullable
        parts:[{text:'Lire '+title+' sur WOL',url,kind:'scripture'},{text:'.'}]});
      links.push({label:name,url});
    }
-   return {title:label,sourceUrl,kind:'verse',lines,links,
+   return {title:label,sourceUrl,kind:'article',lines,links,
      notice:'Le texte intégral de cette plage sur plusieurs chapitres n’a pas pu être extrait automatiquement. Ouvre les chapitres officiels ci-dessous pour parcourir tout le passage.'};
  }
 }
