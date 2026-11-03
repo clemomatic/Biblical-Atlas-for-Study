@@ -74,7 +74,7 @@ export async function searchRenderedWolInObsidian(
   app:App,requestedUrl:string,stale:()=>boolean
 ):Promise<BrowserWolSearch>{
   const empty:BrowserWolSearch={hits:[],html:'',url:requestedUrl,browserOpen:false,available:false};
-  if(Platform.isMobile||!trustedSearchUrl(requestedUrl)||stale())return empty;
+  if(Platform?.isMobile||!trustedSearchUrl(requestedUrl)||stale())return empty;
   const previous=app.workspace.activeLeaf;
   let leaf:WorkspaceLeaf|undefined;
   let opened=false;
