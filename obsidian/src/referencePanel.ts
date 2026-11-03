@@ -47,6 +47,18 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  if(depth>0 && state.navigate)action(buttons,'Lire en grand','panel-top',()=>state.navigate?.(ref));
  if(ref.kind==='scripture'){const jw=jwLibraryLink(ref.label);if(jw)action(buttons,'JW Library','book-marked',()=>state.open(jw));}
  const contents=body.createDiv({cls:'biblelab-reader-contents'});
+ let loadedResult:ReaderResult|null=null;
+ action(buttons,'Copier le texte','copy',()=>{
+   const selection=window.getSelection();
+   const selected=selection && selection.anchorNode && selection.focusNode &&
+     contents.contains(selection.anchorNode) && contents.contains(selection.focusNode)
+     ?selection.toString().trim():'';
+   const text=selected || (loadedResult?.lines
+     .filter(line=>line.type!=='image')
+     .map(line=>(line.number?line.number+' ':'')+line.text)
+     .filter(Boolean).join('\n\n')||'');
+   if(text)state.copy(text);
+ });
  const readable=(container:HTMLElement,line:ReaderLine):void=>{
    const fragments=line.parts||linkifyReaderText(line.text);
    for(const part of fragments){
@@ -65,6 +77,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  };
 
  const draw=(result:ReaderResult):void=>{
+   loadedResult=result;
    currentUrl=result.sourceUrl;
    contents.empty();
    if(result.title&&result.title!==ref.label)
