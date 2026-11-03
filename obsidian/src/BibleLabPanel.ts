@@ -280,9 +280,9 @@ export class BibleLabSidebarView extends ItemView {
       return;
     }
     const choose=box.createEl('select',{cls:'biblelab-plan-selector',attr:{'aria-label':'Choisir une recherche'}});
-    choose.createEl('option',{text:'Recherche libre (sans plan)',value:''});
+    choose.createEl('option',{text:'Recherche libre (sans plan)',attr:{value:''}});
     for(const item of this.researchDesk.plans){
-      choose.createEl('option',{text:item.title,value:item.id});
+      choose.createEl('option',{text:item.title,attr:{value:item.id}});
     }
     choose.value=plan?.id||'';
     choose.addEventListener('change',()=>{
