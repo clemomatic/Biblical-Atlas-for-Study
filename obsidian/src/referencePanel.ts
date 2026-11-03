@@ -186,7 +186,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
            const body=item.createEl('p',{attr:{lang:'fr'}});
            readable(body,part);
          }else{
-           const wrap=article.createDiv({cls:'biblelab-article-paragraph'});
+           const wrap=article.createDiv({cls:'biblelab-article-paragraph'+(part.number?' is-numbered':' is-unnumbered')});
            if(part.number&&requestedParagraphs.includes(part.number)){
              wrap.addClass('biblelab-article-target-paragraph');
              if(!focusedBlock)focusedBlock=wrap;
