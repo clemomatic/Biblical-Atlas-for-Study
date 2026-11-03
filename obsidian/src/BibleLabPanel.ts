@@ -33,6 +33,7 @@ import {
   libraryResults, type BibleLabArchive,type ArchiveFilter,type ArchiveSort,
   type SearchHistoryEntry
 } from './researchArchive';
+import { quickCaptureCandidate,wolSourceLabel } from './researchQuickCapture';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'collect' | 'archive' | 'refs' | 'maps' | 'library' | 'studio';
@@ -45,6 +46,7 @@ export interface BibleLabHost {
   getResearchArchive: () => BibleLabArchive;
   saveResearchArchive: (archive:BibleLabArchive) => Promise<void>;
   getOpenWolUrls: () => string[];
+  getPreferredWolUrl: () => string|null;
   openWolArticleTab: (ref: ReferenceEntry) => Promise<void>;
   openWolSearchTab: (url: string) => Promise<void>;
   openAtlasPlace: (name:string) => void;
@@ -420,6 +422,7 @@ export class BibleLabSidebarView extends ItemView {
   private renderHome():void{
     this.renderResearchPlan(this.scroller);
     this.renderCollectionShortcut(this.scroller);
+    this.renderQuickCapture(this.scroller,true);
     const quick=this.scroller.createDiv({cls:'biblelab-home-wol-quick'});
     quick.createEl('strong',{text:'Recherche rapide WOL'});
     quick.createEl('p',{text:'Cherche un mot-clé, une publication ou un verset dans la vraie bibliothèque en ligne.'});
@@ -592,6 +595,7 @@ export class BibleLabSidebarView extends ItemView {
   private renderWol():void{
     this.renderResearchPlan(this.scroller,true);
     this.renderCollectionShortcut(this.scroller,true);
+    this.renderQuickCapture(this.scroller,true);
     heading(this.scroller,'Recherche WOL','La vraie Bibliothèque en ligne, dans un onglet Obsidian.');
     this.searchField(this.scroller,this.query,'Sujet, publication ou verset…',text=>{
       this.query=text;
@@ -949,6 +953,58 @@ export class BibleLabSidebarView extends ItemView {
     button(section,'Ouvrir mon bac','arrow-right',()=>this.setTab('collect'));
     if(!compact)button(section,'Mon index','book-marked',()=>this.setTab('archive'));
   }
+  private storeQuickCapture(details:{label:string;url:string;excerpt:string;comment:string}):void{
+    const next=addResearchCapture(this.collection,{
+      ...details,planId:this.researchDesk.activeId
+    });
+    if(next===this.collection){
+      new Notice('Le bac à trouvailles est plein ou la capture est vide.');return;
+    }
+    this.updateCollection(next,false);
+    this.openCollection();
+    new Notice('Découverte conservée dans le bac.');
+  }
+  private captureCurrentWolTab():void{
+    const preferred=this.host.getPreferredWolUrl();
+    if(!preferred){
+      this.setTab('collect');
+      new Notice('Plusieurs onglets WOL ou aucun lien sélectionné : choisis la source dans le formulaire.');
+      return;
+    }
+    this.storeQuickCapture({
+      label:wolSourceLabel(preferred),url:preferred,excerpt:'',comment:''
+    });
+  }
+  private async captureClipboardQuick():Promise<void>{
+    let copied='';
+    try{copied=await navigator.clipboard.readText();}
+    catch{
+      this.setTab('collect');
+      new Notice('Presse-papiers inaccessible. Colle directement le passage dans le champ Extrait.');
+      return;
+    }
+    const candidate=quickCaptureCandidate(copied,this.host.getPreferredWolUrl());
+    if(!candidate){
+      new Notice('Copie un extrait ou ouvre une page WOL à conserver.');
+      return;
+    }
+    this.storeQuickCapture(candidate);
+  }
+  private renderQuickCapture(parent:HTMLElement,compact=false):void{
+    const area=parent.createDiv({cls:'biblelab-quick-capture'+(compact?' is-compact':'')});
+    const header=area.createDiv({cls:'biblelab-quick-capture-head'});
+    const symbol=header.createSpan();setIcon(symbol,'bookmark-plus');
+    const title=header.createDiv();
+    title.createEl('strong',{text:'Capture express'});
+    if(!compact)title.createEl('p',{text:'Garde une source ou un extrait maintenant. Tu classeras plus tard.'});
+    const actions=area.createDiv({cls:'biblelab-quick-capture-actions'});
+    button(actions,'Garder le lien WOL','link',()=>this.captureCurrentWolTab());
+    button(actions,'Garder le texte copié','clipboard-paste',()=>void this.captureClipboardQuick(),true);
+    if(!compact){
+      area.createEl('p',{cls:'biblelab-quick-capture-tip',text:
+        'Depuis WOL, copie un passage puis clique sur « Garder le texte copié ». Le lien est repris de l’onglet WOL actif ou du dernier onglet WOL consulté lorsqu’il est identifiable. Il reste modifiable avant de l’utiliser dans une fiche.'});
+    }
+  }
   private async pasteCopiedExcerpt():Promise<void>{
     try{
       const clipboard=await navigator.clipboard.readText();
@@ -992,6 +1048,8 @@ export class BibleLabSidebarView extends ItemView {
       const chooser=sourceTools.createEl('select',{attr:{'aria-label':'Onglet WOL à conserver'}});
       for(const [index,link] of urls.entries())
         chooser.createEl('option',{text:(index+1)+' · '+link.slice(0,78),attr:{value:link}});
+      const preferred=this.host.getPreferredWolUrl();
+      if(preferred&&urls.includes(preferred))chooser.value=preferred;
       button(sourceTools,'Utiliser ce lien','link',()=>{
         this.captureDraft.url=chooser.value;
         url.value=chooser.value;
@@ -1116,6 +1174,7 @@ export class BibleLabSidebarView extends ItemView {
   }
   private renderCollection():void{
     heading(this.scroller,'Mes trouvailles','Capture libre et fiches d’idées · tu organises quand tu veux.');
+    this.renderQuickCapture(this.scroller);
     this.renderCaptureForm(this.scroller);
     const groups=this.scroller.createDiv({cls:'biblelab-collect-groups'});
     const inbox=this.inboxItems();
