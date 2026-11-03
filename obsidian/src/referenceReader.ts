@@ -165,10 +165,23 @@ function normalizedText(node:Element|null,max=2200):string {
  return cleanReadingText(node?.textContent||'').slice(0,max);
 }
 function findDocumentRoot(doc:Document):Element {
- // A WOL layout may contain an empty .bodyTxt placeholder before the real
- // article; selecting the first matching element hides its actual contents.
- const selectors='.bodyTxt, .document .bodyTxt, #article, article, [role="main"], main, #content, .document, .article, .articleBody, .documentBody';
- const candidates=[...doc.querySelectorAll(selectors)];
+ // querySelectorAll("article,main,.bodyTxt") follows DOM order, NOT selector
+ // priority. On WOL, <main> may contain a complete navigation menu before
+ // the actual article. Always prefer a readable article subtree over the
+ // outer layout; ignore empty .bodyTxt placeholders.
+ const selectors=[
+  '.bodyTxt','.document .bodyTxt','.articleBody','.documentBody',
+  '#article','article','.article','.document',
+  '[role="main"]','#content','main'
+ ];
+ const candidates:Element[]=[];
+ const seen=new Set<Element>();
+ for(const selector of selectors){
+  for(const element of doc.querySelectorAll(selector)){
+   if(seen.has(element))continue;
+   seen.add(element);candidates.push(element);
+  }
+ }
  for(const candidate of candidates){
    const readable=readableOfficialElement(candidate,'article',15000);
    if(readable.length>=35&&candidate.querySelector('h1,h2,p,li,blockquote,dt,dd,[data-pid],.par,.paragraph'))
