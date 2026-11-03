@@ -2,7 +2,7 @@ import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, readableOfficialElement, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
-import { finderDocumentUrl, bookChapterLocator } from './publicationReferences.ts';
+import { finderDocumentUrl, bookChapterLocator, referencedParagraphs } from './publicationReferences.ts';
 import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 
@@ -362,6 +362,16 @@ export function knownCitation(reference:string):string|null{
  // a citation to pp. 21–24 is a subset, not a missing publication.
  if(citation?.issue==='w24.11'&&citation.first>=20&&citation.last<=25)
    return WOL+'d/r30/lp-f/2024643';
+ // Verified directly against the official article: pages 14-19 include
+ // paragraphs 15-20, even if the citation requests only pages 17-19.
+ if(citation?.issue==='w24.11'&&citation.first>=14&&citation.last<=19)
+   return WOL+'d/r30/lp-f/2024642';
+ // One confirmed page + paragraph destination from WOL. Do not assume
+ // that §2 means the second item in the issue, or synthesize #h=n offsets.
+ const paragraphs=referencedParagraphs(reference);
+ if(citation?.issue==='km 5/00'&&citation.first===8&&citation.last===8&&
+    paragraphs.length===1&&paragraphs[0]==='2')
+   return WOL+'d/r30/lp-f/202000163#h=3';
  // Small verified fallbacks for sources whose WOL bibliography /l/ redirects
  // are inaccessible in Obsidian. Never extrapolate an unverified document ID.
  if(/^w24\s+novembre\s+p\.?\s*14\s*[-–]\s*19$/i.test(reference.trim()))
@@ -399,6 +409,11 @@ async function officialText(url:string,verbatimSearch=false):Promise<string>{
    }catch{safe=null;}
  }
  if(!safe)throw Error('Adresse WOL externe non autorisée.');
+ // Fragments such as #h=3 are client-side reading positions. Keep them
+ // for the WOL button, but never send them in an HTTP request or cache key.
+ const requestTarget=new URL(safe);
+ requestTarget.hash='';
+ safe=requestTarget.toString();
  const cached=htmlCache.get(safe);
  if(cached){
    htmlCache.delete(safe);
@@ -658,10 +673,10 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  // A small set of source IDs was verified directly on WOL. Try those
  // first, so a known article is not held hostage by broken /l/ redirects
  // or by the /s/ search HTML. Fall back to ordinary resolution if blocked.
- const verified=knownCitation(query);
+ const verified=knownCitation(ref.label)||knownCitation(query);
  if(verified){
    try{
-     const article=readerForDocument(await officialText(verified),verified,query);
+     const article=readerForDocument(await officialText(verified),verified,ref.label);
      article.kind='article';
      return article;
    }catch{ /* Continue through official bibliography lookup. */ }
@@ -759,7 +774,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      }
    }
  }
- docUrl=docUrl||knownCitation(query);
+ docUrl=docUrl||knownCitation(ref.label)||knownCitation(query);
  if(!docUrl){
    if(lookupExcerpt&&lookupExcerpt.lines.length)return lookupExcerpt;
    const empty=parseWolDocument(text||'<main></main>',lookup,query);
@@ -770,7 +785,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
    empty.kind='results';return empty;
  }
  try{
-   const article=readerForDocument(await officialText(docUrl),docUrl,query);
+   const article=readerForDocument(await officialText(docUrl),docUrl,ref.label);
    article.kind='article';
    return article;
  }catch(error){
