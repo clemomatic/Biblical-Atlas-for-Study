@@ -250,7 +250,10 @@ export class BibleLabInlinePopover {
    return;
   }
   let visible=0;
-  const chunks=result.lines.filter(x=>x.type!=='caption').slice(0,85);
+  // The pop-up header already identifies this article: do not repeat its
+  // original H1 as a second reading intertitle.
+  const chunks=result.lines.filter((line,i)=>line.type!=='caption'&&
+    !(i===0&&line.type==='heading'&&line.text===result.title)).slice(0,85);
   const requestedParagraphs=this.current?referencedParagraphs(this.current.label):[];
   let focus:HTMLElement|null=null;
   const append=(size:number):void=>{
