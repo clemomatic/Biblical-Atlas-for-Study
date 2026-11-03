@@ -68,8 +68,26 @@ class Leaf {
     if (state.state) await this.view.setState(state.state, {});
   }
   async openFile(file) { app.workspace.activeFile = file; app.workspace.lastOpened = file.path; }
+  detach() { void this.view?.onClose?.(); this.containerEl.remove(); app.workspace.leaves=app.workspace.leaves.filter(leaf=>leaf!==this); }
 }
 const factories = new Map();
+// Mock only the Obsidian core Web viewer's public view state. Real Obsidian
+// hosts the live page in Chromium; the test harness never contacts WOL.
+class CoreWebViewer extends ItemView {
+  state={url:'',navigate:false};
+  getViewType(){ return 'webviewer'; }
+  getDisplayText(){ return 'WOL — navigateur'; }
+  getState(){ return this.state; }
+  async onOpen(){ this.contentEl.classList.add('mock-core-webviewer'); }
+  async setState(value){
+    this.state={url:value.url,navigate:value.navigate===true};
+    this.contentEl.empty();
+    this.contentEl.createDiv({cls:'mock-webviewer-address',text:value.url});
+    this.contentEl.createEl('a',{text:'Ouvrir la page WOL',href:value.url});
+    (window.atlasWebviewerUrls??=[]).push(value.url);
+  }
+}
+factories.set('webviewer',leaf=>new CoreWebViewer(leaf));
 class Plugin {
   constructor(application, manifest) { this.app = application; this.manifest = manifest; this.cleanups = []; this.commands = new Map(); }
   async loadData() { return window.__savedSettings ?? null; }
