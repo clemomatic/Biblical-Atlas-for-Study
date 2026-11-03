@@ -42,6 +42,10 @@ jobs:
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/inline-popover.spec.ts --project=desktop --workers=1 --max-failures=1
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/lookup-markdown-citations.spec.ts --project=desktop --workers=1 --max-failures=3
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/lookup-selection-v0914.spec.ts --project=desktop --workers=1 --max-failures=2
+      # Run the new editorial reading coverage independently; the broad legacy
+      # suite can hit unrelated pre-existing failures before reaching these tests.
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/reader-editorial.spec.ts --project=desktop --workers=1
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/wol-article-tabs.spec.ts --project=desktop --workers=1
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts --workers=2 --max-failures=6
       - uses: actions/upload-artifact@v4
         if: failure()
