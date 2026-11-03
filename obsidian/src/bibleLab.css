@@ -702,3 +702,31 @@
 @media(max-width:390px){
  .biblelab-research-modes {grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+
+/* Bible Lab 0.9.19 — independent reading tabs, same source-renderer as sidebar. */
+.biblelab-article-tab {height:100%;min-width:0;overflow:hidden}
+.biblelab-article-tab-scroll {overflow:auto;min-height:0;flex:1;width:100%;
+ padding:16px clamp(14px,4vw,64px) 50px}
+.biblelab-article-tab-inner {width:100%;max-width:860px;margin:0 auto}
+.biblelab-article-tab-heading {display:flex;align-items:flex-start;gap:12px;
+ border-bottom:1px solid var(--bl-edge);padding:8px 0 12px}
+.biblelab-article-tab-eyebrow {font-size:10px;font-weight:750;letter-spacing:.1em;color:var(--text-muted)}
+.biblelab-article-tab-heading h2 {font:750 clamp(19px,2.4vw,27px)/1.3 var(--font-interface);
+ margin:6px 0;overflow-wrap:anywhere;color:var(--text-normal)}
+.biblelab-article-tab-toolbar {display:flex;align-items:center;gap:7px;flex-wrap:wrap;margin:13px 0}
+.biblelab-article-tab-reading .biblelab-reader-text p,
+.biblelab-article-tab-reading .biblelab-article-paragraph p,
+.biblelab-article-tab-reading .biblelab-article-question,
+.biblelab-article-tab-reading .biblelab-reader-note {font-size:var(--bl-article-font-size,15px)!important;line-height:1.9}
+.biblelab-article-tab-reading .biblelab-reader-summary {min-height:52px}
+.biblelab-article-tab-reading .biblelab-reader-contents,
+.biblelab-article-tab-reading .biblelab-reader-contents *:not(button):not(svg) {
+ user-select:text;-webkit-user-select:text;
+}
+.biblelab-article-tab-reading .biblelab-verse-reading-copy {font-size:16px}
+@media(max-width:500px){
+ .biblelab-article-tab-scroll {padding:10px 12px 35px}
+ .biblelab-article-tab-toolbar {gap:5px}
+ .biblelab-article-tab-toolbar .biblelab-btn {font-size:10px;min-height:33px}
+}
