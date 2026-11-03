@@ -1338,10 +1338,18 @@ export class BibleLabSidebarView extends ItemView {
     button(editActions,data.archived?'Remettre dans le bac':'Ranger hors du bac',
       data.archived?'inbox':'archive',
       ()=>this.editLibraryEntry(item.id,{archived:!data.archived}));
-    button(editActions,'Ajouter à une fiche','lightbulb',()=>{
-      this.setTab('collect');
-      new Notice('Choisis une fiche et ajoute cette source depuis « Toutes mes références ».');
-    });
+    if(this.collection.ideas.length){
+      const picker=details.createEl('select',{attr:{'aria-label':'Fiche à alimenter depuis mon index'}});
+      for(const idea of this.collection.ideas){
+        picker.createEl('option',{text:idea.statement||'Idée à formuler',
+          attr:{value:idea.id}});
+      }
+      button(editActions,'Ajouter à cette fiche','lightbulb',()=>{
+        this.updateCollection(assignCaptureToIdea(this.collection,picker.value,item.id),false);
+        new Notice('Référence associée à la fiche, sans supprimer la source.');
+        this.setTab('collect');
+      });
+    }
   }
   private resumeSearch(entry:SearchHistoryEntry):void{
     this.query=entry.query;
