@@ -24,6 +24,10 @@ import {
   type ResearchCollection
 } from './researchCollection';
 import { cleanWolUrl, extractReferenceEntries } from './referenceReader';
+import {
+  emptyBibleLabArchive,normalizeBibleLabArchive,pruneMissingCaptures,
+  type BibleLabArchive
+} from './researchArchive';
 import { BIBLE_LAB_ARTICLE_VIEW, BibleLabArticleView } from './BibleLabArticleView';
 import { type ReferenceEntry } from './referenceReader';
 import { openWolInObsidian, WOL_HOME } from './wolWebViewer';
@@ -118,9 +122,16 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private wolSearchLeaf: WorkspaceLeaf|null=null;
   private researchDesk:ResearchDesk=emptyResearchDesk();
   private researchCollection:ResearchCollection=emptyResearchCollection();
+  private researchArchive:BibleLabArchive=emptyBibleLabArchive();
+  getResearchArchive=():BibleLabArchive=>this.researchArchive;
+  saveResearchArchive=(archive:BibleLabArchive):Promise<void>=>{
+    this.researchArchive=pruneMissingCaptures(normalizeBibleLabArchive(archive),this.researchCollection);
+    return this.enqueuePluginData();
+  };
   getResearchCollection=():ResearchCollection=>this.researchCollection;
   saveResearchCollection=(store:ResearchCollection):Promise<void>=>{
     this.researchCollection=normalizeResearchCollection(store);
+    this.researchArchive=pruneMissingCaptures(this.researchArchive,this.researchCollection);
     return this.enqueuePluginData();
   };
   getOpenWolUrls=():string[]=>{
@@ -136,7 +147,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private dataWriteQueue:Promise<void>=Promise.resolve();
   getResearchDesk=():ResearchDesk=>this.researchDesk;
   private enqueuePluginData():Promise<void>{
-    const snapshot={...this.settings,bibleLabResearch:this.researchDesk,bibleLabCollection:this.researchCollection};
+    const snapshot={...this.settings,bibleLabResearch:this.researchDesk,bibleLabCollection:this.researchCollection,bibleLabArchive:this.researchArchive};
     // Serialize writes so rapid edits do not replace newer data with stale saves.
     this.dataWriteQueue=this.dataWriteQueue.catch(()=>undefined).then(()=>this.saveData(snapshot));
     return this.dataWriteQueue;
@@ -192,11 +203,12 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     await this.enqueuePluginData(); this.publish();
   }
   async onload(): Promise<void> {
-    const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown;bibleLabCollection?:unknown}) | null;
+    const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown;bibleLabCollection?:unknown;bibleLabArchive?:unknown}) | null;
     try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
     this.researchDesk=normalizeResearchDesk(stored?.bibleLabResearch);
     this.researchCollection=normalizeResearchCollection(stored?.bibleLabCollection);
+    this.researchArchive=pruneMissingCaptures(normalizeBibleLabArchive(stored?.bibleLabArchive),this.researchCollection);
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
