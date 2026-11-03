@@ -378,6 +378,24 @@ export class BibleLabSidebarView extends ItemView {
   }
   private renderHome():void{
     this.renderResearchPlan(this.scroller);
+    const quick=this.scroller.createDiv({cls:'biblelab-home-wol-quick'});
+    quick.createEl('strong',{text:'Recherche rapide WOL'});
+    quick.createEl('p',{text:'Cherche un mot-clé, une publication ou un verset dans la vraie bibliothèque en ligne.'});
+    this.searchField(quick,this.query,'Mot-clé, verset ou publication WOL…',
+      value=>{this.query=value;},()=>this.openSearch());
+    const sources=quick.createDiv({cls:'biblelab-plan-toolbar'});
+    button(sources,'Publications','library-big',()=>{
+      this.searchScope='all';
+      if(this.query.trim())this.openSearch();else this.setTab('wol');
+    });
+    button(sources,'Index','list-tree',()=>{
+      this.searchScope='index';
+      if(this.query.trim())this.openSearch();else this.setTab('wol');
+    });
+    button(sources,'Guide','compass',()=>{
+      this.searchScope='guide';
+      if(this.query.trim())this.openSearch();else this.setTab('wol');
+    });
     const now=new Date();
     const format=new Intl.DateTimeFormat('fr-FR',{weekday:'long',day:'numeric',month:'long'});
     const welcome=this.scroller.createDiv({cls:'biblelab-study-welcome'});
