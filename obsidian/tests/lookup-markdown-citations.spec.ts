@@ -28,7 +28,7 @@ test('November 2024 pages 21-24 resolve to the official containing article pages
  await expect(pane.locator('.biblelab-article-target-paragraph')).toHaveCount(2);
 });
 
-test('Kingdom Ministry page shared by two articles keeps lookupResults and § 2',async({page})=>{
+test('When the verified km § 2 document is blocked, its two lookupResults remain visible',async({page})=>{
  let articleOpened=false;
  const html='<html><div id="lookupResults">'+
   '<article class="result"><a href="'+kmDoc1+'">Mis à l’épreuve quant à leurs aptitudes</a>'+
@@ -55,8 +55,8 @@ test('Kingdom Ministry page shared by two articles keeps lookupResults and § 2'
  const pop=page.getByRole('dialog',{name:'Aperçu biblique : '+kingdom});
  await expect(pop).toContainText('Extrait officiel du premier article');
  await expect(pop).toContainText('Extrait officiel du deuxième article');
- await expect(pop).toContainText('Résultat affiché par WOL');
- expect(articleOpened).toBe(false);
+ await expect(pop).toContainText('Résultat de consultation WOL');
+ expect(articleOpened).toBe(true);
 });
 
 test('When linked article is blocked, #lookupResults remains readable',async({page})=>{
