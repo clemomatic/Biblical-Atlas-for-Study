@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
   "name": "Bible Lab — Study Studio",
-  "version": "0.9.15",
+  "version": "0.9.16",
   "minAppVersion": "1.6.0",
-  "description": "Vignettes WOL cardThumbnailImage discrètes dans les résultats, l’aperçu et le lecteur de références.",
+  "description": "Vignettes WOL sur les références directes, résultat exact et illustration de l’article en secours.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
