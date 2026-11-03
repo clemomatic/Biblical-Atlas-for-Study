@@ -33,7 +33,7 @@ test('Editorial sidebar preserves original WOL headings, questions, paragraph nu
  await expect(article.locator('.biblelab-article-question strong')).toHaveText('1. Pourquoi est-il important d’aimer les autres ?');
  const first=article.locator('.biblelab-article-paragraph.is-numbered').first();
  await expect(first.locator('.biblelab-article-parnum')).toHaveText('1');
- await expect(first.locator('strong')).toContainText('aimait profondément');
+ await expect(first.locator('strong').filter({hasText:'aimait profondément'})).toHaveCount(1);
  await expect(first.locator('em')).toContainText('une vraie compassion');
  await expect(first.getByRole('button',{name:'Lire la référence cet autre article'})).toHaveCount(1);
  await expect(article.locator('.biblelab-article-quote')).toContainText('Une citation en italique');
@@ -73,7 +73,7 @@ test('Floating preview retains bold, italics, question styling and safe WOL link
  const popup=page.locator('.biblelab-inline-popover');
  await expect(popup.locator('.biblelab-popover-heading')).toHaveText('UN AMOUR SINCÈRE');
  await expect(popup.locator('.biblelab-popover-question strong')).toHaveText('1. Pourquoi est-il important d’aimer les autres ?');
- await expect(popup.locator('.biblelab-popover-paragraph strong')).toContainText('aimait profondément');
+ await expect(popup.locator('.biblelab-popover-paragraph strong').filter({hasText:'aimait profondément'})).toHaveCount(1);
  await expect(popup.locator('.biblelab-popover-paragraph em')).toContainText('une vraie compassion');
  await expect(popup.getByRole('button',{name:'Lire cet autre article'})).toHaveCount(1);
  await expect(popup.locator('.biblelab-popover-quote')).toBeVisible();
