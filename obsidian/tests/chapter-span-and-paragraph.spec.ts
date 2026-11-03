@@ -32,7 +32,7 @@ test('a multi-chapter citation is one link and requests the full official range'
  const link=page.locator('#cross-chapter-note a.biblelab-autolink');
  await expect(link).toHaveText(verse);
  await link.click();
- const popup=page.getByRole('dialog',{name:'Aperçu biblique : '+verse});
+ const popup=page.getByRole('dialog',{name:'Aperçu biblique : Daniel 1:1-3:30'});
  await expect(popup).toBeVisible();
  await expect(popup).toContainText('Début exact : la troisième année du règne');
  await expect(popup).toContainText('Fin exacte : la quatrième personne');
