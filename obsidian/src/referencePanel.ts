@@ -26,9 +26,12 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const id=key(ref);
  const details=parent.createEl('details',{cls:'biblelab-reader'+(depth?' is-nested':'')});
  const summary=details.createEl('summary',{cls:'biblelab-reader-summary'});
- const glyph=summary.createSpan({cls:'biblelab-reader-glyph'});
- setIcon(glyph,ref.kind==='scripture'?'book-open':ref.kind==='document'?'file-text':'bookmark');
- if(ref.thumbnail)renderWolCardThumbnail(summary,ref.thumbnail);
+ if(ref.thumbnail){
+   renderWolCardThumbnail(summary,ref.thumbnail);
+ }else{
+   const glyph=summary.createSpan({cls:'biblelab-reader-glyph'});
+   setIcon(glyph,ref.kind==='scripture'?'book-open':ref.kind==='document'?'file-text':'bookmark');
+ }
  const labels=summary.createSpan({cls:'biblelab-reader-labels'});
  labels.createEl('strong',{text:ref.label});
  labels.createSpan({text:ref.kind==='scripture'?'Bible d’étude · notes / renvois':ref.kind==='document'?'Document WOL':'Publication · référence'});
@@ -68,7 +71,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const draw=(result:ReaderResult):void=>{
    currentUrl=result.sourceUrl;
    contents.empty();
-   if(result.thumbnail&&result.kind!=='verse'){
+   if(result.thumbnail&&!ref.thumbnail&&result.kind!=='verse'){
      const heading=contents.createDiv({cls:'biblelab-reader-preview-head'});
      renderWolCardThumbnail(heading,result.thumbnail);
      heading.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
