@@ -30,6 +30,10 @@ export function wolResearchUrl(query: string, options: WolSearchOptions): string
   const params = new URLSearchParams();
   params.set('q', q);
   params.set('p', options.match === 'sen' ? 'sen' : 'par');
+  // WOL itself submits both sorting parameters. The bare /s?q= form
+  // sometimes responds with an unpopulated page shell to HTTP clients.
+  params.set('r', 'occ');
+  params.set('st', 'a');
   // Index and Research Guide share the official "Index" category in WOL.
   if (options.scope === 'index' || options.scope === 'guide') params.append('fc[]', 'dx');
   if (options.scope === 'perspicace') params.append('fc[]', 'it');
@@ -67,63 +71,127 @@ function sourceCollection(value: string): WolCollection {
   if (/(?:^|[^a-z0-9])it-[12]\b|.tude perspicace/i.test(value)) return 'perspicace';
   return 'other';
 }
+/**
+ * WOL's own HTML is NOT laid out as one <article> per hit. Each result is
+ * usually an <ul class="resultContentTopic|resultContentDocument">:
+ *   <li class="caption"><a href="/fr/wol/d/...">Heading</a></li>
+ *   <li class="ref">dx86-23 / it-1 / publication title</li>
+ *   <div class="document"><p>matching passage</p></div>
+ * Reading only the nearest <li> loses the actual publication and excerpt.
+ */
+const WOL_RESULT_BLOCKS='ul.resultContentTopic,ul.resultContentDocument';
 function nearestResult(link: HTMLAnchorElement): HTMLElement {
   return link.closest<HTMLElement>(
-    '.searchResultItem,.search-result-item,.resultItem,.result-item,' +
+    WOL_RESULT_BLOCKS+',.searchResultItem,.search-result-item,.resultItem,.result-item,' +
     '.searchResult,.search-result,.result,article,li'
   ) || link.parentElement || link;
 }
 function getSource(item: HTMLElement): WolCollection {
-  // The publication label can be in a sibling of the title, not in the link.
-  // Check a bounded local neighbourhood, never the complete search page.
-  let current: HTMLElement | null = item;
-  for (let depth = 0; current && depth < 3; depth++, current = current.parentElement) {
-    const nodes = current.querySelectorAll('small,.publication,.pubTitle,.pubRef,.documentMeta,p,span');
-    const metadata = [...nodes].map(node => compact(node.textContent || '', 180)).join(' ').slice(0, 1300);
-    const collection = sourceCollection(metadata);
-    if (collection !== 'other') return collection;
-    if (depth === 0) {
-      const own = sourceCollection(compact(current.textContent || '', 700));
-      if (own !== 'other') return own;
-    }
-    // Ascending into a large result container risks classifying all links alike.
-    if ((current.textContent || '').length > 1800) break;
-  }
-  return 'other';
+  // Only the publication label of THIS result is authoritative. Ascending
+  // into <main> can silently tag every result as "Guide" just because
+  // another hit on the page contains "rsg".
+  const publication=item.querySelector('li.ref,.pubRef,.publication,.pubTitle,.documentMeta');
+  const explicit=sourceCollection(compact(publication?.textContent||'',500));
+  if(explicit!=='other')return explicit;
+  const localMetadata=[...item.querySelectorAll('small,p,.ref,span')]
+    .filter(node=>!node.closest('.resultSubheadings,.resultNavigation,.document'))
+    .slice(0,24).map(node=>compact(node.textContent||'',130)).join(' ').slice(0,1100);
+  const inferred=sourceCollection(localMetadata);
+  if(inferred!=='other')return inferred;
+  // For bare article rows the title can itself identify the work.
+  const title=item.querySelector('h2,h3,h4,li.caption a');
+  return sourceCollection(compact(title?.textContent||'',200));
+}
+function appendSearchHit(
+  hits:WolSearchHit[],seen:Set<string>,link:HTMLAnchorElement,base:string,item:HTMLElement
+):void{
+  const url=officialResultHref(link.getAttribute('href')||'',base);
+  if(!url||seen.has(url))return;
+  const heading=item.querySelector('li.caption a,h2,h3,h4');
+  const title=compact(link.textContent||heading?.textContent||link.getAttribute('title')||'',170);
+  if(title.length<3||
+    /^(?:image|imprimer|pr.c.dent|suivant|sommaire|ouvrir|lire|.couter|watchtower)$/i.test(title))return;
+  const snippet=item.querySelector('.document p,.resultSnippet,.resultExcerpt,.snippet,.searchSnippet');
+  const snippetText=compact(snippet?.textContent||'',300);
+  // WOL topic rows carry navigation subheadings which must NOT be mistaken
+  // for the snippet of the selected document.
+  const publication=compact(item.querySelector('li.ref')?.textContent||'',190);
+  const rowText=compact(item.textContent||'',700);
+  const excerpt=snippetText||publication||compact(rowText.replace(title,'').trim(),190);
+  seen.add(url);
+  hits.push({title,url,excerpt:excerpt.length>14?excerpt.slice(0,190):'',collection:getSource(item)});
 }
 
-/** Parse official links as text only. Untrusted HTML is never inserted in Obsidian. */
-export function parseWolSearchResults(html: string, requestedUrl: string): WolSearchHit[] {
-  if (isWolAccessChallenge(html)) return [];
-  const doc = new DOMParser().parseFromString(html, 'text/html');
-  for (const node of [...doc.querySelectorAll('script,style,noscript,nav,footer,header,form')]) node.remove();
-  const roots = [
-    ...doc.querySelectorAll<HTMLElement>(
-      '#lookupResults,.lookupResults,#searchResults,.searchResults,.search-results,' +
-      '.resultList,.result-list,#results,main,#content'
-    ),
-    doc.body
-  ];
-  const seen = new Set<string>();
-  const hits: WolSearchHit[] = [];
-  for (const root of roots) {
-    for (const link of root.querySelectorAll<HTMLAnchorElement>('a[href]')) {
-      const url = officialResultHref(link.getAttribute('href') || '', requestedUrl);
-      if (!url || seen.has(url)) continue;
-      const item = nearestResult(link);
-      const heading = item.querySelector('h2,h3,h4');
-      const title = compact(link.textContent || heading?.textContent || link.getAttribute('title') || '', 170);
-      if (title.length < 3 || /^(?:image|imprimer|pr.c.dent|suivant|sommaire|ouvrir|lire|.couter|watchtower)$/i.test(title)) continue;
-      const surrounding = compact(item.textContent || '', 550);
-      const excerpt = compact(surrounding.replace(title, '').trim(), 190);
-      seen.add(url);
-      hits.push({ title, url, excerpt: excerpt.length > 14 ? excerpt : '', collection: getSource(item) });
-      if (hits.length >= MAX_WOL_RESULTS) return hits;
+/** Parse actual WOL search-result blocks before generic HTML fallbacks.
+ * Only official document URLs are retained. Remote HTML is never mounted.
+ */
+export function parseWolSearchResults(html:string,requestedUrl:string):WolSearchHit[]{
+  if(isWolAccessChallenge(html))return [];
+  const doc=new DOMParser().parseFromString(html,'text/html');
+  for(const node of [...doc.querySelectorAll('script,style,noscript,nav,footer,header,form')])node.remove();
+  const hits:WolSearchHit[]=[];
+  const seen=new Set<string>();
+  const officialBlocks=[...doc.querySelectorAll<HTMLElement>(WOL_RESULT_BLOCKS)];
+  if(officialBlocks.length){
+    for(const block of officialBlocks){
+      const caption=block.querySelector<HTMLAnchorElement>('li.caption a[href]');
+      if(caption)appendSearchHit(hits,seen,caption,requestedUrl,block);
+      // Some publication-topic entries have a list of distinct destinations.
+      // Keep those if the caption is absent, but don't mistake subheading
+      // cross-links for separate articles when the caption exists.
+      if(!caption)for(const link of block.querySelectorAll<HTMLAnchorElement>('a[href]')){
+        appendSearchHit(hits,seen,link,requestedUrl,block);
+        if(hits.length>=MAX_WOL_RESULTS)break;
+      }
+      if(hits.length>=MAX_WOL_RESULTS)break;
+    }
+    return hits;
+  }
+
+  const roots=[...doc.querySelectorAll<HTMLElement>(
+    '#lookupResults,.lookupResults,#searchResults,.searchResults,.search-results,'+
+    '.resultList,.result-list,#results,main,#content'
+  )];
+  // Only fall back to body if it is a narrowly scoped result page, not a
+  // library navigation shell. This also works for compact WOL HTML variants.
+  if(!roots.length&&doc.body.querySelector('article,.searchResultItem,.resultItem'))
+    roots.push(doc.body);
+  for(const root of roots){
+    for(const link of root.querySelectorAll<HTMLAnchorElement>('a[href]')){
+      if(link.closest('aside,[role="navigation"],.resultNavigation,#resultNavigation,.libraryNav,.resultFilters'))continue;
+      appendSearchHit(hits,seen,link,requestedUrl,nearestResult(link));
+      if(hits.length>=MAX_WOL_RESULTS)return hits;
     }
   }
   return hits;
 }
 
+/** Distinguish an explicit "no results" page from a shell with no result
+ * markup. A browser can populate a shell later via JavaScript; requestUrl
+ * cannot, so it must not be called a real zero-result search. */
+export function wolHtmlHasExplicitlyNoResults(html:string):boolean{
+  const doc=new DOMParser().parseFromString(html,'text/html');
+  const count=cleanReadingText(doc.querySelector('#resultsCount')?.textContent||'');
+  if(/^0(?:\s|$)/.test(count))return true;
+  const resultArea=doc.querySelector('#searchResults,.searchResults,#results,.resultList,main');
+  if(!resultArea)return false;
+  const notice=cleanReadingText(resultArea.textContent||'').slice(0,500);
+  return /^(?:aucun résultat|aucun document|no results|nothing found)(?:\s|[.!,]|$)/i.test(notice);
+}
+
+/** WOL accepts more than one form of its official search URL. When a page
+ * with HTTP 200 is only a navigation shell, retry without sorting parameters
+ * and then with the official bibliographic /l route. Never invent hits. */
+export function wolSearchAlternateUrls(url:string):string[]{
+  const first=new URL(url);
+  const plain=new URL(url);
+  plain.searchParams.delete('r');plain.searchParams.delete('st');
+  const lookup=new URL(url);
+  lookup.pathname=lookup.pathname.replace('/wol/s/','/wol/l/');
+  lookup.search=new URLSearchParams({q:first.searchParams.get('q')||''}).toString();
+  return [...new Set([plain.toString(),lookup.toString()])]
+    .filter(alternate=>alternate!==url);
+}
 
 /**
  * WOL does not promise a fixed page size. Prefer the next-page link in its

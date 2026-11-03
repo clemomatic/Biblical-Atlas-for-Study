@@ -41,6 +41,8 @@ jobs:
       # suite can hit unrelated pre-existing failures before reaching these tests.
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/reader-editorial.spec.ts --project=desktop --workers=1
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/wol-article-tabs.spec.ts --project=desktop --workers=1
+      # Verify real WOL result markup and fallback handling before the broad suite.
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/wol-research-reference-works.spec.ts obsidian/tests/wol-search.spec.ts --project=desktop --workers=1 --max-failures=4
       # Browser boot and the inline popover must work before running the
       # slower desktop/mobile suite. Stop quickly if the harness is broken.
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/inline-popover.spec.ts --project=desktop --workers=1 --max-failures=1

@@ -111,3 +111,71 @@ test('WOL pagination remains navigable when the next page is empty',async({page}
  await pane.getByRole('button',{name:'Page précédente'}).click();
  await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
 });
+
+
+test('WOL native resultContentTopic and resultContentDocument rows preserve source, title and excerpt',async({page})=>{
+ const html='<html><main id="results"><div id="resultsCount">263 résultats</div>'+
+  '<ul class="resultContentTopic"><li class="caption"><a href="/fr/wol/d/r30/lp-f/1200273529"><strong>Amour</strong></a></li>'+
+  '<li class="ref">dx86-23 — Index des publications 1986-2023</li>'+
+  '<li class="resultSubheadings"><ul><li><a href="/fr/wol/d/r30/lp-f/1200001111">Sujet voisin</a></li></ul></li></ul>'+
+  '<ul class="resultContentDocument"><li class="caption"><a href="/fr/wol/d/r30/lp-f/2024663">Cultivons un amour sincère</a><span class="count">4</span></li>'+
+  '<li class="ref">w24.09 — La Tour de Garde</li>'+
+  '<li><div class="document"><p>Jésus a montré un amour profond et désintéressé envers ses disciples.</p></div></li></ul>'+
+  '<ul class="resultContentTopic"><li class="caption"><a href="/fr/wol/d/r30/lp-f/1200002781">Amour</a></li>'+
+  '<li class="ref">it-1 — Étude perspicace</li></ul></main></html>';
+ await page.route(/wol\.jw\.org\/fr\/wol\/s\/r30\/lp-f/,route=>route.fulfill({
+  status:200,contentType:'text/html',body:html
+ }));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('amour');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.locator('.biblelab-search-result')).toHaveCount(3);
+ await expect(pane.locator('.biblelab-search-result').first()).toContainText('Index');
+ await expect(pane.locator('.biblelab-search-result').filter({hasText:'Cultivons un amour sincère'}))
+  .toContainText('Jésus a montré un amour profond');
+ await expect(pane.getByText('Sujet voisin')).toHaveCount(0);
+ await pane.getByRole('button',{name:'Perspicace'}).click();
+ await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
+ await expect(pane.locator('.biblelab-search-result')).toContainText('Perspicace');
+ const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests);
+ const searches=requests.filter((request:{url:string})=>new URL(request.url).pathname==='/fr/wol/s/r30/lp-f');
+ expect(searches.length).toBeGreaterThanOrEqual(2);
+ for(const request of searches){
+  const params=new URL(request.url).searchParams;
+  expect(params.get('r')).toBe('occ');
+  expect(params.get('st')).toBe('a');
+ }
+});
+
+test('A successful empty WOL HTML shell triggers official alternative rather than a false no-result error',async({page})=>{
+ await page.route(/wol\.jw\.org\/fr\/wol\/s\/r30\/lp-f/,route=>{
+  const target=new URL(route.request().url());
+  const hasStandardOptions=target.searchParams.get('st')==='a';
+  route.fulfill({status:200,contentType:'text/html',
+   body:hasStandardOptions
+     ?'<html><body><header><a href="/fr/wol/d/r30/lp-f/99999">Navigation WOL</a></header><main id="results"></main></body></html>'
+     :'<html><main id="results"><ul class="resultContentDocument"><li class="caption">'+
+      '<a href="/fr/wol/d/r30/lp-f/2024663">L’amour fidèle de Jésus</a></li>'+
+      '<li class="ref">w24 — La Tour de Garde</li></ul></main></html>'});
+ });
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('amour');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
+ await expect(pane.getByText('L’amour fidèle de Jésus')).toBeVisible();
+ await expect(pane.getByText(/aucun résultat exploitable/i)).toHaveCount(0);
+ const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests);
+ expect(requests.some((request:{url:string})=>new URL(request.url).searchParams.get('st')===null)).toBeTruthy();
+});
+
+test('If WOL returns a JavaScript-only results shell, explain it without claiming there are no site results',async({page})=>{
+ await page.route(/wol\.jw\.org\/fr\/wol\/(?:s|l)\/r30\/lp-f/,route=>
+  route.fulfill({status:200,contentType:'text/html',
+   body:'<html><main id="results"><div class="loading">Recherche...</div></main></html>'}));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('bonté');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ await expect(pane.getByText(/sans liste de résultats lisible par Obsidian/i)).toBeVisible();
+ await expect(pane.getByRole('button',{name:'Continuer sur WOL'})).toBeVisible();
+ await expect(pane.locator('.biblelab-search-result')).toHaveCount(0);
+});
