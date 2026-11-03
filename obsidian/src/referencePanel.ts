@@ -3,7 +3,7 @@ import { jwLibraryLink } from './bibleLabData';
 import { linkifyReaderText, type ReaderResult, type ReaderLine, type ReferenceEntry } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
-import { renderArticleImage } from './articleImages';
+import { renderArticleImage, renderWolCardThumbnail } from './articleImages';
 
 export interface ReaderState {
  expanded:Set<string>;
@@ -26,8 +26,12 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const id=key(ref);
  const details=parent.createEl('details',{cls:'biblelab-reader'+(depth?' is-nested':'')});
  const summary=details.createEl('summary',{cls:'biblelab-reader-summary'});
- const glyph=summary.createSpan({cls:'biblelab-reader-glyph'});
- setIcon(glyph,ref.kind==='scripture'?'book-open':ref.kind==='document'?'file-text':'bookmark');
+ if(ref.thumbnail){
+   renderWolCardThumbnail(summary,ref.thumbnail);
+ }else{
+   const glyph=summary.createSpan({cls:'biblelab-reader-glyph'});
+   setIcon(glyph,ref.kind==='scripture'?'book-open':ref.kind==='document'?'file-text':'bookmark');
+ }
  const labels=summary.createSpan({cls:'biblelab-reader-labels'});
  labels.createEl('strong',{text:ref.label});
  labels.createSpan({text:ref.kind==='scripture'?'Bible d’étude · notes / renvois':ref.kind==='document'?'Document WOL':'Publication · référence'});
@@ -67,7 +71,11 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
  const draw=(result:ReaderResult):void=>{
    currentUrl=result.sourceUrl;
    contents.empty();
-   if(result.title&&result.title!==ref.label)
+   if(result.thumbnail&&!ref.thumbnail&&result.kind!=='verse'){
+     const heading=contents.createDiv({cls:'biblelab-reader-preview-head'});
+     renderWolCardThumbnail(heading,result.thumbnail);
+     heading.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
+   }else if(result.title&&result.title!==ref.label)
      contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
    if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:result.notice});
    if(!result.lines.length){
@@ -212,7 +220,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      for(const link of result.links){
        if(link.url===current.href||shown++>=20)continue;
        renderReferenceAccordion(list,{
-         label:link.label,url:link.url,
+         label:link.label,url:link.url,thumbnail:link.thumbnail,
          kind:link.url.includes('/wol/b/')?'scripture':link.url.includes('/wol/d/')?'document':'publication',
          origin:'markdown'
        },state,depth+1);

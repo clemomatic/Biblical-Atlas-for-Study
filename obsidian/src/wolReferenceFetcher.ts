@@ -2,6 +2,7 @@ import { requestUrl } from 'obsidian';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, readableOfficialElement, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
+import { cardThumbnailFrom } from './articleImages.ts';
 import { finderDocumentUrl, bookChapterLocator, referencedParagraphs, findPublicationMentions } from './publicationReferences.ts';
 import { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
 export { publicationPages, matchingPublicationPages } from './wolCitationGrammar.ts';
@@ -242,7 +243,8 @@ export function matchingSearchResultChoices(html:string,base:string,reference:st
   if(!metadata.some(text=>matchingPublicationPages(reference,text)))continue;
   const label=cleanReadingText(anchor.textContent||row.querySelector('h2,h3,h4')?.textContent||'').slice(0,150);
   if(label.length<5)continue;
-  seen.add(href);links.push({label,url:href});
+  const thumbnail=cardThumbnailFrom(anchor,base)||undefined;
+  seen.add(href);links.push({label,url:href,...(thumbnail?{thumbnail}:{})});
   if(links.length>=12)break;
  }
  if(!links.length)return null;
@@ -628,6 +630,15 @@ function isNavigationShell(result:ReaderResult):boolean{
  // The actual article title is isolated before testing this predicate.
  return /^(?:(?:consulter|rechercher)(?:\s*[-–—|:]\s*bibliotheque en ligne watchtower)?|bibliotheque en ligne watchtower|watchtower bibliotheque en ligne)$/.test(title);
 }
+/** Keep the exact article's card thumbnail when opening a full document from
+ * lookupResults. Never reuse the first card image for a different article. */
+function withMatchedThumbnail(result:ReaderResult,excerpt:ReaderResult|null,url:string):ReaderResult{
+ if(!excerpt)return result;
+ const target=new URL(url).pathname;
+ const matching=excerpt.links.find(item=>new URL(item.url).pathname===target);
+ if(matching?.thumbnail)result.thumbnail=matching.thumbnail;
+ return result;
+}
 function readerForDocument(html:string,url:string,label:string):ReaderResult{
  const result=parseWolDocument(html,url,label);
  if(isNavigationShell(result))
@@ -737,7 +748,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,query);
-         full.kind='article';return full;
+         full.kind='article';return withMatchedThumbnail(full,lookupExcerpt,target);
        }catch{ /* The official result is available even if its full article fails. */ }
      }
      // Keep the excerpt as a fallback; first try the publication's own
@@ -756,7 +767,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
      if(target){
        try{
          const full=readerForDocument(await officialText(target),target,ref.label);
-         full.kind='article';return full;
+         full.kind='article';return withMatchedThumbnail(full,lookupExcerpt,target);
        }catch{ /* The lookup panel remains available as a fallback. */ }
      }
    }catch{ /* Continue with the original lookup and other official sources. */ }
@@ -827,7 +838,7 @@ export async function fetchPublication(ref:ReferenceEntry):Promise<ReaderResult>
  try{
    const article=readerForDocument(await officialText(docUrl),docUrl,ref.label);
    article.kind='article';
-   return article;
+   return withMatchedThumbnail(article,lookupExcerpt,docUrl);
  }catch(error){
    // Never lose the content already extracted from #lookupResults just because
    // a linked /d page is blocked or contains only WOL's navigation shell.

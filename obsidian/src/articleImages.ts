@@ -66,6 +66,64 @@ export function articleImageFrom(img:HTMLImageElement,base:string):ArticleImage|
   ...(width>0&&width<10000?{width}:{}),
   ...(height>0&&height<10000?{height}:{})};
 }
+/** WOL search and lookup cards expose a small image through
+ * .cardThumbnailImage. Unlike article figures, these can be tiny <img>s,
+ * lazy-loaded data-* attributes or CSS background images.
+ *
+ * Never scan arbitrary navigation illustrations: only an explicit WOL card
+ * thumbnail attached to the result containing the selected article link.
+ */
+export function wolResultCard(anchor:Element):Element|null{
+ return anchor.closest(
+  '.card,.cardResult,.resultCard,.searchResult,.search-result,.result,.item,li,article'
+ )||anchor.parentElement;
+}
+export function cardThumbnailFrom(anchor:Element,base:string):ArticleImage|null{
+ const card=wolResultCard(anchor);
+ if(!card||card.closest('nav,header,footer,[role="navigation"]'))return null;
+ const holder=card.querySelector('.cardThumbnailImage');
+ if(!holder||holder.closest('nav,header,footer,[hidden],[aria-hidden="true"]'))return null;
+ const img=holder.matches('img')?holder as HTMLImageElement:
+   holder.querySelector<HTMLImageElement>('img');
+ const source=holder.querySelector('source[srcset],source[data-srcset]');
+ const styleNodes=[holder,...holder.querySelectorAll('[style]')].slice(0,6);
+ const imageFromStyle=(raw:string):string=>{
+   const match=raw.match(/url\(\s*(?:"([^"]+)"|'([^']+)'|([^\s)]+))\s*\)/i);
+   return match?.[1]||match?.[2]||match?.[3]||'';
+ };
+ const variants=[
+  img?.getAttribute('data-imgsrc'),img?.getAttribute('data-src'),
+  img?.getAttribute('data-lazy-src'),img?.getAttribute('data-original'),
+  img?.getAttribute('src'),
+  holder.getAttribute('data-imgsrc'),holder.getAttribute('data-src'),
+  holder.getAttribute('data-background-image'),holder.getAttribute('data-original'),
+  ...styleNodes.map(el=>imageFromStyle(el.getAttribute('style')||'')),
+ ].filter((v):v is string=>!!v);
+ // Prefer the original card thumbnail, not a large illustration from the
+ // article. The first srcset image is a small-size fallback for lazy cards.
+ const srcset=img?.getAttribute('srcset')||img?.getAttribute('data-srcset')||
+   source?.getAttribute('srcset')||source?.getAttribute('data-srcset')||'';
+ if(srcset)variants.push(srcset.split(',')[0]?.trim().split(/\s+/)[0]||'');
+ const src=variants.map(raw=>officialImageUrl(raw,base)).find((v):v is string=>!!v);
+ if(!src)return null;
+ const alt=(img?.getAttribute('alt')||holder.getAttribute('aria-label')||
+   card.querySelector('h2,h3,h4,.cardTitle')?.textContent||'Illustration de publication')
+   .replace(/\s+/g,' ').trim().slice(0,180);
+ return {src,alt};
+}
+/** Decorative, small thumbnail. Missing or blocked images disappear without
+ * producing a broken-image icon or changing the result's readability. */
+export function renderWolCardThumbnail(parent:HTMLElement,image:ArticleImage):HTMLElement{
+ const wrap=document.createElement('span');
+ wrap.className='biblelab-card-thumbnail';
+ wrap.setAttribute('aria-hidden','true');
+ const img=document.createElement('img');
+ img.src=image.src;img.alt='';img.loading='lazy';img.decoding='async';
+ img.referrerPolicy='no-referrer';
+ img.addEventListener('error',()=>wrap.remove(),{once:true});
+ wrap.appendChild(img);parent.appendChild(wrap);
+ return wrap;
+}
 /** Both the sidebar and inline preview use this identical accessible figure. */
 export function renderArticleImage(parent:HTMLElement,image:ArticleImage):HTMLElement{
  const figure=document.createElement('figure');

@@ -13,6 +13,7 @@ import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
+import { renderWolCardThumbnail, type ArticleImage } from './articleImages';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -83,7 +84,7 @@ export class BibleLabSidebarView extends ItemView {
   private referenceHistory:ReferenceEntry[]=[];
   private referencePosition:number[]=[];
   private referenceCursor=-1;
-  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label),remember:ref=>this.rememberReference(ref),insert:ref=>this.insertMarkdownLink(ref.label,ref.url)};
+  private readonly reader:ReaderState={expanded:new Set(),cache:new Map(),pending:new Map(),copy:url=>{void this.copy(url);},open:external,navigate:ref=>this.focusReference(ref.url,ref.label,ref.thumbnail),remember:ref=>this.rememberReference(ref),insert:ref=>this.insertMarkdownLink(ref.label,ref.url)};
   private noteTitle='';
   private lastMarkdownPath:string|null=null;
   private mapIndex:MapLocation[]=OFFLINE_MAP_INDEX;
@@ -141,11 +142,12 @@ export class BibleLabSidebarView extends ItemView {
     if(this.referenceHistory.length>40){this.referenceHistory.shift();this.referencePosition.shift();}
     this.referenceCursor=this.referenceHistory.length-1;
   }
-  focusReference(value:string,displayLabel?:string):void{
+  focusReference(value:string,displayLabel?:string,thumbnail?:ArticleImage):void{
     const label=cleanReadingText(displayLabel||value);if(!label)return;
     const direct=cleanWolUrl(value);
     const ref:ReferenceEntry={label,url:direct||passageUrl(label),
-      kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
+      kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned',
+      ...(thumbnail?{thumbnail}:{})};
     this.rememberReference(ref);
     this.pinnedRef=ref;
     this.noteRefsOpen=null;
@@ -471,14 +473,19 @@ export class BibleLabSidebarView extends ItemView {
       headingRow.createEl('h3',{text:'RÉSULTATS · '+this.wolResults.length+' LIENS'});
       for(const hit of this.wolResults){
         const el=this.scroller.createDiv({cls:'biblelab-search-result'});
-        const icon=el.createSpan({cls:'biblelab-search-result-icon'});setIcon(icon,'file-text');
+        if(hit.thumbnail){
+          el.addClass('has-thumbnail');
+          renderWolCardThumbnail(el,hit.thumbnail);
+        }else{
+          const icon=el.createSpan({cls:'biblelab-search-result-icon'});setIcon(icon,'file-text');
+        }
         const copy=el.createDiv({cls:'biblelab-search-result-copy'});
         copy.createEl('strong',{text:hit.title});
         if(this.searchScope==='all'&&hit.collection&&hit.collection!=='other')
           copy.createSpan({cls:'biblelab-source-tag',text:hit.collection==='guide'?'Guide de recherche':'Index'});
         if(hit.excerpt)copy.createEl('p',{text:hit.excerpt});
         const row=el.createDiv({cls:'biblelab-search-result-actions'});
-        button(row,'Lire ici','book-open',()=>this.focusReference(hit.url,hit.title),true);
+        button(row,'Lire ici','book-open',()=>this.focusReference(hit.url,hit.title,hit.thumbnail),true);
         button(row,'WOL','external-link',()=>external(hit.url));
       }
       this.scroller.createEl('p',{cls:'biblelab-mini',
