@@ -3,7 +3,7 @@ import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
 import { fetchReferenceContent } from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
-import { renderArticleImage, renderWolCardThumbnail } from './articleImages';
+import { renderArticleImage } from './articleImages';
 import { clampPopoverPosition, type PopoverCoordinates } from './popoverPosition';
 
 const fromLabel=(label:string):ReferenceEntry=>{
@@ -216,12 +216,7 @@ export class BibleLabInlinePopover {
  }
  private draw(container:HTMLElement,result:ReaderResult,anchor:HTMLElement):void{
   this.currentSource=cleanWolUrl(result.sourceUrl)||this.current?.url||null;
-  if(result.thumbnail&&result.kind!=='verse'){
-   const heading=container.createDiv({cls:'biblelab-popover-preview-head'});
-   renderWolCardThumbnail(heading,result.thumbnail);
-   heading.createEl('h3',{cls:'biblelab-popover-document-title',
-     text:result.title||this.current?.label||'Document WOL'});
-  }else if(result.title&&result.title!==this.current?.label)
+  if(result.title&&result.title!==this.current?.label)
    container.createEl('h3',{cls:'biblelab-popover-document-title',text:result.title});
   if(result.notice)container.createEl('p',{cls:'biblelab-popover-notice',text:result.notice});
   if(!result.lines.length){
@@ -272,17 +267,11 @@ export class BibleLabInlinePopover {
    moreLinks.createEl('summary',{text:'Renvois et publications ('+result.links.length+')'});
    const links=moreLinks.createDiv();
    for(const link of result.links.slice(0,12)){
-    const option=this.button(links,link.label,'arrow-up-right',()=>{
+    this.button(links,link.label,'arrow-up-right',()=>{
      const next=fromLabel(link.label);next.url=link.url;
      next.kind=parseScripture(link.label)?'scripture':'document';
      this.history.push(next);this.render(next,anchor);
     });
-    if(link.thumbnail){
-      option.addClass('biblelab-popover-thumbnail-choice');
-      option.firstElementChild?.remove(); // image replaces the icon
-      const thumbnail=renderWolCardThumbnail(option,link.thumbnail);
-      option.prepend(thumbnail);
-    }
    }
   }
  }
