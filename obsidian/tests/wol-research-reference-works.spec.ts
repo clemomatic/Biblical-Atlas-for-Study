@@ -138,8 +138,9 @@ test('WOL native resultContentTopic and resultContentDocument rows preserve sour
  await expect(pane.locator('.biblelab-search-result')).toHaveCount(1);
  await expect(pane.locator('.biblelab-search-result')).toContainText('Perspicace');
  const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests);
- expect(requests.length).toBeGreaterThanOrEqual(2);
- for(const request of requests){
+ const searches=requests.filter((request:{url:string})=>new URL(request.url).pathname==='/fr/wol/s/r30/lp-f');
+ expect(searches.length).toBeGreaterThanOrEqual(2);
+ for(const request of searches){
   const params=new URL(request.url).searchParams;
   expect(params.get('r')).toBe('occ');
   expect(params.get('st')).toBe('a');
