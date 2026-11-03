@@ -13,6 +13,7 @@ import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, preferredWolHits, hasWolNextPage, isWolAccessChallenge, wolHtmlHasExplicitlyNoResults, wolSearchAlternateUrls, WOL_RESULTS_PAGE_SIZE, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
+import { searchRenderedWolInObsidian } from './wolWebViewerSearch';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -604,37 +605,61 @@ export class BibleLabSidebarView extends ItemView {
     this.wolResultsLoading=true;this.wolResultsError='';this.wolResults=[];this.wolResultsQuery='';
     if(this.tab==='wol')this.render();
     try{
-      // WOL sometimes returns a 200 HTML navigation shell to Obsidian while
-      // a regular browser eventually displays results. Retry official URL
-      // variants, but never turn navigation or JavaScript into fake hits.
+      // WOL may deliver a 200 response containing only a JavaScript shell,
+      // or block a plain HTTP client while loading in a normal Chromium tab.
+      // Try the official HTTP variants first, then *render* the real page in
+      // Obsidian's native Web viewer and extract only safe official links.
       let all:WolSearchHit[]=[];
       let sourceHtml='',sourceUrl=url,explicitEmpty=false;
+      let accessProblem='';
       const attempts=[url,...wolSearchAlternateUrls(url)];
       for(const [index,candidate] of attempts.entries()){
         if(seq!==this.wolResultsSequence)return;
         let response;
         try{response=await requestUrl({url:candidate,throw:false});}
-        catch(error){if(index===0)throw error;continue;}
+        catch(error){
+          if(index===0)accessProblem=error instanceof Error?error.message:'Connexion WOL impossible.';
+          continue;
+        }
         if(response.status!==200){
-          if(index===0)throw Error('WOL a répondu avec le code '+response.status+
-            (response.status===403||response.status===429?' (accès automatisé limité).':'.'));
+          if(index===0)accessProblem='WOL a répondu avec le code '+response.status+
+            (response.status===403||response.status===429?' (accès automatisé limité).':'.');
           continue;
         }
         if(isWolAccessChallenge(response.text)){
-          if(index===0)throw Error('WOL demande une vérification anti-robot. Les résultats ne sont pas disponibles via la requête directe d’Obsidian.');
+          if(index===0)accessProblem='WOL demande une vérification anti-robot. Les résultats ne sont pas disponibles via la requête directe d’Obsidian.';
           continue;
         }
         all=parseWolSearchResults(response.text,candidate);
         if(all.length){sourceHtml=response.text;sourceUrl=candidate;break;}
         if(wolHtmlHasExplicitlyNoResults(response.text)){
-          explicitEmpty=true;
-          break;
+          explicitEmpty=true;break;
+        }
+      }
+      if(!all.length&&!explicitEmpty){
+        const rendered=await searchRenderedWolInObsidian(
+          this.app,url,()=>seq!==this.wolResultsSequence
+        );
+        if(seq!==this.wolResultsSequence)return;
+        if(rendered.hits.length){
+          all=rendered.hits;
+          sourceHtml=rendered.html;
+          sourceUrl=rendered.url;
+        }else if(rendered.browserOpen){
+          // The official WOL search is now visible in a real Chromium tab.
+          // No claim that the API returned 0 results: users can inspect WOL
+          // and follow its actual links in the workspace.
+          this.wolResultsError='WOL a été ouvert dans un nouvel onglet Obsidian pour afficher la recherche dans son navigateur complet. La page ne permet pas encore de transférer automatiquement ses résultats ici ; consulte-les dans cet onglet.';
+          this.wolResultsQuery=term;
+          this.wolHasNextPage=false;
+          return;
         }
       }
       if(!all.length)
         throw Error(explicitEmpty
           ?'Cette page WOL ne renvoie aucun résultat exploitable pour la recherche.'
-          :'WOL a renvoyé une page sans liste de résultats lisible par Obsidian. Les résultats peuvent apparaître dans un navigateur après chargement du site, mais ils ne figurent pas dans la réponse HTML reçue.');
+          :accessProblem||
+          'WOL a renvoyé une page sans liste de résultats lisible par Obsidian. Active le module principal Visionneuse web d’Obsidian (ordinateur) pour lancer la recherche dans son navigateur intégré, ou ouvre-la sur WOL.');
       // Do not truncate *before* filtering reference works. Index, Guide and
       // Perspicace share many common search matches on the same results page.
       const items=preferredWolHits(all,term,this.searchScope);
