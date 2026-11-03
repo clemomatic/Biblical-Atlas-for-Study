@@ -1019,3 +1019,11 @@
   .biblelab-plan-header{flex-wrap:wrap}
   .biblelab-plan-header-actions{width:100%}
 }
+
+.biblelab-home-wol-quick{padding:12px;border:1px solid var(--bl-ux-border,var(--background-modifier-border));
+  border-radius:13px;margin:0 0 13px;background:var(--background-primary)}
+.biblelab-home-wol-quick>strong{font-size:13px;color:var(--text-normal);font-weight:730}
+.biblelab-home-wol-quick>p{margin:4px 0 9px;font-size:11px;line-height:1.5;color:var(--text-muted)}
+.biblelab-home-wol-quick .biblelab-search{margin:0}
+.biblelab-home-wol-quick .biblelab-plan-toolbar{margin:8px 0 0}
+.biblelab-home-wol-quick .biblelab-btn{padding:5px 8px;font-size:10px;min-height:29px}
