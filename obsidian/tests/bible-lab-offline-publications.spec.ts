@@ -86,6 +86,7 @@ test('Download an explicitly selected public JWPUB then read its direct WOL sour
     'Comment approfondir notre amitié ?');
  });
  const pane=page.locator('.biblelab-side');
+ await pane.locator('.biblelab-reader-summary').first().click();
  await expect(pane.getByText('Une idée importante à garder hors ligne.',{exact:false})).toBeVisible();
  await expect(pane.getByText('Texte issu de ta bibliothèque locale',{exact:false})).toBeVisible();
  await expect(pane.getByText('Le numéro de paragraphe WOL n’est pas confirmé',{exact:false})).toBeVisible();
