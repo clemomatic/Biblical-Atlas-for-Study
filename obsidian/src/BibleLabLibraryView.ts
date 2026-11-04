@@ -5,7 +5,7 @@ import {
 import styles from './bibleLabLibrary.css?inline';
 import {
   LIBRARY_FILTERS,filteredVolumes,loadLibraryVolumes,localDocumentFile,
-  localDocumentUrl,searchLibrary,
+  localDocumentUrl,jwpubPublicationId,searchLibrary,
   type LibraryCategory,type LibrarySearchResult,type LibraryVolume
 } from './libraryCatalog';
 import type { OfflineDocumentRecord } from './offlinePublications';
@@ -27,7 +27,10 @@ const button=(parent:HTMLElement,label:string,icon:string,fn:()=>void,cls=''):HT
 };
 const display=(value:string)=>value.length>165?value.slice(0,162)+'…':value;
 const readerMarkdown=(text:string)=>text.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n/,'')
-  .replace(/^# [^\n]+\r?\n/,'').trim();
+  .replace(/^# [^\n]+\r?\n/,'')
+  // Never load a remote illustration merely because a private document was opened.
+  .replace(/!\[([^\]]*)\]\((?:https?:)?\/\/[^)]+\)/gi,'*[Illustration externe non chargée]*')
+  .trim();
 const iconByCategory=(category:LibraryVolume['category']):string=>({
   bible:'book-open-text',books:'book-open',magazines:'newspaper',
   brochures:'files',assemblies:'calendar-days',schools:'graduation-cap',other:'book-marked'
@@ -276,6 +279,20 @@ export class BibleLabLibraryView extends ItemView {
         if(/^https:\/\/wol\.jw\.org\//.test(href)){
           event.preventDefault();
           void this.actions.readReference(href,anchor.textContent||'Référence WOL');
+          return;
+        }
+        // JWPUB links use internal document IDs. Navigate to the imported
+        // document only: do not leak an unpublished school ID to an online URL.
+        const mepsId=jwpubPublicationId(href);
+        if(mepsId!==null){
+          event.preventDefault();
+          const local=this.volumes.flatMap(v=>
+            v.items.filter(item=>item.mepsId===mepsId).map(item=>({volume:v,item})))[0];
+          if(local){
+            this.selectedPath=local.volume.path;
+            this.selectedDocument=local.item.documentId;
+            void this.renderContent();
+          }else new Notice('Cette publication n’est pas encore disponible dans ta bibliothèque locale.');
         }
       });
     }catch{
