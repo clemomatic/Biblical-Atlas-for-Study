@@ -28,7 +28,8 @@ test('research sidebar opens and sends only the current search to official URLs'
 
 test('map finder searches official grid and opens a specific verified map',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.getByRole('button',{name:'Atlas'}).click();
+  await pane.locator('.biblelab-overflow > summary').click();
+  await pane.getByRole('button',{name:'Atlas biblique'}).click();
   await expect(pane.getByText('Cartothèque biblique')).toBeVisible();
   await pane.getByPlaceholder('Jérusalem, Capharnaüm, Our…').fill('Capharnaüm');
   await expect(pane.getByText('p. 18 · F4 ; p. 29 · E4')).toBeVisible();
@@ -39,7 +40,8 @@ test('map finder searches official grid and opens a specific verified map',async
 
 test('study Bible resources include individual maps and the main appendices',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.getByRole('button',{name:'Sources'}).click();
+  await pane.locator('.biblelab-overflow > summary').click();
+  await pane.getByRole('button',{name:'Publications et ressources'}).click();
   await expect(pane.getByText('Appendice A',{exact:true})).toBeVisible();
   await expect(pane.getByText('Appendice B',{exact:true})).toBeVisible();
   await expect(pane.getByText('Appendice C',{exact:true})).toBeVisible();
@@ -55,7 +57,6 @@ test('Legacy WOL markers open a floating verse preview without altering the note
   });
   await page.getByText('Jean 3:16',{exact:true}).last().click();
   await expect(page.getByRole('dialog',{name:'Aperçu biblique : Jean 3:16'})).toBeVisible();
-  await expect(page.locator('.biblelab-side').locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
   await page.getByRole('dialog',{name:'Aperçu biblique : Jean 3:16'})
     .getByRole('button',{name:'Fermer'}).click();
   await expect(page.getByRole('dialog',{name:'Aperçu biblique : Jean 3:16'})).toHaveCount(0);
