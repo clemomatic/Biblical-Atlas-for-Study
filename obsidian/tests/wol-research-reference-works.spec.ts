@@ -32,6 +32,7 @@ test('Index and Guide remain distinguishable in sidebar while WOL controls actua
   expect(urls).toHaveLength(1);
   expect(new URL(urls[0]).searchParams.get('fc[]')).toBe('dx');
   await pane.getByRole('button',{name:'Guide de recherche',exact:true}).click();
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await expect(pane.getByText(/Index et Guide de recherche utilisent le filtre officiel Index/i)).toBeVisible();
   urls=await page.evaluate(()=>(window as any).atlasTest.app.workspace
     .getLeavesOfType('webviewer').map((leaf:any)=>leaf.view.getState().url));
@@ -56,6 +57,7 @@ test('Reader remains a distinct quick preview and text remains copyable',async({
   }));
   const pane=page.locator('.biblelab-side');
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('https://wol.jw.org/fr/wol/d/r30/lp-f/2024663');
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await pane.getByRole('button',{name:'Lire dans le panneau'}).click();
   const paragraph=pane.getByText('La patience accompagne l’amour.');
   await expect(paragraph).toBeVisible();
