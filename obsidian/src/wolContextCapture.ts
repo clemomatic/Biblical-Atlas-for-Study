@@ -123,6 +123,12 @@ export class WolContextCaptureBridge {
       .setTitle('Bible Lab · Garder cette portion')
       .setIcon('bookmark-plus')
       .onClick(()=>{void this.captureSelection(page,selected,snapshotPromise);}));
+    menu.addSeparator();
+    menu.addItem(item=>item
+      .setTitle('Copier le texte sélectionné')
+      .setIcon('copy')
+      .onClick(()=>{void navigator.clipboard.writeText(selected).catch(()=>
+        new Notice('Copie indisponible sur cet appareil.'));}));
     const rect=webview.getBoundingClientRect();
     const x=Math.round(rect.left+(Number.isFinite(params.x)?params.x:0));
     const y=Math.round(rect.top+(Number.isFinite(params.y)?params.y:0));
