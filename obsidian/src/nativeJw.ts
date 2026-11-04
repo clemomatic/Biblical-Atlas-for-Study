@@ -5,6 +5,7 @@ import initSqlJs from 'sql.js/dist/sql-wasm.js';
 import wasmAsset from 'sql.js/dist/sql-wasm.wasm?inline';
 import { unzipSync, unzlibSync, strFromU8, strToU8 } from 'fflate';
 import { patchZip } from './zipPatch';
+import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
  run:(sql:string,params?:unknown[])=>Db; export:()=>Uint8Array; close:()=>void};
@@ -141,8 +142,16 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
    const x=hash.map((b,i)=>b^mask[i]);
    const key=await crypto.subtle.importKey('raw',x.subarray(0,16) as BufferSource,'AES-CBC',false,['decrypt']);
    const iv=x.subarray(16);
-   const docs=query(db,'SELECT DocumentId, Title, Content FROM Document ORDER BY DocumentId');
+   const documentCols=new Set(query(db,'PRAGMA table_info(Document)').map(x=>String(x.name)));
+   // Older and specialist JWPUB files may omit MepsDocumentId.
+   const docs=query(db,'SELECT DocumentId, Title, Content'+
+     (documentCols.has('MepsDocumentId')?', MepsDocumentId':'')+
+     ' FROM Document ORDER BY DocumentId');
    const entries:ImportEntry[]=[];let count=0;
+   const indexDocuments:OfflineDocumentRecord[]=[];
+   const manifest=JSON.parse(zip['manifest.json']?string(zip['manifest.json']):'{}');
+   const publicationTitle=String(manifest?.publication?.title||
+     manifest?.publication?.displayTitle||pub.Symbol+' '+pub.Year).trim().slice(0,240);
    for(const doc of docs){
      const ciphertext=u8(doc.Content as Uint8Array);
      const plain=new Uint8Array(await crypto.subtle.decrypt({name:'AES-CBC',iv:iv as BufferSource},key,ciphertext as BufferSource));
@@ -165,11 +174,30 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
      if(!markdown)continue;
      const title=String(doc.Title||parsed.querySelector('h1')?.textContent||'Document '+doc.DocumentId).trim();
      const id=String(doc.DocumentId).padStart(3,'0');
-     entries.push({name:id+' · '+safeName(title)+'.md',text:'---\nbible_lab_kind: jwpub-document\nsource_symbol: '+JSON.stringify(pub.Symbol)+'\nsource_year: '+pub.Year+'\nsource_document: '+doc.DocumentId+'\n---\n# '+title+'\n\n'+markdown+'\n'});
+     const filename=id+' · '+safeName(title)+'.md';
+     const mepsId=Number(doc.MepsDocumentId);
+     const validMeps=Number.isSafeInteger(mepsId)&&mepsId>0?mepsId:null;
+     const language=Number(pub.MepsLanguageIndex);
+     const wolUrl=validMeps&&language===3
+       ?'https://wol.jw.org/fr/wol/d/r30/lp-f/'+validMeps:null;
+     entries.push({name:filename,text:'---\nbible_lab_kind: jwpub-document'+
+       '\nsource_symbol: '+JSON.stringify(pub.Symbol)+
+       '\nsource_year: '+pub.Year+
+       '\nsource_document: '+doc.DocumentId+
+       '\nsource_meps_docid: '+(validMeps??'null')+
+       (wolUrl?'\nsource_url: '+JSON.stringify(wolUrl):'')+
+       '\n---\n# '+title+'\n\n'+markdown+'\n'});
+     indexDocuments.push({documentId:Number(doc.DocumentId),mepsId:validMeps,
+       title,path:filename});
      count++;
    }
    assert(count>0,'Aucun document converti.');
-   return {type:'jwpub',title:String(pub.Symbol)+' · '+pub.Year,sourceHash:await digest(bytes),entries,count,
+   const index:OfflineImportIndex={schema:1,publication:{
+     symbol:String(pub.Symbol),year:Number(pub.Year),language:Number(pub.MepsLanguageIndex),
+     title:publicationTitle
+   },documents:indexDocuments};
+   entries.push({name:OFFLINE_INDEX_NAME,text:JSON.stringify(index,null,2)});
+   return {type:'jwpub',title:publicationTitle,sourceHash:await digest(bytes),entries,count,
      warnings:['Les publications restent la propriété de leur éditeur. Réserver les copies à ton usage personnel.']};
  }finally{db.close();}
 }
