@@ -186,6 +186,7 @@ function SearchResultItem({
       id={item.key}
       type="button"
       role="option"
+      tabIndex={-1}
       aria-selected={isActive}
       onMouseEnter={onHover}
       onFocus={onHover}
@@ -434,6 +435,14 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   }, [normalizedQuery, isOpen]);
 
   useEffect(() => {
+    if (!isOpen || activeIndex === -1) return;
+    const activeEl = dialogRef.current?.querySelector(`[id="${activeItem?.key}"]`);
+    if (activeEl) {
+      activeEl.scrollIntoView({ block: 'nearest' });
+    }
+  }, [activeIndex, activeItem?.key, isOpen]);
+
+  useEffect(() => {
     if (!isOpen) return;
     previousFocusRef.current = (dialogRef.current?.getRootNode() as Document | ShadowRoot)?.activeElement as HTMLElement;
     setRecentSearches(getRecentSearches());
@@ -469,7 +478,7 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
           ...dialogRef.current.querySelectorAll<HTMLElement>(
             'button:not([disabled]), input, a[href], [tabindex]:not([tabindex="-1"])'
           )
-        ];
+        ].filter(el => el.getAttribute('tabindex') !== '-1');
         const first = focusable[0];
         const last = focusable[focusable.length - 1];
         const focusedElement = (dialogRef.current.getRootNode() as Document | ShadowRoot).activeElement;
