@@ -1,4 +1,4 @@
-import { Menu, Notice, type App } from 'obsidian';
+import { Menu, Notice, type App, type ItemView } from 'obsidian';
 import { trustedWolBrowserUrl } from './wolWebViewer';
 import {
   WOL_PAGE_SNAPSHOT_SCRIPT,parseWolPageSnapshot,quoteFromWolSelection,
@@ -56,7 +56,7 @@ export class WolContextCaptureBridge {
     if(!this.active)return;
     const stillPresent=new Set<WebviewElement>();
     for(const leaf of this.app.workspace.getLeavesOfType('webviewer')){
-      for(const node of leaf.containerEl.querySelectorAll('webview')){
+      for(const node of (leaf.view as ItemView).containerEl.querySelectorAll('webview')){
         const webview=node as WebviewElement;
         stillPresent.add(webview);
         if(this.handlers.has(webview))continue;
@@ -76,7 +76,7 @@ export class WolContextCaptureBridge {
     const trusted=trustedWolBrowserUrl(actual);
     if(trusted)return trusted;
     for(const leaf of this.app.workspace.getLeavesOfType('webviewer')){
-      if(!leaf.containerEl.contains(node))continue;
+      if(!(leaf.view as ItemView).containerEl.contains(node))continue;
       const state=leaf.view.getState() as {url?:unknown};
       if(typeof state?.url==='string')return trustedWolBrowserUrl(state.url);
     }
