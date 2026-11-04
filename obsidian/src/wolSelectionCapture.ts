@@ -83,7 +83,12 @@ export function parseWolPageSnapshot(input:unknown):WolPageSnapshot|null {
 export function quoteFromWolSelection(snapshot:WolPageSnapshot|null,selected:string,fallbackUrl:string):WolCapturedQuote|null {
   const selection=typeof selected==='string'?selected.trim().slice(0,8000):'';
   if(!selection)return null;
-  const url=cleanWolUrl(snapshot?.paragraphUrl||snapshot?.url||fallbackUrl);
+  const normalizedExcerpt=(value:string)=>value.replace(/\s+/g,' ').trim();
+  // Never reuse a paragraph anchor from a different text selection.
+  const sameSelection=!!snapshot?.selectionText &&
+    normalizedExcerpt(snapshot.selectionText)===normalizedExcerpt(selection);
+  const url=cleanWolUrl((sameSelection? snapshot?.paragraphUrl:null)||
+    snapshot?.url||fallbackUrl);
   if(!url)return null;
   return {
     label:wolArticleTitle(snapshot?.title)||'Article WOL · titre à compléter',
