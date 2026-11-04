@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {classifyLibraryVolume,filteredVolumes,localDocumentUrl,LIBRARY_FILTERS,jwpubPublicationId} from './libraryCatalog.ts';
+import {classifyLibraryVolume,filteredVolumes,localDocumentUrl,LIBRARY_FILTERS,jwpubPublicationId} from './libraryTaxonomy.ts';
 
 test('Bookcase categories are stable in French without treating private files as public',()=>{
  assert.equal(classifyLibraryVolume('nwt','Traduction du monde nouveau'),'bible');
