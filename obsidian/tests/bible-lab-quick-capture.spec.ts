@@ -23,7 +23,7 @@ test('A visible one-click action captures the known WOL paragraph without readin
   const saved=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchCollection());
   expect(saved.captures).toHaveLength(1);
   expect(saved.captures[0].url).toBe(WOL_A);
-  expect(saved.captures[0].label).toBe('Document WOL · 2024663');
+  expect(saved.captures[0].label).toBe('Article WOL de démonstration');
   expect(saved.captures[0].excerpt).toBe('');
   await page.waitForFunction(()=>(window as any).__savedSettings?.bibleLabCollection?.captures?.length===1);
 });
