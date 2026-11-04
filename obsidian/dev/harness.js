@@ -119,6 +119,7 @@ class Plugin {
 class PluginSettingTab { constructor(application, plugin) { this.app = application; this.plugin = plugin; this.containerEl = element('div'); } }
 class Menu {
   constructor(){this.entries=[];}
+  addSeparator(){this.entries.push({separator:true});return this;}
   addItem(configure){
     const item={
       title:'',icon:'',
@@ -136,6 +137,7 @@ class Menu {
     menu.className='mock-context-menu';
     menu.setAttribute('role','menu');
     for(const item of this.entries){
+      if(item.separator){menu.createEl('hr');continue;}
       const action=menu.createEl('button',{text:item.title});
       action.type='button';action.addEventListener('click',()=>{
         menu.remove();item.callback?.();
