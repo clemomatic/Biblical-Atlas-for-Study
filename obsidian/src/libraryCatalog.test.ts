@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {classifyLibraryVolume,filteredVolumes,localDocumentUrl,LIBRARY_FILTERS} from './libraryCatalog.ts';
+import {classifyLibraryVolume,filteredVolumes,localDocumentUrl,LIBRARY_FILTERS,jwpubPublicationId} from './libraryCatalog.ts';
 
 test('Bookcase categories are stable in French without treating private files as public',()=>{
  assert.equal(classifyLibraryVolume('nwt','Traduction du monde nouveau'),'bible');
@@ -25,4 +25,12 @@ test('Only an explicit French MEPS ID creates a WOL deep link',()=>{
  assert.equal(localDocumentUrl(volume,item),'https://wol.jw.org/fr/wol/d/r30/lp-f/2026440');
  assert.equal(localDocumentUrl({...volume,language:0},item),null);
  assert.equal(localDocumentUrl(volume,{...item,mepsId:null}),null);
+});
+
+test('JWPUB cross-publication links resolve by ID locally, without online guesses',()=>{
+ assert.equal(jwpubPublicationId('jwpub://p/F:2026440/7-7'),2026440);
+ assert.equal(jwpubPublicationId('jwpub://p/X:1102016902/'),1102016902);
+ assert.equal(jwpubPublicationId('jwpub://b/NWTR/1:1:1'),null);
+ assert.equal(jwpubPublicationId('https://wol.jw.org/fr/wol/d/r30/lp-f/2026440'),null);
+ assert.equal(jwpubPublicationId('jwpub://p/F:0/'),null);
 });
