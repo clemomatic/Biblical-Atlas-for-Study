@@ -24,6 +24,7 @@ export interface OfflineDocumentRecord {
 }
 export interface OfflineImportIndex {
   schema:1;
+  origin?:'personal'|'download';
   publication:{
     symbol:string;year:number;language:number;title:string
   };
@@ -106,6 +107,7 @@ export function validateOfflineIndex(input:unknown):OfflineImportIndex|null{
   }
   return {
     schema:1,
+    ...(source.origin==='personal'||source.origin==='download'?{origin:source.origin}:{}),
     publication:{symbol:pub.symbol,year:pub.year,language:pub.language,title:pub.title},
     documents
   };

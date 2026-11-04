@@ -56,6 +56,7 @@ export class NativeJwModal extends Modal{
 
  /** The public catalog is queried only after a direct click. */
  public openOfflineLibrary():void{this.open();void this.library();}
+ public openImportJwpub():void{this.open();void this.load('jwpub');}
  private async library():Promise<void>{
    const root=this.screen('Bibliothèque hors ligne',
      'Tes publications personnelles et officielles · aucune synchronisation par Bible Lab.');
@@ -200,7 +201,13 @@ export class NativeJwModal extends Modal{
        if(item.name.startsWith('/')||item.name.split('/').includes('..'))throw Error('Chemin d’import interdit.');
        await folder(this.app,full.substring(0,full.lastIndexOf('/')));
        if(this.app.vault.getAbstractFileByPath(full))throw Error('Fichier répété : '+item.name);
-       if(item.text!==undefined)await this.app.vault.create(full,item.text);
+       if(item.text!==undefined){
+         const text=item.name==='_BIBLE_LAB_OFFLINE_INDEX.json'&&preview.type==='jwpub'
+           ?JSON.stringify({...JSON.parse(item.text),
+             origin:this.pendingDownload?'download':'personal'},null,2)
+           :item.text;
+         await this.app.vault.create(full,text);
+       }
        else if(item.bytes){const bytes=item.bytes;await this.app.vault.createBinary(full,bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer);}
        if(i%45===0){progress.setText((i+1)+' / '+preview.entries.length+' fichiers');await new Promise(resolve=>setTimeout(resolve,0));}
      }
