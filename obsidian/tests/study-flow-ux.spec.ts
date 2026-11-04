@@ -78,6 +78,7 @@ test('Advanced WOL actions stay progressive and separate from native search',asy
  await pane.getByPlaceholder('Sujet, publication ou verset…').fill('paix');
  await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
  await expect(page.locator('.mock-core-webviewer')).toHaveCount(1);
+ await pane.locator('.biblelab-wol-extras > summary').click();
  const advanced=pane.locator('.biblelab-search-advanced').first();
  await expect(advanced).not.toHaveAttribute('open','');
  await advanced.locator('summary').click();
