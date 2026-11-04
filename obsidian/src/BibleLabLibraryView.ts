@@ -80,13 +80,13 @@ export class BibleLabLibraryView extends ItemView{
   this.render();
   if(this.query.length>=2)void this.runSearch();
  }
- private icon(parent:HTMLElement,name:string):void{
+ private glyph(parent:HTMLElement,name:string):void{
   const symbol=parent.createSpan({cls:'bl-library-symbol'});setIcon(symbol,name);
  }
  private button(parent:HTMLElement,title:string,icon:string,fn:()=>void,cls=''):HTMLButtonElement{
   const element=parent.createEl('button',{cls:'bl-library-action '+cls,
    attr:{type:'button','aria-label':title,title}});
-  this.icon(element,icon);element.createSpan({text:title});
+  this.glyph(element,icon);element.createSpan({text:title});
   element.addEventListener('click',fn);
   return element;
  }
@@ -109,7 +109,7 @@ export class BibleLabLibraryView extends ItemView{
    const item=menu.createEl('button',{cls:'bl-library-nav-item'+
     (this.group===category.key?' is-selected':''),
     attr:{type:'button','aria-label':category.label,'aria-pressed':String(this.group===category.key)}});
-   this.icon(item,category.icon);
+   this.glyph(item,category.icon);
    item.createSpan({cls:'bl-library-nav-text',text:category.label});
    item.createSpan({cls:'bl-library-nav-count',text:String(n)});
    item.addEventListener('click',()=>{
@@ -119,7 +119,7 @@ export class BibleLabLibraryView extends ItemView{
    });
   }
   const hint=menu.createDiv({cls:'bl-library-nav-hint'});
-  this.icon(hint,'hard-drive');hint.createSpan({text:'Tout est conservé dans ton coffre.'});
+  this.glyph(hint,'hard-drive');hint.createSpan({text:'Tout est conservé dans ton coffre.'});
   this.content=layout.createDiv({cls:'bl-library-content'});
   this.renderContent();
  }
@@ -128,7 +128,7 @@ export class BibleLabLibraryView extends ItemView{
   this.content.empty();
   if(this.activeFolder){this.renderBook();return;}
   const search=this.content.createDiv({cls:'bl-library-search'});
-  this.icon(search,'search');
+  this.glyph(search,'search');
   const field=search.createEl('input',{attr:{type:'search',
    placeholder:'Rechercher une publication ou un passage…',
    'aria-label':'Rechercher dans la bibliothèque locale'}});
@@ -159,7 +159,7 @@ export class BibleLabLibraryView extends ItemView{
   summary.createEl('p',{text:String(visible.length)+' publication(s) · accessibles hors ligne'});
   if(!this.books.length){
    const empty=this.resultHost.createDiv({cls:'bl-library-empty'});
-   this.icon(empty,'book-open-check');
+   this.glyph(empty,'book-open-check');
    empty.createEl('h3',{text:'Ta bibliothèque commence ici'});
    empty.createEl('p',{text:'Importe un fichier JWPUB, y compris des documents d’école ou des programmes, pour les lire sans connexion.'});
    this.button(empty,'Importer mon premier JWPUB','plus',this.host.importJwpub,'is-primary');
@@ -176,12 +176,12 @@ export class BibleLabLibraryView extends ItemView{
    for(const hit of this.results.filter(h=>this.group==='all'||h.book.group===this.group)){
     const item=results.createEl('button',{cls:'bl-library-search-hit',
      attr:{type:'button','aria-label':'Lire '+hit.doc.title}});
-    this.icon(item,'file-text');
+    this.glyph(item,'file-text');
     const text=item.createDiv();
     text.createEl('strong',{text:hit.doc.title});
     text.createSpan({text:hit.book.index.publication.title});
     text.createEl('p',{text:hit.snippet});
-    this.icon(item,'arrow-up-right');
+    this.glyph(item,'arrow-up-right');
     item.addEventListener('click',()=>{
      this.activeFolder=hit.book.folder;this.activeDoc=hit.doc.documentId;
      this.query='';this.searchSeq++;this.results=[];this.renderContent();
@@ -202,12 +202,12 @@ export class BibleLabLibraryView extends ItemView{
    cover.createEl('img',{attr:{src:this.app.vault.getResourcePath(image),
     alt:'Couverture de '+book.index.publication.title,loading:'lazy'}});
   else{
-   this.icon(cover,localBookIcon(book.group));
+   this.glyph(cover,localBookIcon(book.group));
    cover.createSpan({cls:'bl-library-cover-mark',text:book.index.publication.symbol.toUpperCase().slice(0,14)});
   }
   const info=card.createDiv({cls:'bl-library-card-info'});
   const status=info.createSpan({cls:'bl-library-available'});
-  this.icon(status,'check-circle-2');status.createSpan({text:'Hors ligne'});
+  this.glyph(status,'check-circle-2');status.createSpan({text:'Hors ligne'});
   info.createEl('strong',{text:book.index.publication.title});
   info.createSpan({cls:'bl-library-card-meta',
    text:book.index.publication.year+' · '+book.index.documents.length+' document(s)'});
@@ -228,7 +228,7 @@ export class BibleLabLibraryView extends ItemView{
   breadcrumb.createSpan({text:book.index.publication.title});
   const hero=this.content.createDiv({cls:'bl-library-book-hero'});
   const artwork=hero.createDiv({cls:'bl-library-book-art is-'+book.group});
-  this.icon(artwork,localBookIcon(book.group));
+  this.glyph(artwork,localBookIcon(book.group));
   const copy=hero.createDiv({cls:'bl-library-book-copy'});
   copy.createSpan({cls:'bl-library-eyebrow',text:'PUBLICATION PERSONNELLE · HORS LIGNE'});
   copy.createEl('h2',{text:book.index.publication.title});
