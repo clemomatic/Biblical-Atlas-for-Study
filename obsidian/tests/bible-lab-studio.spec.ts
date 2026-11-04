@@ -13,7 +13,7 @@ test('Study Studio dashboard offers compact navigation and opens a structured di
   const pane=page.locator('.biblelab-side');
   await expect(pane.getByRole('heading',{name:'Que veux-tu approfondir ?'})).toBeVisible();
   await expect(pane.locator('.biblelab-focus-nav .biblelab-tab')).toHaveCount(4);
-  await expect(pane.locator('.biblelab-overflow-menu .biblelab-btn')).toHaveCount(4);
+  await expect(pane.locator('.biblelab-overflow-menu .biblelab-btn')).toHaveCount(5);
   await pane.getByRole('button',{name:'Studio'}).click();
   await pane.getByRole('button',{name:'Nouveau discours'}).click();
   const dialog=page.getByRole('dialog');

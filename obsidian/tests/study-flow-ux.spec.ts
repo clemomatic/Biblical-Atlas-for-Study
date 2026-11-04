@@ -11,7 +11,7 @@ test('Study-first homepage offers one search and a calmer navigation hierarchy',
   const pane=page.locator('.biblelab-side');
   await expect(pane.getByRole('heading',{name:'Que veux-tu approfondir ?'})).toBeVisible();
   await expect(pane.locator('.biblelab-focus-nav .biblelab-tab')).toHaveCount(4);
-  await expect(pane.locator('.biblelab-overflow-menu .biblelab-btn')).toHaveCount(4);
+  await expect(pane.locator('.biblelab-overflow-menu .biblelab-btn')).toHaveCount(5);
   await expect(pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'})).toBeVisible();
   await expect(pane.locator('.biblelab-overflow > summary')).toBeVisible();
   await pane.locator('.biblelab-overflow > summary').click();
