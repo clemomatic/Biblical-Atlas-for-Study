@@ -23,7 +23,7 @@ test('A visible one-click action captures the known WOL paragraph without readin
   const saved=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchCollection());
   expect(saved.captures).toHaveLength(1);
   expect(saved.captures[0].url).toBe(WOL_A);
-  expect(saved.captures[0].label).toBe('Document WOL · 2024663');
+  expect(saved.captures[0].label).toBe('Article WOL de démonstration');
   expect(saved.captures[0].excerpt).toBe('');
   await page.waitForFunction(()=>(window as any).__savedSettings?.bibleLabCollection?.captures?.length===1);
 });
@@ -45,7 +45,7 @@ test('A copied passage is captured with its known WOL source via one explicit cl
   const store=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchCollection());
   expect(store.captures[0].url).toBe(WOL_A);
   expect(store.captures[0].excerpt).toBe('L’amitié peut grandir dans les difficultés.');
-  expect(store.captures[0].label).toBe('L’amitié peut grandir dans les difficultés.');
+  expect(store.captures[0].label).toBe('Article WOL de démonstration');
 });
 
 test('With several indistinguishable WOL tabs, source selection is requested before saving',async({page})=>{

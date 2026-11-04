@@ -24,7 +24,7 @@ test('A saved WOL source can be tagged, starred, archived and recovered without 
   await expect(card.getByText('L’exemple de Jésus')).toBeVisible();
   await card.getByRole('button',{name:'Ajouter aux favoris'}).click();
   const updatedCard=pane.locator('.biblelab-archive-card').first();
-  await updatedCard.locator('details').evaluate((el:HTMLDetailsElement)=>{el.open=true});
+  await updatedCard.locator('details.biblelab-archive-edit').evaluate((el:HTMLDetailsElement)=>{el.open=true});
   await updatedCard.getByRole('textbox',{name:'Étiquettes de la source'}).fill('Amitié, Jesus, amitié');
   await updatedCard.getByRole('button',{name:'Enregistrer les changements'}).click();
   await expect(pane.getByText('#Amitié · #Jesus')).toBeVisible();

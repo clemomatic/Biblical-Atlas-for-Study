@@ -34,6 +34,10 @@ import {
   type SearchHistoryEntry
 } from './researchArchive';
 import { quickCaptureCandidate,wolSourceLabel } from './researchQuickCapture';
+import {
+  wolArticleTitle, quoteFromWolSelection,sourceFromWolPage,
+  type WolPageSnapshot
+} from './wolSelectionCapture';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'collect' | 'archive' | 'refs' | 'maps' | 'library' | 'studio';
@@ -49,6 +53,7 @@ export interface BibleLabHost {
   saveResearchArchive: (archive:BibleLabArchive) => Promise<void>;
   getOpenWolUrls: () => string[];
   getPreferredWolUrl: () => string|null;
+  getWolPageSnapshot: (url?:string|null) => Promise<WolPageSnapshot|null>;
   openWolArticleTab: (ref: ReferenceEntry) => Promise<void>;
   openWolSearchTab: (url: string) => Promise<void>;
   openAtlasPlace: (name:string) => void;
@@ -1070,16 +1075,18 @@ export class BibleLabSidebarView extends ItemView {
     this.openCollection();
     new Notice('Découverte conservée dans le bac.');
   }
-  private captureCurrentWolTab():void{
+  private async captureCurrentWolTab():Promise<void>{
     const preferred=this.host.getPreferredWolUrl();
     if(!preferred){
       this.setTab('collect');
+      this.manualCaptureOpen=true;
       new Notice('Plusieurs onglets WOL ou aucun lien sélectionné : choisis la source dans le formulaire.');
       return;
     }
-    this.storeQuickCapture({
-      label:wolSourceLabel(preferred),url:preferred,excerpt:'',comment:''
-    });
+    const snapshot=await this.host.getWolPageSnapshot(preferred);
+    const capture=sourceFromWolPage(snapshot,preferred);
+    if(!capture)return;
+    this.storeQuickCapture(capture);
   }
   private async captureClipboardQuick():Promise<void>{
     let copied='';
@@ -1094,7 +1101,11 @@ export class BibleLabSidebarView extends ItemView {
       new Notice('Copie un extrait ou ouvre une page WOL à conserver.');
       return;
     }
-    this.storeQuickCapture(candidate);
+    const snapshot=await this.host.getWolPageSnapshot(candidate.url);
+    const named=candidate.excerpt
+      ?quoteFromWolSelection(snapshot,candidate.excerpt,candidate.url)
+      :sourceFromWolPage(snapshot,candidate.url);
+    this.storeQuickCapture(named?{...candidate,label:named.label,url:named.url}:candidate);
   }
   /** Update a WOL source badge without rerendering (which would clear unsaved form edits). */
   refreshWolSourceIndicator():void{
@@ -1125,7 +1136,7 @@ export class BibleLabSidebarView extends ItemView {
       openCount>1?'Plusieurs pages WOL : sélection manuelle du lien':
       'Aucune page WOL identifiée — copie un lien ou un extrait'});
     const actions=area.createDiv({cls:'biblelab-quick-capture-actions'});
-    button(actions,'Garder le lien WOL','link',()=>this.captureCurrentWolTab());
+    button(actions,'Garder le lien WOL','link',()=>void this.captureCurrentWolTab());
     button(actions,'Garder le texte copié','clipboard-paste',()=>void this.captureClipboardQuick(),true);
     if(!compact){
       area.createEl('p',{cls:'biblelab-quick-capture-tip',text:
@@ -1195,16 +1206,44 @@ export class BibleLabSidebarView extends ItemView {
     const actions=form.createDiv({cls:'biblelab-plan-toolbar'});
     button(actions,'Ajouter au bac','bookmark-plus',()=>this.saveCapture(),true);
     button(actions,'Coller le texte copié','clipboard-paste',()=>void this.pasteCopiedExcerpt());
-    form.createEl('p',{cls:'biblelab-plan-footnote',text:'Dans la Visionneuse web, sélectionne puis copie le passage. Bible Lab ne peut pas lire automatiquement la sélection d’une page WOL. Le lien de paragraphe (#h=…) est conservé s’il existe ; sinon le lien renvoie à la page.'});
+    form.createEl('p',{cls:'biblelab-plan-footnote',
+      text:'Depuis WOL, sélectionne un passage et fais clic droit → « Bible Lab · Garder cette portion ». Tu peux aussi copier et coller un extrait ici.'});
   }
   private openCapturedSource(item:ResearchCapture):void{
     if(!item.url){new Notice('Cette découverte n’a pas encore de lien WOL.');return;}
     void this.host.openWolArticleTab({label:item.label,url:item.url,kind:'document',origin:'pinned'});
   }
+  private needsWolTitle(title:string):boolean{
+    return /^(?:Document WOL ·|Page WOL|Article WOL · titre à compléter|Source WOL à identifier)/i.test(title);
+  }
+  private async updateCapturedTitle(item:ResearchCapture):Promise<void>{
+    const snapshot=await this.host.getWolPageSnapshot(item.url);
+    const title=wolArticleTitle(snapshot?.title);
+    if(!title){
+      new Notice('Ouvre cette source dans WOL, puis relance « Récupérer le titre ».');
+      return;
+    }
+    this.updateCollection(updateResearchCapture(this.collection,item.id,{label:title}));
+    new Notice('Titre de la publication mis à jour.');
+  }
+  private renderQuotePreview(parent:HTMLElement,item:ResearchCapture):void{
+    const quote=parent.createEl('details',{cls:'biblelab-quote-preview'});
+    const summary=quote.createEl('summary');
+    const icon=summary.createSpan();setIcon(icon,'quote');
+    summary.createSpan({text:'Lire la citation'});
+    if(item.url&&new URL(item.url).hash.startsWith('#h='))
+      summary.createSpan({cls:'biblelab-quote-anchor',text:'Paragraphe lié'});
+    quote.createEl('blockquote',{text:item.excerpt});
+    if(item.url){
+      const actions=quote.createDiv({cls:'biblelab-quote-actions'});
+      button(actions,'Lire dans le panneau','book-open-text',()=>this.focusReference(item.url,item.label));
+      button(actions,'Ouvrir le paragraphe WOL','external-link',()=>this.openCapturedSource(item));
+    }
+  }
   private renderCaptureRow(parent:HTMLElement,item:ResearchCapture):void{
     const card=parent.createDiv({cls:'biblelab-capture-card'});
     card.createEl('strong',{text:item.label});
-    if(item.excerpt)card.createEl('p',{cls:'biblelab-capture-excerpt',text:item.excerpt});
+    if(item.excerpt)this.renderQuotePreview(card,item);
     if(item.comment)card.createEl('p',{cls:'biblelab-capture-comment',text:'💡 '+item.comment});
     if(item.url){
       const source=card.createEl('button',{cls:'biblelab-capture-source',text:item.url});
@@ -1212,7 +1251,14 @@ export class BibleLabSidebarView extends ItemView {
       source.addEventListener('click',()=>this.openCapturedSource(item));
     }else card.createSpan({cls:'biblelab-capture-no-source',text:'Sans lien (à compléter)'});
     const controls=card.createDiv({cls:'biblelab-plan-toolbar'});
-    if(item.url)button(controls,'Ouvrir dans WOL','external-link',()=>this.openCapturedSource(item));
+    if(item.url){
+      button(controls,'Lire dans Bible Lab','book-open-text',
+        ()=>this.focusReference(item.url,item.label));
+      button(controls,'Ouvrir dans WOL','external-link',()=>this.openCapturedSource(item));
+      if(this.needsWolTitle(item.label))
+        button(controls,'Récupérer le titre de l’article','refresh-cw',
+          ()=>void this.updateCapturedTitle(item));
+    }
     button(controls,'Copier référence','copy',()=>void this.copy(citationMarkdown(item)));
     const metadata=libraryEntry(this.archive,item.id);
     button(controls,metadata.starred?'Retirer des favoris':'Ajouter aux favoris',
@@ -1539,11 +1585,16 @@ export class BibleLabSidebarView extends ItemView {
     lead.createEl('strong',{text:item.label});
     if(data.starred){const star=lead.createSpan({cls:'biblelab-archive-star',attr:{
       'aria-label':'Favori'}});setIcon(star,'star');}
-    if(item.excerpt)card.createEl('p',{cls:'biblelab-archive-excerpt',text:item.excerpt});
+    if(item.excerpt)this.renderQuotePreview(card,item);
     if(item.comment)card.createEl('p',{cls:'biblelab-archive-comment',text:item.comment});
     if(data.tags.length)card.createEl('p',{cls:'biblelab-archive-tags',text:data.tags.map(x=>'#'+x).join(' · ')});
     const actions=card.createDiv({cls:'biblelab-archive-item-actions'});
-    if(item.url)button(actions,'Ouvrir la source WOL','external-link',()=>this.openCapturedSource(item));
+    if(item.url){
+      button(actions,'Lire dans Bible Lab','book-open-text',()=>this.focusReference(item.url,item.label));
+      button(actions,'Ouvrir la source WOL','external-link',()=>this.openCapturedSource(item));
+      if(this.needsWolTitle(item.label))button(actions,'Récupérer le titre de l’article','refresh-cw',
+        ()=>void this.updateCapturedTitle(item));
+    }
     button(actions,'Copier la référence','copy',()=>void this.copy(citationMarkdown(item)));
     button(actions,data.starred?'Retirer des favoris':'Ajouter aux favoris',
       data.starred?'star-off':'star',()=>this.editLibraryEntry(item.id,{starred:!data.starred}));

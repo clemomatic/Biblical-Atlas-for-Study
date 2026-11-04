@@ -25,6 +25,11 @@ import {
 } from './researchCollection';
 import { cleanWolUrl, extractReferenceEntries } from './referenceReader';
 import { quickCaptureCandidate } from './researchQuickCapture';
+import { WolContextCaptureBridge } from './wolContextCapture';
+import {
+  quoteFromWolSelection,sourceFromWolPage,
+  type WolPageSnapshot,type WolCapturedQuote
+} from './wolSelectionCapture';
 import {
   buildBibleLabBackup, BACKUP_DIRECTORY, backupFileName,
   type BibleLabResearchState
@@ -127,12 +132,40 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private inlinePopup?:BibleLabInlinePopover;
   private wolSearchLeaf: WorkspaceLeaf|null=null;
   private lastActiveWolLeaf:WorkspaceLeaf|null=null;
+  private wolClipBridge?:WolContextCaptureBridge;
+  getWolPageSnapshot=(url?:string|null):Promise<WolPageSnapshot|null>=>
+    this.wolClipBridge?.readPage(url)||Promise.resolve(null);
+  private saveWolQuote=async(capture:WolCapturedQuote):Promise<void>=>{
+    const next=addResearchCapture(this.researchCollection,{
+      ...capture,planId:this.researchDesk.activeId
+    });
+    if(next===this.researchCollection){
+      new Notice('Le bac est plein ou la portion est vide.');return;
+    }
+    await this.saveResearchCollection(next);
+    await this.openBibleLabCollection();
+    new Notice('Citation WOL conservée avec son lien source.');
+  };
+  private captureCurrentWolSelection=async():Promise<void>=>{
+    const preferred=this.getPreferredWolUrl();
+    const snapshot=await this.getWolPageSnapshot(preferred);
+    const quote=quoteFromWolSelection(snapshot,snapshot?.selectionText||'',preferred||'');
+    if(!quote){
+      new Notice('Sélectionne un passage dans la Visionneuse web WOL avant de lancer la capture.');
+      return;
+    }
+    await this.saveWolQuote(quote);
+  };
   getPreferredWolUrl=():string|null=>{
     const leaves=this.app.workspace.getLeavesOfType('webviewer');
     const active=this.app.workspace.activeLeaf;
     const selected=leaves.find(leaf=>leaf===active);
     const remembered=leaves.find(leaf=>leaf===this.lastActiveWolLeaf);
     const preferred=selected||remembered||(leaves.length===1?leaves[0]:null);
+    const webview=(preferred?.view as ItemView|undefined)?.containerEl?.querySelector('webview') as
+      (HTMLElement&{getURL?:()=>string})|null|undefined;
+    const current=webview?.getURL?.();
+    if(current&&cleanWolUrl(current))return cleanWolUrl(current);
     const raw=preferred?.view.getState() as {url?:unknown}|undefined;
     return typeof raw?.url==='string'?cleanWolUrl(raw.url):null;
   };
@@ -208,8 +241,12 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     const leaves=this.app.workspace.getLeavesOfType('webviewer');
     const urls:string[]=[];
     for(const leaf of leaves){
+      const webview=(leaf.view as ItemView).containerEl.querySelector('webview') as
+        (HTMLElement&{getURL?:()=>string})|null;
+      const current=webview?.getURL?.();
       const state=leaf.view.getState() as {url?:unknown};
-      const url=typeof state?.url==='string'?cleanWolUrl(state.url):null;
+      const url=current&&cleanWolUrl(current)||
+        (typeof state?.url==='string'?cleanWolUrl(state.url):null);
       if(url&&!urls.includes(url))urls.push(url);
     }
     return urls;
@@ -293,6 +330,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       this.refreshWolCaptureIndicators();
     }));
     this.registerView(BIBLE_LAB_ARTICLE_VIEW, leaf => new BibleLabArticleView(leaf, this.openWolArticleTab));
+    this.wolClipBridge=new WolContextCaptureBridge(this.app,this.saveWolQuote);
+    this.wolClipBridge.start();
+    this.register(()=>{this.wolClipBridge?.stop();this.wolClipBridge=undefined;});
     this.addRibbonIcon('map', 'Ouvrir l’Atlas biblique', () => this.run(this.openAtlas()));
     this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
@@ -304,6 +344,11 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (onglet web)', editorCallback: editor => { const term=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim(); if(term)this.run(this.openWolSearchTab(wolResearchUrl(term,{match:'par',scope:'all'}))); } });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
+    this.addCommand({
+      id:'bible-lab-keep-wol-portion',
+      name:'WOL : garder la portion sélectionnée dans Bible Lab',
+      callback:()=>this.run(this.captureCurrentWolSelection())
+    });
     this.addCommand({
       id:'bible-lab-backup-research',
       name:'Sauvegarder mes recherches, idées et références Bible Lab',
@@ -476,8 +521,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       new Notice('Copie un passage WOL, ou ouvre une page WOL puis relance la capture.');
       return;
     }
+    const snapshot=await this.getWolPageSnapshot(candidate.url);
+    const named=candidate.excerpt
+      ?quoteFromWolSelection(snapshot,candidate.excerpt,candidate.url)
+      :sourceFromWolPage(snapshot,candidate.url);
     const next=addResearchCapture(this.researchCollection,{
-      ...candidate,planId:this.researchDesk.activeId
+      ...candidate,
+      ...(named?{label:named.label,url:named.url}:{}),
+      planId:this.researchDesk.activeId
     });
     if(next===this.researchCollection){
       new Notice('Le bac à trouvailles est plein.');

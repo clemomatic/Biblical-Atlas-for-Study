@@ -78,10 +78,22 @@ class CoreWebViewer extends ItemView {
   getViewType(){ return 'webviewer'; }
   getDisplayText(){ return 'WOL — navigateur'; }
   getState(){ return this.state; }
-  async onOpen(){ this.contentEl.classList.add('mock-core-webviewer'); }
+  async onOpen(){
+    this.contentEl.classList.add('mock-core-webviewer');
+    this.webview=document.createElement('webview');
+    this.webview.className='mock-electron-webview';
+    this.webview.getURL=()=>this.state.url;
+    this.webview.executeJavaScript=async()=>{
+      return this.mockSnapshot||{
+        title:'Article WOL de démonstration',url:this.state.url,
+        paragraphUrl:'',selectionText:''
+      };
+    };
+    this.contentEl.append(this.webview);
+  }
   async setState(value){
     this.state={url:value.url,navigate:value.navigate===true};
-    this.contentEl.empty();
+    for(const node of [...this.contentEl.children])if(node!==this.webview)node.remove();
     this.contentEl.createDiv({cls:'mock-webviewer-address',text:value.url});
     this.contentEl.createEl('a',{text:'Ouvrir la page WOL',href:value.url});
     (window.atlasWebviewerUrls??=[]).push(value.url);
@@ -105,6 +117,36 @@ class Plugin {
   async unload() { for (const leaf of app.workspace.leaves) await leaf.view?.onClose?.(); this.cleanups.forEach(callback => callback()); this.onunload(); }
 }
 class PluginSettingTab { constructor(application, plugin) { this.app = application; this.plugin = plugin; this.containerEl = element('div'); } }
+class Menu {
+  constructor(){this.entries=[];}
+  addSeparator(){this.entries.push({separator:true});return this;}
+  addItem(configure){
+    const item={
+      title:'',icon:'',
+      setTitle(value){this.title=value;return this;},
+      setIcon(value){this.icon=value;return this;},
+      onClick(callback){this.callback=callback;return this;}
+    };
+    configure(item);
+    this.entries.push(item);
+    return this;
+  }
+  showAtPosition(){
+    document.querySelector('.mock-context-menu')?.remove();
+    const menu=document.createElement('div');
+    menu.className='mock-context-menu';
+    menu.setAttribute('role','menu');
+    for(const item of this.entries){
+      if(item.separator){menu.createEl('hr');continue;}
+      const action=menu.createEl('button',{text:item.title});
+      action.type='button';action.addEventListener('click',()=>{
+        menu.remove();item.callback?.();
+      });
+    }
+    document.body.append(menu);
+    window.atlasLastMenu=this;
+  }
+}
 class Modal {
   constructor(application) { this.app = application; this.contentEl = element('div', { cls: 'modal-content' }); }
   open() { this.wrapper = element('div', { cls: 'modal-container' }); const modal = this.wrapper.createDiv({ cls: 'modal' }); this.modalEl = modal; modal.setAttribute('role', 'dialog'); modal.append(this.contentEl); document.body.append(this.wrapper); this.onOpen?.(); }
@@ -156,7 +198,7 @@ const app = { vault, metadataCache, workspace, fileManager: { async processFront
 } } };
 const setIcon = (element, name) => { element.dataset.icon = name; element.createSpan({ text: '◈' }); };
 const debounce = (callback, delay) => { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => callback(...args), delay); }; };
-const api = { ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, debounce };
+const api = { ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, Menu, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, debounce };
 if (new URLSearchParams(location.search).get('theme') === 'dark') document.body.classList.add('theme-dark');
 await vault.createFolder('Mes notes');
 await vault.create('Mes notes/Une idée précieuse.md', '---\ntags: [personnel]\npriorite: 3\n---\nMon texte personnel **à conserver**.\n\nUne seconde ligne.\n');
@@ -168,6 +210,15 @@ await plugin.onload();
 await plugin.openAtlas();
 window.atlasTest = {
   plugin, app, notices, ready: true,
+  triggerWolContext({selectionText,pageURL,frameURL,isEditable=false}){
+    const viewer=app.workspace.getLeavesOfType('webviewer')[0]?.view;
+    if(!viewer?.webview)throw Error('No webviewer found');
+    const event=new Event('context-menu',{bubbles:false,cancelable:true});
+    event.params={selectionText,pageURL:pageURL||viewer.state.url,
+      frameURL:frameURL||pageURL||viewer.state.url,x:12,y:18,isEditable};
+    viewer.webview.dispatchEvent(event);
+    return event.defaultPrevented;
+  },
   file(path) { return vault.files.get(path)?.content; },
   mountInlineEditor(text) {
     this.editorView?.destroy();
