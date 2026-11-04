@@ -9,6 +9,7 @@ import {
   classifyLibraryVolume,foldLibraryText as lower
 } from './libraryTaxonomy';
 import type { LibraryCategory } from './libraryTaxonomy';
+export type { LibraryCategory } from './libraryTaxonomy';
 export { LIBRARY_FILTERS,filteredVolumes,localDocumentUrl,jwpubPublicationId } from './libraryTaxonomy';
 export interface LibraryVolume extends LocalPublication {
   category:Exclude<LibraryCategory,'all'|'personal'>;
