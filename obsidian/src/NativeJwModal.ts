@@ -56,6 +56,10 @@ export class NativeJwModal extends Modal{
 
  /** The public catalog is queried only after a direct click. */
  public openOfflineLibrary():void{this.open();void this.library();}
+ /** Called only after a click on a publication in the official catalog. */
+ public openPublicPublication(symbol:string,issue=''):void{
+   this.open();void this.checkPublication(symbol,issue);
+ }
  private async library():Promise<void>{
    const root=this.screen('Bibliothèque hors ligne',
      'Tes publications personnelles et officielles · aucune synchronisation par Bible Lab.');
@@ -105,17 +109,17 @@ export class NativeJwModal extends Modal{
    if(!file){new Notice('Aucun document Markdown disponible.');return;}
    await this.app.workspace.getLeaf('tab').openFile(file);this.close();
  }
- private async checkPublication(symbol:string):Promise<void>{
+ private async checkPublication(symbol:string,issue=''):Promise<void>{
    if(this.busy)return;
    let url:string;
-   try{url=publicJwpubQuery(symbol);}
+   try{url=publicJwpubQuery(symbol,issue);}
    catch{new Notice('Identifiant de publication invalide.');return;}
    this.busy=true;
    this.screen('Vérification du catalogue JW.org','Recherche du fichier JWPUB français…');
    try{
      const response=await requestUrl({url,throw:false});
      if(response.status!==200)throw Error('La publication est indisponible (HTTP '+response.status+').');
-     const item=parsePublicJwpubResponse(response.json,symbol);
+     const item=parsePublicJwpubResponse(response.json,symbol,issue);
      if(!item)throw Error('Aucun fichier JWPUB français validé pour cet identifiant.');
      this.showDownloadPreview(item);
    }catch(e){this.offlineError(e);}finally{this.busy=false;}
