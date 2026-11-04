@@ -1,4 +1,4 @@
-import {ItemView,MarkdownRenderer,Notice,setIcon,TFile,type ViewStateResult,type WorkspaceLeaf} from 'obsidian';
+import {ItemView,MarkdownRenderer,Notice,setIcon,TFile,type TAbstractFile,type ViewStateResult,type WorkspaceLeaf} from 'obsidian';
 import {readLocalPublicationIndexes} from './offlineReferenceLibrary';
 import type {OfflineImportIndex,OfflineDocumentRecord} from './offlinePublications';
 import {LIBRARY_GROUPS,classifyLibraryPublication,normalizeLibrarySearch,chooseLocalCover,
@@ -30,7 +30,7 @@ export class BibleLabLibraryView extends ItemView{
 
  constructor(leaf:WorkspaceLeaf,private host:LibraryViewHost){
   super(leaf);
-  const changed=(file:TFile)=>{
+  const changed=(file:TAbstractFile)=>{
    if(file.name==='_BIBLE_LAB_OFFLINE_INDEX.json')void this.reload();
   };
   this.registerEvent(this.app.vault.on('create',changed));
