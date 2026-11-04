@@ -55,8 +55,8 @@ test('Recent searches are kept by research scope, can be resumed and never chang
   await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
   await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
   await expect(pane.locator('.biblelab-history-row')).toHaveCount(1);
-  await expect(pane.locator('.biblelab-history-row').getByText('amitié des anciens')).toBeVisible();
   await pane.locator('.biblelab-history > summary').click();
+  await expect(pane.locator('.biblelab-history-row').getByText('amitié des anciens')).toBeVisible();
   await pane.locator('.biblelab-history-row').getByRole('button',{name:'Reprendre la recherche'}).click();
   const state=await page.evaluate(()=>({
     search:(window as any).atlasTest.app.workspace.getLeavesOfType('webviewer')[0].view.getState().url,
@@ -66,7 +66,6 @@ test('Recent searches are kept by research scope, can be resumed and never chang
   expect(new URL(state.search).searchParams.get('q')).toBe('amitié des anciens');
   expect(state.history).toHaveLength(1);
   await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
-  await pane.locator('.biblelab-history > summary').click();
   await pane.locator('.biblelab-history-row').getByRole('button',{name:'Effacer cette recherche'}).click();
   expect(await page.evaluate(()=> (window as any).atlasTest.plugin.getResearchArchive().history.length)).toBe(0);
 });
