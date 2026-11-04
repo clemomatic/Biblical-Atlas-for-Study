@@ -40,3 +40,44 @@ test('No guessed paragraph number; script only inspects title, selection and adj
   assert.match(WOL_PAGE_SNAPSHOT_SCRIPT,/paragraphUrl/);
   assert.doesNotMatch(WOL_PAGE_SNAPSHOT_SCRIPT,/cookie|localStorage|sessionStorage/);
 });
+
+test('Guest-side selection extraction reads real nearby paragraph links, never adjacent paragraphs',()=>{
+  const article='https://wol.jw.org/fr/wol/d/r30/lp-f/2024663';
+  const anchor={getAttribute:()=> '#h=7'};
+  const body={
+    querySelectorAll:()=> [{},{}],
+    parentElement:null
+  };
+  const paragraph={
+    querySelectorAll:(selector:string)=>selector==='p'?[]:[anchor],
+    parentElement:body
+  };
+  const node={
+    nodeType:1,
+    closest:(selector:string)=>selector==='a[href]'?null:paragraph
+  };
+  const selection={
+    rangeCount:1,getRangeAt:()=>({startContainer:node}),
+    toString:()=> 'La véritable amitié.'
+  };
+  const windowMock={
+    getSelection:()=>selection,
+    location:{
+      href:article,origin:'https://wol.jw.org',
+      pathname:'/fr/wol/d/r30/lp-f/2024663'
+    }
+  };
+  const documentMock={
+    title:'Bibliothèque en ligne Watchtower',
+    querySelector:(selector:string)=>selector.includes('h1')
+      ?{textContent:'Une véritable amitié'}:null
+  };
+  const snapshot=(new Function('window','document','URL',
+    'return '+WOL_PAGE_SNAPSHOT_SCRIPT))(windowMock,documentMock,URL);
+  assert.equal(snapshot.title,'Une véritable amitié');
+  assert.equal(snapshot.paragraphUrl,article+'#h=7');
+  assert.equal(snapshot.selectionText,'La véritable amitié.');
+  paragraph.querySelectorAll=()=>[];
+  assert.equal((new Function('window','document','URL',
+    'return '+WOL_PAGE_SNAPSHOT_SCRIPT))(windowMock,documentMock,URL).paragraphUrl,'');
+});
