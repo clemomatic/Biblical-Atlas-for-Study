@@ -14,6 +14,7 @@ test('research sidebar opens and sends only the current search to official URLs'
   await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
   await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('');
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Jean 7:24');
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
   await pane.getByRole('button',{name:/JW Library$/}).first().click();
   const opened=await page.evaluate(()=>(window as any).openedLabUrls);
