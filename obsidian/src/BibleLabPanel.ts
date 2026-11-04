@@ -759,7 +759,7 @@ export class BibleLabSidebarView extends ItemView {
       button(quick,'Navigateur externe','external-link',()=>external(this.officialSearchUrl()));
     }
 
-    const advanced=this.scroller.createEl('details',{cls:'biblelab-search-advanced'});
+    const advanced=extra.createEl('details',{cls:'biblelab-search-advanced'});
     advanced.open=this.searchAdvancedOpen;
     advanced.addEventListener('toggle',()=>{if(advanced.isConnected)this.searchAdvancedOpen=advanced.open;});
     advanced.createEl('summary',{text:'Filtres et actions supplémentaires'});
