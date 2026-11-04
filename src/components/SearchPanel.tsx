@@ -434,6 +434,12 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   }, [normalizedQuery, isOpen]);
 
   useEffect(() => {
+    if (!isOpen || !activeItem) return;
+    const element = document.getElementById(activeItem.key);
+    element?.scrollIntoView({ block: 'nearest' });
+  }, [activeItem, isOpen]);
+
+  useEffect(() => {
     if (!isOpen) return;
     previousFocusRef.current = (dialogRef.current?.getRootNode() as Document | ShadowRoot)?.activeElement as HTMLElement;
     setRecentSearches(getRecentSearches());
