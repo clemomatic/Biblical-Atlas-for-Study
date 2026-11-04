@@ -96,7 +96,7 @@ export class BibleLabSidebarView extends ItemView {
   private archiveSort:ArchiveSort='recent';
   private archivePlanFilter:string|null=null;
   private archiveVisible=35;
-  private showSearchHistory=true;
+  private showSearchHistory=false;
   private captureDraft={label:'',url:'',excerpt:'',comment:''};
   private captureFilter='';
   private showAllCaptures=false;
@@ -686,10 +686,13 @@ export class BibleLabSidebarView extends ItemView {
    * reconstructed result list is needed for the main research workflow.
    */
   private renderWol():void{
-    this.renderResearchPlan(this.scroller,true);
-    this.renderCollectionShortcut(this.scroller,true);
-    this.renderQuickCapture(this.scroller,true);
-    heading(this.scroller,'Recherche WOL','La vraie Bibliothèque en ligne, dans un onglet Obsidian.');
+    const context=this.scroller.createEl('details',{cls:'biblelab-wol-context'});
+    const summary=context.createEl('summary');
+    const symbol=summary.createSpan();setIcon(symbol,'list-tree');
+    summary.createSpan({text:activeResearchPlan(this.researchDesk)?.title||'Recherche libre'});
+    const contextBody=context.createDiv({cls:'biblelab-wol-context-inner'});
+    this.renderResearchPlan(contextBody,true);
+    heading(this.scroller,'Recherche WOL','Sur le site officiel, dans Obsidian.');
     this.searchField(this.scroller,this.query,'Sujet, publication ou verset…',text=>{
       this.query=text;
     },()=>this.openSearch());
@@ -720,23 +723,29 @@ export class BibleLabSidebarView extends ItemView {
 
     const primary=this.scroller.createDiv({cls:'biblelab-search-primary'});
     button(primary,'Rechercher dans WOL','search',()=>this.openSearch(),true);
-    button(primary,'Conserver cette recherche','bookmark-plus',()=>{
+    const keep=button(primary,'Conserver cette recherche','bookmark-plus',()=>{
       const query=this.query.trim();
       if(!query){new Notice('Saisis une recherche à conserver.');return;}
       this.captureDraft={label:query,url:this.officialSearchUrl(),excerpt:'',comment:''};
       this.setTab('collect');
     });
+    keep.addClass('biblelab-icon-only');
     // Keep the action available as the user types; empty input gets a Notice.
-    button(primary,'Ouvrir WOL','panels-top-left',()=>
+    const open=button(primary,'Ouvrir WOL','panels-top-left',()=>
       void this.host.openWolSearchTab('https://wol.jw.org/fr/wol/h/r30/lp-f'));
+    open.addClass('biblelab-icon-only');
 
-    const hint=this.scroller.createDiv({cls:'biblelab-research-context'});
+    const extra=this.scroller.createEl('details',{cls:'biblelab-wol-extras'});
+    const extraSummary=extra.createEl('summary');
+    const extraIcon=extraSummary.createSpan();setIcon(extraIcon,'sliders-horizontal');
+    extraSummary.createSpan({text:'Autres actions et conseils'});
+    const hint=extra.createDiv({cls:'biblelab-research-context'});
     const glyph=hint.createSpan();setIcon(glyph,'panels-top-left');
     hint.createEl('p',{text:'Les résultats et les articles s’ouvrent directement dans la visionneuse web d’Obsidian. Utilise les liens, le retour arrière et le mode lecture de WOL, tout en gardant tes notes à côté.'});
     if(this.searchScope==='guide'||this.searchScope==='index')
       hint.createEl('p',{text:'Sur WOL, Index et Guide de recherche utilisent le filtre officiel Index. Tu peux affiner la sélection dans la page WOL.'});
 
-    const quick=this.scroller.createDiv({cls:'biblelab-buttons'});
+    const quick=extra.createDiv({cls:'biblelab-buttons'});
     button(quick,'Lire dans le panneau','book-open-text',()=>{
       const term=this.query.trim();
       if(!term){new Notice('Saisis un verset, une référence ou un lien WOL.');return;}
