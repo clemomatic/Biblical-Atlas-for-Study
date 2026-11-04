@@ -204,7 +204,19 @@ export class NativeJwModal extends Modal{
        else if(item.bytes){const bytes=item.bytes;await this.app.vault.createBinary(full,bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer);}
        if(i%45===0){progress.setText((i+1)+' / '+preview.entries.length+' fichiers');await new Promise(resolve=>setTimeout(resolve,0));}
      }
-     new Notice('Import réussi : '+preview.count+' documents.');
+     if(this.pendingDownload&&preview.type==='jwpub'){
+       const originals=this.rootFolder.replace(/\/$/,'')+'/Bibliothèque JWPUB';
+       await folder(this.app,originals);
+       const original=this.pendingDownload;
+       let destination=originals+'/'+shortName(original.name)+'.jwpub';
+       for(let i=2;this.app.vault.getAbstractFileByPath(destination);i++)
+         destination=originals+'/'+shortName(original.name)+' ('+i+').jwpub';
+       const data=original.bytes;
+       await this.app.vault.createBinary(destination,
+         data.buffer.slice(data.byteOffset,data.byteOffset+data.byteLength) as ArrayBuffer);
+       this.pendingDownload=null;
+     }
+     new Notice('Import réussi : '+preview.count+' documents hors ligne.');
      const index=this.app.vault.getAbstractFileByPath(target+'/INDEX/00 Tableau de recherche.md');
      if(index && 'extension' in index)await this.app.workspace.getLeaf('tab').openFile(index as TFile);
      this.close();
