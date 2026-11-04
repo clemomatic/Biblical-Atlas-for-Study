@@ -34,6 +34,7 @@ import {
   type SearchHistoryEntry
 } from './researchArchive';
 import { quickCaptureCandidate,wolSourceLabel } from './researchQuickCapture';
+import { connectionsForIdea,researchDossierMarkdown } from './researchConnections';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'collect' | 'archive' | 'refs' | 'maps' | 'library' | 'studio';
@@ -1177,6 +1178,24 @@ export class BibleLabSidebarView extends ItemView {
         assignCaptureToIdea(this.collection,idea.id,select.value)));
     }else if(!references.length)box.createEl('p',{cls:'biblelab-plan-empty',
       text:'Collecte une référence dans ton bac, puis ajoute-la ici.'});
+    const connections=connectionsForIdea(this.collection,idea.id);
+    if(connections.length){
+      const related=box.createDiv({cls:'biblelab-idea-connections'});
+      related.createSpan({cls:'biblelab-study-overline',text:'CONNEXIONS DÉCOUVERTES'});
+      related.createEl('p',{text:'Ces fiches partagent une ou plusieurs trouvailles avec cette idée.'});
+      for(const link of connections){
+        const other=this.collection.ideas.find(candidate=>candidate.id===link.ideaId);
+        if(!other)continue;
+        const row=related.createDiv({cls:'biblelab-connection-row'});
+        row.createSpan({text:other.statement||'Idée à formuler'});
+        row.createSpan({cls:'biblelab-connection-count',text:link.sharedCaptureIds.length+' source(s) commune(s)'});
+        button(row,'Voir les sources communes','link-2',()=>{
+          const names=link.sharedCaptureIds.map(id=>this.collection.captures.find(c=>c.id===id)?.label)
+            .filter((name):name is string=>!!name);
+          new Notice(names.join(' · ').slice(0,400)||'Sources introuvables.');
+        });
+      }
+    }
     const preview=box.createDiv({cls:'biblelab-idea-preview'});
     preview.createSpan({text:'APERÇU POUR LA NOTE'});
     preview.createEl('p',{text:ideaMarkdown(idea,this.collection)||'Ton idée et ses références apparaîtront ici.'});
@@ -1209,6 +1228,13 @@ export class BibleLabSidebarView extends ItemView {
     button(ideas,'Nouvelle fiche d’idée','plus',()=>this.updateCollection(
       addResearchIdea(this.collection,this.researchDesk.activeId)),true);
     for(const idea of this.collection.ideas)this.renderIdeaCard(groups,idea.id);
+    const dossier=groups.createDiv({cls:'biblelab-dossier-actions'});
+    dossier.createEl('strong',{text:'Mon dossier de recherche'});
+    dossier.createEl('p',{text:'Rassembler les fiches, leurs sources et leurs connexions dans un document Markdown. Rien n’est modifié dans tes notes.'});
+    button(dossier,'Copier le dossier Markdown','copy',()=>void this.copy(
+      researchDossierMarkdown(this.collection,this.researchDesk.activeId)),true);
+    button(dossier,'Copier toutes mes recherches','files',()=>void this.copy(
+      researchDossierMarkdown(this.collection)));
     const libraryShortcut=groups.createDiv({cls:'biblelab-collect-library-shortcut'});
     button(libraryShortcut,'Rechercher dans mon index','book-marked',()=>this.setTab('archive'));
     const all=groups.createEl('details',{cls:'biblelab-collect-all'});
