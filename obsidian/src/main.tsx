@@ -162,6 +162,10 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     const selected=leaves.find(leaf=>leaf===active);
     const remembered=leaves.find(leaf=>leaf===this.lastActiveWolLeaf);
     const preferred=selected||remembered||(leaves.length===1?leaves[0]:null);
+    const webview=(preferred?.view as ItemView|undefined)?.containerEl?.querySelector('webview') as
+      (HTMLElement&{getURL?:()=>string})|null|undefined;
+    const current=webview?.getURL?.();
+    if(current&&cleanWolUrl(current))return cleanWolUrl(current);
     const raw=preferred?.view.getState() as {url?:unknown}|undefined;
     return typeof raw?.url==='string'?cleanWolUrl(raw.url):null;
   };
@@ -237,8 +241,12 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     const leaves=this.app.workspace.getLeavesOfType('webviewer');
     const urls:string[]=[];
     for(const leaf of leaves){
+      const webview=(leaf.view as ItemView).containerEl.querySelector('webview') as
+        (HTMLElement&{getURL?:()=>string})|null;
+      const current=webview?.getURL?.();
       const state=leaf.view.getState() as {url?:unknown};
-      const url=typeof state?.url==='string'?cleanWolUrl(state.url):null;
+      const url=current&&cleanWolUrl(current)||
+        (typeof state?.url==='string'?cleanWolUrl(state.url):null);
       if(url&&!urls.includes(url))urls.push(url);
     }
     return urls;
