@@ -6,6 +6,7 @@ test.beforeEach(async({page})=>{
   await page.waitForFunction(()=>(window as any).atlasTest?.ready);
   await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
   await page.locator('.biblelab-tab[aria-label="Trouvailles"]').click();
+  await page.locator('.biblelab-manual-capture > summary').click();
 });
 
 test('A WOL excerpt and precise paragraph URL can be kept without a sentence or plan',async({page})=>{
@@ -61,7 +62,7 @@ test('An idea groups sources and inserts one Markdown sentence with parenthesize
 test('A citation currently being read can be added to the inbox without touching the popup engine',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await page.evaluate(()=> (window as any).atlasTest.plugin.openBibleLab('Jean 7:24'));
-  await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
+  await expect(pane.locator('.biblelab-focused-reading')).toBeVisible();
   await pane.getByRole('button',{name:'Garder la référence'}).click();
   await expect(pane.locator('.biblelab-tab[aria-label="Trouvailles"]')).toHaveAttribute('aria-selected','true');
   const captures=await page.evaluate(()=> (window as any).atlasTest.plugin.getResearchCollection().captures);
