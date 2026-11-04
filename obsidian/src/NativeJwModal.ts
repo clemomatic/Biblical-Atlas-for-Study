@@ -1,5 +1,11 @@
-import { Modal, Notice, type App, type TFile } from 'obsidian';
+import { Modal, Notice, requestUrl, type App, type TFile } from 'obsidian';
 import { readJwpub, readBackup, prepareExport, createExport, digest, type ImportPreview } from './nativeJw';
+import { listLocalPublications } from './offlineReferenceLibrary';
+import {
+  PERSONAL_OFFLINE_CATALOG,MAX_PERSONAL_JWPUB_BYTES,
+  isJwpubArchive,parsePublicJwpubResponse,publicJwpubQuery,
+  type PublicJwpub
+} from './offlinePublications';
 
 function selectFile(accept:string):Promise<File|null>{
  return new Promise(resolve=>{
@@ -20,6 +26,7 @@ async function folder(app:App,path:string):Promise<void>{
 }
 export class NativeJwModal extends Modal{
  private busy=false;
+ private pendingDownload:{name:string;bytes:Uint8Array}|null=null;
  constructor(app:App,private rootFolder:string){super(app);}
  onOpen():void{this.contentEl.addClass('biblelab-native-modal');this.menu();}
  private screen(title:string,subtitle:string):HTMLElement{
@@ -38,14 +45,18 @@ export class NativeJwModal extends Modal{
    b.addEventListener('click',callback);
  }
  private menu():void{
-   const root=this.screen('Bibliothèque personnelle','Import direct, sans script et sans envoi de fichiers. Les originaux ne sont jamais modifiés.');
-   this.action(root,'Importer une publication JWPUB','Déchiffrement local, articles et illustrations au format Markdown','▤',()=>void this.load('jwpub'));
+   this.pendingDownload=null;
+   const root=this.screen('Bibliothèque personnelle','Import local · fichiers personnels conservés dans le coffre.');
+   this.action(root,'Bibliothèque hors ligne','Mes publications et téléchargements officiels','▧',()=>void this.library());
+   this.action(root,'Importer une publication JWPUB','Instructions, écoles, revues et autres fichiers personnels','▤',()=>void this.load('jwpub'));
    this.action(root,'Importer une sauvegarde JW Library','Notes, étiquettes, identifiants et tableau de recherche','◈',()=>void this.load('jwlibrary'));
    this.action(root,'Créer une sauvegarde JW Library','Comparer les notes éditées avant de générer une copie','⇄',()=>void this.exportFlow());
    root.createEl('p',{cls:'biblelab-native-footnote',text:'Sauvegardes : schémas SQLite 14 à 16. L’export doit être testé sur un profil JW Library vierge avant toute restauration réelle.'});
  }
  private async load(kind:'jwpub'|'jwlibrary'):Promise<void>{
-   if(this.busy)return;const file=await selectFile(kind==='jwpub'?'.jwpub':'.jwlibrary');if(!file)return;
+   if(this.busy)return;
+   this.pendingDownload=null;
+   const file=await selectFile(kind==='jwpub'?'.jwpub':'.jwlibrary');if(!file)return;
    this.busy=true;
    const root=this.screen('Analyse de '+file.name,'Lecture locale en cours…');
    const loading=root.createEl('p',{cls:'biblelab-native-loading',text:'Vérification des données…'});
