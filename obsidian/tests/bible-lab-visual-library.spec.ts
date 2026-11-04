@@ -121,7 +121,7 @@ test('Uses a cover only when a local imported asset exists',async({page})=>{
    const root=plugin.settings.noteFolder+'/Imports/Une publication avec couverture';
    await app.vault.createFolder(root);
    await app.vault.createFolder(root+'/assets');
-   await app.vault.createBinary(root+'/assets/cover.png',new Uint8Array([137,80,78,71]).buffer);
+   await app.vault.createBinary(root+'/assets/cover.png',Uint8Array.from(atob('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9WEnKl4AAAAASUVORK5CYII='),x=>x.charCodeAt(0)).buffer);
    await app.vault.create(root+'/001 · Avant-propos.md','# Avant-propos\n\nLire et méditer.');
    await app.vault.create(root+'/_BIBLE_LAB_OFFLINE_INDEX.json',JSON.stringify({
      schema:1,origin:'personal',publication:{symbol:'lff',year:2026,language:3,title:'Publication illustrée'},
