@@ -56,6 +56,7 @@ export class NativeJwModal extends Modal{
 
  /** The public catalog is queried only after a direct click. */
  public openOfflineLibrary():void{this.open();void this.library();}
+ public openImportJwpub():void{this.open();void this.load('jwpub');}
  private async library():Promise<void>{
    const root=this.screen('Bibliothèque hors ligne',
      'Tes publications personnelles et officielles · aucune synchronisation par Bible Lab.');
