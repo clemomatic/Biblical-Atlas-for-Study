@@ -1257,3 +1257,15 @@
 @media(prefers-reduced-motion:reduce){
   .biblelab-quick-capture *{transition:none!important;animation:none!important}
 }
+
+
+/* Phase 5 · Connections and research dossier */
+.biblelab-idea-connections{margin:12px 0;padding:12px;border:1px solid var(--background-modifier-border);border-radius:12px;background:var(--background-secondary)}
+.biblelab-idea-connections>p{font-size:var(--font-ui-small);color:var(--text-muted);margin:6px 0 10px}
+.biblelab-connection-row{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px 0;border-top:1px solid var(--background-modifier-border)}
+.biblelab-connection-row>span:first-child{flex:1 1 150px;font-weight:600;overflow-wrap:anywhere}
+.biblelab-connection-count{font-size:var(--font-ui-smaller);color:var(--text-muted)}
+.biblelab-dossier-actions{margin:16px 0;padding:14px;border-radius:14px;border:1px solid var(--background-modifier-border);background:var(--background-secondary)}
+.biblelab-dossier-actions>strong{display:block;margin-bottom:6px}
+.biblelab-dossier-actions>p{color:var(--text-muted);font-size:var(--font-ui-small);margin:0 0 12px}
+.biblelab-dossier-actions .biblelab-btn{margin:0 8px 8px 0}
