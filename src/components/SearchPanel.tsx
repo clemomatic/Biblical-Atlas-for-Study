@@ -442,6 +442,12 @@ export const SearchPanel: React.FC<SearchPanelProps> = ({
   }, [isOpen]);
 
   useEffect(() => {
+    if (!isOpen || !activeItem) return;
+    const element = document.getElementById(activeItem.key);
+    element?.scrollIntoView({ behavior: 'auto', block: 'nearest' });
+  }, [activeIndex, isOpen, activeItem]);
+
+  useEffect(() => {
     if (!isOpen) return;
     const handleKeyDown = (event: KeyboardEvent) => {
       if (dialogRef.current?.getRootNode() instanceof ShadowRoot && !event.composedPath().includes(dialogRef.current)) return;
