@@ -25,7 +25,6 @@ test('Daily Text and current meeting on WOL both appear in the homepage',async({
    status:200,contentType:'text/html',body:dailyHtml}));
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-focus-today > summary').click();
- await pane.getByRole('button',{name:'Actualiser'}).click();
  await expect(pane.getByText('Je n’éprouverai pas de rancœur',{exact:false})).toBeVisible();
  await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux',{exact:false})).toBeVisible();
  await expect(pane.getByText('Engage la conversation',{exact:false})).toBeVisible();
@@ -48,7 +47,6 @@ test('JW.org monthly issue is used when the WOL page has only Daily Text',async(
    body:route.request().url().includes('Programme-')?meeting:issue}));
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-focus-today > summary').click();
- await pane.getByRole('button',{name:'Actualiser'}).click();
  await expect(pane.getByText('Je n’éprouverai pas de rancœur',{exact:false})).toBeVisible();
  await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux',{exact:false})).toBeVisible();
  await expect(pane.getByRole('button',{name:'Préparer en note'})).toBeVisible();
