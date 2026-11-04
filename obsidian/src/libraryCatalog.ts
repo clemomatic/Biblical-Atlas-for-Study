@@ -38,6 +38,14 @@ export function classifyLibraryVolume(symbol:string,title:string):LibraryVolume[
   return 'other';
 }
 
+/** An internal JW Library publication link. This is not a public WOL URL. */
+export function jwpubPublicationId(link:string):number|null {
+  const match=/^jwpub:\/\/p\/[A-Za-z0-9_-]+:(\d+)(?:\/[^\s]*)?$/.exec(link);
+  if(!match)return null;
+  const id=Number(match[1]);
+  return Number.isSafeInteger(id)&&id>0?id:null;
+}
+
 export const LIBRARY_FILTERS:ReadonlyArray<{
   id:LibraryCategory;title:string;icon:string
 }>=[
