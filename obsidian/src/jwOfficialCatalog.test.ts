@@ -16,7 +16,7 @@ test('Download identity preserves magazine issue, refuses unsafe services',()=>{
  assert.deepEqual(parseOfficialDownloadLink(href.replace('issue=202609','issue=202701')),{symbol:'w',issue:'202701'});
  assert.equal(parseOfficialDownloadLink(href.replace('b.jw-cdn.org','evil.invalid')),null);
  assert.equal(parseOfficialDownloadLink(href.replace('issue=202609','issue=../../foo')),null);
- assert.equal(parseOfficialDownloadLink('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?pub=co-pgm26'),
+ assert.deepEqual(parseOfficialDownloadLink('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?pub=co-pgm26'),
  {symbol:'co-pgm26',issue:''});
 });
 test('Only genuine official cover hosts are accepted',()=>{
