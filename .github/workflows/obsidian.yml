@@ -39,7 +39,13 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       # Bible Lab research workflow tests run before legacy suites; several older
       # unrelated lookup tests are known to stop the broad suite early.
-      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/bible-lab-core-regression.spec.ts obsidian/tests/bible-lab-research-plan.spec.ts obsidian/tests/bible-lab-collection.spec.ts obsidian/tests/bible-lab-archive.spec.ts obsidian/tests/bible-lab-quick-capture.spec.ts obsidian/tests/bible-lab-backup-restore.spec.ts --project=desktop --workers=1 --max-failures=3
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/bible-lab-core-regression.spec.ts obsidian/tests/bible-lab-research-plan.spec.ts obsidian/tests/bible-lab-collection.spec.ts obsidian/tests/bible-lab-archive.spec.ts obsidian/tests/bible-lab-quick-capture.spec.ts obsidian/tests/bible-lab-backup-restore.spec.ts obsidian/tests/bible-lab-minimal-workspace.spec.ts obsidian/tests/bible-lab-visual.spec.ts --project=desktop --workers=1 --max-failures=3
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: bible-lab-design-preview
+          path: test-results/bible-lab-preview-*.png
+          if-no-files-found: ignore
       # Run the new editorial reading coverage independently; the broad legacy
       # suite can hit unrelated pre-existing failures before reaching these tests.
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/reader-editorial.spec.ts --project=desktop --workers=1

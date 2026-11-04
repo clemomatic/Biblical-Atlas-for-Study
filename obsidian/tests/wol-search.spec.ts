@@ -61,6 +61,7 @@ test('Index, Guide and Perspicace use official WOL source filters',async({page})
 
 test('Sentence match and bibliographic citations open correct official page',async({page})=>{
   const pane=page.locator('.biblelab-side');
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await pane.locator('.biblelab-search-advanced').first().evaluate((el:HTMLDetailsElement)=>{el.open=true;});
   await pane.getByRole('combobox',{name:'Type de correspondance WOL'}).selectOption('sen');
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('amour fidèle');
@@ -93,8 +94,9 @@ test('Local reading remains a separate choice from browser-based WOL research',a
     body:JSON.stringify({ranges:{'43007024':{citation:'Jean 7:24',html:'<p>Jugez avec justice.</p>'}}})
   }));
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Jean 7:24');
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await pane.getByRole('button',{name:'Lire dans le panneau'}).click();
-  await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
+  await expect(pane.locator('.biblelab-focused-reading')).toBeVisible();
   await expect(pane.getByText('Jugez avec justice.')).toBeVisible();
   expect(await page.evaluate(()=>(window as any).atlasTest.app.workspace
     .getLeavesOfType('webviewer').length)).toBe(0);

@@ -45,7 +45,8 @@ test.beforeEach(async({page})=>{
  await page.goto('/obsidian/dev/index.html');
  await page.waitForFunction(()=>(window as any).atlasTest?.ready);
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
- await page.locator('.biblelab-side').getByRole('button',{name:'Studio'}).click();
+ await page.locator('.biblelab-overflow > summary').click();
+ await page.locator('.biblelab-side').getByRole('button',{name:'Studio et outils avancés'}).click();
  await page.getByRole('button',{name:'Ouvrir la passerelle'}).click();
 });
 test('JWPUB opens and decrypts locally, then writes an editable Markdown note',async({page})=>{

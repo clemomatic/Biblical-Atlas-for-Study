@@ -24,7 +24,7 @@ test('Daily Text and current meeting on WOL both appear in the homepage',async({
  await page.route('https://wol.jw.org/fr/wol/dt/**',route=>route.fulfill({
    status:200,contentType:'text/html',body:dailyHtml}));
  const pane=page.locator('.biblelab-side');
- await pane.getByRole('button',{name:'Actualiser'}).click();
+ await pane.locator('.biblelab-focus-today > summary').click();
  await expect(pane.getByText('Je n’éprouverai pas de rancœur',{exact:false})).toBeVisible();
  await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux',{exact:false})).toBeVisible();
  await expect(pane.getByText('Engage la conversation',{exact:false})).toBeVisible();
@@ -46,7 +46,7 @@ test('JW.org monthly issue is used when the WOL page has only Daily Text',async(
  await page.route('https://www.jw.org/fr/**',route=>route.fulfill({status:200,contentType:'text/html',
    body:route.request().url().includes('Programme-')?meeting:issue}));
  const pane=page.locator('.biblelab-side');
- await pane.getByRole('button',{name:'Actualiser'}).click();
+ await pane.locator('.biblelab-focus-today > summary').click();
  await expect(pane.getByText('Je n’éprouverai pas de rancœur',{exact:false})).toBeVisible();
  await expect(pane.getByText('Jéhovah est un juge juste et miséricordieux',{exact:false})).toBeVisible();
  await expect(pane.getByRole('button',{name:'Préparer en note'})).toBeVisible();
@@ -65,6 +65,7 @@ test('Official WOL search opens its actual page in Obsidian while quick article 
    .getLeavesOfType('webviewer')[0].view.getState().url);
  expect(new URL(url).searchParams.get('q')).toBe('compassion');
  await pane.locator('input[type="search"]').first().fill('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642');
+ await pane.locator('.biblelab-wol-extras > summary').click();
  await pane.getByRole('button',{name:'Lire dans le panneau'}).click();
  await expect(pane.getByText('Jésus manifestait une compassion profonde envers autrui.')).toBeVisible();
 });

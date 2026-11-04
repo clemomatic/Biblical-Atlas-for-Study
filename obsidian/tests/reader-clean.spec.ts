@@ -66,7 +66,8 @@ test('Long WOL article keeps section hierarchy, excludes answer widgets and prog
   app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
  });
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-overflow > summary').click();
+ await pane.getByRole('button',{name:'Lire les références'}).click();
  await pane.locator('.biblelab-reader-summary').filter({hasText:'Étude'}).first().click();
  await expect(pane.getByText('UN EXEMPLE DE BONTÉ')).toBeVisible();
  await expect(pane.getByText('1. Que montre cet exemple ?')).toBeVisible();
@@ -90,7 +91,8 @@ test('WOL article titles and paragraphs decode literal &nbsp; and twice-escaped 
   app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
  });
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-overflow > summary').click();
+ await pane.getByRole('button',{name:'Lire les références'}).click();
  await pane.locator('.biblelab-reader-summary').filter({hasText:'Lire cet article'}).first().click();
  await expect(pane.getByText('Étudier la bonté',{exact:true})).toBeVisible();
  await expect(pane.getByText('Jésus aimait les gens.',{exact:true})).toBeVisible();
@@ -124,6 +126,7 @@ test('reference insertion never writes to an unrelated open Markdown file',async
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
  await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Jean 7:24');
+ await pane.locator('.biblelab-wol-extras > summary').click();
  await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
  await pane.getByRole('button',{name:'Insérer le lien'}).click();
  expect(await page.evaluate(()=>(window as any).atlasTest.file('Mes notes/Autre.md'))).toBe('Note à préserver');

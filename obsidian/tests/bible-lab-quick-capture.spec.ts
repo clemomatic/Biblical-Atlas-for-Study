@@ -15,6 +15,7 @@ test('A visible one-click action captures the known WOL paragraph without readin
     label:'Article sur l’amitié',url,kind:'document',origin:'pinned'
   }),WOL_A);
   const pane=page.locator('.biblelab-side');
+  await pane.locator('.biblelab-tab[aria-label="Trouvailles"]').click();
   await expect(pane.locator('.biblelab-quick-capture').first()).toContainText('Document WOL · 2024663');
   await pane.locator('.biblelab-quick-capture').first()
     .getByRole('button',{name:'Garder le lien WOL'}).click();
@@ -37,6 +38,7 @@ test('A copied passage is captured with its known WOL source via one explicit cl
     }});
   },WOL_A);
   const pane=page.locator('.biblelab-side');
+  await pane.locator('.biblelab-tab[aria-label="Trouvailles"]').click();
   await pane.locator('.biblelab-quick-capture').first()
     .getByRole('button',{name:'Garder le texte copié'}).click();
   await expect(pane.locator('.biblelab-tab[aria-label="Trouvailles"]')).toHaveAttribute('aria-selected','true');
@@ -53,12 +55,14 @@ test('With several indistinguishable WOL tabs, source selection is requested bef
     await plugin.openWolArticleTab({label:'Deuxième',url:second,kind:'document',origin:'pinned'});
   },[WOL_A,WOL_B]);
   const pane=page.locator('.biblelab-side');
+  await pane.locator('.biblelab-tab[aria-label="Trouvailles"]').click();
   await expect(pane.locator('.biblelab-quick-capture').first())
     .toContainText('Plusieurs pages WOL');
   await pane.locator('.biblelab-quick-capture').first()
     .getByRole('button',{name:'Garder le lien WOL'}).click();
   const collection=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchCollection());
   expect(collection.captures).toHaveLength(0);
+  await pane.locator('.biblelab-manual-capture > summary').click();
   await pane.getByRole('combobox',{name:'Onglet WOL à conserver'}).selectOption(WOL_B);
   await pane.getByRole('button',{name:'Utiliser ce lien'}).click();
   await pane.getByRole('textbox',{name:'Nom de la trouvaille'}).fill('Référence pour une autre étude');

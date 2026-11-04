@@ -20,7 +20,8 @@ test('Read Bible citations inside a WOL article without losing the previous arti
   app.workspace.activeFile=f;app.workspace.trigger('file-open',f);
  });
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-overflow > summary').click();
+ await pane.getByRole('button',{name:'Lire les références'}).click();
  await pane.locator('.biblelab-reader-summary').filter({hasText:'Article'}).first().click();
  const contentPane=pane.locator('.biblelab-reader-contents').first();
  await expect(contentPane.getByText('Jésus a manifesté une profonde compassion', {exact:false})).toBeVisible();
@@ -51,7 +52,8 @@ test('Long article shows a section outline and adjustable readable typography',a
   app.workspace.activeFile=f;app.workspace.trigger('file-open',f);
  });
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-overflow > summary').click();
+ await pane.getByRole('button',{name:'Lire les références'}).click();
  await pane.locator('.biblelab-reader-summary').filter({hasText:'Lire'}).first().click();
  const articleNode=pane.locator('.biblelab-article-reading');
  await expect(articleNode).toBeVisible();

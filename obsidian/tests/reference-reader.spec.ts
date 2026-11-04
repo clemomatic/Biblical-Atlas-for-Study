@@ -18,7 +18,8 @@ test('References sidebar scans plain scripture, WOL markdown links and bracket p
    app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
  });
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-overflow > summary').click();
+ await pane.getByRole('button',{name:'Lire les références'}).click();
  await expect(pane.getByText('Enquête WOL')).toBeVisible();
  for(const label of ['Matthieu 10:29','Jean 7:24','w24 Novembre p. 14-19','Article cité'])
    await expect(pane.locator('.biblelab-reader-labels strong').filter({hasText:label})).toBeVisible();
@@ -42,7 +43,7 @@ test('Study Bible verse expands in place, displaying the verse, notes and nested
  const preview=page.getByRole('dialog',{name:'Aperçu biblique : Matthieu 10:29'});
  await expect(preview).toBeVisible();
  await preview.getByRole('button',{name:'Dans le panneau'}).click();
- await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
+ await expect(pane.locator('.biblelab-focused-reading')).toBeVisible();
  await expect(pane.getByText('Deux moineaux ne se vendent-ils pas')).toBeVisible();
  const related=pane.getByText('Notes et références liées');
  await related.click();
@@ -60,7 +61,8 @@ test('Article link uses original WOL document URL and displays readable source p
    app.workspace.activeFile=file;app.workspace.trigger('file-open',file);
  });
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+ await pane.locator('.biblelab-overflow > summary').click();
+ await pane.getByRole('button',{name:'Lire les références'}).click();
  await pane.locator('.biblelab-reader-summary').filter({hasText:'Article original'}).click();
  await expect(pane.getByText('Un raisonnement approfondi pour l’étude.')).toBeVisible();
  await expect(pane.getByText('Seconde idée à méditer.')).toBeVisible();
@@ -82,7 +84,8 @@ test('w24 Novembre bibliography resolves to a real WOL article and opens its sou
     window.open=((url:string|URL|undefined)=>{(window as any).outgoingWol.push(String(url));return null;}) as typeof window.open;
   });
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="Références"]').click();
+  await pane.locator('.biblelab-overflow > summary').click();
+ await pane.getByRole('button',{name:'Lire les références'}).click();
   const item=pane.locator('.biblelab-reader').filter({hasText:'w24 Novembre p. 14-19'}).first();
   await item.locator('.biblelab-reader-summary').first().click();
   await expect(item.getByText('Un texte intégral lisible depuis le volet de références.')).toBeVisible();
@@ -114,6 +117,7 @@ test('publication reference search opens bibliographic lookup URL with + encoded
   const pane=page.locator('.biblelab-side');
   await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('w24 Novembre p. 14-19');
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
   await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
   const search=await page.evaluate(()=>(window as any).atlasTest.app.workspace

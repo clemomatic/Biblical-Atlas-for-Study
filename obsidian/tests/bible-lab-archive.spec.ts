@@ -10,6 +10,7 @@ test.beforeEach(async({page})=>{
 test('A saved WOL source can be tagged, starred, archived and recovered without losing its origin',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.locator('.biblelab-tab[aria-label="Trouvailles"]').click();
+  await pane.locator('.biblelab-manual-capture > summary').click();
   await pane.getByRole('textbox',{name:'Nom de la trouvaille'}).fill('L’exemple de Jésus');
   await pane.getByRole('textbox',{name:'Extrait collecté'}).fill('Jésus a manifesté son amitié.');
   await pane.getByRole('textbox',{name:'Lien WOL précis'})
@@ -54,6 +55,7 @@ test('Recent searches are kept by research scope, can be resumed and never chang
   await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
   await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
   await expect(pane.locator('.biblelab-history-row')).toHaveCount(1);
+  await pane.locator('.biblelab-history > summary').click();
   await expect(pane.locator('.biblelab-history-row').getByText('amitié des anciens')).toBeVisible();
   await pane.locator('.biblelab-history-row').getByRole('button',{name:'Reprendre la recherche'}).click();
   const state=await page.evaluate(()=>({
@@ -71,6 +73,7 @@ test('Recent searches are kept by research scope, can be resumed and never chang
 test('Indexing retains ideas and makes unclassified captures searchable by comment',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.locator('.biblelab-tab[aria-label="Trouvailles"]').click();
+  await pane.locator('.biblelab-manual-capture > summary').click();
   await pane.getByRole('textbox',{name:'Nom de la trouvaille'}).fill('Une piste');
   await pane.getByRole('textbox',{name:'Pourquoi garder cette découverte'}).fill('Courage face à l’injustice');
   await pane.getByRole('button',{name:'Ajouter au bac'}).click();

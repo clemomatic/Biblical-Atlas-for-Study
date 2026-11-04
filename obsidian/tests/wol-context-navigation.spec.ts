@@ -120,6 +120,7 @@ test('WOL contextual /pc/ links open both in native browser and quick reading pa
  const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace
    .getLeavesOfType('webviewer')[0].view.getState().url);
  expect(url).toBe(context);
+ await pane.locator('.biblelab-wol-extras > summary').click();
  await pane.getByRole('button',{name:'Lire dans le panneau'}).click();
  await waitFor(page,'La recherche ouvre correctement');
 });
