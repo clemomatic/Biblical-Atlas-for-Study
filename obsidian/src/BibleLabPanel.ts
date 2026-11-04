@@ -103,6 +103,8 @@ export class BibleLabSidebarView extends ItemView {
   private homePlanOpen=false;
   private homeTodayOpen=false;
   private homeIdeaFocus:string|null=null;
+  private expandedIdeaIds=new Set<string>();
+  private manualCaptureOpen=false;
   private tabScroll=new Map<Tab,number>();
   private scroller!: HTMLElement;
   private tabs!: HTMLElement;
@@ -496,6 +498,7 @@ export class BibleLabSidebarView extends ItemView {
       const next=addResearchIdea(this.collection,this.researchDesk.activeId);
       if(next===this.collection){new Notice('Le nombre maximal de fiches est atteint.');return;}
       this.homeIdeaFocus=next.ideas[0]?.id||null;
+      if(this.homeIdeaFocus)this.expandedIdeaIds.add(this.homeIdeaFocus);
       this.updateCollection(next,false);
       this.setTab('collect');
     });
@@ -508,6 +511,7 @@ export class BibleLabSidebarView extends ItemView {
         const next=addResearchIdea(this.collection,this.researchDesk.activeId);
         if(next===this.collection)return;
         this.homeIdeaFocus=next.ideas[0]?.id||null;
+        if(this.homeIdeaFocus)this.expandedIdeaIds.add(this.homeIdeaFocus);
         this.updateCollection(next,false);this.setTab('collect');
       });
     }
@@ -520,7 +524,7 @@ export class BibleLabSidebarView extends ItemView {
       text.createSpan({text:idea.captureIds.length+' référence(s)'});
       const arrow=item.createSpan({cls:'biblelab-focus-chevron'});setIcon(arrow,'chevron-right');
       item.addEventListener('click',()=>{
-        this.homeIdeaFocus=idea.id;this.setTab('collect');
+        this.homeIdeaFocus=idea.id;this.expandedIdeaIds.add(idea.id);this.setTab('collect');
       });
     }
     if(ideas.length>4)
@@ -1236,21 +1240,35 @@ export class BibleLabSidebarView extends ItemView {
   private renderIdeaCard(parent:HTMLElement,ideaId:string):void{
     const idea=this.collection.ideas.find(item=>item.id===ideaId);
     if(!idea)return;
-    const box=parent.createDiv({cls:'biblelab-idea-card',attr:{'data-idea-id':idea.id}});
-    const head=box.createDiv({cls:'biblelab-idea-head'});
+    const box=parent.createEl('details',{cls:'biblelab-idea-card',attr:{'data-idea-id':idea.id}});
+    box.open=this.expandedIdeaIds.has(idea.id);
+    box.addEventListener('toggle',()=>{
+      if(!box.isConnected)return;
+      if(box.open)this.expandedIdeaIds.add(idea.id);
+      else this.expandedIdeaIds.delete(idea.id);
+    });
+    const summary=box.createEl('summary',{cls:'biblelab-idea-summary'});
+    const ideaIcon=summary.createSpan();setIcon(ideaIcon,'lightbulb');
+    const title=summary.createSpan({cls:'biblelab-idea-summary-text'});
+    title.createEl('strong',{text:idea.statement||'Idée à formuler'});
+    title.createSpan({text:idea.captureIds.length+' référence(s)'});
+    const chevron=summary.createSpan({cls:'biblelab-idea-summary-chevron'});
+    setIcon(chevron,'chevron-down');
+    const body=box.createDiv({cls:'biblelab-idea-body'});
+    const head=body.createDiv({cls:'biblelab-idea-head'});
     head.createSpan({text:'FICHE D’IDÉE'});
     button(head,'Supprimer la fiche','trash-2',()=>{
       if(!window.confirm('Supprimer cette fiche ? Les références restent dans le bac.'))return;
       this.updateCollection(deleteResearchIdea(this.collection,idea.id));
     });
-    const statement=box.createEl('textarea',{attr:{
+    const statement=body.createEl('textarea',{attr:{
       'aria-label':'Phrase principale de l’idée',placeholder:'Exprime ton idée en une phrase…',rows:'2'
     }});
     statement.value=idea.statement;
     statement.addEventListener('change',()=>{
       this.updateCollection(renameResearchIdea(this.collection,idea.id,statement.value),false);
     });
-    const list=box.createDiv({cls:'biblelab-idea-sources'});
+    const list=body.createDiv({cls:'biblelab-idea-sources'});
     const references=idea.captureIds.map(id=>this.collection.captures.find(item=>item.id===id))
       .filter((item):item is ResearchCapture=>!!item);
     for(const [index,source] of references.entries()){
@@ -1272,17 +1290,17 @@ export class BibleLabSidebarView extends ItemView {
     }
     const available=this.collection.captures.filter(item=>!idea.captureIds.includes(item.id));
     if(available.length){
-      const assign=box.createDiv({cls:'biblelab-idea-add-source'});
+      const assign=body.createDiv({cls:'biblelab-idea-add-source'});
       const select=assign.createEl('select',{attr:{'aria-label':'Référence à ajouter à la fiche'}});
       for(const item of available)select.createEl('option',{text:item.label,attr:{value:item.id}});
       button(assign,'Ajouter cette référence','plus',()=>this.updateCollection(
         assignCaptureToIdea(this.collection,idea.id,select.value)));
-    }else if(!references.length)box.createEl('p',{cls:'biblelab-plan-empty',
+    }else if(!references.length)body.createEl('p',{cls:'biblelab-plan-empty',
       text:'Collecte une référence dans ton bac, puis ajoute-la ici.'});
-    const preview=box.createDiv({cls:'biblelab-idea-preview'});
+    const preview=body.createDiv({cls:'biblelab-idea-preview'});
     preview.createSpan({text:'APERÇU POUR LA NOTE'});
     preview.createEl('p',{text:ideaMarkdown(idea,this.collection)||'Ton idée et ses références apparaîtront ici.'});
-    const actions=box.createDiv({cls:'biblelab-plan-toolbar'});
+    const actions=body.createDiv({cls:'biblelab-plan-toolbar'});
     button(actions,'Copier phrase et références','copy',()=>{
       const current=this.collection.ideas.find(item=>item.id===idea.id);
       const markdown=current&&ideaMarkdown(current,this.collection);
@@ -1297,8 +1315,16 @@ export class BibleLabSidebarView extends ItemView {
   }
   private renderCollection():void{
     heading(this.scroller,'Mes trouvailles','Capture libre et fiches d’idées · tu organises quand tu veux.');
-    this.renderQuickCapture(this.scroller);
-    this.renderCaptureForm(this.scroller);
+    this.renderQuickCapture(this.scroller,true);
+    const manual=this.scroller.createEl('details',{cls:'biblelab-manual-capture'});
+    manual.open=this.manualCaptureOpen;
+    manual.addEventListener('toggle',()=>{
+      if(manual.isConnected)this.manualCaptureOpen=manual.open;
+    });
+    const manualSummary=manual.createEl('summary');
+    const manualIcon=manualSummary.createSpan();setIcon(manualIcon,'plus-circle');
+    manualSummary.createSpan({text:'Ajouter une trouvaille manuellement'});
+    this.renderCaptureForm(manual);
     const groups=this.scroller.createDiv({cls:'biblelab-collect-groups'});
     const inbox=this.inboxItems();
     const inboxHeader=groups.createDiv({cls:'biblelab-section-head'});
@@ -1308,8 +1334,12 @@ export class BibleLabSidebarView extends ItemView {
     for(const item of inbox)this.renderCaptureRow(groups,item);
     const ideas=groups.createDiv({cls:'biblelab-section-head'});
     ideas.createEl('h3',{text:'MES FICHES D’IDÉES · '+this.collection.ideas.length});
-    button(ideas,'Nouvelle fiche d’idée','plus',()=>this.updateCollection(
-      addResearchIdea(this.collection,this.researchDesk.activeId)),true);
+    button(ideas,'Nouvelle fiche d’idée','plus',()=>{
+      const next=addResearchIdea(this.collection,this.researchDesk.activeId);
+      if(next===this.collection)return;
+      if(next.ideas[0])this.expandedIdeaIds.add(next.ideas[0].id);
+      this.updateCollection(next);
+    },true);
     for(const idea of this.collection.ideas)this.renderIdeaCard(groups,idea.id);
     if(this.homeIdeaFocus){
       const focusId=this.homeIdeaFocus;this.homeIdeaFocus=null;
@@ -1413,13 +1443,17 @@ export class BibleLabSidebarView extends ItemView {
   private renderArchive():void{
     heading(this.scroller,'Mon index personnel',
       'Retrouve tes sources, classe-les librement et reprends tes recherches.');
-    const safety=this.scroller.createDiv({cls:'biblelab-backup-actions'});
-    const safetyHeader=safety.createDiv({cls:'biblelab-backup-header'});
+    const safety=this.scroller.createEl('details',{cls:'biblelab-backup-actions'});
+    const safetySummary=safety.createEl('summary');
+    const safeIcon=safetySummary.createSpan();setIcon(safeIcon,'shield-check');
+    safetySummary.createSpan({text:'Sauvegarder ou restaurer'});
+    const safetyBody=safety.createDiv({cls:'biblelab-backup-contents'});
+    const safetyHeader=safetyBody.createDiv({cls:'biblelab-backup-header'});
     const badge=safetyHeader.createSpan();setIcon(badge,'shield-check');
     const description=safetyHeader.createDiv();
     description.createEl('strong',{text:'Protéger mes recherches'});
     description.createEl('p',{text:'Sauvegarde locale de tes plans, trouvailles, fiches et étiquettes, sans modifier les notes du coffre.'});
-    const safetyButtons=safety.createDiv({cls:'biblelab-backup-buttons'});
+    const safetyButtons=safetyBody.createDiv({cls:'biblelab-backup-buttons'});
     button(safetyButtons,'Créer une sauvegarde','download',()=>{
       void this.host.exportResearchBackup().catch(error=>
         new Notice('Sauvegarde impossible : '+(error instanceof Error?error.message:'erreur inconnue.')));
