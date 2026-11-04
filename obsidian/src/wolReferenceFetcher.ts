@@ -1031,6 +1031,17 @@ export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
    };
  }
 }
+let localReferenceResolver:((ref:ReferenceEntry)=>Promise<ReaderResult|null>)|null=null;
+/** Register a local-only document library. The official reader remains the fallback. */
+export function setLocalReferenceResolver(
+  resolver:((ref:ReferenceEntry)=>Promise<ReaderResult|null>)|null
+):void {localReferenceResolver=resolver;}
 export async function fetchReferenceContent(ref:ReferenceEntry):Promise<ReaderResult>{
- return ref.kind==='scripture'?fetchStudyVerse(ref):fetchPublication(ref);
+  if(localReferenceResolver){
+    try{
+      const saved=await localReferenceResolver(ref);
+      if(saved?.lines.length)return saved;
+    }catch{/* Never prevent the official reader from handling the source. */}
+  }
+  return ref.kind==='scripture'?fetchStudyVerse(ref):fetchPublication(ref);
 }

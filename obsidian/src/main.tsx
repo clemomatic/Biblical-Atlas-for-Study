@@ -55,6 +55,8 @@ import { saveDailyStudy, saveWeeklyStudy } from './studyNoteBuilder';
 import type { DayPreview, MeetingPreview } from './studyLive';
 import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
 import { NativeJwModal } from './NativeJwModal';
+import { setLocalReferenceResolver } from './wolReferenceFetcher';
+import { resolveOfflineDocument } from './offlineReferenceLibrary';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -330,6 +332,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       this.refreshWolCaptureIndicators();
     }));
     this.registerView(BIBLE_LAB_ARTICLE_VIEW, leaf => new BibleLabArticleView(leaf, this.openWolArticleTab));
+    setLocalReferenceResolver(ref=>resolveOfflineDocument(this.app,this.settings.noteFolder,ref));
+    this.register(()=>setLocalReferenceResolver(null));
     this.wolClipBridge=new WolContextCaptureBridge(this.app,this.saveWolQuote);
     this.wolClipBridge.start();
     this.register(()=>{this.wolClipBridge?.stop();this.wolClipBridge=undefined;});
@@ -342,6 +346,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
     this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
+    this.addCommand({ id: 'personal-offline-jwpub-library',
+      name: 'Ouvrir ma bibliothèque JWPUB hors ligne',
+      callback: this.openOfflineLibrary });
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (onglet web)', editorCallback: editor => { const term=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim(); if(term)this.run(this.openWolSearchTab(wolResearchUrl(term,{match:'par',scope:'all'}))); } });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({
@@ -466,6 +473,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }).open();
   };
   openNativeBridge = ():void => {new NativeJwModal(this.app,this.settings.noteFolder).open();};
+  openOfflineLibrary = ():void => {
+    new NativeJwModal(this.app,this.settings.noteFolder).openOfflineLibrary();
+  };
   importMarkdownArchive = ():void => {
     this.run((async()=>{
       const file=await chooseMarkdownZip();

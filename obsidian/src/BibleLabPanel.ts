@@ -63,6 +63,7 @@ export interface BibleLabHost {
   inspectArchive: () => void;
   importMarkdownArchive: () => void;
   openNativeBridge: () => void;
+  openOfflineLibrary: () => void;
   saveDailyStudy: (day: import('./studyLive').DayPreview,date:Date) => void;
   saveWeeklyStudy: (week: import('./studyLive').MeetingPreview,date:Date) => void;
 }
@@ -670,7 +671,8 @@ export class BibleLabSidebarView extends ItemView {
     button(investigation.createDiv({cls:'biblelab-buttons'}),'Nouvelle enquête','network',()=>this.host.newResearch([]),true);
     const archive=card(this.scroller,'Passerelles JW Library','Imports JWPUB et sauvegardes directement dans Obsidian.');
     const archiveActions=archive.createDiv({cls:'biblelab-buttons'});
-    button(archiveActions,'Ouvrir la passerelle','arrow-left-right',()=>this.host.openNativeBridge(),true);
+    button(archiveActions,'Bibliothèque hors ligne','hard-drive-download',()=>this.host.openOfflineLibrary(),true);
+    button(archiveActions,'Ouvrir la passerelle','arrow-left-right',()=>this.host.openNativeBridge());
     button(archiveActions,'Importer un ZIP Markdown','folder-input',()=>this.host.importMarkdownArchive());
     button(archiveActions,'Inspecter','file-archive',()=>this.host.inspectArchive());
     const archiveInfo=archive.createEl('details',{cls:'biblelab-disclosure'});
