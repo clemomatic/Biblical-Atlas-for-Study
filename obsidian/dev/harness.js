@@ -59,7 +59,8 @@ class Vault extends Emitter {
 }
 class MarkdownView {}
 class ItemView {
-  constructor(leaf) { this.leaf = leaf; this.app = app; this.containerEl = leaf.containerEl; this.contentEl = this.containerEl.createDiv({ cls: 'view-content' }); }
+  constructor(leaf) { this.leaf = leaf; this.app = app; this.containerEl = leaf.containerEl; this.contentEl = this.containerEl.createDiv({ cls: 'view-content' }); this.eventRefs=[]; }
+  registerEvent(ref){this.eventRefs.push(ref);}
 }
 class Leaf {
   constructor() { this.containerEl = element('div', { cls: 'workspace-leaf-content' }); this.containerEl.style.height = '100%'; }
