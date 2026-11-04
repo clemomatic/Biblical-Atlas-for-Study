@@ -17,7 +17,7 @@ export function normalizeLibrarySearch(input:string):string{
 }
 export function classifyLibraryPublication(symbol:string,title:string):Exclude<LibraryGroup,'all'> {
   const s=symbol.toLowerCase(),t=normalizeLibrarySearch(title);
-  if(/^(nwt|bi|rbi|nwtsty|int|nwtss)/.test(s)||/(?:^|\s)(bible|ecritures|traduction du monde nouveau)(?:\s|$)/.test(t))
+  if(/^(nwt|bi|rbi|nwtsty|int|nwtss)/.test(s)||/(?:^|\s)(bible|saintes ecritures|traduction du monde nouveau)(?:\s|$)/.test(t))
     return 'bible';
   if(/^(w\d|wp|g\d|g!|awake|w$|g$|km)/.test(s)||/tour de garde|reveillez-vous/.test(t))
     return 'revue';
