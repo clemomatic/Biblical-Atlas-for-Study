@@ -29,7 +29,6 @@ test('Actual WOL daily+week shape loads both panels from one official page',asyn
  });
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-focus-today > summary').click();
- await pane.getByRole('button',{name:'Actualiser'}).click();
  await expect(pane.getByText(/Si l’un de vous manque de sagesse/)).toBeVisible();
  await expect(pane.getByText('Aidons les autres à bénéficier de la miséricorde de Jéhovah',{exact:false})).toBeVisible();
  await expect(pane.getByText('Engage la conversation',{exact:false})).toBeVisible();
@@ -49,7 +48,6 @@ test('When WOL has only Daily Text, retrieve week from the JW.org publication',a
     '<html><main><h1>2-8 NOVEMBRE</h1><h2>JÉRÉMIE 49-50</h2><h2>JOYAUX DE LA PAROLE DE DIEU</h2><h3>1. L’humilité dans le service</h3><h2>APPLIQUE-TOI AU MINISTÈRE</h2><h3>2. Engage la conversation</h3><h2>VIE CHRÉTIENNE</h2><h3>3. Étude biblique</h3></main></html>'}));
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-focus-today > summary').click();
- await pane.getByRole('button',{name:'Actualiser'}).click();
  await expect(pane.getByText('Un verset pour la journée.',{exact:false})).toBeVisible();
  await expect(pane.getByText('L’humilité dans le service',{exact:false})).toBeVisible();
  await expect(pane.getByRole('button',{name:'Préparer en note'})).toBeVisible();
@@ -60,7 +58,6 @@ test('Network unavailability displays a clear failure with official source links
  await page.route('https://www.jw.org/fr/biblioth%C3%A8que/reunion-tj-cahier/**',route=>route.fulfill({status:503,body:'Unavailable'}));
  const pane=page.locator('.biblelab-side');
  await pane.locator('.biblelab-focus-today > summary').click();
- await pane.getByRole('button',{name:'Actualiser'}).click();
  await expect(pane.getByText(/WOL HTTP 403/).first()).toBeVisible();
  await expect(pane.getByText(/JW.org HTTP 503/).first()).toBeVisible();
  await expect(pane.getByRole('button',{name:'Lire sur WOL'})).toBeVisible();
