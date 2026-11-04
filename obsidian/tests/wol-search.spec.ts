@@ -61,6 +61,7 @@ test('Index, Guide and Perspicace use official WOL source filters',async({page})
 
 test('Sentence match and bibliographic citations open correct official page',async({page})=>{
   const pane=page.locator('.biblelab-side');
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await pane.locator('.biblelab-search-advanced').first().evaluate((el:HTMLDetailsElement)=>{el.open=true;});
   await pane.getByRole('combobox',{name:'Type de correspondance WOL'}).selectOption('sen');
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('amour fidèle');
