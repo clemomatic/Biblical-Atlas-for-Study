@@ -69,7 +69,7 @@ function findCover(app:App,folder:string):string|null{
 }
 export async function loadLibraryVolumes(app:App,root:string):Promise<LibraryVolume[]>{
   const manifests=await readLocalPublicationIndexes(app,root);
-  return manifests.map(({folder,index})=>({
+  return manifests.map(({folder,index}):LibraryVolume=>({
     title:index.publication.title,
     symbol:index.publication.symbol,
     year:index.publication.year,
