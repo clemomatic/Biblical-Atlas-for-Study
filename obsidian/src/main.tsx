@@ -55,6 +55,7 @@ import { saveDailyStudy, saveWeeklyStudy } from './studyNoteBuilder';
 import type { DayPreview, MeetingPreview } from './studyLive';
 import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
 import { NativeJwModal } from './NativeJwModal';
+import { BIBLE_LAB_LIBRARY_VIEW,BibleLabLibraryView } from './BibleLabLibraryView';
 import { setLocalReferenceResolver } from './wolReferenceFetcher';
 import { resolveOfflineDocument } from './offlineReferenceLibrary';
 import type { MapBounds } from './tileMath';
@@ -332,6 +333,11 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       this.refreshWolCaptureIndicators();
     }));
     this.registerView(BIBLE_LAB_ARTICLE_VIEW, leaf => new BibleLabArticleView(leaf, this.openWolArticleTab));
+    this.registerView(BIBLE_LAB_LIBRARY_VIEW,leaf=>new BibleLabLibraryView(leaf,{
+      folder:()=>this.settings.noteFolder,
+      importJwpub:this.openOfflineLibrary,
+      openWol:this.openWolSearchTab
+    }));
     setLocalReferenceResolver(ref=>resolveOfflineDocument(this.app,this.settings.noteFolder,ref));
     this.register(()=>setLocalReferenceResolver(null));
     this.wolClipBridge=new WolContextCaptureBridge(this.app,this.saveWolQuote);
@@ -347,8 +353,11 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
     this.addCommand({ id: 'personal-offline-jwpub-library',
-      name: 'Ouvrir ma bibliothèque JWPUB hors ligne',
+      name: 'Gérer les imports et téléchargements JWPUB',
       callback: this.openOfflineLibrary });
+    this.addCommand({id:'open-bible-lab-visual-library',
+      name:'Ouvrir ma bibliothèque visuelle de publications',
+      callback:()=>this.run(this.openVisualLibrary())});
     this.addCommand({ id: 'wol-search-selection', name: 'Rechercher la sélection dans WOL (onglet web)', editorCallback: editor => { const term=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim(); if(term)this.run(this.openWolSearchTab(wolResearchUrl(term,{match:'par',scope:'all'}))); } });
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({
@@ -475,6 +484,13 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   openNativeBridge = ():void => {new NativeJwModal(this.app,this.settings.noteFolder).open();};
   openOfflineLibrary = ():void => {
     new NativeJwModal(this.app,this.settings.noteFolder).openOfflineLibrary();
+  };
+  openVisualLibrary=async():Promise<void>=>{
+    const existing=this.app.workspace.getLeavesOfType(BIBLE_LAB_LIBRARY_VIEW)[0];
+    const leaf=existing||this.app.workspace.getLeaf('tab');
+    await leaf.setViewState({type:BIBLE_LAB_LIBRARY_VIEW,active:true,state:{}});
+    await this.app.workspace.revealLeaf(leaf);
+    if(leaf.view instanceof BibleLabLibraryView)await leaf.view.reload();
   };
   importMarkdownArchive = ():void => {
     this.run((async()=>{
