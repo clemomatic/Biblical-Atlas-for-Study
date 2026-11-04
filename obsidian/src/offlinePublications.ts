@@ -10,6 +10,7 @@ export const PERSONAL_OFFLINE_CATALOG=[
 
 export interface PublicJwpub {
   symbol:string;
+  issue?:string;
   title:string;
   url:string;
   filename:string;
@@ -36,13 +37,15 @@ export function validPublicationSymbol(value:string):string|null {
   const input=value.trim().toLowerCase();
   return /^[a-z0-9][a-z0-9-]{1,45}$/.test(input)?input:null;
 }
-export function publicJwpubQuery(symbol:string):string{
+export function publicJwpubQuery(symbol:string,issue=''):string{
   const valid=validPublicationSymbol(symbol);
   if(!valid)throw Error('Identifiant de publication invalide.');
+  if(issue&&!/^\d{4,8}$/.test(issue))throw Error('Numéro de publication invalide.');
   const url=new URL('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS');
   for(const [key,val] of Object.entries({
     output:'json',pub:valid,fileformat:'JWPUB',alllangs:'0',langwritten:'F',txtCMSLang:'F'
   }))url.searchParams.set(key,val);
+  if(issue)url.searchParams.set('issue',issue);
   return url.toString();
 }
 export function trustedPublicationFileUrl(raw:unknown):string|null {
@@ -62,9 +65,9 @@ export function trustedPublicationFileUrl(raw:unknown):string|null {
 const obj=(value:unknown):Record<string,any>|null=>
   value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,any>:null;
 
-export function parsePublicJwpubResponse(payload:unknown,symbol:string):PublicJwpub|null{
+export function parsePublicJwpubResponse(payload:unknown,symbol:string,issue=''):PublicJwpub|null{
   const valid=validPublicationSymbol(symbol);
-  if(!valid)return null;
+  if(!valid||issue&&!/^\d{4,8}$/.test(issue))return null;
   const response=obj(payload);
   const files=obj(response?.files);
   const format=obj(files?.F)?.JWPUB;
@@ -76,9 +79,9 @@ export function parsePublicJwpubResponse(payload:unknown,symbol:string):PublicJw
   const bytes=Number(first?.filesize||0);
   if(!Number.isFinite(bytes)||bytes<0||bytes>MAX_PERSONAL_JWPUB_BYTES)return null;
   const title=String(response?.pubName||first?.title||valid).trim().slice(0,180)||valid;
-  const filename=valid+'_F.jwpub';
+  const filename=valid+'_F'+(issue?'_'+issue:'')+'.jwpub';
   return {
-    symbol:valid,title,url,filename,filesize:bytes,
+    symbol:valid,...(issue?{issue}:{}),title,url,filename,filesize:bytes,
     checksum:typeof item?.checksum==='string'?item.checksum.toLowerCase():''
   };
 }
