@@ -40,7 +40,13 @@ class Vault extends Emitter {
   getAbstractFileByPath(path) { return this.files.get(path) ?? null; }
   getMarkdownFiles() { return [...this.files.values()].filter(file => file instanceof TFile && file.extension === 'md'); }
   getFiles() { return [...this.files.values()].filter(file => file instanceof TFile); }
-  getResourcePath(file) {return '/mock-vault/'+encodeURIComponent(file.path);}
+  getResourcePath(file) {
+    if (file.extension === 'png' && file.content instanceof ArrayBuffer) {
+      const bytes=new Uint8Array(file.content);
+      return 'data:image/png;base64,'+btoa(Array.from(bytes,x=>String.fromCharCode(x)).join(''));
+    }
+    return '/mock-vault/'+encodeURIComponent(file.path);
+  }
   async createFolder(path) { if (this.files.has(path)) throw Error('exists'); const folder = new TFolder(path); this.files.set(path, folder); return folder; }
   async create(path, content) { if (this.files.has(path)) throw Error('exists'); const file = new TFile(path, content); this.files.set(path, file); this.trigger('create', file); app.metadataCache.trigger('changed', file); return file; }
   async read(file) { return file.content; }
