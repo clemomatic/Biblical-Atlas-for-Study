@@ -296,8 +296,19 @@ export class BibleLabLibraryView extends ItemView {
         official?.issue||issue.value.trim());
     });
     if(!available.length){
-      this.content.createEl('p',{cls:'blb-empty',text:
-        'Aucune publication de cette sélection ne correspond à ta recherche. Tu peux vérifier son code officiel ci-dessus ou consulter JW.org.'});
+      const empty=this.content.createDiv({cls:'blb-empty'});
+      empty.createEl('p',{text:this.term.trim()?
+        'Aucun résultat pour cette recherche dans le filtre sélectionné.':
+        this.filter!=='all'?'Aucune publication dans cette catégorie parmi les références chargées.':
+        'Aucune publication dans le catalogue actuellement disponible.'});
+      if(this.filter!=='all'||this.term.trim())
+        button(empty,'Voir toutes les publications','library',()=>{
+          this.term='';this.filter='all';this.input.value='';this.catalogVisible=48;
+          this.updateFilters();this.renderOfficialCatalog();
+        },'primary');
+      button(empty,'Ouvrir la bibliothèque officielle','external-link',()=>{
+        window.open(JW_ORG_CATALOG_PAGE,'_blank','noopener,noreferrer');
+      });
       return;
     }
     if(available.length>this.catalogVisible)top.createEl('p',{
