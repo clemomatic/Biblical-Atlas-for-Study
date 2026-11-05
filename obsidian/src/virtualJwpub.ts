@@ -1,6 +1,6 @@
 import {gzipSync,gunzipSync,strToU8,strFromU8} from 'fflate';
 import type {App} from 'obsidian';
-import {classifyLibraryVolume} from './libraryTaxonomy';
+import {classifyLibraryVolume} from './libraryTaxonomy.ts';
 import type {OfflineDocumentRecord} from './offlinePublications';
 
 export const VIRTUAL_INDEX='_BIBLE_LAB_VIRTUAL_INDEX.json';
