@@ -10,6 +10,7 @@ export const PERSONAL_OFFLINE_CATALOG=[
 
 export interface PublicJwpub {
   symbol:string;
+  issue?:string;
   title:string;
   url:string;
   filename:string;
@@ -26,7 +27,7 @@ export interface OfflineImportIndex {
   schema:1;
   origin?:'personal'|'download';
   publication:{
-    symbol:string;year:number;language:number;title:string
+    symbol:string;year:number;language:number;title:string;issue?:string
   };
   documents:OfflineDocumentRecord[];
 }
@@ -35,15 +36,17 @@ export const MAX_PERSONAL_JWPUB_BYTES=150*1024*1024;
 
 export function validPublicationSymbol(value:string):string|null {
   const input=value.trim().toLowerCase();
-  return /^[a-z0-9][a-z0-9-]{1,45}$/.test(input)?input:null;
+  return /^[a-z0-9][a-z0-9-]{0,45}$/.test(input)?input:null;
 }
-export function publicJwpubQuery(symbol:string):string{
+export function publicJwpubQuery(symbol:string,issue=''):string{
   const valid=validPublicationSymbol(symbol);
   if(!valid)throw Error('Identifiant de publication invalide.');
+  if(issue&&!/^\d{4,8}$/.test(issue))throw Error('Numéro de revue invalide.');
   const url=new URL('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS');
   for(const [key,val] of Object.entries({
     output:'json',pub:valid,fileformat:'JWPUB',alllangs:'0',langwritten:'F',txtCMSLang:'F'
   }))url.searchParams.set(key,val);
+  if(issue)url.searchParams.set('issue',issue);
   return url.toString();
 }
 export function trustedPublicationFileUrl(raw:unknown):string|null {
@@ -63,10 +66,12 @@ export function trustedPublicationFileUrl(raw:unknown):string|null {
 const obj=(value:unknown):Record<string,any>|null=>
   value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,any>:null;
 
-export function parsePublicJwpubResponse(payload:unknown,symbol:string):PublicJwpub|null{
+export function parsePublicJwpubResponse(payload:unknown,symbol:string,issue=''):PublicJwpub|null{
   const valid=validPublicationSymbol(symbol);
-  if(!valid)return null;
+  if(!valid||(issue&&!/^\d{4,8}$/.test(issue)))return null;
   const response=obj(payload);
+  if(response?.pub&&String(response.pub).toLowerCase()!==valid)return null;
+  if(issue&&String(response?.issue||'')!==issue)return null;
   const files=obj(response?.files);
   const format=obj(files?.F)?.JWPUB;
   if(!Array.isArray(format)||format.length===0)return null;
@@ -77,9 +82,9 @@ export function parsePublicJwpubResponse(payload:unknown,symbol:string):PublicJw
   const bytes=Number(first?.filesize||0);
   if(!Number.isFinite(bytes)||bytes<0||bytes>MAX_PERSONAL_JWPUB_BYTES)return null;
   const title=String(response?.pubName||first?.title||valid).trim().slice(0,180)||valid;
-  const filename=valid+'_F.jwpub';
+  const filename=valid+'_F'+(issue?'_'+issue:'')+'.jwpub';
   return {
-    symbol:valid,title,url,filename,filesize:bytes,
+    symbol:valid,...(issue?{issue}:{}),title,url,filename,filesize:bytes,
     checksum:typeof item?.checksum==='string'?item.checksum.toLowerCase():''
   };
 }
@@ -108,7 +113,8 @@ export function validateOfflineIndex(input:unknown):OfflineImportIndex|null{
   return {
     schema:1,
     ...(source.origin==='personal'||source.origin==='download'?{origin:source.origin}:{}),
-    publication:{symbol:pub.symbol,year:pub.year,language:pub.language,title:pub.title},
+    publication:{symbol:pub.symbol,year:pub.year,language:pub.language,title:pub.title,
+      ...(typeof pub.issue==='string'&&/^\d{4,8}$/.test(pub.issue)?{issue:pub.issue}:{})},
     documents
   };
 }

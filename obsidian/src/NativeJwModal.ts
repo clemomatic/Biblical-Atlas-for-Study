@@ -26,7 +26,7 @@ async function folder(app:App,path:string):Promise<void>{
 }
 export class NativeJwModal extends Modal{
  private busy=false;
- private pendingDownload:{name:string;bytes:Uint8Array}|null=null;
+ private pendingDownload:{name:string;bytes:Uint8Array;symbol:string;issue:string}|null=null;
  constructor(app:App,private rootFolder:string){super(app);}
  onOpen():void{this.contentEl.addClass('biblelab-native-modal');this.menu();}
  private screen(title:string,subtitle:string):HTMLElement{
@@ -57,6 +57,10 @@ export class NativeJwModal extends Modal{
  /** The public catalog is queried only after a direct click. */
  public openOfflineLibrary():void{this.open();void this.library();}
  public openImportJwpub():void{this.open();void this.load('jwpub');}
+ /** Open the existing, consent-based workflow for one discovered official publication. */
+ public openCatalogPublication(symbol:string,issue=''):void{
+   this.open();void this.checkPublication(symbol,issue);
+ }
  private async library():Promise<void>{
    const root=this.screen('Bibliothèque hors ligne',
      'Tes publications personnelles et officielles · aucune synchronisation par Bible Lab.');
@@ -106,17 +110,17 @@ export class NativeJwModal extends Modal{
    if(!file){new Notice('Aucun document Markdown disponible.');return;}
    await this.app.workspace.getLeaf('tab').openFile(file);this.close();
  }
- private async checkPublication(symbol:string):Promise<void>{
+ private async checkPublication(symbol:string,issue=''):Promise<void>{
    if(this.busy)return;
    let url:string;
-   try{url=publicJwpubQuery(symbol);}
+   try{url=publicJwpubQuery(symbol,issue);}
    catch{new Notice('Identifiant de publication invalide.');return;}
    this.busy=true;
    this.screen('Vérification du catalogue JW.org','Recherche du fichier JWPUB français…');
    try{
      const response=await requestUrl({url,throw:false});
      if(response.status!==200)throw Error('La publication est indisponible (HTTP '+response.status+').');
-     const item=parsePublicJwpubResponse(response.json,symbol);
+     const item=parsePublicJwpubResponse(response.json,symbol,issue);
      if(!item)throw Error('Aucun fichier JWPUB français validé pour cet identifiant.');
      this.showDownloadPreview(item);
    }catch(e){this.offlineError(e);}finally{this.busy=false;}
@@ -150,7 +154,7 @@ export class NativeJwModal extends Modal{
      const file=new File([bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer],
        item.filename,{type:'application/octet-stream'});
      const preview=await readJwpub(file);
-     this.pendingDownload={name:item.filename,bytes};
+     this.pendingDownload={name:item.filename,bytes,symbol:item.symbol,issue:item.issue||''};
      this.showPreview(preview,item.filename);
    }catch(e){this.pendingDownload=null;this.offlineError(e);}finally{this.busy=false;}
  }
