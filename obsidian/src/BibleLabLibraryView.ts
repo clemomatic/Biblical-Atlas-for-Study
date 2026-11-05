@@ -9,10 +9,10 @@ import {
   type LibraryCategory,type LibrarySearchResult,type LibraryVolume
 } from './libraryCatalog';
 import type { OfflineDocumentRecord } from './offlinePublications';
-import { foldLibraryText,classifyLibraryVolume } from './libraryTaxonomy';
+import { foldLibraryText } from './libraryTaxonomy';
 import {
   FEATURED_JW_ORG,JW_ORG_CATALOG_PAGE,combineJwCatalog,
-  parseJwOrgCatalogHtml,catalogKey,type JwCatalogEntry
+  parseJwOrgCatalogHtml,type JwCatalogEntry
 } from './jwOrgCatalog';
 
 export const BIBLE_LAB_LIBRARY_VIEW='bible-lab-personal-library';
@@ -105,6 +105,7 @@ export class BibleLabLibraryView extends ItemView {
     headline.createEl('p',{text:'Tes publications, tes lectures et tes recherches. Même sans connexion.'});
     const actions=hero.createDiv({cls:'blb-head-actions'});
     button(actions,'Importer un JWPUB','file-plus-2',this.actions.importJwpub);
+    button(actions,'Télécharger une publication','download',this.actions.downloads);
     button(actions,'Mes publications','hard-drive',()=>{
       this.browsingOfficialCatalog=false;this.term='';this.filter='all';this.renderChrome();void this.renderContent();
     });
@@ -204,8 +205,7 @@ export class BibleLabLibraryView extends ItemView {
     const term=foldLibraryText(this.term);
     const installed=this.volumes.filter(v=>v.language===3);
     const available=this.officialCatalog.filter(item=>
-      (this.filter==='all'||this.filter==='personal'&&false||
-        item.category===this.filter)&&
+      (this.filter==='all'||item.category===this.filter)&&
       (!term||foldLibraryText(item.title+' '+item.symbol+' '+item.issue).includes(term))
     );
     this.resultCount.setText(this.officialCatalog.length+' références à vérifier · catalogue JW.org');
@@ -261,7 +261,7 @@ export class BibleLabLibraryView extends ItemView {
       const info=card.createDiv({cls:'blb-book-meta'});
       info.createEl('strong',{text:item.title});
       info.createSpan({text:item.symbol+(item.issue?' · '+item.issue:'')});
-      const status=info.createSpan({cls:'blb-local-mark',
+      info.createSpan({cls:'blb-local-mark',
         text:local?'Disponible hors ligne':'JWPUB à vérifier'});
       const actions=card.createDiv({cls:'blb-online-card-actions'});
       if(local)button(actions,'Lire','book-open',()=>{
