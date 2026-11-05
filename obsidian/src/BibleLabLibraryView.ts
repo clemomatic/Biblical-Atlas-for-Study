@@ -23,6 +23,7 @@ export interface LibraryActions {
   downloads:()=>void;
   checkPublication:(symbol:string,issue:string)=>void;
   readReference:(url:string,label:string)=>Promise<void>;
+  openWol:(url:string)=>Promise<void>;
 }
 const button=(parent:HTMLElement,label:string,icon:string,fn:()=>void,cls=''):HTMLButtonElement=>{
   const b=parent.createEl('button',{cls:'blb-action '+cls,
@@ -236,15 +237,25 @@ export class BibleLabLibraryView extends ItemView {
     this.content.empty();
     const term=foldLibraryText(this.term);
     const installed=this.volumes.filter(v=>v.language===3);
-    const available=this.officialCatalog.filter(item=>
-      (this.filter==='all'||item.category===this.filter)&&
+    // A single discovery shelf: show existing personal imports alongside
+    // the official public metadata, without hiding an unlisted local volume.
+    const catalog=combineJwCatalog(installed.map(v=>({
+      symbol:v.symbol,issue:v.issue,title:v.title,coverUrl:'',
+      sourcePage:JW_ORG_CATALOG_PAGE,category:v.category
+    })),this.officialCatalog);
+    const personalKeys=new Set(installed.filter(v=>v.origin==='personal')
+      .map(v=>v.symbol.toLowerCase()+'|'+v.issue));
+    const available=catalog.filter(item=>
+      (this.filter==='all'||this.filter==='personal'?
+        (this.filter!=='personal'||personalKeys.has(item.symbol.toLowerCase()+'|'+item.issue)):
+        item.category===this.filter)&&
       (!term||foldLibraryText(item.title+' '+item.symbol+' '+item.issue).includes(term))
     );
-    this.resultCount.setText(this.officialCatalog.length+' références à vérifier · '+
+    this.resultCount.setText(catalog.length+' références · '+installed.length+' hors ligne · '+
       (this.catalogSource==='jwlibrary'?'catalogue JW Library':
        this.catalogSource==='site'?'catalogue JW.org':'sélection JW.org'));
     const top=this.content.createDiv({cls:'blb-online-intro'});
-    top.createEl('h2',{text:'Découvrir sur JW.org'});
+    top.createEl('h2',{text:'Toutes les publications · JW.org et mes fichiers'});
     top.createEl('p',{text:this.catalogSource==='jwlibrary'?
       'Catalogue de métadonnées JW Library consulté à la demande. Certains ouvrages peuvent ne pas être téléchargeables au format JWPUB sur JW.org ; chaque fichier reste à vérifier.' :
       'Une sélection de publications visibles dans la bibliothèque française officielle. La disponibilité du format JWPUB se vérifie séparément, avant tout téléchargement.'});
@@ -285,14 +296,28 @@ export class BibleLabLibraryView extends ItemView {
         official?.issue||issue.value.trim());
     });
     if(!available.length){
-      this.content.createEl('p',{cls:'blb-empty',text:
-        'Aucune publication de cette sélection ne correspond à ta recherche. Tu peux vérifier son code officiel ci-dessus ou consulter JW.org.'});
+      const empty=this.content.createDiv({cls:'blb-empty'});
+      empty.createEl('p',{text:this.term.trim()?
+        'Aucun résultat pour cette recherche dans le filtre sélectionné.':
+        this.filter!=='all'?'Aucune publication dans cette catégorie parmi les références chargées.':
+        'Aucune publication dans le catalogue actuellement disponible.'});
+      if(this.filter!=='all'||this.term.trim())
+        button(empty,'Voir toutes les publications','library',()=>{
+          this.term='';this.filter='all';this.input.value='';this.catalogVisible=48;
+          this.updateFilters();this.renderOfficialCatalog();
+        },'primary');
+      button(empty,'Ouvrir la bibliothèque officielle','external-link',()=>{
+        window.open(JW_ORG_CATALOG_PAGE,'_blank','noopener,noreferrer');
+      });
       return;
     }
     if(available.length>this.catalogVisible)top.createEl('p',{
       cls:'blb-online-meta',text:available.length.toLocaleString('fr-FR')+
         ' références correspondantes · '+Math.min(this.catalogVisible,available.length)+
         ' affichées'});
+    const originals=this.app.vault.getFiles().filter(file=>
+      file.path.startsWith(this.actions.root().replace(/\/$/,'')+'/Bibliothèque JWPUB/')&&
+      file.extension.toLowerCase()==='jwpub');
     const grid=this.content.createDiv({cls:'blb-book-grid blb-online-grid'});
     const visible=available.slice(0,this.catalogVisible);
     for(const item of visible){
@@ -314,13 +339,26 @@ export class BibleLabLibraryView extends ItemView {
       const info=card.createDiv({cls:'blb-book-meta'});
       info.createEl('strong',{text:item.title});
       info.createSpan({text:item.symbol+(item.issue?' · '+item.issue:'')});
+      const stem=item.symbol.toLowerCase()+'_F'+(item.issue?'_'+item.issue:'');
+      const original=originals.find(file=>{
+        const name=file.name.toLowerCase();
+        return name===stem+'.jwpub'||name.startsWith(stem+' (');
+      });
+      const size=original?(original.stat.size/1048576).toFixed(1)+' Mo':'non renseignée';
       info.createSpan({cls:'blb-local-mark',
-        text:local?'Disponible hors ligne':'JWPUB à vérifier'});
+        text:local?'Disponible hors ligne · taille : '+size:
+          'Taille du JWPUB : à vérifier'});
       const actions=card.createDiv({cls:'blb-online-card-actions'});
       if(local)button(actions,'Lire','book-open',()=>{
         this.browsingOfficialCatalog=false;
         this.selectedPath=local.path;this.selectedDocument=null;
         this.term='';this.filter='all';this.renderChrome();void this.renderContent();
+      });
+      // The catalog metadata does not include an article-specific official URL.
+      // Open an actual WOL search rather than inventing a publication address.
+      button(actions,'Rechercher sur WOL','book-open-text',()=>{
+        void this.actions.openWol('https://wol.jw.org/fr/wol/s/r30/lp-f?q='+
+          encodeURIComponent(item.title.split(' · ')[0]));
       });
       button(actions,'Vérifier le JWPUB','download',()=>{
         this.actions.checkPublication(item.symbol,item.issue);

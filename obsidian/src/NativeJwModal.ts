@@ -184,6 +184,9 @@ export class NativeJwModal extends Modal{
    summary.createEl('strong',{text:preview.count.toLocaleString('fr-FR')});
    summary.createEl('span',{text:preview.type==='jwpub'?'documents déchiffrés':'notes personnelles'});
    if(preview.schema)summary.createEl('span',{text:' · schéma '+preview.schema});
+   const carnetCount=preview.entries.filter(item=>item.name.startsWith('Carnets/')&&item.name.endsWith('.md')).length;
+   if(carnetCount)root.createEl('p',{cls:'biblelab-native-footnote',text:
+     carnetCount+' carnet(s) de réunion prêts : une seule note de préparation par semaine, sans supprimer les sources.'});
    const samples=root.createDiv({cls:'biblelab-native-samples'});
    for(const item of preview.entries.filter(x=>x.name.endsWith('.md')).slice(0,7))samples.createEl('p',{text:item.name});
    for(const warning of preview.warnings)root.createEl('p',{cls:'biblelab-native-footnote',text:warning});
@@ -228,7 +231,8 @@ export class NativeJwModal extends Modal{
        this.pendingDownload=null;
      }
      new Notice('Import réussi : '+preview.count+' documents hors ligne.');
-     const index=this.app.vault.getAbstractFileByPath(target+'/INDEX/00 Tableau de recherche.md');
+     const notebook=preview.entries.find(item=>item.name.startsWith('Carnets/')&&item.name.endsWith('.md'));
+     const index=this.app.vault.getAbstractFileByPath(target+'/'+(notebook?.name||'INDEX/00 Tableau de recherche.md'));
      if(index && 'extension' in index)await this.app.workspace.getLeaf('tab').openFile(index as TFile);
      this.close();
    }catch(error){this.problem(error);}

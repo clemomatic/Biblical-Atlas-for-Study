@@ -339,7 +339,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       downloads:this.openOfflineLibrary,
       checkPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder)
         .openCatalogPublication(symbol,issue),
-      readReference:(url,label)=>this.openBibleLab(url,label)
+      readReference:(url,label)=>this.openBibleLab(url,label),
+      openWol:(url)=>this.openWolSearchTab(url)
     }));
     const refreshBookcase=(file:{path:string})=>{
       if(!file.path.endsWith('/_BIBLE_LAB_OFFLINE_INDEX.json'))return;

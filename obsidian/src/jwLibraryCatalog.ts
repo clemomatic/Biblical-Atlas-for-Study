@@ -1,4 +1,5 @@
 import { classifyLibraryVolume } from './libraryTaxonomy.ts';
+import { gunzipSync } from 'fflate';
 import { validPublicationSymbol } from './offlinePublications.ts';
 import type { JwCatalogEntry } from './jwOrgCatalog.ts';
 
@@ -10,8 +11,10 @@ import type { JwCatalogEntry } from './jwOrgCatalog.ts';
 export const JW_LIBRARY_CATALOG_MANIFEST =
   'https://app.jw-cdn.org/catalogs/publications/v4/manifest.json';
 const ID=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-export const MAX_CATALOG_GZIP_BYTES=32*1024*1024;
-export const MAX_CATALOG_SQLITE_BYTES=180*1024*1024;
+export const MAX_CATALOG_GZIP_BYTES=96*1024*1024;
+// Allow the current ~208 MiB public catalogue while keeping a strict upper bound.
+// SQL.js holds database pages in memory; avoid unlimited decompression.
+export const MAX_CATALOG_SQLITE_BYTES=256*1024*1024;
 export const MAX_CATALOG_ENTRIES=20000;
 
 export function parseJwLibraryCatalogManifest(input:unknown):string{
@@ -20,7 +23,7 @@ export function parseJwLibraryCatalogManifest(input:unknown):string{
   const manifest=input as Record<string,unknown>;
   if(!Number.isInteger(manifest.version)||Number(manifest.version)<1||
     typeof manifest.current!=='string'||!ID.test(manifest.current))
-    throw Error('Version de catalogue JW Library non reconnue.');
+    throw Error('Manifeste JW Library : version ou identifiant de catalogue non reconnu.');
   return manifest.current;
 }
 export function jwLibraryCatalogDownloadUrl(current:string):string{
@@ -29,6 +32,43 @@ export function jwLibraryCatalogDownloadUrl(current:string):string{
 }
 export function isSqliteDatabase(bytes:Uint8Array):boolean{
   return bytes.length>=16&&'SQLite format 3\0'.split('').every((c,i)=>bytes[i]===c.charCodeAt(0));
+}
+
+/**
+ * requestUrl may expose either the HTTP-compressed body or a body already
+ * decompressed by the platform. Accept both formats after verifying the
+ * actual SQLite signature and enforcing strict size limits.
+ */
+export function decodeJwLibraryCatalogPayload(bytes:Uint8Array):Uint8Array{
+  const mib=(n:number)=>(n/1048576).toFixed(1)+' Mo';
+  if(!bytes.length)throw Error('Le serveur a retourné un catalogue vide.');
+  if(isSqliteDatabase(bytes)){
+    if(bytes.length>MAX_CATALOG_SQLITE_BYTES)
+      throw Error('Catalogue SQLite décompressé trop volumineux ('+mib(bytes.length)+').');
+    return bytes;
+  }
+  if(bytes.length<18 || bytes[0]!==0x1f || bytes[1]!==0x8b || bytes[2]!==8){
+    const preview=new TextDecoder().decode(bytes.subarray(0,200)).trim().slice(0,120);
+    const hint=/^(?:<!doctype|<html|<\?xml)/i.test(preview)?' (réponse HTML)':
+      /^[\[{]/.test(preview)?' (réponse JSON)':'';
+    throw Error('Le serveur ne fournit pas une archive GZIP ni une base SQLite'+hint+
+      ' · '+mib(bytes.length)+' reçus.');
+  }
+  if(bytes.length>MAX_CATALOG_GZIP_BYTES)
+    throw Error('Catalogue compressé trop volumineux ('+mib(bytes.length)+
+      ', limite '+mib(MAX_CATALOG_GZIP_BYTES)+').');
+  const length=new DataView(bytes.buffer,bytes.byteOffset,bytes.byteLength)
+    .getUint32(bytes.byteLength-4,true);
+  if(length>MAX_CATALOG_SQLITE_BYTES)
+    throw Error('Catalogue SQLite trop volumineux ('+mib(length)+').');
+  let decoded:Uint8Array;
+  try{decoded=gunzipSync(bytes);}
+  catch{throw Error('Décompression du catalogue GZIP impossible.');}
+  if(decoded.length>MAX_CATALOG_SQLITE_BYTES)
+    throw Error('Catalogue SQLite décompressé trop volumineux ('+mib(decoded.length)+').');
+  if(!isSqliteDatabase(decoded))
+    throw Error('Le contenu décompressé n’est pas une base SQLite valide.');
+  return decoded;
 }
 
 export type CatalogPublicationRow = Record<string,unknown>;
