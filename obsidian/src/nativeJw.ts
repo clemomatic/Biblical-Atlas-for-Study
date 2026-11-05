@@ -6,6 +6,7 @@ import wasmAsset from 'sql.js/dist/sql-wasm.wasm?inline';
 import { unzipSync, unzlibSync, strFromU8, strToU8 } from 'fflate';
 import { patchZip } from './zipPatch';
 import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
+import { buildJwpubMeetingNotebooks, type MeetingDocument } from './meetingNotebook';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
  run:(sql:string,params?:unknown[])=>Db; export:()=>Uint8Array; close:()=>void};
@@ -149,6 +150,7 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
      ' FROM Document ORDER BY DocumentId');
    const entries:ImportEntry[]=[];let count=0;
    const indexDocuments:OfflineDocumentRecord[]=[];
+   const notebookSources:MeetingDocument[]=[];
    const manifest=JSON.parse(zip['manifest.json']?string(zip['manifest.json']):'{}');
    const publicationTitle=String(manifest?.publication?.title||
      manifest?.publication?.displayTitle||pub.Symbol+' '+pub.Year).trim().slice(0,240);
@@ -189,9 +191,19 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
        '\n---\n# '+title+'\n\n'+markdown+'\n'});
      indexDocuments.push({documentId:Number(doc.DocumentId),mepsId:validMeps,
        title,path:filename});
+     notebookSources.push({path:filename,title,markdown,sourceUrl:wolUrl});
      count++;
    }
    assert(count>0,'Aucun document converti.');
+   // Preserve every original document and its MEPS identifier for offline
+   // reference resolution; the notebook is an additional editable entry.
+   const notebooks=buildJwpubMeetingNotebooks(String(pub.Symbol),Number(pub.Year),notebookSources);
+   for(let i=notebooks.length-1;i>=0;i--){
+     const notebook=notebooks[i];
+     entries.push({name:notebook.path,text:notebook.markdown});
+     indexDocuments.unshift({documentId:1900000000+i,mepsId:null,
+       title:notebook.title,path:notebook.path});
+   }
    const index:OfflineImportIndex={schema:1,publication:{
      symbol:String(pub.Symbol),year:Number(pub.Year),language:Number(pub.MepsLanguageIndex),
      title:publicationTitle
