@@ -232,3 +232,20 @@
   .blb-online-grid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr))}
   .blb-online-direct input:nth-child(2){flex:1 1 150px}
 }
+
+
+/* The catalogue stays readable when the user has Obsidian split into panes. */
+.blb-online-mode .blb-shell{padding-top:21px}
+.blb-online-mode .blb-hero{display:block;padding-bottom:16px}
+.blb-online-mode .blb-head-actions{margin-top:14px;gap:6px}
+.blb-online-mode .blb-head-actions .blb-action{padding:7px 10px;font-size:11px;min-height:33px}
+.blb-online-mode .blb-controls{margin:16px 0 11px}
+.blb-online-mode .blb-filters{flex-wrap:nowrap;overflow-x:auto;white-space:nowrap;
+  scrollbar-width:thin;margin-bottom:19px;padding-bottom:3px}
+.blb-online-mode .blb-filters>.blb-category{flex:0 0 auto}
+.blb-online-mode .blb-online-intro{padding:15px 17px;margin-bottom:18px}
+.blb-online-mode .blb-online-actions{margin-top:10px}
+.blb-online-manual{border-top:1px solid var(--blb-border);margin-top:11px;padding-top:11px}
+.blb-online-manual summary{cursor:pointer;font-size:11px;font-weight:700;color:var(--text-muted)}
+.blb-online-manual summary:hover{color:var(--text-normal)}
+.blb-online-manual .blb-online-direct{margin-top:9px}
