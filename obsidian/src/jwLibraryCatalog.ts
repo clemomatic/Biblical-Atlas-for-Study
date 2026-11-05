@@ -12,7 +12,9 @@ export const JW_LIBRARY_CATALOG_MANIFEST =
   'https://app.jw-cdn.org/catalogs/publications/v4/manifest.json';
 const ID=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 export const MAX_CATALOG_GZIP_BYTES=96*1024*1024;
-export const MAX_CATALOG_SQLITE_BYTES=180*1024*1024;
+// Allow the current ~208 MiB public catalogue while keeping a strict upper bound.
+// SQL.js holds database pages in memory; avoid unlimited decompression.
+export const MAX_CATALOG_SQLITE_BYTES=256*1024*1024;
 export const MAX_CATALOG_ENTRIES=20000;
 
 export function parseJwLibraryCatalogManifest(input:unknown):string{
