@@ -21,7 +21,7 @@ export function parseJwLibraryCatalogManifest(input:unknown):string{
   const manifest=input as Record<string,unknown>;
   if(!Number.isInteger(manifest.version)||Number(manifest.version)<1||
     typeof manifest.current!=='string'||!ID.test(manifest.current))
-    throw Error('Version de catalogue JW Library non reconnue.');
+    throw Error('Manifeste JW Library : version ou identifiant de catalogue non reconnu.');
   return manifest.current;
 }
 export function jwLibraryCatalogDownloadUrl(current:string):string{
