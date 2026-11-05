@@ -4,6 +4,7 @@ import {
   type OfflineImportIndex
 } from './offlinePublications';
 import type { ReferenceEntry,ReaderLine,ReaderResult } from './referenceReader';
+import {readVirtualPublications,loadVirtualText} from './virtualJwpub';
 
 export interface LocalPublication {
   title:string;
@@ -102,6 +103,26 @@ export async function resolveOfflineDocument(
             'Les liens officiels sont conservés.')
       };
     }catch{/* Fall back to WOL if the local note was removed or inaccessible. */}
+  }
+  // Virtual publications resolve the same precise MEPS document IDs without
+  // requiring an individual Markdown file for every chapter or article.
+  const virtual=await readVirtualPublications(app,root);
+  for(const {folder,index} of virtual){
+    if(index.publication.language!==3)continue;
+    const match=index.documents.find(doc=>doc.mepsId===meps);
+    if(!match)continue;
+    try{
+      const content=(await loadVirtualText(app,folder)).get(match.documentId);
+      if(!content)continue;
+      return {
+        title:match.title,kind:'article',sourceUrl:ref.url,
+        lines:localReaderLines(content),links:[],
+        notice:'Texte de ton JWPUB virtuel · hors connexion. '+
+          (new URL(ref.url).hash?
+            'La position exacte du paragraphe WOL reste à confirmer.':
+            'Document reconnu par son identifiant MEPS.')
+      };
+    }catch{/* Continue with the official online reference if cache is damaged. */}
   }
   return null;
 }
