@@ -1,6 +1,7 @@
 import { type App, Notice } from 'obsidian';
 import type { DayPreview, MeetingPreview } from './studyLive';
 import { safeFilename } from './model';
+import { renderWeeklyMeetingNotebook } from './meetingNotebook';
 const escapeYaml=(text:string)=>JSON.stringify(text);
 function dateStamp(date:Date):string {
  const y=date.getFullYear(),m=String(date.getMonth()+1).padStart(2,'0'),d=String(date.getDate()).padStart(2,'0');
@@ -22,22 +23,8 @@ export function dayStudyMarkdown(day:DayPreview,date:Date):string{
  ].join('\n');
 }
 export function weekStudyMarkdown(week:MeetingPreview,date:Date):string{
- const blocks=[
-   '---','bible_lab_kind: meeting-preparation','bible_lab_version: 1',
-   'week_monday: '+dateStamp(new Date(date.getFullYear(),date.getMonth(),date.getDate()-(date.getDay()+6)%7)),
-   'source_url: '+escapeYaml(week.source),'---',
-   '# Réunion de semaine · '+week.week,'',
-   week.bibleReading?'**Lecture biblique :** '+week.bibleReading:'',
-   '[Programme et références officiels]('+week.source+')',''
- ];
- for(const section of week.sections){
-  blocks.push('## '+section.section,'');
-  for(const item of section.items){
-   blocks.push('### '+item,'','**Observation :**','','**Références :**','','**Application :**','','');
-  }
- }
- blocks.push('## Perles spirituelles','','- ','','## À préparer','','- [ ] Lire les chapitres de la semaine','- [ ] Examiner les références officielles','- [ ] Préparer mes commentaires','','## Mes découvertes et pistes','','');
- return blocks.join('\n');
+ const monday=new Date(date.getFullYear(),date.getMonth(),date.getDate()-(date.getDay()+6)%7);
+ return renderWeeklyMeetingNotebook(week,dateStamp(monday));
 }
 async function ensureFolder(app:App,folder:string):Promise<void>{
  const parts=folder.split('/').filter(Boolean);let p='';
