@@ -202,3 +202,33 @@
 }
 @media(prefers-reduced-motion:reduce){.blb-book-card,.blb-action{transition:none}
   .blb-book-card:hover{transform:none}}
+
+
+/* Official JW.org catalogue is a separate, opt-in online discovery surface. */
+.blb-online-intro{margin:0 0 22px;padding:19px 20px;border:1px solid var(--blb-border);
+  border-radius:14px;background:var(--background-secondary)}
+.blb-online-intro h2{margin:0 0 7px;font-size:20px;letter-spacing:-.02em}
+.blb-online-intro>p{margin:7px 0;color:var(--blb-muted);font-size:12px;line-height:1.65}
+.blb-online-actions,.blb-online-direct{display:flex;align-items:center;flex-wrap:wrap;gap:9px;margin-top:12px}
+.blb-online-direct{padding-top:13px;border-top:1px solid var(--blb-border)}
+.blb-online-direct input{min-width:125px;flex:1 1 190px;min-height:36px;
+  border:1px solid var(--blb-border);border-radius:8px;padding:8px 10px;
+  background:var(--background-primary);color:var(--text-normal);font-size:12px}
+.blb-online-direct input:nth-child(2){flex:0 1 195px}
+.blb-online-intro .blb-online-error{color:var(--text-error);font-weight:650}
+.blb-online-intro .blb-online-meta,.blb-online-meta{font-size:11px;color:var(--blb-muted);line-height:1.5}
+.blb-online-grid{gap:19px 16px}
+.blb-online-book{cursor:default}
+.blb-online-book:hover{transform:none}
+.blb-online-book .blb-book-meta{padding-bottom:5px}
+.blb-online-book .blb-local-mark{font-weight:700;color:var(--text-muted)}
+.blb-online-card-actions{display:flex;flex-wrap:wrap;gap:7px;padding:9px 11px 12px;
+  border-top:1px solid var(--blb-border)}
+.blb-online-card-actions .blb-action{flex:1 1 auto;font-size:10px;
+  padding:7px 8px;min-height:33px}
+.blb-online-grid+.blb-online-meta{display:block;margin-top:16px}
+@container blb-library (max-width:560px){
+  .blb-online-intro{padding:14px}
+  .blb-online-grid{grid-template-columns:repeat(auto-fill,minmax(135px,1fr))}
+  .blb-online-direct input:nth-child(2){flex:1 1 150px}
+}
