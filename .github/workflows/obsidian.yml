@@ -39,7 +39,7 @@ jobs:
       - run: pnpm exec playwright install --with-deps chromium
       # Bible Lab research workflow tests run before legacy suites; several older
       # unrelated lookup tests are known to stop the broad suite early.
-      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/bible-lab-core-regression.spec.ts obsidian/tests/bible-lab-research-plan.spec.ts obsidian/tests/bible-lab-collection.spec.ts obsidian/tests/bible-lab-archive.spec.ts obsidian/tests/bible-lab-quick-capture.spec.ts obsidian/tests/bible-lab-backup-restore.spec.ts obsidian/tests/bible-lab-minimal-workspace.spec.ts obsidian/tests/bible-lab-visual.spec.ts obsidian/tests/bible-lab-wol-context-capture.spec.ts obsidian/tests/bible-lab-offline-publications.spec.ts obsidian/tests/bible-lab-visual-library.spec.ts obsidian/tests/bible-lab-jworg-catalog.spec.ts --project=desktop --workers=1 --max-failures=3
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/bible-lab-core-regression.spec.ts obsidian/tests/bible-lab-research-plan.spec.ts obsidian/tests/bible-lab-collection.spec.ts obsidian/tests/bible-lab-archive.spec.ts obsidian/tests/bible-lab-quick-capture.spec.ts obsidian/tests/bible-lab-backup-restore.spec.ts obsidian/tests/bible-lab-minimal-workspace.spec.ts obsidian/tests/bible-lab-visual.spec.ts obsidian/tests/bible-lab-wol-context-capture.spec.ts obsidian/tests/bible-lab-offline-publications.spec.ts obsidian/tests/bible-lab-visual-library.spec.ts obsidian/tests/bible-lab-jworg-catalog.spec.ts obsidian/tests/bible-lab-jw-library-full-catalog.spec.ts --project=desktop --workers=1 --max-failures=3
       - uses: actions/upload-artifact@v4
         if: always()
         with:
