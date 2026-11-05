@@ -60,3 +60,27 @@ test('Official HTML can add newly discovered publication codes; blocked pages ke
   await library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'}).fill('perspicace');
   await expect(library.locator('.blb-online-book')).toHaveCount(1);
 });
+
+
+test('A pasted official JW.org media link resolves the correct publication without guessing its code',async({page})=>{
+  await page.route('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS**',route=>
+    route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({
+      pub:'w',issue:'202701',pubName:'La Tour de Garde (édition d’étude)',
+      files:{F:{JWPUB:[{filesize:100,file:{
+        url:'https://cfp2.jw-cdn.org/a/test/1/o/w_F_202701.jwpub',
+        checksum:'f0e1d2c3b4a5f6e7d8c9b0a1f2e3d4c5'
+      }}]}}})}));
+  await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
+  const library=page.locator('.blb-library');
+  await library.getByRole('button',{name:'Explorer JW.org'}).click();
+  await library.getByRole('textbox',{name:'Code ou lien officiel de téléchargement'}).fill(
+    'https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?pub=w&issue=202701&langwritten=F&fileformat=PDF%2CJWPUB'
+  );
+  await library.getByRole('button',{name:'Vérifier ce JWPUB'}).click();
+  await expect(page.getByRole('button',{name:'Télécharger et préparer'})).toBeVisible();
+  const urls=await page.evaluate(()=>(window as any).atlasNetworkRequests
+    .filter((r:any)=>r.url.includes('GETPUBMEDIALINKS')).map((r:any)=>r.url));
+  expect(urls).toHaveLength(1);
+  expect(new URL(urls[0]).searchParams.get('pub')).toBe('w');
+  expect(new URL(urls[0]).searchParams.get('issue')).toBe('202701');
+});
