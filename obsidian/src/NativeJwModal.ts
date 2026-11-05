@@ -224,8 +224,14 @@ export class NativeJwModal extends Modal{
    for(let i=2;this.app.vault.getAbstractFileByPath(target);i++)target=base+' ('+i+')';
    try{
      await folder(this.app,target);
-     for(let i=0;i<preview.entries.length;i++){
-       const item=preview.entries[i];const full=target+'/'+item.name;
+     // Publish the manifest last: the library refresh listener must never
+     // discover an incomplete virtual publication before its cache exists.
+     const ordered=preview.virtual?[
+       ...preview.entries.filter(item=>item.name!=='_BIBLE_LAB_VIRTUAL_INDEX.json'),
+       ...preview.entries.filter(item=>item.name==='_BIBLE_LAB_VIRTUAL_INDEX.json')
+     ]:preview.entries;
+     for(let i=0;i<ordered.length;i++){
+       const item=ordered[i];const full=target+'/'+item.name;
        if(item.name.startsWith('/')||item.name.split('/').includes('..'))throw Error('Chemin d’import interdit.');
        await folder(this.app,full.substring(0,full.lastIndexOf('/')));
        if(this.app.vault.getAbstractFileByPath(full))throw Error('Fichier répété : '+item.name);
@@ -237,7 +243,7 @@ export class NativeJwModal extends Modal{
          await this.app.vault.create(full,text);
        }
        else if(item.bytes){const bytes=item.bytes;await this.app.vault.createBinary(full,bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer);}
-       if(i%45===0){progress.setText((i+1)+' / '+preview.entries.length+' fichiers');await new Promise(resolve=>setTimeout(resolve,0));}
+       if(i%45===0){progress.setText((i+1)+' / '+ordered.length+' fichiers');await new Promise(resolve=>setTimeout(resolve,0));}
      }
      if(this.pendingDownload&&preview.type==='jwpub'&&!preview.virtual){
        const originals=this.rootFolder.replace(/\/$/,'')+'/Bibliothèque JWPUB';
