@@ -150,10 +150,12 @@ export class NativeJwModal extends Modal{
    const actions=root.createDiv({cls:'biblelab-native-buttons'});
    const back=actions.createEl('button',{text:'Retour'});
    back.addEventListener('click',()=>void this.library());
-   const download=actions.createEl('button',{cls:'mod-cta',text:'Télécharger et préparer'});
-   download.addEventListener('click',()=>void this.downloadPublication(item));
+   const virtual=actions.createEl('button',{cls:'mod-cta',text:'Télécharger sans créer de notes'});
+   virtual.addEventListener('click',()=>void this.downloadPublication(item,'virtual'));
+   const download=actions.createEl('button',{text:'Télécharger et préparer'});
+   download.addEventListener('click',()=>void this.downloadPublication(item,'markdown'));
  }
- private async downloadPublication(item:PublicJwpub):Promise<void>{
+ private async downloadPublication(item:PublicJwpub,mode:'virtual'|'markdown'='virtual'):Promise<void>{
    if(this.busy)return;
    this.busy=true;
    this.screen('Téléchargement de '+item.title,'Récupération du fichier public…');
@@ -167,7 +169,7 @@ export class NativeJwModal extends Modal{
        throw Error('La taille reçue ne correspond pas à celle annoncée.');
      const file=new File([bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer],
        item.filename,{type:'application/octet-stream'});
-     const preview=await readJwpub(file);
+     const preview=await readJwpub(file,mode);
      this.pendingDownload={name:item.filename,bytes,symbol:item.symbol,issue:item.issue||''};
      this.showPreview(preview,item.filename);
    }catch(e){this.pendingDownload=null;this.offlineError(e);}finally{this.busy=false;}
@@ -237,7 +239,7 @@ export class NativeJwModal extends Modal{
        else if(item.bytes){const bytes=item.bytes;await this.app.vault.createBinary(full,bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer);}
        if(i%45===0){progress.setText((i+1)+' / '+preview.entries.length+' fichiers');await new Promise(resolve=>setTimeout(resolve,0));}
      }
-     if(this.pendingDownload&&preview.type==='jwpub'){
+     if(this.pendingDownload&&preview.type==='jwpub'&&!preview.virtual){
        const originals=this.rootFolder.replace(/\/$/,'')+'/Bibliothèque JWPUB';
        await folder(this.app,originals);
        const original=this.pendingDownload;
@@ -249,6 +251,7 @@ export class NativeJwModal extends Modal{
          data.buffer.slice(data.byteOffset,data.byteOffset+data.byteLength) as ArrayBuffer);
        this.pendingDownload=null;
      }
+     if(preview.virtual)this.pendingDownload=null;
      new Notice(preview.virtual?
        'Publication virtuelle ajoutée : '+preview.count+' articles, zéro note Markdown.':
        'Import réussi : '+preview.count+' documents hors ligne.');
