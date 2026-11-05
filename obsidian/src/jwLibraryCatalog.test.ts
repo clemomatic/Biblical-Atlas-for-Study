@@ -20,6 +20,9 @@ test('Manifest uses a strict version ID and cannot redirect the catalogue reques
   }
   assert.throws(()=>parseJwLibraryCatalogManifest({version:0,current:version}));
   assert.ok(MAX_CATALOG_GZIP_BYTES<MAX_CATALOG_SQLITE_BYTES);
+  // The real public database was reported as 207.7 MiB in November 2026.
+  assert.ok(MAX_CATALOG_SQLITE_BYTES>207.7*1024*1024);
+  assert.equal(MAX_CATALOG_SQLITE_BYTES,256*1024*1024);
   assert.ok(JW_LIBRARY_CATALOG_MANIFEST.endsWith('/manifest.json'));
 });
 
