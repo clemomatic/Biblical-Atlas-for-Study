@@ -22,6 +22,7 @@ La liste peut dépasser quelques milliers d'entrées : seules 48 cartes sont des
 - Les fichiers du catalogue ne sont pas archivés dans le coffre ; seules les données nécessaires à l'affichage sont conservées en mémoire pendant la session. Les JWPUB déjà importés et les notes ne sont jamais modifiés.
 - Certaines publications cataloguées n'ont pas de couverture connue : elles reçoivent une jaquette typographique, jamais une URL d'image devinée.
 - Le chargement d'une grande base SQLite peut consommer beaucoup de mémoire ; éviter sur un appareil à faible RAM. L'opération n'est ni automatique, ni récurrente.
+- Les [conditions d’utilisation de JW.org](https://www.jw.org/fr/conditions-d-utilisation/) autorisent les téléchargements de fichiers publics pour un usage personnel, mais encadrent strictement la diffusion de contenus dans les applications et l’extraction automatisée. **L’usage du catalogue interne à JW Library n’étant pas officiellement documenté comme une API publique, vérifier sa compatibilité avec les conditions avant toute diffusion ou fusion du plugin.** Ne jamais inclure les bases ni les publications dans les artefacts GitHub.
 - **Pas encore inclus :** génération automatique des carnets d'assemblée, détection avancée des paragraphes bibliques et contrôle automatisé des mises à jour des JWPUB.
 
 ## Vérifications
