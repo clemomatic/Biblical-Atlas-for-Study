@@ -48,7 +48,8 @@ export class NativeJwModal extends Modal{
    this.pendingDownload=null;
    const root=this.screen('Bibliothèque personnelle','Import local · fichiers personnels conservés dans le coffre.');
    this.action(root,'Bibliothèque hors ligne','Mes publications et téléchargements officiels','▧',()=>void this.library());
-   this.action(root,'Importer une publication JWPUB','Instructions, écoles, revues et autres fichiers personnels','▤',()=>void this.load('jwpub'));
+   this.action(root,'Ajouter un JWPUB sans créer de notes','Mode bibliothèque virtuelle : un ouvrage, recherche et lecture locale','▣',()=>void this.loadVirtualJwpub());
+   this.action(root,'Convertir un JWPUB en Markdown (ancien mode)','Import détaillé dans le Vault','▤',()=>void this.load('jwpub'));
    this.action(root,'Importer une sauvegarde JW Library','Notes, étiquettes, identifiants et tableau de recherche','◈',()=>void this.load('jwlibrary'));
    this.action(root,'Créer une sauvegarde JW Library','Comparer les notes éditées avant de générer une copie','⇄',()=>void this.exportFlow());
    root.createEl('p',{cls:'biblelab-native-footnote',text:'Sauvegardes : schémas SQLite 14 à 16. L’export doit être testé sur un profil JW Library vierge avant toute restauration réelle.'});
@@ -57,6 +58,16 @@ export class NativeJwModal extends Modal{
  /** The public catalog is queried only after a direct click. */
  public openOfflineLibrary():void{this.open();void this.library();}
  public openImportJwpub():void{this.open();void this.load('jwpub');}
+ public openImportVirtualJwpub():void{this.open();void this.loadVirtualJwpub();}
+ private async loadVirtualJwpub():Promise<void>{
+   if(this.busy)return;
+   const file=await selectFile('.jwpub');if(!file)return;
+   this.busy=true;
+   const root=this.screen('Indexation virtuelle de '+file.name,'Aucune note Markdown ne sera générée.');
+   root.createEl('p',{cls:'biblelab-native-loading',text:'Analyse du JWPUB et création du cache…'});
+   try{this.showPreview(await readJwpub(file,'virtual'),file.name);}
+   catch(error){this.problem(error);}finally{this.busy=false;}
+ }
  /** Open the existing, consent-based workflow for one discovered official publication. */
  public openCatalogPublication(symbol:string,issue=''):void{
    this.open();void this.checkPublication(symbol,issue);
@@ -64,8 +75,11 @@ export class NativeJwModal extends Modal{
  private async library():Promise<void>{
    const root=this.screen('Bibliothèque hors ligne',
      'Tes publications personnelles et officielles · aucune synchronisation par Bible Lab.');
-   this.action(root,'Importer un fichier JWPUB',
-     'Instructions, écoles, livres ou programmes enregistrés sur ton appareil','▤',
+   this.action(root,'Ajouter un JWPUB virtuel',
+     'Lire et rechercher sans créer de fichiers Markdown','▣',
+     ()=>void this.loadVirtualJwpub());
+   this.action(root,'Ancien import Markdown JWPUB',
+     'Créer les notes sources une par une (optionnel)','▤',
      ()=>void this.load('jwpub'));
    const current=root.createDiv({cls:'biblelab-offline-group'});
    current.createEl('h3',{text:'Mes publications importées'});
@@ -179,10 +193,13 @@ export class NativeJwModal extends Modal{
    }catch(error){this.problem(error);}finally{this.busy=false;}
  }
  private showPreview(preview:ImportPreview,filename:string):void{
-   const root=this.screen('Import prêt','Les documents seront créés dans un dossier neuf, sans écraser tes recherches.');
+   const root=this.screen('Import prêt',preview.virtual?
+     'Un seul ouvrage virtuel, son index et sa source JWPUB. Aucune note Markdown.':
+     'Les documents seront créés dans un dossier neuf, sans écraser tes recherches.');
    const summary=root.createDiv({cls:'biblelab-native-summary'});
    summary.createEl('strong',{text:preview.count.toLocaleString('fr-FR')});
-   summary.createEl('span',{text:preview.type==='jwpub'?'documents déchiffrés':'notes personnelles'});
+   summary.createEl('span',{text:preview.virtual?'articles indexés sans fichiers MD':
+     preview.type==='jwpub'?'documents déchiffrés':'notes personnelles'});
    if(preview.schema)summary.createEl('span',{text:' · schéma '+preview.schema});
    const carnetCount=preview.entries.filter(item=>item.name.startsWith('Carnets/')&&item.name.endsWith('.md')).length;
    if(carnetCount)root.createEl('p',{cls:'biblelab-native-footnote',text:
@@ -192,13 +209,15 @@ export class NativeJwModal extends Modal{
    for(const warning of preview.warnings)root.createEl('p',{cls:'biblelab-native-footnote',text:warning});
    const actions=root.createDiv({cls:'biblelab-native-buttons'});
    const back=actions.createEl('button',{text:'Retour'});back.addEventListener('click',()=>this.menu());
-   const go=actions.createEl('button',{cls:'mod-cta',text:'Importer dans Obsidian'});
+   const go=actions.createEl('button',{cls:'mod-cta',text:preview.virtual?
+     'Ajouter à la bibliothèque virtuelle':'Importer dans Obsidian'});
    go.addEventListener('click',()=>{go.disabled=true;void this.writePreview(preview,filename);});
  }
  private async writePreview(preview:ImportPreview,filename:string):Promise<void>{
    const root=this.screen('Import en cours','Création des fichiers dans le coffre Obsidian.');
    const progress=root.createEl('p',{cls:'biblelab-native-loading',text:'Préparation…'});
-   const base=this.rootFolder.replace(/\/$/,'')+'/Imports/'+shortName(filename);
+   const base=this.rootFolder.replace(/\/$/,'')+
+     (preview.virtual?'/Bibliothèque virtuelle/':'/Imports/')+shortName(filename);
    let target=base;
    for(let i=2;this.app.vault.getAbstractFileByPath(target);i++)target=base+' ('+i+')';
    try{
@@ -230,10 +249,13 @@ export class NativeJwModal extends Modal{
          data.buffer.slice(data.byteOffset,data.byteOffset+data.byteLength) as ArrayBuffer);
        this.pendingDownload=null;
      }
-     new Notice('Import réussi : '+preview.count+' documents hors ligne.');
+     new Notice(preview.virtual?
+       'Publication virtuelle ajoutée : '+preview.count+' articles, zéro note Markdown.':
+       'Import réussi : '+preview.count+' documents hors ligne.');
      const notebook=preview.entries.find(item=>item.name.startsWith('Carnets/')&&item.name.endsWith('.md'));
      const index=this.app.vault.getAbstractFileByPath(target+'/'+(notebook?.name||'INDEX/00 Tableau de recherche.md'));
-     if(index && 'extension' in index)await this.app.workspace.getLeaf('tab').openFile(index as TFile);
+     if(!preview.virtual&&index && 'extension' in index)
+       await this.app.workspace.getLeaf('tab').openFile(index as TFile);
      this.close();
    }catch(error){this.problem(error);}
  }
