@@ -14,7 +14,7 @@ test('Opt-in discovery shows official cover cards but never downloads a publicat
   await expect(library.getByRole('heading',{name:'Découvrir sur JW.org'})).toBeVisible();
   await expect(library.locator('.blb-online-book')).toHaveCount(11);
   await library.getByRole('button',{name:'Assemblées'}).click();
-  await expect(library.locator('.blb-online-book')).toHaveCount(3);
+  await expect(library.locator('.blb-online-book')).toHaveCount(4);
   await expect(library.locator('.blb-online-book').first()).toContainText('JWPUB à vérifier');
   const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests||[]);
   expect(requests.filter((r:any)=>r.url.includes('GETPUBMEDIALINKS'))).toHaveLength(0);
