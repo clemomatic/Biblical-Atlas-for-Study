@@ -14,6 +14,7 @@ export { LIBRARY_FILTERS,filteredVolumes,localDocumentUrl,jwpubPublicationId } f
 export interface LibraryVolume extends LocalPublication {
   category:Exclude<LibraryCategory,'all'|'personal'>;
   origin:'personal'|'download';
+  issue:string;
   items:OfflineDocumentRecord[];
   coverPath:string|null;
 }
@@ -41,6 +42,7 @@ export async function loadLibraryVolumes(app:App,root:string):Promise<LibraryVol
     path:folder,
     category:classifyLibraryVolume(index.publication.symbol,index.publication.title),
     origin:index.origin==='download'?'download':'personal',
+    issue:index.publication.issue||'',
     items:index.documents,
     coverPath:findCover(app,folder)
   })).sort((a,b)=>b.year-a.year||a.title.localeCompare(b.title,'fr'));
