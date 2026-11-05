@@ -204,9 +204,11 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
      indexDocuments.unshift({documentId:1900000000+i,mepsId:null,
        title:notebook.title,path:notebook.path});
    }
+   const issueNumber=String(Number(pub.IssueTagNumber)||'');
    const index:OfflineImportIndex={schema:1,publication:{
      symbol:String(pub.Symbol),year:Number(pub.Year),language:Number(pub.MepsLanguageIndex),
-     title:publicationTitle
+     title:publicationTitle,
+     ...(/^(?:19|20)\d{4}$/.test(issueNumber)?{issue:issueNumber}:{})
    },documents:indexDocuments};
    entries.push({name:OFFLINE_INDEX_NAME,text:JSON.stringify(index,null,2)});
    return {type:'jwpub',title:publicationTitle,sourceHash:await digest(bytes),entries,count,
