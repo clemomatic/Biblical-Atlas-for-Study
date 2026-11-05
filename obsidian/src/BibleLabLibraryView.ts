@@ -5,7 +5,7 @@ import {
 import styles from './bibleLabLibrary.css?inline';
 import {
   LIBRARY_FILTERS,filteredVolumes,loadLibraryVolumes,localDocumentFile,
-  localDocumentUrl,jwpubPublicationId,searchLibrary,
+  localDocumentUrl,jwpubPublicationId,searchLibrary,virtualDocuments,
   type LibraryCategory,type LibrarySearchResult,type LibraryVolume
 } from './libraryCatalog';
 import type { OfflineDocumentRecord } from './offlinePublications';
@@ -20,6 +20,7 @@ export const BIBLE_LAB_LIBRARY_VIEW='bible-lab-personal-library';
 export interface LibraryActions {
   root:()=>string;
   importJwpub:()=>void;
+  importVirtualJwpub:()=>void;
   downloads:()=>void;
   checkPublication:(symbol:string,issue:string)=>void;
   readReference:(url:string,label:string)=>Promise<void>;
@@ -111,7 +112,8 @@ export class BibleLabLibraryView extends ItemView {
     headline.createEl('h1',{text:'Ma bibliothèque'});
     headline.createEl('p',{text:'Tes publications, tes lectures et tes recherches. Même sans connexion.'});
     const actions=hero.createDiv({cls:'blb-head-actions'});
-    button(actions,'Importer un JWPUB','file-plus-2',this.actions.importJwpub);
+    button(actions,'Ajouter un JWPUB sans notes','library-big',this.actions.importVirtualJwpub);
+    button(actions,'Convertir en Markdown','file-plus-2',this.actions.importJwpub);
     button(actions,'Télécharger une publication','download',this.actions.downloads);
     button(actions,'Mes publications','hard-drive',()=>{
       this.browsingOfficialCatalog=false;this.term='';this.filter='all';this.renderChrome();void this.renderContent();
@@ -412,10 +414,12 @@ export class BibleLabLibraryView extends ItemView {
       this.renderCover(card,volume);
       const text=card.createDiv({cls:'blb-book-meta'});
       text.createEl('strong',{text:display(volume.title)});
-      text.createSpan({text:categoryName(volume.category)+' · '+volume.documents+' documents'});
+      text.createSpan({text:categoryName(volume.category)+' · '+volume.documents+' documents'+
+        (volume.virtual?' · sans notes Markdown':'')});
       const badge=text.createSpan({cls:'blb-local-mark'});
       const status=badge.createSpan();setIcon(status,'hard-drive');
-      badge.createSpan({text:volume.origin==='download'?'Téléchargée':'Importée'});
+      badge.createSpan({text:volume.virtual?'Lecteur virtuel':
+        volume.origin==='download'?'Téléchargée':'Importée'});
       card.addEventListener('click',()=>{
         this.selectedPath=volume.path;this.selectedDocument=null;void this.renderContent();
       });
@@ -440,6 +444,7 @@ export class BibleLabLibraryView extends ItemView {
     data.createSpan({cls:'blb-eyebrow',text:categoryName(volume.category)+' · '+(volume.origin==='personal'?'Import personnel':'Téléchargement confirmé')});
     data.createEl('h2',{text:volume.title});
     data.createEl('p',{text:volume.documents+' documents disponibles hors connexion'+
+      (volume.virtual?' · zéro note Markdown':'')+
       (volume.year?' · '+volume.year:'')});
     button(data,'Revenir aux publications','layout-grid',()=>{
       this.selectedPath=null;void this.renderContent();
@@ -464,13 +469,13 @@ export class BibleLabLibraryView extends ItemView {
     this.crumbs(volume,doc);
     const nav=this.content.createDiv({cls:'blb-reader-actions'});
     const file=localDocumentFile(this.app,volume,doc);
-    if(!file){
+    if(!file&&!volume.virtual){
       this.content.createEl('p',{cls:'blb-empty',text:'Ce document a été déplacé ou supprimé du coffre.'});
       return;
     }
-    button(nav,'Ouvrir la note modifiable','file-pen-line',
+    if(file)button(nav,'Ouvrir la note modifiable','file-pen-line',
       ()=>{void this.app.workspace.getLeaf('tab').openFile(file)});
-    button(nav,'Copier un lien vers cette note','link',()=>void this.copyNoteLink(file,doc.title));
+    if(file)button(nav,'Copier un lien vers cette note','link',()=>void this.copyNoteLink(file,doc.title));
     const official=localDocumentUrl(volume,doc);
     if(official)button(nav,'Ouvrir la référence dans Bible Lab','book-open-check',
       ()=>void this.actions.readReference(official,doc.title));
@@ -483,10 +488,12 @@ export class BibleLabLibraryView extends ItemView {
     const reader=this.content.createEl('article',{cls:'blb-reader-text markdown-rendered'});
     reader.createEl('p',{cls:'blb-loading',text:'Chargement du document local…'});
     try{
-      const raw=await this.app.vault.cachedRead(file);
+      const raw=volume.virtual?(await virtualDocuments(this.app,volume)).get(doc.documentId)||'':
+        await this.app.vault.cachedRead(file!);
       if(!this.active||this.token!==ticket)return;
       reader.empty();
-      await MarkdownRenderer.render(this.app,readerMarkdown(raw),reader,file.path,this);
+      await MarkdownRenderer.render(this.app,readerMarkdown(raw),reader,
+        file?.path||volume.path+'/'+doc.path,this);
       if(!this.active||this.token!==ticket)return;
       reader.addEventListener('click',event=>{
         const el=event.target as Element|null;
@@ -514,7 +521,9 @@ export class BibleLabLibraryView extends ItemView {
       });
     }catch{
       reader.empty();
-      reader.createEl('p',{text:'Lecture impossible. Tu peux ouvrir la note Markdown pour vérifier son contenu.'});
+      reader.createEl('p',{text:volume.virtual?
+        'Lecture virtuelle impossible : vérifie l’archive ou réimporte le JWPUB.':
+        'Lecture impossible. Tu peux ouvrir la note Markdown pour vérifier son contenu.'});
     }
     const bottom=this.content.createDiv({cls:'blb-reader-pager'});
     const index=volume.items.findIndex(x=>x.documentId===doc.documentId);

@@ -7,12 +7,13 @@ import { unzipSync, unzlibSync, strFromU8, strToU8 } from 'fflate';
 import { patchZip } from './zipPatch';
 import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
 import { buildJwpubMeetingNotebooks, type MeetingDocument } from './meetingNotebook';
+import {createVirtualIndex,encodeVirtualTexts,VIRTUAL_INDEX,VIRTUAL_TEXT,VIRTUAL_SOURCE,type VirtualDocument} from './virtualJwpub';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
  run:(sql:string,params?:unknown[])=>Db; export:()=>Uint8Array; close:()=>void};
 type Source = { zip:Record<string,Uint8Array>;manifest:any;database:Uint8Array; dbName:string;hash:string; schema:number };
 export type ImportEntry = {name:string;text?:string;bytes?:Uint8Array};
-export type ImportPreview = {type:'jwpub'|'jwlibrary';title:string;sourceHash:string;entries:ImportEntry[];count:number;schema?:number;warnings:string[]};
+export type ImportPreview = {type:'jwpub'|'jwlibrary';title:string;sourceHash:string;entries:ImportEntry[];count:number;schema?:number;warnings:string[];virtual?:boolean};
 export type ChangeItem = {guid:string;titleBefore:string;titleAfter:string;contentBefore:string;contentAfter:string; noteId:number};
 export type ExportPlan = {source:Source;changes:ChangeItem[];db:Db;baselineFk:string[];notes:number};
 const MAX_BYTES=150*1024*1024, MAX_EXPANDED=410*1024*1024;
@@ -129,7 +130,7 @@ export async function readBackup(file:File):Promise<ImportPreview>{
      warnings:['L’import est une copie. La sauvegarde d’origine reste intacte.']};
  }finally{db.close();}
 }
-export async function readJwpub(file:File):Promise<ImportPreview>{
+export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):Promise<ImportPreview>{
  const bytes=u8(await file.arrayBuffer());const zip=extract(bytes,n=>n==='contents'||n==='manifest.json');
  assert(zip['contents'],'Conteneur JWPUB sans fichier contents.');
  const inner=extract(zip['contents']);const dbName=Object.keys(inner).find(x=>x.endsWith('.db'));
@@ -151,6 +152,7 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
    const entries:ImportEntry[]=[];let count=0;
    const indexDocuments:OfflineDocumentRecord[]=[];
    const notebookSources:MeetingDocument[]=[];
+   const virtualDocs:VirtualDocument[]=[];
    const manifest=JSON.parse(zip['manifest.json']?string(zip['manifest.json']):'{}');
    const publicationTitle=String(manifest?.publication?.title||
      manifest?.publication?.displayTitle||pub.Symbol+' '+pub.Year).trim().slice(0,240);
@@ -182,7 +184,9 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
      const language=Number(pub.MepsLanguageIndex);
      const wolUrl=validMeps&&language===3
        ?'https://wol.jw.org/fr/wol/d/r30/lp-f/'+validMeps:null;
-     entries.push({name:filename,text:'---\nbible_lab_kind: jwpub-document'+
+     if(mode==='virtual')virtualDocs.push({documentId:Number(doc.DocumentId),mepsId:validMeps,
+       title,path:filename,text:'# '+title+'\n\n'+markdown});
+     else entries.push({name:filename,text:'---\nbible_lab_kind: jwpub-document'+
        '\nsource_symbol: '+JSON.stringify(pub.Symbol)+
        '\nsource_year: '+pub.Year+
        '\nsource_document: '+doc.DocumentId+
@@ -197,7 +201,8 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
    assert(count>0,'Aucun document converti.');
    // Preserve every original document and its MEPS identifier for offline
    // reference resolution; the notebook is an additional editable entry.
-   const notebooks=buildJwpubMeetingNotebooks(String(pub.Symbol),Number(pub.Year),notebookSources);
+   const notebooks=mode==='virtual'?[]:
+     buildJwpubMeetingNotebooks(String(pub.Symbol),Number(pub.Year),notebookSources);
    for(let i=notebooks.length-1;i>=0;i--){
      const notebook=notebooks[i];
      entries.push({name:notebook.path,text:notebook.markdown});
@@ -205,6 +210,18 @@ export async function readJwpub(file:File):Promise<ImportPreview>{
        title:notebook.title,path:notebook.path});
    }
    const issueNumber=String(Number(pub.IssueTagNumber)||'');
+   if(mode==='virtual'){
+     const pubInfo={symbol:String(pub.Symbol),year:Number(pub.Year),
+       language:Number(pub.MepsLanguageIndex),title:publicationTitle,
+       ...(/^(?:19|20)\d{4}$/.test(issueNumber)?{issue:issueNumber}:{})};
+     const virtualIndex=createVirtualIndex(pubInfo,virtualDocs);
+     entries.push({name:VIRTUAL_INDEX,text:JSON.stringify(virtualIndex)});
+     entries.push({name:VIRTUAL_TEXT,bytes:encodeVirtualTexts(virtualDocs)});
+     entries.push({name:VIRTUAL_SOURCE,bytes});
+     return {type:'jwpub',virtual:true,title:publicationTitle,
+       sourceHash:await digest(bytes),entries,count,
+       warnings:['Mode bibliothèque : aucun document Markdown créé. Les articles restent consultables et cherchables localement.']};
+   }
    const index:OfflineImportIndex={schema:1,publication:{
      symbol:String(pub.Symbol),year:Number(pub.Year),language:Number(pub.MepsLanguageIndex),
      title:publicationTitle,

@@ -4,6 +4,7 @@ import {
   type LocalPublication
 } from './offlineReferenceLibrary';
 import type { OfflineDocumentRecord } from './offlinePublications';
+import {readVirtualPublications,loadVirtualText} from './virtualJwpub';
 
 import {
   classifyLibraryVolume,foldLibraryText as lower
@@ -17,6 +18,7 @@ export interface LibraryVolume extends LocalPublication {
   issue:string;
   items:OfflineDocumentRecord[];
   coverPath:string|null;
+  virtual?:boolean;
 }
 export interface LibrarySearchResult {
   volume:LibraryVolume;
@@ -25,6 +27,16 @@ export interface LibrarySearchResult {
   source:'title'|'content';
 }
 const IMG=/\.(png|jpe?g|webp|gif)$/i;
+const virtualCache=new Map<string,Map<number,string>>();
+export async function virtualDocuments(app:App,volume:LibraryVolume):Promise<Map<number,string>>{
+  if(!volume.virtual)return new Map();
+  const cached=virtualCache.get(volume.path);
+  if(cached)return cached;
+  const docs=await loadVirtualText(app,volume.path);
+  if(virtualCache.size>=3)virtualCache.delete(virtualCache.keys().next().value!);
+  virtualCache.set(volume.path,docs);
+  return docs;
+}
 function findCover(app:App,folder:string):string|null{
   const all=app.vault.getFiles()
     .filter(f=>f.path.startsWith(folder+'/assets/')&&IMG.test(f.name));
@@ -33,7 +45,7 @@ function findCover(app:App,folder:string):string|null{
 }
 export async function loadLibraryVolumes(app:App,root:string):Promise<LibraryVolume[]>{
   const manifests=await readLocalPublicationIndexes(app,root);
-  return manifests.map(({folder,index}):LibraryVolume=>({
+  const legacy=manifests.map(({folder,index}):LibraryVolume=>({
     title:index.publication.title,
     symbol:index.publication.symbol,
     year:index.publication.year,
@@ -45,10 +57,20 @@ export async function loadLibraryVolumes(app:App,root:string):Promise<LibraryVol
     issue:index.publication.issue||'',
     items:index.documents,
     coverPath:findCover(app,folder)
-  })).sort((a,b)=>b.year-a.year||a.title.localeCompare(b.title,'fr'));
+  }));
+  const virtual=await readVirtualPublications(app,root);
+  const volumes:LibraryVolume[]=virtual.map(({folder,index})=>({
+    title:index.publication.title,symbol:index.publication.symbol,
+    year:index.publication.year,language:index.publication.language,
+    documents:index.documents.length,path:folder,
+    category:classifyLibraryVolume(index.publication.symbol,index.publication.title),
+    origin:'personal',issue:index.publication.issue||'',
+    items:index.documents,coverPath:null,virtual:true
+  }));
+  return [...legacy,...volumes].sort((a,b)=>b.year-a.year||a.title.localeCompare(b.title,'fr'));
 }
 export function localDocumentFile(app:App,volume:LibraryVolume,record:OfflineDocumentRecord):TFile|null{
-  if(!volume.items.some(item=>item.path===record.path))return null;
+  if(volume.virtual||!volume.items.some(item=>item.path===record.path))return null;
   const abstract=app.vault.getAbstractFileByPath(volume.path+'/'+record.path);
   return abstract instanceof TFile?abstract:null;
 }
@@ -61,6 +83,10 @@ export async function searchLibrary(
   const found:LibrarySearchResult[]=[];
   const queryWords=query.split(' ').filter(Boolean);
   for(const volume of volumes){
+    let virtualContent:Map<number,string>|null=null;
+    if(volume.virtual){
+      try{virtualContent=await virtualDocuments(app,volume);}catch{continue;}
+    }
     for(const item of volume.items){
       if(found.length>=limit)return found;
       const title=lower(volume.title+' '+item.title+' '+volume.symbol);
@@ -69,9 +95,10 @@ export async function searchLibrary(
         continue;
       }
       const file=localDocumentFile(app,volume,item);
-      if(!file)continue;
+      if(!file&&!virtualContent)continue;
       try{
-        const raw=(await app.vault.cachedRead(file)).slice(0,350000);
+        const raw=(virtualContent?virtualContent.get(item.documentId)||'':
+          await app.vault.cachedRead(file!)).slice(0,350000);
         const folded=lower(raw);
         const i=folded.indexOf(query);
         // This is an explicit local content search, not a web request.
