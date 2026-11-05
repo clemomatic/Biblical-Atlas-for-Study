@@ -112,7 +112,7 @@ export function buildJwpubMeetingNotebooks(
   for(const doc of documents){
     const m=weekMatch(doc);
     if(!m)continue;
-    const label=m[0].replace(/\s+/g,' ').replace(/\s*[-–—]\s*/,'–').trim();
+    const label=m[0].replace(/\s+/g,' ').replace(/\s*[-–—]\s*/,'–').replace(/(\d)er\b/gi,'$1').trim();
     const documentYear=m[4]?Number(m[4]):year;
     const title=label.replace(/\s+\d{4}$/,'')+' '+documentYear;
     const key=title.toLocaleLowerCase('fr');
