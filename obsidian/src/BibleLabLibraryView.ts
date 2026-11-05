@@ -149,6 +149,7 @@ export class BibleLabLibraryView extends ItemView {
   private async renderContent():Promise<void>{
     if(!this.active)return;
     const ticket=++this.token;
+    this.contentEl.classList.toggle('blb-online-mode',this.browsingOfficialCatalog);
     this.updateFilters();
     this.content.empty();
     if(this.browsingOfficialCatalog){this.renderOfficialCatalog();return;}
@@ -224,7 +225,9 @@ export class BibleLabLibraryView extends ItemView {
     if(this.catalogError)top.createEl('p',{cls:'blb-online-error',text:this.catalogError});
     else if(this.lastCatalogRefresh)top.createEl('p',{cls:'blb-online-meta',text:
       'Résultats extraits de la page d’accueil uniquement ; ce n’est pas le catalogue intégral de JW.org.'});
-    const direct=top.createDiv({cls:'blb-online-direct'});
+    const manual=top.createEl('details',{cls:'blb-online-manual'});
+    manual.createEl('summary',{text:'J’ai un code ou un lien officiel de téléchargement'});
+    const direct=manual.createDiv({cls:'blb-online-direct'});
     const code=direct.createEl('input',{attr:{
       type:'text',placeholder:'Code ou lien de téléchargement JW.org',
       'aria-label':'Code ou lien officiel de téléchargement'
