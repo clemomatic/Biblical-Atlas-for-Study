@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {gzipSync} from 'fflate';
 import {
   JW_LIBRARY_CATALOG_MANIFEST,parseJwLibraryCatalogManifest,
   jwLibraryCatalogDownloadUrl,isSqliteDatabase,
-  jwLibraryCatalogRow,extractJwLibraryCatalog,
+  jwLibraryCatalogRow,extractJwLibraryCatalog,decodeJwLibraryCatalogPayload,
   MAX_CATALOG_GZIP_BYTES,MAX_CATALOG_SQLITE_BYTES
 } from './jwLibraryCatalog.ts';
 
@@ -81,4 +82,14 @@ test('SQLite database signature check is binary rather than a filename guess',()
   assert.equal(isSqliteDatabase(bytes),true);
   bytes[0]=0;
   assert.equal(isSqliteDatabase(bytes),false);
+});
+
+test('catalog accepts gzip and transparently decoded SQLite but rejects HTML',()=>{
+  const sqlite=new Uint8Array(100);
+  new TextEncoder().encodeInto('SQLite format 3\0',sqlite);
+  assert.equal(decodeJwLibraryCatalogPayload(sqlite).length,sqlite.length);
+  const zipped=gzipSync(sqlite);
+  assert.deepEqual(decodeJwLibraryCatalogPayload(zipped),sqlite);
+  assert.throws(()=>decodeJwLibraryCatalogPayload(new TextEncoder().encode('<html>403 forbidden</html>')),/HTML/);
+  assert.throws(()=>decodeJwLibraryCatalogPayload(new Uint8Array(0)),/vide/);
 });
