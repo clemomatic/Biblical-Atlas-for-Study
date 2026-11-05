@@ -73,6 +73,7 @@ test('A pasted official JW.org media link resolves the correct publication witho
   await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
   const library=page.locator('.blb-library');
   await library.getByRole('button',{name:'Explorer JW.org'}).click();
+  await library.getByText('J’ai un code ou un lien officiel de téléchargement').click();
   await library.getByRole('textbox',{name:'Code ou lien officiel de téléchargement'}).fill(
     'https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?pub=w&issue=202701&langwritten=F&fileformat=PDF%2CJWPUB'
   );
