@@ -12,7 +12,7 @@ import type { OfflineDocumentRecord } from './offlinePublications';
 import { foldLibraryText } from './libraryTaxonomy';
 import {
   FEATURED_JW_ORG,JW_ORG_CATALOG_PAGE,combineJwCatalog,
-  parseJwOrgCatalogHtml,type JwCatalogEntry
+  parseJwOrgCatalogHtml,decodeMediaCatalogLink,type JwCatalogEntry
 } from './jwOrgCatalog';
 
 export const BIBLE_LAB_LIBRARY_VIEW='bible-lab-personal-library';
@@ -226,15 +226,17 @@ export class BibleLabLibraryView extends ItemView {
       'Résultats extraits de la page d’accueil uniquement ; ce n’est pas le catalogue intégral de JW.org.'});
     const direct=top.createDiv({cls:'blb-online-direct'});
     const code=direct.createEl('input',{attr:{
-      type:'text',placeholder:'Autre code officiel (ex. it-1)',
-      'aria-label':'Vérifier un autre identifiant officiel'
+      type:'text',placeholder:'Code ou lien de téléchargement JW.org',
+      'aria-label':'Code ou lien officiel de téléchargement'
     }});
     const issue=direct.createEl('input',{attr:{
       type:'text',placeholder:'Numéro facultatif (ex. 202609)',
       'aria-label':'Numéro de publication pour une revue'
     }});
     button(direct,'Vérifier ce JWPUB','search',()=>{
-      this.actions.checkPublication(code.value.trim(),issue.value.trim());
+      const official=decodeMediaCatalogLink(code.value.trim());
+      this.actions.checkPublication(official?.symbol||code.value.trim(),
+        official?.issue||issue.value.trim());
     });
     if(!available.length){
       this.content.createEl('p',{cls:'blb-empty',text:
