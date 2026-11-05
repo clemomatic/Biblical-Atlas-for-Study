@@ -304,6 +304,9 @@ export class BibleLabLibraryView extends ItemView {
       cls:'blb-online-meta',text:available.length.toLocaleString('fr-FR')+
         ' références correspondantes · '+Math.min(this.catalogVisible,available.length)+
         ' affichées'});
+    const originals=this.app.vault.getFiles().filter(file=>
+      file.path.startsWith(this.actions.root().replace(/\/$/,'')+'/Bibliothèque JWPUB/')&&
+      file.extension.toLowerCase()==='jwpub');
     const grid=this.content.createDiv({cls:'blb-book-grid blb-online-grid'});
     const visible=available.slice(0,this.catalogVisible);
     for(const item of visible){
@@ -325,8 +328,14 @@ export class BibleLabLibraryView extends ItemView {
       const info=card.createDiv({cls:'blb-book-meta'});
       info.createEl('strong',{text:item.title});
       info.createSpan({text:item.symbol+(item.issue?' · '+item.issue:'')});
+      const stem=item.symbol.toLowerCase()+'_F'+(item.issue?'_'+item.issue:'');
+      const original=originals.find(file=>{
+        const name=file.name.toLowerCase();
+        return name===stem+'.jwpub'||name.startsWith(stem+' (');
+      });
+      const size=original?(original.stat.size/1048576).toFixed(1)+' Mo':'non renseignée';
       info.createSpan({cls:'blb-local-mark',
-        text:local?'Disponible hors ligne · taille locale selon le fichier':
+        text:local?'Disponible hors ligne · taille : '+size:
           'Taille du JWPUB : à vérifier'});
       const actions=card.createDiv({cls:'blb-online-card-actions'});
       if(local)button(actions,'Lire','book-open',()=>{
