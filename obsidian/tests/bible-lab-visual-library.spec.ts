@@ -132,3 +132,34 @@ test('Uses a cover only when a local imported asset exists',async({page})=>{
  const cover=page.locator('.blb-cover').first();
  await expect(cover.locator('img')).toHaveAttribute('alt','Couverture de Publication illustrée');
 });
+
+
+test('Virtual JWPUB import keeps one source and search cache, with no per-article Markdown files',async({page})=>{
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
+ const library=page.locator('.blb-library');
+ const chooser=page.waitForEvent('filechooser');
+ await library.getByRole('button',{name:'Ajouter un JWPUB sans notes'}).click();
+ await (await chooser).setFiles({
+  name:'manuel_virtuel.jwpub',mimeType:'application/zip',buffer:await personalJwpub()
+ });
+ await expect(page.getByText('articles indexés sans fichiers MD')).toBeVisible();
+ await page.getByRole('button',{name:'Ajouter à la bibliothèque virtuelle'}).click();
+ await expect(library.getByRole('button',{name:'Ouvrir Manuel de formation'})).toBeVisible();
+ const stored=await page.evaluate(()=>{
+  const prefix=(window as any).atlasTest.plugin.settings.noteFolder+'/Bibliothèque virtuelle/';
+  return (window as any).atlasTest.app.vault.getFiles().filter((f:any)=>f.path.startsWith(prefix))
+    .map((f:any)=>f.path);
+ });
+ expect(stored.filter((f:string)=>f.endsWith('.md'))).toHaveLength(0);
+ expect(stored.filter((f:string)=>f.endsWith('.jwpub'))).toHaveLength(1);
+ expect(stored.filter((f:string)=>f.endsWith('_BIBLE_LAB_VIRTUAL_INDEX.json'))).toHaveLength(1);
+ await library.getByRole('button',{name:'Ouvrir Manuel de formation'}).click();
+ await library.getByRole('button',{name:'Lire Enseigner avec précision'}).click();
+ await expect(library.locator('.blb-reader-text')).toContainText('La patience aide à mieux comprendre.');
+ await expect(library.getByRole('button',{name:'Ouvrir la note modifiable'})).toHaveCount(0);
+ await library.getByRole('button',{name:'Bibliothèque'}).click();
+ const search=library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'});
+ await search.fill('patience');
+ await expect(library.locator('.blb-search-result')).toHaveCount(1);
+ await expect(library.locator('.blb-search-result')).toContainText('La patience');
+});
