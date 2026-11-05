@@ -336,6 +336,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.registerView(BIBLE_LAB_LIBRARY_VIEW,leaf=>new BibleLabLibraryView(leaf,{
       root:()=>this.settings.noteFolder,
       importJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportJwpub(),
+      importVirtualJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportVirtualJwpub(),
       downloads:this.openOfflineLibrary,
       checkPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder)
         .openCatalogPublication(symbol,issue),
@@ -343,7 +344,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       openWol:(url)=>this.openWolSearchTab(url)
     }));
     const refreshBookcase=(file:{path:string})=>{
-      if(!file.path.endsWith('/_BIBLE_LAB_OFFLINE_INDEX.json'))return;
+      if(!file.path.endsWith('/_BIBLE_LAB_OFFLINE_INDEX.json')&&
+         !file.path.endsWith('/_BIBLE_LAB_VIRTUAL_INDEX.json'))return;
       for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_LIBRARY_VIEW)){
         if(leaf.view instanceof BibleLabLibraryView)void leaf.view.refresh();
       }
