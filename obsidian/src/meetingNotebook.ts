@@ -55,7 +55,7 @@ export function renderWeeklyMeetingNotebook(week:NotebookMeeting,mondayStamp:str
     const title=part?.title||heading(section.section);
     const kind=part?.callout||'blb-idea';
     seen.add(title);
-    blocks.push('## '+(part?.symbol||'✦')+' '+title,'');
+    blocks.push('## '+title,'');
     blocks.push(...noteBox(kind,'Ce que je veux retenir','Une pensée principale à développer pendant la réunion.'));
     for(const item of section.items){
       blocks.push('### '+heading(item),'');
@@ -64,7 +64,7 @@ export function renderWeeklyMeetingNotebook(week:NotebookMeeting,mondayStamp:str
   }
   for(const part of PARTS){
     if(seen.has(part.title))continue;
-    blocks.push('## '+part.symbol+' '+part.title,'');
+    blocks.push('## '+part.title,'');
     blocks.push(...noteBox(part.callout,'Mes notes',''));
   }
   blocks.push('## À préparer','',
