@@ -139,7 +139,7 @@ export class NativeJwModal extends Modal{
      const item=parsePublicJwpubResponse(response.json,symbol,issue);
      if(!item)throw Error('Aucun fichier JWPUB français validé pour cet identifiant.');
      this.showDownloadPreview(item);
-   }catch(e){this.offlineError(e);}finally{this.busy=false;}
+   }catch(e){this.offlineError(e,symbol);}finally{this.busy=false;}
  }
  private showDownloadPreview(item:PublicJwpub):void{
    const root=this.screen(item.title,'Fichier trouvé sur le service officiel.');
@@ -176,10 +176,17 @@ export class NativeJwModal extends Modal{
      this.showPreview(preview,item.filename);
    }catch(e){this.pendingDownload=null;this.offlineError(e);}finally{this.busy=false;}
  }
- private offlineError(error:unknown):void{
+ private offlineError(error:unknown,symbol=''):void{
    const root=this.screen('Publication indisponible','Aucune publication n’a été importée.');
    root.createEl('p',{cls:'biblelab-native-footnote',text:
      error instanceof Error?error.message:String(error)});
+   if(symbol==='nwt'||symbol==='nwtsty'){
+     root.createEl('p',{cls:'biblelab-native-footnote',text:
+       'Les deux Bibles sont également disponibles dans la bibliothèque officielle. Tu peux y télécharger le JWPUB puis l’importer dans Bible Lab.'});
+     const official=root.createEl('button',{text:'Télécharger la Bible sur JW.org'});
+     official.addEventListener('click',()=>window.open(
+       'https://www.jw.org/fr/biblioth%C3%A8que/bible/','_blank','noopener,noreferrer'));
+   }
    const back=root.createEl('button',{text:'Retour à la bibliothèque'});
    back.addEventListener('click',()=>void this.library());
  }
