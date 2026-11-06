@@ -46,6 +46,7 @@ test('NWT and study Bible are discoverable and large JWPUB files are not silentl
  for(const symbol of ['nwt','nwtsty']){
   const request=new URL(publicJwpubQuery(symbol));
   assert.equal(request.searchParams.get('pub'),symbol);
+  assert.equal(request.searchParams.get('booknum'),'0');
   const size=220*1024*1024;
   const media={pub:symbol,pubName:symbol,files:{F:{JWPUB:[{
    filesize:size,file:{url:'https://b.jw-cdn.org/path/'+symbol+'.jwpub'}
