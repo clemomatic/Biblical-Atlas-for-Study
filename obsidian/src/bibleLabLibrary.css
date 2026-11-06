@@ -286,3 +286,14 @@
  font-size:11px;min-height:33px;padding:6px 9px;max-width:100%}
 .blb-bible-books .blb-action.primary,.blb-bible-chapters .blb-action.primary{
  border-color:var(--interactive-accent);color:var(--interactive-accent)}
+
+
+.blb-jw-native-block{position:relative;margin:0 0 13px;padding:0 0 2px 34px}
+.blb-jw-native-text{font-size:var(--font-text-size);line-height:1.75;margin:0}
+.blb-jw-verse-number{position:absolute;left:0;top:3px;font-size:11px;
+  font-weight:700;color:var(--text-muted)}
+.blb-jw-verse-notes{margin:5px 0 11px;border-left:2px solid var(--interactive-accent);
+  padding-left:10px;font-size:12px}
+.blb-jw-verse-notes summary{cursor:pointer;color:var(--text-accent);font-weight:650}
+.blb-jw-verse-notes .blb-annotation-item{margin:7px 0}
+.blb-jw-native-block mark{box-decoration-break:clone;padding:1px 0;border-radius:2px}
