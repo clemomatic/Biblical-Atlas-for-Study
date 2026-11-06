@@ -1,4 +1,5 @@
 import {test,expect} from '@playwright/test';
+import {gzipSync,strToU8} from 'fflate';
 
 test.beforeEach(async({page})=>{
  await page.route('https://**/*',route=>route.abort());
@@ -94,4 +95,41 @@ test('Real CodeMirror Live Preview auto-links citations while typing without cha
  await expect(popup.getByText('Deux moineaux ne se vendent-ils pas',{exact:false})).toBeVisible();
  expect(await page.evaluate(()=>(window as any).atlasTest.editorView.state.doc.toString()))
   .toBe('Matthieu 10:29 et Éph. 5:28');
+});
+
+
+test('Popup includes locally imported JW Library chapter highlights and personal notes',async({page})=>{
+ const fixture={
+  format:'bible-lab-annotations',version:1,schema:16,sourceHash:'fixture',
+  locations:[{id:1,book:41,chapter:10,document:null,issue:null,
+    symbol:'nwtsty',language:3,type:0,specialty:null,edition:null}],
+  marks:[{id:5,guid:'example-mark',color:2,style:0,location:1}],
+  ranges:[{mark:5,blockType:1,identifier:14,start:0,end:4}],
+  notes:[{id:9,guid:'example-note',title:'Mon idée',
+   content:'Jésus réagit face à l’injustice',location:1,mark:5,
+   blockType:1,blockIdentifier:14,created:null,modified:null,tags:['justice']}],
+  bookmarks:[]
+ };
+ const archive=Buffer.from(gzipSync(strToU8(JSON.stringify(fixture)))).toString('base64');
+ await page.evaluate(async(base64)=>{
+  const {app,plugin}=(window as any).atlasTest;
+  const root=plugin.settings.noteFolder+'/Annotations JW Library';
+  await app.vault.createFolder(root);
+  await app.vault.createFolder(root+'/Sauvegarde de test');
+  await app.vault.createBinary(root+'/Sauvegarde de test/annotations.json.gz',
+    Uint8Array.from(atob(base64),c=>c.charCodeAt(0)).buffer);
+  await app.vault.create(root+'/Sauvegarde de test/_BIBLE_LAB_ANNOTATIONS.json',
+    JSON.stringify({format:'bible-lab-annotations',version:1}));
+  const p=document.createElement('p');
+  p.id='annotation-popup-fixture';p.textContent='Marc 10:14';
+  document.body.appendChild(p);
+  plugin.markdownPostProcessor(p);
+ },archive);
+ await page.locator('#annotation-popup-fixture .biblelab-ref').click();
+ const popup=page.getByRole('dialog',{name:'Aperçu biblique : Marc 10:14'});
+ await expect(popup).toBeVisible();
+ await expect(popup.locator('.biblelab-popover-personal-annotations')).toBeVisible();
+ await popup.locator('.biblelab-popover-personal-annotations summary').click();
+ await expect(popup.getByText('Jésus réagit face à l’injustice')).toBeVisible();
+ await expect(popup.getByText('Couleur JW Library n° 2',{exact:false})).toBeVisible();
 });
