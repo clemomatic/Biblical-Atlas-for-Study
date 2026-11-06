@@ -58,6 +58,7 @@ import { NativeJwModal } from './NativeJwModal';
 import { BIBLE_LAB_LIBRARY_VIEW, BibleLabLibraryView } from './BibleLabLibraryView';
 import { setLocalReferenceResolver } from './wolReferenceFetcher';
 import { resolveOfflineDocument } from './offlineReferenceLibrary';
+import {loadLatestAnnotationArchive} from './jwAnnotationLibrary';
 import type { MapBounds } from './tileMath';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -431,7 +432,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.register(()=>floatingStyle.remove());
     this.inlinePopup=new BibleLabInlinePopover(
       ref => this.run(this.openBibleLab(ref.url,ref.label)),
-      ref => this.run(this.openWolArticleTab(ref))
+      ref => this.run(this.openWolArticleTab(ref)),
+      async()=> (await loadLatestAnnotationArchive(this.app,this.settings.noteFolder))?.index||null
     );
     this.register(()=>{this.inlinePopup?.destroy();this.inlinePopup=undefined;});
     const showInline=(label:string,anchor:HTMLElement)=>
