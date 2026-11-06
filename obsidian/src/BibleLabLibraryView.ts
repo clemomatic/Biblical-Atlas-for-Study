@@ -9,8 +9,9 @@ import {
   type LibraryCategory,type LibrarySearchResult,type LibraryVolume
 } from './libraryCatalog';
 import type { OfflineDocumentRecord } from './offlinePublications';
-import {annotationsForDocument,loadLatestAnnotationArchive,searchPersonalAnnotations} from './jwAnnotationLibrary';
+import {annotationsForDocument,annotationsForBibleChapter,bibleAnnotationChapters,bibleBookName,loadLatestAnnotationArchive,searchPersonalAnnotations} from './jwAnnotationLibrary';
 import type {DocumentAnnotations} from './jwAnnotationLibrary';
+import type {JwAnnotationIndex} from './jwAnnotations';
 import { loadJwLibraryPublicCatalog } from './jwLibraryCatalogReader';
 import { foldLibraryText } from './libraryTaxonomy';
 import {
@@ -54,6 +55,8 @@ export class BibleLabLibraryView extends ItemView {
   private volumes:LibraryVolume[]=[];
   private browsingOfficialCatalog=false;
   private browsingAnnotations=false;
+  private selectedBibleBook:number|null=null;
+  private selectedBibleChapter:number|null=null;
   private officialCatalog:JwCatalogEntry[]=[...FEATURED_JW_ORG];
   private catalogLoading=false;
   private catalogError='';
@@ -563,12 +566,13 @@ export class BibleLabLibraryView extends ItemView {
     if(!found||(!found.marks.length&&!found.notes.length&&!found.bookmarks.length))return;
     this.displayArticleAnnotations(holder,found);
   }
-  private displayArticleAnnotations(parent:HTMLElement,data:DocumentAnnotations):void{
+  private displayArticleAnnotations(parent:HTMLElement,data:DocumentAnnotations,bible=false):void{
     const title=parent.createDiv({cls:'blb-annotation-head'});
     title.createEl('h2',{text:'Mes annotations JW Library'});
     title.createEl('p',{text:data.marks.length+' surlignage(s) · '+
       data.notes.length+' note(s) · '+data.bookmarks.length+' signet(s)'});
     parent.createEl('p',{cls:'blb-annotation-warning',text:
+      bible?'Annotations regroupées par livre et chapitre. Les positions tokenisées ne sont pas encore alignées sur les mots du texte biblique.':
       data.confidence==='exact-meps'?
       'Correspondance par identifiant MEPS. Les mots exacts ne sont pas encore coloriés : les positions de texte doivent être vérifiées.':
       'Correspondance par identifiant de document local : vérifie qu’il s’agit du bon article avant de réutiliser ces annotations.'});
@@ -616,6 +620,9 @@ export class BibleLabLibraryView extends ItemView {
       'de tes notes JW Library. Les surlignages sans note ne possèdent pas '+
       'de texte autonome dans cette sauvegarde.'});
     if(this.term.trim().length<2){
+      this.renderBibleAnnotationBrowser(archive.index);
+    }
+    if(this.term.trim().length<2){
       top.createEl('p',{cls:'blb-online-meta',text:
         'Saisis au moins deux caractères dans la barre de recherche pour explorer tes annotations.'});
       return;
@@ -655,6 +662,41 @@ export class BibleLabLibraryView extends ItemView {
         }
       }
     }
+  }
+
+  private renderBibleAnnotationBrowser(index:JwAnnotationIndex):void{
+    const groups=bibleAnnotationChapters(index);
+    const section=this.content.createDiv({cls:'blb-bible-annotations'});
+    section.createEl('h3',{text:'Surlignages de la Bible d’étude'});
+    section.createEl('p',{cls:'blb-online-meta',text:
+      groups.length+' chapitres annotés · navigation selon les emplacements enregistrés par JW Library.'});
+    const books=[...new Set(groups.map(g=>g.book))];
+    const picker=section.createDiv({cls:'blb-bible-books'});
+    button(picker,'Tous les livres','book-open',()=>{
+      this.selectedBibleBook=null;this.selectedBibleChapter=null;
+      void this.renderContent();
+    });
+    for(const book of books){
+      const count=groups.filter(g=>g.book===book).reduce((sum,g)=>sum+g.marks,0);
+      button(picker,bibleBookName(book)+' ('+count+')','book',()=>{
+        this.selectedBibleBook=book;this.selectedBibleChapter=null;
+        void this.renderContent();
+      },book===this.selectedBibleBook?'primary':'');
+    }
+    if(this.selectedBibleBook===null)return;
+    const matching=groups.filter(g=>g.book===this.selectedBibleBook);
+    const chapters=section.createDiv({cls:'blb-bible-chapters'});
+    chapters.createEl('h4',{text:bibleBookName(this.selectedBibleBook)});
+    for(const entry of matching){
+      button(chapters,'Ch. '+entry.chapter+' · '+entry.marks+' surlignage(s)',
+        'highlighter',()=>{
+        this.selectedBibleChapter=entry.chapter;void this.renderContent();
+      },entry.chapter===this.selectedBibleChapter?'primary':'');
+    }
+    if(this.selectedBibleChapter===null)return;
+    const matched=annotationsForBibleChapter(
+      index,this.selectedBibleBook,this.selectedBibleChapter);
+    if(matched)this.displayArticleAnnotations(section,matched,true);
   }
   private async copyNoteLink(file:TFile,title:string):Promise<void>{
     const link='[['+file.path.replace(/\.md$/,'').replace(/\|/g,' ')+'|'+
