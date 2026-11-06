@@ -40,3 +40,22 @@ test('Index validates local paths and exact French WOL document IDs, never infer
  assert.equal(directWolMepsId('https://wol.jw.org.attacker.tld/fr/wol/d/r30/lp-f/2024405'),null);
  assert.equal(validateOfflineIndex({...manifest,documents:[{...manifest.documents[0],path:'../secrets.md'}]}),null);
 });
+
+
+test('NWT and study Bible are discoverable and large JWPUB files are not silently rejected',()=>{
+ for(const symbol of ['nwt','nwtsty']){
+  const request=new URL(publicJwpubQuery(symbol));
+  assert.equal(request.searchParams.get('pub'),symbol);
+  const size=220*1024*1024;
+  const media={pub:symbol,pubName:symbol,files:{F:{JWPUB:[{
+   filesize:size,file:{url:'https://b.jw-cdn.org/path/'+symbol+'.jwpub'}
+  }]}}};
+  const entry=parsePublicJwpubResponse(media,symbol);
+  assert.equal(entry?.filesize,size);
+  assert.equal(entry?.filename,symbol+'_F.jwpub');
+ }
+ const oversized={pub:'w',files:{F:{JWPUB:[{
+  filesize:220*1024*1024,file:{url:'https://b.jw-cdn.org/path/w.jwpub'}
+ }]}}};
+ assert.equal(parsePublicJwpubResponse(oversized,'w'),null);
+});
