@@ -39,7 +39,8 @@ export function colorizeJwText(text:string,block:VirtualBlock,marks:readonly Mar
  let pos=0;
  for(let i=0;i<tokens.length;i++){
   const token=tokens[i],color=colors[i];
-  add(text.slice(pos,token.start));
+  // Keep spaces between consecutive highlighted words in the same mark.
+  add(text.slice(pos,token.start),i>0&&colors[i-1]===color?color:undefined);
   add(text.slice(token.start,token.end),color);
   pos=token.end;
  }
