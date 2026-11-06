@@ -96,7 +96,7 @@ test('Private school or instruction JWPUB imports as notes without consulting an
  const file=Buffer.from(await jwpubBytes('s-38',null));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openOfflineLibrary());
  const choose=page.waitForEvent('filechooser');
- await page.getByRole('button',{name:'Importer un fichier JWPUB'}).click();
+ await page.getByRole('button',{name:'Ancien import Markdown JWPUB'}).click();
  await (await choose).setFiles({name:'instructions_ecole.jwpub',mimeType:'application/zip',buffer:file});
  await expect(page.getByText('documents déchiffrés')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
