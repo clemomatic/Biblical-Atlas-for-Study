@@ -1,4 +1,7 @@
-import type {ReaderLine,ReaderResult} from './referenceReader.ts';
+import type {ReaderLine,ReaderResult,ReferenceEntry} from './referenceReader.ts';
+import type {App} from 'obsidian';
+import {parseScripture} from './bibleLabData.ts';
+import {loadLatestAnnotationArchive,annotationsForBibleChapter} from './jwAnnotationLibrary.ts';
 import type {VirtualBlock} from './virtualJwpub.ts';
 import type {DocumentAnnotations} from './jwAnnotationLibrary.ts';
 import {colorizeJwText} from './jwTextHighlight.ts';
@@ -31,17 +34,14 @@ export function readerPersonalNotes(
 /** For official WOL fallback, show personal notes by exact Bible verse anchor.
  * Do not apply word colours to an unverified online edition. */
 export async function attachPersonalBibleNotes(
- app:import('obsidian').App,root:string,
- ref:import('./referenceReader.ts').ReferenceEntry,
+ app:App,root:string,
+ ref:ReferenceEntry,
  result:ReaderResult
 ):Promise<ReaderResult>{
  if(ref.kind!=='scripture'||result.personalNotes?.length)return result;
- const {parseScripture}=await import('./bibleLabData.ts');
- const passage=parseScripture(ref.label);
+const passage=parseScripture(ref.label);
  if(!passage||passage.endChapter)return result;
- const {loadLatestAnnotationArchive,annotationsForBibleChapter}=
-   await import('./jwAnnotationLibrary.ts');
- const archive=await loadLatestAnnotationArchive(app,root);
+const archive=await loadLatestAnnotationArchive(app,root);
  if(!archive)return result;
  const found=annotationsForBibleChapter(archive.index,passage.book,passage.chapter);
  if(!found)return result;
