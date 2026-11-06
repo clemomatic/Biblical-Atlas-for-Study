@@ -2,7 +2,7 @@ import { Modal, Notice, requestUrl, type App, type TFile } from 'obsidian';
 import { readJwpub, readBackup, readBackupAnnotations, prepareExport, createExport, digest, type ImportPreview } from './nativeJw';
 import { listLocalPublications } from './offlineReferenceLibrary';
 import {
-  PERSONAL_OFFLINE_CATALOG,MAX_PERSONAL_JWPUB_BYTES,
+  PERSONAL_OFFLINE_CATALOG,allowedJwpubBytes,isBiblePublication,
   isJwpubArchive,parsePublicJwpubResponse,publicJwpubQuery,
   type PublicJwpub
 } from './offlinePublications';
@@ -137,7 +137,7 @@ export class NativeJwModal extends Modal{
      const response=await requestUrl({url,throw:false});
      if(response.status!==200)throw Error('La publication est indisponible (HTTP '+response.status+').');
      const item=parsePublicJwpubResponse(response.json,symbol,issue);
-     if(!item)throw Error('Aucun fichier JWPUB français validé pour cet identifiant.');
+     if(!item)throw Error('Aucun fichier JWPUB français vérifiable pour « '+symbol+' » sur le service de téléchargement. Utilise la page officielle pour récupérer le fichier JWPUB puis « Ajouter un JWPUB sans notes ».');
      this.showDownloadPreview(item);
    }catch(e){this.offlineError(e);}finally{this.busy=false;}
  }
@@ -149,6 +149,8 @@ export class NativeJwModal extends Modal{
      (item.filesize/1048576).toFixed(1)+' Mo annoncés':'Taille non précisée'});
    root.createEl('p',{cls:'biblelab-native-footnote',text:
      'Téléchargement uniquement sur demande. L’analyse et la lecture sont ensuite locales.'});
+   if(isBiblePublication(item.symbol))root.createEl('p',{cls:'biblelab-native-footnote',text:
+     'Les Bibles, en particulier l’édition d’étude, peuvent être volumineuses. Vérifie l’espace disponible avant importation.'});
    const actions=root.createDiv({cls:'biblelab-native-buttons'});
    const back=actions.createEl('button',{text:'Retour'});
    back.addEventListener('click',()=>void this.library());
@@ -165,8 +167,8 @@ export class NativeJwModal extends Modal{
      const response=await requestUrl({url:item.url,throw:false});
      if(response.status!==200)throw Error('Téléchargement impossible (HTTP '+response.status+').');
      const bytes=new Uint8Array(response.arrayBuffer);
-     if(!isJwpubArchive(bytes))throw Error('Le fichier reçu ne ressemble pas à un JWPUB.');
-     if(bytes.length>MAX_PERSONAL_JWPUB_BYTES)throw Error('Publication trop volumineuse.');
+     if(!isJwpubArchive(bytes,item.symbol))throw Error('Le fichier reçu ne ressemble pas à un JWPUB valide ou dépasse la taille maximale autorisée.');
+     if(bytes.length>allowedJwpubBytes(item.symbol))throw Error('Publication trop volumineuse : limite '+Math.round(allowedJwpubBytes(item.symbol)/1048576)+' Mo.');
      if(item.filesize&&bytes.length!==item.filesize)
        throw Error('La taille reçue ne correspond pas à celle annoncée.');
      const file=new File([bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer],
@@ -180,6 +182,9 @@ export class NativeJwModal extends Modal{
    const root=this.screen('Publication indisponible','Aucune publication n’a été importée.');
    root.createEl('p',{cls:'biblelab-native-footnote',text:
      error instanceof Error?error.message:String(error)});
+   this.action(root,'Télécharger depuis la bibliothèque officielle',
+     'La Bible standard et l’édition d’étude peuvent être récupérées en JWPUB sur JW.org','↗',
+     ()=>window.open('https://www.jw.org/fr/biblioth%C3%A8que/bible/','_blank','noopener,noreferrer'));
    const back=root.createEl('button',{text:'Retour à la bibliothèque'});
    back.addEventListener('click',()=>void this.library());
  }
