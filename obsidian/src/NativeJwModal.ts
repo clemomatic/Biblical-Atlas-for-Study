@@ -2,8 +2,9 @@ import { Modal, Notice, requestUrl, setIcon, type App, type TFile } from 'obsidi
 import { readJwpub, readBackup, readBackupAnnotations, prepareExport, createExport, digest, type ImportPreview } from './nativeJw';
 import {decodeMediaCatalogLink} from './jwOrgCatalog';
 import {renderDeskBrand} from './studyDeskBrand';
+import type {DownloadProgress} from './publicationDownloads';
 import {
-  PERSONAL_OFFLINE_CATALOG,allowedJwpubBytes,isBiblePublication,
+  PERSONAL_OFFLINE_CATALOG,allowedJwpubBytes,isBiblePublication,canonicalPublicationSymbol,
   isJwpubArchive,parsePublicJwpubResponse,publicJwpubQuery,
   type PublicJwpub
 } from './offlinePublications';
@@ -26,6 +27,9 @@ async function folder(app:App,path:string):Promise<void>{
  }
 }
 export class NativeJwModal extends Modal{
+ private background=false;
+ private progress?:DownloadProgress;
+ private backgroundCancelled?:()=>boolean;
  private busy=false;
  private cancelled=false;
  private pendingDownload:{name:string;bytes:Uint8Array;symbol:string;issue:string}|null=null;
@@ -80,20 +84,21 @@ export class NativeJwModal extends Modal{
  public openCatalogPublication(symbol:string,issue=''):void{
    this.open();void this.checkPublication(symbol,issue);
  }
- public async downloadCatalogPublication(symbol:string,issue=''):Promise<boolean>{
-   this.open();
+ public async downloadCatalogPublication(symbol:string,issue='',options?:{background?:boolean;onProgress?:DownloadProgress;isCancelled?:()=>boolean}):Promise<boolean>{
+   this.background=options?.background===true;this.progress=options?.onProgress;this.backgroundCancelled=options?.isCancelled;
+   if(!this.background)this.open();
    if(this.busy)return false;
    this.busy=true;
    this.screen('Téléchargement de la publication','Recherche du fichier disponible…');
    try{
      const response=await requestUrl({url:publicJwpubQuery(symbol,issue),throw:false});
-     if(this.cancelled)return false;
+     if(this.cancelled||this.backgroundCancelled?.())return false;
      if(response.status!==200)throw Error('Cette publication est momentanément indisponible.');
      const item=parsePublicJwpubResponse(response.json,symbol,issue);
      if(!item)throw Error('Cette publication ne peut pas être téléchargée ici. Tu peux consulter le site officiel.');
      this.busy=false;
      return await this.downloadPublication(item,'virtual',true);
-   }catch(error){if(!this.cancelled)this.offlineError(error);return false;}
+   }catch(error){if(this.background)throw error;if(!this.cancelled)this.offlineError(error);return false;}
    finally{this.busy=false;}
  }
  private async library():Promise<void>{
@@ -160,9 +165,10 @@ export class NativeJwModal extends Modal{
    download.addEventListener('click',()=>void this.downloadPublication(item,'markdown'));
  }
  private async downloadPublication(item:PublicJwpub,mode:'virtual'|'markdown'='virtual',install=false):Promise<boolean>{
-   if(this.busy||this.cancelled)return false;
+   if(this.busy||this.cancelled||this.backgroundCancelled?.())return false;
    this.busy=true;
    this.screen('Téléchargement de '+item.title,'Récupération du fichier public…');
+   this.progress?.({stage:'downloading'});
    try{
      const response=await requestUrl({url:item.url,throw:false});
      if(response.status!==200)throw Error('Téléchargement impossible (HTTP '+response.status+').');
@@ -172,14 +178,17 @@ export class NativeJwModal extends Modal{
      if(bytes.length>allowedJwpubBytes(item.symbol))throw Error('Publication trop volumineuse : limite '+Math.round(allowedJwpubBytes(item.symbol)/1048576)+' Mo.');
      if(item.filesize&&bytes.length!==item.filesize)
        throw Error('La taille reçue ne correspond pas à celle annoncée.');
-     const file=new File([bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer],
-       item.filename,{type:'application/octet-stream'});
-     const preview=await readJwpub(file,mode);
+     if(this.backgroundCancelled?.())return false;
+     const preview=await readJwpub(bytes,mode,{onProgress:this.progress,isCancelled:()=>this.cancelled||this.backgroundCancelled?.()===true});
      if(this.cancelled)return false;
+     const index=preview.entries.find(entry=>entry.name==='_BIBLE_LAB_VIRTUAL_INDEX.json'||entry.name==='_BIBLE_LAB_OFFLINE_INDEX.json');
+     const publication=index?.text&&JSON.parse(index.text).publication;
+     if(!publication||publication.language!==3||canonicalPublicationSymbol(publication.symbol)!==canonicalPublicationSymbol(item.symbol))
+       throw Error('Le fichier reçu ne correspond pas à la publication française demandée.');
      this.pendingDownload={name:item.filename,bytes,symbol:item.symbol,issue:item.issue||''};
      if(install)return await this.writePreview(preview,item.filename);
      this.showPreview(preview,item.filename);return true;
-   }catch(e){this.pendingDownload=null;if(!this.cancelled)this.offlineError(e);return false;}finally{this.busy=false;}
+   }catch(e){this.pendingDownload=null;if(this.background)throw e;if(!this.cancelled)this.offlineError(e);return false;}finally{this.busy=false;}
  }
  private offlineError(error:unknown):void{
    const root=this.screen('Publication indisponible','Aucune publication n’a été importée.');
@@ -259,6 +268,8 @@ export class NativeJwModal extends Modal{
      const ordered=[...preview.entries.filter(item=>!manifests.has(item.name)),
        ...preview.entries.filter(item=>manifests.has(item.name))];
      for(let i=0;i<ordered.length;i++){
+       if(this.cancelled||this.backgroundCancelled?.())throw Error('Ajout annulé.');
+       this.progress?.({stage:'saving',current:i,total:ordered.length});
        const item=ordered[i];const full=target+'/'+item.name;
        if(item.name.startsWith('/')||item.name.split('/').includes('..'))throw Error('Chemin d’import interdit.');
        await folder(this.app,full.substring(0,full.lastIndexOf('/')));
@@ -270,7 +281,7 @@ export class NativeJwModal extends Modal{
            :item.text;
          await this.app.vault.create(full,text);
        }
-       else if(item.bytes){const bytes=item.bytes;await this.app.vault.createBinary(full,bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength) as ArrayBuffer);}
+       else if(item.bytes){const bytes=item.bytes;const data=bytes.byteOffset===0&&bytes.byteLength===bytes.buffer.byteLength?bytes.buffer:bytes.buffer.slice(bytes.byteOffset,bytes.byteOffset+bytes.byteLength);await this.app.vault.createBinary(full,data as ArrayBuffer);}
        if(i%45===0){progress.setText((i+1)+' / '+ordered.length+' fichiers');await new Promise(resolve=>setTimeout(resolve,0));}
      }
      if(this.pendingDownload&&preview.type==='jwpub'&&!preview.virtual){
@@ -294,8 +305,13 @@ export class NativeJwModal extends Modal{
      const index=this.app.vault.getAbstractFileByPath(target+'/'+(notebook?.name||'INDEX/00 Tableau de recherche.md'));
      if(!preview.virtual&&!preview.annotationOnly&&index && 'extension' in index)
        await this.app.workspace.getLeaf('tab').openFile(index as TFile);
-     this.close();return true;
-   }catch(error){this.problem(error);return false;}
+     if(!this.background)this.close();return true;
+   }catch(error){
+     const partial=this.app.vault.getAbstractFileByPath(target);
+     if(partial)try{await this.app.vault.delete(partial,true);}catch{/* A partial folder has no published index. */}
+     if(this.background)throw error;
+     this.problem(error);return false;
+   }
  }
  private async exportFlow():Promise<void>{
    if(this.busy)return;const file=await selectFile('.jwlibrary');if(!file)return;this.busy=true;

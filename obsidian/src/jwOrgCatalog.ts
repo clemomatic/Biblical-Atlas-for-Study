@@ -1,5 +1,5 @@
 import { classifyLibraryVolume } from './libraryTaxonomy.ts';
-import { validPublicationSymbol } from './offlinePublications.ts';
+import { canonicalPublicationSymbol,validPublicationSymbol } from './offlinePublications.ts';
 import type { LibraryCategory } from './libraryTaxonomy.ts';
 
 /** The official library landing page is a discovery source, not an availability API. */
@@ -23,8 +23,7 @@ const featured=(symbol:string,title:string,coverUrl:string,issue=''):JwCatalogEn
 export const FEATURED_JW_ORG:readonly JwCatalogEntry[]=[
   featured('nwt','La Bible · Traduction du monde nouveau',''),
   featured('nwtsty','La Bible · édition d’étude',''),
-  featured('it-1','Étude perspicace des Écritures · volume 1',''),
-  featured('it-2','Étude perspicace des Écritures · volume 2',''),
+  featured('it','Étude perspicace des Écritures',''),
   featured('ca-copgm27','Assemblée de circonscription 2026-2027 · responsable de circonscription',
     'https://cms-imgp.jw-cdn.org/img/p/ca-copgm27/F/pt/ca-copgm27_F_lg.jpg'),
   featured('ca-brpgm27','Assemblée de circonscription 2026-2027 · représentant de la filiale',
@@ -125,7 +124,9 @@ export function combineJwCatalog(
   curated:readonly JwCatalogEntry[],detected:readonly JwCatalogEntry[]
 ):JwCatalogEntry[]{
   const result=new Map<string,JwCatalogEntry>();
-  for(const item of [...curated,...detected]){
+  for(const raw of [...curated,...detected]){
+    const symbol=canonicalPublicationSymbol(raw.symbol);
+    const item={...raw,symbol,...(symbol==='it'?{title:'Étude perspicace des Écritures'}:{})};
     if(!validPublicationSymbol(item.symbol)||!validIssue(item.issue))continue;
     const key=catalogKey(item);
     const previous=result.get(key);

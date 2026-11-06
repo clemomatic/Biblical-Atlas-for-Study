@@ -40,7 +40,7 @@ export async function virtualDocuments(app:App,volume:LibraryVolume):Promise<Map
 function findCover(app:App,folder:string):string|null{
   const all=app.vault.getFiles()
     .filter(f=>f.path.startsWith(folder+'/assets/')&&IMG.test(f.name));
-  const cover=all.find(f=>/(?:^|[-_\s])(cover|couverture|front|title|page-?1)(?:[-_.\s]|$)/i.test(f.name));
+  const cover=all.find(f=>/(?:^|[-_\s])(cover|cvr|couverture|front|title|page-?1)(?:[-_.\s]|$)/i.test(f.name));
   return cover?.path||null;
 }
 export async function loadLibraryVolumes(app:App,root:string):Promise<LibraryVolume[]>{

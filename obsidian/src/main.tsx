@@ -61,6 +61,7 @@ import { setLocalReferenceResolver } from './wolReferenceFetcher';
 import { resolveOfflineDocument } from './offlineReferenceLibrary';
 import {loadLatestAnnotationArchive} from './jwAnnotationLibrary';
 import type { MapBounds } from './tileMath';
+import {PublicationDownloads} from './publicationDownloads';
 import {StudyDeskView,STUDY_DESK_VIEW} from './StudyDeskView';
 import {STUDY_DESK_CSS,STUDY_DESK_ICON,STUDY_DESK_ICON_SVG,renderDeskBrand,type DeskDestination} from './studyDeskBrand';
 
@@ -123,6 +124,7 @@ class AtlasSettingTab extends PluginSettingTab {
 }
 
 export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
+  private publicationDownloads!:PublicationDownloads;
   private publicationCatalog!:JwPublicationCatalog;
   settings: AtlasSettings = { ...DEFAULT_SETTINGS };
   private indexedNotes = new Map<string, VaultNote>();
@@ -354,6 +356,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       read:()=>this.app.vault.adapter.read(catalogPath),
       write:text=>this.app.vault.adapter.write(catalogPath,text)
     });
+    this.publicationDownloads=new PublicationDownloads((symbol,issue,onProgress,isCancelled)=>
+      new NativeJwModal(this.app,this.settings.noteFolder).downloadCatalogPublication(symbol,issue,{background:true,onProgress,isCancelled}));
+    this.register(()=>this.publicationDownloads.dispose());
     this.registerView(BIBLE_LAB_LIBRARY_VIEW,leaf=>new BibleLabLibraryView(leaf,{
       catalog:this.publicationCatalog,
       root:()=>this.settings.noteFolder,
@@ -362,8 +367,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       importVirtualJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportVirtualJwpub(),
       importAnnotations:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportAnnotations(),
       downloads:this.openNativeBridge,
-      downloadPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary()))
-        .downloadCatalogPublication(symbol,issue),
+      publicationDownloads:this.publicationDownloads,
       checkPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary()))
         .openCatalogPublication(symbol,issue),
       readReference:(url,label)=>this.openBibleLab(url,label),
@@ -374,7 +378,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
          !file.path.endsWith('/_BIBLE_LAB_VIRTUAL_INDEX.json')&&
          !file.path.endsWith('/_BIBLE_LAB_ANNOTATIONS.json'))return;
       for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_LIBRARY_VIEW)){
-        if(leaf.view instanceof BibleLabLibraryView)void leaf.view.refresh();
+        if(leaf.view instanceof BibleLabLibraryView)void leaf.view.refresh(file.path.endsWith('/_BIBLE_LAB_ANNOTATIONS.json'));
       }
     };
     this.registerEvent(this.app.vault.on('create',refreshBookcase));

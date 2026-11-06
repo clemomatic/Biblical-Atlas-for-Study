@@ -30,3 +30,9 @@ test('virtual reader detects damaged data and rejects bad manifests',()=>{
  assert.equal(validateVirtualIndex({...createVirtualIndex(publication,docs),schema:2}),null);
  assert.equal(validateVirtualIndex({...createVirtualIndex(publication,docs),documents:[docs[0],docs[0]]}),null);
 });
+test('Bible coordinates survive indexing and invalid chapter metadata is rejected',()=>{
+ const chapter={documentId:1800000007,mepsId:null,title:'Jean 7',path:'Jean 7.md',bookNumber:43,chapterNumber:7,text:'# Jean 7\n\nUn texte de test.'};
+ const index=createVirtualIndex({symbol:'nwtsty',year:2026,language:3,title:'Bible'},[chapter]);
+ assert.deepEqual(validateVirtualIndex(index)?.documents[0],{documentId:chapter.documentId,mepsId:null,title:chapter.title,path:chapter.path,bookNumber:43,chapterNumber:7});
+ assert.equal(validateVirtualIndex({...index,documents:[{...index.documents[0],chapterNumber:0}]}),null);
+});

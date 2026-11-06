@@ -24,6 +24,8 @@ export interface OfflineDocumentRecord {
   mepsId:number|null;
   title:string;
   path:string; // relative file name within this import, never an absolute path
+  bookNumber?:number;
+  chapterNumber?:number;
 }
 export interface OfflineImportIndex {
   schema:1;
@@ -36,9 +38,12 @@ export interface OfflineImportIndex {
 export const OFFLINE_INDEX_NAME='_BIBLE_LAB_OFFLINE_INDEX.json';
 export const MAX_PERSONAL_JWPUB_BYTES=150*1024*1024;
 export const MAX_BIBLE_JWPUB_BYTES=400*1024*1024;
+/** The current public Insight download contains both printed volumes. */
+export const canonicalPublicationSymbol=(symbol:string)=>
+  /^it-[12]$/i.test(symbol)?'it':symbol.toLowerCase();
 export const isBiblePublication=(symbol:string)=>/^(nwt|nwtsty)$/.test(symbol.toLowerCase());
 export const allowedJwpubBytes=(symbol:string)=>
-  isBiblePublication(symbol)?MAX_BIBLE_JWPUB_BYTES:MAX_PERSONAL_JWPUB_BYTES;
+  isBiblePublication(symbol)||canonicalPublicationSymbol(symbol)==='it'?MAX_BIBLE_JWPUB_BYTES:MAX_PERSONAL_JWPUB_BYTES;
 
 export function validPublicationSymbol(value:string):string|null {
   const input=value.trim().toLowerCase();
@@ -50,7 +55,7 @@ export function publicJwpubQuery(symbol:string,issue=''):string{
   if(issue&&!/^\d{4,8}$/.test(issue))throw Error('Numéro de revue invalide.');
   const url=new URL('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS');
   for(const [key,val] of Object.entries({
-    output:'json',pub:valid,fileformat:'JWPUB',alllangs:'0',langwritten:'F',txtCMSLang:'F'
+    output:'json',pub:canonicalPublicationSymbol(valid),fileformat:'JWPUB',alllangs:'0',langwritten:'F',txtCMSLang:'F'
   }))url.searchParams.set(key,val);
   // Official JW.org Bible download links specify booknum=0 for the whole Bible.
   // Without it the media API may return a per-book response or no JWPUB.
@@ -76,21 +81,24 @@ const obj=(value:unknown):Record<string,any>|null=>
   value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,any>:null;
 
 export function parsePublicJwpubResponse(payload:unknown,symbol:string,issue=''):PublicJwpub|null{
-  const valid=validPublicationSymbol(symbol);
+  const input=validPublicationSymbol(symbol);
+  const valid=input&&canonicalPublicationSymbol(input);
   if(!valid||(issue&&!/^\d{4,8}$/.test(issue)))return null;
   const response=obj(payload);
-  if(response?.pub&&String(response.pub).toLowerCase()!==valid)return null;
+  if(response?.pub&&canonicalPublicationSymbol(String(response.pub))!==valid)return null;
   if(issue&&String(response?.issue||'')!==issue)return null;
   const files=obj(response?.files);
   const format=obj(files?.F)?.JWPUB;
   if(!Array.isArray(format)||format.length===0)return null;
   const first=obj(format[0]);
+  if(first?.pub&&canonicalPublicationSymbol(String(first.pub))!==valid)return null;
   const item=obj(first?.file);
   const url=trustedPublicationFileUrl(item?.url);
   if(!url)return null;
   const bytes=Number(first?.filesize||0);
   if(!Number.isFinite(bytes)||bytes<0||bytes>allowedJwpubBytes(valid))return null;
-  const title=String(response?.pubName||first?.title||valid).trim().slice(0,180)||valid;
+  const title=String(response?.pubName||first?.title||valid).replace(/&nbsp;|&#160;/gi,' ')
+    .replace(/&amp;/gi,'&').replace(/\s+/g,' ').trim().slice(0,180)||valid;
   const filename=valid+'_F'+(issue?'_'+issue:'')+'.jwpub';
   return {
     symbol:valid,...(issue?{issue}:{}),title,url,filename,filesize:bytes,
@@ -117,7 +125,11 @@ export function validateOfflineIndex(input:unknown):OfflineImportIndex|null{
       typeof d.title!=='string'||typeof d.path!=='string'||
       d.path.length>210||!d.path.endsWith('.md')||d.path.startsWith('/')||
       d.path.includes('\\')||d.path.split('/').includes('..'))return null;
-    documents.push({documentId:d.documentId,mepsId:d.mepsId,title:d.title.slice(0,240),path:d.path});
+    if((d.bookNumber!==undefined||d.chapterNumber!==undefined)&&
+      (!Number.isInteger(d.bookNumber)||d.bookNumber<1||d.bookNumber>66||
+      !Number.isInteger(d.chapterNumber)||d.chapterNumber<1||d.chapterNumber>200))return null;
+    documents.push({documentId:d.documentId,mepsId:d.mepsId,title:d.title.slice(0,240),path:d.path,
+      ...(d.bookNumber!==undefined?{bookNumber:d.bookNumber,chapterNumber:d.chapterNumber}:{})});
   }
   return {
     schema:1,

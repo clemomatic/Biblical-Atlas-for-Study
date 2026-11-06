@@ -13,7 +13,7 @@ export function classifyLibraryVolume(symbol:string,title:string):Exclude<Librar
     /\b(ecole|formation|instructions?|manuel|seminaire)\b/.test(t))return 'schools';
   if(/^(w\d{0,6}|wp\d{0,6}|g\d{0,6}|mwb\d{0,6}|ws\d{0,6})$/.test(s)||
     /tour de garde|reveillez-vous|cahier vie et ministere/.test(t))return 'magazines';
-  if(/^(it[-_]?\d+|lff|bh|bhs|lv|kr|cl|jy|rr|si|nwtstys)$/.test(s)||
+  if(/^(it(?:[-_]?\d+)?|lff|bh|bhs|lv|kr|cl|jy|rr|si|nwtstys)$/.test(s)||
     /etude perspicace|livre|volume|approchons-nous/.test(t))return 'books';
   if(/^(br|fg|brch|bro|t-)\d*/.test(s)||/\bbrochure\b/.test(t))return 'brochures';
   return 'other';
@@ -49,7 +49,9 @@ export function filteredVolumes<T extends {
   if(category==='personal')return items.filter(x=>x.origin==='personal');
   return items.filter(x=>x.category===category);
 }
-export function localDocumentUrl(volume:{language:number},doc:{mepsId:number|null}):string|null{
-  if(volume.language!==3||!doc.mepsId)return null;
+export function localDocumentUrl(volume:{language:number;symbol?:string},doc:{mepsId:number|null;bookNumber?:number;chapterNumber?:number}):string|null{
+  if(volume.language!==3)return null;
+  if(doc.bookNumber&&doc.chapterNumber)return 'https://wol.jw.org/fr/wol/b/r30/lp-f/'+(volume.symbol==='nwt'?'nwt':'nwtsty')+'/'+doc.bookNumber+'/'+doc.chapterNumber;
+  if(!doc.mepsId)return null;
   return 'https://wol.jw.org/fr/wol/d/r30/lp-f/'+doc.mepsId;
 }

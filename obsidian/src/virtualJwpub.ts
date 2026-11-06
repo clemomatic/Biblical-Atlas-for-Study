@@ -22,7 +22,7 @@ export function createVirtualIndex(
 ):VirtualPublication {
  if(docs.length<1||docs.length>MAX_VIRTUAL_DOCUMENTS)throw Error('Nombre de documents JWPUB invalide.');
  return {schema:1,publication:pub,
-  documents:docs.map(({documentId,mepsId,title,path})=>({documentId,mepsId,title,path})),
+  documents:docs.map(({text,...record})=>record),
   contentsFile:VIRTUAL_TEXT,sourceFile:VIRTUAL_SOURCE};
 }
 export function encodeVirtualTexts(docs:VirtualDocument[]):Uint8Array {
@@ -61,6 +61,9 @@ export function validateVirtualIndex(raw:unknown):VirtualPublication|null {
    (doc.mepsId!==null&&(!Number.isSafeInteger(doc.mepsId)||doc.mepsId<=0))||
    typeof doc.title!=='string'||typeof doc.path!=='string'||doc.title.length>240||
    doc.path.length>250||!doc.path.endsWith('.md'))return null;
+  if((doc.bookNumber!==undefined||doc.chapterNumber!==undefined)&&
+   (!Number.isInteger(doc.bookNumber)||Number(doc.bookNumber)<1||Number(doc.bookNumber)>66||
+    !Number.isInteger(doc.chapterNumber)||Number(doc.chapterNumber)<1||Number(doc.chapterNumber)>200))return null;
   ids.add(doc.documentId);
  }
  return data as VirtualPublication;

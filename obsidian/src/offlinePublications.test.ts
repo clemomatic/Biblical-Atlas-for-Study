@@ -60,3 +60,16 @@ test('NWT and study Bible are discoverable and large JWPUB files are not silentl
  }]}}};
  assert.equal(parsePublicJwpubResponse(oversized,'w'),null);
 });
+
+test('The real combined Insight download is accepted under either historical volume alias',()=>{
+ for(const symbol of ['it','it-1','it-2']){
+  assert.equal(new URL(publicJwpubQuery(symbol)).searchParams.get('pub'),'it');
+  const answer={pub:'it',pubName:'Étude perspicace des Écritures',files:{F:{JWPUB:[{
+   pub:'it',filesize:353748857,file:{url:'https://cfp2.jw-cdn.org/a/888b64/2/o/it_F.jwpub'}
+  }]}}};
+  const entry=parsePublicJwpubResponse(answer,symbol);
+  assert.equal(entry?.symbol,'it');assert.equal(entry?.filename,'it_F.jwpub');assert.equal(entry?.filesize,353748857);
+ }
+ const wrong={pub:'nwtsty',files:{F:{JWPUB:[{pub:'it',filesize:5,file:{url:'https://cfp2.jw-cdn.org/a/pub.jwpub'}}]}}};
+ assert.equal(parsePublicJwpubResponse(wrong,'nwtsty'),null);
+});

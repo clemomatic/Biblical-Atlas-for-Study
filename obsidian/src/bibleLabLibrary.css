@@ -340,3 +340,41 @@
   .blb-head-actions>.blb-action:not(.blb-icon-button)>span:last-child{display:none}
   .blb-book-grid{grid-template-columns:1fr}
 }
+
+/* Native Obsidian buttons have a fixed input height. A cover is a full-size
+   image button, not a toolbar control; reset every size that can clip it. */
+.jwsd-theme .blb-book-card,.jwsd-theme .blb-card-art{min-width:0}
+.jwsd-theme .blb-cover-link{display:block;height:auto;min-height:0;max-height:none;line-height:normal;white-space:normal;overflow:hidden;padding:0;border:0}
+.jwsd-theme .blb-cover{height:auto;min-height:0;aspect-ratio:4/4.3}
+.jwsd-theme .blb-cover-design{min-height:0;min-width:0;max-height:100%;padding:12px 0;gap:10px}
+.jwsd-theme .blb-cover-design>span:first-child{min-height:0;flex:1 1 0}
+.jwsd-theme .blb-cover-design svg{max-height:42px;flex-shrink:1}
+.jwsd-theme .blb-action{height:auto;line-height:1.4;white-space:normal}
+.jwsd-theme .blb-action>span:first-child{display:inline-flex;align-items:center;flex-shrink:0}
+.jwsd-theme .blb-action>span:last-child{min-width:0;overflow-wrap:break-word}
+.jwsd-theme .blb-card-options{width:34px;height:34px;min-width:34px;min-height:34px;padding:7px}
+.jwsd-theme .blb-book-meta>strong{overflow-wrap:anywhere;line-height:1.5}
+.blb-card-progress{margin-top:10px;display:flex;flex-direction:column;gap:6px;font-size:10px;color:var(--text-muted)}
+.blb-card-progress progress{display:block;appearance:auto;accent-color:var(--interactive-accent);width:100%;height:5px;max-width:100%}
+.blb-card-progress[hidden],.blb-download-error[hidden]{display:none}
+.blb-download-error{font-size:11px;line-height:1.6;color:var(--text-error,#b44252);margin:10px 0 0;overflow-wrap:anywhere}
+.blb-mobile-brand{display:none}
+.blb-library.is-reading :is(.blb-controls,.blb-filters,.blb-result-count,.blb-sections){display:none}
+.blb-toc-search{display:block;width:100%;height:auto;min-height:43px;margin:14px 0 12px;border:1px solid var(--blb-border);border-radius:10px;background:var(--background-secondary);color:var(--text-normal);padding:11px 13px;font:inherit}
+.blb-document-list{margin-top:12px}
+.jwsd-theme .blb-document-line{height:auto;min-height:50px;white-space:normal;border-radius:0}
+.blb-bible-picker{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.blb-bible-picker label{font-size:12px;font-weight:600;color:var(--text-muted)}
+.blb-bible-picker select{width:100%;height:auto;min-height:44px;padding:10px 12px;border:1px solid var(--blb-border);border-radius:10px;background:var(--background-secondary);color:var(--text-normal);font:inherit}
+.blb-chapter-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:8px;margin:18px 0 25px;max-width:700px}
+.blb-chapter-grid .blb-action{min-height:45px;font-variant-numeric:tabular-nums}
+.blb-appendices{margin-top:25px}
+.blb-appendices summary{padding:10px 0;cursor:pointer;font-size:12px;font-weight:600;color:var(--text-muted)}
+@container jwsd-app (max-width:740px){.blb-mobile-brand{display:flex;align-items:center;gap:8px;color:var(--text-muted);font-size:11px;margin:0 0 13px}.blb-mobile-brand img{width:24px;height:24px;border-radius:7px}}
+@container blb-library (max-width:560px){.jwsd-theme .blb-shell{padding:20px 16px 32px}.jwsd-theme .blb-search{min-width:0}.jwsd-theme .blb-toc-search,.jwsd-theme .blb-search input{font-size:16px}.blb-catalog-notice{flex-wrap:wrap}.blb-catalog-notice p{flex-basis:100%}}
+@container blb-library (max-width:300px){.jwsd-theme .blb-book-grid{grid-template-columns:minmax(0,1fr)}.jwsd-theme .blb-title-group h1{font-size:21px}.jwsd-theme .blb-sections{gap:2px}.jwsd-theme .blb-sections .blb-action{padding:8px;font-size:11px}}
+.jwsd-theme button{appearance:none;-webkit-appearance:none}
+.jwsd-theme .blb-action{background:var(--jwsd-surface);color:var(--jwsd-ink)}
+.jwsd-theme .blb-action.primary{background:var(--jwsd-primary);color:#fff}
+.jwsd-theme .blb-eyebrow{color:var(--text-accent)}
+.jwsd-theme .blb-breadcrumb .blb-action{max-width:100%;text-align:left;justify-content:flex-start}

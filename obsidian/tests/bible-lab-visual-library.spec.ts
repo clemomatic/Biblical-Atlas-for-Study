@@ -43,7 +43,7 @@ test('Library is a real Obsidian tab with an uncluttered empty shelf, not a fift
  await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
  const library=page.locator('.blb-library');
  await expect(library.getByRole('heading',{name:'Ma bibliothèque'})).toBeVisible();
- await expect(library.locator('.blb-book-card')).toHaveCount(14);
+ await expect(library.locator('.blb-book-card')).toHaveCount(13);
  await expect(library.getByRole('button',{name:'Ajouter un fichier'})).toBeVisible();
  await expect(library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'})).toBeVisible();
  await expect(page.locator('.biblelab-side .biblelab-focus-nav .biblelab-tab')).toHaveCount(0);
@@ -114,7 +114,8 @@ test('Finds words in the full local content and can move from a search hit into 
  await library.getByRole('button',{name:'Lire La sagesse'}).click();
  await expect(library.locator('.blb-reader-text')).toContainText('persévérance');
  await library.getByRole('button',{name:'Bibliothèque',exact:true}).click();
- await expect(library.getByRole('button',{name:'Ouvrir Collection de recherches'})).toBeVisible();
+ await expect(library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'})).toHaveValue('persévérance');
+ await expect(library.getByRole('button',{name:'Lire La sagesse'})).toBeVisible();
 });
 
 test('Uses a cover only when a local imported asset exists',async({page})=>{
@@ -168,6 +169,9 @@ test('Virtual JWPUB import keeps one source and search cache, with no per-articl
 
 
 test('Reads imported JW Library annotations by Bible chapter and searches personal notes',async({page})=>{
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
+ const library=page.locator('.blb-library');
+ await library.getByRole('button',{name:'Mes annotations'}).click();
  const index={
    format:'bible-lab-annotations',version:1,schema:16,sourceHash:'fixture',
    locations:[{id:31,book:41,chapter:10,document:null,issue:null,
@@ -189,10 +193,7 @@ test('Reads imported JW Library annotations by Bible chapter and searches person
    await app.vault.createBinary(base+'/Sauvegarde fictive/annotations.json.gz',bytes.buffer);
    await app.vault.create(base+'/Sauvegarde fictive/_BIBLE_LAB_ANNOTATIONS.json',
      JSON.stringify({format:'bible-lab-annotations',version:1}));
-   await plugin.openVisualLibrary();
  },archive);
- const library=page.locator('.blb-library');
- await library.getByRole('button',{name:'Mes annotations'}).click();
  await expect(library.getByRole('heading',{name:'Surlignages de la Bible d’étude'})).toBeVisible();
  await library.getByRole('button',{name:/Marc \(1\)/}).click();
  await library.getByRole('button',{name:/Ch. 10 · 1 surlignage/}).click();

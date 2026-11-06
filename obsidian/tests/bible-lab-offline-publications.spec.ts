@@ -40,7 +40,7 @@ test('Personal library is offline-first: no catalogue requests until checking a 
  await expect(page.getByRole('heading',{name:'Ma bibliothèque'})).toBeVisible();
  const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests||[]);
  expect(requests.filter((r:any)=>r.url?.includes('GETPUBMEDIALINKS'))).toHaveLength(0);
- await expect(page.locator('.blb-book-card')).toHaveCount(14);
+ await expect(page.locator('.blb-book-card')).toHaveCount(13);
  await expect(page.getByRole('article',{name:'Assemblée de circonscription 2026-2027 · responsable de circonscription',exact:true})).toBeVisible();
 });
 
@@ -62,7 +62,8 @@ test('Download an explicitly selected public JWPUB then read its direct WOL sour
  await page.evaluate(()=>(window as any).atlasTest.plugin.openNativeBridge());
  await page.getByText('Options avancées',{exact:true}).click();
  await page.getByRole('button',{name:'Trouver une publication par son code'}).click();
- await page.getByRole('button',{name:'Vérifier'}).first().click();
+ await page.getByRole('textbox',{name:'Code ou lien officiel de téléchargement'}).fill('w');
+ await page.getByRole('button',{name:'Vérifier',exact:true}).last().click();
  await expect(page.getByRole('button',{name:'Télécharger',exact:true})).toBeVisible();
  expect(catalogCalls).toBe(1);expect(downloadCalls).toBe(0);
  await page.getByText('Options avancées',{exact:true}).click();

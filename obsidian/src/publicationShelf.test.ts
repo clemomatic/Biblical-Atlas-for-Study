@@ -30,6 +30,7 @@ test('Magazine series group editions in reverse date order without grouping fore
   assert.equal(groups.length,2);const series=groups.find(group=>group.entries.length===2)!;
   assert.equal(series.entries[0].issue,'202701');assert.ok(groups.some(group=>group.entries.length===1));
 });
-test('Offline fallback offers both current Bible editions and the two reference volumes',()=>{
-  for(const symbol of ['nwt','nwtsty','it-1','it-2'])assert.ok(FEATURED_JW_ORG.some(item=>item.symbol===symbol));
+test('Offline fallback offers both Bible editions and one complete Insight download',()=>{
+  for(const symbol of ['nwt','nwtsty','it'])assert.ok(FEATURED_JW_ORG.some(item=>item.symbol===symbol));
+  assert.equal(FEATURED_JW_ORG.filter(item=>item.symbol.startsWith('it')).length,1);
 });

@@ -3,16 +3,19 @@
  * The original source bytes are never modified. */
 import initSqlJs from 'sql.js/dist/sql-wasm.js';
 import wasmAsset from 'sql.js/dist/sql-wasm.wasm?inline';
-import { unzipSync, unzlibSync, strFromU8, strToU8 } from 'fflate';
+import { unzipSync, unzip, unzlibSync, strFromU8, strToU8 } from 'fflate';
 import { patchZip } from './zipPatch';
 import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
 import { buildJwpubMeetingNotebooks, type MeetingDocument } from './meetingNotebook';
 import {createVirtualIndex,encodeVirtualTexts,VIRTUAL_INDEX,VIRTUAL_TEXT,VIRTUAL_SOURCE,type VirtualDocument} from './virtualJwpub';
+import {bibleBookName} from './jwAnnotationLibrary';
 import {extractJwAnnotations,encodeJwAnnotations,summarizeJwAnnotations,ANNOTATION_INDEX_NAME,ANNOTATION_META_NAME} from './jwAnnotations';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
  run:(sql:string,params?:unknown[])=>Db; export:()=>Uint8Array; close:()=>void};
 type Source = { zip:Record<string,Uint8Array>;manifest:any;database:Uint8Array; dbName:string;hash:string; schema:number };
+export interface JwpubReadProgress {stage:'opening'|'reading';current?:number;total?:number}
+export interface JwpubReadOptions {onProgress?:(progress:JwpubReadProgress)=>void;isCancelled?:()=>boolean}
 export type ImportEntry = {name:string;text?:string;bytes?:Uint8Array};
 export type ImportPreview = {type:'jwpub'|'jwlibrary';title:string;sourceHash:string;entries:ImportEntry[];count:number;schema?:number;warnings:string[];virtual?:boolean;annotationOnly?:boolean};
 export type ChangeItem = {guid:string;titleBefore:string;titleAfter:string;contentBefore:string;contentAfter:string; noteId:number};
@@ -70,6 +73,11 @@ function safeZip(data:Uint8Array):string[] {
 function extract(bytes:Uint8Array, filter?:(name:string)=>boolean):Record<string,Uint8Array>{
  safeZip(bytes);
  return unzipSync(bytes,filter?{filter:file=>filter(file.name)}:undefined);
+}
+async function extractAsync(bytes:Uint8Array,filter?:(name:string)=>boolean):Promise<Record<string,Uint8Array>>{
+ safeZip(bytes);
+ return new Promise((resolve,reject)=>unzip(bytes,{filter:file=>!filter||filter(file.name)},
+   (error,result)=>error?reject(error):resolve(result)));
 }
 async function openSource(bytes:Uint8Array,includeMedia=false):Promise<Source>{
  const zip=extract(bytes,includeMedia?undefined:n=>n==='manifest.json'||n.endsWith('.db'));
@@ -162,10 +170,12 @@ export async function readBackup(file:File):Promise<ImportPreview>{
      warnings:['L’import est une copie. La sauvegarde d’origine reste intacte.']};
  }finally{db.close();}
 }
-export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):Promise<ImportPreview>{
- const bytes=u8(await file.arrayBuffer());const zip=extract(bytes,n=>n==='contents'||n==='manifest.json');
+export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='markdown',options:JwpubReadOptions={}):Promise<ImportPreview>{
+ const check=()=>{if(options.isCancelled?.())throw Error('Ajout annulé.');};
+ check();options.onProgress?.({stage:'opening'});
+ const bytes=file instanceof Uint8Array?file:u8(await file.arrayBuffer());const zip=await extractAsync(bytes,n=>n==='contents'||n==='manifest.json');
  assert(zip['contents'],'Conteneur JWPUB sans fichier contents.');
- const inner=extract(zip['contents']);const dbName=Object.keys(inner).find(x=>x.endsWith('.db'));
+ check();const inner=await extractAsync(zip['contents']);const dbName=Object.keys(inner).find(x=>x.endsWith('.db'));
  assert(dbName,'Publication sans base SQLite.');const db=await openDb(inner[dbName]);
  try{
    const pub=one(db,'SELECT MepsLanguageIndex, Symbol, Year, IssueTagNumber FROM Publication LIMIT 1');
@@ -181,7 +191,22 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
    const docs=query(db,'SELECT DocumentId, Title, Content'+
      (documentCols.has('MepsDocumentId')?', MepsDocumentId':'')+
      ' FROM Document ORDER BY DocumentId');
-   const entries:ImportEntry[]=[];let count=0;
+   // Bible book documents are navigation placeholders with NULL Content. The
+   // actual chapters live in BibleChapter, not Document (verified on nwtsty_F).
+   const tables=new Set(query(db,"SELECT name FROM sqlite_master WHERE type='table'").map(row=>String(row.name)));
+   if(tables.has('BibleChapter')&&tables.has('BibleBook')){
+     const books=new Map(query(db,'SELECT BibleBookId,ChapterDisplayTitle FROM BibleBook')
+       .map(row=>[Number(row.BibleBookId),String(row.ChapterDisplayTitle||'Livre '+row.BibleBookId)]));
+     for(const chapter of query(db,'SELECT BibleChapterId,BookNumber,ChapterNumber,Content FROM BibleChapter ORDER BY BookNumber,ChapterNumber')){
+       const book=Number(chapter.BookNumber),number=Number(chapter.ChapterNumber);
+       assert(Number.isInteger(book)&&book>=1&&book<=66&&Number.isInteger(number)&&number>=1&&number<=200,'Chapitre biblique invalide.');
+       docs.push({DocumentId:1800000000+Number(chapter.BibleChapterId),
+         Title:(Number(pub.MepsLanguageIndex)===3?bibleBookName(book):books.get(book)||'Livre '+book)+' '+number,Content:chapter.Content,
+         BookNumber:book,ChapterNumber:number,MepsDocumentId:null});
+     }
+   }
+   const entries:ImportEntry[]=[];let count=0,processed=0;
+   const assets=new Set<string>();
    const indexDocuments:OfflineDocumentRecord[]=[];
    const notebookSources:MeetingDocument[]=[];
    const virtualDocs:VirtualDocument[]=[];
@@ -189,6 +214,8 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
    const publicationTitle=String(manifest?.publication?.title||
      manifest?.publication?.displayTitle||pub.Symbol+' '+pub.Year).trim().slice(0,240);
    for(const doc of docs){
+     if(processed++%20===0){check();options.onProgress?.({stage:'reading',current:processed-1,total:docs.length});await new Promise(resolve=>setTimeout(resolve,0));}
+     if(!doc.Content||!(doc.Content as Uint8Array).byteLength)continue;
      const ciphertext=u8(doc.Content as Uint8Array);
      const plain=new Uint8Array(await crypto.subtle.decrypt({name:'AES-CBC',iv:iv as BufferSource},key,ciphertext as BufferSource));
      const html=string(unzlibSync(plain));
@@ -198,7 +225,8 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
         const src=img.getAttribute('src')||'';
         if(src.startsWith('jwpub-media://')){
           const asset=src.slice('jwpub-media://'.length);
-          if(inner[asset] && !entries.some(x=>x.name==='assets/'+asset.split('/').pop())){
+          if(inner[asset] && !assets.has(asset)){
+            assets.add(asset);
             const name=asset.split('/').pop()!;
             entries.push({name:'assets/'+name,bytes:inner[asset]});
             img.setAttribute('src','assets/'+name);
@@ -209,6 +237,7 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
      const markdown=htmlToMd(body).trim();
      if(!markdown)continue;
      const title=String(doc.Title||parsed.querySelector('h1')?.textContent||'Document '+doc.DocumentId).trim();
+     const coordinates=doc.BookNumber?{bookNumber:Number(doc.BookNumber),chapterNumber:Number(doc.ChapterNumber)}:{};
      const id=String(doc.DocumentId).padStart(3,'0');
      const filename=id+' · '+safeName(title)+'.md';
      const mepsId=Number(doc.MepsDocumentId);
@@ -217,7 +246,7 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
      const wolUrl=validMeps&&language===3
        ?'https://wol.jw.org/fr/wol/d/r30/lp-f/'+validMeps:null;
      if(mode==='virtual')virtualDocs.push({documentId:Number(doc.DocumentId),mepsId:validMeps,
-       title,path:filename,text:'# '+title+'\n\n'+markdown});
+       title,path:filename,...coordinates,text:'# '+title+'\n\n'+markdown});
      else entries.push({name:filename,text:'---\nbible_lab_kind: jwpub-document'+
        '\nsource_symbol: '+JSON.stringify(pub.Symbol)+
        '\nsource_year: '+pub.Year+
@@ -226,10 +255,11 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
        (wolUrl?'\nsource_url: '+JSON.stringify(wolUrl):'')+
        '\n---\n# '+title+'\n\n'+markdown+'\n'});
      indexDocuments.push({documentId:Number(doc.DocumentId),mepsId:validMeps,
-       title,path:filename});
+       title,path:filename,...coordinates});
      notebookSources.push({path:filename,title,markdown,sourceUrl:wolUrl});
      count++;
    }
+   check();options.onProgress?.({stage:'reading',current:docs.length,total:docs.length});
    assert(count>0,'Aucun document converti.');
    // Preserve every original document and its MEPS identifier for offline
    // reference resolution; the notebook is an additional editable entry.
