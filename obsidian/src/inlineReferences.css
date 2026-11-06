@@ -305,3 +305,22 @@
 .biblelab-popover-content {
  background:var(--background-primary);
 }
+
+.biblelab-popover-personal-annotations{margin:18px 0;padding:12px 14px;
+ border:1px solid var(--background-modifier-border);border-radius:12px;
+ background:var(--background-secondary)}
+.biblelab-popover-personal-annotations summary{cursor:pointer;font-size:12px;
+ font-weight:750;color:var(--text-normal);line-height:1.55}
+.biblelab-popover-annotation-notice{font-size:11px;line-height:1.55;
+ color:var(--text-muted);margin:10px 0}
+.biblelab-popover-annotation-mark{display:flex;align-items:center;gap:7px;
+ padding:6px 8px;margin:5px 0;border-radius:6px;
+ background:var(--background-primary);font-size:12px}
+.biblelab-popover-annotation-mark svg{width:15px;height:15px;color:var(--interactive-accent)}
+.biblelab-popover-annotation-note{border-left:2px solid var(--interactive-accent);
+ background:var(--background-primary);padding:9px 11px;margin:8px 0;
+ border-radius:5px;overflow-wrap:anywhere}
+.biblelab-popover-annotation-note strong{font-size:12px}
+.biblelab-popover-annotation-note p{margin:6px 0;white-space:pre-wrap;
+ font-size:12px;line-height:1.55}
+.biblelab-popover-annotation-note small{font-size:10px;color:var(--text-muted)}
