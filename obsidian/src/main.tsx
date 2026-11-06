@@ -56,7 +56,8 @@ import type { DayPreview, MeetingPreview } from './studyLive';
 import { chooseMarkdownZip, importMarkdownZip } from './markdownZipImporter';
 import { NativeJwModal } from './NativeJwModal';
 import { BIBLE_LAB_LIBRARY_VIEW, BibleLabLibraryView } from './BibleLabLibraryView';
-import { setLocalReferenceResolver } from './wolReferenceFetcher';
+import { setLocalReferenceResolver,setPersonalReaderDecorator } from './wolReferenceFetcher';
+import {attachPersonalBibleNotes} from './jwAnnotationReader';
 import { resolveOfflineDocument } from './offlineReferenceLibrary';
 import type { MapBounds } from './tileMath';
 
@@ -358,6 +359,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }));
     setLocalReferenceResolver(ref=>resolveOfflineDocument(this.app,this.settings.noteFolder,ref));
     this.register(()=>setLocalReferenceResolver(null));
+    setPersonalReaderDecorator((ref,result)=>attachPersonalBibleNotes(
+      this.app,this.settings.noteFolder,ref,result));
+    this.register(()=>setPersonalReaderDecorator(null));
     this.wolClipBridge=new WolContextCaptureBridge(this.app,this.saveWolQuote);
     this.wolClipBridge.start();
     this.register(()=>{this.wolClipBridge?.stop();this.wolClipBridge=undefined;});
