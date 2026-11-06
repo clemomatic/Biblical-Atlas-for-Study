@@ -118,8 +118,15 @@ export async function resolveOfflineDocument(
         },(_,i)=>passage.verse+i));
         const verses=record.blocks.filter(b=>b.kind==='verse'&&desired.has(b.identifier));
         if(!verses.length)continue;
-        const notes=annotationIndex&&index.publication.symbol==='nwtsty'
+        const chapterAnnotations=annotationIndex&&index.publication.symbol==='nwtsty'
           ?annotationsForBibleChapter(annotationIndex,passage.book,passage.chapter):null;
+        const notes=chapterAnnotations?{
+          ...chapterAnnotations,
+          marks:chapterAnnotations.marks.filter(m=>
+            m.ranges.some(r=>desired.has(r.identifier))),
+          notes:chapterAnnotations.notes.filter(n=>
+            n.blockIdentifier!==null&&desired.has(n.blockIdentifier)),
+        }:null;
         return {
           title:passage.label,kind:'verse',sourceUrl:ref.url,
           lines:readerLinesFromJwBlocks(verses,notes),links:[],
