@@ -292,7 +292,7 @@ export class BibleLabLibraryView extends ItemView {
         const cover=open.createDiv({cls:'blb-cover category-'+item.category});
         if(item.coverUrl){
           const image=cover.createEl('img',{attr:{src:item.coverUrl,alt:'Couverture de '+title,loading:'lazy',referrerpolicy:'no-referrer'}});
-          cover.addClass('has-image');
+          image.addEventListener('load',()=>cover.addClass('has-image'));
           image.addEventListener('error',()=>{image.remove();cover.removeClass('has-image');});
         }
         const fallback=cover.createDiv({cls:'blb-cover-design'});
@@ -332,13 +332,13 @@ export class BibleLabLibraryView extends ItemView {
         const img=cover.createEl('img',{attr:{
           src:this.app.vault.getResourcePath(file),alt:'Couverture de '+volume.title,loading:'lazy'}});
         img.addEventListener('error',()=>{img.remove();cover.classList.remove('has-image');});
-        cover.addClass('has-image');
+        img.addEventListener('load',()=>cover.addClass('has-image'));
       }
     }
     if(!volume.coverPath&&officialCover){
       const img=cover.createEl('img',{attr:{src:officialCover,alt:'Couverture de '+volume.title,loading:'lazy',referrerpolicy:'no-referrer'}});
       img.addEventListener('error',()=>{img.remove();cover.removeClass('has-image');});
-      cover.addClass('has-image');
+      img.addEventListener('load',()=>cover.addClass('has-image'));
     }
     const design=cover.createDiv({cls:'blb-cover-design'});
     const icon=design.createSpan();setIcon(icon,iconByCategory(volume.category));

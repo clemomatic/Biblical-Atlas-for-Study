@@ -63,6 +63,7 @@ test('Periodical issues are grouped, and narrow dark layout stays within the pan
   await expect(series).toHaveCount(1);
   await series.getByRole('button',{name:'Voir les numéros'}).click();
   await expect(library.locator('.blb-book-card')).toHaveCount(2);
+  await expect(library.locator('.blb-cover-title').first()).toBeVisible();
   expect(await library.evaluate(el=>el.scrollWidth<=el.clientWidth+1)).toBe(true);
   await page.screenshot({path:'test-results/bible-lab-preview-narrow-'+test.info().project.name+'.png'});
 });
