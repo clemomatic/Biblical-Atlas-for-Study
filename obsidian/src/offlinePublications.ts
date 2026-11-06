@@ -24,6 +24,9 @@ export interface OfflineDocumentRecord {
   mepsId:number|null;
   title:string;
   path:string; // relative file name within this import, never an absolute path
+  /** Bible JWPUB chapters are indexed as one virtual reading document each. */
+  bibleBook?:number;
+  bibleChapter?:number;
 }
 export interface OfflineImportIndex {
   schema:1;
