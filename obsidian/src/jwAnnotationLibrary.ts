@@ -4,7 +4,7 @@ import {
   type JwAnnotationIndex,type JwAnnotationLocation,
   type JwAnnotationMark,type JwAnnotationNote,type JwAnnotationRange,
   type JwAnnotationBookmark
-} from './jwAnnotations';
+} from './jwAnnotations.ts';
 import type {OfflineDocumentRecord} from './offlinePublications';
 
 export interface AnnotationArchive {
