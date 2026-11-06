@@ -1717,3 +1717,13 @@
 .biblelab-offline-manual button:focus-visible{
   outline:2px solid var(--interactive-accent);outline-offset:2px;
 }
+
+
+.biblelab-personal-notes{margin:10px 0;border:1px solid var(--background-modifier-border);
+  border-radius:8px;padding:8px 10px;font-size:12px}
+.biblelab-personal-notes>summary{cursor:pointer;font-weight:700;color:var(--text-accent)}
+.biblelab-personal-note{padding:8px 0;border-top:1px solid var(--background-modifier-border)}
+.biblelab-personal-note:first-of-type{margin-top:7px}
+.biblelab-personal-note p{white-space:pre-wrap;margin:5px 0;line-height:1.6}
+.biblelab-personal-note small{color:var(--text-muted)}
+.biblelab-personal-highlight{box-decoration-break:clone;padding:1px 0;border-radius:2px}
