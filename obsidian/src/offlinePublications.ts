@@ -52,6 +52,9 @@ export function publicJwpubQuery(symbol:string,issue=''):string{
   for(const [key,val] of Object.entries({
     output:'json',pub:valid,fileformat:'JWPUB',alllangs:'0',langwritten:'F',txtCMSLang:'F'
   }))url.searchParams.set(key,val);
+  // Official JW.org Bible download links specify booknum=0 for the whole Bible.
+  // Without it the media API may return a per-book response or no JWPUB.
+  if(isBiblePublication(valid))url.searchParams.set('booknum','0');
   if(issue)url.searchParams.set('issue',issue);
   return url.toString();
 }
