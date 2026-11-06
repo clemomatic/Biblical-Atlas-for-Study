@@ -80,6 +80,16 @@ export function preserveInlineEmphasis(source: Element, text: string, parts: Rea
 /** Only create trusted, native DOM nodes; never use innerHTML for remote text. */
 export function appendStyledReaderText(parent: HTMLElement, part: ReaderPart): void {
   let target: HTMLElement = parent;
+  if (part.highlightColor && part.highlightColor >= 1 && part.highlightColor <= 6) {
+    const swatches:Record<number,string>={1:'#ffe58a',2:'#b7eb9c',
+      3:'#a8d5ff',4:'#ffc0ba',5:'#ffd1a3',6:'#d9baff'};
+    const mark=target.createEl('mark',{cls:'biblelab-personal-highlight'});
+    mark.style.backgroundColor=swatches[part.highlightColor];
+    mark.style.color='#242424';
+    mark.style.borderRadius='2px';
+    mark.style.boxDecorationBreak='clone';
+    target=mark;
+  }
   if (part.bold) target = target.createEl('strong');
   if (part.italic) target = target.createEl('em');
   target.appendChild(document.createTextNode(part.text));

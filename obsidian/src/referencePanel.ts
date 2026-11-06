@@ -92,6 +92,16 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    if(result.title&&result.title!==ref.label)
      contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
    if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:result.notice});
+   if(result.personalNotes?.length){
+     const notes=contents.createEl('details',{cls:'biblelab-personal-notes'});
+     notes.createEl('summary',{text:'Mes notes JW Library ('+result.personalNotes.length+')'});
+     for(const note of result.personalNotes.slice(0,100)){
+       const card=notes.createDiv({cls:'biblelab-personal-note'});
+       if(note.title)card.createEl('strong',{text:note.title});
+       if(note.content)card.createEl('p',{text:note.content});
+       if(note.tags?.length)card.createEl('small',{text:note.tags.join(' · ')});
+     }
+   }
    if(!result.lines.length){
      const empty=contents.createDiv({cls:'biblelab-reader-hint'});
      empty.createSpan({text:'Le document n’a pas pu être affiché ici. Il reste accessible sur la source officielle.'});

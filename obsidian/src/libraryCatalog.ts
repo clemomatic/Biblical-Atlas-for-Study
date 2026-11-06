@@ -4,7 +4,7 @@ import {
   type LocalPublication
 } from './offlineReferenceLibrary';
 import type { OfflineDocumentRecord } from './offlinePublications';
-import {readVirtualPublications,loadVirtualText} from './virtualJwpub';
+import {readVirtualPublications,loadVirtualRecords,type VirtualTextRecord} from './virtualJwpub';
 
 import {
   classifyLibraryVolume,foldLibraryText as lower
@@ -27,15 +27,19 @@ export interface LibrarySearchResult {
   source:'title'|'content';
 }
 const IMG=/\.(png|jpe?g|webp|gif)$/i;
-const virtualCache=new Map<string,Map<number,string>>();
-export async function virtualDocuments(app:App,volume:LibraryVolume):Promise<Map<number,string>>{
+const virtualCache=new Map<string,Map<number,VirtualTextRecord>>();
+export async function virtualRecords(app:App,volume:LibraryVolume):Promise<Map<number,VirtualTextRecord>>{
   if(!volume.virtual)return new Map();
   const cached=virtualCache.get(volume.path);
   if(cached)return cached;
-  const docs=await loadVirtualText(app,volume.path);
+  const docs=await loadVirtualRecords(app,volume.path);
   if(virtualCache.size>=3)virtualCache.delete(virtualCache.keys().next().value!);
   virtualCache.set(volume.path,docs);
   return docs;
+}
+export async function virtualDocuments(app:App,volume:LibraryVolume):Promise<Map<number,string>>{
+  const documents=await virtualRecords(app,volume);
+  return new Map([...documents].map(([id,record])=>[id,record.text]));
 }
 function findCover(app:App,folder:string):string|null{
   const all=app.vault.getFiles()

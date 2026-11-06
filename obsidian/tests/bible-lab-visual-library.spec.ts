@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {zipSync,strToU8} from 'fflate';
+import {zipSync,strToU8,gzipSync} from 'fflate';
 import {createHash,createCipheriv} from 'node:crypto';
 import {deflateSync} from 'node:zlib';
 import {createRequire} from 'node:module';
@@ -162,4 +162,112 @@ test('Virtual JWPUB import keeps one source and search cache, with no per-articl
  await search.fill('patience');
  await expect(library.locator('.blb-search-result')).toHaveCount(1);
  await expect(library.locator('.blb-search-result')).toContainText('La patience');
+});
+
+
+test('Reads imported JW Library annotations by Bible chapter and searches personal notes',async({page})=>{
+ const index={
+   format:'bible-lab-annotations',version:1,schema:16,sourceHash:'fixture',
+   locations:[{id:31,book:41,chapter:10,document:null,issue:null,
+      symbol:'nwtsty',language:3,type:0,specialty:null,edition:null}],
+   marks:[{id:20,guid:'fictional-guid',color:2,style:0,location:31}],
+   ranges:[{mark:20,blockType:1,identifier:14,start:2,end:6}],
+   notes:[{id:21,guid:'fictional-note',title:'Une réflexion sur la justice',
+     content:'Jésus réagit avec courage',location:31,mark:20,
+     blockType:1,blockIdentifier:14,created:null,modified:null,tags:['Étude']}],
+   bookmarks:[]
+ };
+ const archive=Buffer.from(gzipSync(strToU8(JSON.stringify(index)))).toString('base64');
+ await page.evaluate(async(base64)=>{
+   const {app,plugin}=(window as any).atlasTest;
+   const base=plugin.settings.noteFolder+'/Annotations JW Library';
+   await app.vault.createFolder(base);
+   await app.vault.createFolder(base+'/Sauvegarde fictive');
+   const bytes=Uint8Array.from(atob(base64),c=>c.charCodeAt(0));
+   await app.vault.createBinary(base+'/Sauvegarde fictive/annotations.json.gz',bytes.buffer);
+   await app.vault.create(base+'/Sauvegarde fictive/_BIBLE_LAB_ANNOTATIONS.json',
+     JSON.stringify({format:'bible-lab-annotations',version:1}));
+   await plugin.openVisualLibrary();
+ },archive);
+ const library=page.locator('.blb-library');
+ await library.getByRole('button',{name:'Mes annotations'}).click();
+ await expect(library.getByRole('heading',{name:'Surlignages de la Bible d’étude'})).toBeVisible();
+ await library.getByRole('button',{name:/Marc \(1\)/}).click();
+ await library.getByRole('button',{name:/Ch. 10 · 1 surlignage/}).click();
+ await expect(library.locator('.blb-annotation-item')).toContainText(['Surlignage','Une réflexion sur la justice']);
+ const search=library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'});
+ await search.fill('courage');
+ await expect(library.locator('.blb-bible-annotations')).toHaveCount(0);
+ await expect(library.locator('.blb-annotation-item')).toHaveCount(1);
+ await expect(library.locator('.blb-annotation-item')).toContainText('Jésus réagit avec courage');
+});
+
+
+async function fictionalBibleJwpub():Promise<Buffer>{
+ const SQL=await initSqlJs({locateFile:(name:string)=>require.resolve('sql.js/dist/'+name)});
+ const db=new SQL.Database();
+ db.run('CREATE TABLE Publication(MepsLanguageIndex INTEGER, Symbol TEXT, Year INTEGER, IssueTagNumber INTEGER)');
+ db.run("INSERT INTO Publication VALUES (3,'nwtsty',2026,0)");
+ db.run('CREATE TABLE BibleBook(BibleBookId INTEGER,ChapterDisplayTitle TEXT)');
+ db.run("INSERT INTO BibleBook VALUES (41,'Marc')");
+ db.run('CREATE TABLE BibleChapter(BibleChapterId INTEGER,Content BLOB)');
+ const mask=Buffer.from('11cbb5587e32846d4c26790c633da289f66fe5842a3a585ce1bc3a294af5ada7','hex');
+ const hash=createHash('sha256').update('3_nwtsty_2026').digest();
+ const bytes=Buffer.from(hash.map((v,i)=>v^mask[i]));
+ const html='<div class="chapter"><span id="v41-10-14" class="v">Jésus protège ceux qui cherchent son aide.</span>'+
+   '<span id="v41-10-15" class="v">Il encourage les personnes qui le suivent.</span></div>';
+ const cipher=createCipheriv('aes-128-cbc',bytes.subarray(0,16),bytes.subarray(16));
+ const content=Buffer.concat([cipher.update(deflateSync(strToU8(html))),cipher.final()]);
+ db.run('INSERT INTO BibleChapter VALUES (?,?)',[1,content]);
+ const sql=db.export();db.close();
+ return Buffer.from(zipSync({'manifest.json':strToU8(JSON.stringify({
+   publication:{title:'Bible d’étude fictive'}
+ })),contents:zipSync({'bible.db':sql})}));
+}
+test('Bible JWPUB imports real chapter layout and colored words show in reader and popup',async({page})=>{
+ const index={
+  format:'bible-lab-annotations',version:1,schema:16,sourceHash:'test-only',
+  locations:[{id:1,book:41,chapter:10,document:null,issue:null,symbol:'nwtsty',
+    language:3,type:0,specialty:null,edition:null}],
+  marks:[{id:1,guid:'mock',color:2,style:0,location:1}],
+  ranges:[{mark:1,blockType:2,identifier:14,start:2,end:4}],
+  notes:[{id:1,guid:'mock',title:'Note personnelle',content:'Ma réflexion personnelle',
+    location:1,mark:1,blockType:2,blockIdentifier:14,created:null,modified:null,tags:[]}],
+  bookmarks:[]
+ };
+ const archive=Buffer.from(gzipSync(strToU8(JSON.stringify(index)))).toString('base64');
+ await page.evaluate(async(archive)=>{
+  const {app,plugin}=(window as any).atlasTest;
+  const base=plugin.settings.noteFolder+'/Annotations JW Library';
+  await app.vault.createFolder(base);
+  await app.vault.createFolder(base+'/Sauvegarde de test');
+  const bytes=Uint8Array.from(atob(archive),s=>s.charCodeAt(0));
+  await app.vault.createBinary(base+'/Sauvegarde de test/annotations.json.gz',bytes.buffer);
+  await app.vault.create(base+'/Sauvegarde de test/_BIBLE_LAB_ANNOTATIONS.json',
+   JSON.stringify({format:'bible-lab-annotations',version:1}));
+  await plugin.openVisualLibrary();
+ },archive);
+ const library=page.locator('.blb-library');
+ const chooser=page.waitForEvent('filechooser');
+ await library.getByRole('button',{name:'Ajouter un JWPUB sans notes'}).click();
+ await (await chooser).setFiles({
+  name:'nwtsty_F.jwpub',mimeType:'application/zip',buffer:await fictionalBibleJwpub()
+ });
+ await expect(page.getByText('articles indexés sans fichiers MD')).toBeVisible();
+ await page.getByRole('button',{name:'Ajouter à la bibliothèque virtuelle'}).click();
+ await expect(library.getByRole('button',{name:'Ouvrir Bible d’étude fictive'})).toBeVisible();
+ await library.getByRole('button',{name:'Ouvrir Bible d’étude fictive'}).click();
+ await library.getByRole('button',{name:'Lire Marc 10'}).click();
+ const highlighted=library.locator('.blb-jw-native-text mark');
+ await expect(highlighted).toContainText('ceux qui cherchent');
+ await library.locator('.blb-jw-verse-notes summary').first().click();
+ await expect(library.getByText('Ma réflexion personnelle')).toBeVisible();
+ await page.evaluate(()=>{
+  const plugin=(window as any).atlasTest.plugin;
+  const anchor=document.createElement('button');anchor.textContent='Marc 10:14';
+  document.body.append(anchor);
+  plugin.inlinePopup.open('Marc 10:14',anchor);
+ });
+ await expect(page.locator('.biblelab-inline-popover mark')).toContainText('ceux qui cherchent');
+ await expect(page.locator('.biblelab-inline-popover')).toContainText('Mes notes JW Library');
 });

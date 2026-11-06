@@ -239,6 +239,16 @@ export class BibleLabInlinePopover {
   if(result.title&&result.title!==this.current?.label)
    container.createEl('h3',{cls:'biblelab-popover-document-title',text:result.title});
   if(result.notice)container.createEl('p',{cls:'biblelab-popover-notice',text:result.notice});
+  if(result.personalNotes?.length){
+    const notes=container.createEl('details',{cls:'biblelab-personal-notes'});
+    notes.createEl('summary',{text:'Mes notes JW Library ('+result.personalNotes.length+')'});
+    for(const note of result.personalNotes.slice(0,100)){
+      const card=notes.createDiv({cls:'biblelab-personal-note'});
+      if(note.title)card.createEl('strong',{text:note.title});
+      if(note.content)card.createEl('p',{text:note.content});
+      if(note.tags?.length)card.createEl('small',{text:note.tags.join(' · ')});
+    }
+  }
   if(!result.lines.length){
    container.createEl('p',{cls:'biblelab-popover-feedback',text:'Aucun texte lisible reçu. La référence reste accessible sur WOL.'});
    return;
