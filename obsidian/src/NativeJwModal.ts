@@ -174,7 +174,7 @@ export class NativeJwModal extends Modal{
      const preview=await readJwpub(file,mode);
      this.pendingDownload={name:item.filename,bytes,symbol:item.symbol,issue:item.issue||''};
      this.showPreview(preview,item.filename);
-   }catch(e){this.pendingDownload=null;this.offlineError(e);}finally{this.busy=false;}
+   }catch(e){this.pendingDownload=null;this.offlineError(e,item.symbol);}finally{this.busy=false;}
  }
  private offlineError(error:unknown,symbol=''):void{
    const root=this.screen('Publication indisponible','Aucune publication n’a été importée.');
