@@ -3,6 +3,8 @@
  * All network calls are initiated explicitly by the user from the library modal.
  */
 export const PERSONAL_OFFLINE_CATALOG=[
+  {label:'Bible — Traduction du monde nouveau (nwt)',symbol:'nwt'},
+  {label:'Bible d’étude — Traduction du monde nouveau (nwtsty)',symbol:'nwtsty'},
   {label:'Assemblée régionale 2026',symbol:'co-pgm26'},
   {label:'Circonscription 2026-2027 · responsable de circonscription',symbol:'ca-copgm27'},
   {label:'Circonscription 2026-2027 · représentant de la filiale',symbol:'ca-brpgm27'}
@@ -32,7 +34,9 @@ export interface OfflineImportIndex {
   documents:OfflineDocumentRecord[];
 }
 export const OFFLINE_INDEX_NAME='_BIBLE_LAB_OFFLINE_INDEX.json';
-export const MAX_PERSONAL_JWPUB_BYTES=150*1024*1024;
+// Study Bibles contain thousands of chapters and media assets; bound the raw
+// download separately from the total uncompressed contents.
+export const MAX_PERSONAL_JWPUB_BYTES=300*1024*1024;
 
 export function validPublicationSymbol(value:string):string|null {
   const input=value.trim().toLowerCase();
@@ -44,7 +48,7 @@ export function publicJwpubQuery(symbol:string,issue=''):string{
   if(issue&&!/^\d{4,8}$/.test(issue))throw Error('Numéro de revue invalide.');
   const url=new URL('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS');
   for(const [key,val] of Object.entries({
-    output:'json',pub:valid,fileformat:'JWPUB',alllangs:'0',langwritten:'F',txtCMSLang:'F'
+    output:'json',booknum:'0',pub:valid,fileformat:'JWPUB',alllangs:'0',langwritten:'F',txtCMSLang:'F'
   }))url.searchParams.set(key,val);
   if(issue)url.searchParams.set('issue',issue);
   return url.toString();
