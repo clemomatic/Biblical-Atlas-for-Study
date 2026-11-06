@@ -8,12 +8,13 @@ import { patchZip } from './zipPatch';
 import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
 import { buildJwpubMeetingNotebooks, type MeetingDocument } from './meetingNotebook';
 import {createVirtualIndex,encodeVirtualTexts,VIRTUAL_INDEX,VIRTUAL_TEXT,VIRTUAL_SOURCE,type VirtualDocument} from './virtualJwpub';
+import {extractJwAnnotations,encodeJwAnnotations,summarizeJwAnnotations,ANNOTATION_INDEX_NAME,ANNOTATION_META_NAME} from './jwAnnotations';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
  run:(sql:string,params?:unknown[])=>Db; export:()=>Uint8Array; close:()=>void};
 type Source = { zip:Record<string,Uint8Array>;manifest:any;database:Uint8Array; dbName:string;hash:string; schema:number };
 export type ImportEntry = {name:string;text?:string;bytes?:Uint8Array};
-export type ImportPreview = {type:'jwpub'|'jwlibrary';title:string;sourceHash:string;entries:ImportEntry[];count:number;schema?:number;warnings:string[];virtual?:boolean};
+export type ImportPreview = {type:'jwpub'|'jwlibrary';title:string;sourceHash:string;entries:ImportEntry[];count:number;schema?:number;warnings:string[];virtual?:boolean;annotationOnly?:boolean};
 export type ChangeItem = {guid:string;titleBefore:string;titleAfter:string;contentBefore:string;contentAfter:string; noteId:number};
 export type ExportPlan = {source:Source;changes:ChangeItem[];db:Db;baselineFk:string[];notes:number};
 const MAX_BYTES=150*1024*1024, MAX_EXPANDED=410*1024*1024;
@@ -95,6 +96,37 @@ function formatNote(row:any,tags:string[],source:string):Promise<string>{
  'jw_tags: '+JSON.stringify(tags),'jw_original_hash: '
  ];
  return digestText(title+'\0'+content).then(hash=>meta.join('\n')+hash+'\n---\n\n'+MARKER+content);
+}
+/** Import notes, highlights and bookmarks without generating Markdown documents. */
+export async function readBackupAnnotations(file:File):Promise<ImportPreview>{
+ const bytes=u8(await file.arrayBuffer());
+ const source=await openSource(bytes);
+ const db=await openDb(source.database);
+ try{
+   assert(one(db,'PRAGMA integrity_check')?.integrity_check==='ok','SQLite integrity_check a échoué.');
+   const index=extractJwAnnotations(db,source.schema,source.hash);
+   const summary=summarizeJwAnnotations(index);
+   return {
+     type:'jwlibrary',annotationOnly:true,
+     title:'Annotations JW Library · '+file.name,
+     sourceHash:source.hash,count:index.marks.length,
+     schema:source.schema,
+     entries:[
+       {name:ANNOTATION_INDEX_NAME,bytes:encodeJwAnnotations(index)},
+       {name:ANNOTATION_META_NAME,text:JSON.stringify({
+         format:'bible-lab-annotations',version:1,
+         sourceName:file.name,sourceHash:source.hash,
+         summary
+       },null,2)}
+     ],
+     warnings:[
+       summary.highlights.toLocaleString('fr-FR')+' surlignages · '+
+       summary.notes.toLocaleString('fr-FR')+' notes · '+
+       summary.bookmarks.toLocaleString('fr-FR')+' signets.',
+       'Copie en lecture seule. La sauvegarde d’origine reste inchangée.'
+     ]
+   };
+ }finally{db.close();}
 }
 export async function readBackup(file:File):Promise<ImportPreview>{
  const bytes=u8(await file.arrayBuffer());const source=await openSource(bytes);
