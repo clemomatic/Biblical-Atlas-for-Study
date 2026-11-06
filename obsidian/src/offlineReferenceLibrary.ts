@@ -4,7 +4,10 @@ import {
   type OfflineImportIndex
 } from './offlinePublications';
 import type { ReferenceEntry,ReaderLine,ReaderResult } from './referenceReader';
-import {readVirtualPublications,loadVirtualText} from './virtualJwpub';
+import {readVirtualPublications,loadVirtualRecords,type VirtualTextRecord} from './virtualJwpub';
+import {parseScripture} from './bibleLabData';
+import {loadLatestAnnotationArchive,annotationsForDocument,annotationsForBibleChapter} from './jwAnnotationLibrary';
+import {readerLinesFromJwBlocks,readerPersonalNotes} from './jwAnnotationReader';
 
 export interface LocalPublication {
   title:string;
@@ -76,15 +79,80 @@ function localReaderLines(markdown:string):ReaderLine[]{
  * map WOL's #h=N fragment to JWPUB paragraph IDs; the whole article is shown
  * with a visible precision warning rather than a fabricated location.
  */
+const virtualCache=new Map<string,Map<number,VirtualTextRecord>>();
+async function cachedVirtual(app:App,folder:string):Promise<Map<number,VirtualTextRecord>>{
+ const old=virtualCache.get(folder);
+ if(old)return old;
+ const loaded=await loadVirtualRecords(app,folder);
+ if(virtualCache.size>2)virtualCache.delete(virtualCache.keys().next().value!);
+ virtualCache.set(folder,loaded);
+ return loaded;
+}
+/**
+ * Prefer the original JWPUB's verified verse / paragraph anchors when present,
+ * so the same readable, coloured result powers popups and full reader panes.
+ * Never infer token positions from a different WOL edition.
+ */
 export async function resolveOfflineDocument(
   app:App,root:string,ref:ReferenceEntry
 ):Promise<ReaderResult|null>{
-  if(ref.kind==='scripture')return null;
+  const virtual=await readVirtualPublications(app,root);
+  const annotationArchive=await loadLatestAnnotationArchive(app,root);
+  const annotationIndex=annotationArchive?.index;
+  if(ref.kind==='scripture'){
+    const passage=parseScripture(ref.label);
+    if(!passage||passage.endChapter)return null;
+    const available=virtual.filter(v=>v.index.publication.language===3&&
+      (v.index.publication.symbol==='nwtsty'||v.index.publication.symbol==='nwt'))
+      .sort((a,b)=>Number(b.index.publication.symbol==='nwtsty')-
+                    Number(a.index.publication.symbol==='nwtsty'));
+    for(const {folder,index} of available){
+      const found=index.documents.find(d=>d.bibleBook===passage.book&&
+        d.bibleChapter===passage.chapter);
+      if(!found)continue;
+      try{
+        const record=(await cachedVirtual(app,folder)).get(found.documentId);
+        if(!record?.blocks.length)continue;
+        const desired=new Set(passage.verses||Array.from({
+          length:Math.max(1,Math.min(176,(passage.endVerse||passage.verse)-passage.verse+1))
+        },(_,i)=>passage.verse+i));
+        const verses=record.blocks.filter(b=>b.kind==='verse'&&desired.has(b.identifier));
+        if(!verses.length)continue;
+        const notes=annotationIndex&&index.publication.symbol==='nwtsty'
+          ?annotationsForBibleChapter(annotationIndex,passage.book,passage.chapter):null;
+        return {
+          title:passage.label,kind:'verse',sourceUrl:ref.url,
+          lines:readerLinesFromJwBlocks(verses,notes),links:[],
+          personalNotes:readerPersonalNotes(notes),
+          notice:'Texte de la Bible locale · annotations personnelles de JW Library.'
+        };
+      }catch{/* Fallback to the official verse reader, never fabricate text. */}
+    }
+    return null;
+  }
   const meps=directWolMepsId(ref.url);
   if(!meps)return null;
+  for(const {folder,index} of virtual){
+    if(index.publication.language!==3)continue;
+    const match=index.documents.find(doc=>doc.mepsId===meps);
+    if(!match)continue;
+    try{
+      const record=(await cachedVirtual(app,folder)).get(match.documentId);
+      if(!record?.text)continue;
+      const marks=annotationIndex?annotationsForDocument(annotationIndex,
+        index.publication,match):null;
+      return {
+        title:match.title,kind:'article',sourceUrl:ref.url,links:[],
+        lines:record.blocks.length?
+          readerLinesFromJwBlocks(record.blocks,marks):localReaderLines(record.text),
+        personalNotes:readerPersonalNotes(marks),
+        notice:'Lecture de la publication locale · hors connexion.'
+      };
+    }catch{/* Continue to official source if the JWPUB cache is damaged. */}
+  }
   const indexes=await readLocalPublicationIndexes(app,root);
   for(const {folder,index} of indexes){
-    if(index.publication.language!==3)continue; // French WOL references only
+    if(index.publication.language!==3)continue;
     const match=index.documents.find(doc=>doc.mepsId===meps);
     if(!match)continue;
     const file=app.vault.getAbstractFileByPath(folder+'/'+match.path);
@@ -92,37 +160,14 @@ export async function resolveOfflineDocument(
     try{
       const content=await app.vault.cachedRead(file);
       return {
-        title:match.title,
-        kind:'article',
-        sourceUrl:ref.url,
-        lines:localReaderLines(content),
-        links:[],
+        title:match.title,kind:'article',sourceUrl:ref.url,
+        lines:localReaderLines(content),links:[],
         notice:'Texte issu de ta bibliothèque locale · hors connexion. '+
           (new URL(ref.url).hash?
             'Le numéro de paragraphe WOL n’est pas confirmé dans cette copie ; vérifie la position dans la source officielle.':
             'Les liens officiels sont conservés.')
       };
-    }catch{/* Fall back to WOL if the local note was removed or inaccessible. */}
-  }
-  // Virtual publications resolve the same precise MEPS document IDs without
-  // requiring an individual Markdown file for every chapter or article.
-  const virtual=await readVirtualPublications(app,root);
-  for(const {folder,index} of virtual){
-    if(index.publication.language!==3)continue;
-    const match=index.documents.find(doc=>doc.mepsId===meps);
-    if(!match)continue;
-    try{
-      const content=(await loadVirtualText(app,folder)).get(match.documentId);
-      if(!content)continue;
-      return {
-        title:match.title,kind:'article',sourceUrl:ref.url,
-        lines:localReaderLines(content),links:[],
-        notice:'Texte de ton JWPUB virtuel · hors connexion. '+
-          (new URL(ref.url).hash?
-            'La position exacte du paragraphe WOL reste à confirmer.':
-            'Document reconnu par son identifiant MEPS.')
-      };
-    }catch{/* Continue with the official online reference if cache is damaged. */}
+    }catch{/* Fall back to WOL. */}
   }
   return null;
 }
