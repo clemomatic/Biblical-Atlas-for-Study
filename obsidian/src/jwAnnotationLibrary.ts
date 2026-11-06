@@ -83,6 +83,71 @@ export function searchPersonalAnnotations(index:JwAnnotationIndex,query:string,l
  }
  return hits;
 }
+
+const BIBLE_BOOKS_FR=[
+ 'Genèse','Exode','Lévitique','Nombres','Deutéronome','Josué','Juges','Ruth',
+ '1 Samuel','2 Samuel','1 Rois','2 Rois','1 Chroniques','2 Chroniques',
+ 'Esdras','Néhémie','Esther','Job','Psaumes','Proverbes','Ecclésiaste',
+ 'Chant de Salomon','Isaïe','Jérémie','Lamentations','Ézéchiel','Daniel',
+ 'Osée','Joël','Amos','Obadia','Jonas','Michée','Nahum','Habacuc','Sophonie',
+ 'Aggée','Zacharie','Malachie','Matthieu','Marc','Luc','Jean','Actes',
+ 'Romains','1 Corinthiens','2 Corinthiens','Galates','Éphésiens','Philippiens',
+ 'Colossiens','1 Thessaloniciens','2 Thessaloniciens','1 Timothée',
+ '2 Timothée','Tite','Philémon','Hébreux','Jacques','1 Pierre','2 Pierre',
+ '1 Jean','2 Jean','3 Jean','Jude','Révélation'
+];
+export const bibleBookName=(book:number):string=>
+  BIBLE_BOOKS_FR[book-1]||'Livre '+book;
+export function bibleAnnotationChapters(index:JwAnnotationIndex):{
+ book:number;chapter:number;locations:number;marks:number;notes:number
+}[]{
+ const byChapter=new Map<string,{book:number;chapter:number;locations:number;marks:number;notes:number}>();
+ const markCount=new Map<number,number>();
+ for(const mark of index.marks)markCount.set(mark.location,(markCount.get(mark.location)||0)+1);
+ const notesByLocation=new Map<number,number>();
+ const marks=new Map(index.marks.map(x=>[x.id,x]));
+ for(const note of index.notes){
+   const location=note.location??marks.get(note.mark??-1)?.location;
+   if(location!==undefined&&location!==null)
+     notesByLocation.set(location,(notesByLocation.get(location)||0)+1);
+ }
+ for(const loc of index.locations){
+   if(loc.symbol?.toLowerCase()!=='nwtsty'||loc.language!==3||
+      loc.book===null||loc.chapter===null||loc.book<1||loc.book>66||loc.chapter<1)continue;
+   const key=loc.book+':'+loc.chapter;
+   const current=byChapter.get(key)||{book:loc.book,chapter:loc.chapter,locations:0,marks:0,notes:0};
+   current.locations++;
+   current.marks+=markCount.get(loc.id)||0;
+   current.notes+=notesByLocation.get(loc.id)||0;
+   byChapter.set(key,current);
+ }
+ return [...byChapter.values()].sort((a,b)=>a.book-b.book||a.chapter-b.chapter);
+}
+/** Bible verses are anchored by book/chapter + token ranges, not document IDs. */
+export function annotationsForBibleChapter(
+ index:JwAnnotationIndex,book:number,chapter:number
+):DocumentAnnotations|null{
+ if(!Number.isInteger(book)||book<1||book>66||!Number.isInteger(chapter)||chapter<1)return null;
+ const ids=new Set(index.locations.filter(l=>
+   l.symbol?.toLowerCase()==='nwtsty'&&l.language===3&&
+   l.book===book&&l.chapter===chapter).map(l=>l.id));
+ if(!ids.size)return null;
+ const marks=index.marks.filter(m=>ids.has(m.location));
+ const markIds=new Set(marks.map(m=>m.id));
+ const ranges=new Map<number,JwAnnotationRange[]>();
+ for(const range of index.ranges)if(markIds.has(range.mark)){
+   const items=ranges.get(range.mark)||[];items.push(range);ranges.set(range.mark,items);
+ }
+ return {confidence:'document-id',locationIds:[...ids],
+   marks:marks.map(mark=>({mark,ranges:ranges.get(mark.id)||[]})),
+   notes:index.notes.filter(n=>
+     (n.location!==null&&ids.has(n.location))||
+     (n.mark!==null&&markIds.has(n.mark))),
+   bookmarks:index.bookmarks.filter(b=>
+     (b.location!==null&&ids.has(b.location))||
+     (b.publicationLocation!==null&&ids.has(b.publicationLocation)))
+ };
+}
 let cache:{path:string;mtime:number;index:JwAnnotationIndex}|null=null;
 export async function loadLatestAnnotationArchive(app:App,root:string):Promise<AnnotationArchive|null>{
  const prefix=root.replace(/\/+$/,'')+'/Annotations JW Library/';
