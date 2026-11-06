@@ -58,7 +58,7 @@ test('Official WOL search opens its actual page in Obsidian while quick article 
  await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2024642',route=>
   route.fulfill({status:200,contentType:'text/html',body:article}));
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
  await pane.locator('input[type="search"]').first().fill('compassion');
  await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
  const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace
@@ -74,7 +74,7 @@ test('WOL HTTP 403 does not prevent opening real WOL search in Obsidian Web view
  await page.route('https://wol.jw.org/fr/wol/s/**',route=>route.fulfill({
    status:403,contentType:'text/html',body:'<html>Access denied</html>'}));
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
  await pane.locator('input[type="search"]').first().fill('compassion');
  await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
  await expect(page.locator('.mock-core-webviewer')).toHaveCount(1);

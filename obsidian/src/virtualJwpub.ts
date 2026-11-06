@@ -11,6 +11,7 @@ const MAX_VIRTUAL_DOCUMENTS=20000;
 export interface VirtualDocument extends OfflineDocumentRecord {text:string}
 export interface VirtualPublication {
  schema:1;
+ origin?:'personal'|'download';
  publication:{symbol:string;year:number;language:number;title:string;issue?:string};
  documents:OfflineDocumentRecord[];
  contentsFile:typeof VIRTUAL_TEXT;

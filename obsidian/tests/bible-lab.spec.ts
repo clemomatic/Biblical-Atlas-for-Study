@@ -11,7 +11,7 @@ test.beforeEach(async ({page})=>{
 
 test('research sidebar opens and sends only the current search to official URLs',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('');
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Jean 7:24');
   await pane.locator('.biblelab-wol-extras > summary').click();
@@ -42,7 +42,7 @@ test('map finder searches official grid and opens a specific verified map',async
 test('study Bible resources include individual maps and the main appendices',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.locator('.biblelab-overflow > summary').click();
-  await pane.getByRole('button',{name:'Publications et ressources'}).click();
+  await pane.getByRole('button',{name:'Outils documentaires'}).click();
   await expect(pane.getByText('Appendice A',{exact:true})).toBeVisible();
   await expect(pane.getByText('Appendice B',{exact:true})).toBeVisible();
   await expect(pane.getByText('Appendice C',{exact:true})).toBeVisible();

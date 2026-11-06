@@ -21,6 +21,10 @@ const featured=(symbol:string,title:string,coverUrl:string,issue=''):JwCatalogEn
  * Never interpret membership in this list as proof that a JWPUB exists.
  */
 export const FEATURED_JW_ORG:readonly JwCatalogEntry[]=[
+  featured('nwt','La Bible · Traduction du monde nouveau',''),
+  featured('nwtsty','La Bible · édition d’étude',''),
+  featured('it-1','Étude perspicace des Écritures · volume 1',''),
+  featured('it-2','Étude perspicace des Écritures · volume 2',''),
   featured('ca-copgm27','Assemblée de circonscription 2026-2027 · responsable de circonscription',
     'https://cms-imgp.jw-cdn.org/img/p/ca-copgm27/F/pt/ca-copgm27_F_lg.jpg'),
   featured('ca-brpgm27','Assemblée de circonscription 2026-2027 · représentant de la filiale',

@@ -1,4 +1,4 @@
-import { ItemView, MarkdownView, Notice, requestUrl, setIcon, TFile, type WorkspaceLeaf } from 'obsidian';
+import { ItemView, MarkdownView, Menu, Notice, requestUrl, setIcon, TFile, type WorkspaceLeaf } from 'obsidian';
 import styles from './bibleLab.css?inline';
 import {
   jwLibraryLink, mapChapterForPage, MAP_CHAPTERS,
@@ -171,30 +171,29 @@ export class BibleLabSidebarView extends ItemView {
     identity.createSpan({cls:'biblelab-wordmark',text:'BIBLE LAB'});
     identity.createSpan({cls:'biblelab-tagline',text:'STUDY STUDIO'});
     const tools=brand.createDiv({cls:'biblelab-top-actions'});
+    const library=tools.createEl('button',{cls:'biblelab-icon-action',attr:{
+      type:'button','aria-label':'Ma bibliothèque',title:'Ma bibliothèque'}});
+    setIcon(library,'library-big');
+    library.addEventListener('click',()=>void this.host.openVisualLibrary());
     const capture=tools.createEl('button',{cls:'biblelab-icon-action',attr:{
       type:'button','aria-label':'Capturer le texte copié','title':'Capturer le texte copié'}});
     setIcon(capture,'bookmark-plus');
     capture.addEventListener('click',()=>void this.captureClipboardQuick());
     const more=tools.createEl('details',{cls:'biblelab-overflow'});
     const trigger=more.createEl('summary',{cls:'biblelab-icon-action',attr:{
-      'aria-label':'Autres outils','title':'Autres outils'}});
+      'aria-label':'Options de Bible Lab','title':'Options de Bible Lab'}});
     setIcon(trigger,'ellipsis');
     const menu=more.createDiv({cls:'biblelab-overflow-menu',attr:{'aria-label':'Autres outils'}});
     for(const entry of [
       {key:'refs',label:'Lire les références',icon:'book-open-text'},
       {key:'maps',label:'Atlas biblique',icon:'map-pinned'},
-      {key:'library',label:'Publications et ressources',icon:'library-big'},
-      {key:'studio',label:'Studio et outils avancés',icon:'notebook-pen'}
+      {key:'library',label:'Outils documentaires',icon:'compass'},
+      {key:'studio',label:'Autres outils',icon:'notebook-pen'}
     ] as const){
       button(menu,entry.label,entry.icon,()=>{more.open=false;this.setTab(entry.key);});
     }
     this.tabs=this.contentEl.createDiv({cls:'biblelab-tabs'});
     this.scroller=this.contentEl.createDiv({cls:'biblelab-scroller'});
-    const footer=this.contentEl.createDiv({cls:'biblelab-footer'});
-    footer.createSpan({text:'Bible Lab'});
-    const details=footer.createSpan({cls:'biblelab-local-indicator',
-      attr:{'title':'Les données de recherche restent dans ton coffre Obsidian'}});
-    setIcon(details,'shield-check');details.createSpan({text:'Données locales'});
     await this.updateActiveNote(this.app.workspace.getActiveFile());
     this.render();
     this.liveViewOpen=true;
@@ -286,10 +285,10 @@ export class BibleLabSidebarView extends ItemView {
       role:'group','aria-label':'Navigation Bible Lab'
     }});
     for(const entry of [
-      {key:'home',label:'Étude',icon:'notebook-pen',aria:'Accueil'},
-      {key:'wol',label:'WOL',icon:'search',aria:'WOL'},
-      {key:'collect',label:'Bac',icon:'inbox',aria:'Trouvailles'},
-      {key:'archive',label:'Index',icon:'book-marked',aria:'Mon index'}
+      {key:'home',label:'Étude',icon:'notebook-pen',aria:'Étude'},
+      {key:'wol',label:'Recherche',icon:'search',aria:'Recherche WOL'},
+      {key:'collect',label:'Trouvailles',icon:'inbox',aria:'Trouvailles'},
+      {key:'archive',label:'Sources',icon:'book-marked',aria:'Sources'}
     ] as const){
       const tab=nav.createEl('button',{cls:'biblelab-tab',attr:{
         type:'button','aria-selected':String(this.tab===entry.key),
@@ -426,7 +425,7 @@ export class BibleLabSidebarView extends ItemView {
       button(commands,'Supprimer la piste','x',()=>
         this.updateResearchDesk(removeResearchBranch(this.researchDesk,plan.id,branch.id)));
     }
-    box.createEl('p',{cls:'biblelab-plan-footnote',text:'Plan enregistré dans les données locales du plugin. Les références et citations pourront s’y rattacher dans la prochaine phase.'});
+    box.createEl('p',{cls:'biblelab-plan-footnote',text:'Tes pistes et tes idées sont conservées avec ce sujet.'});
   }
   private launchStudy(value:string):void{
     const term=cleanReadingText(value);
@@ -664,26 +663,29 @@ export class BibleLabSidebarView extends ItemView {
     }
   }
   private renderStudio():void{
-    this.hero(this.scroller,'ATELIER','Créer, structurer, méditer.','Des supports clairs, modifiables et reliés à tes découvertes.','pen-tool');
-    const talk=card(this.scroller,'Plans de discours','Une idée, un objectif, des versets et un minutage.');
-    talk.addClass('biblelab-feature-card');
+    heading(this.scroller,'Autres outils','Choisis un outil pour ta préparation.');
+    const talk=card(this.scroller,'Préparer un discours','Un plan, des références et un minutage.');
     button(talk.createDiv({cls:'biblelab-buttons'}),'Nouveau discours','mic-2',()=>this.host.createTalk(),true);
-    const investigation=card(this.scroller,'Tableau d’enquête','Connexions visuelles avec les Canvas Obsidian.');
-    button(investigation.createDiv({cls:'biblelab-buttons'}),'Nouvelle enquête','network',()=>this.host.newResearch([]),true);
-    const archive=card(this.scroller,'Passerelles JW Library','Imports JWPUB et sauvegardes directement dans Obsidian.');
-    const archiveActions=archive.createDiv({cls:'biblelab-buttons'});
-    button(archiveActions,'Ouvrir ma bibliothèque','library-big',
-      ()=>void this.host.openVisualLibrary(),true);
-    button(archiveActions,'Gérer les téléchargements','hard-drive-download',
-      ()=>this.host.openOfflineLibrary());
-    button(archiveActions,'Ouvrir la passerelle','arrow-left-right',()=>this.host.openNativeBridge());
-    button(archiveActions,'Importer un ZIP Markdown','folder-input',()=>this.host.importMarkdownArchive());
-    button(archiveActions,'Inspecter','file-archive',()=>this.host.inspectArchive());
-    const archiveInfo=archive.createEl('details',{cls:'biblelab-disclosure'});
-    archiveInfo.createEl('summary',{text:'Que fait l’inspection ?'});
-    archiveInfo.createEl('p',{text:'L’inspection produit un rapport de manifeste sans importer de contenu. Utilise « Ouvrir la passerelle » pour convertir un JWPUB, récupérer tes notes ou préparer une sauvegarde modifiée.'});
-    const prompt=card(this.scroller,'Bibliothèque de modèles','Tes notes restent des fichiers Markdown portables.');
-    button(prompt.createDiv({cls:'biblelab-buttons'}),'Explorer les sources','library-big',()=>this.setTab('library'));
+    const investigation=card(this.scroller,'Relier mes idées','Un tableau visuel dans Obsidian.');
+    button(investigation.createDiv({cls:'biblelab-buttons'}),'Nouvelle enquête','network',()=>this.host.newResearch([]));
+    const library=card(this.scroller,'Ma bibliothèque','Publications, lecture et annotations personnelles.');
+    button(library.createDiv({cls:'biblelab-buttons'}),'Ouvrir ma bibliothèque','library-big',()=>void this.host.openVisualLibrary());
+    const advanced=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
+    advanced.createEl('summary',{text:'Import, export et diagnostic'});
+    const actions=advanced.createDiv({cls:'biblelab-buttons'});
+    button(actions,'Outils d’import et d’export','settings-2',()=>this.host.openNativeBridge());
+    button(actions,'Importer un ZIP Markdown','folder-input',()=>this.host.importMarkdownArchive());
+    button(actions,'Inspecter une archive','file-archive',()=>this.host.inspectArchive());
+  }
+  private moreActions(parent:HTMLElement,label:string,entries:{label:string;icon:string;run:()=>void}[]):void{
+    const trigger=button(parent,label,'ellipsis',()=>{});
+    trigger.addClass('biblelab-icon-only');trigger.setAttribute('aria-haspopup','menu');
+    trigger.addEventListener('click',()=>{
+      const menu=new Menu();
+      for(const entry of entries)menu.addItem(item=>item.setTitle(entry.label).setIcon(entry.icon).onClick(entry.run));
+      const rect=trigger.getBoundingClientRect();
+      menu.showAtPosition({x:Math.max(0,Math.min(rect.left,window.innerWidth-235)),y:rect.bottom+4});
+    });
   }
   private searchField(parent:HTMLElement,value:string,placeholder:string,change:(text:string)=>void,submit:()=>void):HTMLInputElement{
     const area=parent.createDiv({cls:'biblelab-search'});
@@ -1252,42 +1254,39 @@ export class BibleLabSidebarView extends ItemView {
     if(item.excerpt)this.renderQuotePreview(card,item);
     if(item.comment)card.createEl('p',{cls:'biblelab-capture-comment',text:'💡 '+item.comment});
     if(item.url){
-      const source=card.createEl('button',{cls:'biblelab-capture-source',text:item.url});
+      const source=card.createEl('button',{cls:'biblelab-capture-source',text:'Source WOL',attr:{title:item.url,'aria-label':'Ouvrir la source de '+item.label}});
       source.type='button';
       source.addEventListener('click',()=>this.openCapturedSource(item));
     }else card.createSpan({cls:'biblelab-capture-no-source',text:'Sans lien (à compléter)'});
     const controls=card.createDiv({cls:'biblelab-plan-toolbar'});
-    if(item.url){
-      button(controls,'Lire dans Bible Lab','book-open-text',
-        ()=>this.focusReference(item.url,item.label));
-      button(controls,'Ouvrir dans WOL','external-link',()=>this.openCapturedSource(item));
-      if(this.needsWolTitle(item.label))
-        button(controls,'Récupérer le titre de l’article','refresh-cw',
-          ()=>void this.updateCapturedTitle(item));
-    }
-    button(controls,'Copier référence','copy',()=>void this.copy(citationMarkdown(item)));
+    if(item.url)button(controls,'Lire dans Bible Lab','book-open-text',()=>this.focusReference(item.url,item.label));
     const metadata=libraryEntry(this.archive,item.id);
-    button(controls,metadata.starred?'Retirer des favoris':'Ajouter aux favoris',
-      metadata.starred?'star-off':'star',()=>
-        this.editLibraryEntry(item.id,{starred:!metadata.starred}));
-    button(controls,metadata.archived?'Remettre dans le bac':'Ranger dans mon index',
-      metadata.archived?'inbox':'archive',()=>
-        this.editLibraryEntry(item.id,{archived:!metadata.archived}));
+    const extra=[
+      {label:'Copier référence',icon:'copy',run:()=>void this.copy(citationMarkdown(item))},
+      {label:metadata.starred?'Retirer des favoris':'Ajouter aux favoris',icon:'star',run:()=>this.editLibraryEntry(item.id,{starred:!metadata.starred})},
+      {label:metadata.archived?'Remettre dans le bac':'Ranger dans mon index',icon:'archive',run:()=>this.editLibraryEntry(item.id,{archived:!metadata.archived})},
+      {label:'Supprimer la trouvaille',icon:'trash-2',run:()=>{
+        if(window.confirm('Supprimer définitivement cette trouvaille, y compris de ses fiches d’idées ?'))
+          this.updateCollection(removeResearchCapture(this.collection,item.id));
+      }}
+    ];
+    if(item.url)extra.unshift({label:'Ouvrir dans WOL',icon:'external-link',run:()=>this.openCapturedSource(item)});
+    if(item.url&&this.needsWolTitle(item.label))extra.unshift({label:'Récupérer le titre de l’article',icon:'refresh-cw',run:()=>void this.updateCapturedTitle(item)});
+    this.moreActions(controls,'Options de la trouvaille',extra);
+    const assignment=card.createEl('details',{cls:'biblelab-capture-assignment'});
+    assignment.createEl('summary',{text:'Associer à une idée'});
     if(this.collection.ideas.length){
-      const chooser=controls.createEl('select',{attr:{'aria-label':'Choisir une fiche pour '+item.label}});
+      const chooser=assignment.createEl('select',{attr:{'aria-label':'Choisir une fiche pour '+item.label}});
       for(const idea of this.collection.ideas){
         chooser.createEl('option',{text:idea.statement||'Idée à formuler',attr:{value:idea.id}});
       }
       // These values are generated from stable IDs, not a guessed active idea.
       [...chooser.options].forEach((option,index)=>option.value=this.collection.ideas[index].id);
-      button(controls,'Associer à la fiche','plus',()=>{
+      button(assignment,'Associer à la fiche','plus',()=>{
         this.updateCollection(assignCaptureToIdea(this.collection,chooser.value,item.id));
       });
     }
-    button(controls,'Supprimer la trouvaille','trash-2',()=>{
-      if(!window.confirm('Supprimer définitivement cette trouvaille, y compris de ses fiches d’idées ?'))return;
-      this.updateCollection(removeResearchCapture(this.collection,item.id));
-    });
+    if(!this.collection.ideas.length)assignment.createEl('p',{text:'Crée une idée pour y associer cette trouvaille.'});
   }
   private renderIdeaCard(parent:HTMLElement,ideaId:string):void{
     const idea=this.collection.ideas.find(item=>item.id===ideaId);
@@ -1493,7 +1492,7 @@ export class BibleLabSidebarView extends ItemView {
   }
   /** Source index is a view of captured items, not a second copy of WOL. */
   private renderArchive():void{
-    heading(this.scroller,'Mon index personnel',
+    heading(this.scroller,'Mes sources',
       'Retrouve tes sources, classe-les librement et reprends tes recherches.');
     const safety=this.scroller.createEl('details',{cls:'biblelab-backup-actions'});
     const safetySummary=safety.createEl('summary');
@@ -1595,15 +1594,14 @@ export class BibleLabSidebarView extends ItemView {
     if(item.comment)card.createEl('p',{cls:'biblelab-archive-comment',text:item.comment});
     if(data.tags.length)card.createEl('p',{cls:'biblelab-archive-tags',text:data.tags.map(x=>'#'+x).join(' · ')});
     const actions=card.createDiv({cls:'biblelab-archive-item-actions'});
-    if(item.url){
-      button(actions,'Lire dans Bible Lab','book-open-text',()=>this.focusReference(item.url,item.label));
-      button(actions,'Ouvrir la source WOL','external-link',()=>this.openCapturedSource(item));
-      if(this.needsWolTitle(item.label))button(actions,'Récupérer le titre de l’article','refresh-cw',
-        ()=>void this.updateCapturedTitle(item));
-    }
-    button(actions,'Copier la référence','copy',()=>void this.copy(citationMarkdown(item)));
-    button(actions,data.starred?'Retirer des favoris':'Ajouter aux favoris',
-      data.starred?'star-off':'star',()=>this.editLibraryEntry(item.id,{starred:!data.starred}));
+    if(item.url)button(actions,'Lire dans Bible Lab','book-open-text',()=>this.focusReference(item.url,item.label));
+    const commands=[
+      {label:'Copier la référence',icon:'copy',run:()=>void this.copy(citationMarkdown(item))},
+      {label:data.starred?'Retirer des favoris':'Ajouter aux favoris',icon:'star',run:()=>this.editLibraryEntry(item.id,{starred:!data.starred})}
+    ];
+    if(item.url)commands.unshift({label:'Ouvrir la source WOL',icon:'external-link',run:()=>this.openCapturedSource(item)});
+    if(item.url&&this.needsWolTitle(item.label))commands.unshift({label:'Récupérer le titre de l’article',icon:'refresh-cw',run:()=>void this.updateCapturedTitle(item)});
+    this.moreActions(actions,'Options de la source',commands);
     const details=card.createEl('details',{cls:'biblelab-archive-edit'});
     details.createEl('summary',{text:'Classer ou modifier'});
     const name=details.createEl('input',{attr:{type:'text','aria-label':'Titre de la source',
@@ -1616,7 +1614,7 @@ export class BibleLabSidebarView extends ItemView {
       rows:'2',placeholder:'Pourquoi la garder ?'}});
     comment.value=item.comment;
     const url=details.createEl('input',{attr:{type:'url','aria-label':'URL précise de la source',
-      placeholder:'Lien de la page WOL (avec #h=N si besoin)'}});
+      placeholder:'Lien vers le passage'}});
     url.value=item.url;
     const editActions=details.createDiv({cls:'biblelab-plan-toolbar'});
     button(editActions,'Enregistrer les changements','save',()=>{
@@ -1685,7 +1683,7 @@ export class BibleLabSidebarView extends ItemView {
       text:'Les 35 dernières recherches sont affichées. Les 120 dernières sont conservées.'});
   }
   private renderLibrary():void{
-    heading(this.scroller,'Bibliothèque d’étude','Accès direct aux annexes et aux outils documentaires officiels.');
+    heading(this.scroller,'Outils documentaires','Atlas, annexes et ouvrages de référence.');
     this.scroller.createEl('div',{cls:'biblelab-search'}).createEl('input',{attr:{type:'search',placeholder:'Filtrer les ressources…',value:this.libraryTerm}})
       .addEventListener('input',event=>{this.libraryTerm=(event.target as HTMLInputElement).value;this.renderLibraryResults(resultContainer);});
     const resultContainer=this.scroller.createDiv();

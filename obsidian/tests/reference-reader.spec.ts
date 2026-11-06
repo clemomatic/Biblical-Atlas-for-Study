@@ -89,7 +89,7 @@ test('w24 Novembre bibliography resolves to a real WOL article and opens its sou
   const item=pane.locator('.biblelab-reader').filter({hasText:'w24 Novembre p. 14-19'}).first();
   await item.locator('.biblelab-reader-summary').first().click();
   await expect(item.getByText('Un texte intégral lisible depuis le volet de références.')).toBeVisible();
-  await item.locator('.biblelab-reader-actions button[aria-label="WOL"]').click();
+  await item.locator('.biblelab-reader-actions button[aria-label="Recherche WOL"]').click();
   expect(await page.evaluate(()=>(window as any).outgoingWol)).toContain(direct);
 });
 test('official JW JSON Bible API returns footnotes, study commentary and navigable cross references',async({page})=>{
@@ -115,7 +115,7 @@ test('publication reference search opens bibliographic lookup URL with + encoded
     window.open=((url:string|URL|undefined)=>{(window as any).outbound.push(String(url));return null;}) as typeof window.open;
   });
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('w24 Novembre p. 14-19');
   await pane.locator('.biblelab-wol-extras > summary').click();
   await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});

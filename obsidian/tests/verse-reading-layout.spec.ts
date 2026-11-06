@@ -20,7 +20,7 @@ test('w16 août p. 25-29 reaches the actual article, not the WOL bibliography me
  const pane=page.locator('.biblelab-side');
  await expect(pane.getByText('Premier paragraphe de l’article',{exact:false})).toBeVisible();
  await expect(pane).not.toContainText('WOL Recherche Menu');
- await expect(pane.locator('.biblelab-reader-actions [aria-label="WOL"]').first())
+ await expect(pane.locator('.biblelab-reader-actions [aria-label="Recherche WOL"]').first())
   .toBeVisible();
 });
 test('w20 juin p. 26 opens the article spanning pages 24-29',async({page})=>{

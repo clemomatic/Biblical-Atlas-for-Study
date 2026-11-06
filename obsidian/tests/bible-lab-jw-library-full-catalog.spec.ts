@@ -33,7 +33,7 @@ test.beforeEach(async({page})=>{
   await page.waitForFunction(()=>(window as any).atlasTest?.ready);
 });
 
-test('Loads an official versioned SQLite catalogue only on request, filters French editions and paginates covers',async({page})=>{
+test('Automatically loads a versioned catalogue, filters French editions and paginates covers',async({page})=>{
   await page.route(manifest,route=>route.fulfill({
     status:200,contentType:'application/json',body:JSON.stringify({version:1,current:uuid})
   }));
@@ -43,14 +43,10 @@ test('Loads an official versioned SQLite catalogue only on request, filters Fren
   }));
   await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
   const library=page.locator('.blb-library');
-  await library.getByRole('button',{name:'Explorer JW.org'}).click();
   let seen=await page.evaluate(()=>(window as any).atlasNetworkRequests||[]);
-  expect(seen.filter((x:any)=>x.url.includes('/catalogs/publications/'))).toHaveLength(0);
-  await library.getByRole('button',{name:'Charger le catalogue JW Library'}).click();
-  await expect(library.getByText(/catalogue JW Library/).first()).toBeVisible();
   await expect(library.locator('.blb-online-book')).toHaveCount(48);
-  await expect(library.getByRole('button',{name:'Afficher 48 publications supplémentaires'})).toBeVisible();
-  await library.getByRole('button',{name:'Afficher 48 publications supplémentaires'}).click();
+  await expect(library.getByRole('button',{name:'Afficher plus'})).toBeVisible();
+  await library.getByRole('button',{name:'Afficher plus'}).click();
   await expect(library.locator('.blb-online-book')).toHaveCount(96);
   const search=library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'});
   await search.fill('pub005');
@@ -73,10 +69,28 @@ test('Rejected catalogue manifest never erases the existing curated JW.org shelf
   }));
   await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
   const library=page.locator('.blb-library');
-  await library.getByRole('button',{name:'Explorer JW.org'}).click();
-  await library.getByRole('button',{name:'Charger le catalogue JW Library'}).click();
-  await expect(library.locator('.blb-online-error')).toContainText('Manifeste');
-  await expect(library.locator('.blb-online-book')).toHaveCount(11);
+  await expect(library.locator('.blb-catalog-notice')).toContainText('momentanément indisponible');
+  await expect(library.locator('.blb-online-book')).toHaveCount(14);
   const urls=await page.evaluate(()=>(window as any).atlasNetworkRequests.map((x:any)=>x.url));
   expect(urls.some((u:string)=>u.includes('attacker.example'))).toBe(false);
+});
+
+
+test('Reopening the library uses the saved catalogue without downloading the database again',async({page})=>{
+  await page.route(manifest,route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({version:1,current:uuid})}));
+  const gzip=await catalogGzip();
+  await page.route(database,route=>route.fulfill({status:200,body:gzip}));
+  await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
+  const library=page.locator('.blb-library');
+  await library.getByRole('searchbox').fill('pub005');
+  await expect(library.locator('.blb-book-card')).toHaveCount(1);
+  await expect(library.locator('.blb-loading')).toHaveCount(0);
+  await page.evaluate(async()=>{
+    await (window as any).atlasTest.restart();
+    await (window as any).atlasTest.plugin.openVisualLibrary();
+  });
+  await library.getByRole('searchbox').fill('pub005');
+  await expect(library.locator('.blb-book-card')).toHaveCount(1);
+  const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests.filter((r:any)=>r.url.includes('/catalogs/publications/')));
+  expect(requests).toHaveLength(2);
 });

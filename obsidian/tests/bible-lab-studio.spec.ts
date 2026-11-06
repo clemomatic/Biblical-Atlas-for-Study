@@ -14,7 +14,8 @@ test('Study Studio dashboard offers compact navigation and opens a structured di
   await expect(pane.getByRole('heading',{name:'Que veux-tu approfondir ?'})).toBeVisible();
   await expect(pane.locator('.biblelab-focus-nav .biblelab-tab')).toHaveCount(4);
   await expect(pane.locator('.biblelab-overflow-menu .biblelab-btn')).toHaveCount(4);
-  await pane.getByRole('button',{name:'Studio'}).click();
+  await pane.locator('.biblelab-overflow > summary').click();
+  await pane.getByRole('button',{name:'Autres outils',exact:true}).click();
   await pane.getByRole('button',{name:'Nouveau discours'}).click();
   const dialog=page.getByRole('dialog');
   await expect(dialog.getByText('Créer un plan de discours')).toBeVisible();
@@ -51,6 +52,7 @@ test('daily source can be refreshed manually and the programme remains linked',a
   const pane=page.locator('.biblelab-side');
   // Auto-load may already have started before the date was set in this test.
   // Refresh is an explicit override and must always fetch the selected date.
+  await pane.locator('.biblelab-focus-today > summary').click();
   await pane.getByRole('button',{name:'Actualiser'}).click();
   await expect(pane.getByText('Jéhovah exige un attachement sans partage', {exact:false})).toBeVisible();
   await expect(pane.getByText('Un message pour nous')).toBeVisible();
@@ -62,7 +64,9 @@ test('daily source can be refreshed manually and the programme remains linked',a
 
 test('local JW archive inspection creates a Markdown inventory without changing source',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.getByRole('button',{name:'Studio'}).click();
+  await pane.locator('.biblelab-overflow > summary').click();
+  await pane.getByRole('button',{name:'Autres outils',exact:true}).click();
+  await pane.getByText('Import, export et diagnostic',{exact:true}).click();
   const chooserPromise=page.waitForEvent('filechooser');
   await pane.locator('.biblelab-buttons button').filter({hasText:'Inspecter'}).first().click();
   const chooser=await chooserPromise;
@@ -79,7 +83,9 @@ test('local JW archive inspection creates a Markdown inventory without changing 
 
 test('converted JW Markdown ZIP imports as separate editable notes and never overwrites existing documents',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.getByRole('button',{name:'Studio'}).click();
+  await pane.locator('.biblelab-overflow > summary').click();
+  await pane.getByRole('button',{name:'Autres outils',exact:true}).click();
+  await pane.getByText('Import, export et diagnostic',{exact:true}).click();
   const payload=zipSync({
     'BibleLab_notes/Jean 3.16.md':strToU8('# Jean 3:16\n\nUne observation personnelle'),
     'BibleLab_notes/_BIBLE_LAB_IMPORT.json':strToU8('{"schema_version":16,"note_count":1}')
@@ -97,7 +103,9 @@ test('converted JW Markdown ZIP imports as separate editable notes and never ove
 
 test('ZIP import rejects path traversal instead of writing outside import root',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.getByRole('button',{name:'Studio'}).click();
+  await pane.locator('.biblelab-overflow > summary').click();
+  await pane.getByRole('button',{name:'Autres outils',exact:true}).click();
+  await pane.getByText('Import, export et diagnostic',{exact:true}).click();
   const payload=zipSync({'../intrusion.md':strToU8('must never be created')});
   const chooser=page.waitForEvent('filechooser');
   await pane.getByRole('button',{name:'Importer un ZIP Markdown'}).click();

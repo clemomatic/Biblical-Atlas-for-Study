@@ -1,3 +1,6 @@
+import {icons} from 'lucide-react';
+import {createElement} from 'react';
+import {renderToStaticMarkup} from 'react-dom/server';
 // Development-only host. It loads the actual CJS artifact; none of this is shipped.
 import bundle from '../dist/atlas-biblique/main.js?raw';
 import { parse, stringify } from 'yaml';
@@ -37,6 +40,12 @@ const parseFile = content => {
 };
 class Vault extends Emitter {
   files = new Map();
+  configDir = '.obsidian';
+  privateFiles = new Map();
+  adapter = {
+    read: async path => { if(!this.privateFiles.has(path))throw Error('Missing file');return this.privateFiles.get(path); },
+    write: async (path,text) => { this.privateFiles.set(path,text); }
+  };
   getName() { return 'Étude & méditation'; }
   getAbstractFileByPath(path) { return this.files.get(path) ?? null; }
   getMarkdownFiles() { return [...this.files.values()].filter(file => file instanceof TFile && file.extension === 'md'); }
@@ -141,19 +150,24 @@ class Menu {
     this.entries.push(item);
     return this;
   }
-  showAtPosition(){
+  showAtPosition(position={x:12,y:12}){
     document.querySelector('.mock-context-menu')?.remove();
     const menu=document.createElement('div');
     menu.className='mock-context-menu';
     menu.setAttribute('role','menu');
+    Object.assign(menu.style,{position:'fixed',left:position.x+'px',top:position.y+'px',zIndex:'20000',display:'flex',flexDirection:'column',gap:'4px',padding:'10px',maxWidth:'240px',background:'var(--background-primary,#fffdf8)',color:'var(--text-normal,#172033)',border:'1px solid #8886',borderRadius:'10px',boxShadow:'0 8px 30px #0003'});
     for(const item of this.entries){
       if(item.separator){menu.createEl('hr');continue;}
       const action=menu.createEl('button',{text:item.title});
+      Object.assign(action.style,{border:'0',background:'transparent',color:'inherit',textAlign:'left',fontSize:'12px',padding:'8px',borderRadius:'5px',cursor:'pointer'});
       action.type='button';action.addEventListener('click',()=>{
         menu.remove();item.callback?.();
       });
     }
     document.body.append(menu);
+    menu.style.maxHeight=(window.innerHeight-16)+'px';menu.style.overflowY='auto';
+    menu.style.top=Math.max(4,Math.min(position.y,window.innerHeight-menu.offsetHeight-8))+'px';
+    menu.style.left=Math.max(4,Math.min(position.x,window.innerWidth-menu.offsetWidth-8))+'px';
     window.atlasLastMenu=this;
   }
 }
@@ -206,7 +220,11 @@ const app = { vault, metadataCache, workspace, fileManager: { async processFront
   const { frontmatter, body } = parseFile(file.content); callback(frontmatter);
   await vault.modify(file, `---\n${stringify(frontmatter)}---\n${body}`);
 } } };
-const setIcon = (element, name) => { element.dataset.icon = name; element.createSpan({ text: '◈' }); };
+const setIcon = (node,name) => {
+  node.dataset.icon=name;
+  const component=icons[name.split('-').map(part=>part[0].toUpperCase()+part.slice(1)).join('')]||icons.Circle;
+  node.innerHTML=renderToStaticMarkup(createElement(component,{size:18,'aria-hidden':true}));
+};
 const debounce = (callback, delay) => { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => callback(...args), delay); }; };
 const api = { ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, Menu, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, debounce };
 if (new URLSearchParams(location.search).get('theme') === 'dark') document.body.classList.add('theme-dark');

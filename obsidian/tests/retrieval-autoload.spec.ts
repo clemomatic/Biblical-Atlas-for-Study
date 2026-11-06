@@ -26,8 +26,8 @@ test('Daily Text and weekly meeting load automatically on sidebar opening',async
  await expect(pane.getByText('Heureux ceux qui sont doux',{exact:false})).toBeVisible();
  await expect(pane.getByText('Cherchons la sagesse')).toBeVisible();
  expect(dailyCalls).toBe(1);
- await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
- await pane.locator('.biblelab-tab[aria-label="Accueil"]').click();
+ await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
+ await pane.locator('.biblelab-tab[aria-label="Étude"]').click();
  expect(dailyCalls).toBe(1);
 });
 

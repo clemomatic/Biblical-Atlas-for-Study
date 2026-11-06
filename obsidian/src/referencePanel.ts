@@ -91,7 +91,9 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    contents.empty();
    if(result.title&&result.title!==ref.label)
      contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
-   if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:result.notice});
+   if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:
+     !result.lines.length&&/HTTP|Failed to fetch|SQLite|MEPS/i.test(result.notice)?
+       'La source est momentanément indisponible dans le lecteur. Tu peux l’ouvrir sur WOL.':result.notice});
    if(!result.lines.length){
      const empty=contents.createDiv({cls:'biblelab-reader-hint'});
      empty.createSpan({text:'Le document n’a pas pu être affiché ici. Il reste accessible sur la source officielle.'});

@@ -131,5 +131,5 @@ test('Popup includes locally imported JW Library chapter highlights and personal
  await expect(popup.locator('.biblelab-popover-personal-annotations')).toBeVisible();
  await popup.locator('.biblelab-popover-personal-annotations summary').click();
  await expect(popup.getByText('Jésus réagit face à l’injustice')).toBeVisible();
- await expect(popup.getByText('Couleur JW Library n° 2',{exact:false})).toBeVisible();
+ await expect(popup.getByText('Surlignage · Vert',{exact:false})).toBeVisible();
 });

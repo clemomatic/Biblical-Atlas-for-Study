@@ -101,7 +101,8 @@ test('Keyboard fallback captures the selection and allows old numbered titles to
     await plugin.openBibleLabCollection();
   });
   const old=pane.locator('.biblelab-capture-card').filter({hasText:'Document WOL · 2024663'}).first();
-  await old.getByRole('button',{name:'Récupérer le titre de l’article'}).click();
+  await old.getByRole('button',{name:'Options de la trouvaille'}).click();
+  await page.getByRole('button',{name:'Récupérer le titre de l’article'}).click();
   await expect(pane.locator('.biblelab-capture-card').filter({hasText:'Document WOL · 2024663'}))
     .toHaveCount(0);
   const saved=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchCollection().captures);

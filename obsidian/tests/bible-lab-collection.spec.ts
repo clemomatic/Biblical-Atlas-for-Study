@@ -24,7 +24,8 @@ test('A WOL excerpt and precise paragraph URL can be kept without a sentence or 
   expect(store.captures[0].url).toBe('https://wol.jw.org/fr/wol/d/r30/lp-f/2024663#h=3');
   expect(store.captures[0].comment).toBe('Pour une autre étude');
   await page.waitForFunction(()=>(window as any).__savedSettings?.bibleLabCollection?.captures?.length===1);
-  await pane.getByRole('button',{name:'Ouvrir dans WOL'}).first().click();
+  await pane.locator('.biblelab-capture-card').first().getByRole('button',{name:'Options de la trouvaille'}).click();
+  await page.getByRole('button',{name:'Ouvrir dans WOL'}).click();
   const urls=await page.evaluate(()=>(window as any).atlasTest.app.workspace
     .getLeavesOfType('webviewer').map((leaf:any)=>leaf.view.getState().url));
   expect(urls).toContain('https://wol.jw.org/fr/wol/d/r30/lp-f/2024663#h=3');

@@ -124,7 +124,7 @@ test('reference insertion never writes to an unrelated open Markdown file',async
   app.workspace.trigger('file-open',app.workspace.activeFile);
  });
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
  await pane.getByPlaceholder('Sujet, publication ou verset…').fill('Jean 7:24');
  await pane.locator('.biblelab-wol-extras > summary').click();
  await pane.locator('.biblelab-search-advanced').first().evaluate((node:HTMLDetailsElement)=>{node.open=true;});
@@ -185,5 +185,5 @@ test('A dynamic WOL shell is reported as a reader limitation with official acces
  const pane=page.locator('.biblelab-side');
  await expect(pane.getByText(/texte ne peut pas être extrait dans Obsidian/)).toBeVisible();
  await expect(pane).not.toContainText('WOL n’a pas fourni de texte exploitable');
- await expect(pane.locator('.biblelab-reader-action[aria-label="WOL"]').first()).toBeVisible();
+ await expect(pane.locator('.biblelab-reader-action[aria-label="Recherche WOL"]').first()).toBeVisible();
 });

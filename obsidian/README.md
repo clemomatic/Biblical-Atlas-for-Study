@@ -1,3 +1,19 @@
+# Bible Lab 0.11 — bibliothèque et parcours simplifiés
+
+La bibliothèque réunit le catalogue public et les ouvrages déjà présents. Le catalogue se charge automatiquement et reste disponible entre les ouvertures. Sur chaque couverture : **Télécharger**, **Lire** ou **Voir les numéros**, puis **⋯** pour les autres actions.
+
+- Ouvrir la bibliothèque : icône bibliothèque dans le panneau Bible Lab, ou commande « Ouvrir ma bibliothèque ».
+- Ajouter un ouvrage : **Ajouter un fichier** ; le format compact est choisi automatiquement.
+- Retrouver ses annotations : **⋯ → Importer une sauvegarde JW Library**, puis **Mes annotations**.
+- Les conversions Markdown et les outils de diagnostic sont dans les options avancées.
+- Les notes et imports existants sont conservés.
+
+Voir [l’audit complet et les limites de validation](AUDIT-REFONTE-0.11.md).
+
+Installation manuelle : fermer Obsidian, extraire le dossier `atlas-biblique` du ZIP dans `.obsidian/plugins/`, puis rouvrir Obsidian et activer Bible Lab. Pour mettre à jour, remplacer les fichiers du plugin sans supprimer `data.json`, le cache de catalogue ni les dossiers du coffre. Cette préversion n’est pas une publication automatique pour BRAT.
+
+---
+
 ## Stratégie de résolution WOL (0.9.8)
 
 1. Pour les publications usuelles (`w`, `km`, `it`, `si`, etc.), utiliser d'abord le résultat direct de WOL : lire uniquement `#lookupResults` ou `.lookupResults`, jamais son menu général.

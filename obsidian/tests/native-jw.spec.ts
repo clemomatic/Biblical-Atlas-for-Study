@@ -45,13 +45,12 @@ test.beforeEach(async({page})=>{
  await page.goto('/obsidian/dev/index.html');
  await page.waitForFunction(()=>(window as any).atlasTest?.ready);
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
- await page.locator('.biblelab-overflow > summary').click();
- await page.locator('.biblelab-side').getByRole('button',{name:'Studio et outils avancés'}).click();
- await page.getByRole('button',{name:'Ouvrir la passerelle'}).click();
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openNativeBridge());
+ await page.getByText('Options avancées',{exact:true}).click();
 });
 test('JWPUB opens and decrypts locally, then writes an editable Markdown note',async({page})=>{
  const pick=page.waitForEvent('filechooser');
- await page.getByRole('button',{name:'Importer une publication JWPUB'}).click();
+ await page.getByRole('button',{name:'Convertir un JWPUB en notes modifiables'}).click();
  await (await pick).setFiles({name:'w_F_202608.jwpub',mimeType:'application/zip',buffer:Buffer.from(await jwpubBytes())});
  await expect(page.getByText('documents déchiffrés')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
@@ -62,7 +61,7 @@ test('JWPUB opens and decrypts locally, then writes an editable Markdown note',a
 test('JW Library backup imports GUIDs, tags and markdown index without Python',async({page})=>{
  const src=await backupBytes();
  const choose=page.waitForEvent('filechooser');
- await page.getByRole('button',{name:'Importer une sauvegarde JW Library'}).click();
+ await page.getByRole('button',{name:'Importer les notes en Markdown'}).click();
  await (await choose).setFiles({name:'example.jwlibrary',mimeType:'application/zip',buffer:Buffer.from(src)});
  await expect(page.getByText('notes personnelles')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
@@ -77,7 +76,7 @@ test('JW Library backup imports GUIDs, tags and markdown index without Python',a
 test('native backup export previews only edited note and keeps original media',async({page})=>{
  const src=await backupBytes();
  const upload=page.waitForEvent('filechooser');
- await page.getByRole('button',{name:'Importer une sauvegarde JW Library'}).click();
+ await page.getByRole('button',{name:'Importer les notes en Markdown'}).click();
  await (await upload).setFiles({name:'example.jwlibrary',mimeType:'application/zip',buffer:Buffer.from(src)});
  await expect(page.getByText('notes personnelles')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
@@ -88,9 +87,10 @@ test('native backup export previews only edited note and keeps original media',a
    const text=await app.vault.read(note);
    await app.vault.modify(note,text+'\nUne nouvelle pensée');
  });
- await page.locator('.biblelab-side').getByRole('button',{name:'Ouvrir la passerelle'}).click();
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openNativeBridge());
+ await page.getByText('Options avancées',{exact:true}).click();
  const choose=page.waitForEvent('filechooser');
- await page.getByRole('button',{name:'Créer une sauvegarde JW Library'}).click();
+ await page.getByRole('button',{name:'Préparer une sauvegarde JW Library'}).click();
  await (await choose).setFiles({name:'example.jwlibrary',mimeType:'application/zip',buffer:Buffer.from(src)});
  await expect(page.getByRole('button',{name:'Comparer les changements'})).toBeVisible();
  await page.getByRole('button',{name:'Comparer les changements'}).click();

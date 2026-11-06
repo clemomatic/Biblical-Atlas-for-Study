@@ -5,7 +5,7 @@ test.beforeEach(async({page})=>{
   await page.goto('/obsidian/dev/index.html');
   await page.waitForFunction(()=>(window as any).atlasTest?.ready);
   await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
-  await page.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await page.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
 });
 
 test('Official search opens WOL in native Chromium tab without scraping results',async({page})=>{
