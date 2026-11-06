@@ -52,9 +52,9 @@ class Vault extends Emitter {
   getMarkdownFiles() { return [...this.files.values()].filter(file => file instanceof TFile && file.extension === 'md'); }
   getFiles() { return [...this.files.values()].filter(file => file instanceof TFile); }
   getResourcePath(file) {
-    if (file.extension === 'png' && file.content instanceof ArrayBuffer) {
+    if (['png','jpg','jpeg','webp'].includes(file.extension) && file.content instanceof ArrayBuffer) {
       const bytes=new Uint8Array(file.content);
-      return 'data:image/png;base64,'+btoa(Array.from(bytes,x=>String.fromCharCode(x)).join(''));
+      return 'data:image/'+({jpg:'jpeg',jpeg:'jpeg',png:'png',webp:'webp'}[file.extension])+';base64,'+btoa(Array.from(bytes,x=>String.fromCharCode(x)).join(''));
     }
     return '/mock-vault/'+encodeURIComponent(file.path);
   }
@@ -202,10 +202,9 @@ class Component { load() {} unload() {} }
 class MarkdownRenderer { static async render(application, markdown, target) { target.textContent = markdown; } }
 const requestUrl = async parameters => {
   window.atlasNetworkRequests ??= []; window.atlasNetworkRequests.push(parameters);
-  const response = await fetch(parameters.url);
+  const response = await fetch(window.atlasFileRedirects?.[parameters.url]||parameters.url);
   const arrayBuffer = await response.arrayBuffer();
-  const text = new TextDecoder().decode(arrayBuffer);
-  return { status: response.status, headers: Object.fromEntries(response.headers), arrayBuffer, text, get json() { return JSON.parse(text); } };
+  return { status: response.status, headers: Object.fromEntries(response.headers), arrayBuffer, get text(){return new TextDecoder().decode(arrayBuffer);}, get json() { return JSON.parse(new TextDecoder().decode(arrayBuffer)); } };
 };
 const vault = new Vault();
 const metadataCache = new Emitter(); metadataCache.getFileCache = file => ({ frontmatter: parseFile(file.content).frontmatter });

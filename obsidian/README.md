@@ -1,4 +1,8 @@
-# JW Study Desk 0.12 — votre espace d’étude dans Obsidian
+# JW Study Desk 0.12.1 — votre espace d’étude dans Obsidian
+
+Cette mise à jour corrige les couvertures sous les styles natifs d’Obsidian et les téléchargements de **Perspicace** et de la **Bible d’étude**. Perspicace apparaît une seule fois, avec les deux volumes dans le même ouvrage. La Bible se parcourt par livre et chapitre.
+
+Cliquez sur **Télécharger**, poursuivez votre travail, puis revenez à **Lire** lorsque l’ouvrage est prêt. La préparation reste visible sur sa carte ; une erreur permet de réessayer sur place. Le sommaire permet de retrouver un article par son titre.
 
 Le nouveau bureau réunit **Bibliothèque**, **Recherche**, **Mes notes**, **Fiches d’idées**, **Bac à idées** et **Préparation**. Ouvrez-le depuis le logo dans le ruban d’Obsidian, ou la commande **Ouvrir JW Study Desk**.
 
@@ -18,7 +22,7 @@ Le logo approuvé, le violet et les accents pétrole, sauge et corail accompagne
 
 L’identifiant et le dossier `atlas-biblique` sont conservés pour retrouver automatiquement les réglages, raccourcis, recherches et bibliothèques de Bible Lab. Il ne faut pas installer une seconde copie sous un autre identifiant.
 
-Voir [les changements et vérifications de cette version](JW-STUDY-DESK-0.12.md) et [l’audit fonctionnel précédent](AUDIT-REFONTE-0.11.md). Cette préversion s’installe manuellement ; elle n’est pas une publication automatique pour BRAT.
+Voir [les corrections et vérifications de cette version](JW-STUDY-DESK-0.12.1.md) et [la refonte graphique](JW-STUDY-DESK-0.12.md) et [l’audit fonctionnel précédent](AUDIT-REFONTE-0.11.md). Cette préversion s’installe manuellement ; elle n’est pas une publication automatique pour BRAT.
 
 Projet communautaire indépendant, sans affiliation officielle avec JW.org ou Obsidian.
 

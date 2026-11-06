@@ -3,12 +3,13 @@ import {
   type WorkspaceLeaf
 } from 'obsidian';
 import styles from './bibleLabLibrary.css?inline';
-import {renderDeskShell,type DeskDestination} from './studyDeskBrand';
+import {renderDeskShell,STUDY_DESK_LOGO,type DeskDestination} from './studyDeskBrand';
 import {
   LIBRARY_FILTERS,filteredVolumes,loadLibraryVolumes,localDocumentFile,
   localDocumentUrl,jwpubPublicationId,searchLibrary,virtualDocuments,
   type LibraryCategory,type LibrarySearchResult,type LibraryVolume
 } from './libraryCatalog';
+import {downloadKey,downloadLabel,type PublicationDownloads} from './publicationDownloads';
 import type { OfflineDocumentRecord } from './offlinePublications';
 import {annotationsForDocument,annotationsForBibleChapter,bibleAnnotationChapters,bibleBookName,loadLatestAnnotationArchive,searchPersonalAnnotations} from './jwAnnotationLibrary';
 import type {DocumentAnnotations} from './jwAnnotationLibrary';
@@ -30,7 +31,7 @@ export interface LibraryActions {
   importAnnotations:()=>void;
   downloads:()=>void;
   catalog:JwPublicationCatalog;
-  downloadPublication:(symbol:string,issue:string)=>Promise<boolean>;
+  publicationDownloads:PublicationDownloads;
   checkPublication:(symbol:string,issue:string)=>void;
   readReference:(url:string,label:string)=>Promise<void>;
   openWol:(url:string)=>Promise<void>;
@@ -67,7 +68,9 @@ export class BibleLabLibraryView extends ItemView {
   private catalogError='';
   private downloadedOnly=false;
   private selectedSeries:string|null=null;
-  private pendingDownloads=new Set<string>();
+  private unsubscribeDownloads?:()=>void;
+  private readingBibleBook:number|null=null;
+  private shelfScroll=0;
   private catalogVisible=48;
   private filter:LibraryCategory='all';
   private term='';
@@ -88,17 +91,23 @@ export class BibleLabLibraryView extends ItemView {
     this.active=true;
     this.contentEl.addClass('blb-library','jwsd-theme');
     this.renderChrome();
+    this.unsubscribeDownloads=this.actions.publicationDownloads.subscribe(key=>{
+      if(!this.active)return;
+      this.updateDownloadCards(key);
+      const [symbol,issue]=key.split('|');
+      if(this.actions.publicationDownloads.get(symbol,issue)?.stage==='ready')void this.refresh();
+    });
     await this.refresh();
     void this.updateCatalog();
   }
   async onClose():Promise<void>{
-    this.active=false;this.token++;
+    this.active=false;this.token++;this.unsubscribeDownloads?.();
     if(this.debounceId!==null)window.clearTimeout(this.debounceId);
     this.contentEl.empty();
     this.officialCatalog=[...FEATURED_JW_ORG];
   }
   /** Called after a new JWPUB has been imported or an index was removed. */
-  async refresh():Promise<void>{
+  async refresh(reloadContent=false):Promise<void>{
     const version=++this.refreshGeneration;
     try{
       const volumes=await loadLibraryVolumes(this.app,this.actions.root());
@@ -107,7 +116,10 @@ export class BibleLabLibraryView extends ItemView {
       if(this.selectedPath&&!volumes.some(v=>v.path===this.selectedPath)){
         this.selectedPath=null;this.selectedDocument=null;
       }
-      this.renderContent();
+      if(reloadContent||!this.selectedPath&&!this.browsingAnnotations){
+        const stage=this.contentEl.querySelector('.jwsd-stage'),scroll=stage?.scrollTop||0;
+        await this.renderContent();if(reloadContent&&stage)stage.scrollTop=scroll;
+      }
     }catch{
       if(this.active)this.content.createEl('p',{cls:'blb-empty',text:'Impossible de lire la bibliothèque locale.'});
     }
@@ -140,6 +152,7 @@ export class BibleLabLibraryView extends ItemView {
     const layout=stage.createDiv({cls:'blb-shell'});
     const hero=layout.createDiv({cls:'blb-hero'});
     const headline=hero.createDiv({cls:'blb-title-group'});
+    const brand=headline.createDiv({cls:'blb-mobile-brand'});brand.createEl('img',{attr:{src:STUDY_DESK_LOGO,alt:'',width:'24',height:'24'}});brand.createSpan({text:'JW Study Desk'});
     headline.createEl('h1',{text:'Ma bibliothèque'});
     const actions=hero.createDiv({cls:'blb-head-actions'});
     button(actions,'Ajouter un fichier','plus',this.actions.importVirtualJwpub);
@@ -203,6 +216,7 @@ export class BibleLabLibraryView extends ItemView {
   private async renderContent():Promise<void>{
     if(!this.active)return;
     const ticket=++this.token;
+    this.contentEl.classList.toggle('is-reading',!!this.selectedPath&&!this.browsingAnnotations);
     this.updateFilters();this.content.empty();
     if(this.browsingAnnotations){await this.renderAnnotationSearch(ticket);return;}
     const selected=this.selectedVolume();
@@ -240,17 +254,32 @@ export class BibleLabLibraryView extends ItemView {
     }
   }
   private openVolume(volume:LibraryVolume):void{
-    this.browsingAnnotations=false;this.selectedPath=volume.path;this.selectedDocument=null;
-    this.term='';this.input.value='';void this.renderContent();
+    this.shelfScroll=this.contentEl.querySelector('.jwsd-stage')?.scrollTop||0;
+    this.readingBibleBook=null;this.browsingAnnotations=false;this.selectedPath=volume.path;this.selectedDocument=null;
+    void this.renderContent();this.scrollReader();
   }
+  private scrollReader():void{this.contentEl.querySelector('.jwsd-stage')?.scrollTo({top:0});}
   private async download(item:PublicationShelfEntry<LibraryVolume>):Promise<void>{
-    if(this.pendingDownloads.has(item.key))return;
-    this.pendingDownloads.add(item.key);void this.renderContent();
-    try{await this.actions.downloadPublication(item.symbol,item.issue);}
-    catch{new Notice('Le téléchargement n’a pas pu aboutir. Réessaie depuis la publication.');}
-    finally{
-      this.pendingDownloads.delete(item.key);
-      if(this.active)await this.refresh();
+    await this.actions.publicationDownloads.download(item.symbol,item.issue);
+  }
+  private updateDownloadCards(key?:string):void{
+    for(const card of this.contentEl.querySelectorAll<HTMLElement>('.blb-book-card[data-download-key]')){
+      if(card.dataset.local==='true')continue;
+      const [symbol,issue]=card.dataset.downloadKey!.split('|');
+      if(key&&card.dataset.downloadKey!==key)continue;
+      const state=this.actions.publicationDownloads.get(symbol,issue);
+      const busy=!!state&&!['ready','error'].includes(state.stage);
+      card.setAttribute('aria-busy',String(busy));
+      const action=card.querySelector<HTMLButtonElement>('.blb-primary-action');
+      if(action){action.disabled=busy;const label=action.querySelector('span:last-child');
+        if(label&&state&&state.stage!=='ready'){label.textContent=downloadLabel(state);action.setAttribute('aria-label',downloadLabel(state));}}
+      const cover=card.querySelector<HTMLButtonElement>('.blb-cover-link');if(cover)cover.disabled=busy;
+      const holder=card.querySelector<HTMLElement>('.blb-card-progress');
+      if(holder){holder.hidden=!busy;const progress=holder.querySelector('progress')!;
+        if(state?.total){progress.max=state.total;progress.value=state.current||0;}else progress.removeAttribute('value');
+        const label=state?downloadLabel(state):'';const status=holder.querySelector('span')!;if(status.textContent!==label)status.textContent=label;}
+      const error=card.querySelector<HTMLElement>('.blb-download-error');
+      if(error){error.hidden=state?.stage!=='error';error.textContent=state?.error||'';}
     }
   }
   private renderPublicationShelf():void{
@@ -287,7 +316,7 @@ export class BibleLabLibraryView extends ItemView {
     for(const group of entries.slice(0,this.catalogVisible)){
       const item=group.entries[0],series=group.entries.length>1;
       const title=series?group.title:item.title;
-      const card=grid.createEl('article',{cls:'blb-book-card blb-online-book',attr:{'aria-label':title}});
+      const card=grid.createEl('article',{cls:'blb-book-card blb-online-book',attr:{'aria-label':title,'data-download-key':downloadKey(item.symbol,item.issue),'data-local':String(!!item.local)}});
       const art=card.createDiv({cls:'blb-card-art'});
       const open=art.createEl('button',{cls:'blb-cover-link',attr:{type:'button',
         'aria-label':series?'Choisir un numéro de '+title:item.local?'Ouvrir '+title:'Télécharger '+title}});
@@ -319,12 +348,18 @@ export class BibleLabLibraryView extends ItemView {
       info.createSpan({text:series?group.entries.length+' numéros':categoryName(item.category)});
       if(item.local)info.createSpan({cls:'blb-local-mark',text:'Disponible hors connexion'});
       const actions=card.createDiv({cls:'blb-card-actions'});
-      const pending=this.pendingDownloads.has(item.key);
+      const state=item.local?undefined:this.actions.publicationDownloads.get(item.symbol,item.issue);
+      const pending=!!state&&!['ready','error'].includes(state.stage);
       const primary=button(actions,series?'Voir les numéros':item.local?'Lire':pending?'Téléchargement…':'Télécharger',
         series?'layers':item.local?'book-open':'download',invoke,item.local||series?'':'primary');
+      primary.addClass('blb-primary-action');
+      const progress=actions.createDiv({cls:'blb-card-progress',attr:{role:'status','aria-live':'polite'}});progress.hidden=true;
+      progress.createEl('progress',{attr:{'aria-label':'Préparation de '+title}});progress.createSpan();
+      const error=actions.createEl('p',{cls:'blb-download-error',attr:{role:'alert'}});error.hidden=true;
       primary.disabled=pending;
       open.disabled=pending;
     }
+    this.updateDownloadCards();
     if(entries.length>this.catalogVisible){
       const more=this.content.createDiv({cls:'blb-online-more'});
       button(more,'Afficher plus','plus',()=>{this.catalogVisible+=48;void this.renderContent();});
@@ -355,8 +390,8 @@ export class BibleLabLibraryView extends ItemView {
   private crumbs(volume:LibraryVolume,doc?:OfflineDocumentRecord):void{
     const path=this.content.createDiv({cls:'blb-breadcrumb'});
     button(path,'Bibliothèque','arrow-left',()=>{
-      this.selectedPath=null;this.selectedDocument=null;this.term='';this.input.value='';
-      void this.renderContent();
+      this.selectedPath=null;this.selectedDocument=null;
+      void this.renderContent().then(()=>window.requestAnimationFrame(()=>this.contentEl.querySelector('.jwsd-stage')?.scrollTo({top:this.shelfScroll})));
     });
     if(doc)button(path,volume.title,'chevron-right',()=>{
       this.selectedDocument=null;void this.renderContent();
@@ -377,21 +412,46 @@ export class BibleLabLibraryView extends ItemView {
     });
     const section=this.content.createDiv({cls:'blb-section-head'});
     section.createEl('h2',{text:'Sommaire'});
-    const list=this.content.createDiv({cls:'blb-document-list'});
-    for(let i=0;i<volume.items.length;i++){
-      const doc=volume.items[i];
-      const line=list.createEl('button',{cls:'blb-document-line',attr:{
-        type:'button','aria-label':'Lire '+doc.title}});
-      line.createSpan({cls:'blb-line-num',text:String(i+1).padStart(2,'0')});
-      line.createSpan({cls:'blb-line-title',text:doc.title});
-      const online=line.createSpan({cls:'blb-line-status'});
-      setIcon(online,doc.mepsId?'link':'file-text');
-      line.addEventListener('click',()=>{
-        this.selectedDocument=doc.documentId;void this.renderContent();
-      });
-    }
+    const chapters=volume.items.filter(item=>item.bookNumber&&item.chapterNumber);
+    if(chapters.length){
+      const pick=this.content.createDiv({cls:'blb-bible-picker'});
+      pick.createEl('label',{text:'Choisir un livre',attr:{for:'blb-bible-book'}});
+      const books=pick.createEl('select',{attr:{id:'blb-bible-book','aria-label':'Livre de la Bible'}});
+      books.createEl('option',{text:'Choisir un livre…',attr:{value:''}});
+      for(const n of [...new Set(chapters.map(item=>item.bookNumber!))])books.createEl('option',{text:bibleBookName(n),attr:{value:String(n)}});
+      books.value=this.readingBibleBook?String(this.readingBibleBook):'';
+      const list=this.content.createDiv({cls:'blb-chapter-grid'});
+      const draw=()=>{list.empty();
+        for(const doc of chapters.filter(item=>item.bookNumber===this.readingBibleBook)){
+          const b=button(list,String(doc.chapterNumber),'book-open',()=>{this.selectedDocument=doc.documentId;void this.renderContent();this.scrollReader();});
+          b.setAttribute('aria-label','Lire '+doc.title);b.querySelector('span:first-child')?.remove();
+        }};
+      books.addEventListener('change',()=>{this.readingBibleBook=Number(books.value)||null;draw();});draw();
+      const appendix=this.content.createEl('details',{cls:'blb-appendices'});
+      appendix.createEl('summary',{text:'Introductions, annexes et autres documents'});
+      this.documentPicker(appendix,volume.items.filter(item=>!item.bookNumber));
+    }else this.documentPicker(this.content,volume.items);
+  }
+  private documentPicker(parent:HTMLElement,documents:OfflineDocumentRecord[]):void{
+    const field=parent.createEl('input',{cls:'blb-toc-search',attr:{type:'search','aria-label':'Rechercher dans cet ouvrage',placeholder:'Retrouver un article…'}});
+    const count=parent.createDiv({cls:'blb-online-meta',attr:{role:'status','aria-live':'polite'}});
+    const list=parent.createDiv({cls:'blb-document-list'});let limit=80;
+    const draw=()=>{
+      list.empty();const words=foldLibraryText(field.value).split(' ').filter(Boolean);
+      const found=documents.filter(doc=>words.every(word=>foldLibraryText(doc.title).includes(word)));
+      count.setText(found.length+' article'+(found.length>1?'s':''));
+      for(const [i,doc] of found.slice(0,limit).entries()){
+        const line=list.createEl('button',{cls:'blb-document-line',attr:{type:'button','aria-label':'Lire '+doc.title}});
+        line.createSpan({cls:'blb-line-num',text:String(i+1).padStart(2,'0')});line.createSpan({cls:'blb-line-title',text:doc.title});
+        line.addEventListener('click',()=>{this.selectedDocument=doc.documentId;void this.renderContent();this.scrollReader();});
+      }
+      if(!found.length)list.createEl('p',{cls:'blb-online-meta',text:'Aucun article correspondant.'});
+      if(found.length>limit)button(list,'Afficher plus d’articles','plus',()=>{limit+=80;draw();});
+    };
+    field.addEventListener('input',()=>{limit=80;draw();});draw();
   }
   private async renderReader(volume:LibraryVolume,doc:OfflineDocumentRecord,ticket:number):Promise<void>{
+    if(doc.bookNumber)this.readingBibleBook=doc.bookNumber;
     this.crumbs(volume,doc);
     const nav=this.content.createDiv({cls:'blb-reader-actions'});
     const file=localDocumentFile(this.app,volume,doc);
@@ -453,13 +513,14 @@ export class BibleLabLibraryView extends ItemView {
     }
     if(volume.virtual)await this.renderArticleAnnotations(volume,doc,ticket);
     const bottom=this.content.createDiv({cls:'blb-reader-pager'});
-    const index=volume.items.findIndex(x=>x.documentId===doc.documentId);
-    const previous=volume.items[index-1],next=volume.items[index+1];
+    const sequence=volume.items.filter(item=>!!item.bookNumber===!!doc.bookNumber);
+    const index=sequence.findIndex(x=>x.documentId===doc.documentId);
+    const previous=sequence[index-1],next=sequence[index+1];
     if(previous)button(bottom,'Précédent','arrow-left',()=>{
-      this.selectedDocument=previous.documentId;void this.renderContent();
+      this.selectedDocument=previous.documentId;void this.renderContent();this.scrollReader();
     });
     if(next)button(bottom,'Suivant','arrow-right',()=>{
-      this.selectedDocument=next.documentId;void this.renderContent();
+      this.selectedDocument=next.documentId;void this.renderContent();this.scrollReader();
     });
   }
 
@@ -472,11 +533,11 @@ export class BibleLabLibraryView extends ItemView {
     if(!this.active||this.token!==ticket)return;
     holder.empty();
     if(!archive)return;
-    const found=annotationsForDocument(archive.index,{
+    const found=doc.bookNumber&&doc.chapterNumber?annotationsForBibleChapter(archive.index,doc.bookNumber,doc.chapterNumber):annotationsForDocument(archive.index,{
       symbol:volume.symbol,issue:volume.issue,language:volume.language
     },doc);
     if(!found||(!found.marks.length&&!found.notes.length&&!found.bookmarks.length))return;
-    this.displayArticleAnnotations(holder,found);
+    this.displayArticleAnnotations(holder,found,!!doc.bookNumber);
   }
   private displayArticleAnnotations(parent:HTMLElement,data:DocumentAnnotations,bible=false):void{
     const title=parent.createDiv({cls:'blb-annotation-head'});
@@ -637,10 +698,10 @@ export class BibleLabLibraryView extends ItemView {
       copy.createSpan({cls:'blb-result-source',text:result.volume.title});
       if(result.snippet)copy.createEl('p',{text:result.snippet});
       card.addEventListener('click',()=>{
-        this.term='';this.input.value='';
+        this.shelfScroll=this.contentEl.querySelector('.jwsd-stage')?.scrollTop||0;
         this.selectedPath=result.volume.path;
         this.selectedDocument=result.item.documentId;
-        void this.renderContent();
+        void this.renderContent();this.scrollReader();
       });
     }
   }

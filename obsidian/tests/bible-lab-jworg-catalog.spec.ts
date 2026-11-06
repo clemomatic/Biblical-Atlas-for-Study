@@ -8,7 +8,7 @@ test.beforeEach(async({page})=>{
 test('Public covers are immediately useful without automatically downloading publication contents',async({page})=>{
   await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
   const library=page.locator('.blb-library');
-  await expect(library.locator('.blb-book-card')).toHaveCount(14);
+  await expect(library.locator('.blb-book-card')).toHaveCount(13);
   await library.getByRole('button',{name:'Assemblées',exact:true}).click();
   await expect(library.locator('.blb-book-card')).toHaveCount(4);
   await expect(library.locator('.blb-card-actions button').first()).toHaveText('Télécharger');
@@ -36,7 +36,7 @@ test('Refreshing an unavailable catalogue keeps every fallback and local publica
   await library.getByRole('button',{name:'Options de la bibliothèque'}).click();
   await page.getByRole('button',{name:'Actualiser les publications'}).click();
   await expect(library.locator('.blb-catalog-notice')).toBeVisible();
-  await expect(library.locator('.blb-book-card')).toHaveCount(14);
+  await expect(library.locator('.blb-book-card')).toHaveCount(13);
   await library.getByRole('button',{name:'Bible',exact:true}).click();
   await expect(library.locator('.blb-book-card')).toHaveCount(2);
 });

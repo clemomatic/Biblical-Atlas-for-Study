@@ -70,7 +70,7 @@ test('Rejected catalogue manifest never erases the existing curated JW.org shelf
   await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
   const library=page.locator('.blb-library');
   await expect(library.locator('.blb-catalog-notice')).toContainText('momentanément indisponible');
-  await expect(library.locator('.blb-online-book')).toHaveCount(14);
+  await expect(library.locator('.blb-online-book')).toHaveCount(13);
   const urls=await page.evaluate(()=>(window as any).atlasNetworkRequests.map((x:any)=>x.url));
   expect(urls.some((u:string)=>u.includes('attacker.example'))).toBe(false);
 });

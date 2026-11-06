@@ -235,3 +235,6 @@
 .modal.jwsd-modal .mod-cta{background:var(--jwsd-primary);color:#fff;border-color:var(--jwsd-primary)}
 .modal.jwsd-modal button:not(.mod-cta){color:var(--jwsd-ink);border-color:var(--jwsd-border);background:var(--jwsd-surface);border-radius:9px}
 @container jwsd-app (max-width:740px){.jwsd-note-search input{font-size:16px}.jwsd-tool-card{min-height:140px}.jwsd-mobile-destination{font-size:10px}}
+@container jwsd-app (max-width:340px){.jwsd-mobile-destination>span:last-child{display:block;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:9px}}
+/* Own navigation buttons must also grow beyond the native input height. */
+.jwsd-theme .jwsd-button,.jwsd-theme .jwsd-brand-home{height:auto;line-height:1.4;appearance:none;-webkit-appearance:none}
