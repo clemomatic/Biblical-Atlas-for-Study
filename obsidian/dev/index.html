@@ -3,9 +3,11 @@
   <head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>Atlas — vérification Obsidian</title>
   <link rel="stylesheet" href="/obsidian/styles.css" />
   <style>
+    :root { --background-primary:#ffffff; --background-secondary:#f6f6f8; --background-modifier-border:#dedee4; --background-modifier-hover:#ededf2; --text-normal:#272732; --text-muted:#6b6b7b; --text-faint:#9696a2; --interactive-accent:#7955c9; --interactive-accent-hover:#6843b8; --text-accent:#7955c9; --text-on-accent:#ffffff; --font-interface:system-ui,sans-serif; --font-text:Georgia,serif; }
     * { box-sizing: border-box; } body { margin: 0; font: 14px system-ui; color: #172033; background: #e5e1d8; }
     #test-header { height: 32px; padding: 8px 16px; font-size: 11px; color: #666; } #surface { height: calc(100dvh - 32px); display:flex; align-items:stretch; } #surface > .workspace-leaf-content { flex:1 1 auto; min-width:0; } #surface > .workspace-leaf-content[data-type='bible-lab-sidebar'] { flex:0 0 min(370px,50vw); width:min(370px,50vw); border-left:1px solid #c9c4b8; }
     .view-content { height: 100%; } .modal-container { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; background: #17203366; }
+    #surface > .workspace-leaf-content[data-type='bible-lab-sidebar'] { order:2; }
     .modal { max-height: 92dvh; width: min(600px, 95vw); overflow: auto; padding: 25px; border-radius: 14px; background: #fffdf8; box-shadow: 0 20px 80px #17203344; }
     .setting-item { padding: 12px 0; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 1px solid #ddd; }
     .setting-item[hidden] { display: none; } .setting-item-description { font-size: 11px; color: #667; max-width: 260px; margin-top: 4px; }

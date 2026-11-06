@@ -38,14 +38,14 @@ test('Topic search keeps the original question and opens genuine WOL beside the 
  const pane=page.locator('.biblelab-side');
  await pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'}).fill('justice');
  await pane.getByRole('button',{name:'Lancer une recherche'}).click();
- await expect(pane.locator('.biblelab-tab[aria-label="WOL"]')).toHaveAttribute('aria-selected','true');
+ await expect(pane.locator('.biblelab-tab[aria-label="Recherche WOL"]')).toHaveAttribute('aria-selected','true');
  await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('justice');
  const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace
    .getLeavesOfType('webviewer')[0].view.getState().url);
  expect(new URL(url).searchParams.get('q')).toBe('justice');
  await pane.locator('.biblelab-overflow > summary').click();
   await pane.getByRole('button',{name:'Lire les références'}).click();
- await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
  await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('justice');
 });
 
@@ -74,7 +74,7 @@ test('Current note references stay tucked away while a focused source is read',a
 
 test('Advanced WOL actions stay progressive and separate from native search',async({page})=>{
  const pane=page.locator('.biblelab-side');
- await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
  await pane.getByPlaceholder('Sujet, publication ou verset…').fill('paix');
  await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
  await expect(page.locator('.mock-core-webviewer')).toHaveCount(1);

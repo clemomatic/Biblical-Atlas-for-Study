@@ -113,7 +113,7 @@ test('Finds words in the full local content and can move from a search hit into 
  await expect(library.locator('.blb-search-result')).toContainText('La persévérance');
  await library.getByRole('button',{name:'Lire La sagesse'}).click();
  await expect(library.locator('.blb-reader-text')).toContainText('persévérance');
- await library.getByRole('button',{name:'Bibliothèque'}).click();
+ await library.getByRole('button',{name:'Bibliothèque',exact:true}).click();
  await expect(library.getByRole('button',{name:'Ouvrir Collection de recherches'})).toBeVisible();
 });
 
@@ -159,7 +159,7 @@ test('Virtual JWPUB import keeps one source and search cache, with no per-articl
  await library.getByRole('button',{name:'Lire Enseigner avec précision'}).click();
  await expect(library.locator('.blb-reader-text')).toContainText('La patience aide à mieux comprendre.');
  await expect(library.getByRole('button',{name:'Ouvrir la note modifiable'})).toHaveCount(0);
- await library.getByRole('button',{name:'Bibliothèque'}).click();
+ await library.getByRole('button',{name:'Bibliothèque',exact:true}).click();
  const search=library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'});
  await search.fill('patience');
  await expect(library.locator('.blb-search-result')).toHaveCount(1);

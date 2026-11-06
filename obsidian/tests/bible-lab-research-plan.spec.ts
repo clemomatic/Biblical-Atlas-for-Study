@@ -37,7 +37,7 @@ test('Phase 1: begin with an optional plan, rename and reorder its research bran
   // A branch can launch the official WOL search without losing the outline.
   await plan.locator('.biblelab-plan-branch').first()
     .getByRole('button',{name:'Rechercher cette piste dans WOL'}).click();
-  await expect(pane.locator('.biblelab-tab[aria-label="WOL"]')).toHaveAttribute('aria-selected','true');
+  await expect(pane.locator('.biblelab-tab[aria-label="Recherche WOL"]')).toHaveAttribute('aria-selected','true');
   const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace
     .getLeavesOfType('webviewer')[0].view.getState().url);
   expect(new URL(url).searchParams.get('q')).toBe('Amitié');
@@ -46,7 +46,7 @@ test('Phase 1: begin with an optional plan, rename and reorder its research bran
 
 test('Phase 1: free WOL exploration still works without creating an outline', async ({ page }) => {
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await expect(pane.locator('.biblelab-wol-context > summary')).toContainText('Recherche libre');
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('la patience de Jéhovah');
   await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();
@@ -77,7 +77,7 @@ test('Phase 1: the plan can be put aside without deleting it', async ({ page }) 
 
 test('Phase 1: quick Index search works from the first pane without an outline', async ({ page }) => {
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('ancien');
   await pane.getByRole('button',{name:'Index',exact:true}).click();
   const url=await page.evaluate(()=>(window as any).atlasTest.app.workspace

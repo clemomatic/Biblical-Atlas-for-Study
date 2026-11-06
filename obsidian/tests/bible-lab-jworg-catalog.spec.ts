@@ -25,7 +25,7 @@ test('Magazine download details preserve the exact issue and stay in the cover m
   await expect(card).toHaveCount(1);
   await card.getByRole('button',{name:/Options de/}).click();
   await page.getByRole('button',{name:'Détails du téléchargement'}).click();
-  await expect(page.getByRole('button',{name:'Télécharger',exact:true})).toBeVisible();
+  await expect(page.getByRole('dialog').getByRole('button',{name:'Télécharger',exact:true})).toBeVisible();
   const queries=await page.evaluate(()=>(window as any).atlasNetworkRequests.filter((r:any)=>r.url.includes('GETPUBMEDIALINKS')).map((r:any)=>r.url));
   expect(queries).toHaveLength(1);expect(new URL(queries[0]).searchParams.get('issue')).toBe('202609');
 });
@@ -47,7 +47,7 @@ test('An official media link remains available in advanced import options',async
   await page.getByRole('button',{name:'Trouver une publication par son code'}).click();
   await page.getByRole('textbox',{name:'Code ou lien officiel de téléchargement'}).fill('https://b.jw-cdn.org/apis/pub-media/GETPUBMEDIALINKS?pub=w&issue=202701&langwritten=F&fileformat=PDF%2CJWPUB');
   await page.locator('.biblelab-offline-manual').getByRole('button',{name:'Vérifier'}).click();
-  await expect(page.getByRole('button',{name:'Télécharger',exact:true})).toBeVisible();
+  await expect(page.getByRole('dialog').getByRole('button',{name:'Télécharger',exact:true})).toBeVisible();
   const urls=await page.evaluate(()=>(window as any).atlasNetworkRequests.filter((r:any)=>r.url.includes('GETPUBMEDIALINKS')).map((r:any)=>r.url));
   expect(urls).toHaveLength(1);expect(new URL(urls[0]).searchParams.get('pub')).toBe('w');
   expect(new URL(urls[0]).searchParams.get('issue')).toBe('202701');

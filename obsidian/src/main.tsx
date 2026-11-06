@@ -348,13 +348,13 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.registerView(BIBLE_LAB_LIBRARY_VIEW,leaf=>new BibleLabLibraryView(leaf,{
       catalog:this.publicationCatalog,
       root:()=>this.settings.noteFolder,
-      importJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportJwpub(),
-      importVirtualJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportVirtualJwpub(),
-      importAnnotations:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportAnnotations(),
+      importJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportJwpub(),
+      importVirtualJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportVirtualJwpub(),
+      importAnnotations:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportAnnotations(),
       downloads:this.openNativeBridge,
-      downloadPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder)
+      downloadPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary()))
         .downloadCatalogPublication(symbol,issue),
-      checkPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder)
+      checkPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary()))
         .openCatalogPublication(symbol,issue),
       readReference:(url,label)=>this.openBibleLab(url,label),
       openWol:(url)=>this.openWolSearchTab(url)
@@ -526,7 +526,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     await this.app.workspace.revealLeaf(leaf);
     if(leaf.view instanceof BibleLabLibraryView)await leaf.view.refresh();
   };
-  openNativeBridge = ():void => {new NativeJwModal(this.app,this.settings.noteFolder).open();};
+  openNativeBridge = ():void => {new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).open();};
   openOfflineLibrary = ():void => {
     this.run(this.openVisualLibrary());
   };

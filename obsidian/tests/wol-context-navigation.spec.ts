@@ -113,7 +113,7 @@ test('WOL contextual /pc/ links open both in native browser and quick reading pa
     '<p>La recherche ouvre correctement une référence contextuelle.</p></article>'
  }));
  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
- await page.locator('.biblelab-tab[aria-label="WOL"]').click();
+ await page.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
  const pane=page.locator('.biblelab-side');
  await pane.getByPlaceholder('Sujet, publication ou verset…').fill(context);
  await pane.getByRole('button',{name:'Rechercher dans WOL',exact:true}).first().click();

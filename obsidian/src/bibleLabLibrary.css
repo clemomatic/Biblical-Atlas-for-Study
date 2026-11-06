@@ -288,15 +288,17 @@
  border-color:var(--interactive-accent);color:var(--interactive-accent)}
 
 /* One shelf, one primary action per publication. Menus use native Obsidian UI. */
+.blb-shell{padding-top:24px}
 .blb-hero{align-items:center;padding-bottom:22px}
-.blb-sections{display:flex;gap:8px;margin:22px 0 0}
+.blb-title-group h1{font-size:28px;margin:0;line-height:1.25}
+.blb-sections{display:flex;gap:8px;margin:16px 0 0}
 .blb-sections .blb-action{background:transparent;border-color:transparent;color:var(--blb-muted)}
 .blb-sections .blb-action.active{background:var(--background-secondary);border-color:var(--blb-border);color:var(--text-normal)}
 .blb-icon-button{padding:8px;min-width:36px;flex-shrink:0}
 .blb-icon-button svg{width:18px;height:18px}
-.blb-controls{margin:18px 0 14px}
+.blb-controls{margin:16px 0 12px}
 .blb-controls select{max-width:200px;min-height:42px;border:1px solid var(--blb-border);border-radius:10px;background:var(--background-secondary);color:var(--text-normal);padding:7px 10px;font:inherit;font-size:12px}
-.blb-result-count{margin:10px 0 22px;font-variant-numeric:tabular-nums}
+.blb-result-count{margin:8px 0 16px;font-variant-numeric:tabular-nums}
 .blb-filters{gap:3px;margin:0 0 14px}
 .blb-filters .blb-action.blb-category{padding:6px 9px}
 .blb-book-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:24px 18px}

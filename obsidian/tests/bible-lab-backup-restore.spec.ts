@@ -19,7 +19,7 @@ test('Backup and confirmed restore preserve exact WOL citation and never rewrite
   await pane.getByRole('textbox',{name:'Lien WOL précis'}).fill(WOL);
   await pane.getByRole('textbox',{name:'Extrait collecté'}).fill('Une phrase très utile');
   await pane.getByRole('button',{name:'Ajouter au bac'}).click();
-  await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Sources"]').click();
   await pane.locator('.biblelab-backup-actions > summary').click();
   await pane.getByRole('button',{name:'Créer une sauvegarde'}).click();
   await expect.poll(async()=>page.evaluate(()=> (window as any).atlasTest.files()
@@ -57,7 +57,7 @@ test('Backup and confirmed restore preserve exact WOL citation and never rewrite
 
 test('Closing the restore dialog without confirmation does not change the state',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Sources"]').click();
   await pane.locator('.biblelab-backup-actions > summary').click();
   await pane.getByRole('button',{name:'Créer une sauvegarde'}).click();
   await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files()
@@ -73,7 +73,7 @@ test('Closing the restore dialog without confirmation does not change the state'
 
 test('Rejects modified or untrusted backup files before enabling restore',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Sources"]').click();
   await pane.locator('.biblelab-backup-actions > summary').click();
   await pane.getByRole('button',{name:'Créer une sauvegarde'}).click();
   const savedPath=await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files()

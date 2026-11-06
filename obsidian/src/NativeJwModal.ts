@@ -1,6 +1,5 @@
 import { Modal, Notice, requestUrl, type App, type TFile } from 'obsidian';
 import { readJwpub, readBackup, readBackupAnnotations, prepareExport, createExport, digest, type ImportPreview } from './nativeJw';
-import { listLocalPublications } from './offlineReferenceLibrary';
 import {decodeMediaCatalogLink} from './jwOrgCatalog';
 import {
   PERSONAL_OFFLINE_CATALOG,allowedJwpubBytes,isBiblePublication,
@@ -29,7 +28,8 @@ export class NativeJwModal extends Modal{
  private busy=false;
  private cancelled=false;
  private pendingDownload:{name:string;bytes:Uint8Array;symbol:string;issue:string}|null=null;
- constructor(app:App,private rootFolder:string){super(app);}
+ constructor(app:App,private rootFolder:string,private returnToLibrary?:()=>void){super(app);}
+ private backToLibrary():void{this.close();this.returnToLibrary?.();}
  onOpen():void{this.cancelled=false;this.contentEl.addClass('biblelab-native-modal');this.menu();}
  onClose():void{this.cancelled=true;this.pendingDownload=null;}
  private screen(title:string,subtitle:string):HTMLElement{
@@ -95,29 +95,7 @@ export class NativeJwModal extends Modal{
    finally{this.busy=false;}
  }
  private async library():Promise<void>{
-   const root=this.screen('Bibliothèque hors ligne',
-     'Tes publications personnelles et officielles · aucune synchronisation par Bible Lab.');
-   this.action(root,'Ajouter un JWPUB virtuel',
-     'Lire et rechercher sans créer de fichiers Markdown','▣',
-     ()=>void this.loadVirtualJwpub());
-   this.action(root,'Ancien import Markdown JWPUB',
-     'Créer les notes sources une par une (optionnel)','▤',
-     ()=>void this.load('jwpub'));
-   const current=root.createDiv({cls:'biblelab-offline-group'});
-   current.createEl('h3',{text:'Mes publications importées'});
-   try{
-     const items=await listLocalPublications(this.app,this.rootFolder);
-     if(!items.length)current.createEl('p',{text:'Aucune publication indexée pour le moment.'});
-     for(const pub of items){
-       const row=current.createDiv({cls:'biblelab-offline-item'});
-       const info=row.createDiv();
-       info.createEl('strong',{text:pub.title});
-       info.createSpan({text:pub.documents+' documents · '+pub.symbol+
-         (pub.language===3?' · français':' · langue '+pub.language)});
-       const open=row.createEl('button',{text:'Ouvrir'});
-       open.addEventListener('click',()=>void this.openLocalFolder(pub.path));
-     }
-   }catch{current.createEl('p',{text:'La bibliothèque locale est momentanément inaccessible.'});}
+   const root=this.screen('Trouver une publication','Avec son code ou un lien de téléchargement officiel.');
    const catalog=root.createDiv({cls:'biblelab-offline-group'});
    catalog.createEl('h3',{text:'Téléchargement officiel'});
    catalog.createEl('p',{text:'Vérifie la disponibilité du JWPUB français avant de choisir de le télécharger.'});
@@ -143,14 +121,6 @@ export class NativeJwModal extends Modal{
      'Les copies locales restent dans ton coffre. Si tu synchronises ton coffre, prends garde aux publications confidentielles. Aucun fichier n’est publié par le plugin.'});
    const back=root.createEl('button',{text:'Retour'});
    back.addEventListener('click',()=>this.menu());
- }
- private async openLocalFolder(path:string):Promise<void>{
-   const listed=await listLocalPublications(this.app,this.rootFolder);
-   if(!listed.some(item=>item.path===path))return;
-   const file=this.app.vault.getFiles().find(item=>
-     item.path.startsWith(path+'/')&&item.extension==='md');
-   if(!file){new Notice('Aucun document Markdown disponible.');return;}
-   await this.app.workspace.getLeaf('tab').openFile(file);this.close();
  }
  private async checkPublication(symbol:string,issue=''):Promise<void>{
    if(this.busy)return;
@@ -179,7 +149,7 @@ export class NativeJwModal extends Modal{
      'Les Bibles, en particulier l’édition d’étude, peuvent être volumineuses. Vérifie l’espace disponible avant importation.'});
    const actions=root.createDiv({cls:'biblelab-native-buttons'});
    const back=actions.createEl('button',{text:'Retour'});
-   back.addEventListener('click',()=>void this.library());
+   back.addEventListener('click',()=>this.backToLibrary());
    const virtual=actions.createEl('button',{cls:'mod-cta',text:'Télécharger'});
    virtual.addEventListener('click',()=>void this.downloadPublication(item,'virtual'));
    const more=root.createEl('details',{cls:'biblelab-disclosure'});
@@ -217,7 +187,7 @@ export class NativeJwModal extends Modal{
      'Consulter les formats disponibles sur JW.org','↗',
      ()=>window.open('https://www.jw.org/fr/biblioth%C3%A8que/','_blank','noopener,noreferrer'));
    const back=root.createEl('button',{text:'Retour à la bibliothèque'});
-   back.addEventListener('click',()=>void this.library());
+   back.addEventListener('click',()=>this.backToLibrary());
  }
 
  private async loadAnnotations():Promise<void>{

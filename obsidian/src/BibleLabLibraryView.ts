@@ -132,9 +132,7 @@ export class BibleLabLibraryView extends ItemView {
     const layout=this.contentEl.createDiv({cls:'blb-shell'});
     const hero=layout.createDiv({cls:'blb-hero'});
     const headline=hero.createDiv({cls:'blb-title-group'});
-    headline.createDiv({cls:'blb-eyebrow',text:'BIBLE LAB'});
     headline.createEl('h1',{text:'Ma bibliothèque'});
-    headline.createEl('p',{text:'Trouver un ouvrage. Le télécharger. Le lire.'});
     const actions=hero.createDiv({cls:'blb-head-actions'});
     button(actions,'Ajouter un fichier','plus',this.actions.importVirtualJwpub);
     this.options(actions,'Options de la bibliothèque',[

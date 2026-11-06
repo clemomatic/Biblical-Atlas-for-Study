@@ -7,7 +7,11 @@ test.beforeEach(async({page})=>{
   await page.waitForFunction(()=>(window as any).atlasTest?.ready);
 });
 test('One library, one primary action per cover, all technical options tucked away',async({page})=>{
-  await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
+  await page.evaluate(async()=>{
+    const {app,plugin}=(window as any).atlasTest;
+    for(const leaf of [...app.workspace.getLeavesOfType('atlas-biblique')])leaf.detach();
+    await plugin.openBibleLab();
+  });
   await page.getByRole('button',{name:'Ma bibliothèque',exact:true}).click();
   const library=page.locator('.blb-library');
   await expect(library.getByRole('heading',{name:'Ma bibliothèque'})).toBeVisible();

@@ -106,6 +106,22 @@ Un test dans l’hôte de vérification charge le vrai paquet compilé avec une 
 
 La dernière CI de la branche source échouait sur un test du Guide attendant un texte visible alors que le texte était dans un bloc replié ; ce test est corrigé pour ouvrir le bloc, tout en conservant le contrôle de la véritable requête WOL.
 
+### Échecs anciens reproduits sur la base de départ
+
+Une comparaison a été exécutée séparément sur le commit source `54b5293`, avant cette refonte, avec les mêmes archives et réponses simulées. Sur les 13 cas sélectionnés : 9 réussissent et les 4 cas suivants échouent déjà :
+
+| Cas | Résultat du contrôle | Suite nécessaire |
+| --- | --- | --- |
+| Résolution `it-1 118 § 1` depuis l’index simulé | Le texte attendu n’est pas chargé | Vérifier la couverture du scénario et la résolution sur WOL réel |
+| Résolution `it-2 450` depuis l’index simulé | Même absence du texte attendu | Vérifier l’édition et le chemin de résolution |
+| Références numériques d’Actes réparties dans plusieurs éléments HTML | Aucun des 7 liens contextuels attendus n’est créé | Étudier le contexte inter-éléments de la détection |
+| Ouverture du popup `Mat. 4:2, 3` dans le test des renvois + | La fenêtre attendue n’apparaît pas | Distinguer le problème de déclenchement du problème des renvois |
+
+Ces échecs préexistent à la refonte ; ils ne prouvent pas à eux seuls une panne dans Obsidian avec les pages réelles. Ils restent des anomalies de validation à traiter. Le moteur de références n’a pas été réécrit pour les masquer. La suite globale conserve ces tests.
+
+Les 34 contrôles de bibliothèque, import, lecture, recherche, annotations et classement ciblés après correction des sélecteurs passent sur les deux projets ordinateur/mobile. Les changements de libellés et de menus sont vérifiés sans retirer les assertions sur les données conservées.
+
+
 Les points suivants demandent encore une vérification avec les vrais fichiers et appareils : téléchargement actuel des grosses éditions NWT/NWTSTY, qualité du rendu des données spécialisées de l’édition d’étude, vitesse/mémoire du premier chargement du catalogue sur Android, fidélité du surlignage au mot près et export/restauration de sauvegardes. Le catalogue n’est pas une preuve de disponibilité de tous les formats.
 
 Cette version ne fusionne pas les nombreuses branches antérieures dans main et ne publie pas une mise à jour automatique. Elle fournit une refonte isolée et un paquet installable, avec un audit permettant de poursuivre les validations sans confondre interface terminée et fonctions spécialisées entièrement validées.

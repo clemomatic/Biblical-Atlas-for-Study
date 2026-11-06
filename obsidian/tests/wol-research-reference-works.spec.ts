@@ -5,7 +5,7 @@ test.beforeEach(async({page})=>{
   await page.goto('/obsidian/dev/index.html');
   await page.waitForFunction(()=>(window as any).atlasTest?.ready);
   await page.evaluate(()=>(window as any).atlasTest.plugin.openBibleLab());
-  await page.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await page.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
 });
 
 test('Research results belong to real WOL: its search opens inside Obsidian without HTML parsing',async({page})=>{

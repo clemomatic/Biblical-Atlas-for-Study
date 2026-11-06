@@ -230,12 +230,11 @@ export class BibleLabInlinePopover {
     }
     content.empty();this.draw(content,result,anchor);this.keepVisible(root);
     void this.renderPersonalAnnotations(content,ref,token);
-  }).catch(error=>{
+  }).catch(()=>{
     if(token!==this.serial||!root.isConnected)return;
     content.empty();
     content.createEl('p',{cls:'biblelab-popover-feedback',text:
-      (error instanceof Error?error.message:'Source indisponible')+
-      ' — Utilise le site officiel ou le panneau latéral.'});
+      'Cette référence ne peut pas être affichée ici pour le moment. Tu peux consulter la source sur WOL.'});
     this.button(content,'Réessayer','refresh-cw',()=>this.render(ref,anchor));
   });
  }
@@ -252,13 +251,13 @@ export class BibleLabInlinePopover {
        found.marks.length+' surlignage(s), '+found.notes.length+' note(s)'});
      section.createEl('p',{cls:'biblelab-popover-annotation-notice',text:
        found.scope==='chapter'?
-       'Annotations du chapitre entier. Les mots exacts ne sont pas encore recoloriés : les positions du JWPUB doivent être validées.':
-       'Correspondance par identifiant officiel du document. Les plages de texte seront alignées lors de la prochaine étape.'});
+       'Ces annotations concernent le chapitre entier. Le surlignage mot à mot reste à vérifier.':
+       'Ces annotations concernent cet article. Le surlignage mot à mot reste à vérifier.'});
      for(const item of found.marks.slice(0,35)){
        const row=section.createDiv({cls:'biblelab-popover-annotation-mark'});
        const icon=row.createSpan();setIcon(icon,'highlighter');
-       row.createSpan({text:'Couleur JW Library n° '+item.mark.color+
-         (item.ranges.length?' · '+item.ranges.length+' plage(s)':'')});
+       const colors=['','Jaune','Vert','Bleu','Rose','Orange','Violet'];
+       row.createSpan({text:'Surlignage'+(colors[item.mark.color]?' · '+colors[item.mark.color]:'')});
      }
      for(const note of found.notes.slice(0,30)){
        const row=section.createDiv({cls:'biblelab-popover-annotation-note'});
@@ -279,7 +278,9 @@ export class BibleLabInlinePopover {
   this.currentSource=cleanWolUrl(result.sourceUrl)||this.current?.url||null;
   if(result.title&&result.title!==this.current?.label)
    container.createEl('h3',{cls:'biblelab-popover-document-title',text:result.title});
-  if(result.notice)container.createEl('p',{cls:'biblelab-popover-notice',text:result.notice});
+  if(result.notice)container.createEl('p',{cls:'biblelab-popover-notice',text:
+    !result.lines.length&&/HTTP|Failed to fetch|SQLite|MEPS/i.test(result.notice)?
+      'La source est momentanément indisponible dans le lecteur. Tu peux l’ouvrir sur WOL.':result.notice});
   if(!result.lines.length){
    container.createEl('p',{cls:'biblelab-popover-feedback',text:'Aucun texte lisible reçu. La référence reste accessible sur WOL.'});
    return;

@@ -57,7 +57,7 @@ test('Recherche WOL et aperçus restent indépendants; les notes et liens profon
 
   // The new browser-backed search must not touch the existing note or popup.
   const sidebar = page.locator('.biblelab-side');
-  await sidebar.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await sidebar.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await sidebar.getByPlaceholder('Sujet, publication ou verset…').fill('amitié entre anciens');
   await sidebar.getByRole('button', { name: 'Rechercher dans WOL', exact: true }).first().click();
   await expect(page.locator('.mock-core-webviewer')).toHaveCount(1);
@@ -82,7 +82,7 @@ test('Recherche WOL ne désactive pas les références en aperçu direct dans Co
   await expect(editor.locator('.biblelab-inline-editor-ref')).toHaveCount(1);
 
   const sidebar = page.locator('.biblelab-side');
-  await sidebar.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await sidebar.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await sidebar.getByPlaceholder('Sujet, publication ou verset…').fill('amitié');
   await sidebar.getByRole('button', { name: 'Rechercher dans WOL', exact: true }).first().click();
 

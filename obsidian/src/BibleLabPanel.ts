@@ -194,11 +194,6 @@ export class BibleLabSidebarView extends ItemView {
     }
     this.tabs=this.contentEl.createDiv({cls:'biblelab-tabs'});
     this.scroller=this.contentEl.createDiv({cls:'biblelab-scroller'});
-    const footer=this.contentEl.createDiv({cls:'biblelab-footer'});
-    footer.createSpan({text:'Bible Lab'});
-    const details=footer.createSpan({cls:'biblelab-local-indicator',
-      attr:{'title':'Les données de recherche restent dans ton coffre Obsidian'}});
-    setIcon(details,'shield-check');details.createSpan({text:'Données locales'});
     await this.updateActiveNote(this.app.workspace.getActiveFile());
     this.render();
     this.liveViewOpen=true;
@@ -290,10 +285,10 @@ export class BibleLabSidebarView extends ItemView {
       role:'group','aria-label':'Navigation Bible Lab'
     }});
     for(const entry of [
-      {key:'home',label:'Étude',icon:'notebook-pen',aria:'Accueil'},
-      {key:'wol',label:'Recherche',icon:'search',aria:'WOL'},
+      {key:'home',label:'Étude',icon:'notebook-pen',aria:'Étude'},
+      {key:'wol',label:'Recherche',icon:'search',aria:'Recherche WOL'},
       {key:'collect',label:'Trouvailles',icon:'inbox',aria:'Trouvailles'},
-      {key:'archive',label:'Sources',icon:'book-marked',aria:'Mon index'}
+      {key:'archive',label:'Sources',icon:'book-marked',aria:'Sources'}
     ] as const){
       const tab=nav.createEl('button',{cls:'biblelab-tab',attr:{
         type:'button','aria-selected':String(this.tab===entry.key),
@@ -1259,7 +1254,7 @@ export class BibleLabSidebarView extends ItemView {
     if(item.excerpt)this.renderQuotePreview(card,item);
     if(item.comment)card.createEl('p',{cls:'biblelab-capture-comment',text:'💡 '+item.comment});
     if(item.url){
-      const source=card.createEl('button',{cls:'biblelab-capture-source',text:item.url});
+      const source=card.createEl('button',{cls:'biblelab-capture-source',text:'Source WOL',attr:{title:item.url,'aria-label':'Ouvrir la source de '+item.label}});
       source.type='button';
       source.addEventListener('click',()=>this.openCapturedSource(item));
     }else card.createSpan({cls:'biblelab-capture-no-source',text:'Sans lien (à compléter)'});
@@ -1619,7 +1614,7 @@ export class BibleLabSidebarView extends ItemView {
       rows:'2',placeholder:'Pourquoi la garder ?'}});
     comment.value=item.comment;
     const url=details.createEl('input',{attr:{type:'url','aria-label':'URL précise de la source',
-      placeholder:'Lien de la page WOL (avec #h=N si besoin)'}});
+      placeholder:'Lien vers le passage'}});
     url.value=item.url;
     const editActions=details.createDiv({cls:'biblelab-plan-toolbar'});
     button(editActions,'Enregistrer les changements','save',()=>{

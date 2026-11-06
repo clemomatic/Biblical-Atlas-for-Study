@@ -9,7 +9,7 @@ test.beforeEach(async({page})=>{
 
 test('Index search opens the actual WOL Index-filtered research page',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('miséricorde');
   await pane.getByRole('button',{name:'Index',exact:true}).click();
   await expect(pane.getByRole('button',{name:'Index',exact:true})).toHaveAttribute('aria-pressed','true');
@@ -22,7 +22,7 @@ test('Index search opens the actual WOL Index-filtered research page',async({pag
 
 test('Guide search keeps WOL itself responsible for result classification',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('compassion');
   await pane.getByRole('button',{name:'Guide de recherche',exact:true}).click();
   await expect(pane.getByRole('button',{name:'Guide de recherche',exact:true})).toHaveAttribute('aria-pressed','true');
@@ -45,7 +45,7 @@ test('Reader contextual Index and Guide paths open official WOL searches next to
   await pane.getByRole('button',{name:'Lancer une recherche'}).click();
   await expect(pane.getByRole('button',{name:'Consulter le Guide'})).toBeVisible();
   await pane.getByRole('button',{name:'Consulter le Guide'}).click();
-  await expect(pane.locator('.biblelab-tab[aria-label="WOL"]')).toHaveAttribute('aria-selected','true');
+  await expect(pane.locator('.biblelab-tab[aria-label="Recherche WOL"]')).toHaveAttribute('aria-selected','true');
   await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('Jean 7:24');
   const search=await page.evaluate(()=>(window as any).atlasTest.app.workspace
     .getLeavesOfType('webviewer')[0].view.getState().url);

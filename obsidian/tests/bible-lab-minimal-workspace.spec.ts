@@ -42,7 +42,7 @@ test('The plan opens on demand, then new ideas can be drafted and reopened witho
   await idea.getByRole('textbox',{name:'Phrase principale de l’idée'})
     .fill('Les anciens entretiennent une véritable amitié');
   await idea.getByRole('textbox',{name:'Phrase principale de l’idée'}).press('Tab');
-  await pane.locator('.biblelab-tab[aria-label="Accueil"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Étude"]').click();
   await expect(pane.getByRole('button',{name:'Ouvrir l’idée : Les anciens entretiennent une véritable amitié'})).toBeVisible();
   await pane.getByRole('button',{name:'Ouvrir l’idée : Les anciens entretiennent une véritable amitié'}).click();
   await expect(pane.locator('.biblelab-idea-card').first()).toHaveAttribute('open','');
@@ -55,7 +55,7 @@ test('Manual capture and backup tools are accessible but folded by default',asyn
   await expect(pane.getByRole('button',{name:'Garder le texte copié'})).toBeVisible();
   await pane.locator('.biblelab-manual-capture > summary').click();
   await expect(pane.getByRole('textbox',{name:'Nom de la trouvaille'})).toBeVisible();
-  await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Sources"]').click();
   await expect(pane.locator('.biblelab-backup-actions')).not.toHaveAttribute('open','');
   await pane.locator('.biblelab-backup-actions > summary').click();
   await expect(pane.getByRole('button',{name:'Créer une sauvegarde'})).toBeVisible();
@@ -63,7 +63,7 @@ test('Manual capture and backup tools are accessible but folded by default',asyn
 
 test('WOL still opens official search but context and extra options are folded',async({page})=>{
   const pane=page.locator('.biblelab-side');
-  await pane.locator('.biblelab-tab[aria-label="WOL"]').click();
+  await pane.locator('.biblelab-tab[aria-label="Recherche WOL"]').click();
   await expect(pane.locator('.biblelab-wol-context')).not.toHaveAttribute('open','');
   await expect(pane.locator('.biblelab-wol-extras')).not.toHaveAttribute('open','');
   await expect(pane.locator('.biblelab-research-mode')).toHaveCount(4);
