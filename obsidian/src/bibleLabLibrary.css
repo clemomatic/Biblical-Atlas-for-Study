@@ -256,3 +256,21 @@
 .blb-online-more .blb-action{background:var(--background-secondary);font-size:12px;
   font-weight:700;min-height:40px}
 .blb-online-intro .blb-online-actions>.blb-action:disabled{opacity:.62;cursor:wait}
+
+/* Annotations are personal material shown only after explicit local import. */
+.blb-annotations{margin:24px 0;padding:17px;border:1px solid var(--blb-border);
+  background:var(--background-secondary);border-radius:14px}
+.blb-annotation-head h2{font-size:17px;margin:0 0 5px}
+.blb-annotation-head p{color:var(--text-muted);font-size:12px;margin:0 0 12px}
+.blb-annotation-warning{padding:9px 12px;border-left:3px solid var(--interactive-accent);
+  background:var(--background-primary);font-size:12px;line-height:1.55;
+  color:var(--text-muted);border-radius:4px}
+.blb-annotation-item{padding:12px 13px;margin-top:9px;border-radius:10px;
+  background:var(--background-primary);border:1px solid var(--blb-border);
+  overflow-wrap:anywhere}
+.blb-annotation-label{display:flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:750;color:var(--text-normal)}
+.blb-annotation-label svg{width:16px;height:16px;color:var(--interactive-accent)}
+.blb-annotation-item p{font-size:13px;line-height:1.6;
+  white-space:pre-wrap;margin:7px 0 0}
+.blb-annotation-item .blb-action{margin-top:8px}
