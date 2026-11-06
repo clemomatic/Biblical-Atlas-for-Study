@@ -9,6 +9,10 @@ test('Official French catalog requests and conservative CDN URL handling',()=>{
  const url=new URL(publicJwpubQuery('ca-copgm27'));
  assert.equal(url.hostname,'b.jw-cdn.org');
  assert.equal(url.searchParams.get('pub'),'ca-copgm27');
+ assert.equal(url.searchParams.get('booknum'),'0');
+ const study=new URL(publicJwpubQuery('nwtsty'));
+ assert.equal(study.searchParams.get('pub'),'nwtsty');
+ assert.equal(study.searchParams.get('booknum'),'0');
  assert.equal(url.searchParams.get('langwritten'),'F');
  assert.equal(url.searchParams.get('fileformat'),'JWPUB');
  assert.throws(()=>publicJwpubQuery('https://example.net'),/invalide/);
