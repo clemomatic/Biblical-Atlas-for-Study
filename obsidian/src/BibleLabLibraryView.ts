@@ -678,11 +678,11 @@ export class BibleLabLibraryView extends ItemView {
       head.createSpan({text:hit.note.title||'Note personnelle'});
       if(hit.note.content)card.createEl('p',{text:hit.note.content.slice(0,1200)});
       if(hit.location){
-        const source=card.createEl('p',{cls:'blb-online-meta',text:
-          'Source : '+(hit.location.symbol||'Bible')+
-          (hit.location.book!==null?' · livre '+hit.location.book:'')+
-          (hit.location.chapter!==null?' · chapitre '+hit.location.chapter:'')+
-          (hit.location.document!==null?' · document '+hit.location.document:'')});
+        const locationLabel=hit.location.book!==null?
+          bibleBookName(hit.location.book)+
+            (hit.location.chapter!==null?' '+hit.location.chapter:''):
+          hit.location.symbol||'Note personnelle';
+        card.createEl('p',{cls:'blb-online-meta',text:'Source : '+locationLabel});
         if(hit.location.symbol){
           const volume=this.volumes.find(v=>v.symbol.toLowerCase()===
             hit.location!.symbol!.toLowerCase()&&v.language===hit.location!.language&&
@@ -732,6 +732,16 @@ export class BibleLabLibraryView extends ItemView {
       },entry.chapter===this.selectedBibleChapter?'primary':'');
     }
     if(this.selectedBibleChapter===null)return;
+    const volume=this.volumes.find(v=>v.virtual&&v.language===3&&
+      v.symbol==='nwtsty'&&v.items.some(d=>
+        d.bibleBook===this.selectedBibleBook&&d.bibleChapter===this.selectedBibleChapter));
+    const document=volume?.items.find(d=>
+      d.bibleBook===this.selectedBibleBook&&d.bibleChapter===this.selectedBibleChapter);
+    if(volume&&document)button(section,'Lire le chapitre avec mes couleurs','book-open-text',()=>{
+      this.browsingAnnotations=false;this.term='';this.input.value='';
+      this.selectedPath=volume.path;this.selectedDocument=document.documentId;
+      void this.renderContent();
+    });
     const matched=annotationsForBibleChapter(
       index,this.selectedBibleBook,this.selectedBibleChapter);
     if(matched)this.displayArticleAnnotations(section,matched,true);
