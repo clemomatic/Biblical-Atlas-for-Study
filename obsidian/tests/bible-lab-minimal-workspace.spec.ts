@@ -17,7 +17,7 @@ test('The first screen is study-first with four clear destinations and no tools 
   await expect(pane.locator('.biblelab-focus-today')).not.toHaveAttribute('open','');
   await expect(pane.locator('.biblelab-quick-capture')).toHaveCount(0);
   await expect(pane.locator('.biblelab-focus-inbox')).toBeVisible();
-  await expect(pane.locator('.biblelab-top-actions .biblelab-icon-action')).toHaveCount(2);
+  await expect(pane.locator('.biblelab-top-actions .biblelab-icon-action')).toHaveCount(3);
   await pane.locator('.biblelab-overflow > summary').click();
   await expect(pane.getByRole('button',{name:'Lire les références'})).toBeVisible();
   await expect(pane.getByRole('button',{name:'Atlas biblique'})).toBeVisible();

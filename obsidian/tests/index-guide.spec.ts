@@ -26,6 +26,7 @@ test('Guide search keeps WOL itself responsible for result classification',async
   await pane.getByPlaceholder('Sujet, publication ou verset…').fill('compassion');
   await pane.getByRole('button',{name:'Guide de recherche',exact:true}).click();
   await expect(pane.getByRole('button',{name:'Guide de recherche',exact:true})).toHaveAttribute('aria-pressed','true');
+  await pane.locator('.biblelab-wol-extras > summary').click();
   await expect(pane.getByText(/Index et Guide de recherche utilisent le filtre officiel Index/i)).toBeVisible();
   const search=await page.evaluate(()=>(window as any).atlasTest.app.workspace
     .getLeavesOfType('webviewer')[0].view.getState().url);

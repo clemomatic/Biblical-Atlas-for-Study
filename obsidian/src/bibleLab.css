@@ -1717,3 +1717,7 @@
 .biblelab-offline-manual button:focus-visible{
   outline:2px solid var(--interactive-accent);outline-offset:2px;
 }
+.biblelab-capture-assignment{margin-top:8px;color:var(--text-muted);font-size:12px}
+.biblelab-capture-assignment summary{cursor:pointer;padding:7px 0}
+.biblelab-capture-assignment select{max-width:100%;margin:6px 0}
+.biblelab-capture-assignment .biblelab-btn{margin:5px 0}

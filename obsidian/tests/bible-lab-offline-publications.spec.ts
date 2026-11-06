@@ -37,11 +37,11 @@ test.beforeEach(async({page})=>{
 
 test('Personal library is offline-first: no catalogue requests until checking a public symbol',async({page})=>{
  await page.evaluate(()=>(window as any).atlasTest.plugin.openOfflineLibrary());
- await expect(page.getByRole('heading',{name:'Bibliothèque hors ligne'})).toBeVisible();
+ await expect(page.getByRole('heading',{name:'Ma bibliothèque'})).toBeVisible();
  const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests||[]);
  expect(requests.filter((r:any)=>r.url?.includes('GETPUBMEDIALINKS'))).toHaveLength(0);
- await expect(page.getByText('Aucune publication indexée pour le moment.')).toBeVisible();
- await expect(page.getByText('Circonscription 2026-2027 · responsable de circonscription')).toBeVisible();
+ await expect(page.locator('.blb-book-card')).toHaveCount(14);
+ await expect(page.getByText('Assemblée de circonscription 2026-2027 · responsable de circonscription')).toBeVisible();
 });
 
 test('Download an explicitly selected public JWPUB then read its direct WOL source completely offline',async({page})=>{
@@ -59,11 +59,14 @@ test('Download an explicitly selected public JWPUB then read its direct WOL sour
  await page.route('https://download-a.akamaihd.net/**',route=>{
   downloadCalls++;return route.fulfill({status:200,contentType:'application/octet-stream',body:archive});
  });
- await page.evaluate(()=>(window as any).atlasTest.plugin.openOfflineLibrary());
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openNativeBridge());
+ await page.getByText('Options avancées',{exact:true}).click();
+ await page.getByRole('button',{name:'Trouver une publication par son code'}).click();
  await page.getByRole('button',{name:'Vérifier'}).first().click();
- await expect(page.getByRole('button',{name:'Télécharger et préparer'})).toBeVisible();
+ await expect(page.getByRole('button',{name:'Télécharger',exact:true})).toBeVisible();
  expect(catalogCalls).toBe(1);expect(downloadCalls).toBe(0);
- await page.getByRole('button',{name:'Télécharger et préparer'}).click();
+ await page.getByText('Options avancées',{exact:true}).click();
+ await page.getByRole('button',{name:'Télécharger en notes modifiables'}).click();
  await expect(page.getByText('documents déchiffrés')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();
  await expect.poll(async()=>page.evaluate(()=>(window as any).atlasTest.files()
@@ -94,9 +97,10 @@ test('Download an explicitly selected public JWPUB then read its direct WOL sour
 
 test('Private school or instruction JWPUB imports as notes without consulting an online catalogue',async({page})=>{
  const file=Buffer.from(await jwpubBytes('s-38',null));
- await page.evaluate(()=>(window as any).atlasTest.plugin.openOfflineLibrary());
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openNativeBridge());
+ await page.getByText('Options avancées',{exact:true}).click();
  const choose=page.waitForEvent('filechooser');
- await page.getByRole('button',{name:'Ancien import Markdown JWPUB'}).click();
+ await page.getByRole('button',{name:'Convertir un JWPUB en notes modifiables'}).click();
  await (await choose).setFiles({name:'instructions_ecole.jwpub',mimeType:'application/zip',buffer:file});
  await expect(page.getByText('documents déchiffrés')).toBeVisible();
  await page.getByRole('button',{name:'Importer dans Obsidian'}).click();

@@ -16,7 +16,7 @@ test('Study-first homepage offers one search and a calmer navigation hierarchy',
   await expect(pane.locator('.biblelab-overflow > summary')).toBeVisible();
   await pane.locator('.biblelab-overflow > summary').click();
   await expect(pane.getByRole('button',{name:'Atlas biblique'})).toBeVisible();
-  await expect(pane.getByRole('button',{name:'Studio et outils avancés'})).toBeVisible();
+  await expect(pane.getByRole('button',{name:'Autres outils'})).toBeVisible();
 });
 
 test('Typing a verse on the homepage opens the local reader directly',async({page})=>{

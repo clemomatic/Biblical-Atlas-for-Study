@@ -43,8 +43,8 @@ test('Library is a real Obsidian tab with an uncluttered empty shelf, not a fift
  await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
  const library=page.locator('.blb-library');
  await expect(library.getByRole('heading',{name:'Ma bibliothèque'})).toBeVisible();
- await expect(library.getByText('Une bibliothèque à toi')).toBeVisible();
- await expect(library.getByRole('button',{name:'Télécharger une publication'})).toBeVisible();
+ await expect(library.locator('.blb-book-card')).toHaveCount(14);
+ await expect(library.getByRole('button',{name:'Ajouter un fichier'})).toBeVisible();
  await expect(library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'})).toBeVisible();
  await expect(page.locator('.biblelab-side .biblelab-focus-nav .biblelab-tab')).toHaveCount(0);
  await expect(library.locator('.blb-category')).toHaveCount(9);
@@ -57,7 +57,9 @@ test('Imports a private school JWPUB, shows the visual book, reads its chapters 
  await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
  const library=page.locator('.blb-library');
  const chooser=page.waitForEvent('filechooser');
- await library.getByRole('button',{name:'Importer mon premier JWPUB'}).click();
+ await page.evaluate(()=>(window as any).atlasTest.plugin.openNativeBridge());
+ await page.getByText('Options avancées',{exact:true}).click();
+ await page.getByRole('button',{name:'Convertir un JWPUB en notes modifiables'}).click();
  await (await chooser).setFiles({
   name:'ecole_confidentielle.jwpub',mimeType:'application/zip',buffer:await personalJwpub()
  });
@@ -138,12 +140,12 @@ test('Virtual JWPUB import keeps one source and search cache, with no per-articl
  await page.evaluate(()=>(window as any).atlasTest.plugin.openVisualLibrary());
  const library=page.locator('.blb-library');
  const chooser=page.waitForEvent('filechooser');
- await library.getByRole('button',{name:'Ajouter un JWPUB sans notes'}).click();
+ await library.getByRole('button',{name:'Ajouter un fichier'}).click();
  await (await chooser).setFiles({
   name:'manuel_virtuel.jwpub',mimeType:'application/zip',buffer:await personalJwpub()
  });
- await expect(page.getByText('articles indexés sans fichiers MD')).toBeVisible();
- await page.getByRole('button',{name:'Ajouter à la bibliothèque virtuelle'}).click();
+ await expect(page.getByText('articles disponibles')).toBeVisible();
+ await page.getByRole('button',{name:'Ajouter à ma bibliothèque'}).click();
  await expect(library.getByRole('button',{name:'Ouvrir Manuel de formation'})).toBeVisible();
  const stored=await page.evaluate(()=>{
   const prefix=(window as any).atlasTest.plugin.settings.noteFolder+'/Bibliothèque virtuelle/';

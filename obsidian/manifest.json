@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
-  "name": "Bible Lab — Study Studio",
-  "version": "0.10.0",
+  "name": "Bible Lab",
+  "version": "0.11.0",
   "minAppVersion": "1.6.0",
-  "description": "Recherche et articles WOL dans la visionneuse web native d’Obsidian, avec aperçus rapides dans les notes.",
+  "description": "Étudier, garder ses trouvailles et lire ses publications dans une bibliothèque unifiée.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false

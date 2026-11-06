@@ -37,6 +37,12 @@ const parseFile = content => {
 };
 class Vault extends Emitter {
   files = new Map();
+  configDir = '.obsidian';
+  privateFiles = new Map();
+  adapter = {
+    read: async path => { if(!this.privateFiles.has(path))throw Error('Missing file');return this.privateFiles.get(path); },
+    write: async (path,text) => { this.privateFiles.set(path,text); }
+  };
   getName() { return 'Étude & méditation'; }
   getAbstractFileByPath(path) { return this.files.get(path) ?? null; }
   getMarkdownFiles() { return [...this.files.values()].filter(file => file instanceof TFile && file.extension === 'md'); }
@@ -141,11 +147,12 @@ class Menu {
     this.entries.push(item);
     return this;
   }
-  showAtPosition(){
+  showAtPosition(position={x:12,y:12}){
     document.querySelector('.mock-context-menu')?.remove();
     const menu=document.createElement('div');
     menu.className='mock-context-menu';
     menu.setAttribute('role','menu');
+    Object.assign(menu.style,{position:'fixed',left:position.x+'px',top:position.y+'px',zIndex:'20000',display:'flex',flexDirection:'column',gap:'4px',padding:'10px',maxWidth:'240px',background:'var(--background-primary,#fffdf8)',color:'var(--text-normal,#172033)',border:'1px solid #8886',borderRadius:'10px',boxShadow:'0 8px 30px #0003'});
     for(const item of this.entries){
       if(item.separator){menu.createEl('hr');continue;}
       const action=menu.createEl('button',{text:item.title});

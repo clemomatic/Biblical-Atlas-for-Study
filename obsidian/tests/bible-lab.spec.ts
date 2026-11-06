@@ -42,7 +42,7 @@ test('map finder searches official grid and opens a specific verified map',async
 test('study Bible resources include individual maps and the main appendices',async({page})=>{
   const pane=page.locator('.biblelab-side');
   await pane.locator('.biblelab-overflow > summary').click();
-  await pane.getByRole('button',{name:'Publications et ressources'}).click();
+  await pane.getByRole('button',{name:'Outils documentaires'}).click();
   await expect(pane.getByText('Appendice A',{exact:true})).toBeVisible();
   await expect(pane.getByText('Appendice B',{exact:true})).toBeVisible();
   await expect(pane.getByText('Appendice C',{exact:true})).toBeVisible();

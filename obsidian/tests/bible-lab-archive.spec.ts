@@ -16,13 +16,14 @@ test('A saved WOL source can be tagged, starred, archived and recovered without 
   await pane.getByRole('textbox',{name:'Lien WOL précis'})
     .fill('https://wol.jw.org/fr/wol/d/r30/lp-f/2024663#h=3');
   await pane.getByRole('button',{name:'Ajouter au bac'}).click();
-  await pane.locator('.biblelab-capture-card').first()
-    .getByRole('button',{name:'Ranger dans mon index'}).click();
+  await pane.locator('.biblelab-capture-card').first().getByRole('button',{name:'Options de la trouvaille'}).click();
+  await page.getByRole('button',{name:'Ranger dans mon index'}).click();
   await expect(pane.getByRole('heading',{name:'BAC À TROUVAILLES · 0'})).toBeVisible();
   await pane.locator('.biblelab-tab[aria-label="Mon index"]').click();
   const card=pane.locator('.biblelab-archive-card').first();
   await expect(card.getByText('L’exemple de Jésus')).toBeVisible();
-  await card.getByRole('button',{name:'Ajouter aux favoris'}).click();
+  await card.getByRole('button',{name:'Options de la source'}).click();
+  await page.getByRole('button',{name:'Ajouter aux favoris'}).click();
   const updatedCard=pane.locator('.biblelab-archive-card').first();
   await updatedCard.locator('details.biblelab-archive-edit').evaluate((el:HTMLDetailsElement)=>{el.open=true});
   await updatedCard.getByRole('textbox',{name:'Étiquettes de la source'}).fill('Amitié, Jesus, amitié');

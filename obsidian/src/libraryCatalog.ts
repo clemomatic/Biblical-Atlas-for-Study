@@ -64,8 +64,8 @@ export async function loadLibraryVolumes(app:App,root:string):Promise<LibraryVol
     year:index.publication.year,language:index.publication.language,
     documents:index.documents.length,path:folder,
     category:classifyLibraryVolume(index.publication.symbol,index.publication.title),
-    origin:'personal',issue:index.publication.issue||'',
-    items:index.documents,coverPath:null,virtual:true
+    origin:index.origin==='download'?'download':'personal',issue:index.publication.issue||'',
+    items:index.documents,coverPath:findCover(app,folder),virtual:true
   }));
   return [...legacy,...volumes].sort((a,b)=>b.year-a.year||a.title.localeCompare(b.title,'fr'));
 }
