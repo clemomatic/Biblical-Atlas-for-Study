@@ -7,7 +7,7 @@ import { unzipSync, unzlibSync, strFromU8, strToU8 } from 'fflate';
 import { patchZip } from './zipPatch';
 import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
 import { buildJwpubMeetingNotebooks, type MeetingDocument } from './meetingNotebook';
-import {createVirtualIndex,encodeVirtualTexts,VIRTUAL_INDEX,VIRTUAL_TEXT,VIRTUAL_SOURCE,type VirtualDocument} from './virtualJwpub';
+import {createVirtualIndex,encodeVirtualTexts,VIRTUAL_INDEX,VIRTUAL_TEXT,VIRTUAL_SOURCE,type VirtualDocument,type VirtualBlock} from './virtualJwpub';
 import {extractJwAnnotations,encodeJwAnnotations,summarizeJwAnnotations,ANNOTATION_INDEX_NAME,ANNOTATION_META_NAME} from './jwAnnotations';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
@@ -162,6 +162,45 @@ export async function readBackup(file:File):Promise<ImportPreview>{
      warnings:['L’import est une copie. La sauvegarde d’origine reste intacte.']};
  }finally{db.close();}
 }
+
+/** Preserve source paragraph / verse identifiers before Markdown strips them.
+ * Text is kept as plain strings and is never inserted as unchecked HTML. */
+function jwBlocks(html:Document,kind:'article'|'bible',book=0,chapter=0):VirtualBlock[]{
+ const blocks:VirtualBlock[]=[];
+ const clean=(element:Element):string=>{
+  const clone=element.cloneNode(true) as Element;
+  for(const ignored of [...clone.querySelectorAll('.tt,.vl,.cl,.fn,.m,script,style')])
+    ignored.remove();
+  return (clone.textContent||'').replace(/\s+/g,' ').trim();
+ };
+ if(kind==='bible'){
+  const seen=new Set<number>();
+  for(const el of html.querySelectorAll('[id^="v"]')){
+   const match=/^v(\d+)-(\d+)-(\d+)$/.exec(el.id);
+   if(!match||Number(match[1])!==book||Number(match[2])!==chapter)continue;
+   const verse=Number(match[3]);
+   if(verse<1||verse>176||seen.has(verse))continue;
+   const text=clean(el);
+   if(!text)continue;
+   blocks.push({identifier:verse,kind:'verse',text});seen.add(verse);
+  }
+ }else{
+  const used=new Set<number>();
+  for(const el of html.querySelectorAll('[data-pid], [id^="p"]')){
+   const id=el.getAttribute('data-pid')||el.getAttribute('id')||'';
+   const match=/^(?:p)?(\d+)$/.exec(id);
+   if(!match||el.querySelector('[data-pid]'))continue;
+   const num=Number(match[1]);
+   if(!Number.isSafeInteger(num)||num<0||used.has(num))continue;
+   const text=clean(el);
+   if(text.length<2||text.length>12000)continue;
+   used.add(num);blocks.push({identifier:num,kind:'paragraph',text});
+   if(blocks.length>=450)break;
+  }
+ }
+ return blocks;
+}
+
 export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):Promise<ImportPreview>{
  const bytes=u8(await file.arrayBuffer());const zip=extract(bytes,n=>n==='contents'||n==='manifest.json');
  assert(zip['contents'],'Conteneur JWPUB sans fichier contents.');
@@ -178,9 +217,9 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
    const iv=x.subarray(16);
    const documentCols=new Set(query(db,'PRAGMA table_info(Document)').map(x=>String(x.name)));
    // Older and specialist JWPUB files may omit MepsDocumentId.
-   const docs=query(db,'SELECT DocumentId, Title, Content'+
+   const docs=documentCols.size?query(db,'SELECT DocumentId, Title, Content'+
      (documentCols.has('MepsDocumentId')?', MepsDocumentId':'')+
-     ' FROM Document ORDER BY DocumentId');
+     ' FROM Document ORDER BY DocumentId'):[];
    const entries:ImportEntry[]=[];let count=0;
    const indexDocuments:OfflineDocumentRecord[]=[];
    const notebookSources:MeetingDocument[]=[];
@@ -217,7 +256,8 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
      const wolUrl=validMeps&&language===3
        ?'https://wol.jw.org/fr/wol/d/r30/lp-f/'+validMeps:null;
      if(mode==='virtual')virtualDocs.push({documentId:Number(doc.DocumentId),mepsId:validMeps,
-       title,path:filename,text:'# '+title+'\n\n'+markdown});
+       title,path:filename,text:'# '+title+'\n\n'+markdown,
+       blocks:jwBlocks(parsed,'article')});
      else entries.push({name:filename,text:'---\nbible_lab_kind: jwpub-document'+
        '\nsource_symbol: '+JSON.stringify(pub.Symbol)+
        '\nsource_year: '+pub.Year+
@@ -230,6 +270,48 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
      notebookSources.push({path:filename,title,markdown,sourceUrl:wolUrl});
      count++;
    }
+
+   // Bible JWPUBs use BibleChapter and BibleVerse tables. Looking only at
+   // Document misses the scripture text of nwt and nwtsty.
+   if((pub.Symbol==='nwt'||pub.Symbol==='nwtsty')&&
+      query(db,"SELECT name FROM sqlite_master WHERE type='table' AND name='BibleChapter'").length){
+     const names=new Map<number,string>();
+     if(query(db,"SELECT name FROM sqlite_master WHERE type='table' AND name='BibleBook'").length){
+       for(const r of query(db,'SELECT BibleBookId,ChapterDisplayTitle FROM BibleBook')){
+         if(Number.isInteger(Number(r.BibleBookId)))
+           names.set(Number(r.BibleBookId),String(r.ChapterDisplayTitle||'Livre '+r.BibleBookId).trim());
+       }
+     }
+     const chapters=query(db,'SELECT Content FROM BibleChapter');
+     for(const chapterRow of chapters){
+       if(!chapterRow.Content)continue;
+       const ciphertext=u8(chapterRow.Content as Uint8Array);
+       const decoded=new Uint8Array(await crypto.subtle.decrypt(
+         {name:'AES-CBC',iv:iv as BufferSource},key,ciphertext as BufferSource));
+       const html=string(unzlibSync(decoded));
+       const parsed=new DOMParser().parseFromString(html,'text/html');
+       const marker=parsed.querySelector('[id^="v"]');
+       const m=marker&&/^v(\d+)-(\d+)-(\d+)$/.exec(marker.id);
+       if(!m)continue;
+       const book=Number(m[1]),chapter=Number(m[2]);
+       if(book<1||book>66||chapter<1||chapter>176)continue;
+       const blocks=jwBlocks(parsed,'bible',book,chapter);
+       if(!blocks.length)continue;
+       const title=(names.get(book)||'Livre '+book)+' '+chapter;
+       const id=120000000+book*1000+chapter;
+       const filename=String(id)+' · '+safeName(title)+'.md';
+       const text='# '+title+'\n\n'+blocks.map(b=>b.identifier+' '+b.text).join('\n\n');
+       if(mode==='virtual')virtualDocs.push({
+         documentId:id,mepsId:null,title,path:filename,text,
+         bibleBook:book,bibleChapter:chapter,blocks
+       });
+       else entries.push({name:filename,text});
+       indexDocuments.push({documentId:id,mepsId:null,title,path:filename,
+         bibleBook:book,bibleChapter:chapter} as OfflineDocumentRecord);
+       count++;
+     }
+   }
+
    assert(count>0,'Aucun document converti.');
    // Preserve every original document and its MEPS identifier for offline
    // reference resolution; the notebook is an additional editable entry.
