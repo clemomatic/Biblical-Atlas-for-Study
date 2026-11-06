@@ -120,7 +120,7 @@ export class WolContextCaptureBridge {
     const snapshotPromise=this.readPage(page);
     const menu=new Menu();
     menu.addItem(item=>item
-      .setTitle('Bible Lab · Garder cette portion')
+      .setTitle('JW Study Desk · Garder cette portion')
       .setIcon('bookmark-plus')
       .onClick(()=>{void this.captureSelection(page,selected,snapshotPromise);}));
     menu.addSeparator();

@@ -100,16 +100,16 @@ export class BibleLabArticleView extends ItemView {
   }
   private render(): void {
     this.contentEl.empty();
-    this.contentEl.addClass('biblelab-side', 'biblelab-article-tab');
+    this.contentEl.addClass('biblelab-side', 'biblelab-article-tab','jwsd-theme');
     this.contentEl.createEl('style', { text: styles });
     const scrolling = this.contentEl.createDiv({ cls: 'biblelab-article-tab-scroll' });
     const page = scrolling.createDiv({ cls: 'biblelab-article-tab-inner' });
     const heading = page.createDiv({ cls: 'biblelab-article-tab-heading' });
     const identity = heading.createDiv();
-    identity.createSpan({ cls: 'biblelab-article-tab-eyebrow', text: 'BIBLE LAB · LECTURE WOL' });
+    identity.createSpan({ cls: 'biblelab-article-tab-eyebrow', text: 'JW STUDY DESK · LECTURE WOL' });
     identity.createEl('h2', { text: this.current?.label || 'Article WOL' });
     if (!this.current) {
-      page.createEl('p', { cls: 'biblelab-reader-hint', text: 'Sélectionne un document WOL depuis la recherche Bible Lab.' });
+      page.createEl('p', { cls: 'biblelab-reader-hint', text: 'Sélectionne un document WOL depuis la recherche JW Study Desk.' });
       return;
     }
     const toolbar = page.createDiv({ cls: 'biblelab-article-tab-toolbar' });

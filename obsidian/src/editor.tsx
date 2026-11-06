@@ -1,5 +1,6 @@
 import { useMemo, useState, useSyncExternalStore } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
+import {STUDY_DESK_CSS} from './studyDeskBrand';
 import { Modal, type App } from 'obsidian';
 import type { AtlasEntityKey, AtlasEntityType, AtlasSelection } from '../../src/atlasIntegration';
 import type { AtlasWorkspace } from './catalog';
@@ -122,10 +123,11 @@ function EntityForm({ selection, atlas, save, close, openNote }: {
 export abstract class ReactAtlasModal extends Modal {
   protected root?: Root;
   protected mount(): Root {
-    this.modalEl.addClass('atlas-edit-modal');
+    this.modalEl.addClass('atlas-edit-modal','jwsd-modal','jwsd-theme');
+    this.contentEl.addClass('jwsd-theme');
     const host = this.contentEl.createDiv(); const shadow = host.attachShadow({ mode: 'open' });
-    const style = document.createElement('style'); style.textContent = editorCss; shadow.append(style);
-    const mount = document.createElement('div'); shadow.append(mount); return this.root = createRoot(mount);
+    const style = document.createElement('style'); style.textContent = editorCss+STUDY_DESK_CSS; shadow.append(style);
+    const mount = document.createElement('div');mount.className='jwsd-theme';shadow.append(mount); return this.root = createRoot(mount);
   }
   onClose(): void { this.root?.unmount(); this.root = undefined; this.contentEl.empty(); }
 }

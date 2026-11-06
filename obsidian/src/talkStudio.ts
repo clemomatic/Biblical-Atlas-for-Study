@@ -78,6 +78,7 @@ status: préparation
 export class TalkStudioModal extends Modal {
   constructor(app:App, private save:(draft:TalkDraft)=>Promise<void>){super(app);}
   onOpen():void {
+    this.modalEl.addClass('jwsd-theme','jwsd-modal');this.contentEl.addClass('jwsd-theme');
     const root=this.contentEl;root.empty();root.addClass('biblelab-talk-modal');
     root.createEl('h2',{text:'Créer un plan de discours'});
     root.createEl('p',{text:'Structure claire, minuterie indicative et notes libres.'});

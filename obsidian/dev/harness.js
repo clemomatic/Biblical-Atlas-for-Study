@@ -16,6 +16,7 @@ const element = (tag, options = {}) => {
 };
 HTMLElement.prototype.empty = function () { this.replaceChildren(); };
 HTMLElement.prototype.addClass = function (...names) { this.classList.add(...names); };
+HTMLElement.prototype.removeClass = function (...names) { this.classList.remove(...names); };
 HTMLElement.prototype.setText = function (text) { this.textContent = text; };
 HTMLElement.prototype.createEl = function (tag, options) { const child = element(tag, options); this.append(child); return child; };
 HTMLElement.prototype.createDiv = function (options) { return this.createEl('div', options); };
@@ -220,20 +221,23 @@ const app = { vault, metadataCache, workspace, fileManager: { async processFront
   const { frontmatter, body } = parseFile(file.content); callback(frontmatter);
   await vault.modify(file, `---\n${stringify(frontmatter)}---\n${body}`);
 } } };
+const registeredIcons=new Map();
+const addIcon=(name,svg)=>registeredIcons.set(name,svg);
 const setIcon = (node,name) => {
   node.dataset.icon=name;
+  if(registeredIcons.has(name)){node.innerHTML='<svg viewBox="0 0 100 100" width="18" height="18" aria-hidden="true">'+registeredIcons.get(name)+'</svg>';return;}
   const component=icons[name.split('-').map(part=>part[0].toUpperCase()+part.slice(1)).join('')]||icons.Circle;
   node.innerHTML=renderToStaticMarkup(createElement(component,{size:18,'aria-hidden':true}));
 };
 const debounce = (callback, delay) => { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => callback(...args), delay); }; };
-const api = { ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, Menu, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, debounce };
+const api = { ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, Menu, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, addIcon, debounce };
 if (new URLSearchParams(location.search).get('theme') === 'dark') document.body.classList.add('theme-dark');
 await vault.createFolder('Mes notes');
 await vault.create('Mes notes/Une idée précieuse.md', '---\ntags: [personnel]\npriorite: 3\n---\nMon texte personnel **à conserver**.\n\nUne seconde ligne.\n');
 const module = { exports: {} };
 new Function('module', 'exports', 'require', bundle)(module, module.exports, id => { if (id === '@codemirror/view') return codeMirrorView; if (id !== 'obsidian') throw Error(`Unexpected runtime dependency: ${id}`); return api; });
 const PluginClass = module.exports.default ?? module.exports;
-let plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.3.0', name: 'Bible Lab — Atlas et recherche biblique' });
+let plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.12.0', name: 'JW Study Desk' });
 await plugin.onload();
 await plugin.openAtlas();
 window.atlasTest = {
@@ -283,7 +287,7 @@ window.atlasTest = {
   async remove(path) { await vault.delete(vault.files.get(path)); },
   async restart() {
     await plugin.unload(); workspace.leaves = []; document.querySelector('#surface').empty();
-    plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.3.0', name: 'Bible Lab — Atlas et recherche biblique' });
+    plugin = new PluginClass(app, { id: 'atlas-biblique', version: '0.12.0', name: 'JW Study Desk' });
     await plugin.onload(); await plugin.openAtlas(); this.plugin = plugin;
   }
 };

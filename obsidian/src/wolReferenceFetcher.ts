@@ -633,7 +633,7 @@ function readerForDocument(html:string,url:string,label:string):ReaderResult{
  if(isNavigationShell(result))
    throw Error('WOL a renvoyé un menu de navigation, pas un article.');
  if(!hasReadableArticleBody(result))
-   throw Error('La page officielle a répondu, mais Bible Lab ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
+   throw Error('La page officielle a répondu, mais JW Study Desk ne reconnaît pas sa structure HTML. Consulte le document directement sur WOL.');
  return result;
 }
 /** An existing official page may send a dynamic shell instead of its article

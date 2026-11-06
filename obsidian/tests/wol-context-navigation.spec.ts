@@ -85,7 +85,7 @@ test('WOL Bible cross-reference context can open its official canonical chapter'
  await waitFor(page,'Moïse réunit le peuple');
 });
 
-test('clicking an inline WOL /pc/ link navigates inside Bible Lab, then returns by history',async({page})=>{
+test('clicking an inline WOL /pc/ link navigates inside JW Study Desk, then returns by history',async({page})=>{
  const second='https://wol.jw.org/fr/wol/pc/r30/lp-f/1200004775/94/1';
  await page.route(direct,route=>route.fulfill({
   status:200,contentType:'text/html',
@@ -131,7 +131,7 @@ test('a WOL navigation h1 before the article does not hide the actual article bo
   body:'<html><header><h1>Consulter</h1><p>PUBLICATIONS</p></header>'+
     '<article class="bodyTxt"><h1>CONGRÉGATION</h1>'+
     '<p>Le véritable article est présent derrière l’en-tête de navigation.</p>'+
-    '<p>Il doit être lu dans le panneau Bible Lab.</p></article></html>'
+    '<p>Il doit être lu dans le panneau JW Study Desk.</p></article></html>'
  }));
  await page.evaluate((url)=>(window as any).atlasTest.plugin.openBibleLab(url),direct);
  await waitFor(page,'Le véritable article est présent');

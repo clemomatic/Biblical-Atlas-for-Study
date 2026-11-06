@@ -1,16 +1,26 @@
-# Bible Lab 0.11 — bibliothèque et parcours simplifiés
+# JW Study Desk 0.12 — votre espace d’étude dans Obsidian
 
-La bibliothèque réunit le catalogue public et les ouvrages déjà présents. Le catalogue se charge automatiquement et reste disponible entre les ouvertures. Sur chaque couverture : **Télécharger**, **Lire** ou **Voir les numéros**, puis **⋯** pour les autres actions.
+Le nouveau bureau réunit **Bibliothèque**, **Recherche**, **Mes notes**, **Fiches d’idées**, **Bac à idées** et **Préparation**. Ouvrez-le depuis le logo dans le ruban d’Obsidian, ou la commande **Ouvrir JW Study Desk**.
 
-- Ouvrir la bibliothèque : icône bibliothèque dans le panneau Bible Lab, ou commande « Ouvrir ma bibliothèque ».
-- Ajouter un ouvrage : **Ajouter un fichier** ; le format compact est choisi automatiquement.
-- Retrouver ses annotations : **⋯ → Importer une sauvegarde JW Library**, puis **Mes annotations**.
-- Les conversions Markdown et les outils de diagnostic sont dans les options avancées.
-- Les notes et imports existants sont conservés.
+Le logo approuvé, le violet et les accents pétrole, sauge et corail accompagnent vos outils. Les polices Montserrat et Inter, le logo et le panorama d’accueil sont inclus : l’interface fonctionne sans connexion. L’apparence suit le mode clair ou sombre d’Obsidian ; une barre de navigation reste accessible sur les écrans étroits.
 
-Voir [l’audit complet et les limites de validation](AUDIT-REFONTE-0.11.md).
+- **Bibliothèque** : catalogue chargé automatiquement, ouvrages rangés par catégorie, un bouton principal par couverture et **⋯** pour les autres actions.
+- **Mes notes** : retrouvez les notes personnelles du coffre, sans les noyer sous les documents sources et les index importés.
+- **Fiches d’idées et bac** : utilisez vos données existantes et leurs éditeurs dans le panneau d’étude.
+- **Préparation** : accédez au texte du jour, au programme de la semaine ou créez un plan de discours modifiable.
+- **Paramètres** : dossier des nouvelles recherches, fichiers et sauvegardes, cartes hors connexion.
 
-Installation manuelle : fermer Obsidian, extraire le dossier `atlas-biblique` du ZIP dans `.obsidian/plugins/`, puis rouvrir Obsidian et activer Bible Lab. Pour mettre à jour, remplacer les fichiers du plugin sans supprimer `data.json`, le cache de catalogue ni les dossiers du coffre. Cette préversion n’est pas une publication automatique pour BRAT.
+## Installation ou mise à jour
+
+1. Fermez Obsidian et extrayez le dossier **`atlas-biblique`** du ZIP dans **`.obsidian/plugins/`** de votre coffre.
+2. Pour une mise à jour, remplacez les fichiers du plugin en conservant **`data.json`**, le cache de catalogue et les dossiers du coffre.
+3. Rouvrez Obsidian et activez **JW Study Desk**, puis cliquez sur son logo dans le ruban.
+
+L’identifiant et le dossier `atlas-biblique` sont conservés pour retrouver automatiquement les réglages, raccourcis, recherches et bibliothèques de Bible Lab. Il ne faut pas installer une seconde copie sous un autre identifiant.
+
+Voir [les changements et vérifications de cette version](JW-STUDY-DESK-0.12.md) et [l’audit fonctionnel précédent](AUDIT-REFONTE-0.11.md). Cette préversion s’installe manuellement ; elle n’est pas une publication automatique pour BRAT.
+
+Projet communautaire indépendant, sans affiliation officielle avec JW.org ou Obsidian.
 
 ---
 

@@ -33,7 +33,14 @@ test('The preview can be dragged by its header, stays put on navigation and can 
  await page.mouse.up();
  const dragged=await popup.boundingBox();
  expect(dragged).toBeTruthy();
- expect(dragged!.x).toBeGreaterThan(first!.x+70);
+ // A phone-width reader already fills the horizontal space. It must stay
+ // within the viewport while still responding to vertical dragging.
+ if(page.viewportSize()!.width-first!.x-first!.width>82)
+  expect(dragged!.x).toBeGreaterThan(first!.x+70);
+ else {
+  expect(dragged!.x).toBeGreaterThanOrEqual(12);
+  expect(dragged!.x+dragged!.width).toBeLessThanOrEqual(page.viewportSize()!.width-12);
+ }
  expect(dragged!.y).toBeGreaterThan(first!.y+50);
 
  // Clicking a reference no longer snaps the popup back to its original anchor.

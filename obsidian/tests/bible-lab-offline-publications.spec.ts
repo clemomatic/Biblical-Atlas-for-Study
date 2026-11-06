@@ -41,7 +41,7 @@ test('Personal library is offline-first: no catalogue requests until checking a 
  const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests||[]);
  expect(requests.filter((r:any)=>r.url?.includes('GETPUBMEDIALINKS'))).toHaveLength(0);
  await expect(page.locator('.blb-book-card')).toHaveCount(14);
- await expect(page.getByText('Assemblée de circonscription 2026-2027 · responsable de circonscription')).toBeVisible();
+ await expect(page.getByRole('article',{name:'Assemblée de circonscription 2026-2027 · responsable de circonscription',exact:true})).toBeVisible();
 });
 
 test('Download an explicitly selected public JWPUB then read its direct WOL source completely offline',async({page})=>{

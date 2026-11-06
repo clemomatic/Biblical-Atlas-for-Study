@@ -1,0 +1,237 @@
+/* JW Study Desk: scoped application identity. No changes to other Obsidian panes. */
+.jwsd-theme {
+  --jwsd-primary:#6a3cf5;--jwsd-indigo:#3b0d94;--jwsd-petrol:#0d6e8c;
+  --jwsd-sage:#3fa68c;--jwsd-coral:#ff6b6b;--jwsd-amber:#ffd8a0;--jwsd-lavender:#aca9ff;
+  --jwsd-bg:#f7f5fc;--jwsd-surface:#fff;--jwsd-soft:#f0ecfa;--jwsd-ink:#211b3c;
+  --jwsd-muted:#655f79;--jwsd-border:#e3ddf1;--jwsd-accent-text:#6030df;
+  --jwsd-shadow:0 8px 26px #31167709;--jwsd-ring:0 0 0 3px #6a3cf51c;
+  --background-primary:var(--jwsd-surface);--background-secondary:var(--jwsd-bg);
+  --background-secondary-alt:var(--jwsd-soft);--background-modifier-border:var(--jwsd-border);
+  --background-modifier-hover:var(--jwsd-soft);--text-normal:var(--jwsd-ink);
+  --text-muted:var(--jwsd-muted);--text-faint:#827791;--text-accent:var(--jwsd-accent-text);
+  --interactive-accent:var(--jwsd-primary);--interactive-accent-hover:#582acf;
+  --font-ui:'JWSD Inter',system-ui,sans-serif;
+  --color-canvas:var(--jwsd-bg);--color-paper:var(--jwsd-surface);--color-paper-muted:var(--jwsd-soft);
+  --color-ink:var(--jwsd-ink);--color-ink-soft:var(--jwsd-muted);--color-ink-muted:var(--jwsd-muted);
+  --color-stone:var(--jwsd-border);--color-stone-light:var(--jwsd-border);
+  --color-primary:var(--jwsd-primary);--color-primary-dark:#582acf;--color-primary-soft:var(--jwsd-soft);
+  --color-mineral:var(--jwsd-petrol);--color-bronze:#a56d20;
+  --text-on-accent:#fff;--font-interface:'JWSD Inter',system-ui,sans-serif;
+  --font-text:'JWSD Inter',system-ui,sans-serif;--font-sans:'JWSD Inter',system-ui,sans-serif;
+  color:var(--jwsd-ink);font-family:var(--font-interface);font-size:13px;
+  -webkit-font-smoothing:antialiased;color-scheme:light;
+}
+.theme-dark .jwsd-theme,:host-context(.theme-dark) .jwsd-theme {
+  --jwsd-bg:#111021;--jwsd-surface:#1c1a32;--jwsd-soft:#26213e;
+  --jwsd-ink:#f6f3ff;--jwsd-muted:#b7aecf;--jwsd-border:#393352;
+  --jwsd-accent-text:#c0acff;--text-faint:#968ba9;
+  --jwsd-shadow:0 8px 28px #00000018;--jwsd-ring:0 0 0 3px #aca9ff20;color-scheme:dark;
+}
+.jwsd-theme *{box-sizing:border-box}
+.jwsd-theme :is(h1,h2,h3,h4){font-family:'JWSD Montserrat','JWSD Inter',sans-serif;letter-spacing:-.025em}
+.jwsd-theme :is(button,input,select,textarea){font-family:var(--font-interface)}
+.jwsd-theme :is(button,a,input,textarea,select,summary):focus-visible{outline:2px solid var(--jwsd-accent-text);outline-offset:3px}
+.jwsd-theme svg{stroke-width:1.8}
+.jwsd-workspace,.jwsd-theme.blb-library{height:100%;padding:0;overflow:hidden;container:jwsd-app / inline-size;background:var(--jwsd-bg)}
+.jwsd-app-shell{display:grid;grid-template-columns:208px minmax(0,1fr);height:100%;min-height:0;overflow:hidden}
+.jwsd-rail{padding:25px 16px 18px;background:linear-gradient(165deg,#241847,#171329 68%);border-right:1px solid #aca9ff20;display:flex;flex-direction:column;overflow:auto;color:#e5def7}
+.jwsd-brand-home{border:0;padding:0;background:transparent;color:inherit;text-align:left;cursor:pointer;box-shadow:none;border-radius:12px}
+.jwsd-brand{display:flex;align-items:center;gap:11px;min-width:0}
+.jwsd-brand-image{width:42px;height:42px;flex:0 0 auto;object-fit:contain;border-radius:27%;box-shadow:0 4px 16px #11052e25}
+.jwsd-brand-copy{display:flex;flex-direction:column;gap:5px;min-width:0}
+.jwsd-brand-copy strong{font-family:'JWSD Montserrat',sans-serif;font-size:12px;line-height:1.5;font-weight:750;white-space:nowrap;letter-spacing:-.025em}
+.jwsd-brand-copy>span{font-size:9px;color:#b9adcf;letter-spacing:.015em}
+.jwsd-nav-kicker{color:#9c8eb4;font-size:9px;font-weight:650;letter-spacing:.15em;margin:34px 12px 12px}
+.jwsd-rail nav{display:flex;flex-direction:column;gap:5px}
+.jwsd-button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:40px;border:1px solid var(--jwsd-border);border-radius:11px;background:var(--jwsd-surface);color:var(--jwsd-ink);font-size:12px;font-weight:600;padding:10px 14px;cursor:pointer;box-shadow:none;transition:background .16s,border-color .16s}
+.jwsd-button>span:first-child{display:flex;flex-shrink:0}
+.jwsd-button svg{width:18px;height:18px}
+.jwsd-button:hover{border-color:color-mix(in srgb,var(--jwsd-primary) 35%,var(--jwsd-border));background:var(--jwsd-soft)}
+.jwsd-button.is-primary{background:var(--jwsd-primary);color:#fff;border-color:var(--jwsd-primary)}
+.jwsd-button.is-primary:hover{background:#582acf}
+.jwsd-button.is-icon{width:40px;padding:8px}
+.jwsd-button.is-icon>span:last-child{display:none}
+.jwsd-rail .jwsd-nav-item{justify-content:flex-start;width:100%;min-height:42px;border:1px solid transparent;border-radius:10px;padding:11px 13px;background:transparent;color:#c8bfdc;font-size:12px;font-weight:500}
+.jwsd-rail .jwsd-nav-item:hover{background:#ffffff09;color:#fff;border-color:#ffffff09}
+.jwsd-rail .jwsd-nav-item.is-active{background:linear-gradient(110deg,#6a3cf5,#5426b8);border-color:#baa0ff38;color:#fff;box-shadow:0 4px 15px #00000012}
+.jwsd-rail .jwsd-nav-item[data-destination="settings"]{margin-top:18px;border-top-color:#ffffff09;border-radius:0 0 10px 10px}
+.jwsd-rail-foot{display:flex;align-items:center;gap:11px;margin-top:auto;padding:35px 11px 3px;white-space:pre-line;color:#a99abd;font-size:10px;line-height:1.7}
+.jwsd-rail-foot svg{width:22px;height:22px;color:var(--jwsd-amber);opacity:.75}
+.jwsd-stage{min-width:0;min-height:0;overflow:auto;background:var(--jwsd-bg);container:jwsd-stage / inline-size;overscroll-behavior:contain}
+.jwsd-mobile-nav{display:none}
+.jwsd-toolbar{min-height:56px;display:flex;align-items:center;gap:8px;justify-content:space-between;padding:10px 28px;border-bottom:1px solid var(--jwsd-border);background:var(--jwsd-surface)}
+.jwsd-toolbar-label{display:flex;align-items:center;gap:8px;color:var(--jwsd-muted);font-size:11px}
+.jwsd-toolbar-label img{width:26px;height:26px;border-radius:8px;flex-shrink:0}
+.jwsd-toolbar-label svg{width:15px;height:15px;color:var(--jwsd-accent-text)}
+.jwsd-toolbar .jwsd-button{background:transparent;border-color:transparent;min-height:34px;width:34px;padding:6px}
+.jwsd-page{max-width:1320px;margin:0 auto;padding:27px 28px 35px}
+.jwsd-welcome{position:relative;min-height:164px;border:1px solid #bfa2ff30;border-radius:19px;overflow:hidden;display:flex;flex-direction:column;justify-content:center;padding:28px 30px;color:#fff;background:#241b4e;isolation:isolate}
+.jwsd-welcome::before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#1e153edb,#25165060 65%,#25165012),var(--jwsd-panorama);background-position:center;background-size:cover}
+.jwsd-welcome-kicker{font-size:9px;font-weight:650;letter-spacing:.16em;color:#d7cbf8;margin-bottom:11px}
+.jwsd-welcome h1{font-size:clamp(23px,2.4cqw,31px);line-height:1.25;font-weight:720;margin:0 0 10px;max-width:76%;color:#fff;text-wrap:balance}
+.jwsd-welcome p{font-size:11px;line-height:1.6;margin:0;color:#e6dff3;max-width:65%}
+.jwsd-home-grid{display:grid;grid-template-columns:minmax(0,1fr) 224px;gap:22px;margin-top:24px}
+.jwsd-home-primary{min-width:0}
+.jwsd-tool-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.jwsd-tool-card{--jwsd-tool-color:var(--jwsd-accent-text);position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-height:133px;border:1px solid var(--jwsd-border);border-radius:15px;background:linear-gradient(155deg,color-mix(in srgb,var(--jwsd-tool-color) 6%,var(--jwsd-surface)),var(--jwsd-surface) 85%);color:var(--jwsd-ink);text-align:left;padding:19px 17px;cursor:pointer;box-shadow:var(--jwsd-shadow);transition:transform .16s,border-color .16s,box-shadow .16s}
+.jwsd-tool-card:hover{transform:translateY(-2px);border-color:color-mix(in srgb,var(--jwsd-tool-color) 55%,var(--jwsd-border));box-shadow:0 9px 24px #31167712}
+.jwsd-tool-card.tone-petrol{--jwsd-tool-color:#1889ac}
+.jwsd-tool-card.tone-sage{--jwsd-tool-color:#32987e}
+.jwsd-tool-card.tone-amber{--jwsd-tool-color:#ba7a20}
+.jwsd-tool-card.tone-coral{--jwsd-tool-color:#d55872}
+.theme-dark .jwsd-tool-card.tone-amber{--jwsd-tool-color:#e7b25d}
+.theme-dark .jwsd-tool-card.tone-sage{--jwsd-tool-color:#60c6a9}
+.theme-dark .jwsd-tool-card.tone-coral{--jwsd-tool-color:#ed8194}
+.theme-dark .jwsd-tool-card.tone-petrol{--jwsd-tool-color:#63bad6}
+.jwsd-tool-symbol{display:flex;color:var(--jwsd-tool-color);margin-bottom:1px}
+.jwsd-tool-symbol svg{width:25px;height:25px;stroke-width:1.6}
+.jwsd-tool-card strong{font-size:14px;font-weight:650;line-height:1.35}
+.jwsd-tool-card>small{font-size:12px;line-height:1.55;color:var(--jwsd-muted);max-width:95%}
+.jwsd-tool-arrow{position:absolute;right:14px;top:18px;color:var(--jwsd-muted);opacity:.5}
+.jwsd-tool-arrow svg{width:13px;height:13px}
+.jwsd-section{margin-top:26px}
+.jwsd-section-heading{display:flex;align-items:center;gap:10px;justify-content:space-between;margin-bottom:12px}
+.jwsd-section-heading h2{font-size:14px;line-height:1.4;margin:0;font-weight:700;display:flex;align-items:center;gap:9px}
+.jwsd-section-heading h2 svg{width:16px;height:16px;color:var(--jwsd-accent-text)}
+.jwsd-section-heading>.jwsd-button{border:0;background:transparent;min-height:30px;padding:4px;color:var(--jwsd-accent-text);font-size:10px}
+.jwsd-note-list{overflow:hidden;background:var(--jwsd-surface);border:1px solid var(--jwsd-border);border-radius:15px}
+.jwsd-note-row{display:flex;align-items:center;gap:12px;padding:13px 16px;min-height:67px;box-shadow:none;width:100%;background:transparent;border:0;border-bottom:1px solid var(--jwsd-border);text-align:left;color:var(--jwsd-ink);cursor:pointer}
+.jwsd-note-row:last-child{border-bottom:0}
+.jwsd-note-row:hover{background:var(--jwsd-soft)}
+.jwsd-note-icon{display:flex;align-items:center;justify-content:center;width:32px;height:35px;flex-shrink:0;border:1px solid var(--jwsd-border);border-radius:9px;background:var(--jwsd-bg);color:var(--jwsd-accent-text)}
+.jwsd-note-icon svg{width:17px;height:17px}
+.jwsd-note-copy{min-width:0;flex:1;display:flex;flex-direction:column;gap:5px}
+.jwsd-note-copy strong{font-size:13px;font-weight:550;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;line-height:1.4}
+.jwsd-note-copy small{font-size:11px;color:var(--jwsd-muted)}
+.jwsd-note-row>span:last-child{display:flex;color:var(--jwsd-muted)}
+.jwsd-note-row>span:last-child svg{width:14px;height:14px}
+.jwsd-home-aside{display:flex;flex-direction:column;gap:14px;min-width:0}
+.jwsd-insight{padding:19px;background:var(--jwsd-surface);border:1px solid var(--jwsd-border);border-radius:15px;box-shadow:var(--jwsd-shadow)}
+.jwsd-insight-head{display:flex;align-items:center;gap:9px;margin:0 0 16px;font-size:11px;font-weight:650}
+.jwsd-insight-head svg{width:18px;height:18px;color:var(--jwsd-accent-text)}
+.jwsd-insight h3{font-size:14px;line-height:1.5;font-weight:650;margin:0 0 8px}
+.jwsd-insight p{font-size:12px;line-height:1.7;color:var(--jwsd-muted);margin:0 0 14px}
+.jwsd-insight .jwsd-button{font-size:11px;min-height:34px;padding:8px 11px;max-width:100%}
+.jwsd-plan-stats{display:flex;gap:14px;padding:12px 0 16px;font-size:10px;color:var(--jwsd-muted)}
+.jwsd-plan-stats strong{color:var(--jwsd-ink);font-size:17px;display:block;margin-bottom:4px}
+.jwsd-empty{padding:30px 23px;border:1px dashed var(--jwsd-border);border-radius:15px;line-height:1.8;color:var(--jwsd-muted);font-size:12px;background:var(--jwsd-surface)}
+.jwsd-empty h3{font-size:15px;color:var(--jwsd-ink);margin:0 0 10px}
+.jwsd-empty p{margin:0 0 14px}
+.jwsd-page-title h1{font-size:27px;line-height:1.3;margin:0 0 9px;font-weight:700}
+.jwsd-page-title p{font-size:12px;line-height:1.6;color:var(--jwsd-muted);margin:0 0 25px}
+.jwsd-note-search{display:flex;align-items:center;gap:10px;background:var(--jwsd-surface);border:1px solid var(--jwsd-border);border-radius:12px;padding:0 14px;min-height:45px;margin:0 0 21px}
+.jwsd-note-search:focus-within{border-color:var(--jwsd-primary);box-shadow:var(--jwsd-ring)}
+.jwsd-note-search>span{display:flex;color:var(--jwsd-muted)}
+.jwsd-note-search svg{width:18px;height:18px}
+.jwsd-note-search input{flex:1;width:100%;min-width:0;background:transparent;border:0;box-shadow:none;color:var(--jwsd-ink);font-size:12px;padding:12px 0}
+.jwsd-note-search input:focus{outline:0;box-shadow:none}
+.jwsd-notes-count{font-size:10px;color:var(--jwsd-muted);margin-bottom:12px}
+.jwsd-preparation-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-bottom:28px}
+.jwsd-settings{padding:23px;border:1px solid var(--jwsd-border);border-radius:16px;background:var(--jwsd-surface)}
+.jwsd-settings .setting-item{border-color:var(--jwsd-border);gap:20px;padding:17px 0}
+.jwsd-settings .setting-item-description{font-size:11px;line-height:1.7;color:var(--jwsd-muted);margin-top:7px}
+.jwsd-settings details{margin-top:21px;font-size:12px;line-height:1.8}
+.jwsd-settings summary{cursor:pointer;padding:7px 0;color:var(--jwsd-muted)}
+.jwsd-settings>p{font-size:10px;line-height:1.7;color:var(--jwsd-muted)}
+.jwsd-theme.biblelab-side{background:var(--jwsd-surface);--bl-brand:var(--jwsd-primary);--bl-bg:var(--jwsd-surface);--bl-soft:var(--jwsd-bg);--bl-separator:var(--jwsd-border);--bl-ink:var(--jwsd-ink);--bl-muted:var(--jwsd-muted);--bl-accent:var(--jwsd-primary)}
+.jwsd-theme .biblelab-side-header{padding:16px 15px 13px;border-bottom:1px solid var(--jwsd-border);background:var(--jwsd-surface)}
+.jwsd-theme .biblelab-brand{gap:10px}
+.jwsd-theme .biblelab-logo{width:35px;height:35px;min-width:35px;background:none;border:0;border-radius:10px}
+.jwsd-theme .biblelab-logo img{display:block;width:35px;height:35px;border-radius:27%}
+.jwsd-theme .biblelab-wordmark{font-family:'JWSD Montserrat',sans-serif;font-size:12px;font-weight:750;letter-spacing:-.025em;white-space:nowrap}
+.jwsd-theme .biblelab-tagline{display:block;font-size:9px;line-height:1.5;color:var(--jwsd-muted);letter-spacing:0;font-weight:400;margin-top:2px}
+.jwsd-theme .biblelab-identity{display:flex;flex-direction:column;min-width:0}
+.jwsd-theme .biblelab-top-actions{gap:0}
+.jwsd-theme .biblelab-icon-action{width:29px;height:34px;min-width:29px;border-radius:8px}
+.jwsd-theme .biblelab-icon-action svg{width:17px;height:17px}
+.jwsd-theme .biblelab-tabs{padding:9px 11px;background:var(--jwsd-surface)}
+.jwsd-theme .biblelab-focus-nav .biblelab-tab{min-height:39px;border-radius:9px;font-size:10px;gap:4px}
+.jwsd-theme .biblelab-focus-nav .biblelab-tab[aria-selected="true"]{background:var(--jwsd-soft);color:var(--jwsd-accent-text)}
+.jwsd-theme .biblelab-focus-nav .biblelab-tab[aria-selected="true"] svg{color:var(--jwsd-accent-text)}
+.jwsd-theme .biblelab-scroller{padding:19px 15px 28px}
+.jwsd-theme :is(.biblelab-btn,.blb-action){border-radius:10px;border-color:var(--jwsd-border);font-weight:550;min-height:36px}
+.jwsd-theme :is(.biblelab-btn.is-primary,.blb-action.primary){background:var(--jwsd-primary);border-color:var(--jwsd-primary);color:#fff}
+.jwsd-theme :is(.biblelab-btn.is-primary,.blb-action.primary):hover{background:#582acf;color:#fff}
+.jwsd-theme .biblelab-focus-context{background:var(--jwsd-bg);border:1px solid var(--jwsd-border);border-radius:12px;padding:12px}
+.jwsd-theme .biblelab-focus-search h2{font-size:18px;font-weight:700;line-height:1.45;margin:24px 0 14px}
+.jwsd-theme .biblelab-quick-search{border-color:var(--jwsd-border);background:var(--jwsd-bg);border-radius:12px}
+.jwsd-theme .biblelab-quick-submit{background:var(--jwsd-primary);border-radius:9px;color:#fff}
+.jwsd-theme .biblelab-focus-idea,.jwsd-theme .biblelab-capture-card,.jwsd-theme .biblelab-archive-card{border-radius:13px;border-color:var(--jwsd-border);box-shadow:none;background:var(--jwsd-surface)}
+.jwsd-theme .biblelab-idea-card{border-color:var(--jwsd-border);border-radius:13px;background:var(--jwsd-surface)}
+.jwsd-theme .biblelab-focus-inbox{background:color-mix(in srgb,var(--jwsd-coral) 6%,var(--jwsd-surface));border:1px solid color-mix(in srgb,var(--jwsd-coral) 17%,var(--jwsd-border));border-radius:12px;padding:13px}
+.jwsd-theme .biblelab-focus-inbox-icon{color:#ce5670;background:transparent}
+.jwsd-theme .biblelab-overflow-menu{background:var(--jwsd-surface);border-color:var(--jwsd-border);box-shadow:0 10px 35px #21102f20}
+.jwsd-theme .biblelab-reader{border-color:var(--jwsd-border);background:var(--jwsd-surface);box-shadow:none}
+.jwsd-theme .biblelab-reader[open]{border-color:color-mix(in srgb,var(--jwsd-primary) 35%,var(--jwsd-border))}
+.jwsd-theme .biblelab-reader-summary{padding:13px 12px}
+.jwsd-theme .blb-shell{padding:25px 27px 50px;max-width:1280px}
+.jwsd-theme .blb-hero{padding-bottom:20px;border-color:var(--jwsd-border)}
+.jwsd-theme .blb-title-group h1{font-size:26px;font-weight:700}
+.jwsd-theme .blb-book-card{background:var(--jwsd-surface);border-color:var(--jwsd-border);border-radius:14px;box-shadow:var(--jwsd-shadow)}
+.jwsd-theme .blb-book-grid{grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:20px 16px}
+.jwsd-theme .blb-cover.category-bible{background:linear-gradient(140deg,#29204f,#392873);color:#eddaff}
+.jwsd-theme .blb-cover.category-books{background:linear-gradient(140deg,#205266,#0d6e8c);color:#d9f1f4}
+.jwsd-theme .blb-cover.category-magazines{background:linear-gradient(140deg,#3b2268,#6b45a0);color:#ede1ff}
+.jwsd-theme .blb-cover.category-brochures{background:linear-gradient(140deg,#36504b,#3a8374);color:#e4f4e6}
+.jwsd-theme .blb-cover.category-assemblies{background:linear-gradient(140deg,#584067,#9b697b);color:#fff0eb}
+.jwsd-theme .blb-cover.category-schools{background:linear-gradient(140deg,#424066,#605f99);color:#e9e6ff}
+.jwsd-theme .blb-cover.category-other{background:linear-gradient(140deg,#414052,#69627d);color:#eee9f8}
+.jwsd-theme .blb-search{background:var(--jwsd-surface);border-radius:11px}
+.jwsd-theme .blb-search:focus-within{border-color:var(--jwsd-primary);box-shadow:var(--jwsd-ring)}
+.jwsd-theme .blb-card-options{background:var(--jwsd-surface);color:var(--jwsd-ink);border-radius:50%}
+.jwsd-theme .blb-filters .blb-category.active{background:var(--jwsd-soft);border-color:var(--jwsd-border);color:var(--jwsd-accent-text)}
+.jwsd-theme .blb-volume-hero,.jwsd-theme .blb-reader-intro{border-color:var(--jwsd-border)}
+.jwsd-theme .blb-reader-text{font-family:var(--font-text);font-size:16px;line-height:1.8}
+.jwsd-theme .blb-reader-intro h1{font-family:'JWSD Montserrat',sans-serif;font-size:29px;font-weight:650}
+.jwsd-theme .blb-catalog-notice{background:var(--jwsd-surface);border-color:var(--jwsd-border);border-radius:11px}
+.jwsd-stage.blb-library-body{container:blb-library / inline-size}
+.jwsd-theme.biblelab-inline-popover{background:var(--jwsd-surface);border:1px solid var(--jwsd-border);border-radius:17px;box-shadow:0 18px 65px #16082e2a;font-family:var(--font-interface)}
+.jwsd-theme .biblelab-popover-header{background:var(--jwsd-bg);border-color:var(--jwsd-border)}
+.jwsd-theme .biblelab-popover-footer{background:var(--jwsd-bg);border-color:var(--jwsd-border)}
+.jwsd-theme .biblelab-popover-btn{border-radius:9px;color:var(--jwsd-ink);border-color:var(--jwsd-border)}
+.jwsd-theme .biblelab-popover-btn:hover{background:var(--jwsd-soft);color:var(--jwsd-accent-text)}
+.modal.jwsd-modal{background:var(--jwsd-surface);color:var(--jwsd-ink);border:1px solid var(--jwsd-border);border-radius:20px;box-shadow:0 18px 60px #16082e25}
+.jwsd-theme.biblelab-native-modal{padding:8px 0 12px}
+.jwsd-theme .biblelab-native-head h2{font-size:23px;font-weight:700}
+.jwsd-theme .biblelab-native-eyebrow{color:var(--jwsd-accent-text);letter-spacing:.1em;font-size:9px;font-weight:650}
+.jwsd-theme .biblelab-native-action{border-color:var(--jwsd-border);background:var(--jwsd-bg);border-radius:13px;min-height:70px}
+.jwsd-theme .biblelab-native-action:hover{background:var(--jwsd-soft);border-color:var(--jwsd-primary)}
+.jwsd-theme .biblelab-native-symbol{background:var(--jwsd-soft);color:var(--jwsd-accent-text);border-radius:10px;display:grid;place-items:center}
+.jwsd-theme .biblelab-native-symbol svg{width:22px;height:22px}
+.jwsd-theme .biblelab-native-summary{background:var(--jwsd-soft);border-color:var(--jwsd-border);border-radius:13px}
+.jwsd-theme .mod-cta{background:var(--jwsd-primary);color:#fff;border-color:var(--jwsd-primary)}
+.jwsd-theme .setting-item-control :is(input,select,textarea){border-color:var(--jwsd-border);border-radius:9px;background:var(--jwsd-bg);color:var(--jwsd-ink)}
+.jwsd-theme .atlas-vault-toolbar{background:var(--jwsd-surface);border-color:var(--jwsd-border)}
+.jwsd-theme .atlas-vault-monogram{padding:0;border:0;background:transparent;box-shadow:none}
+.jwsd-theme .atlas-vault-monogram img{width:36px;height:36px;border-radius:27%}
+.jwsd-theme .atlas-vault-eyebrow{font-family:'JWSD Montserrat',sans-serif;color:var(--jwsd-accent-text)}
+.jwsd-theme .atlas-vault-button{border-color:var(--jwsd-border);border-radius:10px;background:var(--jwsd-surface);color:var(--jwsd-ink)}
+@container jwsd-stage (max-width:840px){.jwsd-home-grid{grid-template-columns:1fr}.jwsd-home-aside{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.jwsd-tool-card{min-height:126px}.jwsd-welcome{min-height:151px}}
+@container jwsd-app (max-width:740px){
+  .jwsd-app-shell{grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(0,1fr) auto}
+  .jwsd-rail{display:none}.jwsd-stage{grid-row:1}
+  .jwsd-mobile-nav{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-row:2;background:var(--jwsd-surface);border-top:1px solid var(--jwsd-border);padding:6px 8px calc(6px + env(safe-area-inset-bottom,0px));min-height:63px}
+  .jwsd-mobile-destination{display:flex;flex-direction:column;gap:5px;border:0;border-radius:10px;font-size:9px;font-weight:550;min-height:48px;padding:6px 2px;background:transparent;color:var(--jwsd-muted)}
+  .jwsd-mobile-destination svg{width:19px;height:19px}.jwsd-mobile-destination.is-active{background:var(--jwsd-soft);color:var(--jwsd-accent-text)}
+  .jwsd-toolbar{padding:9px 18px;min-height:48px}.jwsd-page{padding:20px 18px 28px}
+}
+@container jwsd-stage (max-width:510px){
+  .jwsd-welcome{min-height:150px;padding:24px 22px;border-radius:16px}.jwsd-welcome h1{font-size:23px;max-width:88%}.jwsd-welcome p{max-width:86%;font-size:11px}
+  .jwsd-home-grid{gap:21px;margin-top:20px}.jwsd-tool-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+  .jwsd-tool-card{padding:17px 14px;min-height:133px;gap:8px;border-radius:14px}.jwsd-tool-card strong{font-size:13px}.jwsd-tool-card>small{font-size:11px}.jwsd-tool-symbol svg{width:23px;height:23px}
+  .jwsd-home-aside{grid-template-columns:1fr}.jwsd-preparation-grid{grid-template-columns:1fr}.jwsd-note-row{padding:13px 12px}
+  .jwsd-settings{padding:16px}.jwsd-settings .setting-item{flex-wrap:wrap}.jwsd-settings .setting-item-control{max-width:100%}
+}
+@container blb-library (max-width:560px){.jwsd-theme .blb-shell{padding:22px 17px 35px}.jwsd-theme .blb-book-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 12px}.jwsd-theme .blb-title-group h1{font-size:23px}.jwsd-theme .blb-head-actions .blb-action.blb-icon-button{flex:0 0 38px}}
+@container(max-width:310px){.jwsd-theme .biblelab-tagline{display:none}.jwsd-theme .biblelab-wordmark{white-space:normal;font-size:11px;line-height:1.4}.jwsd-theme .biblelab-top-actions .biblelab-icon-action{width:27px;min-width:27px}}
+@media(prefers-reduced-motion:reduce){.jwsd-theme *{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+
+.jwsd-theme .biblelab-popover-drag-grip{width:25px;height:25px;flex-shrink:0}
+.jwsd-theme .biblelab-popover-drag-grip img{width:25px;height:25px;border-radius:7px}
+
+.jwsd-settings .jwsd-brand-copy>span{color:var(--jwsd-muted)}
+.modal.jwsd-modal .setting-item{border-color:var(--jwsd-border)}
+.modal.jwsd-modal .setting-item-description{color:var(--jwsd-muted)}
+.modal.jwsd-modal .mod-cta{background:var(--jwsd-primary);color:#fff;border-color:var(--jwsd-primary)}
+.modal.jwsd-modal button:not(.mod-cta){color:var(--jwsd-ink);border-color:var(--jwsd-border);background:var(--jwsd-surface);border-radius:9px}
+@container jwsd-app (max-width:740px){.jwsd-note-search input{font-size:16px}.jwsd-tool-card{min-height:140px}.jwsd-mobile-destination{font-size:10px}}

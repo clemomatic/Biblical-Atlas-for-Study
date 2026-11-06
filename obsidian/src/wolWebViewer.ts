@@ -1,5 +1,5 @@
 /**
- * Bible Lab opens WOL in Obsidian's OWN core Web viewer, not in a
+ * JW Study Desk opens WOL in Obsidian's OWN core Web viewer, not in a
  * reconstructed plugin view. Chromium runs WOL scripts, navigation and search
  * natively, with back/forward, page links and Obsidian's Reader mode.
  *
@@ -38,7 +38,7 @@ export async function openWolInObsidian(
 ):Promise<WorkspaceLeaf|null>{
   const url=trustedWolBrowserUrl(requestedUrl);
   if(!url){
-    new Notice('Bible Lab ouvre uniquement des pages WOL officielles.');
+    new Notice('JW Study Desk ouvre uniquement des pages WOL officielles.');
     return null;
   }
   if(Platform?.isMobile){

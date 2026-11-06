@@ -34,7 +34,7 @@ export function inlineBibleLabEditorExtension(open:(label:string,anchor:HTMLElem
            result.push({from,to,value:Decoration.mark({
              class:'biblelab-inline-editor-ref',
              attributes:{'data-biblelab-ref':encodeURIComponent(ref.ref.label),
-               title:'Lire '+ref.label+' dans Bible Lab'}
+               title:'Lire '+ref.label+' dans JW Study Desk'}
            })});
          }
        }

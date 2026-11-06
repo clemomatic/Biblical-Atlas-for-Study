@@ -1,9 +1,9 @@
 {
   "id": "atlas-biblique",
-  "name": "Bible Lab",
-  "version": "0.11.0",
+  "name": "JW Study Desk",
+  "version": "0.12.0",
   "minAppVersion": "1.6.0",
-  "description": "Étudier, garder ses trouvailles et lire ses publications dans une bibliothèque unifiée.",
+  "description": "Votre espace d’étude biblique : bibliothèque, recherche, notes et idées dans Obsidian.",
   "author": "Clément Martin",
   "authorUrl": "https://github.com/clemomatic",
   "isDesktopOnly": false
