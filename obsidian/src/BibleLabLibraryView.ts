@@ -5,11 +5,14 @@ import {
 import styles from './bibleLabLibrary.css?inline';
 import {
   LIBRARY_FILTERS,filteredVolumes,loadLibraryVolumes,localDocumentFile,
-  localDocumentUrl,jwpubPublicationId,searchLibrary,virtualDocuments,
+  localDocumentUrl,jwpubPublicationId,searchLibrary,virtualRecords,
   type LibraryCategory,type LibrarySearchResult,type LibraryVolume
 } from './libraryCatalog';
 import type { OfflineDocumentRecord } from './offlinePublications';
 import {annotationsForDocument,annotationsForBibleChapter,bibleAnnotationChapters,bibleBookName,loadLatestAnnotationArchive,searchPersonalAnnotations} from './jwAnnotationLibrary';
+import {readerLinesFromJwBlocks} from './jwAnnotationReader';
+import {notesForBlock} from './jwTextHighlight';
+import {appendStyledReaderText} from './readerInlineFormatting';
 import type {DocumentAnnotations} from './jwAnnotationLibrary';
 import type {JwAnnotationIndex} from './jwAnnotations';
 import { loadJwLibraryPublicCatalog } from './jwLibraryCatalogReader';
@@ -504,12 +507,54 @@ export class BibleLabLibraryView extends ItemView {
     const reader=this.content.createEl('article',{cls:'blb-reader-text markdown-rendered'});
     reader.createEl('p',{cls:'blb-loading',text:'Chargement du document local…'});
     try{
-      const raw=volume.virtual?(await virtualDocuments(this.app,volume)).get(doc.documentId)||'':
-        await this.app.vault.cachedRead(file!);
+      const record=volume.virtual?(await virtualRecords(this.app,volume)).get(doc.documentId):null;
+      const raw=record?.text||(volume.virtual?'':await this.app.vault.cachedRead(file!));
       if(!this.active||this.token!==ticket)return;
       reader.empty();
-      await MarkdownRenderer.render(this.app,readerMarkdown(raw),reader,
-        file?.path||volume.path+'/'+doc.path,this);
+      if(record?.blocks.length){
+        const archive=await loadLatestAnnotationArchive(this.app,this.actions.root());
+        if(!this.active||this.token!==ticket)return;
+        const annotations=archive?(doc.bibleBook&&doc.bibleChapter?
+          annotationsForBibleChapter(archive.index,doc.bibleBook,doc.bibleChapter):
+          annotationsForDocument(archive.index,{
+            symbol:volume.symbol,issue:volume.issue,language:volume.language
+          },doc)):null;
+        const lines=readerLinesFromJwBlocks(record.blocks,annotations);
+        for(const [i,line] of lines.entries()){
+          const block=record.blocks[i];
+          const wrapper=reader.createDiv({cls:'blb-jw-native-block'});
+          if(block.kind==='verse')wrapper.createSpan({cls:'blb-jw-verse-number',text:String(block.identifier)});
+          const paragraph=wrapper.createEl(block.kind==='heading'?'h3':'p',{cls:'blb-jw-native-text'});
+          for(const part of line.parts||[{text:line.text}])appendStyledReaderText(paragraph,part);
+          const notes=notesForBlock(annotations?.notes||[],block);
+          if(notes.length){
+            const details=wrapper.createEl('details',{cls:'blb-jw-verse-notes'});
+            details.createEl('summary',{text:notes.length===1?'Ma note':'Mes notes ('+notes.length+')'});
+            for(const note of notes){
+              const card=details.createDiv({cls:'blb-annotation-item'});
+              if(note.title)card.createEl('strong',{text:note.title});
+              if(note.content)card.createEl('p',{text:note.content});
+            }
+          }
+        }
+        if(annotations){
+          const attachedIds=new Set(record.blocks.flatMap(block=>
+            notesForBlock(annotations.notes,block).map(note=>note.id)));
+          const other=annotations.notes.filter(note=>!attachedIds.has(note.id));
+          if(other.length){
+            const section=reader.createEl('details',{cls:'blb-jw-verse-notes'});
+            section.createEl('summary',{text:'Autres notes personnelles ('+other.length+')'});
+            for(const note of other){
+              const card=section.createDiv({cls:'blb-annotation-item'});
+              if(note.title)card.createEl('strong',{text:note.title});
+              if(note.content)card.createEl('p',{text:note.content});
+            }
+          }
+        }
+      }else{
+        await MarkdownRenderer.render(this.app,readerMarkdown(raw),reader,
+          file?.path||volume.path+'/'+doc.path,this);
+      }
       if(!this.active||this.token!==ticket)return;
       reader.addEventListener('click',event=>{
         const el=event.target as Element|null;
@@ -541,7 +586,8 @@ export class BibleLabLibraryView extends ItemView {
         'Lecture virtuelle impossible : vérifie l’archive ou réimporte le JWPUB.':
         'Lecture impossible. Tu peux ouvrir la note Markdown pour vérifier son contenu.'});
     }
-    if(volume.virtual)await this.renderArticleAnnotations(volume,doc,ticket);
+    if(volume.virtual&&!(await virtualRecords(this.app,volume)).get(doc.documentId)?.blocks.length)
+      await this.renderArticleAnnotations(volume,doc,ticket);
     const bottom=this.content.createDiv({cls:'blb-reader-pager'});
     const index=volume.items.findIndex(x=>x.documentId===doc.documentId);
     const previous=volume.items[index-1],next=volume.items[index+1];
@@ -562,31 +608,21 @@ export class BibleLabLibraryView extends ItemView {
     if(!this.active||this.token!==ticket)return;
     holder.empty();
     if(!archive)return;
-    const found=annotationsForDocument(archive.index,{
-      symbol:volume.symbol,issue:volume.issue,language:volume.language
-    },doc);
-    if(!found||(!found.marks.length&&!found.notes.length&&!found.bookmarks.length))return;
+    const found=doc.bibleBook&&doc.bibleChapter?
+      annotationsForBibleChapter(archive.index,doc.bibleBook,doc.bibleChapter):
+      annotationsForDocument(archive.index,{
+        symbol:volume.symbol,issue:volume.issue,language:volume.language
+      },doc);
+    if(!found||(!found.notes.length&&!found.bookmarks.length))return;
     this.displayArticleAnnotations(holder,found);
   }
   private displayArticleAnnotations(parent:HTMLElement,data:DocumentAnnotations,bible=false):void{
     const title=parent.createDiv({cls:'blb-annotation-head'});
-    title.createEl('h2',{text:'Mes annotations JW Library'});
-    title.createEl('p',{text:data.marks.length+' surlignage(s) · '+
-      data.notes.length+' note(s) · '+data.bookmarks.length+' signet(s)'});
-    parent.createEl('p',{cls:'blb-annotation-warning',text:
-      bible?'Annotations regroupées par livre et chapitre. Les positions tokenisées ne sont pas encore alignées sur les mots du texte biblique.':
-      data.confidence==='exact-meps'?
-      'Correspondance par identifiant MEPS. Les mots exacts ne sont pas encore coloriés : les positions de texte doivent être vérifiées.':
-      'Correspondance par identifiant de document local : vérifie qu’il s’agit du bon article avant de réutiliser ces annotations.'});
-    for(const item of data.marks.slice(0,100)){
-      const card=parent.createDiv({cls:'blb-annotation-item'});
-      const head=card.createDiv({cls:'blb-annotation-label'});
-      const mark=head.createSpan();setIcon(mark,'highlighter');
-      head.createSpan({text:'Surlignage · couleur JW Library n° '+item.mark.color});
-      if(item.ranges.length)card.createEl('p',{text:item.ranges.map(r=>
-        'Bloc '+r.identifier+' · tokens '+r.start+'–'+r.end
-      ).join(' ; ')});
-    }
+    title.createEl('h2',{text:'Mes notes JW Library'});
+    title.createEl('p',{text:data.notes.length+' note(s) · '+
+      data.bookmarks.length+' signet(s)'});
+    if(bible&&data.marks.length)parent.createEl('p',{cls:'blb-online-meta',text:
+      'Ouvre le chapitre dans la bibliothèque virtuelle pour retrouver les couleurs directement dans le texte.'});
     for(const note of data.notes.slice(0,100)){
       const card=parent.createDiv({cls:'blb-annotation-item'});
       const head=card.createDiv({cls:'blb-annotation-label'});
