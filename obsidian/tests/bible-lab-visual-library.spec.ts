@@ -1,5 +1,5 @@
 import {test,expect} from '@playwright/test';
-import {zipSync,strToU8} from 'fflate';
+import {zipSync,strToU8,gzipSync} from 'fflate';
 import {createHash,createCipheriv} from 'node:crypto';
 import {deflateSync} from 'node:zlib';
 import {createRequire} from 'node:module';
@@ -162,4 +162,40 @@ test('Virtual JWPUB import keeps one source and search cache, with no per-articl
  await search.fill('patience');
  await expect(library.locator('.blb-search-result')).toHaveCount(1);
  await expect(library.locator('.blb-search-result')).toContainText('La patience');
+});
+
+
+test('Reads imported JW Library annotations by Bible chapter and searches personal notes',async({page})=>{
+ const index={
+   format:'bible-lab-annotations',version:1,schema:16,sourceHash:'fixture',
+   locations:[{id:31,book:41,chapter:10,document:null,issue:null,
+      symbol:'nwtsty',language:3,type:0,specialty:null,edition:null}],
+   marks:[{id:20,guid:'fictional-guid',color:2,style:0,location:31}],
+   ranges:[{mark:20,blockType:1,identifier:14,start:2,end:6}],
+   notes:[{id:21,guid:'fictional-note',title:'Une réflexion sur la justice',
+     content:'Jésus réagit avec courage',location:31,mark:20,
+     blockType:1,blockIdentifier:14,created:null,modified:null,tags:['Étude']}],
+   bookmarks:[]
+ };
+ const archive=Buffer.from(gzipSync(strToU8(JSON.stringify(index)))).toString('base64');
+ await page.evaluate(async(base64)=>{
+   const {app,plugin}=(window as any).atlasTest;
+   const base=plugin.settings.noteFolder+'/Annotations JW Library';
+   await app.vault.createFolder(base);
+   await app.vault.createFolder(base+'/Sauvegarde fictive');
+   const bytes=Uint8Array.from(atob(base64),c=>c.charCodeAt(0));
+   await app.vault.createBinary(base+'/Sauvegarde fictive/annotations.json.gz',bytes.buffer);
+   await app.vault.create(base+'/Sauvegarde fictive/_BIBLE_LAB_ANNOTATIONS.json',
+     JSON.stringify({format:'bible-lab-annotations',version:1}));
+   await plugin.openVisualLibrary();
+ },archive);
+ const library=page.locator('.blb-library');
+ await library.getByRole('button',{name:'Mes annotations'}).click();
+ await expect(library.getByRole('heading',{name:'Surlignages de la Bible d’étude'})).toBeVisible();
+ await library.getByRole('button',{name:/Marc \(1\)/}).click();
+ await library.getByRole('button',{name:/Ch. 10 · 1 surlignage/}).click();
+ await expect(library.locator('.blb-annotation-item')).toContainText(['Surlignage','Une réflexion sur la justice']);
+ const search=library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'});
+ await search.fill('courage');
+ await expect(library.locator('.blb-annotation-item')).toContainText('Jésus réagit avec courage');
 });
