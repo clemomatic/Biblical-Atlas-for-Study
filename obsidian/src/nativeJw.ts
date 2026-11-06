@@ -228,6 +228,7 @@ export async function readJwpub(file:File,mode:'markdown'|'virtual'='markdown'):
    const publicationTitle=String(manifest?.publication?.title||
      manifest?.publication?.displayTitle||pub.Symbol+' '+pub.Year).trim().slice(0,240);
    for(const doc of docs){
+     if(!doc.Content)continue; // Some Bible reference entries have no document body.
      const ciphertext=u8(doc.Content as Uint8Array);
      const plain=new Uint8Array(await crypto.subtle.decrypt({name:'AES-CBC',iv:iv as BufferSource},key,ciphertext as BufferSource));
      const html=string(unzlibSync(plain));
