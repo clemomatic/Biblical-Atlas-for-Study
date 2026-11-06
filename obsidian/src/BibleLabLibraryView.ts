@@ -297,7 +297,7 @@ export class BibleLabLibraryView extends ItemView {
         }
         const fallback=cover.createDiv({cls:'blb-cover-design'});
         const icon=fallback.createSpan();setIcon(icon,iconByCategory(item.category));
-        fallback.createSpan({cls:'blb-cover-symbol',text:series?group.title:item.symbol.toUpperCase()});
+        fallback.createSpan({cls:'blb-cover-title',text:series?group.title:item.title});
       }
       const options:{label:string;icon:string;run:()=>void}[]=[];
       // A private or foreign-language import must never become an external French query.
@@ -342,8 +342,8 @@ export class BibleLabLibraryView extends ItemView {
     }
     const design=cover.createDiv({cls:'blb-cover-design'});
     const icon=design.createSpan();setIcon(icon,iconByCategory(volume.category));
-    design.createSpan({cls:'blb-cover-symbol',text:volume.symbol.toUpperCase().slice(0,16)});
-    design.createSpan({cls:'blb-cover-year',text:volume.year>0?String(volume.year):'BIBLE LAB'});
+    design.createSpan({cls:'blb-cover-title',text:volume.title});
+    design.createSpan({cls:'blb-cover-year',text:volume.year>0?String(volume.year):categoryName(volume.category)});
   }
   private crumbs(volume:LibraryVolume,doc?:OfflineDocumentRecord):void{
     const path=this.content.createDiv({cls:'blb-breadcrumb'});

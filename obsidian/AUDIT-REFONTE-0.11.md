@@ -97,7 +97,7 @@ Ajouter un fichier → choisir le JWPUB → vérifier le résumé → Ajouter à
 - Base avant modification : TypeScript, compilation et 141 tests unitaires réussis.
 - Après refonte : TypeScript, compilation, paquet installable et 151 tests unitaires réussis.
 - Nouveaux tests unitaires : fusion des éditions, priorité du contenu local, conservation des imports privés et étrangers, filtres, recherche sans accents, regroupement des revues, validité et fraîcheur du cache.
-- Tests de passerelle Python et inventaire des tests graphiques exécutés séparément.
+- Trois tests de passerelle Python réussis ; inventaire de 412 tests graphiques dans le dépôt.
 - Nouveaux scénarios graphiques : bibliothèque sobre, téléchargement en un clic jusqu’à la lecture, origine du téléchargement, import privé étranger, revues et écran étroit sombre ; tests existants adaptés aux menus et aux nouveaux libellés.
 
 ### Distinctions nécessaires
@@ -119,7 +119,7 @@ Une comparaison a été exécutée séparément sur le commit source `54b5293`, 
 
 Ces échecs préexistent à la refonte ; ils ne prouvent pas à eux seuls une panne dans Obsidian avec les pages réelles. Ils restent des anomalies de validation à traiter. Le moteur de références n’a pas été réécrit pour les masquer. La suite globale conserve ces tests.
 
-Les 34 contrôles de bibliothèque, import, lecture, recherche, annotations et classement ciblés après correction des sélecteurs passent sur les deux projets ordinateur/mobile. Les changements de libellés et de menus sont vérifiés sans retirer les assertions sur les données conservées.
+Les 160 contrôles ciblés des parcours d’étude, bibliothèque, imports, lecture, recherche, annotations, classement, sauvegarde/restauration, popups, discours et navigation WOL passent sur les deux projets ordinateur/mobile. Les contrôles de bibliothèque et de rendu sont également rejoués après les derniers ajustements de présentation. Les changements de libellés et de menus sont vérifiés sans retirer les assertions sur les données conservées.
 
 
 Les points suivants demandent encore une vérification avec les vrais fichiers et appareils : téléchargement actuel des grosses éditions NWT/NWTSTY, qualité du rendu des données spécialisées de l’édition d’étude, vitesse/mémoire du premier chargement du catalogue sur Android, fidélité du surlignage au mot près et export/restauration de sauvegardes. Le catalogue n’est pas une preuve de disponibilité de tous les formats.
