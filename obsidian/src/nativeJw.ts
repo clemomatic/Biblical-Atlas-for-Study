@@ -17,7 +17,7 @@ export type ImportEntry = {name:string;text?:string;bytes?:Uint8Array};
 export type ImportPreview = {type:'jwpub'|'jwlibrary';title:string;sourceHash:string;entries:ImportEntry[];count:number;schema?:number;warnings:string[];virtual?:boolean;annotationOnly?:boolean};
 export type ChangeItem = {guid:string;titleBefore:string;titleAfter:string;contentBefore:string;contentAfter:string; noteId:number};
 export type ExportPlan = {source:Source;changes:ChangeItem[];db:Db;baselineFk:string[];notes:number};
-const MAX_BYTES=150*1024*1024, MAX_EXPANDED=410*1024*1024;
+const MAX_BYTES=300*1024*1024, MAX_EXPANDED=900*1024*1024;
 const KEY_MASK='11cbb5587e32846d4c26790c633da289f66fe5842a3a585ce1bc3a294af5ada7';
 const MARKER='<!-- BIBLE_LAB_NOTE_START -->\n';
 let sqlPromise:Promise<any>|null=null;
@@ -45,7 +45,7 @@ function query(db:Db,sql:string):any[]{const r=db.exec(sql);if(!r.length)return 
 function one(db:Db,sql:string):any {return query(db,sql)[0]||null;}
 function safeName(name:string):string{return name.normalize('NFC').replace(/[\\/:*?"<>|\x00-\x1f]/g,' ').replace(/\s+/g,' ').trim().slice(0,82)||'Sans titre';}
 function safeZip(data:Uint8Array):string[] {
- assert(data.length<=MAX_BYTES,'Archive trop volumineuse (150 Mo maximum).');
+ assert(data.length<=MAX_BYTES,'Archive trop volumineuse (300 Mo maximum).');
  const v=new DataView(data.buffer,data.byteOffset,data.byteLength);let end=-1;
  for(let i=data.length-22;i>=Math.max(0,data.length-65557);i--){
    if(v.getUint32(i,true)===0x06054b50){end=i;break;}
