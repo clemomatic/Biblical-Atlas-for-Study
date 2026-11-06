@@ -6,6 +6,8 @@ import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 import { appendStyledReaderText } from './readerInlineFormatting';
 import { clampPopoverPosition, type PopoverCoordinates } from './popoverPosition';
+import {annotationsForPopupReference} from './popupAnnotations';
+import type {JwAnnotationIndex} from './jwAnnotations';
 
 const fromLabel=(label:string):ReferenceEntry=>{
  const scripture=parseScripture(label);
@@ -27,7 +29,8 @@ export class BibleLabInlinePopover {
  private inFlight=new Map<string,Promise<ReaderResult>>();
  private readonly cacheDuration=20*60*1000;
  constructor(private readonly openPanel:(ref:ReferenceEntry)=>void,
-   private readonly openInTab:(ref:ReferenceEntry)=>void){}
+   private readonly openInTab:(ref:ReferenceEntry)=>void,
+   private readonly annotations?:()=>Promise<JwAnnotationIndex|null>){}
  isOpen():boolean{return !!this.root;}
  open(label:string,anchor:HTMLElement):void{
   const ref=fromLabel(label);
@@ -204,7 +207,8 @@ export class BibleLabInlinePopover {
   const cached=this.cache.get(key);
   if(cached&&Date.now()-cached.date<this.cacheDuration){
     this.cache.delete(key);this.cache.set(key,cached);
-    this.draw(content,cached.value,anchor);this.keepVisible(root);return;
+    this.draw(content,cached.value,anchor);this.keepVisible(root);
+    void this.renderPersonalAnnotations(content,ref,token);return;
   }
   if(cached)this.cache.delete(key);
   content.createDiv({cls:'biblelab-popover-loading',attr:{role:'status'},
@@ -225,6 +229,7 @@ export class BibleLabInlinePopover {
       while(this.cache.size>35)this.cache.delete(this.cache.keys().next().value!);
     }
     content.empty();this.draw(content,result,anchor);this.keepVisible(root);
+    void this.renderPersonalAnnotations(content,ref,token);
   }).catch(error=>{
     if(token!==this.serial||!root.isConnected)return;
     content.empty();
@@ -233,6 +238,42 @@ export class BibleLabInlinePopover {
       ' — Utilise le site officiel ou le panneau latéral.'});
     this.button(content,'Réessayer','refresh-cw',()=>this.render(ref,anchor));
   });
+ }
+
+ private async renderPersonalAnnotations(container:HTMLElement,ref:ReferenceEntry,token:number):Promise<void>{
+   if(!this.annotations)return;
+   try{
+     const index=await this.annotations();
+     if(!index||token!==this.serial||!container.isConnected)return;
+     const found=annotationsForPopupReference(index,ref);
+     if(!found)return;
+     const section=container.createEl('details',{cls:'biblelab-popover-personal-annotations'});
+     section.createEl('summary',{text:'Mes annotations JW Library · '+
+       found.marks.length+' surlignage(s), '+found.notes.length+' note(s)'});
+     section.createEl('p',{cls:'biblelab-popover-annotation-notice',text:
+       found.scope==='chapter'?
+       'Annotations du chapitre entier. Les mots exacts ne sont pas encore recoloriés : les positions du JWPUB doivent être validées.':
+       'Correspondance par identifiant officiel du document. Les plages de texte seront alignées lors de la prochaine étape.'});
+     for(const item of found.marks.slice(0,35)){
+       const row=section.createDiv({cls:'biblelab-popover-annotation-mark'});
+       const icon=row.createSpan();setIcon(icon,'highlighter');
+       row.createSpan({text:'Couleur JW Library n° '+item.mark.color+
+         (item.ranges.length?' · '+item.ranges.length+' plage(s)':'')});
+     }
+     for(const note of found.notes.slice(0,30)){
+       const row=section.createDiv({cls:'biblelab-popover-annotation-note'});
+       const title=row.createEl('strong',{text:note.title||'Ma note'});
+       if(note.content)row.createEl('p',{text:note.content});
+       if(note.tags.length)row.createEl('small',{text:note.tags.join(' · ')});
+     }
+     for(const bookmark of found.bookmarks.slice(0,15)){
+       const row=section.createDiv({cls:'biblelab-popover-annotation-note'});
+       row.createEl('strong',{text:'Signet · '+(bookmark.title||'Sans titre')});
+     }
+     if(found.marks.length>35||found.notes.length>30)
+       section.createEl('p',{cls:'biblelab-popover-annotation-notice',text:
+         'Affichage limité dans la fenêtre. Retrouve les autres annotations dans Ma bibliothèque.'});
+   }catch{/* The private annotation cache must never stop WOL from opening. */}
  }
  private draw(container:HTMLElement,result:ReaderResult,anchor:HTMLElement):void{
   this.currentSource=cleanWolUrl(result.sourceUrl)||this.current?.url||null;
