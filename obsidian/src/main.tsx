@@ -337,6 +337,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       root:()=>this.settings.noteFolder,
       importJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportJwpub(),
       importVirtualJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportVirtualJwpub(),
+      importAnnotations:()=>new NativeJwModal(this.app,this.settings.noteFolder).openImportAnnotations(),
       downloads:this.openOfflineLibrary,
       checkPublication:(symbol,issue)=>new NativeJwModal(this.app,this.settings.noteFolder)
         .openCatalogPublication(symbol,issue),
