@@ -24,6 +24,7 @@ export interface LibraryActions {
   root:()=>string;
   importJwpub:()=>void;
   importVirtualJwpub:()=>void;
+  importAnnotations:()=>void;
   downloads:()=>void;
   checkPublication:(symbol:string,issue:string)=>void;
   readReference:(url:string,label:string)=>Promise<void>;
@@ -119,6 +120,7 @@ export class BibleLabLibraryView extends ItemView {
     headline.createEl('p',{text:'Tes publications, tes lectures et tes recherches. Même sans connexion.'});
     const actions=hero.createDiv({cls:'blb-head-actions'});
     button(actions,'Ajouter un JWPUB sans notes','library-big',this.actions.importVirtualJwpub);
+    button(actions,'Importer une sauvegarde JW','archive',this.actions.importAnnotations);
     button(actions,'Convertir en Markdown','file-plus-2',this.actions.importJwpub);
     button(actions,'Télécharger une publication','download',this.actions.downloads);
     button(actions,'Mes publications','hard-drive',()=>{
