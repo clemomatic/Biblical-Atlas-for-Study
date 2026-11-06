@@ -3,6 +3,8 @@
  * All network calls are initiated explicitly by the user from the library modal.
  */
 export const PERSONAL_OFFLINE_CATALOG=[
+  {label:'La Bible — édition d’étude',symbol:'nwtsty'},
+  {label:'La Bible — édition standard',symbol:'nwt'},
   {label:'Assemblée régionale 2026',symbol:'co-pgm26'},
   {label:'Circonscription 2026-2027 · responsable de circonscription',symbol:'ca-copgm27'},
   {label:'Circonscription 2026-2027 · représentant de la filiale',symbol:'ca-brpgm27'}
@@ -33,6 +35,10 @@ export interface OfflineImportIndex {
 }
 export const OFFLINE_INDEX_NAME='_BIBLE_LAB_OFFLINE_INDEX.json';
 export const MAX_PERSONAL_JWPUB_BYTES=150*1024*1024;
+export const MAX_BIBLE_JWPUB_BYTES=400*1024*1024;
+export const isBiblePublication=(symbol:string)=>/^(nwt|nwtsty)$/.test(symbol.toLowerCase());
+export const allowedJwpubBytes=(symbol:string)=>
+  isBiblePublication(symbol)?MAX_BIBLE_JWPUB_BYTES:MAX_PERSONAL_JWPUB_BYTES;
 
 export function validPublicationSymbol(value:string):string|null {
   const input=value.trim().toLowerCase();
@@ -80,7 +86,7 @@ export function parsePublicJwpubResponse(payload:unknown,symbol:string,issue='')
   const url=trustedPublicationFileUrl(item?.url);
   if(!url)return null;
   const bytes=Number(first?.filesize||0);
-  if(!Number.isFinite(bytes)||bytes<0||bytes>MAX_PERSONAL_JWPUB_BYTES)return null;
+  if(!Number.isFinite(bytes)||bytes<0||bytes>allowedJwpubBytes(valid))return null;
   const title=String(response?.pubName||first?.title||valid).trim().slice(0,180)||valid;
   const filename=valid+'_F'+(issue?'_'+issue:'')+'.jwpub';
   return {
@@ -88,8 +94,8 @@ export function parsePublicJwpubResponse(payload:unknown,symbol:string,issue='')
     checksum:typeof item?.checksum==='string'?item.checksum.toLowerCase():''
   };
 }
-export function isJwpubArchive(bytes:Uint8Array):boolean{
-  return bytes.length>=4&&bytes.length<=MAX_PERSONAL_JWPUB_BYTES&&
+export function isJwpubArchive(bytes:Uint8Array,symbol=''):boolean{
+  return bytes.length>=4&&bytes.length<=allowedJwpubBytes(symbol)&&
     bytes[0]===0x50&&bytes[1]===0x4b&&[0x03,0x05,0x07].includes(bytes[2]);
 }
 export function validateOfflineIndex(input:unknown):OfflineImportIndex|null{
