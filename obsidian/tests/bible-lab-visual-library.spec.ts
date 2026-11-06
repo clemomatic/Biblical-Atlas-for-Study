@@ -197,5 +197,7 @@ test('Reads imported JW Library annotations by Bible chapter and searches person
  await expect(library.locator('.blb-annotation-item')).toContainText(['Surlignage','Une réflexion sur la justice']);
  const search=library.getByRole('searchbox',{name:'Rechercher dans ma bibliothèque'});
  await search.fill('courage');
+ await expect(library.locator('.blb-bible-annotations')).toHaveCount(0);
+ await expect(library.locator('.blb-annotation-item')).toHaveCount(1);
  await expect(library.locator('.blb-annotation-item')).toContainText('Jésus réagit avec courage');
 });
