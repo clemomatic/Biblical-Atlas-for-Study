@@ -1032,16 +1032,29 @@ export async function fetchStudyVerse(ref:ReferenceEntry):Promise<ReaderResult>{
  }
 }
 let localReferenceResolver:((ref:ReferenceEntry)=>Promise<ReaderResult|null>)|null=null;
+let personalReaderDecorator:((
+  ref:ReferenceEntry,result:ReaderResult
+)=>Promise<ReaderResult>)|null=null;
+/** Register a read-only local annotation decorator for both popup and panel. */
+export function setPersonalReaderDecorator(
+ decorator:((ref:ReferenceEntry,result:ReaderResult)=>Promise<ReaderResult>)|null
+):void{personalReaderDecorator=decorator;}
 /** Register a local-only document library. The official reader remains the fallback. */
 export function setLocalReferenceResolver(
-  resolver:((ref:ReferenceEntry)=>Promise<ReaderResult|null>)|null
+ resolver:((ref:ReferenceEntry)=>Promise<ReaderResult|null>)|null
 ):void {localReferenceResolver=resolver;}
 export async function fetchReferenceContent(ref:ReferenceEntry):Promise<ReaderResult>{
+  let result:ReaderResult|null=null;
   if(localReferenceResolver){
     try{
       const saved=await localReferenceResolver(ref);
-      if(saved?.lines.length)return saved;
+      if(saved?.lines.length)result=saved;
     }catch{/* Never prevent the official reader from handling the source. */}
   }
-  return ref.kind==='scripture'?fetchStudyVerse(ref):fetchPublication(ref);
+  if(!result)result=ref.kind==='scripture'?await fetchStudyVerse(ref):await fetchPublication(ref);
+  if(personalReaderDecorator){
+    try{return await personalReaderDecorator(ref,result);}
+    catch{/* The official text remains readable if the personal backup is absent. */}
+  }
+  return result;
 }
