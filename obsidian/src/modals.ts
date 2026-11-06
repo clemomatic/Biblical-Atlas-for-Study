@@ -15,6 +15,7 @@ export class LinkNoteModal extends FuzzySuggestModal<TFile> {
 export class ResearchModal extends Modal {
   constructor(app: App, private keys: AtlasEntityKey[], private save: (draft: ResearchDraft) => Promise<void>) { super(app); }
   onOpen(): void {
+    this.modalEl.addClass('jwsd-theme','jwsd-modal');this.contentEl.addClass('jwsd-theme');
     const content = this.contentEl;
     content.createEl('h2', { text: 'Une nouvelle piste d’étude' });
     content.createEl('p', { text: 'Ta fiche sera une note Markdown. Tu pourras la modifier et l’enrichir librement.' });
@@ -59,6 +60,7 @@ export class ResearchModal extends Modal {
 export class InvestigationModal extends Modal {
   constructor(app: App, private selections: AtlasSelection[], private related: AtlasSelection[], private save: (selections: AtlasSelection[], question: string) => Promise<void>) { super(app); }
   onOpen(): void {
+    this.modalEl.addClass('jwsd-theme','jwsd-modal');this.contentEl.addClass('jwsd-theme');
     this.contentEl.createEl('h2', { text: 'Ouvrir une enquête biblique' });
     this.contentEl.createEl('p', { text: 'Un tableau Canvas reliera tes fiches à une note de recherche. Tu pourras déplacer les cartes, ajouter des images et nommer les fils.' });
     let question = '', includeRelated = false;

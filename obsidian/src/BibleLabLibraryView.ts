@@ -3,6 +3,7 @@ import {
   type WorkspaceLeaf
 } from 'obsidian';
 import styles from './bibleLabLibrary.css?inline';
+import {renderDeskShell,type DeskDestination} from './studyDeskBrand';
 import {
   LIBRARY_FILTERS,filteredVolumes,loadLibraryVolumes,localDocumentFile,
   localDocumentUrl,jwpubPublicationId,searchLibrary,virtualDocuments,
@@ -23,6 +24,7 @@ import {
 export const BIBLE_LAB_LIBRARY_VIEW='bible-lab-personal-library';
 export interface LibraryActions {
   root:()=>string;
+  navigate:(destination:DeskDestination)=>void;
   importJwpub:()=>void;
   importVirtualJwpub:()=>void;
   importAnnotations:()=>void;
@@ -80,11 +82,11 @@ export class BibleLabLibraryView extends ItemView {
   private active=false;
   constructor(leaf:WorkspaceLeaf,actions:LibraryActions){super(leaf);this.actions=actions;}
   getViewType():string{return BIBLE_LAB_LIBRARY_VIEW;}
-  getDisplayText():string{return 'Bible Lab · Ma bibliothèque';}
+  getDisplayText():string{return 'JW Study Desk · Ma bibliothèque';}
   getIcon():string{return 'library-big';}
   async onOpen():Promise<void>{
     this.active=true;
-    this.contentEl.addClass('blb-library');
+    this.contentEl.addClass('blb-library','jwsd-theme');
     this.renderChrome();
     await this.refresh();
     void this.updateCatalog();
@@ -126,10 +128,16 @@ export class BibleLabLibraryView extends ItemView {
     this.browsingAnnotations=false;this.selectedPath=null;this.selectedDocument=null;
     this.term='';this.selectedSeries=null;this.renderChrome();void this.renderContent();
   }
+  openAnnotations():void{
+    this.browsingAnnotations=true;this.term='';this.selectedPath=null;this.selectedDocument=null;
+    this.renderChrome();void this.renderContent();
+  }
   private renderChrome():void{
     this.contentEl.empty();
     this.contentEl.createEl('style',{text:styles});
-    const layout=this.contentEl.createDiv({cls:'blb-shell'});
+    const stage=renderDeskShell(this.contentEl,'library',{navigate:this.actions.navigate});
+    stage.addClass('blb-library-body');
+    const layout=stage.createDiv({cls:'blb-shell'});
     const hero=layout.createDiv({cls:'blb-hero'});
     const headline=hero.createDiv({cls:'blb-title-group'});
     headline.createEl('h1',{text:'Ma bibliothèque'});
@@ -145,8 +153,7 @@ export class BibleLabLibraryView extends ItemView {
     const publications=button(sections,'Publications','library-big',()=>this.showPublications(),this.browsingAnnotations?'':'active');
     publications.setAttribute('aria-pressed',String(!this.browsingAnnotations));
     const annotations=button(sections,'Mes annotations','highlighter',()=>{
-      this.browsingAnnotations=true;this.term='';this.selectedPath=null;this.selectedDocument=null;
-      this.renderChrome();void this.renderContent();
+      this.openAnnotations();
     },this.browsingAnnotations?'active':'');
     annotations.setAttribute('aria-pressed',String(this.browsingAnnotations));
     const controls=layout.createDiv({cls:'blb-controls'});
@@ -396,7 +403,7 @@ export class BibleLabLibraryView extends ItemView {
       ()=>{void this.app.workspace.getLeaf('tab').openFile(file)});
     if(file)button(nav,'Copier un lien vers cette note','link',()=>void this.copyNoteLink(file,doc.title));
     const official=localDocumentUrl(volume,doc);
-    if(official)button(nav,'Ouvrir la référence dans Bible Lab','book-open-check',
+    if(official)button(nav,'Ouvrir la référence dans JW Study Desk','book-open-check',
       ()=>void this.actions.readReference(official,doc.title));
     const hero=this.content.createDiv({cls:'blb-reader-intro'});
     hero.createSpan({cls:'blb-eyebrow',text:volume.title+' · '+(volume.year||'')});

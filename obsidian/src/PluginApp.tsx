@@ -1,3 +1,4 @@
+import {STUDY_DESK_LOGO} from './studyDeskBrand';
 import { useCallback, useMemo, useState, useSyncExternalStore } from 'react';
 import { ArrowUpRight, BookOpen, CalendarDays, ChevronRight, Download, Link2, MapPin, Move, Network, NotebookPen, Pencil, Plus, Search, Settings2, X } from 'lucide-react';
 import App from '../../src/App';
@@ -64,15 +65,15 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
     if (selection) setBasket(previous => previous.some(item => item.key === selection.key) ? previous.filter(item => item.key !== selection.key) : previous.length < 12 ? [...previous, selection] : previous);
   };
   return (
-    <div className="atlas-plugin-shell">
+    <div className="atlas-plugin-shell jwsd-theme">
       <header className="atlas-vault-toolbar" aria-label="Mon étude biblique">
         <div className="atlas-vault-context">
-          <span className="atlas-vault-monogram" aria-hidden="true"><NotebookPen size={19} /></span>
-          <div><span className="atlas-vault-eyebrow">BIBLE LAB · ATLAS</span>
+          <span className="atlas-vault-monogram" aria-hidden="true"><img src={STUDY_DESK_LOGO} alt="" /></span>
+          <div><span className="atlas-vault-eyebrow">JW STUDY DESK · ATLAS</span>
             <p>{selection ? selection.title : 'Chaque découverte peut devenir une piste.'}</p></div>
         </div>
         <div className="atlas-vault-actions">
-          <button type="button" className="atlas-vault-button atlas-vault-research" title="Ouvrir Bible Lab" onClick={() => void host.openBibleLab()}><Search size={16} /><span>Explorer</span></button>
+          <button type="button" className="atlas-vault-button atlas-vault-research" title="Ouvrir JW Study Desk" onClick={() => void host.openBibleLab()}><Search size={16} /><span>Explorer</span></button>
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.openEntityNote(selection)}><BookOpen size={16} /><span>Note d’étude</span></button>}
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.editEntity(selection)}><Pencil size={16} /><span>Modifier</span></button>}
           <button type="button" className={`atlas-vault-button ${isNotebookOpen ? 'is-active' : ''}`} aria-expanded={isNotebookOpen} aria-controls="atlas-personal-notebook" onClick={() => setIsNotebookOpen(open => !open)}><NotebookPen size={16} /><span>Mon carnet</span><span className="atlas-vault-count">{snapshot.notes.length}</span></button>

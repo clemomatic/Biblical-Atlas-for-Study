@@ -8,13 +8,13 @@ test.beforeEach(async({page})=>{
   await page.route(URL_A,route=>route.fulfill({
     status:200,contentType:'text/html',
     body:'<html><main class="bodyTxt"><h1>L’amour et la bonté</h1>'+
-      '<p>Ce texte apparaît dans l’aperçu Bible Lab.</p></main></html>'
+      '<p>Ce texte apparaît dans l’aperçu JW Study Desk.</p></main></html>'
   }));
   await page.goto('/obsidian/dev/index.html');
   await page.waitForFunction(()=>(window as any).atlasTest?.ready);
 });
 
-test('Official article opens as real Obsidian Web viewer, not a rebuilt Bible Lab tab',async({page})=>{
+test('Official article opens as real Obsidian Web viewer, not a rebuilt JW Study Desk tab',async({page})=>{
   await page.evaluate(async url=>{
     await (window as any).atlasTest.plugin.openWolArticleTab({
       url,label:'L’amour et la bonté',kind:'document',origin:'pinned'
@@ -51,7 +51,7 @@ test('Floating preview opens the official WOL page in native Web viewer',async({
   });
   await page.locator('#wol-linked-text a').click();
   const popup=page.locator('.biblelab-inline-popover');
-  await expect(popup.getByText('Ce texte apparaît dans l’aperçu Bible Lab.')).toBeVisible();
+  await expect(popup.getByText('Ce texte apparaît dans l’aperçu JW Study Desk.')).toBeVisible();
   await popup.getByRole('button',{name:'Nouvel onglet'}).click();
   await expect(popup).toHaveCount(0);
   const state=await page.evaluate(()=>(window as any).atlasTest.app.workspace

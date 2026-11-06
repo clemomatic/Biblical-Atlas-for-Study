@@ -11,13 +11,14 @@ export class BibleLabRestoreModal extends Modal {
     private readonly restore:(file:TFile,state:BibleLabResearchState)=>Promise<string>
   ){super(app);}
   onOpen():void{
+    this.modalEl.addClass('jwsd-theme','jwsd-modal');this.contentEl.addClass('jwsd-theme');
     const body=this.contentEl;
     body.empty();
     body.addClass('biblelab-restore-modal');
-    body.createEl('h2',{text:'Restaurer mes recherches Bible Lab'});
+    body.createEl('h2',{text:'Restaurer mes recherches JW Study Desk'});
     body.createEl('p',{text:
       'Choisis une sauvegarde du coffre. Tes plans, trouvailles, fiches, étiquettes et recherches WOL seront remplacés. Les notes Markdown du coffre ne seront pas modifiées.'});
-    const selection=body.createEl('select',{attr:{'aria-label':'Choisir une sauvegarde Bible Lab'}});
+    const selection=body.createEl('select',{attr:{'aria-label':'Choisir une sauvegarde JW Study Desk'}});
     for(const backup of this.backups){
       selection.createEl('option',{text:backup.name,attr:{value:backup.path}});
     }

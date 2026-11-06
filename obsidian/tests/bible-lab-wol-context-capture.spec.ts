@@ -30,8 +30,8 @@ test('Right-click a selected WOL quote, keep exact paragraph and title, then rea
     (window as any).atlasTest.triggerWolContext({pageURL:url,selectionText:selection}),
     {url:ARTICLE,selection:PASSAGE});
   expect(used).toBe(true);
-  await expect(page.getByRole('button',{name:'Bible Lab · Garder cette portion'})).toBeVisible();
-  await page.getByRole('button',{name:'Bible Lab · Garder cette portion'}).click();
+  await expect(page.getByRole('button',{name:'JW Study Desk · Garder cette portion'})).toBeVisible();
+  await page.getByRole('button',{name:'JW Study Desk · Garder cette portion'}).click();
   const pane=page.locator('.biblelab-side');
   await expect(pane.locator('.biblelab-tab[aria-label="Trouvailles"]'))
     .toHaveAttribute('aria-selected','true');
@@ -61,7 +61,7 @@ test('If the WOL page offers no paragraph anchor, the quote keeps article URL (n
   await page.evaluate(({url,selection})=>
     (window as any).atlasTest.triggerWolContext({pageURL:url,selectionText:selection}),
     {url:ARTICLE,selection:PASSAGE});
-  await page.getByRole('button',{name:'Bible Lab · Garder cette portion'}).click();
+  await page.getByRole('button',{name:'JW Study Desk · Garder cette portion'}).click();
   const captured=await page.evaluate(()=>(window as any).atlasTest.plugin.getResearchCollection().captures);
   expect(captured[0].url).toBe(ARTICLE);
   expect(captured[0].label).toBe(TITLE);

@@ -35,7 +35,7 @@ const arr=(value:unknown,name:string,max:number):unknown[]=>{
   return value;
 };
 const version=(value:unknown,name:string):void=>{
-  if(record(value)?.version!==1)throw Error('Version '+name+' incompatible avec Bible Lab.');
+  if(record(value)?.version!==1)throw Error('Version '+name+' incompatible avec JW Study Desk.');
 };
 export function researchStateCounts(state:BibleLabResearchState):BibleLabBackupCounts{
   return {
@@ -69,7 +69,7 @@ export function parseBibleLabBackup(json:string):{state:BibleLabResearchState;ex
   try{raw=JSON.parse(json);}catch{throw Error('Ce fichier ne contient pas un JSON de sauvegarde valide.');}
   const root=record(raw);
   if(!root||root.type!==BIBLE_LAB_BACKUP_TYPE||root.version!==BIBLE_LAB_BACKUP_VERSION)
-    throw Error('Ce fichier ne provient pas de la sauvegarde personnelle Bible Lab v1.');
+    throw Error('Ce fichier ne provient pas de la sauvegarde personnelle JW Study Desk v1.');
   if(typeof root.exportedAt!=='string'||!Number.isFinite(Date.parse(root.exportedAt)))
     throw Error('Date de sauvegarde absente ou incorrecte.');
   const data=record(root.data);

@@ -1,3 +1,4 @@
+import {STUDY_DESK_LOGO} from './studyDeskBrand';
 import { Notice, setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
@@ -150,14 +151,14 @@ export class BibleLabInlinePopover {
  private render(ref:ReferenceEntry,anchor:HTMLElement):void{
   this.serial++;
   const token=this.serial;
-  const root=this.root||document.body.createDiv({cls:'biblelab-inline-popover'});
+  const root=this.root||document.body.createDiv({cls:'biblelab-inline-popover jwsd-theme'});
   this.root=root;this.current=ref;this.currentSource=ref.url;root.empty();
   root.classList.toggle('is-scripture',ref.kind==='scripture');
   root.setAttribute('role','dialog');root.setAttribute('aria-label','Aperçu biblique : '+ref.label);
   root.setAttribute('aria-modal','false');
   const header=root.createDiv({cls:'biblelab-popover-header'});
   const grip=header.createSpan({cls:'biblelab-popover-drag-grip',
-    attr:{'aria-hidden':'true'}});setIcon(grip,'grip-vertical');
+    attr:{'aria-hidden':'true'}});grip.createEl('img',{attr:{src:STUDY_DESK_LOGO,alt:'',width:'25',height:'25'}});
   const title=header.createDiv({cls:'biblelab-popover-title'});
   title.createSpan({text:ref.kind==='scripture'?'BIBLE D’ÉTUDE':'PUBLICATION',cls:'biblelab-popover-eyebrow'});
   title.createEl('strong',{text:ref.label});

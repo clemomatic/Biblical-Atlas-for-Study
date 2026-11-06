@@ -1,6 +1,7 @@
-import { Modal, Notice, requestUrl, type App, type TFile } from 'obsidian';
+import { Modal, Notice, requestUrl, setIcon, type App, type TFile } from 'obsidian';
 import { readJwpub, readBackup, readBackupAnnotations, prepareExport, createExport, digest, type ImportPreview } from './nativeJw';
 import {decodeMediaCatalogLink} from './jwOrgCatalog';
+import {renderDeskBrand} from './studyDeskBrand';
 import {
   PERSONAL_OFFLINE_CATALOG,allowedJwpubBytes,isBiblePublication,
   isJwpubArchive,parsePublicJwpubResponse,publicJwpubQuery,
@@ -30,26 +31,27 @@ export class NativeJwModal extends Modal{
  private pendingDownload:{name:string;bytes:Uint8Array;symbol:string;issue:string}|null=null;
  constructor(app:App,private rootFolder:string,private returnToLibrary?:()=>void){super(app);}
  private backToLibrary():void{this.close();this.returnToLibrary?.();}
- onOpen():void{this.cancelled=false;this.contentEl.addClass('biblelab-native-modal');this.menu();}
+ onOpen():void{this.cancelled=false;this.modalEl.addClass('jwsd-theme','jwsd-modal');this.contentEl.addClass('biblelab-native-modal','jwsd-theme');this.menu();}
  onClose():void{this.cancelled=true;this.pendingDownload=null;}
  private screen(title:string,subtitle:string):HTMLElement{
    this.contentEl.empty();
    const top=this.contentEl.createDiv({cls:'biblelab-native-head'});
-   top.createSpan({cls:'biblelab-native-eyebrow',text:'BIBLE LAB'});
+   renderDeskBrand(top,true);
    top.createEl('h2',{text:title});
    top.createEl('p',{text:subtitle});
    return this.contentEl;
  }
  private action(parent:HTMLElement,label:string,details:string,icon:string,callback:()=>void):void{
    const b=parent.createEl('button',{cls:'biblelab-native-action',attr:{type:'button'}});
-   b.createSpan({cls:'biblelab-native-symbol',text:icon});
+   const symbol=b.createSpan({cls:'biblelab-native-symbol'});
+   setIcon(symbol,({'▣':'book-open','✎':'highlighter','▤':'file-text','◈':'notebook-pen','⇄':'archive-restore','▧':'search','↗':'external-link'} as Record<string,string>)[icon]||'file-input');
    const labels=b.createSpan();labels.createEl('strong',{text:label});labels.createEl('span',{text:details});
-   b.createSpan({cls:'biblelab-native-arrow',text:'↗'});
+   setIcon(b.createSpan({cls:'biblelab-native-arrow'}),'chevron-right');
    b.addEventListener('click',callback);
  }
  private menu():void{
    this.pendingDownload=null;
-   const root=this.screen('Ajouter à Bible Lab','Retrouve tes publications et tes annotations au même endroit.');
+   const root=this.screen('Ajouter à JW Study Desk','Retrouve tes publications et tes annotations au même endroit.');
    this.action(root,'Ajouter une publication','Choisir un fichier JWPUB','▣',()=>void this.loadVirtualJwpub());
    this.action(root,'Importer une sauvegarde JW Library','Retrouver mes notes, surlignages et signets','✎',()=>void this.loadAnnotations());
    const advanced=root.createEl('details',{cls:'biblelab-disclosure'});
@@ -214,7 +216,7 @@ export class NativeJwModal extends Modal{
  }
  private showPreview(preview:ImportPreview,filename:string):void{
    const root=this.screen('Import prêt',preview.annotationOnly?
-     'Tes notes, surlignages et signets seront disponibles dans Bible Lab.':preview.virtual?
+     'Tes notes, surlignages et signets seront disponibles dans JW Study Desk.':preview.virtual?
      'La publication sera disponible pour la lecture et la recherche.':
      'Les documents seront créés dans un dossier neuf, sans écraser tes recherches.');
    const summary=root.createDiv({cls:'biblelab-native-summary'});
@@ -355,6 +357,6 @@ export class NativeJwModal extends Modal{
    const root=this.screen('Opération interrompue','Aucun fichier d’origine n’a été modifié.');
    root.createEl('p',{cls:'biblelab-native-error',text:error instanceof Error?error.message:String(error)});
    root.createEl('button',{text:'Retour',attr:{type:'button'}}).addEventListener('click',()=>this.menu());
-   new Notice('Bible Lab : '+(error instanceof Error?error.message:'Échec de l’opération.'));
+   new Notice('JW Study Desk : '+(error instanceof Error?error.message:'Échec de l’opération.'));
  }
 }

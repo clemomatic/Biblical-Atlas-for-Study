@@ -10,7 +10,7 @@ const source = path.join(root, 'obsidian/dist', manifest.id);
 const output = path.join(root, 'obsidian/artifacts');
 const archive = {};
 const checksums = [];
-for (const file of ['main.js', 'manifest.json', 'styles.css', 'README.md', 'AUDIT-REFONTE-0.11.md', 'THIRD-PARTY-NOTICES.txt']) {
+for (const file of ['main.js', 'manifest.json', 'styles.css', 'README.md', 'AUDIT-REFONTE-0.11.md', 'JW-STUDY-DESK-0.12.md', 'THIRD-PARTY-NOTICES.txt']) {
   const data = new Uint8Array(await readFile(path.join(source, file)));
   archive[`${manifest.id}/${file}`] = data;
   checksums.push(`${createHash('sha256').update(data).digest('hex')}  ${file}`);
@@ -22,7 +22,7 @@ if (/\bimport\s*\(/.test(runtime)) throw new Error('The plugin must not download
 archive[`${manifest.id}/SHA256SUMS.txt`] = strToU8(`${checksums.join('\n')}\n`);
 await mkdir(output, { recursive: true });
 const zip = zipSync(archive, { level: 9 });
-const filename = `${manifest.id}-${manifest.version}.zip`;
+const filename = `JW-Study-Desk-${manifest.version}.zip`;
 await writeFile(path.join(output, filename), zip);
-await writeFile(path.join(output, 'Guide-installation-Atlas-Obsidian.md'), await readFile(path.join(root, 'obsidian/README.md')));
+await writeFile(path.join(output, 'Guide-installation-JW-Study-Desk.md'), await readFile(path.join(root, 'obsidian/README.md')));
 console.log(`Created ${filename} (${Math.round(zip.length / 1024)} KiB). All dependencies are bundled except Obsidian-provided APIs and CodeMirror.`);

@@ -1,5 +1,5 @@
 import { createRoot, type Root } from 'react-dom/client';
-import { ItemView, Notice, Plugin, PluginSettingTab, Setting, TFile, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
+import { ItemView, Notice, Plugin, addIcon, PluginSettingTab, Setting, TFile, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
 import appCss from '../../src/index.css?inline';
 import leafletCss from 'leaflet/dist/leaflet.css?inline';
 import pluginCss from './plugin.css?inline';
@@ -61,6 +61,8 @@ import { setLocalReferenceResolver } from './wolReferenceFetcher';
 import { resolveOfflineDocument } from './offlineReferenceLibrary';
 import {loadLatestAnnotationArchive} from './jwAnnotationLibrary';
 import type { MapBounds } from './tileMath';
+import {StudyDeskView,STUDY_DESK_VIEW} from './StudyDeskView';
+import {STUDY_DESK_CSS,STUDY_DESK_ICON,STUDY_DESK_ICON_SVG,renderDeskBrand,type DeskDestination} from './studyDeskBrand';
 
 const VIEW_TYPE = 'atlas-biblique';
 
@@ -82,7 +84,7 @@ function isolatedStyles(): string {
   const responsive = appCss.replaceAll(':root', ':host')
     .replace(/@media\s*(\([^{}]*width[^{}]*\))/g, '@container atlas $1')
     .replace(/(\d+(?:\.\d+)?)dvh(?=[;)}\s])/g, '$1cqh');
-  return `${leafletCss}\n${responsive}\n${pluginCss}`;
+  return `${leafletCss}\n${responsive}\n${pluginCss}\n${STUDY_DESK_CSS}`;
 }
 
 class AtlasView extends ItemView {
@@ -117,21 +119,7 @@ class AtlasView extends ItemView {
 
 class AtlasSettingTab extends PluginSettingTab {
   constructor(app: ObsidianApp, private plugin: BiblicalAtlasPlugin) { super(app, plugin); }
-  display(): void {
-    this.containerEl.empty(); this.containerEl.createEl('h2', { text: 'Bible Lab' });
-    new Setting(this.containerEl).setName('Ma bibliothèque').setDesc('Publications, téléchargements et annotations personnelles.').addButton(button=>button.setButtonText('Ouvrir').onClick(()=>{void this.plugin.openVisualLibrary();}));
-    new Setting(this.containerEl).setName('Mes fichiers et sauvegardes').setDesc('Ajouter une publication ou retrouver mes annotations JW Library.').addButton(button=>button.setButtonText('Ajouter').onClick(this.plugin.openNativeBridge));
-    new Setting(this.containerEl).setName('Dossier des recherches').setDesc('Les nouvelles notes et enquêtes seront créées ici. Les fichiers existants restent à leur emplacement.').addText(text => {
-      text.setValue(this.plugin.settings.noteFolder);
-      text.onChange(value => { try { validFolder(value); void this.plugin.updateSettings({ noteFolder: value }).catch(error => this.plugin.report(error)); } catch { /* Allow typing an incomplete path. */ } });
-    });
-    const maps=this.containerEl.createEl('details');
-    maps.createEl('summary',{text:'Atlas et cartes'});
-    new Setting(maps).setName('Charger les fonds de carte en ligne').setDesc('Charge les tuiles OpenFreeMap sans clé et les conserve dans le coffre. Désactivé : seules les tuiles déjà téléchargées et le fond Natural Earth inclus sont utilisés.').addToggle(toggle => toggle.setValue(this.plugin.settings.allowOnlineMaps).onChange(async value => { await this.plugin.updateSettings({ allowOnlineMaps: value }); }));
-    new Setting(maps).setName('Cartes hors connexion').setDesc('Préparer une région, consulter les téléchargements ou libérer leur espace.').addButton(button => button.setButtonText('Préparer les cartes').onClick(this.plugin.openMapDownloads));
-
-    this.containerEl.createEl('p', { text: `Version ${this.plugin.manifest.version} · Consulte le guide fourni pour installer les mises à jour et créer des fiches personnelles.` });
-  }
+  display(): void { this.plugin.renderStudyDeskSettings(this.containerEl); }
 }
 
 export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
@@ -199,7 +187,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       if(attempt===99)throw Error('Impossible de créer un nom de sauvegarde unique.');
     }
     const file=await this.app.vault.create(filename,contents);
-    new Notice('Sauvegarde Bible Lab créée : '+file.path);
+    new Notice('Sauvegarde JW Study Desk créée : '+file.path);
     return file.path;
   };
   openRestoreResearchBackup=():void=>{
@@ -207,7 +195,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       .filter(file=>file.path.startsWith(BACKUP_DIRECTORY+'/')&&file.extension==='json')
       .sort((a,b)=>b.name.localeCompare(a.name,'fr'));
     if(!backups.length){
-      new Notice('Aucune sauvegarde Bible Lab trouvée. Crée d’abord une sauvegarde.');
+      new Notice('Aucune sauvegarde JW Study Desk trouvée. Crée d’abord une sauvegarde.');
       return;
     }
     new BibleLabRestoreModal(this.app,backups,this.applyResearchRestore).open();
@@ -233,7 +221,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)){
       if(leaf.view instanceof BibleLabSidebarView)leaf.view.reloadResearchState();
     }
-    new Notice('Recherches Bible Lab restaurées. Les notes Markdown sont inchangées.');
+    new Notice('Recherches JW Study Desk restaurées. Les notes Markdown sont inchangées.');
     return safetyCopy;
   };
   getResearchArchive=():BibleLabArchive=>this.researchArchive;
@@ -320,6 +308,10 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     await this.enqueuePluginData(); this.publish();
   }
   async onload(): Promise<void> {
+    addIcon(STUDY_DESK_ICON,STUDY_DESK_ICON_SVG);
+    const brandStyle=document.createElement('style');
+    brandStyle.dataset.jwStudyDesk='identity';brandStyle.textContent=STUDY_DESK_CSS;
+    document.head.append(brandStyle);this.register(()=>brandStyle.remove());
     const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown;bibleLabCollection?:unknown;bibleLabArchive?:unknown}) | null;
     try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
@@ -331,6 +323,22 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.publish();
     this.registerView(VIEW_TYPE, leaf => new AtlasView(leaf, this));
     this.registerView(BIBLE_LAB_VIEW, leaf => new BibleLabSidebarView(leaf, this));
+    this.registerView(STUDY_DESK_VIEW,leaf=>new StudyDeskView(leaf,{
+      navigate:this.navigateStudyDesk,
+      getDesk:this.getResearchDesk,getCollection:this.getResearchCollection,getArchive:this.getResearchArchive,
+      openStudy:()=>this.run(this.openDeskPanel(view=>view.openStudyFromDesk())),
+      openIdea:id=>this.run(this.openDeskPanel(view=>view.openIdeaFromDesk(id))),
+      openCapture:id=>this.run(this.openDeskPanel(view=>view.openInboxFromDesk(id))),
+      search:(query,scope)=>this.run(this.openDeskPanel(view=>view.searchFromDesk(query,scope))),
+      openDailyStudy:()=>this.run(this.openDeskPanel(view=>view.openStudyFromDesk(true))),
+      createTalk:this.createTalk,
+      openAnnotations:()=>this.run((async()=>{
+        await this.openVisualLibrary();
+        const view=this.app.workspace.getLeavesOfType(BIBLE_LAB_LIBRARY_VIEW)[0]?.view;
+        if(view instanceof BibleLabLibraryView)view.openAnnotations();
+      })()),
+      renderSettings:parent=>this.renderStudyDeskSettings(parent)
+    }));
     this.registerEvent(this.app.workspace.on('active-leaf-change',leaf=>{
       if(leaf?.view.getViewType()==='webviewer'){
         const state=leaf.view.getState() as {url?:unknown};
@@ -338,6 +346,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
           this.lastActiveWolLeaf=leaf;
       }
       this.refreshWolCaptureIndicators();
+      if(leaf?.view instanceof StudyDeskView)leaf.view.refresh();
     }));
     this.registerView(BIBLE_LAB_ARTICLE_VIEW, leaf => new BibleLabArticleView(leaf, this.openWolArticleTab));
     const catalogPath=(this.manifest.dir||this.app.vault.configDir+'/plugins/'+this.manifest.id)+'/publication-catalog.json';
@@ -348,6 +357,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.registerView(BIBLE_LAB_LIBRARY_VIEW,leaf=>new BibleLabLibraryView(leaf,{
       catalog:this.publicationCatalog,
       root:()=>this.settings.noteFolder,
+      navigate:this.navigateStudyDesk,
       importJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportJwpub(),
       importVirtualJwpub:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportVirtualJwpub(),
       importAnnotations:()=>new NativeJwModal(this.app,this.settings.noteFolder,()=>this.run(this.openVisualLibrary())).openImportAnnotations(),
@@ -378,13 +388,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.wolClipBridge=new WolContextCaptureBridge(this.app,this.saveWolQuote);
     this.wolClipBridge.start();
     this.register(()=>{this.wolClipBridge?.stop();this.wolClipBridge=undefined;});
-    this.addRibbonIcon('book-open-check', 'Ouvrir Bible Lab', () => this.run(this.openBibleLab()));
+    this.addRibbonIcon(STUDY_DESK_ICON, 'Ouvrir JW Study Desk', () => this.run(this.openStudyDesk()));
+    this.addCommand({id:'open-jw-study-desk',name:'Ouvrir JW Study Desk',callback:()=>this.run(this.openStudyDesk())});
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
-    this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le laboratoire biblique', callback: () => this.run(this.openBibleLab()) });
+    this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le panneau d’étude', callback: () => this.run(this.openBibleLab()) });
     this.addCommand({ id: 'open-wol-browser', name: 'Ouvrir la Bibliothèque en ligne WOL dans un onglet', callback: () => this.run(this.openWolSearchTab(WOL_HOME)) });
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
     this.addCommand({ id: 'inspect-jw-archive', name: 'Inspecter une archive JWPUB ou JW Library', callback: this.inspectArchive });
-    this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de Bible Lab', callback: this.importMarkdownArchive });
+    this.addCommand({ id: 'import-jw-markdown', name: 'Importer une archive ZIP Markdown de JW Study Desk', callback: this.importMarkdownArchive });
     this.addCommand({ id: 'native-jw-library', name: 'Importer JWPUB ou sauvegarde JW Library directement', callback: this.openNativeBridge });
     this.addCommand({ id:'open-bible-lab-visual-library',
       name:'Ouvrir ma bibliothèque personnelle dans un onglet',
@@ -397,26 +408,26 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({ id: 'new-research', name: 'Créer une recherche personnelle', callback: () => this.newResearch([]) });
     this.addCommand({
       id:'bible-lab-keep-wol-portion',
-      name:'WOL : garder la portion sélectionnée dans Bible Lab',
+      name:'WOL : garder la portion sélectionnée dans JW Study Desk',
       callback:()=>this.run(this.captureCurrentWolSelection())
     });
     this.addCommand({
       id:'bible-lab-backup-research',
-      name:'Sauvegarder mes recherches, idées et références Bible Lab',
+      name:'Sauvegarder mes recherches, idées et références JW Study Desk',
       callback:()=>this.run(this.exportResearchBackup())
     });
     this.addCommand({
       id:'bible-lab-restore-research',
-      name:'Restaurer une sauvegarde de recherches Bible Lab',
+      name:'Restaurer une sauvegarde de recherches JW Study Desk',
       callback:()=>this.openRestoreResearchBackup()
     });
     this.addCommand({
       id:'bible-lab-quick-capture',
-      name:'Capturer rapidement le texte copié ou l’onglet WOL dans Bible Lab',
+      name:'Capturer rapidement le texte copié ou l’onglet WOL dans JW Study Desk',
       callback:()=>this.run(this.quickCaptureToInbox())
     });
     this.addCommand({
-      id:'bible-lab-keep-selection',name:'Conserver la sélection dans le bac Bible Lab',
+      id:'bible-lab-keep-selection',name:'Conserver la sélection dans le bac JW Study Desk',
       editorCallback: editor=>{
         const selected=editor.getSelection().trim();
         if(!selected){new Notice('Sélectionne une référence ou un extrait dans la note.');return;}
@@ -517,6 +528,37 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       new Notice('Plan de discours créé et ouvert.');
     }).open();
   };
+  /** Keep existing notes and identifiers; navigation only changes the active view. */
+  openStudyDesk = async(destination:DeskDestination='home'):Promise<void>=>{
+    if(destination==='library'){await this.openVisualLibrary();return;}
+    await this.ready;
+    let leaf=this.app.workspace.getLeavesOfType(STUDY_DESK_VIEW)[0];
+    if(!leaf){
+      leaf=this.app.workspace.getLeaf('tab');
+      await leaf.setViewState({type:STUDY_DESK_VIEW,active:true});
+    }
+    if(leaf.view instanceof StudyDeskView)leaf.view.show(destination);
+    await this.app.workspace.revealLeaf(leaf);
+  };
+  private navigateStudyDesk=(destination:DeskDestination):void=>{this.run(this.openStudyDesk(destination));};
+  private async openDeskPanel(action:(view:BibleLabSidebarView)=>void):Promise<void>{
+    await this.openBibleLab();
+    const view=this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0]?.view;
+    if(view instanceof BibleLabSidebarView)action(view);
+  }
+  renderStudyDeskSettings(container:HTMLElement):void{
+    container.empty();container.addClass('jwsd-theme','jwsd-settings');renderDeskBrand(container);
+    new Setting(container).setName('Ma bibliothèque').setDesc('Publications, téléchargements et annotations personnelles.').addButton(button=>button.setButtonText('Ouvrir').onClick(()=>{this.run(this.openVisualLibrary());}));
+    new Setting(container).setName('Mes fichiers et sauvegardes').setDesc('Ajouter une publication ou retrouver mes annotations JW Library.').addButton(button=>button.setButtonText('Ajouter').onClick(this.openNativeBridge));
+    new Setting(container).setName('Dossier des recherches').setDesc('Les nouvelles notes et enquêtes seront créées ici. Les fichiers existants restent à leur emplacement.').addText(text=>{
+      text.setValue(this.settings.noteFolder);
+      text.onChange(value=>{try{validFolder(value);void this.updateSettings({noteFolder:value}).catch(error=>this.report(error));}catch{/* Allow typing an incomplete path. */}});
+    });
+    const maps=container.createEl('details');maps.createEl('summary',{text:'Atlas et cartes'});
+    new Setting(maps).setName('Charger les fonds de carte en ligne').setDesc('Charge les tuiles OpenFreeMap et les conserve dans le coffre. Désactivé : les cartes déjà téléchargées restent accessibles.').addToggle(toggle=>toggle.setValue(this.settings.allowOnlineMaps).onChange(async value=>{await this.updateSettings({allowOnlineMaps:value});}));
+    new Setting(maps).setName('Cartes hors connexion').setDesc('Préparer une région, consulter les téléchargements ou libérer leur espace.').addButton(button=>button.setButtonText('Préparer les cartes').onClick(this.openMapDownloads));
+    container.createEl('p',{cls:'jwsd-version',text:`JW Study Desk · Version ${this.manifest.version}`});
+  }
   openVisualLibrary = async():Promise<void>=>{
     let leaf=this.app.workspace.getLeavesOfType(BIBLE_LAB_LIBRARY_VIEW)[0];
     if(!leaf){
@@ -555,7 +597,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.run(this.openAtlas(selection?.key));
   };
   /**
-   * A source clicked in notes, popovers or the Bible Lab sidebar becomes a
+   * A source clicked in notes, popovers or the JW Study Desk sidebar becomes a
    * genuine WOL browser tab. Follow links, use WOL search and Obsidian's
    * native Web viewer Reader mode without recreating WOL's HTML.
    */

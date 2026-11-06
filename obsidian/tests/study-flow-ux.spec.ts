@@ -11,8 +11,8 @@ test('Study-first homepage offers one search and a calmer navigation hierarchy',
   const pane=page.locator('.biblelab-side');
   await expect(pane.getByRole('heading',{name:'Que veux-tu approfondir ?'})).toBeVisible();
   await expect(pane.locator('.biblelab-focus-nav .biblelab-tab')).toHaveCount(4);
-  await expect(pane.locator('.biblelab-overflow-menu .biblelab-btn')).toHaveCount(4);
-  await expect(pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'})).toBeVisible();
+  await expect(pane.locator('.biblelab-overflow-menu .biblelab-btn')).toHaveCount(5);
+  await expect(pane.getByRole('searchbox',{name:'Rechercher dans JW Study Desk'})).toBeVisible();
   await expect(pane.locator('.biblelab-overflow > summary')).toBeVisible();
   await pane.locator('.biblelab-overflow > summary').click();
   await expect(pane.getByRole('button',{name:'Atlas biblique'})).toBeVisible();
@@ -27,7 +27,7 @@ test('Typing a verse on the homepage opens the local reader directly',async({pag
    status:200,contentType:'application/json',body:JSON.stringify(verse)
  }));
  const pane=page.locator('.biblelab-side');
- await pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'}).fill('Jean 7:24');
+ await pane.getByRole('searchbox',{name:'Rechercher dans JW Study Desk'}).fill('Jean 7:24');
  await pane.getByRole('button',{name:'Lancer une recherche'}).click();
  await expect(pane.locator('.biblelab-focused-reading')).toBeVisible();
  await expect(pane.getByText('Ne jugez plus sur l’apparence',{exact:false})).toBeVisible();
@@ -36,7 +36,7 @@ test('Typing a verse on the homepage opens the local reader directly',async({pag
 
 test('Topic search keeps the original question and opens genuine WOL beside the sidebar',async({page})=>{
  const pane=page.locator('.biblelab-side');
- await pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'}).fill('justice');
+ await pane.getByRole('searchbox',{name:'Rechercher dans JW Study Desk'}).fill('justice');
  await pane.getByRole('button',{name:'Lancer une recherche'}).click();
  await expect(pane.locator('.biblelab-tab[aria-label="Recherche WOL"]')).toHaveAttribute('aria-selected','true');
  await expect(pane.getByPlaceholder('Sujet, publication ou verset…')).toHaveValue('justice');

@@ -139,6 +139,6 @@ test('a narrow desktop pane uses mobile navigation and returns from notebook lin
   await expect(page.locator('.atlas-vault-context p')).toHaveText('Jérusalem');
   await page.evaluate(() => document.body.classList.add('theme-dark'));
   expect(await page.locator('.atlas-notebook').count()).toBe(0);
-  expect(await page.locator('.atlas-vault-toolbar').evaluate(element => getComputedStyle(element).backgroundColor)).toBe('rgb(32, 33, 39)');
+  expect(await page.locator('.atlas-vault-toolbar').evaluate(element => getComputedStyle(element).backgroundColor)).toBe('rgb(28, 26, 50)');
   await page.screenshot({ path: testInfo.outputPath('atlas-narrow-pane.png'), fullPage: true });
 });

@@ -41,7 +41,7 @@ test('Reader contextual Index and Guide paths open official WOL searches next to
   await page.route('**/json/html/43007024',route=>route.fulfill({
     status:200,contentType:'application/json',body:JSON.stringify(verse)}));
   const pane=page.locator('.biblelab-side');
-  await pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'}).fill('Jean 7:24');
+  await pane.getByRole('searchbox',{name:'Rechercher dans JW Study Desk'}).fill('Jean 7:24');
   await pane.getByRole('button',{name:'Lancer une recherche'}).click();
   await expect(pane.getByRole('button',{name:'Consulter le Guide'})).toBeVisible();
   await pane.getByRole('button',{name:'Consulter le Guide'}).click();

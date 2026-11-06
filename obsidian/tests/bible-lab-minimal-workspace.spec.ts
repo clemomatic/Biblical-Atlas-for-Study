@@ -11,7 +11,7 @@ test('The first screen is study-first with four clear destinations and no tools 
   const pane=page.locator('.biblelab-side');
   await expect(pane.locator('.biblelab-focus-nav .biblelab-tab')).toHaveCount(4);
   await expect(pane.getByRole('heading',{name:'Que veux-tu approfondir ?'})).toBeVisible();
-  await expect(pane.getByRole('searchbox',{name:'Rechercher dans Bible Lab'})).toBeVisible();
+  await expect(pane.getByRole('searchbox',{name:'Rechercher dans JW Study Desk'})).toBeVisible();
   await expect(pane.getByRole('combobox',{name:'Recherche active'})).toHaveValue('');
   await expect(pane.locator('.biblelab-focus-plan-details')).not.toHaveAttribute('open','');
   await expect(pane.locator('.biblelab-focus-today')).not.toHaveAttribute('open','');
