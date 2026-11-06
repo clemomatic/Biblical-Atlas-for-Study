@@ -60,6 +60,7 @@ export class NativeJwModal extends Modal{
  public openOfflineLibrary():void{this.open();void this.library();}
  public openImportJwpub():void{this.open();void this.load('jwpub');}
  public openImportVirtualJwpub():void{this.open();void this.loadVirtualJwpub();}
+ public openImportAnnotations():void{this.open();void this.loadAnnotations();}
  private async loadVirtualJwpub():Promise<void>{
    if(this.busy)return;
    const file=await selectFile('.jwpub');if(!file)return;
