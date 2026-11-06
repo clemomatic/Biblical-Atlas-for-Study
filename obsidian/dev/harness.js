@@ -24,7 +24,8 @@ class Emitter {
   trigger(name, ...args) { this.listeners.get(name)?.forEach(callback => callback(...args)); }
 }
 class TFile {
-  constructor(path, content) { this.path = path; this.content = content; }
+  constructor(path, content) { this.path = path; this.content = content;
+    this.stat={ctime:Date.now(),mtime:Date.now(),size:content?.byteLength??content?.length??0}; }
   get name() { return this.path.split('/').pop(); }
   get basename() { return this.name.replace(/\.[^.]+$/, ''); }
   get extension() { return this.name.split('.').pop(); }
@@ -54,7 +55,9 @@ class Vault extends Emitter {
   async readBinary(file) { return file.content; }
   async createBinary(path, data) { return this.create(path, data); }
   async trash(file) { return this.delete(file); }
-  async modify(file, content) { file.content = content; this.trigger('modify', file); app.metadataCache.trigger('changed', file); }
+  async modify(file, content) { file.content = content;
+    file.stat.mtime=Date.now();file.stat.size=content?.byteLength??content?.length??0;
+    this.trigger('modify', file); app.metadataCache.trigger('changed', file); }
   async process(file, callback) { const content = callback(file.content); await this.modify(file, content); return content; }
   async rename(file, path) {
     const oldPath = file.path;
