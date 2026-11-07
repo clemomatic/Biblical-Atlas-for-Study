@@ -23,7 +23,7 @@ import {
   emptyResearchCollection, normalizeResearchCollection, addResearchCapture,
   type ResearchCollection
 } from './researchCollection';
-import { cleanWolUrl, extractReferenceEntries } from './referenceReader';
+import { cleanWolUrl, extractReferenceEntries,passageUrl } from './referenceReader';
 import { quickCaptureCandidate } from './researchQuickCapture';
 import { WolContextCaptureBridge } from './wolContextCapture';
 import {
@@ -65,6 +65,8 @@ import {PublicationDownloads} from './publicationDownloads';
 import {StudyDeskView,STUDY_DESK_VIEW} from './StudyDeskView';
 import {StudyDeskBibleView,STUDY_DESK_BIBLE_VIEW} from './StudyDeskBibleView';
 import {LocalBibleLibrary} from './localBibleLibrary';
+import {readingSettings,type ReadingSettings} from './readingSettings';
+import {StudyNotesService} from './studyNotes';
 import {STUDY_DESK_CSS,STUDY_DESK_ICON,STUDY_DESK_ICON_SVG,renderDeskBrand,type DeskDestination} from './studyDeskBrand';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -132,6 +134,26 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private indexedNotes = new Map<string, VaultNote>();
   private listeners = new Set<() => void>();
   private inlinePopup?:BibleLabInlinePopover;
+  private studyNotes=new StudyNotesService(()=>this.getReadingSettings());
+  getReadingSettings=():ReadingSettings=>readingSettings(this.settings.reading);
+  setReadingSettings=async(change:Partial<ReadingSettings>):Promise<void>=>{
+    await this.updateSettings({reading:readingSettings({...this.getReadingSettings(),...change})});
+    if(this.getReadingSettings().mode!=='popup')this.inlinePopup?.close();
+    for(const leaf of this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW))
+      if(leaf.view instanceof BibleLabSidebarView)leaf.view.refreshReaderSettings();
+  };
+  renderStudySupplements=(parent:HTMLElement,ref:ReferenceEntry):void=>this.studyNotes.render(parent,ref);
+  private previewReference=(label:string,anchor:HTMLElement,sourceUrl?:string):void=>{
+    const url=cleanWolUrl(sourceUrl||(anchor instanceof HTMLAnchorElement?anchor.href:''))||passageUrl(label);
+    const mode=this.getReadingSettings().mode;
+    if(mode==='panel')this.run((async()=>{
+      await this.openBibleLab(url,label);
+      const view=this.app.workspace.getLeavesOfType(BIBLE_LAB_VIEW)[0]?.view;
+      if(view instanceof BibleLabSidebarView)view.setReferenceContext(anchor.closest('p,li,blockquote,.cm-line')?.textContent||'');
+    })());
+    else if(mode==='popup')this.inlinePopup?.open(label,anchor,sourceUrl);
+    else if(url)window.open(url,'_blank','noopener,noreferrer');
+  };
   private localBible!:LocalBibleLibrary;
   private wolSearchLeaf: WorkspaceLeaf|null=null;
   private lastActiveWolLeaf:WorkspaceLeaf|null=null;
@@ -318,7 +340,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     brandStyle.dataset.jwStudyDesk='identity';brandStyle.textContent=STUDY_DESK_CSS;
     document.head.append(brandStyle);this.register(()=>brandStyle.remove());
     const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown;bibleLabCollection?:unknown;bibleLabArchive?:unknown}) | null;
-    try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true }; }
+    try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true,reading:readingSettings(stored?.reading) }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
     this.researchDesk=normalizeResearchDesk(stored?.bibleLabResearch);
     this.researchCollection=normalizeResearchCollection(stored?.bibleLabCollection);
@@ -336,7 +358,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         const view=this.app.workspace.getLeavesOfType(BIBLE_LAB_LIBRARY_VIEW)[0]?.view;
         if(view instanceof BibleLabLibraryView)view.openBibles();
       })()),
-      preview:(label,anchor,url)=>this.inlinePopup?.open(label,anchor,url)
+      preview:this.previewReference
     }));
     this.registerView(BIBLE_LAB_VIEW, leaf => new BibleLabSidebarView(leaf, this));
     this.registerView(STUDY_DESK_VIEW,leaf=>new StudyDeskView(leaf,{
@@ -374,6 +396,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       new NativeJwModal(this.app,this.settings.noteFolder).downloadCatalogPublication(symbol,issue,{background:true,onProgress,isCancelled}));
     this.register(()=>this.publicationDownloads.dispose());
     this.registerView(BIBLE_LAB_LIBRARY_VIEW,leaf=>new BibleLabLibraryView(leaf,{
+      localBible:this.localBible,
       catalog:this.publicationCatalog,
       root:()=>this.settings.noteFolder,
       navigate:this.navigateStudyDesk,
@@ -478,13 +501,19 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.inlinePopup=new BibleLabInlinePopover(
       ref => this.run(this.openBibleLab(ref.url,ref.label)),
       ref => this.run(this.openWolArticleTab(ref)),
-      async()=> (await loadLatestAnnotationArchive(this.app,this.settings.noteFolder))?.index||null
+      async()=> (await loadLatestAnnotationArchive(this.app,this.settings.noteFolder))?.index||null,
+      ()=>this.getReadingSettings().closeOnOutsideClick,
+      this.renderStudySupplements
     );
     this.register(()=>{this.inlinePopup?.destroy();this.inlinePopup=undefined;});
-    const showInline=(label:string,anchor:HTMLElement)=>
-      this.inlinePopup?.open(label,anchor);
+    const showInline=this.previewReference;
     this.registerMarkdownPostProcessor(el=>enhanceBibleLabMarkers(el,showInline));
     this.registerEditorExtension(inlineBibleLabEditorExtension(showInline));
+    this.addCommand({id:'search-note-scriptures',name:'Retrouver un verset ou une idée dans toutes mes notes',
+      callback:()=>this.run(this.openDeskPanel(view=>view.searchNotesFromDesk()))});
+    this.addCommand({id:'search-selection-scriptures',name:'Retrouver la sélection dans mes notes',
+      editorCallback:editor=>{const query=(editor.getSelection()||editor.getLine(editor.getCursor().line)).trim();
+        this.run(this.openDeskPanel(view=>view.searchNotesFromDesk(query)));}});
     this.addCommand({id:'link-bible-references-in-selection',
       name:'Transformer les références de la sélection en liens Markdown',
       editorCallback:editor=>{
@@ -575,6 +604,16 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     container.empty();container.addClass('jwsd-theme','jwsd-settings');renderDeskBrand(container);
     new Setting(container).setName('Ma bibliothèque').setDesc('Publications, téléchargements et annotations personnelles.').addButton(button=>button.setButtonText('Ouvrir').onClick(()=>{this.run(this.openVisualLibrary());}));
     new Setting(container).setName('Mes fichiers et sauvegardes').setDesc('Ajouter une publication ou retrouver mes annotations JW Library.').addButton(button=>button.setButtonText('Ajouter').onClick(this.openNativeBridge));
+    const reading=container.createDiv({cls:'jwsd-reading-settings'});
+    reading.createEl('h3',{text:'Lecture des références'});
+    const current=this.getReadingSettings();
+    new Setting(reading).setName('Ouvrir les références').addDropdown(dropdown=>dropdown.addOptions({popup:'Fenêtre popup',panel:'Panneau latéral',none:'Lien vers WOL'}).setValue(current.mode).onChange(value=>this.setReadingSettings({mode:value as ReadingSettings['mode']})));
+    new Setting(reading).setName('Fermer la popup après un clic à l’extérieur').setDesc('Désactivé : la fenêtre reste ouverte jusqu’à Fermer ou Échap.').addToggle(toggle=>toggle.setValue(current.closeOnOutsideClick).onChange(value=>this.setReadingSettings({closeOnOutsideClick:value})));
+    new Setting(reading).setName('Lire automatiquement après la saisie').setDesc('Dans le panneau, ouvre un verset reconnu après une pause de saisie. Le bouton Lire reste disponible.').addToggle(toggle=>toggle.setValue(current.automaticReference).onChange(value=>this.setReadingSettings({automaticReference:value})));
+    new Setting(reading).setName('Suivre le défilement de la note').setDesc('Affiche les références visibles dans la note en lecture ou en aperçu direct.').addToggle(toggle=>toggle.setValue(current.followNote).onChange(value=>this.setReadingSettings({followNote:value})));
+    new Setting(reading).setName('Affichage des références').addDropdown(dropdown=>dropdown.addOptions({preview:'Aperçus repliables',expanded:'Références dépliées'}).setValue(current.display).onChange(value=>this.setReadingSettings({display:value as ReadingSettings['display']})));
+    new Setting(reading).setName('Comparer les notes d’étude françaises et anglaises').setDesc('À l’ouverture d’un passage, consulte les deux éditions officielles en ligne. Désactivé : la lecture locale ne lance pas cette comparaison.').addToggle(toggle=>toggle.setValue(current.englishNotes).onChange(value=>this.setReadingSettings({englishNotes:value})));
+    new Setting(reading).setName('Traduire les notes anglaises en français').setDesc('MyMemory, service gratuit soumis à quota. Seul le texte public de la note anglaise est transmis. L’original reste consultable.').addToggle(toggle=>toggle.setValue(current.translateEnglish).onChange(value=>this.setReadingSettings({translateEnglish:value})));
     new Setting(container).setName('Dossier des recherches').setDesc('Les nouvelles notes et enquêtes seront créées ici. Les fichiers existants restent à leur emplacement.').addText(text=>{
       text.setValue(this.settings.noteFolder);
       text.onChange(value=>{try{validFolder(value);void this.updateSettings({noteFolder:value}).catch(error=>this.report(error));}catch{/* Allow typing an incomplete path. */}});

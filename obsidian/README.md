@@ -1,4 +1,8 @@
-# JW Study Desk 0.13.0 — votre Bible locale dans Obsidian
+# JW Study Desk 0.14.0 — des versets reliés à vos idées
+
+Retrouvez un verset dans **toutes vos notes**, avec la phrase associée et son emplacement. Dans le lecteur, saisissez une référence ou suivez celles qui sont visibles pendant le défilement de la note. Les options permettent de choisir la popup ou le panneau, de garder la popup ouverte et d’afficher les références en aperçu ou dépliées.
+
+Les revues disposent d’un filtre par année et leurs codes de téléchargement sont corrigés. La lecture des Bibles dans la bibliothèque élimine les lettres de renvoi collées aux mots. La comparaison facultative des notes d’étude anglaises et françaises, et la traduction gratuite signalée comme automatique, sont décrites dans le [guide 0.14](JW-STUDY-DESK-0.14.md).
 
 Les aperçus des références bibliques utilisent maintenant la **Bible téléchargée**, lorsque le passage complet est disponible. La mention **Lecture locale** identifie l’édition affichée. Le lecteur web reste disponible en secours.
 
@@ -25,7 +29,7 @@ Le logo approuvé, le violet et les accents pétrole, sauge et corail accompagne
 
 L’identifiant et le dossier `atlas-biblique` sont conservés pour retrouver automatiquement les réglages, raccourcis, recherches et bibliothèques de Bible Lab. Il ne faut pas installer une seconde copie sous un autre identifiant.
 
-Voir [la Bible locale et ses vérifications](JW-STUDY-DESK-0.13.md), [les corrections de bibliothèque](JW-STUDY-DESK-0.12.1.md), [la refonte graphique](JW-STUDY-DESK-0.12.md) et [l’audit fonctionnel précédent](AUDIT-REFONTE-0.11.md). Cette préversion s’installe manuellement ; elle n’est pas une publication automatique pour BRAT.
+Voir [les références et notes d’étude 0.14](JW-STUDY-DESK-0.14.md), [la Bible locale et ses vérifications](JW-STUDY-DESK-0.13.md), [les corrections de bibliothèque](JW-STUDY-DESK-0.12.1.md), [la refonte graphique](JW-STUDY-DESK-0.12.md) et [l’audit fonctionnel précédent](AUDIT-REFONTE-0.11.md). Cette préversion s’installe manuellement ; elle n’est pas une publication automatique pour BRAT.
 
 Projet communautaire indépendant, sans affiliation officielle avec JW.org ou Obsidian.
 

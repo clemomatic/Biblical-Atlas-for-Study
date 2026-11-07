@@ -4,7 +4,7 @@ import {decodeMediaCatalogLink} from './jwOrgCatalog';
 import {renderDeskBrand} from './studyDeskBrand';
 import type {DownloadProgress} from './publicationDownloads';
 import {
-  PERSONAL_OFFLINE_CATALOG,allowedJwpubBytes,isBiblePublication,canonicalPublicationSymbol,
+  PERSONAL_OFFLINE_CATALOG,allowedJwpubBytes,isBiblePublication,canonicalPublicationSymbol,canonicalIssue,
   isJwpubArchive,parsePublicJwpubResponse,publicJwpubQuery,
   type PublicJwpub
 } from './offlinePublications';
@@ -185,6 +185,8 @@ export class NativeJwModal extends Modal{
      const publication=index?.text&&JSON.parse(index.text).publication;
      if(!publication||publication.language!==3||canonicalPublicationSymbol(publication.symbol)!==canonicalPublicationSymbol(item.symbol))
        throw Error('Le fichier reçu ne correspond pas à la publication française demandée.');
+     if(item.issue&&canonicalIssue(publication.issue||'')!==canonicalIssue(item.issue))
+       throw Error('Le numéro du fichier reçu ne correspond pas à la revue demandée.');
      this.pendingDownload={name:item.filename,bytes,symbol:item.symbol,issue:item.issue||''};
      if(install)return await this.writePreview(preview,item.filename);
      this.showPreview(preview,item.filename);return true;

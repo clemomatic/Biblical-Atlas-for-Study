@@ -55,18 +55,18 @@ export class JwPublicationCatalog {
   }
   private async update(force:boolean):Promise<PublicationCatalogSnapshot>{
     const cached=await this.cached();
-    if(cached&&!force&&!catalogNeedsRefresh(cached))return cached;
+    if(cached?.mappingRevision===2&&!force&&!catalogNeedsRefresh(cached))return cached;
     const response=await requestUrl({url:JW_LIBRARY_CATALOG_MANIFEST,throw:false});
     if(response.status!==200||response.text.length>100_000)throw Error('Catalogue indisponible.');
     const version=parseJwLibraryCatalogManifest(JSON.parse(response.text));
     let entries=cached?.entries;
-    if(!entries||cached?.version!==version){
+    if(!entries||cached?.version!==version||cached?.mappingRevision!==2){
       const payload=await requestUrl({url:jwLibraryCatalogDownloadUrl(version),throw:false});
       if(payload.status!==200)throw Error('Catalogue indisponible.');
       const db=await openDb(decodeJwLibraryCatalogPayload(new Uint8Array(payload.arrayBuffer)));
       try{entries=extractJwLibraryCatalog(db);}finally{db.close();}
     }
-    const snapshot:PublicationCatalogSnapshot={schema:1,version,checkedAt:Date.now(),entries};
+    const snapshot:PublicationCatalogSnapshot={schema:1,version,checkedAt:Date.now(),entries,mappingRevision:2};
     this.snapshot=snapshot;
     try{await this.storage?.write(JSON.stringify(snapshot));}catch{/* Keep usable in memory on read-only vaults. */}
     return snapshot;

@@ -3,7 +3,7 @@ import {validPublicationSymbol} from './offlinePublications.ts';
 
 export const CATALOG_REFRESH_INTERVAL=24*60*60*1000;
 export interface PublicationCatalogSnapshot {
-  schema:1;version:string;checkedAt:number;entries:JwCatalogEntry[];
+  schema:1;version:string;checkedAt:number;entries:JwCatalogEntry[];mappingRevision?:number;
 }
 const categories=new Set(['bible','books','magazines','brochures','assemblies','schools','other']);
 /** Persist only public metadata. Never trust executable URLs from an edited cache. */
@@ -29,7 +29,8 @@ export function parsePublicationCatalogCache(text:string):PublicationCatalogSnap
         category:item.category,coverUrl:typeof item.coverUrl==='string'?trustedJwCover(item.coverUrl):'',
         sourcePage:'https://www.jw.org/fr/biblioth%C3%A8que/'});
     }
-    return {schema:1,version:data.version,checkedAt:data.checkedAt,entries};
+    return {schema:1,version:data.version,checkedAt:data.checkedAt,entries,
+      ...(data.mappingRevision===2?{mappingRevision:2}:{})};
   }catch{return null;}
 }
 export function catalogNeedsRefresh(snapshot:PublicationCatalogSnapshot|null,now=Date.now()):boolean {

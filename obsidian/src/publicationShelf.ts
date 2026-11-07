@@ -1,5 +1,6 @@
 import {catalogKey,type JwCatalogEntry} from './jwOrgCatalog.ts';
 import {foldLibraryText,type LibraryCategory} from './libraryTaxonomy.ts';
+import {canonicalIssue,canonicalPublicationSymbol} from './offlinePublications.ts';
 
 export interface ShelfLocalVolume {
   symbol:string;issue:string;title:string;language:number;path:string;
@@ -17,7 +18,7 @@ export function publicationShelf<T extends ShelfLocalVolume>(official:readonly J
     const old=shelf.get(key);
     if(old?.local&&foldLibraryText(old.local.title)===foldLibraryText(volume.title))continue;
     const localKey=old?.local?'local:'+volume.path:key;
-    shelf.set(localKey,{symbol:volume.symbol,issue:volume.issue,title:volume.title,
+    shelf.set(localKey,{symbol:canonicalPublicationSymbol(volume.symbol),issue:canonicalIssue(volume.issue),title:volume.title,
       coverUrl:old?.coverUrl||'',sourcePage:old?.sourcePage||'',category:volume.category,key:localKey,local:volume});
   }
   return [...shelf.values()].sort((a,b)=>Number(!!b.local)-Number(!!a.local));

@@ -1,6 +1,6 @@
 import { classifyLibraryVolume } from './libraryTaxonomy.ts';
 import { gunzipSync } from 'fflate';
-import { validPublicationSymbol } from './offlinePublications.ts';
+import { validPublicationSymbol,canonicalIssue } from './offlinePublications.ts';
 import type { JwCatalogEntry } from './jwOrgCatalog.ts';
 
 /**
@@ -97,7 +97,7 @@ export function jwLibraryCatalogRow(
   if(!symbol)return null;
   const year=number(field(row,'Year'));
   const issueRaw=String(number(field(row,'IssueTagNumber'))||'');
-  const issue=/^(?:19|20)\d{4}$/.test(issueRaw)?issueRaw:'';
+  const issue=/^(?:18|19|20)\d{4}(?:\d{2})?$/.test(issueRaw)?canonicalIssue(issueRaw):'';
   const generic=string(field(row,'Title','ShortTitle'));
   const issueTitle=string(field(row,'IssueTitle'));
   const title=(generic||string(field(row,'CoverTitle'))||symbol).slice(0,180);

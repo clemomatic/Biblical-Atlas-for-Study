@@ -3,6 +3,7 @@ import { emptyAtlasNavigation } from '../../src/atlasIntegration.ts';
 import type { BiblicalPlace, CategoryData, EventData } from '../../src/types';
 import { parseTimelineDate } from '../../src/utils/dateUtils.ts';
 import type { EntityEdit } from './editable';
+import type {ReadingSettings} from './readingSettings';
 
 export const PERSONAL_CATEGORY: CategoryData = {
   id: 'obsidian-research', name: 'Mes recherches', color: '155,100,53', hexColor: '#9b6435'
@@ -22,7 +23,7 @@ export interface VaultNote {
   edit?: EntityEdit;
 }
 
-export interface AtlasSettings { noteFolder: string; allowOnlineMaps: boolean }
+export interface AtlasSettings { noteFolder: string; allowOnlineMaps: boolean; reading?:ReadingSettings }
 export const DEFAULT_SETTINGS: AtlasSettings = { noteFolder: 'Atlas biblique', allowOnlineMaps: false };
 
 export function validFolder(value: unknown): string {

@@ -1,9 +1,9 @@
-import {canonicalPublicationSymbol} from './offlinePublications.ts';
+import {canonicalPublicationSymbol,canonicalIssue} from './offlinePublications.ts';
 
 export type DownloadStage='queued'|'locating'|'downloading'|'opening'|'reading'|'saving'|'ready'|'error';
 export interface PublicationDownloadState {stage:DownloadStage;current?:number;total?:number;error?:string}
 export type DownloadProgress=(state:PublicationDownloadState)=>void;
-export const downloadKey=(symbol:string,issue='')=>canonicalPublicationSymbol(symbol)+'|'+issue;
+export const downloadKey=(symbol:string,issue='')=>canonicalPublicationSymbol(symbol)+'|'+canonicalIssue(issue);
 export const downloadLabel=(state:PublicationDownloadState)=>({
   queued:'En attente…',locating:'Téléchargement…',downloading:'Téléchargement…',
   opening:'Préparation…',reading:'Préparation…',saving:'Enregistrement…',ready:'Lire',error:'Réessayer'

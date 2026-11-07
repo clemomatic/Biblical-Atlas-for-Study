@@ -1,5 +1,5 @@
 import { classifyLibraryVolume } from './libraryTaxonomy.ts';
-import { canonicalPublicationSymbol,validPublicationSymbol } from './offlinePublications.ts';
+import { canonicalPublicationSymbol,validPublicationSymbol,canonicalIssue } from './offlinePublications.ts';
 import type { LibraryCategory } from './libraryTaxonomy.ts';
 
 /** The official library landing page is a discovery source, not an availability API. */
@@ -49,7 +49,7 @@ export const FEATURED_JW_ORG:readonly JwCatalogEntry[]=[
 ];
 export const validIssue=(value:string):boolean=>value===''||/^\d{4,8}$/.test(value);
 export const catalogKey=(entry:Pick<JwCatalogEntry,'symbol'|'issue'>):string=>
-  entry.symbol.toLowerCase()+'|'+entry.issue;
+  canonicalPublicationSymbol(entry.symbol)+'|'+canonicalIssue(entry.issue);
 
 /** Only URLs actually found on the official JW.org page can create discoveries. */
 export function decodeMediaCatalogLink(raw:string):{symbol:string;issue:string}|null{

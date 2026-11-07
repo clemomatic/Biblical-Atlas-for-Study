@@ -15,6 +15,7 @@ import {annotationsForDocument,annotationsForBibleChapter,bibleAnnotationChapter
 import type {DocumentAnnotations} from './jwAnnotationLibrary';
 import type {JwAnnotationIndex} from './jwAnnotations';
 import type { JwPublicationCatalog } from './jwLibraryCatalogReader';
+import type {LocalBibleLibrary} from './localBibleLibrary';
 import {publicationShelf,filterPublicationShelf,publicationSeries,type PublicationShelfEntry} from './publicationShelf';
 import { foldLibraryText } from './libraryTaxonomy';
 import {
@@ -24,6 +25,7 @@ import {
 
 export const BIBLE_LAB_LIBRARY_VIEW='bible-lab-personal-library';
 export interface LibraryActions {
+  localBible?:LocalBibleLibrary;
   root:()=>string;
   navigate:(destination:DeskDestination)=>void;
   importJwpub:()=>void;
@@ -68,6 +70,7 @@ export class BibleLabLibraryView extends ItemView {
   private catalogError='';
   private downloadedOnly=false;
   private selectedSeries:string|null=null;
+  private selectedYear='';
   private unsubscribeDownloads?:()=>void;
   private readingBibleBook:number|null=null;
   private shelfScroll=0;
@@ -291,13 +294,22 @@ export class BibleLabLibraryView extends ItemView {
     const shelf=publicationShelf(this.officialCatalog,this.volumes);
     let available=filterPublicationShelf(shelf,this.filter,this.term,this.downloadedOnly);
     if(this.selectedSeries)available=available.filter(item=>item.symbol.toLowerCase()===this.selectedSeries);
+    if(this.selectedSeries&&this.selectedYear)available=available.filter(item=>item.issue.startsWith(this.selectedYear));
     const locals=shelf.filter(item=>item.local).length;
     this.resultCount.setText(shelf.length.toLocaleString('fr-FR')+' publications · '+locals+' téléchargée'+(locals>1?'s':''));
     if(this.selectedSeries){
       const crumbs=this.content.createDiv({cls:'blb-breadcrumb'});
       button(crumbs,'Toutes les publications','arrow-left',()=>{
-        this.selectedSeries=null;this.catalogVisible=48;void this.renderContent();
+        this.selectedSeries=null;this.selectedYear='';this.catalogVisible=48;void this.renderContent();
       });
+      const years=[...new Set(shelf.filter(item=>item.symbol.toLowerCase()===this.selectedSeries&&item.issue).map(item=>item.issue.slice(0,4)))].sort().reverse();
+      const label=crumbs.createEl('label',{text:'Année'});
+      const select=label.createEl('select',{attr:{'aria-label':'Année des revues'}});
+      select.createEl('option',{text:'Toutes les années',attr:{value:''}});
+      for(const year of years)select.createEl('option',{text:year,attr:{value:year}});
+      select.value=this.selectedYear;
+      select.addEventListener('change',()=>{this.selectedYear=select.value;this.catalogVisible=48;void this.renderContent();});
+      crumbs.createSpan({text:available.length+' numéros'});
     }
     if(this.catalogLoading)this.content.createEl('p',{cls:'blb-loading',text:'Mise à jour des publications…'});
     if(this.catalogError){
@@ -325,7 +337,7 @@ export class BibleLabLibraryView extends ItemView {
       const art=card.createDiv({cls:'blb-card-art'});
       const open=art.createEl('button',{cls:'blb-cover-link',attr:{type:'button',
         'aria-label':series?'Choisir un numéro de '+title:item.local?'Ouvrir '+title:'Télécharger '+title}});
-      const invoke=()=>{if(series){this.selectedSeries=item.symbol.toLowerCase();this.catalogVisible=48;void this.renderContent();}
+      const invoke=()=>{if(series){this.selectedSeries=item.symbol.toLowerCase();this.selectedYear='';this.catalogVisible=48;void this.renderContent();}
         else if(item.local)this.openVolume(item.local);else void this.download(item);};
       open.addEventListener('click',invoke);
       if(item.local)this.renderCover(open,item.local,false,item.local.origin==='download'?item.coverUrl:'');
@@ -479,12 +491,21 @@ export class BibleLabLibraryView extends ItemView {
     const reader=this.content.createEl('article',{cls:'blb-reader-text markdown-rendered'});
     reader.createEl('p',{cls:'blb-loading',text:'Chargement du document local…'});
     try{
-      const raw=volume.virtual?(await virtualDocuments(this.app,volume)).get(doc.documentId)||'':
+      const edition=volume.virtual&&volume.language===3&&doc.bookNumber&&this.actions.localBible
+        ?(await this.actions.localBible.editions()).find(e=>e.id===volume.path):undefined;
+      const data=edition?await this.actions.localBible!.load(edition).catch(()=>null):null;
+      const chapter=data?.chapters.find(c=>c.book===doc.bookNumber&&c.chapter===doc.chapterNumber);
+      const raw=chapter?'':volume.virtual?(await virtualDocuments(this.app,volume)).get(doc.documentId)||'':
         await this.app.vault.cachedRead(file!);
       if(!this.active||this.token!==ticket)return;
       reader.empty();
-      await MarkdownRenderer.render(this.app,readerMarkdown(raw),reader,
-        file?.path||volume.path+'/'+doc.path,this);
+      if(chapter){
+        for(const verse of chapter.verses){
+          const p=reader.createEl('p',{cls:'blb-local-bible-verse'});
+          if(verse.number)p.createEl('sup',{text:String(verse.number)+' '});
+          p.createSpan({text:verse.text});
+        }
+      }else await MarkdownRenderer.render(this.app,readerMarkdown(raw),reader,file?.path||volume.path+'/'+doc.path,this);
       if(!this.active||this.token!==ticket)return;
       reader.addEventListener('click',event=>{
         const el=event.target as Element|null;

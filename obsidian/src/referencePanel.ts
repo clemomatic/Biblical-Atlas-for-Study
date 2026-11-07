@@ -17,6 +17,9 @@ export interface ReaderState {
  articleFontSize?:number;
  remember?:(ref:ReferenceEntry)=>void;
  insert?:(ref:ReferenceEntry)=>void;
+ compact?:boolean;
+ keep?:(ref:ReferenceEntry)=>void;
+ supplements?:(parent:HTMLElement,ref:ReferenceEntry)=>void;
 }
 function key(item:ReferenceEntry):string{return item.url+'#'+item.label;}
 function action(parent:HTMLElement,label:string,icon:string,callback:()=>void):void {
@@ -41,12 +44,15 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    if(!details.open && depth===0)state.remember?.(ref);
  });
  const body=details.createDiv({cls:'biblelab-reader-body'});
- const buttons=body.createDiv({cls:'biblelab-reader-actions'});
+ const overflow=state.compact?body.createEl('details',{cls:'biblelab-reader-overflow'}):null;
+ if(overflow)overflow.createEl('summary',{text:'Options de la référence',attr:{'aria-label':'Options de '+ref.label}});
+ const buttons=(overflow||body).createDiv({cls:'biblelab-reader-actions'});
  let currentUrl=ref.url;
  action(buttons,'WOL','external-link',()=>state.open(currentUrl));
  if(state.openInTab)action(buttons,'Nouvel onglet','panels-top-left',()=>state.openInTab?.({...ref,url:currentUrl}));
  action(buttons,'Copier','copy',()=>state.copy(currentUrl));
  if(state.insert)action(buttons,'Insérer dans ma note','file-plus',()=>state.insert?.({...ref,url:currentUrl}));
+ if(state.keep)action(buttons,'Garder la référence','bookmark-plus',()=>state.keep?.({...ref,url:currentUrl}));
  if(depth>0 && state.navigate)action(buttons,'Lire en grand','panel-top',()=>state.navigate?.(ref));
  if(ref.kind==='scripture'){const jw=jwLibraryLink(ref.label);if(jw)action(buttons,'JW Library','book-marked',()=>state.open(jw));}
  const contents=body.createDiv({cls:'biblelab-reader-contents'});
@@ -89,6 +95,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    loadedResult=result;
    currentUrl=result.sourceUrl;
    contents.empty();
+   if(ref.kind==='scripture')state.supplements?.(body,ref);
    if(result.title&&result.title!==ref.label)
      contents.createEl('h4',{cls:'biblelab-reader-document-title',text:result.title});
    if(result.notice)contents.createEl('p',{cls:'biblelab-reader-hint',text:

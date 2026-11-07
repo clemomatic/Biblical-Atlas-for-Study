@@ -14,6 +14,9 @@ import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, type WolMatchMode, type WolSearchScope } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
+import {readingSettings,type ReadingSettings} from './readingSettings';
+import {noteScriptures,type NoteScriptureOccurrence} from './noteScriptureIndex';
+import {VaultScriptureIndex} from './vaultScriptureIndex';
 import {
   emptyResearchDesk, normalizeResearchDesk, activeResearchPlan,
   addResearchPlan, activateResearchPlan, deleteResearchPlan, renameResearchPlan,
@@ -43,6 +46,9 @@ import {
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'collect' | 'archive' | 'refs' | 'maps' | 'library' | 'studio';
 export interface BibleLabHost {
+  getReadingSettings?:()=>ReadingSettings;
+  setReadingSettings?:(change:Partial<ReadingSettings>)=>Promise<void>;
+  renderStudySupplements?:(parent:HTMLElement,ref:ReferenceEntry)=>void;
   openAtlas: () => Promise<void>;
   openStudyDesk:()=>Promise<void>;
   getResearchDesk: () => ResearchDesk;
@@ -132,6 +138,21 @@ export class BibleLabSidebarView extends ItemView {
   private mapTerm='';
   private libraryTerm='';
   private noteRefs: ReferenceEntry[] = [];
+  private noteOccurrences:NoteScriptureOccurrence[]=[];
+  private visibleRefs:ReferenceEntry[]|null=null;
+  private visibleIdeas=new Map<string,string>();
+  private viewportSignature='';
+  private followingPaused=false;
+  private readDraft='';
+  private pinnedContext='';
+  private referenceTimer:ReturnType<typeof setTimeout>|undefined;
+  private viewportTimer:ReturnType<typeof setTimeout>|undefined;
+  private readonly vaultIndex:VaultScriptureIndex;
+  private vaultQuery='';
+  private vaultSearchSequence=0;
+  private vaultMatches:NoteScriptureOccurrence[]=[];
+  private vaultSearchStatus='';
+  private vaultResultsOpen=false;
   private noteRefsOpen:boolean|null=null;
   private pinnedRef: ReferenceEntry|null=null;
   private referenceHistory:ReferenceEntry[]=[];
@@ -153,7 +174,10 @@ export class BibleLabSidebarView extends ItemView {
   private liveError='';
 
   constructor(leaf:WorkspaceLeaf,host:BibleLabHost) {
-    super(leaf); this.host=host;
+    super(leaf); this.host=host;this.vaultIndex=new VaultScriptureIndex(this.app);
+    this.reader.compact=true;
+    this.reader.keep=ref=>this.keepReference(ref.label,ref.url);
+    this.reader.supplements=(parent,ref)=>this.host.renderStudySupplements?.(parent,ref);
     this.researchDesk=normalizeResearchDesk(host.getResearchDesk());
     this.collection=normalizeResearchCollection(host.getResearchCollection());
     this.archive=normalizeBibleLabArchive(host.getResearchArchive());
@@ -200,10 +224,52 @@ export class BibleLabSidebarView extends ItemView {
     this.scroller=this.contentEl.createDiv({cls:'biblelab-scroller'});
     await this.updateActiveNote(this.app.workspace.getActiveFile());
     this.render();
+    document.addEventListener('scroll',this.onNoteScroll,true);
+    window.addEventListener('resize',this.onNoteScroll);
+    this.syncVisibleReferences();
     this.liveViewOpen=true;
     // Live programmes are loaded on demand, not during each study session.
   }
-  async onClose():Promise<void>{this.liveViewOpen=false;this.sequence++;this.contentEl.empty();}
+  async onClose():Promise<void>{
+    this.liveViewOpen=false;this.sequence++;this.vaultSearchSequence++;
+    document.removeEventListener('scroll',this.onNoteScroll,true);window.removeEventListener('resize',this.onNoteScroll);
+    clearTimeout(this.referenceTimer);clearTimeout(this.viewportTimer);this.vaultIndex.clear();this.contentEl.empty();
+  }
+  private reading():ReadingSettings{return this.host.getReadingSettings?.()||readingSettings(null);}
+  refreshReaderSettings():void{
+    if(this.reading().display==='preview')this.reader.expanded.clear();
+    this.viewportSignature='';this.syncVisibleReferences();if(this.tab==='refs')this.render();
+  }
+  setReferenceContext(context:string):void{this.pinnedContext=context.trim().slice(0,800);if(this.tab==='refs')this.render();}
+  private onNoteScroll=(event?:Event):void=>{
+    if(event?.target instanceof Node&&this.contentEl.contains(event.target))return;
+    clearTimeout(this.viewportTimer);this.viewportTimer=setTimeout(()=>this.syncVisibleReferences(),120);
+  };
+  /** Uses the rendered viewport in Reading view and Live Preview, including
+   * clipping at the note pane. It never changes the note's scroll position.
+   */
+  syncVisibleReferences():void{
+    if(!this.reading().followNote||this.followingPaused)return;
+    const leaves=this.app.workspace.getLeavesOfType('markdown');
+    const view=leaves.find(l=>(l.view as MarkdownView).file?.path===this.lastMarkdownPath)?.view as MarkdownView|undefined;
+    const pane=Array.from(view?.containerEl?.querySelectorAll<HTMLElement>('.markdown-preview-view,.markdown-source-view')||[])
+      .find(element=>{const rect=element.getBoundingClientRect();return rect.width>0&&rect.height>0;});
+    if(!pane){this.visibleRefs=null;return;}
+    const bounds=pane.getBoundingClientRect(),found:ReferenceEntry[]=[],seen=new Set<string>(),ideas=new Map<string,string>();
+    for(const anchor of pane.querySelectorAll<HTMLElement>('.biblelab-ref,.biblelab-rendered-source-link,.biblelab-inline-editor-ref')){
+      const rect=anchor.getBoundingClientRect();
+      if(!rect.width||rect.bottom<=Math.max(bounds.top,0)||rect.top>=Math.min(bounds.bottom,window.innerHeight))continue;
+      let label=anchor.dataset.biblelabResolvedLabel||anchor.textContent?.trim()||'';
+      try{if(anchor.dataset.biblelabRef)label=decodeURIComponent(anchor.dataset.biblelabRef);}catch{continue;}
+      const url=cleanWolUrl(anchor.getAttribute('href')||'')||passageUrl(label),key=label+'|'+url;
+      if(!label||seen.has(key))continue;seen.add(key);
+      ideas.set(key,(anchor.closest('p,li,blockquote,.cm-line')?.textContent||'').trim().slice(0,800));
+      found.push({label,url,kind:parseScripture(label)?'scripture':'publication',origin:'verse'});
+    }
+    const signature=this.lastMarkdownPath+'|'+found.map(r=>r.label+'|'+r.url+'|'+ideas.get(r.label+'|'+r.url)).join('\n');
+    this.visibleRefs=found;this.visibleIdeas=ideas;
+    if(signature!==this.viewportSignature){this.viewportSignature=signature;if(this.tab==='refs')this.render();}
+  }
   private rememberReference(ref:ReferenceEntry):void{
     const current=this.referenceHistory[this.referenceCursor];
     if(current?.url===ref.url && current.label===ref.label)return;
@@ -222,6 +288,8 @@ export class BibleLabSidebarView extends ItemView {
       kind:parseScripture(label)?'scripture':direct?'document':'publication',origin:'pinned'};
     this.rememberReference(ref);
     this.pinnedRef=ref;
+    this.pinnedContext='';
+    this.followingPaused=true;
     this.noteRefsOpen=null;
     if(this.tab!=='refs'&&this.scroller)this.tabScroll.set(this.tab,this.scroller.scrollTop);
     this.reader.expanded.clear();
@@ -245,7 +313,10 @@ export class BibleLabSidebarView extends ItemView {
   async updateActiveNote(file:TFile|null):Promise<void>{
     const generation=++this.sequence;
     if(!file || file.extension!=='md'){
-      this.noteTitle='';this.noteRefs=[];
+      // Focusing a plugin pane can leave getActiveFile() temporarily empty.
+      // Keep the last real Markdown note until another note is opened.
+      if(this.lastMarkdownPath&&this.app.vault.getAbstractFileByPath(this.lastMarkdownPath))return;
+      this.noteTitle='';this.noteRefs=[];this.noteOccurrences=[];
       if((this.tab==='refs'||this.tab==='home')&&this.scroller)this.render();
       return;
     }
@@ -254,6 +325,8 @@ export class BibleLabSidebarView extends ItemView {
       if(generation!==this.sequence)return;
       if(this.lastMarkdownPath!==file.path)this.noteRefsOpen=null;
       this.noteTitle=file.basename;this.lastMarkdownPath=file.path;this.noteRefs=extractReferenceEntries(text);
+      this.noteOccurrences=noteScriptures(file.path,file.basename,text);
+      this.viewportSignature='';this.syncVisibleReferences();
     }catch{
       if(generation!==this.sequence)return;
       this.noteTitle=file.basename;this.lastMarkdownPath=file.path;this.noteRefs=[];
@@ -331,6 +404,7 @@ export class BibleLabSidebarView extends ItemView {
       button(trail,'Lecture en cours','book-open-text',()=>this.setTab('refs'),true);
     }
     this.scroller.empty();
+    this.scroller.classList.toggle('biblelab-reading-simple',this.tab==='refs');
     switch(this.tab){
       case 'home':this.renderHome();break;
       case 'wol':this.renderWol();break;
@@ -988,7 +1062,35 @@ export class BibleLabSidebarView extends ItemView {
     void this.host.openWolSearchTab(url);
   }
   private renderRefs():void{
-    heading(this.scroller,'Lecture','Les sources, leurs notes et leurs renvois, sans perdre le fil.');
+    this.scroller.addClass('biblelab-reading-simple');
+    const form=this.scroller.createEl('form',{cls:'biblelab-quick-reference',attr:{role:'search','aria-label':'Lire une référence'}});
+    const input=form.createEl('input',{attr:{type:'text',placeholder:'Une référence… Jean 3:16','aria-label':'Référence à lire',autocomplete:'off',maxlength:'240'}});
+    input.value=this.readDraft;
+    const submit=form.createEl('button',{text:'Lire',attr:{type:'submit'}});
+    const read=()=>{
+      clearTimeout(this.referenceTimer);const label=input.value.trim();if(!label)return;
+      this.readDraft=label;this.focusReference(cleanWolUrl(label)||passageUrl(label),label);
+    };
+    input.addEventListener('input',()=>{
+      this.readDraft=input.value;clearTimeout(this.referenceTimer);
+      if(this.reading().automaticReference&&parseScripture(input.value.trim()))
+        this.referenceTimer=setTimeout(()=>{if(input.isConnected&&!input.matches(':invalid'))read();},900);
+    });
+    input.addEventListener('compositionstart',()=>clearTimeout(this.referenceTimer));
+    form.addEventListener('submit',event=>{event.preventDefault();read();});
+    submit.disabled=false;
+    const toolbar=this.scroller.createDiv({cls:'biblelab-reading-toolbar'});
+    const follow=button(toolbar,this.followingPaused?'Suivre la note':'Note en cours','scroll-text',()=>{
+      this.pinnedRef=null;this.followingPaused=false;this.syncVisibleReferences();this.render();
+    });
+    follow.setAttribute('aria-pressed',String(!this.followingPaused));
+    const display=toolbar.createEl('select',{attr:{'aria-label':'Affichage des références'}});
+    display.createEl('option',{text:'Aperçus',attr:{value:'preview'}});display.createEl('option',{text:'Dépliées',attr:{value:'expanded'}});
+    display.value=this.reading().display;
+    display.addEventListener('change',()=>{
+      const value=display.value==='expanded'?'expanded':'preview';
+      void (this.host.setReadingSettings?.({display:value})||Promise.resolve()).then(()=>this.render());
+    });
     if(this.referenceHistory.length>1){
       const trail=this.scroller.createDiv({cls:'biblelab-reader-history'});
       const previous=button(trail,'Précédent','arrow-left',()=>this.moveReference(-1));
@@ -1000,25 +1102,11 @@ export class BibleLabSidebarView extends ItemView {
     }
     if(this.pinnedRef){
       const focus=this.scroller.createDiv({cls:'biblelab-focused-reading'});
-      const header=focus.createDiv({cls:'biblelab-focused-reading-header'});
-      const lead=header.createDiv({cls:'biblelab-focused-reading-caption'});
-      lead.createSpan({text:'EN COURS DE LECTURE'});
-      lead.createEl('strong',{text:this.pinnedRef.label});
-      button(header,'Autre source','search',()=>this.setTab('wol'));
-      button(header,'Nouvel onglet','panels-top-left',()=>{if(this.pinnedRef)void this.host.openWolArticleTab(this.pinnedRef);});
-      button(header,'Garder la référence','bookmark-plus',()=>{
-        if(this.pinnedRef)this.keepReference(this.pinnedRef.label,this.pinnedRef.url);
-      });
+      const occurrence=this.noteOccurrences.find(o=>o.label===(parseScripture(this.pinnedRef!.label)?.label||this.pinnedRef!.label));
+      const context=this.pinnedContext||occurrence?.idea;
+      if(context)focus.createEl('p',{cls:'biblelab-reference-idea',text:context});
       renderReferenceAccordion(focus,this.pinnedRef,this.reader);
-      const research=focus.createDiv({cls:'biblelab-related-research'});
-      research.createSpan({text:'PROLONGER L’ÉTUDE'});
-      button(research,'Chercher dans l’Index','list-tree',()=>this.exploreReference(this.pinnedRef!,'index'));
-      button(research,'Consulter le Guide','compass',()=>this.exploreReference(this.pinnedRef!,'guide'));
-    }else{
-      const intro=this.scroller.createDiv({cls:'biblelab-reader-intro'});
-      const symbol=intro.createSpan();setIcon(symbol,'book-open');
-      intro.createEl('p',{text:'Choisis une référence dans ta note ou recherche un passage pour commencer.'});
-      button(intro,'Rechercher une source','search',()=>this.setTab('wol'),true);
+      button(focus,'Dans mes notes','notebook-text',()=>this.searchNotesFromDesk(this.pinnedRef!.label));
     }
     if(this.noteTitle){
       const context=this.scroller.createDiv({cls:'biblelab-ref-context'});
@@ -1026,32 +1114,68 @@ export class BibleLabSidebarView extends ItemView {
       context.createEl('strong',{text:this.noteTitle});
       context.createSpan({text:this.noteRefs.length+' références'});
     }
-    const entries=this.pinnedRef
-      ?this.noteRefs.filter(x=>!(x.label===this.pinnedRef?.label&&x.url===this.pinnedRef?.url))
-      :this.noteRefs;
+    const followVisible=!this.followingPaused&&this.reading().followNote&&this.visibleRefs!==null;
+    const source=followVisible?this.visibleRefs!:this.noteRefs;
+    const entries=this.pinnedRef?source.filter(x=>!(x.label===this.pinnedRef?.label&&x.url===this.pinnedRef?.url)):source;
     if(entries.length){
-      const group=this.scroller.createEl('details',{cls:'biblelab-note-references'});
-      group.open=this.noteRefsOpen??!this.pinnedRef;
-      const summary=group.createEl('summary',{text:'Références de ma note · '+entries.length});
-      // Preserve expansion when a note refresh or async reader update rerenders.
-      summary.addEventListener('click',()=>{this.noteRefsOpen=!group.open;});
-      group.addEventListener('toggle',()=>{if(group.isConnected)this.noteRefsOpen=group.open;});
-      const list=group.createDiv({cls:'biblelab-note-reference-list'});
-      const actions=list.createDiv({cls:'biblelab-reader-count'});
-      button(actions,'Tout replier','chevrons-up',()=>{this.reader.expanded.clear();this.render();});
+      this.scroller.createEl('p',{cls:'biblelab-reader-count',text:(followVisible?'À l’écran':'Dans cette note')+' · '+entries.length});
+      const list=this.scroller.createDiv({cls:'biblelab-note-reference-list'});
       for(const item of entries){
-        const sourceRow=list.createDiv({cls:'biblelab-collect-ref-row'});
-        button(sourceRow,'Garder '+item.label,'bookmark-plus',()=>this.keepReference(item.label,item.url));
-        renderReferenceAccordion(list,item,this.reader);
+        const row=list.createDiv({cls:'biblelab-reference-with-idea'});
+        const idea=(followVisible?this.visibleIdeas.get(item.label+'|'+item.url):'')||this.noteOccurrences.find(o=>o.label===item.label)?.idea;
+        if(idea)row.createEl('p',{cls:'biblelab-reference-idea',text:idea});
+        if(this.reading().display==='expanded')this.reader.expanded.add(item.url+'#'+item.label);
+        renderReferenceAccordion(row,item,this.reader);
       }
     }else if(!this.pinnedRef){
       this.scroller.createDiv({cls:'biblelab-empty',
-        text:this.noteTitle?'Aucune référence biblique détectée dans cette note pour l’instant.':
-          'Ouvre une note avec des versets, ou lance une recherche pour consulter WOL.'});
+        text:followVisible?'Aucune référence dans la partie visible de la note.':this.noteTitle?'Aucune référence détectée dans cette note.':'Saisis un passage ou ouvre une note pour commencer.'});
     }
-    const help=this.scroller.createEl('details',{cls:'biblelab-disclosure'});
-    help.createEl('summary',{text:'Reconnaissance des références'});
-    help.createEl('p',{text:'Sont reconnus les versets en clair, !!référence!!, [référence de publication] et [titre](lien WOL).'});
+    const search=this.scroller.createEl('details',{cls:'biblelab-vault-correspondences'});search.open=this.vaultResultsOpen;
+    search.createEl('summary',{text:'Correspondances dans mes notes'});
+    search.addEventListener('toggle',()=>{if(search.isConnected)this.vaultResultsOpen=search.open;});
+    const lookup=search.createEl('form',{cls:'biblelab-vault-search',attr:{role:'search'}});
+    const query=lookup.createEl('input',{attr:{type:'search','aria-label':'Verset ou idée à retrouver',placeholder:'Verset ou idée à retrouver…',maxlength:'240'}});query.value=this.vaultQuery;
+    query.addEventListener('input',()=>{this.vaultQuery=query.value;this.vaultSearchSequence++;});
+    lookup.createEl('button',{text:'Chercher',attr:{type:'submit'}});
+    lookup.addEventListener('submit',event=>{event.preventDefault();void this.searchVaultNotes();});
+    const results=search.createDiv({cls:'biblelab-vault-results',attr:{'aria-live':'polite'}});this.drawVaultResults(results);
+  }
+  searchNotesFromDesk(query=''):void{
+    this.vaultQuery=query||this.readDraft||this.pinnedRef?.label||'';
+    this.vaultResultsOpen=true;this.tab='refs';this.render();
+    requestAnimationFrame(()=>this.scroller.querySelector('.biblelab-vault-correspondences')?.scrollIntoView({block:'start'}));
+    if(this.vaultQuery)void this.searchVaultNotes();
+    else this.scroller.querySelector<HTMLInputElement>('.biblelab-vault-search input')?.focus();
+  }
+  private async searchVaultNotes():Promise<void>{
+    if(!this.vaultQuery.trim())return;
+    const token=++this.vaultSearchSequence;this.vaultSearchStatus='Recherche dans toutes les notes…';
+    this.vaultMatches=[];let target=this.scroller.querySelector<HTMLElement>('.biblelab-vault-results');if(target)this.drawVaultResults(target);
+    try{
+      const result=await this.vaultIndex.search(this.vaultQuery);
+      if(token!==this.vaultSearchSequence)return;
+      this.vaultMatches=result.hits;
+      this.vaultSearchStatus=result.hits.length+' correspondance'+(result.hits.length>1?'s':'')+(result.unread?' · '+result.unread+' notes inaccessibles':'');
+    }catch{if(token!==this.vaultSearchSequence)return;this.vaultSearchStatus='La recherche n’a pas pu aboutir. Réessaie.';}
+    target=this.scroller.querySelector<HTMLElement>('.biblelab-vault-results');if(target)this.drawVaultResults(target);
+  }
+  private drawVaultResults(parent:HTMLElement):void{
+    parent.empty();if(this.vaultSearchStatus)parent.createEl('p',{text:this.vaultSearchStatus});
+    let visible=0;
+    const more=parent.createEl('button',{text:'Afficher la suite',attr:{type:'button'}});
+    const append=()=>{
+      for(const hit of this.vaultMatches.slice(visible,visible+40)){
+        const row=parent.createDiv({cls:'biblelab-vault-hit'});
+        const link=row.createEl('button',{cls:'biblelab-vault-hit-title',text:hit.title+' · ligne '+(hit.line+1),attr:{type:'button'}});
+        link.addEventListener('click',()=>void this.vaultIndex.open(hit).catch(e=>new Notice(e.message)));
+        if(hit.heading&&normalizeSearch(hit.heading)!==normalizeSearch(hit.title))row.createSpan({cls:'biblelab-vault-heading',text:hit.heading});
+        if(hit.idea)row.createEl('p',{text:hit.idea});
+        const ref=row.createEl('button',{cls:'biblelab-vault-hit-ref',text:hit.label,attr:{type:'button','aria-label':'Lire '+hit.label}});
+        ref.addEventListener('click',()=>this.focusReference(passageUrl(hit.label),hit.label));
+      }
+      visible+=40;more.remove();if(visible<this.vaultMatches.length)parent.append(more);
+    };more.addEventListener('click',append);append();
   }
   /** Captured references never alter the popup reader or rewrite the note. */
   private updateArchive(next:BibleLabArchive,rerender=true):void{
