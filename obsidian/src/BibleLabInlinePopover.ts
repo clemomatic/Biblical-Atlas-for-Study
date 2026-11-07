@@ -2,7 +2,7 @@ import {STUDY_DESK_LOGO} from './studyDeskBrand';
 import { Notice, setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
-import { fetchReferenceContent } from './wolReferenceFetcher';
+import { fetchLocalReferenceContent,fetchWebReferenceContent } from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 import { appendStyledReaderText } from './readerInlineFormatting';
@@ -33,11 +33,11 @@ export class BibleLabInlinePopover {
    private readonly openInTab:(ref:ReferenceEntry)=>void,
    private readonly annotations?:()=>Promise<JwAnnotationIndex|null>){}
  isOpen():boolean{return !!this.root;}
- open(label:string,anchor:HTMLElement):void{
+ open(label:string,anchor:HTMLElement,sourceUrl?:string):void{
   const ref=fromLabel(label);
   // A rendered Markdown link already contains its authoritative WOL URL.
   // Never replace it with a guessed bibliographic search based on its title.
-  const href=anchor instanceof HTMLAnchorElement?cleanWolUrl(anchor.href):null;
+  const href=cleanWolUrl(sourceUrl||(anchor instanceof HTMLAnchorElement?anchor.href:''));
   if(href){ref.url=href;if(ref.kind!=='scripture')ref.kind='document';}
   this.backFocus=anchor;
   this.anchor=anchor;
@@ -206,17 +206,15 @@ export class BibleLabInlinePopover {
   document.addEventListener('keydown',this.keydown,true);
   const key=ref.url+'#'+ref.label;
   const cached=this.cache.get(key);
-  if(cached&&Date.now()-cached.date<this.cacheDuration){
-    this.cache.delete(key);this.cache.set(key,cached);
-    this.draw(content,cached.value,anchor);this.keepVisible(root);
-    void this.renderPersonalAnnotations(content,ref,token);return;
-  }
+  const reusable=cached&&cached.value.source!=='local'&&Date.now()-cached.date<this.cacheDuration?cached.value:null;
   if(cached)this.cache.delete(key);
   content.createDiv({cls:'biblelab-popover-loading',attr:{role:'status'},
     text:'Chargement de la référence…'});
   let request=this.inFlight.get(key);
   if(!request){
-    request=fetchReferenceContent(ref);
+    // A Bible downloaded since the last preview must supersede a cached web
+    // answer. Conversely, a removed Bible must not keep returning stale text.
+    request=fetchLocalReferenceContent(ref).then(local=>local||reusable||fetchWebReferenceContent(ref));
     this.inFlight.set(key,request);
     // Keep the request shared until it settles, then release it even if the
     // popup was closed or navigated elsewhere.

@@ -9,6 +9,7 @@ import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex
 import { buildJwpubMeetingNotebooks, type MeetingDocument } from './meetingNotebook';
 import {createVirtualIndex,encodeVirtualTexts,VIRTUAL_INDEX,VIRTUAL_TEXT,VIRTUAL_SOURCE,type VirtualDocument} from './virtualJwpub';
 import {bibleBookName} from './jwAnnotationLibrary';
+import {extractLocalChapter,encodeLocalBible,LOCAL_BIBLE_FILE,type LocalBibleData,type LocalChapter} from './localBibleData';
 import {extractJwAnnotations,encodeJwAnnotations,summarizeJwAnnotations,ANNOTATION_INDEX_NAME,ANNOTATION_META_NAME} from './jwAnnotations';
 
 export type Db = {exec:(sql:string,params?:unknown[])=>{columns:string[];values:unknown[][]}[];
@@ -170,6 +171,45 @@ export async function readBackup(file:File):Promise<ImportPreview>{
      warnings:['L’import est une copie. La sauvegarde d’origine reste intacte.']};
  }finally{db.close();}
 }
+async function publicationCipher(pub:{MepsLanguageIndex:number;Symbol:string;Year:number;IssueTagNumber:unknown}){
+ const card=[pub.MepsLanguageIndex,pub.Symbol,pub.Year].join('_')+(Number(pub.IssueTagNumber)?'_'+pub.IssueTagNumber:'');
+ const hash=new Uint8Array(await crypto.subtle.digest('SHA-256',strToU8(card) as BufferSource));
+ const mask=Uint8Array.from(KEY_MASK.match(/../g)!.map(x=>parseInt(x,16)));
+ const x=hash.map((b,i)=>b^mask[i]);
+ return {key:await crypto.subtle.importKey('raw',x.subarray(0,16) as BufferSource,'AES-CBC',false,['decrypt']),iv:x.subarray(16)};
+}
+/** Upgrade an existing download using only its database, without extracting media
+ * or converting a second set of documents. No network and no Markdown notes.
+ */
+export async function readLocalBibleSource(bytes:Uint8Array,options:JwpubReadOptions={}):Promise<LocalBibleData>{
+ const check=()=>{if(options.isCancelled?.())throw Error('Ouverture annulée.');};
+ check();options.onProgress?.({stage:'opening'});
+ const outer=await extractAsync(bytes,n=>n==='contents'||n==='manifest.json');
+ assert(outer.contents,'Publication sans contenu.');
+ const inner=await extractAsync(outer.contents,n=>n.endsWith('.db'));
+ const name=Object.keys(inner).find(n=>n.endsWith('.db'));assert(name,'Bible sans base de lecture.');
+ const db=await openDb(inner[name]);
+ try{
+   const pub=one(db,'SELECT MepsLanguageIndex,Symbol,Year,IssueTagNumber FROM Publication LIMIT 1');
+   assert(pub&&Number(pub.MepsLanguageIndex)===3&&['nwt','nwtsty'].includes(pub.Symbol),'Bible française non reconnue.');
+   const {key,iv}=await publicationCipher(pub);
+   const rows=query(db,'SELECT BookNumber,ChapterNumber,Content FROM BibleChapter ORDER BY BookNumber,ChapterNumber');
+   const chapters:LocalChapter[]=[];
+   for(let i=0;i<rows.length;i++){
+     if(i%20===0){check();options.onProgress?.({stage:'reading',current:i,total:rows.length});await new Promise(r=>setTimeout(r,0));}
+     const row=rows[i];if(!row.Content)continue;
+     const plain=new Uint8Array(await crypto.subtle.decrypt({name:'AES-CBC',iv:iv as BufferSource},key,u8(row.Content) as BufferSource));
+     const doc=new DOMParser().parseFromString(string(unzlibSync(plain)),'text/html');
+     const chapter=extractLocalChapter(doc,Number(row.BookNumber),Number(row.ChapterNumber));
+     if(chapter)chapters.push(chapter);
+   }
+   check();const manifest=JSON.parse(outer['manifest.json']?string(outer['manifest.json']):'{}');
+   const result:LocalBibleData={schema:1,sourceHash:await digest(bytes),publication:{symbol:pub.Symbol,year:Number(pub.Year),language:3,
+     title:String(manifest?.publication?.title||manifest?.publication?.displayTitle||pub.Symbol).slice(0,240)},chapters};
+   // Validation also rejects an empty Bible instead of caching guessed verses.
+   encodeLocalBible(result);options.onProgress?.({stage:'reading',current:rows.length,total:rows.length});return result;
+ }finally{db.close();}
+}
 export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='markdown',options:JwpubReadOptions={}):Promise<ImportPreview>{
  const check=()=>{if(options.isCancelled?.())throw Error('Ajout annulé.');};
  check();options.onProgress?.({stage:'opening'});
@@ -180,12 +220,7 @@ export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='
  try{
    const pub=one(db,'SELECT MepsLanguageIndex, Symbol, Year, IssueTagNumber FROM Publication LIMIT 1');
    assert(pub,'Métadonnées de publication introuvables.');
-   const card=[pub.MepsLanguageIndex,pub.Symbol,pub.Year].join('_')+(Number(pub.IssueTagNumber)?'_'+pub.IssueTagNumber:'');
-   const hash=new Uint8Array(await crypto.subtle.digest('SHA-256',strToU8(card) as BufferSource));
-   const mask=Uint8Array.from(KEY_MASK.match(/../g)!.map(x=>parseInt(x,16)));
-   const x=hash.map((b,i)=>b^mask[i]);
-   const key=await crypto.subtle.importKey('raw',x.subarray(0,16) as BufferSource,'AES-CBC',false,['decrypt']);
-   const iv=x.subarray(16);
+   const {key,iv}=await publicationCipher(pub);
    const documentCols=new Set(query(db,'PRAGMA table_info(Document)').map(x=>String(x.name)));
    // Older and specialist JWPUB files may omit MepsDocumentId.
    const docs=query(db,'SELECT DocumentId, Title, Content'+
@@ -206,6 +241,7 @@ export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='
      }
    }
    const entries:ImportEntry[]=[];let count=0,processed=0;
+   const bibleChapters:LocalChapter[]=[];
    const assets=new Set<string>();
    const indexDocuments:OfflineDocumentRecord[]=[];
    const notebookSources:MeetingDocument[]=[];
@@ -220,6 +256,10 @@ export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='
      const plain=new Uint8Array(await crypto.subtle.decrypt({name:'AES-CBC',iv:iv as BufferSource},key,ciphertext as BufferSource));
      const html=string(unzlibSync(plain));
      const parsed=new DOMParser().parseFromString(html,'text/html');
+     if(mode==='virtual'&&doc.BookNumber&&Number(pub.MepsLanguageIndex)===3&&['nwt','nwtsty'].includes(String(pub.Symbol))){
+       const chapter=extractLocalChapter(parsed,Number(doc.BookNumber),Number(doc.ChapterNumber));
+       if(chapter)bibleChapters.push(chapter);
+     }
      for(const el of Array.from(parsed.querySelectorAll('script,style,.pageNum')))el.remove();
      for(const img of Array.from(parsed.querySelectorAll('img[src]'))){
         const src=img.getAttribute('src')||'';
@@ -277,11 +317,14 @@ export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='
        language:Number(pub.MepsLanguageIndex),title:publicationTitle,
        ...(/^(?:19|20)\d{4}$/.test(issueNumber)?{issue:issueNumber}:{})};
      const virtualIndex=createVirtualIndex(pubInfo,virtualDocs);
+     const sourceHash=await digest(bytes);
+     virtualIndex.sourceHash=sourceHash;
      entries.push({name:VIRTUAL_INDEX,text:JSON.stringify(virtualIndex)});
      entries.push({name:VIRTUAL_TEXT,bytes:encodeVirtualTexts(virtualDocs)});
      entries.push({name:VIRTUAL_SOURCE,bytes});
+     if(bibleChapters.length)entries.push({name:LOCAL_BIBLE_FILE,bytes:encodeLocalBible({schema:1,sourceHash,publication:pubInfo,chapters:bibleChapters})});
      return {type:'jwpub',virtual:true,title:publicationTitle,
-       sourceHash:await digest(bytes),entries,count,
+       sourceHash,entries,count,
        warnings:['Mode bibliothèque : aucun document Markdown créé. Les articles restent consultables et cherchables localement.']};
    }
    const index:OfflineImportIndex={schema:1,publication:{

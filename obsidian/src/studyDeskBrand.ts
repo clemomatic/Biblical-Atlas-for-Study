@@ -21,10 +21,11 @@ const extended='U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+03
 export const STUDY_DESK_CSS=face('JWSD Inter',inter,latin)+face('JWSD Inter',interExtended,extended)+
   face('JWSD Montserrat',montserrat,latin)+face('JWSD Montserrat',montserratExtended,extended)+themeCss;
 
-export type DeskDestination='home'|'library'|'search'|'notes'|'ideas'|'inbox'|'preparation'|'settings';
+export type DeskDestination='home'|'bible'|'library'|'search'|'notes'|'ideas'|'inbox'|'preparation'|'settings';
 export interface DeskNavigation {navigate:(destination:DeskDestination)=>void}
 const destinations:{id:DeskDestination;label:string;icon:string;tone:string}[]=[
   {id:'home',label:'Accueil',icon:'house',tone:'violet'},
+  {id:'bible',label:'Bible',icon:'book-open-text',tone:'violet'},
   {id:'library',label:'Bibliothèque',icon:'library-big',tone:'violet'},
   {id:'search',label:'Recherche',icon:'search',tone:'petrol'},
   {id:'notes',label:'Mes notes',icon:'notebook-pen',tone:'sage'},
@@ -67,7 +68,7 @@ export function renderDeskShell(root:HTMLElement,active:DeskDestination,actions:
   foot.createSpan({text:'La connaissance\nmise en lumière.'});
   const stage=shell.createEl('main',{cls:'jwsd-stage'});
   const bottom=shell.createEl('nav',{cls:'jwsd-mobile-nav',attr:{'aria-label':'Navigation mobile JW Study Desk'}});
-  for(const id of ['home','library','search','notes'] as DeskDestination[]){
+  for(const id of ['home','bible','library','search'] as DeskDestination[]){
     const d=destinations.find(item=>item.id===id)!;
     const b=deskButton(bottom,d.label,d.icon,()=>actions.navigate(id),'jwsd-mobile-destination');
     b.setAttribute('aria-label','Ouvrir '+d.label.toLocaleLowerCase('fr'));
@@ -75,7 +76,7 @@ export function renderDeskShell(root:HTMLElement,active:DeskDestination,actions:
   }
   deskButton(bottom,'Plus','ellipsis',()=>{
     const menu=new Menu();
-    for(const d of destinations.filter(item=>['ideas','inbox','preparation','settings'].includes(item.id)))
+    for(const d of destinations.filter(item=>['notes','ideas','inbox','preparation','settings'].includes(item.id)))
       menu.addItem(item=>item.setTitle(d.label).setIcon(d.icon).onClick(()=>actions.navigate(d.id)));
     const rect=bottom.getBoundingClientRect();menu.showAtPosition({x:Math.max(8,rect.right-245),y:Math.max(8,rect.top-180)});
   },'jwsd-mobile-destination');

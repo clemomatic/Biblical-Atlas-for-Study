@@ -64,6 +64,7 @@ class Vault extends Emitter {
   async cachedRead(file) { return file.content; }
   async readBinary(file) { return file.content; }
   async createBinary(path, data) { return this.create(path, data); }
+  async modifyBinary(file, data) { return this.modify(file, data); }
   async trash(file) { return this.delete(file); }
   async modify(file, content) { file.content = content;
     file.stat.mtime=Date.now();file.stat.size=content?.byteLength??content?.length??0;

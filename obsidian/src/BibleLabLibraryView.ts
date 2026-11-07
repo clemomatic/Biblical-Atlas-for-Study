@@ -144,6 +144,11 @@ export class BibleLabLibraryView extends ItemView {
     this.browsingAnnotations=true;this.term='';this.selectedPath=null;this.selectedDocument=null;
     this.renderChrome();void this.renderContent();
   }
+  openBibles():void{
+    this.browsingAnnotations=false;this.downloadedOnly=false;this.filter='bible';
+    this.term='';this.selectedPath=null;this.selectedDocument=null;this.selectedSeries=null;
+    this.renderChrome();void this.renderContent();
+  }
   private renderChrome():void{
     this.contentEl.empty();
     this.contentEl.createEl('style',{text:styles});

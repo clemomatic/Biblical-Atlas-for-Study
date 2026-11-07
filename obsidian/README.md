@@ -1,14 +1,17 @@
-# JW Study Desk 0.12.1 — votre espace d’étude dans Obsidian
+# JW Study Desk 0.13.0 — votre Bible locale dans Obsidian
 
-Cette mise à jour corrige les couvertures sous les styles natifs d’Obsidian et les téléchargements de **Perspicace** et de la **Bible d’étude**. Perspicace apparaît une seule fois, avec les deux volumes dans le même ouvrage. La Bible se parcourt par livre et chapitre.
+Les aperçus des références bibliques utilisent maintenant la **Bible téléchargée**, lorsque le passage complet est disponible. La mention **Lecture locale** identifie l’édition affichée. Le lecteur web reste disponible en secours.
+
+Ouvrez **Bible** dans la navigation ou **Ouvrir la Bible** à l’accueil. Choisissez un livre et un chapitre, passez au suivant ou utilisez **Rechercher** pour retrouver un verset par ses mots, sans connexion. Si plusieurs Bibles françaises sont installées, le choix de l’édition reste visible. Les téléchargements existants sont préparés automatiquement lors de leur première lecture, sans nouveau téléchargement.
 
 Cliquez sur **Télécharger**, poursuivez votre travail, puis revenez à **Lire** lorsque l’ouvrage est prêt. La préparation reste visible sur sa carte ; une erreur permet de réessayer sur place. Le sommaire permet de retrouver un article par son titre.
 
-Le nouveau bureau réunit **Bibliothèque**, **Recherche**, **Mes notes**, **Fiches d’idées**, **Bac à idées** et **Préparation**. Ouvrez-le depuis le logo dans le ruban d’Obsidian, ou la commande **Ouvrir JW Study Desk**.
+Le bureau réunit **Bible**, **Bibliothèque**, **Recherche**, **Mes notes**, **Fiches d’idées**, **Bac à idées** et **Préparation**. Ouvrez-le depuis le logo dans le ruban d’Obsidian, ou la commande **Ouvrir JW Study Desk**.
 
 Le logo approuvé, le violet et les accents pétrole, sauge et corail accompagnent vos outils. Les polices Montserrat et Inter, le logo et le panorama d’accueil sont inclus : l’interface fonctionne sans connexion. L’apparence suit le mode clair ou sombre d’Obsidian ; une barre de navigation reste accessible sur les écrans étroits.
 
-- **Bibliothèque** : catalogue chargé automatiquement, ouvrages rangés par catégorie, un bouton principal par couverture et **⋯** pour les autres actions.
+- **Bible** : lecture locale par livre et chapitre, reprise de la dernière position et recherche par mots. Un numéro de verset ouvre son aperçu avec vos annotations personnelles déjà importées.
+- **Bibliothèque** : catalogue chargé automatiquement, ouvrages rangés par catégorie, un bouton principal par couverture et **⋯** pour les autres actions. Les corrections des téléchargements de Perspicace et des Bibles sont conservées.
 - **Mes notes** : retrouvez les notes personnelles du coffre, sans les noyer sous les documents sources et les index importés.
 - **Fiches d’idées et bac** : utilisez vos données existantes et leurs éditeurs dans le panneau d’étude.
 - **Préparation** : accédez au texte du jour, au programme de la semaine ou créez un plan de discours modifiable.
@@ -22,7 +25,7 @@ Le logo approuvé, le violet et les accents pétrole, sauge et corail accompagne
 
 L’identifiant et le dossier `atlas-biblique` sont conservés pour retrouver automatiquement les réglages, raccourcis, recherches et bibliothèques de Bible Lab. Il ne faut pas installer une seconde copie sous un autre identifiant.
 
-Voir [les corrections et vérifications de cette version](JW-STUDY-DESK-0.12.1.md) et [la refonte graphique](JW-STUDY-DESK-0.12.md) et [l’audit fonctionnel précédent](AUDIT-REFONTE-0.11.md). Cette préversion s’installe manuellement ; elle n’est pas une publication automatique pour BRAT.
+Voir [la Bible locale et ses vérifications](JW-STUDY-DESK-0.13.md), [les corrections de bibliothèque](JW-STUDY-DESK-0.12.1.md), [la refonte graphique](JW-STUDY-DESK-0.12.md) et [l’audit fonctionnel précédent](AUDIT-REFONTE-0.11.md). Cette préversion s’installe manuellement ; elle n’est pas une publication automatique pour BRAT.
 
 Projet communautaire indépendant, sans affiliation officielle avec JW.org ou Obsidian.
 

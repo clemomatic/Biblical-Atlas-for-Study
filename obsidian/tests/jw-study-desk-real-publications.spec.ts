@@ -1,6 +1,7 @@
 import {test,expect} from '@playwright/test';
 import {readFileSync} from 'node:fs';
 import path from 'node:path';
+import {bibleVerseOracle} from './fixtures/bibleOracle';
 
 // Opt-in: files downloaded directly from the official public media API.
 // No publication bytes are committed to the repository.
@@ -49,6 +50,63 @@ for(const symbol of ['nwtsty','it','nwt'])test('Real '+symbol+' downloads, insta
     await library.getByRole('searchbox',{name:'Rechercher dans cet ouvrage'}).fill('Aaron');
     await library.getByRole('button',{name:'Lire Aaron',exact:true}).click();
     await expect(library.locator('.blb-reader-text')).toContainText('Moïse');
+  }
+  if(symbol!=='it'){
+    const expected=await bibleVerseOracle(path.join(directory!,symbol+'.jwpub'));
+    const compared=await page.evaluate(async expected=>{
+      const {plugin}=(window as any).atlasTest;
+      const edition=(await plugin.localBible.editions())[0],data=await plugin.localBible.load(edition);
+      const actual=new Map<string,string>();
+      for(const c of data.chapters)for(const v of c.verses)actual.set(`${c.book}:${c.chapter}:${v.number}`,v.text);
+      const mismatches:{key:string;actual?:string;expected:string}[]=[];let mismatchCount=0;
+      const parser=new DOMParser();
+      for(const [key,html] of Object.entries(expected)){
+        const text=(parser.parseFromString(html,'text/html').body.textContent||'').replace(/\s+/gu,' ').trim();
+        if(actual.get(key)!==text){mismatchCount++;if(mismatches.length<3)mismatches.push({key,actual:actual.get(key),expected:text});}
+      }
+      return {chapters:data.chapters.length,verses:actual.size,expected:Object.keys(expected).length,mismatchCount,mismatches};
+    },expected);
+    console.log(JSON.stringify({symbol,verseOracle:compared}));
+    expect(compared.mismatchCount,JSON.stringify(compared.mismatches)).toBe(0);
+    expect(compared.verses).toBe(compared.expected);expect(compared.chapters).toBe(1189);
+    await page.evaluate(()=>(window as any).atlasTest.plugin.openStudyDesk('bible'));
+    const bible=page.locator('.jwsd-bible');
+    const books=await bible.locator('select[aria-label="Livre de la Bible"] option').evaluateAll(options=>options.map(o=>({book:Number((o as HTMLOptionElement).value),name:o.textContent!})));
+    expect(books).toHaveLength(66);
+    const unresolved=await page.evaluate(async books=>{
+      const missing:string[]=[];const {plugin}=(window as any).atlasTest;
+      for(const book of books){const ref={label:book.name+' 1:1',url:`https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/${book.book}/1`,kind:'scripture',origin:'pinned'};
+        const result=await plugin.localBible.resolve(ref);if(result?.source!=='local'||!result.lines.length)missing.push(ref.label);}
+      return missing;
+    },books);
+    expect(unresolved).toEqual([]);
+    if(!await bible.locator('details').evaluate((el:HTMLDetailsElement)=>el.open))await bible.locator('summary').click();
+    await bible.getByRole('combobox',{name:'Livre de la Bible',exact:true}).selectOption('43');
+    if(!await bible.locator('details').evaluate((el:HTMLDetailsElement)=>el.open))await bible.locator('summary').click();
+    await bible.getByRole('button',{name:'Lire Jean 7',exact:true}).click();
+    await bible.getByRole('button',{name:'Aperçu de Jean 7:24',exact:true}).click();
+    const popup=page.locator('.biblelab-inline-popover');
+    await expect(popup).toContainText('Lecture locale');await expect(popup).toContainText('apparence');
+    await expect(popup.locator('.biblelab-popover-scripture-number')).toHaveText(['24']);
+    await popup.getByRole('button',{name:'Fermer',exact:true}).click();
+    await bible.getByRole('tab',{name:'Rechercher',exact:true}).click();
+    await bible.getByRole('searchbox',{name:'Mots du verset'}).fill('apparence');
+    await expect(bible.getByRole('button',{name:'Lire Jean 7:24',exact:true})).toBeVisible();
+    await bible.getByRole('button',{name:'Lire Jean 7:24',exact:true}).click();
+    await expect(bible.locator('.jwsd-bible-verse.is-target')).toContainText('apparence');
+    await page.evaluate(()=>{const {app}=(window as any).atlasTest;for(const leaf of [...app.workspace.leaves])if(leaf.view.getViewType()!=='jw-study-desk-bible')leaf.detach();});
+    await bible.locator('.jwsd-stage').evaluate(el=>{el.scrollTop=0;});
+    await page.screenshot({path:'test-results/jwsd-real-bible-'+symbol+'-'+test.info().project.name+'.png'});
+    // Long book names must leave room for chapter arrows in a narrow pane.
+    if(!await bible.locator('details').evaluate((el:HTMLDetailsElement)=>el.open))await bible.locator('summary').click();
+    await bible.getByRole('combobox',{name:'Livre de la Bible',exact:true}).selectOption('52');
+    await page.setViewportSize({width:280,height:920});
+    const bounds=await bible.locator('.jwsd-bible-reader-heading').evaluate(el=>{
+      const title=el.querySelector('h2')!.getBoundingClientRect(),controls=el.querySelector('.jwsd-bible-chapter-nav')!.getBoundingClientRect();
+      return {titleRight:title.right,controlsLeft:controls.left,right:el.getBoundingClientRect().right,controlsRight:controls.right};
+    });
+    expect(bounds.titleRight).toBeLessThanOrEqual(bounds.controlsLeft);
+    expect(bounds.controlsRight).toBeLessThanOrEqual(bounds.right+1);
   }
   expect(errors).toEqual([]);
   await page.screenshot({path:'test-results/jwsd-real-'+symbol+'.png'});
