@@ -40,8 +40,10 @@ export const MAX_PERSONAL_JWPUB_BYTES=150*1024*1024;
 export const MAX_BIBLE_JWPUB_BYTES=400*1024*1024;
 /** The current public Insight download contains both printed volumes. */
 export const canonicalPublicationSymbol=(symbol:string)=>
-  /^it-[12]$/i.test(symbol)?'it':symbol.toLowerCase();
+  /^it-[12]$/i.test(symbol)?'it':symbol.toLowerCase().replace(/^(w|wp|ws|g|mwb)\d{2}$/,'$1');
 export const isBiblePublication=(symbol:string)=>/^(nwt|nwtsty)$/.test(symbol.toLowerCase());
+/** The catalogue stores a month as YYYYMM00; the media API uses YYYYMM. */
+export const canonicalIssue=(issue:string):string=>/^\d{6}00$/.test(issue)?issue.slice(0,6):issue;
 export const allowedJwpubBytes=(symbol:string)=>
   isBiblePublication(symbol)||canonicalPublicationSymbol(symbol)==='it'?MAX_BIBLE_JWPUB_BYTES:MAX_PERSONAL_JWPUB_BYTES;
 
@@ -50,6 +52,7 @@ export function validPublicationSymbol(value:string):string|null {
   return /^[a-z0-9][a-z0-9-]{0,45}$/.test(input)?input:null;
 }
 export function publicJwpubQuery(symbol:string,issue=''):string{
+  issue=canonicalIssue(issue);
   const valid=validPublicationSymbol(symbol);
   if(!valid)throw Error('Identifiant de publication invalide.');
   if(issue&&!/^\d{4,8}$/.test(issue))throw Error('Numéro de revue invalide.');
@@ -81,12 +84,13 @@ const obj=(value:unknown):Record<string,any>|null=>
   value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,any>:null;
 
 export function parsePublicJwpubResponse(payload:unknown,symbol:string,issue=''):PublicJwpub|null{
+  issue=canonicalIssue(issue);
   const input=validPublicationSymbol(symbol);
   const valid=input&&canonicalPublicationSymbol(input);
   if(!valid||(issue&&!/^\d{4,8}$/.test(issue)))return null;
   const response=obj(payload);
   if(response?.pub&&canonicalPublicationSymbol(String(response.pub))!==valid)return null;
-  if(issue&&String(response?.issue||'')!==issue)return null;
+  if(issue&&canonicalIssue(String(response?.issue||''))!==issue)return null;
   const files=obj(response?.files);
   const format=obj(files?.F)?.JWPUB;
   if(!Array.isArray(format)||format.length===0)return null;

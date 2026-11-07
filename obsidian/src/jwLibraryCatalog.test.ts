@@ -39,6 +39,9 @@ test('Only French public rows with real codes become bookcase entries',()=>{
   assert.equal(jwLibraryCatalogRow({...input,Reserved:1}),null);
   assert.equal(jwLibraryCatalogRow({...input,Symbol:'bad/path'}),null);
   assert.equal(jwLibraryCatalogRow({...input,Symbol:'s-38',IssueTagNumber:8})?.issue,'');
+  assert.equal(jwLibraryCatalogRow({...input,Year:2015,IssueTagNumber:20150115})?.issue,'20150115');
+  assert.equal(jwLibraryCatalogRow({...input,Year:2015,IssueTagNumber:20150101})?.issue,'20150101');
+  assert.equal(jwLibraryCatalogRow({...input,Year:2026,IssueTagNumber:20260900})?.issue,'202609');
 });
 
 test('SQLite discovery requires known tables, validates language and deduplicates editions',()=>{

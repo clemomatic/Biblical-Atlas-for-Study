@@ -6,6 +6,7 @@ import {
   type JwAnnotationBookmark
 } from './jwAnnotations.ts';
 import type {OfflineDocumentRecord} from './offlinePublications';
+import {canonicalIssue} from './offlinePublications.ts';
 
 export interface AnnotationArchive {
   folder:string;modified:number;index:JwAnnotationIndex;
@@ -17,9 +18,9 @@ export interface DocumentAnnotations {
   bookmarks:JwAnnotationBookmark[];
   locationIds:number[];
 }
-const cleanIssue=(raw:string|number|null|undefined):number=>
-  typeof raw==='number'&&Number.isSafeInteger(raw)?raw:
-  typeof raw==='string'&&/^\d{6}$/.test(raw)?Number(raw):0;
+const cleanIssue=(raw:string|number|null|undefined):number=>{
+ const value=String(raw??'');return /^\d{6}(?:\d{2})?$/.test(value)?Number(canonicalIssue(value)):0;
+};
 const matchSymbol=(a:string|null,b:string):boolean=>
   !!a&&a.toLowerCase()===b.toLowerCase();
 const empty=(confidence:DocumentAnnotations['confidence']):DocumentAnnotations=>({

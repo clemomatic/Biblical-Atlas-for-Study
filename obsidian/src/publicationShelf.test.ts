@@ -9,6 +9,10 @@ test('One shelf merges an exact downloaded edition and prefers its readable virt
   const shelf=publicationShelf([official()],[local(),local({path:'Virtual/w',virtual:true})]);
   assert.equal(shelf.length,1);assert.equal(shelf[0].local?.path,'Virtual/w');
 });
+test('Real annual symbols and catalogue month dates match their downloaded issue',()=>{
+  const shelf=publicationShelf([official('g','202611')],[local({symbol:'g26',issue:'20261100'})]);
+  assert.equal(shelf.length,1);assert.equal(shelf[0].symbol,'g');assert.equal(shelf[0].issue,'202611');assert.ok(shelf[0].local);
+});
 test('Unlisted private books, distinct private titles and foreign editions are never lost',()=>{
   const shelf=publicationShelf([official()],[local(),local({title:'Mes instructions',path:'Imports/private'}),local({language:0,path:'Imports/en'}),local({symbol:'s-38',title:'Mon manuel',path:'Imports/school'})]);
   assert.equal(shelf.length,4);

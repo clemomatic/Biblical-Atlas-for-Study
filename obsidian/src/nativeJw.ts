@@ -5,7 +5,7 @@ import initSqlJs from 'sql.js/dist/sql-wasm.js';
 import wasmAsset from 'sql.js/dist/sql-wasm.wasm?inline';
 import { unzipSync, unzip, unzlibSync, strFromU8, strToU8 } from 'fflate';
 import { patchZip } from './zipPatch';
-import { OFFLINE_INDEX_NAME, type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
+import { OFFLINE_INDEX_NAME, canonicalIssue,type OfflineDocumentRecord, type OfflineImportIndex } from './offlinePublications';
 import { buildJwpubMeetingNotebooks, type MeetingDocument } from './meetingNotebook';
 import {createVirtualIndex,encodeVirtualTexts,VIRTUAL_INDEX,VIRTUAL_TEXT,VIRTUAL_SOURCE,type VirtualDocument} from './virtualJwpub';
 import {bibleBookName} from './jwAnnotationLibrary';
@@ -311,11 +311,11 @@ export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='
      indexDocuments.unshift({documentId:1900000000+i,mepsId:null,
        title:notebook.title,path:notebook.path});
    }
-   const issueNumber=String(Number(pub.IssueTagNumber)||'');
+   const issueNumber=canonicalIssue(String(Number(pub.IssueTagNumber)||''));
    if(mode==='virtual'){
      const pubInfo={symbol:String(pub.Symbol),year:Number(pub.Year),
        language:Number(pub.MepsLanguageIndex),title:publicationTitle,
-       ...(/^(?:19|20)\d{4}$/.test(issueNumber)?{issue:issueNumber}:{})};
+       ...(/^(?:18|19|20)\d{4}(?:\d{2})?$/.test(issueNumber)?{issue:issueNumber}:{})};
      const virtualIndex=createVirtualIndex(pubInfo,virtualDocs);
      const sourceHash=await digest(bytes);
      virtualIndex.sourceHash=sourceHash;
@@ -330,7 +330,7 @@ export async function readJwpub(file:File|Uint8Array,mode:'markdown'|'virtual'='
    const index:OfflineImportIndex={schema:1,publication:{
      symbol:String(pub.Symbol),year:Number(pub.Year),language:Number(pub.MepsLanguageIndex),
      title:publicationTitle,
-     ...(/^(?:19|20)\d{4}$/.test(issueNumber)?{issue:issueNumber}:{})
+     ...(/^(?:18|19|20)\d{4}(?:\d{2})?$/.test(issueNumber)?{issue:issueNumber}:{})
    },documents:indexDocuments};
    entries.push({name:OFFLINE_INDEX_NAME,text:JSON.stringify(index,null,2)});
    return {type:'jwpub',title:publicationTitle,sourceHash:await digest(bytes),entries,count,
@@ -342,6 +342,11 @@ function htmlToMd(root:Element):string{
    if(node.nodeType===Node.TEXT_NODE)return (node.textContent||'').replace(/\s+/g,' ');
    if(node.nodeType!==Node.ELEMENT_NODE)return '';
    const e=node as Element,t=e.tagName.toLowerCase(),content=Array.from(e.childNodes).map(walk).join('');
+   if(e.matches('.tt'))return '';
+   // Semantic JWPUB marker spans need superscript typography in Markdown.
+   if(t==='sup'||e.matches('.fn,.m,[data-fnid],[data-mid]')){
+     const marker=content.replace(/[^a-zA-Z0-9*+†‡]/g,'');return marker?'<sup>'+marker+'</sup>':'';
+   }
    if(/^h[1-6]$/.test(t))return '\n\n'+'#'.repeat(Number(t[1]))+' '+content.trim()+'\n\n';
    if(t==='p'||t==='div'||t==='section'||t==='article')return content+'\n\n';
    if(t==='br')return '\n';

@@ -11,6 +11,8 @@ test('Official French catalog requests and conservative CDN URL handling',()=>{
  assert.equal(url.searchParams.get('pub'),'ca-copgm27');
  assert.equal(url.searchParams.get('langwritten'),'F');
  assert.equal(url.searchParams.get('fileformat'),'JWPUB');
+ assert.equal(new URL(publicJwpubQuery('w','20260900')).searchParams.get('issue'),'202609');
+ assert.equal(new URL(publicJwpubQuery('w','20150115')).searchParams.get('issue'),'20150115');
  assert.throws(()=>publicJwpubQuery('https://example.net'),/invalide/);
  assert.equal(trustedPublicationFileUrl('https://download-a.akamaihd.net/files/pub.jwpub'),
    'https://download-a.akamaihd.net/files/pub.jwpub');

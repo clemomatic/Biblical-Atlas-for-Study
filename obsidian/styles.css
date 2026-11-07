@@ -51,3 +51,15 @@
 @media (prefers-reduced-motion: reduce) {
   .callout[data-callout^="blb-"] {scroll-behavior: auto}
 }
+.jwsd-study-supplements{border-top:1px solid var(--background-modifier-border);margin-top:16px;padding-top:12px;color:var(--text-normal);font-size:13px;line-height:1.65}
+.jwsd-study-supplements summary{cursor:pointer;font-weight:600;white-space:normal}
+.jwsd-editorial-note{margin:12px 0;padding:10px;border:1px solid var(--background-modifier-border);border-radius:9px}
+.jwsd-editorial-note.is-english{border-left:3px solid var(--interactive-accent)}
+.jwsd-editorial-note p{overflow-wrap:anywhere;font-size:13px;line-height:1.7}
+.jwsd-editorial-note a{display:block;margin-top:8px;font-size:11px}
+.jwsd-editorial-note>details{margin-top:10px}
+.jwsd-translation-label,.jwsd-study-comparison-status{font-size:11px!important;color:var(--text-muted)}
+.blb-breadcrumb label{display:flex;align-items:center;gap:8px}
+.blb-breadcrumb select{max-width:160px}
+.blb-local-bible-verse{font-size:16px;line-height:1.85}
+.blb-local-bible-verse sup{color:var(--interactive-accent);margin-right:5px}

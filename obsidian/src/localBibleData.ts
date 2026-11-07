@@ -58,7 +58,7 @@ export function extractLocalChapter(doc:Document,book:number,chapter:number):Loc
     if(!match||Number(match[1])!==book||Number(match[2])!==chapter)continue;
     const number=Number(match[3]);if(number>200)continue;
     const copy=element.cloneNode(true) as HTMLElement;
-    for(const marker of Array.from(copy.querySelectorAll('.vl,.cl,.fn,.m,.tt,script,style')))marker.remove();
+    for(const marker of Array.from(copy.querySelectorAll('.vl,.cl,.fn,.m,.tt,[data-fnid],[data-mid],[data-xref],.xrefRef,.fnRef,sup,script,style')))marker.remove();
     const text=(copy.textContent||'').replace(/\s+/gu,' ').trim();
     if(text){const parts=fragments.get(number)||[];parts.push(text);fragments.set(number,parts);}
   }

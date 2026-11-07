@@ -31,7 +31,9 @@ export class BibleLabInlinePopover {
  private readonly cacheDuration=20*60*1000;
  constructor(private readonly openPanel:(ref:ReferenceEntry)=>void,
    private readonly openInTab:(ref:ReferenceEntry)=>void,
-   private readonly annotations?:()=>Promise<JwAnnotationIndex|null>){}
+   private readonly annotations?:()=>Promise<JwAnnotationIndex|null>,
+   private readonly closeOnOutside:()=>boolean=()=>true,
+   private readonly supplements?:(parent:HTMLElement,ref:ReferenceEntry)=>void){}
  isOpen():boolean{return !!this.root;}
  open(label:string,anchor:HTMLElement,sourceUrl?:string):void{
   const ref=fromLabel(label);
@@ -64,7 +66,7 @@ export class BibleLabInlinePopover {
   // A zoom dialog belongs to this preview, even though it is mounted on body.
   const target=ev.target as Element;
   if(target.closest?.('.biblelab-image-lightbox'))return;
-  if(this.root&&!this.root.contains(target))this.close();
+  if(this.root&&!this.root.contains(target)&&this.closeOnOutside())this.close();
  };
  private keydown=(ev:KeyboardEvent):void=>{
   // Let Escape close the picture first, not the underlying article preview.
@@ -228,6 +230,7 @@ export class BibleLabInlinePopover {
       while(this.cache.size>35)this.cache.delete(this.cache.keys().next().value!);
     }
     content.empty();this.draw(content,result,anchor);this.keepVisible(root);
+    if(ref.kind==='scripture')this.supplements?.(content,ref);
     void this.renderPersonalAnnotations(content,ref,token);
   }).catch(()=>{
     if(token!==this.serial||!root.isConnected)return;
