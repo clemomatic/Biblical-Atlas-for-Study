@@ -1,7 +1,7 @@
 {
   "id": "atlas-biblique",
   "name": "JW Study Desk",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "minAppVersion": "1.6.0",
   "description": "Votre espace d’étude biblique : bibliothèque, recherche, notes et idées dans Obsidian.",
   "author": "Clément Martin",

@@ -1036,12 +1036,18 @@ let localReferenceResolver:((ref:ReferenceEntry)=>Promise<ReaderResult|null>)|nu
 export function setLocalReferenceResolver(
   resolver:((ref:ReferenceEntry)=>Promise<ReaderResult|null>)|null
 ):void {localReferenceResolver=resolver;}
-export async function fetchReferenceContent(ref:ReferenceEntry):Promise<ReaderResult>{
+export async function fetchLocalReferenceContent(ref:ReferenceEntry):Promise<ReaderResult|null>{
   if(localReferenceResolver){
     try{
       const saved=await localReferenceResolver(ref);
       if(saved?.lines.length)return saved;
     }catch{/* Never prevent the official reader from handling the source. */}
   }
+  return null;
+}
+export function fetchWebReferenceContent(ref:ReferenceEntry):Promise<ReaderResult>{
   return ref.kind==='scripture'?fetchStudyVerse(ref):fetchPublication(ref);
+}
+export async function fetchReferenceContent(ref:ReferenceEntry):Promise<ReaderResult>{
+  return await fetchLocalReferenceContent(ref)||fetchWebReferenceContent(ref);
 }

@@ -11,6 +11,7 @@ const MAX_VIRTUAL_DOCUMENTS=20000;
 export interface VirtualDocument extends OfflineDocumentRecord {text:string}
 export interface VirtualPublication {
  schema:1;
+ sourceHash?:string;
  origin?:'personal'|'download';
  publication:{symbol:string;year:number;language:number;title:string;issue?:string};
  documents:OfflineDocumentRecord[];
@@ -52,6 +53,7 @@ export function validateVirtualIndex(raw:unknown):VirtualPublication|null {
  if(!raw||typeof raw!=='object')return null;
  const data=raw as Partial<VirtualPublication>,pub=data.publication;
  if(data.schema!==1||data.contentsFile!==VIRTUAL_TEXT||data.sourceFile!==VIRTUAL_SOURCE||
+  (data.sourceHash!==undefined&&!/^[a-f0-9]{64}$/.test(data.sourceHash))||
   !pub||typeof pub.symbol!=='string'||typeof pub.title!=='string'||
   !Number.isInteger(pub.year)||!Number.isInteger(pub.language)||
   !Array.isArray(data.documents)||data.documents.length>MAX_VIRTUAL_DOCUMENTS)return null;

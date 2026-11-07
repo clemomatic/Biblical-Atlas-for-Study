@@ -63,6 +63,8 @@ import {loadLatestAnnotationArchive} from './jwAnnotationLibrary';
 import type { MapBounds } from './tileMath';
 import {PublicationDownloads} from './publicationDownloads';
 import {StudyDeskView,STUDY_DESK_VIEW} from './StudyDeskView';
+import {StudyDeskBibleView,STUDY_DESK_BIBLE_VIEW} from './StudyDeskBibleView';
+import {LocalBibleLibrary} from './localBibleLibrary';
 import {STUDY_DESK_CSS,STUDY_DESK_ICON,STUDY_DESK_ICON_SVG,renderDeskBrand,type DeskDestination} from './studyDeskBrand';
 
 const VIEW_TYPE = 'atlas-biblique';
@@ -130,6 +132,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private indexedNotes = new Map<string, VaultNote>();
   private listeners = new Set<() => void>();
   private inlinePopup?:BibleLabInlinePopover;
+  private localBible!:LocalBibleLibrary;
   private wolSearchLeaf: WorkspaceLeaf|null=null;
   private lastActiveWolLeaf:WorkspaceLeaf|null=null;
   private wolClipBridge?:WolContextCaptureBridge;
@@ -323,7 +326,18 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
+    this.localBible=new LocalBibleLibrary(this.app,()=>this.settings.noteFolder);
+    this.register(()=>this.localBible.dispose());
     this.registerView(VIEW_TYPE, leaf => new AtlasView(leaf, this));
+    this.registerView(STUDY_DESK_BIBLE_VIEW,leaf=>new StudyDeskBibleView(leaf,{
+      library:this.localBible,navigate:this.navigateStudyDesk,
+      openLibrary:()=>this.run((async()=>{
+        await this.openVisualLibrary();
+        const view=this.app.workspace.getLeavesOfType(BIBLE_LAB_LIBRARY_VIEW)[0]?.view;
+        if(view instanceof BibleLabLibraryView)view.openBibles();
+      })()),
+      preview:(label,anchor,url)=>this.inlinePopup?.open(label,anchor,url)
+    }));
     this.registerView(BIBLE_LAB_VIEW, leaf => new BibleLabSidebarView(leaf, this));
     this.registerView(STUDY_DESK_VIEW,leaf=>new StudyDeskView(leaf,{
       navigate:this.navigateStudyDesk,
@@ -387,13 +401,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.registerEvent(this.app.vault.on('rename',(file,oldPath)=>{
       refreshBookcase(file);refreshBookcase({path:oldPath});
     }));
-    setLocalReferenceResolver(ref=>resolveOfflineDocument(this.app,this.settings.noteFolder,ref));
+    setLocalReferenceResolver(ref=>ref.kind==='scripture'?this.localBible.resolve(ref):resolveOfflineDocument(this.app,this.settings.noteFolder,ref));
     this.register(()=>setLocalReferenceResolver(null));
     this.wolClipBridge=new WolContextCaptureBridge(this.app,this.saveWolQuote);
     this.wolClipBridge.start();
     this.register(()=>{this.wolClipBridge?.stop();this.wolClipBridge=undefined;});
     this.addRibbonIcon(STUDY_DESK_ICON, 'Ouvrir JW Study Desk', () => this.run(this.openStudyDesk()));
     this.addCommand({id:'open-jw-study-desk',name:'Ouvrir JW Study Desk',callback:()=>this.run(this.openStudyDesk())});
+    this.addCommand({id:'open-jw-study-desk-bible',name:'Ouvrir la Bible',callback:()=>this.run(this.openStudyDesk('bible'))});
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
     this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le panneau d’étude', callback: () => this.run(this.openBibleLab()) });
     this.addCommand({ id: 'open-wol-browser', name: 'Ouvrir la Bibliothèque en ligne WOL dans un onglet', callback: () => this.run(this.openWolSearchTab(WOL_HOME)) });
@@ -536,6 +551,12 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   openStudyDesk = async(destination:DeskDestination='home'):Promise<void>=>{
     if(destination==='library'){await this.openVisualLibrary();return;}
     await this.ready;
+    if(destination==='bible'){
+      let leaf=this.app.workspace.getLeavesOfType(STUDY_DESK_BIBLE_VIEW)[0];
+      if(!leaf){leaf=this.app.workspace.getLeaf('tab');await leaf.setViewState({type:STUDY_DESK_BIBLE_VIEW,active:true});}
+      else if(leaf.view instanceof StudyDeskBibleView)await leaf.view.refresh();
+      await this.app.workspace.revealLeaf(leaf);return;
+    }
     let leaf=this.app.workspace.getLeavesOfType(STUDY_DESK_VIEW)[0];
     if(!leaf){
       leaf=this.app.workspace.getLeaf('tab');

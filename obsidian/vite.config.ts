@@ -24,7 +24,7 @@ export default defineConfig({
     name: 'atlas-obsidian-package',
     async closeBundle() {
       await mkdir(destination, { recursive: true });
-      for (const file of ['manifest.json', 'styles.css', 'README.md', 'AUDIT-REFONTE-0.11.md', 'JW-STUDY-DESK-0.12.md', 'JW-STUDY-DESK-0.12.1.md', 'THIRD-PARTY-NOTICES.txt']) await copyFile(path.join(root, 'obsidian', file), path.join(destination, file));
+      for (const file of ['manifest.json', 'styles.css', 'README.md', 'AUDIT-REFONTE-0.11.md', 'JW-STUDY-DESK-0.12.md', 'JW-STUDY-DESK-0.12.1.md', 'JW-STUDY-DESK-0.13.md', 'THIRD-PARTY-NOTICES.txt']) await copyFile(path.join(root, 'obsidian', file), path.join(destination, file));
     }
   }],
   build: {

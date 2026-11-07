@@ -10,7 +10,7 @@ const source = path.join(root, 'obsidian/dist', manifest.id);
 const output = path.join(root, 'obsidian/artifacts');
 const archive = {};
 const checksums = [];
-for (const file of ['main.js', 'manifest.json', 'styles.css', 'README.md', 'AUDIT-REFONTE-0.11.md', 'JW-STUDY-DESK-0.12.md', 'JW-STUDY-DESK-0.12.1.md', 'THIRD-PARTY-NOTICES.txt']) {
+for (const file of ['main.js', 'manifest.json', 'styles.css', 'README.md', 'AUDIT-REFONTE-0.11.md', 'JW-STUDY-DESK-0.12.md', 'JW-STUDY-DESK-0.12.1.md', 'JW-STUDY-DESK-0.13.md', 'THIRD-PARTY-NOTICES.txt']) {
   const data = new Uint8Array(await readFile(path.join(source, file)));
   archive[`${manifest.id}/${file}`] = data;
   checksums.push(`${createHash('sha256').update(data).digest('hex')}  ${file}`);

@@ -68,7 +68,7 @@ export class StudyDeskView extends ItemView {
         this.actions.renderSettings(page.createDiv({cls:'jwsd-settings'}));break;
     }
   }
-  private pageLabel():string{return ({home:'Accueil',search:'Recherche',notes:'Mes notes',ideas:'Fiches d’idées',inbox:'Bac à idées',preparation:'Préparation',settings:'Paramètres',library:'Bibliothèque'})[this.destination];}
+  private pageLabel():string{return ({home:'Accueil',bible:'Bible',search:'Recherche',notes:'Mes notes',ideas:'Fiches d’idées',inbox:'Bac à idées',preparation:'Préparation',settings:'Paramètres',library:'Bibliothèque'})[this.destination];}
   private title(parent:HTMLElement,title:string,description:string):void{
     const heading=parent.createDiv({cls:'jwsd-page-title'});
     heading.createEl('h1',{text:title});heading.createEl('p',{text:description});
@@ -87,6 +87,7 @@ export class StudyDeskView extends ItemView {
     welcome.createSpan({cls:'jwsd-welcome-kicker',text:'VOTRE ESPACE D’ÉTUDE'});
     welcome.createEl('h1',{text:'Prenez le temps d’approfondir.'});
     welcome.createEl('p',{text:'Lire, relier et donner forme à vos idées.'});
+    deskButton(welcome,'Ouvrir la Bible','book-open-text',()=>this.actions.navigate('bible'),'jwsd-welcome-bible');
     const layout=page.createDiv({cls:'jwsd-home-grid'});
     const primary=layout.createDiv({cls:'jwsd-home-primary'});
     const tools=primary.createDiv({cls:'jwsd-tool-grid',attr:{'aria-label':'Outils d’étude'}});
