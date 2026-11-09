@@ -53,6 +53,7 @@ import { renderEpisodeContext } from './episodeContextView';
 import { EpisodePickerModal } from './episodePickerModal';
 import { EpisodeConnectionsStore } from './episodeConnectionsStore';
 import { EpisodeConnectionsModal } from './episodeConnectionsModal';
+import { PersonalEpisodeModal } from './personalEpisodeModal';
 import { parseScripture } from './bibleLabData';
 import { REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData';
 import { normalizeSearch } from './bibleLabData';
@@ -446,10 +447,19 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({id:'open-jw-study-desk',name:'Ouvrir JW Study Desk',callback:()=>this.run(this.openStudyDesk())});
     this.addCommand({id:'open-jw-study-desk-bible',name:'Ouvrir la Bible',callback:()=>this.run(this.openStudyDesk('bible'))});
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
+    this.addCommand({id:'create-personal-study-episode',name:'Créer un épisode biblique personnel',callback:()=>{
+      new PersonalEpisodeModal(this.app,async(title,reference)=>{
+        const created=await this.episodeConnectionsStore.createPersonalEpisode(title,reference);
+        await this.indexFile(created.file);
+        await this.storage.open(created.file.path);
+        this.editEpisodeConnections(created.id);
+      }).open();
+    }});
     this.addCommand({id:'edit-episode-connections',name:'Compléter les connexions d’un épisode',callback:()=>{
       const options=new Map<string,string>();
       for(const entry of this.snapshot.atlas.catalog.values())if(entry.type==='event')options.set(entry.id,entry.title);
       for(const record of REVIEWED_HISTORICAL_EVENTS)options.set(record.event.id,record.event.name);
+      for(const item of this.episodeConnectionsStore.listPersonalEpisodes())options.set(item.id,item.title);
       new EpisodePickerModal(this.app,[...options].map(([id,title])=>({id,title})).sort((a,b)=>a.title.localeCompare(b.title,'fr')),
         choice=>this.editEpisodeConnections(choice.id)).open();
     }});
@@ -457,6 +467,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       const options=new Map<string,string>();
       for(const entry of this.snapshot.atlas.catalog.values())if(entry.type==='event')options.set(entry.id,entry.title);
       for(const record of REVIEWED_HISTORICAL_EVENTS)options.set(record.event.id,record.event.name);
+      for(const item of this.episodeConnectionsStore.listPersonalEpisodes())options.set(item.id,item.title);
       new EpisodePickerModal(this.app,[...options].map(([id,title])=>({id,title})).sort((a,b)=>a.title.localeCompare(b.title,'fr')),
         choice=>editor.replaceSelection('\n'+'\x60\x60\x60'+'jwsd\nevent:'+choice.id+'\n'+'\x60\x60\x60'+'\n')).open();
     }});
@@ -590,7 +601,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
               else this.run(this.openWolSearchTab(wolResearchUrl(reference,{match:'par',scope:'all'})));
             },
             editConnections:id=>this.editEpisodeConnections(id,refresh),
-            personalConnections:personal.items
+            personalConnections:personal.items,
+            ...(personal.personalTitle&&personal.personalReference
+              ?{personalEpisode:{title:personal.personalTitle,reference:personal.personalReference}}:{})
           });
         } catch(error) {
           element.createEl('p',{text:error instanceof Error?error.message:'Impossible de charger les connexions personnelles.'});
@@ -808,7 +821,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   }
   private editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
     const record=REVIEWED_HISTORICAL_EVENTS.find(item=>item.event.id===eventId);
-    const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??eventId;
+    const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??this.episodeConnectionsStore.listPersonalEpisodes().find(item=>item.id===eventId)?.title??eventId;
     new EpisodeConnectionsModal(this.app,eventId,title,this.snapshot.atlas,this.episodeConnectionsStore,async file=>{
       await this.indexFile(file);
       await this.refreshEpisodeModules(eventId);
