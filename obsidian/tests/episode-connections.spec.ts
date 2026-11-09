@@ -46,7 +46,7 @@ test('un épisode personnel sans date relie une personne, un lieu et sa référe
   await page.evaluate(async id=>{
     await (window as any).atlasTest.renderCodeBlock('jwsd','event:'+id);
   },stored!.properties.jwsd_episode_id);
-  const rendered=page.locator('section[data-code-block="jwsd"] .jwsd-episode');
+  const rendered=page.locator('section[data-code-block="jwsd"].jwsd-episode');
   await expect(rendered).toContainText('Période non établie');
   await expect(rendered).toContainText('David');
   await expect(rendered).toContainText('Jérusalem');
