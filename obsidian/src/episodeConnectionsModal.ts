@@ -105,6 +105,7 @@ export class EpisodeConnectionsModal extends Modal {
       .addText(field=>field.setPlaceholder('2 Samuel 11 ou 2 Samuel 11:1-7')
         .setValue(this.passageReference).onChange(value=>{
           this.passageReference=value;this.passageAnalysis=undefined;this.selectedProposals.clear();
+          content.querySelector<HTMLElement>('.jwsd-episode-scanned')?.setAttribute('hidden','');
         }));
     const status=content.createEl('p',{cls:'jwsd-episode-muted',attr:{role:'status'}});
     status.setText(this.passageStatus);
@@ -113,8 +114,10 @@ export class EpisodeConnectionsModal extends Modal {
       if(this.scanning)return;
       this.scanning=true;button.setDisabled(true);
       status.setText('Lecture de ta Bible locale…');
+      const requestedReference=this.passageReference.trim();
       try {
-        const result=await this.readBible(this.passageReference.trim());
+        const result=await this.readBible(requestedReference);
+        if(requestedReference!==this.passageReference.trim())return;
         if(result)this.showPassageAnalysis(result.verses,result.editionLabel);
         else{
           this.passageStatus='Aucune Bible française locale ne couvre ce passage. Tu peux coller un extrait ci-dessous.';
@@ -128,7 +131,10 @@ export class EpisodeConnectionsModal extends Modal {
     new Setting(content).setName('Ou coller le passage')
       .setDesc('Les textes collés servent uniquement à la détection locale et ne sont pas ajoutés à tes notes.')
       .addTextArea(field=>field.setPlaceholder('Ex. : 1 David est resté à Jérusalem…')
-        .setValue(this.passageText).onChange(value=>{this.passageText=value;this.passageAnalysis=undefined;this.selectedProposals.clear();}));
+        .setValue(this.passageText).onChange(value=>{
+          this.passageText=value;this.passageAnalysis=undefined;this.selectedProposals.clear();
+          content.querySelector<HTMLElement>('.jwsd-episode-scanned')?.setAttribute('hidden','');
+        }));
     new Setting(content).addButton(button=>button.setButtonText('Analyser le texte collé').onClick(()=>{
       try{this.showPassageAnalysis(pastedEpisodeVerses(this.passageReference,this.passageText),'Texte fourni pour cette étude');}
       catch(error){this.passageStatus=error instanceof Error?error.message:'Analyse impossible.';status.setText(this.passageStatus);}
@@ -168,10 +174,12 @@ export class EpisodeConnectionsModal extends Modal {
       'Seuls les personnages disposant déjà d’une identité dans l’Atlas peuvent être proposés. Les noms absents nécessitent d’abord une fiche.'});
     const feedback=output.createEl('p',{attr:{role:'status'}});
     new Setting(output).addButton(button=>button.setButtonText('Ajouter les propositions confirmées').onClick(()=>{
+      if(this.passageAnalysis!==result){feedback.setText('Le passage a changé : relance l’analyse avant de confirmer.');return;}
       const selected=result.suggestions.filter(p=>this.selectedProposals.has(p.key));
       if(!selected.length){feedback.setText('Coche une ou plusieurs mentions à confirmer.');return;}
       let added=0,skipped=0;
       for(const proposal of selected){
+        if(this.items.length>=200){skipped++;continue;}
         if(this.items.some(item=>item.personId===proposal.personId&&item.reference===proposal.reference)){
           skipped++;continue;
         }
