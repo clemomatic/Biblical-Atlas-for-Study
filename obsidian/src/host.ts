@@ -19,6 +19,7 @@ export interface AtlasHost {
   manageAtlas: () => void;
   editEntity: (selection: AtlasSelection) => void;
   editEpisodeConnections: (eventId: string) => void;
+  openPersonEpisodes: (personId: string) => void;
   newAtlasEntity: (type: AtlasEntityType) => void;
   mapActions: AtlasMapEditing;
   renderMarkdown: NonNullable<import('../../src/atlasIntegration').AtlasIntegration['renderMarkdown']>;
