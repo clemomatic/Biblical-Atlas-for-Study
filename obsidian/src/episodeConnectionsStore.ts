@@ -12,11 +12,14 @@ export interface EpisodeConnectionsDocument {
   file?: TFile;
   raw?: string;
   items: PersonalEpisodeConnection[];
+  personalTitle?: string;
+  personalReference?: string;
 }
 
 /** A personal, human-editable Markdown document per episode; no writes to corpus. */
 export class EpisodeConnectionsStore {
   private recentPaths = new Map<string, string>();
+  private recentTitles = new Map<string, string>();
   private queues = new Map<string, Promise<unknown>>();
   constructor(private app: App, private folder: () => string) {}
 
@@ -61,7 +64,35 @@ export class EpisodeConnectionsStore {
       throw new Error('Carnet de connexions incomplet ou version de données non reconnue.');
     }
     if (!Array.isArray(data.jwsd_episode_connections)) throw new Error('Les connexions du carnet ne sont pas un tableau valide.');
-    return { file, raw, items: data.jwsd_episode_connections as PersonalEpisodeConnection[] };
+    return { file, raw, items: data.jwsd_episode_connections as PersonalEpisodeConnection[],
+      personalTitle: typeof data.jwsd_episode_title === 'string' ? data.jwsd_episode_title : undefined,
+      personalReference: typeof data.jwsd_episode_reference === 'string' ? data.jwsd_episode_reference : undefined };
+  }
+
+  listPersonalEpisodes(): Array<{id:string;title:string}> {
+    const items=new Map(this.recentTitles);
+    for(const file of this.app.vault.getMarkdownFiles()){
+      const meta=this.app.metadataCache.getFileCache(file)?.frontmatter;
+      if(meta?.jwsd_kind==='episode-connections' && typeof meta.jwsd_episode_id==='string' &&
+        typeof meta.jwsd_episode_title==='string')items.set(meta.jwsd_episode_id,meta.jwsd_episode_title);
+    }
+    return [...items].map(([id,title])=>({id,title})).sort((a,b)=>a.title.localeCompare(b.title,'fr'));
+  }
+
+  async createPersonalEpisode(title:string,reference:string):Promise<{id:string;file:TFile}>{
+    const name=title.replace(/[\r\n\x00-\x1f]/g,' ').trim();
+    const source=reference.replace(/[\r\n\x00-\x1f]/g,' ').trim();
+    if(!name||name.length>160)throw new Error('Donne un titre précis (160 caractères maximum).');
+    if(!source||source.length>280)throw new Error('Ajoute une référence documentaire (280 caractères maximum).');
+    const id='study-'+crypto.randomUUID();
+    const file=await this.save(id,name,[],undefined);
+    await this.app.fileManager.processFrontMatter(file,metadata=>{
+      if(metadata.jwsd_episode_id!==id)throw new Error('Cet épisode a changé pendant sa création.');
+      metadata.jwsd_episode_title=name;
+      metadata.jwsd_episode_reference=source;
+    });
+    this.recentTitles.set(id,name);
+    return {id,file};
   }
 
   async save(
@@ -91,7 +122,8 @@ export class EpisodeConnectionsStore {
       await this.folderExists(folder);
       const base = safeFilename('Contexte — ' + title).slice(0, 86);
       const body = '\n# ' + title.replace(/[\r\n]/g,' ') +
-        '\n\n> [!info] Mes connexions d’étude\n> Les faits et leurs sources ci-dessus sont des ajouts personnels, distincts des données historiques relues de l’Atlas.\n\n## Mes observations\n\n';
+        '\n\n> [!info] Mes connexions d’étude\n> Les liens enregistrés ici sont des ajouts personnels, distincts des données historiques relues de l’Atlas.\n\n' +
+        '\x60\x60\x60jwsd\nevent:' + eventId + '\n\x60\x60\x60\n\n## Mes observations\n\n';
       const properties = {
         jwsd_schema: EPISODE_CONNECTIONS_SCHEMA, jwsd_kind: 'episode-connections',
         jwsd_episode_id: eventId, jwsd_episode_connections: items,
