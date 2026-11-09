@@ -96,3 +96,20 @@ test('l’analyse d’un passage propose une personne sans inventer sa position'
   expect(meta.atlas_entities).not.toContain('place:jerusalem');
   expect(JSON.stringify(meta)).not.toContain('Joab est parti vers Raba');
 });
+
+
+test('2 Samuel 11 relie les personnages à la source sans inventer une date',async({page})=>{
+  await page.evaluate(()=> (window as any).atlasTest.renderCodeBlock(
+    'jwsd','event:event-samuel-11-david-bethsabee-joab'
+  ));
+  const card=page.locator('section[data-code-block="jwsd"].jwsd-episode');
+  await expect(card).toContainText('David, Bethsabée et le siège de Raba');
+  for(const name of ['David','Joab','Bethsabée','Urie le Hittite']){
+    await expect(card.getByText(name,{exact:true}).first()).toBeVisible();
+  }
+  await expect(card).toContainText('L’année exacte n’est pas donnée');
+  await expect(card).toContainText('Période non documentée');
+  await expect(card).toContainText('Raba');
+  await expect(card).toContainText('Indication du récit');
+  await expect(card).toContainText('2 Samuel 11:1-27');
+});
