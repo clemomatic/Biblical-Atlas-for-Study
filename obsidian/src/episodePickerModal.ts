@@ -10,10 +10,11 @@ export class EpisodePickerModal extends FuzzySuggestModal<EpisodeChoice> {
   constructor(
     app: App,
     private readonly choices: EpisodeChoice[],
-    private readonly onChoose: (choice: EpisodeChoice) => void
+    private readonly onChoose: (choice: EpisodeChoice) => void,
+    placeholder = 'Rechercher un épisode de l’Atlas…'
   ) {
     super(app);
-    this.setPlaceholder('Rechercher un épisode de l’Atlas…');
+    this.setPlaceholder(placeholder);
     this.setInstructions([{ command: '↑↓', purpose: 'Parcourir' }, { command: '↵', purpose: 'Insérer' }]);
   }
   getItems(): EpisodeChoice[] { return this.choices; }
