@@ -5,6 +5,7 @@ import type { PersonalEpisodeConnection } from './episodeConnections.ts';
 import { validatePersonalEpisodeConnections } from './episodeConnections.ts';
 import { EpisodeConnectionsStore } from './episodeConnectionsStore.ts';
 import { EpisodePickerModal, type EpisodeChoice } from './episodePickerModal.ts';
+import { pastedEpisodeVerses, suggestEpisodeMentions, type EpisodePassageAnalysis, type EpisodeVerse, type EpisodeLocalPassage } from './episodePassage.ts';
 
 interface DraftConnection {
   id?: string;
@@ -20,6 +21,13 @@ export class EpisodeConnectionsModal extends Modal {
   private previousRaw?: string;
   private file?: TFile;
   private busy = false;
+  private passageReference = '';
+  private passageText = '';
+  private passageAnalysis: EpisodePassageAnalysis | undefined;
+  private selectedProposals = new Set<string>();
+  private passageOpen = false;
+  private passageStatus = '';
+  private scanning = false;
 
   constructor(
     app: App,
@@ -27,7 +35,8 @@ export class EpisodeConnectionsModal extends Modal {
     private eventTitle: string,
     private workspace: AtlasWorkspace,
     private store: EpisodeConnectionsStore,
-    private onSaved: (file: TFile) => Promise<void>
+    private onSaved: (file: TFile) => Promise<void>,
+    private readBible: (reference: string) => Promise<EpisodeLocalPassage | null>
   ) { super(app); }
 
   async onOpen(): Promise<void> {
@@ -37,6 +46,7 @@ export class EpisodeConnectionsModal extends Modal {
       const state = await this.store.read(this.eventId);
       this.file = state.file;
       this.previousRaw = state.raw;
+      this.passageReference = state.personalReference ?? state.items[0]?.reference ?? '';
       this.items = validatePersonalEpisodeConnections(state.items,
         this.known('person'), this.known('place'));
       this.render();
@@ -67,6 +77,112 @@ export class EpisodeConnectionsModal extends Modal {
       else this.draft.placeId=item.id;
       this.render();
     },type==='person'?'Rechercher un personnage biblique…':'Rechercher un lieu de l’Atlas…').open();
+  }
+
+  /**
+   * Candidate names are shown for human approval, never written on scan.
+   * Co-mentioned places are informational only and are NOT copied into a
+   * person's placeId. The user must add such a location separately.
+   */
+  private showPassageAnalysis(verses:EpisodeVerse[],sourceLabel:string):void{
+    const data=this.workspace.dataset;
+    this.passageAnalysis=suggestEpisodeMentions(verses,data.people,data.places);
+    this.selectedProposals.clear();
+    this.passageOpen=true;
+    this.passageStatus=sourceLabel+' · '+this.passageAnalysis.verseCount+' segment(s) analysé(s).';
+    this.render();
+  }
+
+  private renderPassageAssistant(parent:HTMLElement):void{
+    const details=parent.createEl('details',{cls:'jwsd-episode-scan'});
+    details.open=this.passageOpen;
+    details.addEventListener('toggle',()=>{this.passageOpen=details.open;});
+    details.createEl('summary',{text:'Analyser un passage et proposer des connexions'});
+    const content=details.createDiv({cls:'jwsd-episode-scan-content'});
+    content.createEl('p',{cls:'jwsd-episode-muted',text:
+      'Détecte les noms déjà présents dans l’Atlas. Une mention n’établit ni une rencontre ni la présence d’une personne dans un lieu. Tu valides chaque proposition avant enregistrement.'});
+    new Setting(content).setName('Passage biblique à analyser')
+      .addText(field=>field.setPlaceholder('2 Samuel 11 ou 2 Samuel 11:1-7')
+        .setValue(this.passageReference).onChange(value=>{
+          this.passageReference=value;this.passageAnalysis=undefined;this.selectedProposals.clear();
+        }));
+    const status=content.createEl('p',{cls:'jwsd-episode-muted',attr:{role:'status'}});
+    status.setText(this.passageStatus);
+    const controls=new Setting(content);
+    controls.addButton(button=>button.setButtonText('Lire ma Bible locale').onClick(async()=>{
+      if(this.scanning)return;
+      this.scanning=true;button.setDisabled(true);
+      status.setText('Lecture de ta Bible locale…');
+      try {
+        const result=await this.readBible(this.passageReference.trim());
+        if(result)this.showPassageAnalysis(result.verses,result.editionLabel);
+        else{
+          this.passageStatus='Aucune Bible française locale ne couvre ce passage. Tu peux coller un extrait ci-dessous.';
+          status.setText(this.passageStatus);
+        }
+      }catch(error){
+        this.passageStatus=error instanceof Error?error.message:'Lecture locale impossible.';
+        status.setText(this.passageStatus);
+      }finally{this.scanning=false;button.setDisabled(false);}
+    }));
+    new Setting(content).setName('Ou coller le passage')
+      .setDesc('Les textes collés servent uniquement à la détection locale et ne sont pas ajoutés à tes notes.')
+      .addTextArea(field=>field.setPlaceholder('Ex. : 1 David est resté à Jérusalem…')
+        .setValue(this.passageText).onChange(value=>{this.passageText=value;this.passageAnalysis=undefined;this.selectedProposals.clear();}));
+    new Setting(content).addButton(button=>button.setButtonText('Analyser le texte collé').onClick(()=>{
+      try{this.showPassageAnalysis(pastedEpisodeVerses(this.passageReference,this.passageText),'Texte fourni pour cette étude');}
+      catch(error){this.passageStatus=error instanceof Error?error.message:'Analyse impossible.';status.setText(this.passageStatus);}
+    }));
+    const result=this.passageAnalysis;if(!result)return;
+    const output=content.createDiv({cls:'jwsd-episode-scanned'});
+    output.createEl('h4',{text:'Propositions à vérifier ('+result.suggestions.length+')'});
+    output.createEl('p',{cls:'jwsd-episode-muted',text:
+      'Par défaut, aucune proposition n’est sélectionnée. Les noms sont uniquement détectés dans le texte : compare toujours avec le verset avant de les accepter.'});
+    for(const proposal of result.suggestions){
+      const row=output.createEl('label',{cls:'jwsd-episode-proposal'});
+      const checkbox=row.createEl('input',{attr:{
+        type:'checkbox',
+        'aria-label':'Confirmer '+proposal.name+' — '+proposal.reference
+      }});
+      checkbox.checked=this.selectedProposals.has(proposal.key);
+      checkbox.addEventListener('change',()=>{
+        if(checkbox.checked)this.selectedProposals.add(proposal.key);
+        else this.selectedProposals.delete(proposal.key);
+      });
+      const copy=row.createSpan({cls:'jwsd-episode-proposal-text'});
+      copy.createEl('strong',{text:proposal.name});
+      copy.createEl('span',{text:' · '+proposal.reference});
+      if(proposal.placeNames.length)copy.createEl('small',{
+        text:'Lieux également mentionnés : '+proposal.placeNames.join(', ')+' — non attribués à cette personne'
+      });
+    }
+    if(result.locations.length){
+      output.createEl('p',{cls:'jwsd-episode-muted',text:
+        'Lieux repérés dans le passage : '+result.locations.map(p=>p.name).join(', ')+'. Leur simple mention ne prouve pas où se trouve chaque personne.'});
+    }
+    if(result.ambiguousNames.length){
+      output.createEl('p',{cls:'jwsd-episode-muted',text:
+        'Noms ambigus non reliés automatiquement : '+result.ambiguousNames.join(', ')+'.'});
+    }
+    output.createEl('p',{cls:'jwsd-episode-muted',text:
+      'Seuls les personnages disposant déjà d’une identité dans l’Atlas peuvent être proposés. Les noms absents nécessitent d’abord une fiche.'});
+    const feedback=output.createEl('p',{attr:{role:'status'}});
+    new Setting(output).addButton(button=>button.setButtonText('Ajouter les propositions confirmées').onClick(()=>{
+      const selected=result.suggestions.filter(p=>this.selectedProposals.has(p.key));
+      if(!selected.length){feedback.setText('Coche une ou plusieurs mentions à confirmer.');return;}
+      let added=0,skipped=0;
+      for(const proposal of selected){
+        if(this.items.some(item=>item.personId===proposal.personId&&item.reference===proposal.reference)){
+          skipped++;continue;
+        }
+        const candidate={id:crypto.randomUUID(),personId:proposal.personId,reference:proposal.reference};
+        const valid=validatePersonalEpisodeConnections([candidate],this.known('person'),this.known('place'))[0];
+        this.items.push(valid);added++;
+      }
+      this.passageAnalysis=undefined;this.selectedProposals.clear();
+      this.passageStatus=added+' mention(s) ajoutée(s) au brouillon ; '+skipped+' doublon(s) ignoré(s). Enregistre les connexions pour les conserver.';
+      this.render();
+    }));
   }
 
   private render(): void {
@@ -100,6 +216,7 @@ export class EpisodeConnectionsModal extends Modal {
       }
     }
 
+    this.renderPassageAssistant(parent);
     parent.createEl('h3',{text:this.draft.id?'Modifier cette connexion':'Ajouter une connexion'});
     const person=new Setting(parent).setName('Personnage').setDesc('Sélectionne une fiche existante ; aucune identité n’est déduite du nom.');
     person.addButton(button=>button.setButtonText(this.name('person',this.draft.personId)).onClick(()=>this.pick('person')));
