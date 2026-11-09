@@ -48,6 +48,10 @@ import { inlineBibleLabEditorExtension } from './inlineEditorExtension';
 import { BibleLabInlinePopover } from './BibleLabInlinePopover';
 import { linkReferencesInMarkdown } from './inlineReferenceScanner';
 import inlineReferenceCss from './inlineReferences.css?inline';
+import episodeContextCss from './episodeContext.css?inline';
+import { renderEpisodeContext } from './episodeContextView';
+import { EpisodePickerModal } from './episodePickerModal';
+import { REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData';
 import { normalizeSearch } from './bibleLabData';
 import { TalkStudioModal, saveTalkToVault } from './talkStudio';
 import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveInspector';
@@ -339,6 +343,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     const brandStyle=document.createElement('style');
     brandStyle.dataset.jwStudyDesk='identity';brandStyle.textContent=STUDY_DESK_CSS;
     document.head.append(brandStyle);this.register(()=>brandStyle.remove());
+    const episodeStyle=document.createElement('style');
+    episodeStyle.dataset.jwStudyDeskEpisode='context';episodeStyle.textContent=episodeContextCss;
+    document.head.append(episodeStyle);this.register(()=>episodeStyle.remove());
     const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown;bibleLabCollection?:unknown;bibleLabArchive?:unknown}) | null;
     try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true,reading:readingSettings(stored?.reading) }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
@@ -433,6 +440,13 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({id:'open-jw-study-desk',name:'Ouvrir JW Study Desk',callback:()=>this.run(this.openStudyDesk())});
     this.addCommand({id:'open-jw-study-desk-bible',name:'Ouvrir la Bible',callback:()=>this.run(this.openStudyDesk('bible'))});
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
+    this.addCommand({ id:'insert-episode-context', name:'Insérer le contexte d’un épisode de l’Atlas', editorCallback:editor=>{
+      const options=new Map<string,string>();
+      for(const entry of this.snapshot.atlas.catalog.values())if(entry.type==='event')options.set(entry.id,entry.title);
+      for(const record of REVIEWED_HISTORICAL_EVENTS)options.set(record.event.id,record.event.name);
+      new EpisodePickerModal(this.app,[...options].map(([id,title])=>({id,title})).sort((a,b)=>a.title.localeCompare(b.title,'fr')),
+        choice=>editor.replaceSelection('\n'+'\x60\x60\x60'+'jwsd\nevent:'+choice.id+'\n'+'\x60\x60\x60'+'\n')).open();
+    }});
     this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le panneau d’étude', callback: () => this.run(this.openBibleLab()) });
     this.addCommand({ id: 'open-wol-browser', name: 'Ouvrir la Bibliothèque en ligne WOL dans un onglet', callback: () => this.run(this.openWolSearchTab(WOL_HOME)) });
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
@@ -545,6 +559,17 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         const button = element.createEl('button', { text: `Explorer ${selection.title}`, cls: 'atlas-obsidian-link' });
         button.addEventListener('click', () => this.openEntity(selection.key));
       }
+    });
+    this.registerMarkdownCodeBlockProcessor('jwsd',(source,element)=>{
+      const line=source.split(/\r?\n/).map(item=>item.trim()).find(item=>item.startsWith('event:'));
+      const eventId=line?.slice('event:'.length).trim();
+      if(!eventId||!/^[\w-]{1,300}$/.test(eventId)){
+        element.createEl('p',{text:'Module JW Study Desk : indique un identifiant d’événement valide.'});return;
+      }
+      renderEpisodeContext(element,eventId,this.snapshot.atlas,{
+        openEntity:this.openEntity,
+        readReference:reference=>this.run(this.openBibleLab(passageUrl(reference),reference))
+      });
     });
     this.registerEvent(this.app.metadataCache.on('changed', file => this.run(this.indexFile(file))));
     this.registerEvent(this.app.vault.on('delete', file => {
