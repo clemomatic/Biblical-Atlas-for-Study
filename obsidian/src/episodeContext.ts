@@ -21,6 +21,8 @@ export interface EpisodeParticipant {
   locations: EpisodeLocation[];
   /** A participant mention is not automatically a documented physical presence. */
   mentionedInEvent: boolean;
+  /** Source-specific contextual note. Not a structured presence claim. */
+  sourceNote?: string;
 }
 export interface EpisodePlace {
   placeId?: string;
@@ -102,6 +104,7 @@ export function buildEpisodeContext(input: EpisodeContextInput): EpisodeContext 
       personId,
       name: person?.name ?? mention?.label ?? personId,
       mentionedInEvent: Boolean(mention) || (legacy?.associatedCharacterIds ?? []).includes(personId),
+      ...(mention?.notes ? {sourceNote: mention.notes}: {}),
       age: period && person
         ? calculateAgeAtPeriod(person.lifeSpan, period)
         : unknownAge(period ? 'Identité ou naissance insuffisamment documentée.' : 'Période de cet épisode non établie.'),
