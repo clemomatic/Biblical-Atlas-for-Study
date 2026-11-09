@@ -1,0 +1,60 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-2-samuel-11"
+    ],
+    "event": {
+      "id": "event-samuel-11-david-bethsabee-joab",
+      "name": "David, Bethsabée et le siège de Raba",
+      "category": "Événements marquants",
+      "description": "Au printemps, l’armée envoyée par David assiège Raba sous le commandement de Joab. David reste à Jérusalem ; Bethsabée et Urie sont au cœur des événements relatés. L’année exacte n’est pas donnée dans ce chapitre.",
+      "biblicalReferences": [
+        "2 Samuel 11:1-27"
+      ],
+      "certainty": "certain",
+      "placeMentions": [
+        {
+          "label": "Jérusalem",
+          "placeId": "jerusalem",
+          "granularity": "point",
+          "certainty": "certain",
+          "notes": "2 Samuel 11:1, 12 ; David reste à Jérusalem et Urie y revient."
+        },
+        {
+          "label": "Raba",
+          "granularity": "area",
+          "certainty": "certain",
+          "notes": "2 Samuel 11:1, 16-17 ; ville assiégée par l’armée de Joab ; ne pas inventer des coordonnées dans l’Atlas."
+        }
+      ],
+      "participantMentions": [
+        {
+          "label": "David",
+          "personId": "event-david-iixp36",
+          "certainty": "certain",
+          "notes": "2 Samuel 11:1-2 ; David reste à Jérusalem. Sa date de naissance connue ne suffit pas à calculer son âge pendant un épisode non daté."
+        },
+        {
+          "label": "Joab",
+          "personId": "person-biblical-joab-david-commander",
+          "certainty": "certain",
+          "notes": "2 Samuel 11:1, 6, 14-25 ; dirige le siège de Raba."
+        },
+        {
+          "label": "Bethsabée",
+          "personId": "person-biblical-bethsabee-wife-urie",
+          "certainty": "certain",
+          "notes": "2 Samuel 11:3-5, 26-27 ; identifiée comme femme d’Urie, puis épouse de David."
+        },
+        {
+          "label": "Urie le Hittite",
+          "personId": "person-biblical-urie-hittite",
+          "certainty": "certain",
+          "notes": "2 Samuel 11:6-17 ; rejoint David à Jérusalem puis retourne au combat, où il est tué."
+        }
+      ],
+      "notes": "Événement documenté sans année assignée. Éliam est mentionné comme père de Bethsabée (verset 3), et non comme participant attesté."
+    }
+  }
+]
