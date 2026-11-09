@@ -53,6 +53,7 @@ import { renderEpisodeContext } from './episodeContextView';
 import { EpisodePickerModal } from './episodePickerModal';
 import { EpisodeConnectionsStore } from './episodeConnectionsStore';
 import { EpisodeConnectionsModal } from './episodeConnectionsModal';
+import { EpisodeContextModal } from './episodeContextModal';
 import { PersonalEpisodeModal } from './personalEpisodeModal';
 import { readLocalEpisodePassage } from './episodePassage';
 import { parseScripture } from './bibleLabData';
@@ -822,6 +823,25 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }
     await Promise.allSettled(refreshers);
   }
+  openPersonEpisodes=(personId:string):void=>{
+    const episodes=REVIEWED_HISTORICAL_EVENTS.filter(record=>
+      record.event.participantMentions?.some(mention=>mention.personId===personId)
+    ).map(record=>({id:record.event.id,title:record.event.name}));
+    if(!episodes.length){new Notice('Aucun épisode source n’est encore associé à cette personne.');return;}
+    const open=(id:string)=>{
+      new EpisodeContextModal(this.app,id,this.snapshot.atlas,this.episodeConnectionsStore,{
+        openEntity:this.openEntity,
+        readReference:reference=>{
+          if(parseScripture(reference))this.run(this.openBibleLab(passageUrl(reference),reference));
+          else this.run(this.openWolSearchTab(wolResearchUrl(reference,{match:'par',scope:'all'})));
+        },
+        editConnections:(eventId,onSaved)=>this.editEpisodeConnections(eventId,onSaved)
+      }).open();
+    };
+    if(episodes.length===1)open(episodes[0].id);
+    else new EpisodePickerModal(this.app,episodes,choice=>open(choice.id),
+      'Rechercher un épisode documenté de cette personne…').open();
+  };
   editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
     const record=REVIEWED_HISTORICAL_EVENTS.find(item=>item.event.id===eventId);
     const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??this.episodeConnectionsStore.listPersonalEpisodes().find(item=>item.id===eventId)?.title??eventId;
