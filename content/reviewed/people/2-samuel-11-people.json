@@ -1,0 +1,108 @@
+[
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-2-samuel-11"
+    ],
+    "person": {
+      "id": "person-biblical-joab-david-commander",
+      "name": "Joab",
+      "roles": [
+        "other"
+      ],
+      "activityPeriods": [],
+      "alternateNames": [
+        "Yoab"
+      ],
+      "description": "Chef militaire de David ; conduit l'armée israélite lors du siège de Raba (2 Samuel 11:1, 6, 14-25).",
+      "biblicalReferences": [
+        "2 Samuel 11:1",
+        "2 Samuel 11:6",
+        "2 Samuel 11:14-25"
+      ],
+      "associatedEventIds": [
+        "event-samuel-11-david-bethsabee-joab"
+      ],
+      "certainty": "certain",
+      "notes": "Personnage identifié par son rôle dans le récit. La période de sa vie n'est pas calculée depuis ce seul chapitre."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-2-samuel-11"
+    ],
+    "person": {
+      "id": "person-biblical-bethsabee-wife-urie",
+      "name": "Bethsabée",
+      "roles": [
+        "other"
+      ],
+      "activityPeriods": [],
+      "alternateNames": [
+        "Bath-Shéba"
+      ],
+      "description": "Fille d’Éliam, femme d’Urie le Hittite au début du récit, puis femme de David (2 Samuel 11:3-5, 26-27).",
+      "biblicalReferences": [
+        "2 Samuel 11:3-5",
+        "2 Samuel 11:26-27"
+      ],
+      "associatedEventIds": [
+        "event-samuel-11-david-bethsabee-joab"
+      ],
+      "certainty": "certain",
+      "notes": "Le récit ne donne ni date de naissance ni âge à cet épisode."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-2-samuel-11"
+    ],
+    "person": {
+      "id": "person-biblical-urie-hittite",
+      "name": "Urie le Hittite",
+      "roles": [
+        "other"
+      ],
+      "activityPeriods": [],
+      "alternateNames": [
+        "Urie",
+        "Ouriya le Hittite"
+      ],
+      "description": "Soldat de David et mari de Bethsabée ; rappelé auprès de David, puis tué lors des combats devant Raba (2 Samuel 11:3, 6-17).",
+      "biblicalReferences": [
+        "2 Samuel 11:3",
+        "2 Samuel 11:6-17"
+      ],
+      "associatedEventIds": [
+        "event-samuel-11-david-bethsabee-joab"
+      ],
+      "certainty": "certain",
+      "notes": "Identifié par son qualificatif « le Hittite », pour ne pas le confondre avec d'autres Urie."
+    }
+  },
+  {
+    "workflowStatus": "reviewed",
+    "sourceIds": [
+      "source-nwt-2-samuel-11"
+    ],
+    "person": {
+      "id": "person-biblical-eliam-father-bethsabee",
+      "name": "Éliam",
+      "roles": [
+        "other"
+      ],
+      "activityPeriods": [],
+      "alternateNames": [
+        "Eliam"
+      ],
+      "description": "Père de Bethsabée, nommé dans 2 Samuel 11:3.",
+      "biblicalReferences": [
+        "2 Samuel 11:3"
+      ],
+      "certainty": "certain",
+      "notes": "Mentionné comme père de Bethsabée, mais le récit ne dit pas qu'il était présent aux événements."
+    }
+  }
+]
