@@ -158,6 +158,7 @@ export class EpisodeConnectionsModal extends Modal {
       const copy=row.createSpan({cls:'jwsd-episode-proposal-text'});
       copy.createEl('strong',{text:proposal.name});
       copy.createEl('span',{text:' · '+proposal.reference});
+      copy.createEl('small',{text:proposal.excerpt});
       if(proposal.placeNames.length)copy.createEl('small',{
         text:'Lieux également mentionnés : '+proposal.placeNames.join(', ')+' — non attribués à cette personne'
       });
