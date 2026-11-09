@@ -135,14 +135,15 @@ export const REVIEWED_SUPERSEDED_LEGACY_EVENT_IDS = new Set(
   )
 );
 
+/** Only chronologically anchored events appear on the timeline.
+ * Undated events still exist in the reviewed corpus, their person records,
+ * and JW Study Desk's event context module; no speculative year is assigned.
+ */
 export const REVIEWED_TIMELINE_EVENTS: EventData[] =
-  REVIEWED_EVENT_RECORDS.map(record => {
+  REVIEWED_EVENT_RECORDS
+    .filter(record => record.event.period !== undefined && record.event.sourceOrder !== undefined)
+    .map(record => {
     const event = record.event;
-    if (!event.period || event.sourceOrder === undefined) {
-      throw new Error(
-        `L’événement relu ${event.id} doit fournir une période et un ordre de source.`
-      );
-    }
     const interval = getTemporalInterval(event.period);
     const spansMultipleYears =
       interval.yearMin !== undefined &&
