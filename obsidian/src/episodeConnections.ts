@@ -46,7 +46,7 @@ export function validatePersonalEpisodeConnections(
     connections.push({
       id: item.id,
       personId: item.personId,
-      ...(item.placeId ? {placeId:item.placeId} : {}),
+      ...(typeof item.placeId === 'string' ? {placeId:item.placeId} : {}),
       reference: clean(item.reference),
       ...(typeof item.note === 'string' && clean(item.note) ? { note: clean(item.note) } : {})
     });
