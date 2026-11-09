@@ -594,7 +594,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       const refresh=async()=>{
         try {
           const personal=await this.episodeConnectionsStore.read(eventId);
-          if(!element.isConnected)return;
+          // Obsidian may prepare Reading view in a detached Markdown fragment.
+          if(!this.episodeModuleRefreshers.has(element))return;
           renderEpisodeContext(element,eventId,this.snapshot.atlas,{
             openEntity:this.openEntity,
             readReference:reference=>{
@@ -607,6 +608,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
               ?{personalEpisode:{title:personal.personalTitle,reference:personal.personalReference}}:{})
           });
         } catch(error) {
+          element.empty();
           element.createEl('p',{text:error instanceof Error?error.message:'Impossible de charger les connexions personnelles.'});
         }
       };
