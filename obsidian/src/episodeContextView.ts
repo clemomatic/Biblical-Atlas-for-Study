@@ -73,6 +73,7 @@ export function renderEpisodeContext(
       line.createEl('strong', { text: person.name });
     }
     card.createDiv({ cls: 'jwsd-episode-age', text: 'Âge : ' + person.age.label });
+    if(person.sourceNote)card.createEl('p',{cls:'jwsd-episode-muted',text:'Indication du récit : '+person.sourceNote});
     if (person.locations.length) {
       for (const place of person.locations) {
         const row = card.createDiv({ cls: 'jwsd-episode-presence' });
