@@ -62,3 +62,37 @@ test('un épisode personnel sans source est refusé avant création de fichier',
   const files=await page.evaluate(()=>(window as any).atlasTest.files().filter((file:any)=>file.path.includes('/Connexions/')));
   expect(files).toHaveLength(0);
 });
+
+
+test('l’analyse d’un passage propose une personne sans inventer sa position',async({page})=>{
+  await page.evaluate(()=>(window as any).atlasTest.command('create-personal-study-episode'));
+  const create=page.getByRole('dialog').last();
+  await create.getByRole('textbox',{name:'Titre de l’épisode'}).fill('David, Joab et Jérusalem');
+  await create.getByRole('textbox',{name:'Passage ou référence principale'}).fill('2 Samuel 11');
+  await create.getByRole('button',{name:'Créer et relier les personnages'}).click();
+
+  const editor=page.getByRole('dialog').last();
+  await editor.locator('summary').filter({hasText:'Analyser un passage'}).click();
+  await editor.getByRole('textbox',{name:'Ou coller le passage'}).fill('1 Joab est parti vers Raba. David est resté à Jérusalem.');
+  await editor.getByRole('button',{name:'Analyser le texte collé'}).click();
+
+  const suggestion=editor.getByRole('checkbox',{name:'Confirmer David — 2 Samuel 11:1'});
+  await expect(suggestion).toBeVisible();
+  await expect(editor.getByText('Lieux également mentionnés')).toBeVisible();
+  await suggestion.check();
+  await editor.getByRole('button',{name:'Ajouter les propositions confirmées'}).click();
+  await expect(editor.getByRole('heading',{name:'Mes connexions (1)'})).toBeVisible();
+  await editor.getByRole('button',{name:'Enregistrer les connexions'}).click();
+
+  const meta=await page.evaluate(()=>{
+    const file=(window as any).atlasTest.files().find((item:any)=>item.content.includes('David, Joab et Jérusalem'));
+    const obj=(window as any).atlasTest.app.vault.getAbstractFileByPath(file.path);
+    return (window as any).atlasTest.app.metadataCache.getFileCache(obj).frontmatter;
+  });
+  expect(meta.jwsd_episode_connections).toHaveLength(1);
+  expect(meta.jwsd_episode_connections[0].personId).toBe('event-david-iixp36');
+  expect(meta.jwsd_episode_connections[0].reference).toBe('2 Samuel 11:1');
+  expect(meta.jwsd_episode_connections[0].placeId).toBeUndefined();
+  expect(meta.atlas_entities).not.toContain('place:jerusalem');
+  expect(JSON.stringify(meta)).not.toContain('Joab est parti vers Raba');
+});
