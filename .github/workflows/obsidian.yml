@@ -26,6 +26,7 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm obsidian:typecheck
+      - run: pnpm historical:validate
       - run: python tools/test_bible_lab_bridge.py
       - run: pnpm obsidian:test
       - run: pnpm obsidian:package
