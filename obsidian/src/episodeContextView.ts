@@ -2,7 +2,7 @@ import type { AtlasEntityKey } from '../../src/atlasIntegration.ts';
 import type { AtlasWorkspace } from './catalog.ts';
 import { resolveEntity } from './catalog.ts';
 import { HISTORICAL_INDEX, HISTORICAL_PEOPLE, HISTORICAL_SOURCE_CATALOG, REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData.ts';
-import { buildEpisodeContext } from './episodeContext.ts';
+import { buildEpisodeContext, type EpisodeContext } from './episodeContext.ts';
 import type { PersonalEpisodeConnection } from './episodeConnections.ts';
 
 export interface EpisodeContextActions {
@@ -10,6 +10,7 @@ export interface EpisodeContextActions {
   readReference: (reference: string) => void;
   editConnections: (eventId: string) => void;
   personalConnections: readonly PersonalEpisodeConnection[];
+  personalEpisode?: {title:string;reference:string};
 }
 
 /**
@@ -25,7 +26,7 @@ export function renderEpisodeContext(
 ): void {
   container.empty();
   container.addClass('jwsd-episode');
-  const context = buildEpisodeContext({
+  const sourced = buildEpisodeContext({
     eventId,
     reviewedEvents: REVIEWED_HISTORICAL_EVENTS,
     legacyEvents: workspace.dataset.events,
@@ -34,12 +35,19 @@ export function renderEpisodeContext(
     presences: HISTORICAL_INDEX.presences,
     sources: HISTORICAL_SOURCE_CATALOG
   });
+  const context: EpisodeContext | null = sourced ?? (actions.personalEpisode ? {
+    eventId, title: actions.personalEpisode.title, description:'',
+    period:undefined,periodLabel:'Période non établie',
+    participants:[],places:[],references:[actions.personalEpisode.reference],
+    sources:[],supportingClaimIds:[],
+    warnings:['Épisode personnel : les faits n’ont pas été intégrés au corpus historique validé.','Aucune chronologie précise ne permet encore de calculer des âges.']
+  } : null);
   if (!context) {
     container.createEl('p', { text: 'Épisode introuvable dans l’Atlas : ' + eventId });
     return;
   }
   const header = container.createDiv({ cls: 'jwsd-episode-header' });
-  header.createDiv({ cls: 'jwsd-episode-eyebrow', text: 'ATLAS · CONTEXTE ET CONNEXIONS' });
+  header.createDiv({ cls: 'jwsd-episode-eyebrow', text: sourced ? 'ATLAS · CONTEXTE ET CONNEXIONS' : 'MES ÉTUDES · ÉPISODE PERSONNEL' });
   header.createEl('h3', { text: context.title });
   header.createDiv({ cls: 'jwsd-episode-period', text: context.periodLabel });
   const eventKey: AtlasEntityKey = ('event:' + eventId) as AtlasEntityKey;
