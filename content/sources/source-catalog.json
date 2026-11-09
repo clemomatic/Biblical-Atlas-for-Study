@@ -298,5 +298,20 @@
     "longTextReproductionAllowed": false,
     "imageReproductionAllowed": false,
     "verificationStatus": "verified"
+  },
+  {
+    "id": "source-nwt-2-samuel-11",
+    "title": "2 Samuel 11",
+    "publication": "La Bible. Traduction du monde nouveau (édition révisée de 2018)",
+    "pageOrSection": "2 Samuel 11:1-27",
+    "url": "https://www.jw.org/fr/biblioth%C3%A8que/bible/nwt/livres/2-samuel/11/",
+    "documentType": "bible",
+    "language": "fr",
+    "accessedAt": "2026-11-09",
+    "notes": "Personnages, lieux et rapports explicitement documentés par le chapitre. L’année de l’épisode n’est pas déduite. Aucune reproduction du texte ou des images.",
+    "factualDataUseAllowed": true,
+    "longTextReproductionAllowed": false,
+    "imageReproductionAllowed": false,
+    "verificationStatus": "verified"
   }
 ]
