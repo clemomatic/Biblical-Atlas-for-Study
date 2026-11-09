@@ -28,3 +28,12 @@
 .jwsd-episode .jwsd-episode-edit { margin-left: auto; font-size: .86em; font-weight: 600; color: var(--text-on-accent); background: var(--interactive-accent); }
 .jwsd-episode .jwsd-episode-person p { margin: 4px 0; font-size: .87em; }
 .jwsd-episode .jwsd-episode-edit:hover { background: var(--interactive-accent-hover); }
+
+.jwsd-episode-scan { border: 1px solid var(--background-modifier-border); border-radius: 12px; padding: 10px 12px; margin: 14px 0; }
+.jwsd-episode-scan > summary { cursor: pointer; font-weight: 650; }
+.jwsd-episode-scan-content { padding-top: 9px; }
+.jwsd-episode-scanned { background: var(--background-secondary); border-radius: 10px; padding: 12px; margin-top: 10px; }
+.jwsd-episode-proposal { display:flex; align-items:flex-start; gap:10px; padding: 7px 4px; border-bottom: 1px solid var(--background-modifier-border); cursor:pointer; }
+.jwsd-episode-proposal input { margin-top: 4px; flex: 0 0 auto; }
+.jwsd-episode-proposal-text { display:flex; flex-direction:column; gap:3px; min-width:0; }
+.jwsd-episode-proposal-text small { color:var(--text-muted); font-size:.85em; line-height:1.4; }
