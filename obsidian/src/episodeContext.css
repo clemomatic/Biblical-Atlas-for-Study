@@ -24,3 +24,7 @@
 .jwsd-episode-limits { background: var(--background-secondary); border-radius: 9px; margin-top: 13px; padding: 10px 12px; }
 .jwsd-episode-limits strong { font-size: .9em; }
 .jwsd-episode-limits p { margin: 4px 0; color: var(--text-muted); font-size: .85em; }
+
+.jwsd-episode .jwsd-episode-edit { margin-left: auto; font-size: .86em; font-weight: 600; color: var(--text-on-accent); background: var(--interactive-accent); }
+.jwsd-episode .jwsd-episode-person p { margin: 4px 0; font-size: .87em; }
+.jwsd-episode .jwsd-episode-edit:hover { background: var(--interactive-accent-hover); }
