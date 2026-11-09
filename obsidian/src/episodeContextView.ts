@@ -3,10 +3,13 @@ import type { AtlasWorkspace } from './catalog.ts';
 import { resolveEntity } from './catalog.ts';
 import { HISTORICAL_INDEX, HISTORICAL_PEOPLE, HISTORICAL_SOURCE_CATALOG, REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData.ts';
 import { buildEpisodeContext } from './episodeContext.ts';
+import type { PersonalEpisodeConnection } from './episodeConnections.ts';
 
 export interface EpisodeContextActions {
   openEntity: (key: AtlasEntityKey) => void;
   readReference: (reference: string) => void;
+  editConnections: (eventId: string) => void;
+  personalConnections: readonly PersonalEpisodeConnection[];
 }
 
 /**
@@ -110,6 +113,39 @@ export function renderEpisodeContext(
         });
       } else sources.createSpan({ cls: 'jwsd-episode-reference', text: source.label });
     }
+  }
+  const personal = container.createDiv({ cls: 'jwsd-episode-section' });
+  const heading=personal.createDiv({cls:'jwsd-episode-person-heading'});
+  heading.createEl('h4',{text:'Mes connexions d’étude'});
+  const edit=heading.createEl('button',{text:'Ajouter ou modifier',cls:'jwsd-episode-edit'});
+  edit.addEventListener('click',()=>actions.editConnections(eventId));
+  if (!actions.personalConnections.length) {
+    personal.createEl('p',{cls:'jwsd-episode-muted',text:'Aucune connexion personnelle enregistrée. Ajoute une personne, un lieu et une référence pour commencer.'});
+  }
+  for(const item of actions.personalConnections){
+    const card=personal.createDiv({cls:'jwsd-episode-person'});
+    const personKey:AtlasEntityKey=('person:'+item.personId) as AtlasEntityKey;
+    const person=resolveEntity(workspace.catalog,personKey);
+    if(person){
+      const button=card.createEl('button',{cls:'jwsd-episode-entity',text:person.title});
+      button.addEventListener('click',()=>actions.openEntity(personKey));
+    }else card.createEl('strong',{text:item.personId});
+    if(item.placeId){
+      const placeKey:AtlasEntityKey=('place:'+item.placeId) as AtlasEntityKey;
+      const place=resolveEntity(workspace.catalog,placeKey);
+      const line=card.createDiv();
+      line.createSpan({text:'Lieu mentionné dans mon étude : '});
+      if(place){
+        const button=line.createEl('button',{cls:'jwsd-episode-entity',text:place.title});
+        button.addEventListener('click',()=>actions.openEntity(placeKey));
+      }else line.createSpan({text:item.placeId});
+    }else card.createDiv({cls:'jwsd-episode-muted',text:'Aucun lieu personnel précisé.'});
+    const reference=card.createDiv({cls:'jwsd-episode-age'});
+    reference.createSpan({text:'Source notée : '});
+    const read=reference.createEl('button',{cls:'jwsd-episode-entity',text:item.reference});
+    read.addEventListener('click',()=>actions.readReference(item.reference));
+    if(item.note)card.createEl('p',{text:item.note});
+    card.createDiv({cls:'jwsd-episode-muted',text:'Ajout personnel — à distinguer des données historiques relues.'});
   }
   if (context.warnings.length) {
     const limits = container.createDiv({ cls: 'jwsd-episode-limits' });
