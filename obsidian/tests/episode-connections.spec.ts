@@ -78,7 +78,7 @@ test('l’analyse d’un passage propose une personne sans inventer sa position'
 
   const suggestion=editor.getByRole('checkbox',{name:'Confirmer David — 2 Samuel 11:1'});
   await expect(suggestion).toBeVisible();
-  await expect(editor.getByText('Lieux également mentionnés')).toBeVisible();
+  await expect(editor.getByText('Lieux également mentionnés').first()).toBeVisible();
   await suggestion.check();
   await editor.getByRole('button',{name:'Ajouter les propositions confirmées'}).click();
   await expect(editor.getByRole('heading',{name:'Mes connexions (1)'})).toBeVisible();
