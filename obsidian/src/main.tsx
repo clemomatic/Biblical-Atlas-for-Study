@@ -819,7 +819,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }
     await Promise.allSettled(refreshers);
   }
-  private editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
+  editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
     const record=REVIEWED_HISTORICAL_EVENTS.find(item=>item.event.id===eventId);
     const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??this.episodeConnectionsStore.listPersonalEpisodes().find(item=>item.id===eventId)?.title??eventId;
     new EpisodeConnectionsModal(this.app,eventId,title,this.snapshot.atlas,this.episodeConnectionsStore,async file=>{
