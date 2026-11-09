@@ -1,0 +1,26 @@
+.jwsd-episode {
+  font: inherit;
+  color: var(--text-normal);
+  background: var(--background-primary);
+  border: 1px solid var(--background-modifier-border);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+.jwsd-episode-header { display: flex; flex-direction: column; align-items: flex-start; gap: 7px; }
+.jwsd-episode-eyebrow { color: var(--text-muted); font-size: 10px; font-weight: 700; letter-spacing: .09em; }
+.jwsd-episode-header h3 { margin: 0; font-size: 1.3em; }
+.jwsd-episode-period, .jwsd-episode-muted { color: var(--text-muted); font-size: .84em; }
+.jwsd-episode-section { padding-top: 13px; margin-top: 13px; border-top: 1px solid var(--background-modifier-border); }
+.jwsd-episode-section h4 { margin: 0 0 8px; font-size: 1em; }
+.jwsd-episode-person { border-radius: 10px; background: var(--background-secondary); padding: 10px 12px; margin: 7px 0; }
+.jwsd-episode-person-heading { font-weight: 600; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.jwsd-episode-age { margin: 3px 0; font-size: .9em; }
+.jwsd-episode-presence { font-size: .9em; }
+.jwsd-episode .jwsd-episode-entity { border: 0; padding: 0; background: none; box-shadow: none; color: var(--text-accent); font: inherit; text-align: start; cursor: pointer; }
+.jwsd-episode .jwsd-episode-entity:hover { text-decoration: underline; }
+.jwsd-episode .jwsd-episode-reference { display: inline-block; margin: 3px 6px 3px 0; font-size: .85em; padding: 6px 9px; border: 1px solid var(--background-modifier-border); border-radius: 7px; }
+.jwsd-episode-limits { background: var(--background-secondary); border-radius: 9px; margin-top: 13px; padding: 10px 12px; }
+.jwsd-episode-limits strong { font-size: .9em; }
+.jwsd-episode-limits p { margin: 4px 0; color: var(--text-muted); font-size: .85em; }
