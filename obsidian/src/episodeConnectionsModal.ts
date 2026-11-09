@@ -1,5 +1,6 @@
 import { Modal, Notice, Setting, type App, type TFile } from 'obsidian';
 import type { AtlasWorkspace } from './catalog.ts';
+import type { AtlasEntityKey } from '../../src/atlasIntegration.ts';
 import type { PersonalEpisodeConnection } from './episodeConnections.ts';
 import { validatePersonalEpisodeConnections } from './episodeConnections.ts';
 import { EpisodeConnectionsStore } from './episodeConnectionsStore.ts';
@@ -57,7 +58,7 @@ export class EpisodeConnectionsModal extends Modal {
 
   private name(type: 'person' | 'place', id?: string): string {
     if (!id) return type==='place' ? 'Lieu non précisé' : 'Choisir un personnage';
-    return this.workspace.catalog.get(type+':'+id)?.title ?? id;
+    return this.workspace.catalog.get((type+':'+id) as AtlasEntityKey)?.title ?? id;
   }
 
   private pick(type: 'person' | 'place'): void {
