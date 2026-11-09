@@ -1,5 +1,5 @@
 import { createRoot, type Root } from 'react-dom/client';
-import { ItemView, Notice, Plugin, addIcon, PluginSettingTab, Setting, TFile, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
+import { ItemView, Notice, Plugin, addIcon, PluginSettingTab, Setting, TFile, MarkdownRenderChild, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
 import appCss from '../../src/index.css?inline';
 import leafletCss from 'leaflet/dist/leaflet.css?inline';
 import pluginCss from './plugin.css?inline';
@@ -302,6 +302,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   private mapViewport?: MapBounds;
   private storage!: AtlasVault;
   private episodeConnectionsStore!: EpisodeConnectionsStore;
+  private episodeModuleRefreshers=new Map<HTMLElement,{eventId:string;refresh:()=>Promise<void>}>();
   getSnapshot = (): AtlasSnapshot => this.snapshot;
   subscribe = (listener: () => void): (() => void) => { this.listeners.add(listener); return () => this.listeners.delete(listener); };
   private publish(): void {
@@ -572,7 +573,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         button.addEventListener('click', () => this.openEntity(selection.key));
       }
     });
-    this.registerMarkdownCodeBlockProcessor('jwsd',async (source,element)=>{
+    this.registerMarkdownCodeBlockProcessor('jwsd',async (source,element,ctx)=>{
       const line=source.split(/\r?\n/).map(item=>item.trim()).find(item=>item.startsWith('event:'));
       const eventId=line?.slice('event:'.length).trim();
       if(!eventId||!/^[\w-]{1,300}$/.test(eventId)){
@@ -595,9 +596,20 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
           element.createEl('p',{text:error instanceof Error?error.message:'Impossible de charger les connexions personnelles.'});
         }
       };
+      this.episodeModuleRefreshers.set(element,{eventId,refresh});
+      const plugin=this;
+      ctx.addChild(new (class extends MarkdownRenderChild {
+        onunload():void{plugin.episodeModuleRefreshers.delete(element);}
+      })(element));
       await refresh();
     });
-    this.registerEvent(this.app.metadataCache.on('changed', file => this.run(this.indexFile(file))));
+    this.registerEvent(this.app.metadataCache.on('changed', file => {
+      this.run(this.indexFile(file));
+      const frontmatter=this.app.metadataCache.getFileCache(file)?.frontmatter;
+      if(frontmatter?.jwsd_kind==='episode-connections'&&typeof frontmatter.jwsd_episode_id==='string'){
+        this.run(this.refreshEpisodeModules(frontmatter.jwsd_episode_id));
+      }
+    }));
     this.registerEvent(this.app.vault.on('delete', file => {
       let changed = false;
       for (const path of this.indexedNotes.keys()) if (path === file.path || path.startsWith(`${file.path}/`)) { changed = true; this.indexedNotes.delete(path); this.indexVersions.set(path, (this.indexVersions.get(path) ?? 0) + 1); }
@@ -618,7 +630,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }));
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
-  onunload(): void { this.inlinePopup?.destroy();this.listeners.clear(); this.maps?.dispose(); }
+  onunload(): void { this.inlinePopup?.destroy();this.listeners.clear();this.episodeModuleRefreshers.clear(); this.maps?.dispose(); }
   saveDailyStudy = (day:DayPreview,date:Date):void => {this.run(saveDailyStudy(this.app,this.settings.noteFolder,day,date));};
   saveWeeklyStudy = (week:MeetingPreview,date:Date):void => {this.run(saveWeeklyStudy(this.app,this.settings.noteFolder,week,date));};
   createTalk = ():void => {
@@ -786,11 +798,20 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     if (selection) await leaf.setViewState({ type: VIEW_TYPE, active: true, state: { ...navigationForKey(selection.key) } });
     await this.app.workspace.revealLeaf(leaf);
   }
+  private async refreshEpisodeModules(eventId:string):Promise<void>{
+    const refreshers:Array<Promise<void>>=[];
+    for(const [element,entry] of this.episodeModuleRefreshers){
+      if(!element.isConnected){this.episodeModuleRefreshers.delete(element);continue;}
+      if(entry.eventId===eventId)refreshers.push(entry.refresh());
+    }
+    await Promise.allSettled(refreshers);
+  }
   private editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
     const record=REVIEWED_HISTORICAL_EVENTS.find(item=>item.event.id===eventId);
     const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??eventId;
     new EpisodeConnectionsModal(this.app,eventId,title,this.snapshot.atlas,this.episodeConnectionsStore,async file=>{
       await this.indexFile(file);
+      await this.refreshEpisodeModules(eventId);
       if(onSaved)await onSaved();
     }).open();
   };
