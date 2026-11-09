@@ -27,6 +27,7 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm obsidian:typecheck
       - run: pnpm historical:validate
+      - run: node scripts/audit-unlinked-people.mjs --verify
       - run: python tools/test_bible_lab_bridge.py
       - run: pnpm obsidian:test
       - run: pnpm obsidian:package
