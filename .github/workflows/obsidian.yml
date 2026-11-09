@@ -26,6 +26,8 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm obsidian:typecheck
+      - run: pnpm historical:validate
+      - run: node scripts/audit-unlinked-people.mjs --verify
       - run: python tools/test_bible_lab_bridge.py
       - run: pnpm obsidian:test
       - run: pnpm obsidian:package
@@ -37,6 +39,7 @@ jobs:
           name: atlas-biblique-obsidian
           path: obsidian/artifacts/
       - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/episode-connections.spec.ts --project=desktop --workers=1
       - run: pnpm exec playwright test --config obsidian/playwright.config.ts obsidian/tests/bible-lab-simple-library.spec.ts --workers=2
       - uses: actions/upload-artifact@v4
         if: always()

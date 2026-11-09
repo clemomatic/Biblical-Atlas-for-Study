@@ -1,5 +1,5 @@
 import { createRoot, type Root } from 'react-dom/client';
-import { ItemView, Notice, Plugin, addIcon, PluginSettingTab, Setting, TFile, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
+import { ItemView, Notice, Plugin, addIcon, PluginSettingTab, Setting, TFile, MarkdownRenderChild, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
 import appCss from '../../src/index.css?inline';
 import leafletCss from 'leaflet/dist/leaflet.css?inline';
 import pluginCss from './plugin.css?inline';
@@ -48,6 +48,16 @@ import { inlineBibleLabEditorExtension } from './inlineEditorExtension';
 import { BibleLabInlinePopover } from './BibleLabInlinePopover';
 import { linkReferencesInMarkdown } from './inlineReferenceScanner';
 import inlineReferenceCss from './inlineReferences.css?inline';
+import episodeContextCss from './episodeContext.css?inline';
+import { renderEpisodeContext } from './episodeContextView';
+import { EpisodePickerModal } from './episodePickerModal';
+import { EpisodeConnectionsStore } from './episodeConnectionsStore';
+import { EpisodeConnectionsModal } from './episodeConnectionsModal';
+import { EpisodeContextModal } from './episodeContextModal';
+import { PersonalEpisodeModal } from './personalEpisodeModal';
+import { readLocalEpisodePassage } from './episodePassage';
+import { parseScripture } from './bibleLabData';
+import { REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData';
 import { normalizeSearch } from './bibleLabData';
 import { TalkStudioModal, saveTalkToVault } from './talkStudio';
 import { chooseJwArchive, inspectJwArchive, saveArchiveReport } from './archiveInspector';
@@ -294,6 +304,8 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   maps!: MapTileCache;
   private mapViewport?: MapBounds;
   private storage!: AtlasVault;
+  private episodeConnectionsStore!: EpisodeConnectionsStore;
+  private episodeModuleRefreshers=new Map<HTMLElement,{eventId:string;refresh:()=>Promise<void>}>();
   getSnapshot = (): AtlasSnapshot => this.snapshot;
   subscribe = (listener: () => void): (() => void) => { this.listeners.add(listener); return () => this.listeners.delete(listener); };
   private publish(): void {
@@ -339,6 +351,9 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     const brandStyle=document.createElement('style');
     brandStyle.dataset.jwStudyDesk='identity';brandStyle.textContent=STUDY_DESK_CSS;
     document.head.append(brandStyle);this.register(()=>brandStyle.remove());
+    const episodeStyle=document.createElement('style');
+    episodeStyle.dataset.jwStudyDeskEpisode='context';episodeStyle.textContent=episodeContextCss;
+    document.head.append(episodeStyle);this.register(()=>episodeStyle.remove());
     const stored = await this.loadData() as (Partial<AtlasSettings> & {bibleLabResearch?:unknown;bibleLabCollection?:unknown;bibleLabArchive?:unknown}) | null;
     try { this.settings = { noteFolder: validFolder(stored?.noteFolder ?? DEFAULT_SETTINGS.noteFolder), allowOnlineMaps: stored?.allowOnlineMaps === true,reading:readingSettings(stored?.reading) }; }
     catch { this.settings = { ...DEFAULT_SETTINGS }; }
@@ -346,6 +361,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.researchCollection=normalizeResearchCollection(stored?.bibleLabCollection);
     this.researchArchive=pruneMissingCaptures(normalizeBibleLabArchive(stored?.bibleLabArchive),this.researchCollection);
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
+    this.episodeConnectionsStore = new EpisodeConnectionsStore(this.app, () => this.settings.noteFolder);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
     this.localBible=new LocalBibleLibrary(this.app,()=>this.settings.noteFolder);
@@ -433,6 +449,30 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({id:'open-jw-study-desk',name:'Ouvrir JW Study Desk',callback:()=>this.run(this.openStudyDesk())});
     this.addCommand({id:'open-jw-study-desk-bible',name:'Ouvrir la Bible',callback:()=>this.run(this.openStudyDesk('bible'))});
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
+    this.addCommand({id:'create-personal-study-episode',name:'Créer un épisode biblique personnel',callback:()=>{
+      new PersonalEpisodeModal(this.app,async(title,reference)=>{
+        const created=await this.episodeConnectionsStore.createPersonalEpisode(title,reference);
+        await this.indexFile(created.file);
+        await this.storage.open(created.file.path);
+        this.editEpisodeConnections(created.id);
+      }).open();
+    }});
+    this.addCommand({id:'edit-episode-connections',name:'Compléter les connexions d’un épisode',callback:()=>{
+      const options=new Map<string,string>();
+      for(const entry of this.snapshot.atlas.catalog.values())if(entry.type==='event')options.set(entry.id,entry.title);
+      for(const record of REVIEWED_HISTORICAL_EVENTS)options.set(record.event.id,record.event.name);
+      for(const item of this.episodeConnectionsStore.listPersonalEpisodes())options.set(item.id,item.title);
+      new EpisodePickerModal(this.app,[...options].map(([id,title])=>({id,title})).sort((a,b)=>a.title.localeCompare(b.title,'fr')),
+        choice=>this.editEpisodeConnections(choice.id)).open();
+    }});
+    this.addCommand({ id:'insert-episode-context', name:'Insérer le contexte d’un épisode de l’Atlas', editorCallback:editor=>{
+      const options=new Map<string,string>();
+      for(const entry of this.snapshot.atlas.catalog.values())if(entry.type==='event')options.set(entry.id,entry.title);
+      for(const record of REVIEWED_HISTORICAL_EVENTS)options.set(record.event.id,record.event.name);
+      for(const item of this.episodeConnectionsStore.listPersonalEpisodes())options.set(item.id,item.title);
+      new EpisodePickerModal(this.app,[...options].map(([id,title])=>({id,title})).sort((a,b)=>a.title.localeCompare(b.title,'fr')),
+        choice=>editor.replaceSelection('\n'+'\x60\x60\x60'+'jwsd\nevent:'+choice.id+'\n'+'\x60\x60\x60'+'\n')).open();
+    }});
     this.addCommand({ id: 'open-bible-lab', name: 'Ouvrir le panneau d’étude', callback: () => this.run(this.openBibleLab()) });
     this.addCommand({ id: 'open-wol-browser', name: 'Ouvrir la Bibliothèque en ligne WOL dans un onglet', callback: () => this.run(this.openWolSearchTab(WOL_HOME)) });
     this.addCommand({ id: 'create-discourse', name: 'Créer un plan de discours', callback: this.createTalk });
@@ -546,7 +586,47 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         button.addEventListener('click', () => this.openEntity(selection.key));
       }
     });
-    this.registerEvent(this.app.metadataCache.on('changed', file => this.run(this.indexFile(file))));
+    this.registerMarkdownCodeBlockProcessor('jwsd',async (source,element,ctx)=>{
+      const line=source.split(/\r?\n/).map(item=>item.trim()).find(item=>item.startsWith('event:'));
+      const eventId=line?.slice('event:'.length).trim();
+      if(!eventId||!/^[\w-]{1,300}$/.test(eventId)){
+        element.createEl('p',{text:'Module JW Study Desk : indique un identifiant d’événement valide.'});return;
+      }
+      const refresh=async()=>{
+        try {
+          const personal=await this.episodeConnectionsStore.read(eventId);
+          // Obsidian may prepare Reading view in a detached Markdown fragment.
+          if(!this.episodeModuleRefreshers.has(element))return;
+          renderEpisodeContext(element,eventId,this.snapshot.atlas,{
+            openEntity:this.openEntity,
+            readReference:reference=>{
+              if(parseScripture(reference))this.run(this.openBibleLab(passageUrl(reference),reference));
+              else this.run(this.openWolSearchTab(wolResearchUrl(reference,{match:'par',scope:'all'})));
+            },
+            editConnections:id=>this.editEpisodeConnections(id,refresh),
+            personalConnections:personal.items,
+            ...(personal.personalTitle&&personal.personalReference
+              ?{personalEpisode:{title:personal.personalTitle,reference:personal.personalReference}}:{})
+          });
+        } catch(error) {
+          element.empty();
+          element.createEl('p',{text:error instanceof Error?error.message:'Impossible de charger les connexions personnelles.'});
+        }
+      };
+      this.episodeModuleRefreshers.set(element,{eventId,refresh});
+      const plugin=this;
+      ctx.addChild(new (class extends MarkdownRenderChild {
+        onunload():void{plugin.episodeModuleRefreshers.delete(element);}
+      })(element));
+      await refresh();
+    });
+    this.registerEvent(this.app.metadataCache.on('changed', file => {
+      this.run(this.indexFile(file));
+      const frontmatter=this.app.metadataCache.getFileCache(file)?.frontmatter;
+      if(frontmatter?.jwsd_kind==='episode-connections'&&typeof frontmatter.jwsd_episode_id==='string'){
+        this.run(this.refreshEpisodeModules(frontmatter.jwsd_episode_id));
+      }
+    }));
     this.registerEvent(this.app.vault.on('delete', file => {
       let changed = false;
       for (const path of this.indexedNotes.keys()) if (path === file.path || path.startsWith(`${file.path}/`)) { changed = true; this.indexedNotes.delete(path); this.indexVersions.set(path, (this.indexVersions.get(path) ?? 0) + 1); }
@@ -567,7 +647,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }));
     this.app.workspace.onLayoutReady(() => { this.ready = this.indexAll(); this.run(this.ready); });
   }
-  onunload(): void { this.inlinePopup?.destroy();this.listeners.clear(); this.maps?.dispose(); }
+  onunload(): void { this.inlinePopup?.destroy();this.listeners.clear();this.episodeModuleRefreshers.clear(); this.maps?.dispose(); }
   saveDailyStudy = (day:DayPreview,date:Date):void => {this.run(saveDailyStudy(this.app,this.settings.noteFolder,day,date));};
   saveWeeklyStudy = (week:MeetingPreview,date:Date):void => {this.run(saveWeeklyStudy(this.app,this.settings.noteFolder,week,date));};
   createTalk = ():void => {
@@ -735,6 +815,42 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     if (selection) await leaf.setViewState({ type: VIEW_TYPE, active: true, state: { ...navigationForKey(selection.key) } });
     await this.app.workspace.revealLeaf(leaf);
   }
+  private async refreshEpisodeModules(eventId:string):Promise<void>{
+    const refreshers:Array<Promise<void>>=[];
+    for(const [element,entry] of this.episodeModuleRefreshers){
+      if(!element.isConnected){this.episodeModuleRefreshers.delete(element);continue;}
+      if(entry.eventId===eventId)refreshers.push(entry.refresh());
+    }
+    await Promise.allSettled(refreshers);
+  }
+  openPersonEpisodes=(personId:string):void=>{
+    const episodes=REVIEWED_HISTORICAL_EVENTS.filter(record=>
+      record.event.participantMentions?.some(mention=>mention.personId===personId)
+    ).map(record=>({id:record.event.id,title:record.event.name}));
+    if(!episodes.length){new Notice('Aucun épisode source n’est encore associé à cette personne.');return;}
+    const open=(id:string)=>{
+      new EpisodeContextModal(this.app,id,this.snapshot.atlas,this.episodeConnectionsStore,{
+        openEntity:this.openEntity,
+        readReference:reference=>{
+          if(parseScripture(reference))this.run(this.openBibleLab(passageUrl(reference),reference));
+          else this.run(this.openWolSearchTab(wolResearchUrl(reference,{match:'par',scope:'all'})));
+        },
+        editConnections:(eventId,onSaved)=>this.editEpisodeConnections(eventId,onSaved)
+      }).open();
+    };
+    if(episodes.length===1)open(episodes[0].id);
+    else new EpisodePickerModal(this.app,episodes,choice=>open(choice.id),
+      'Rechercher un épisode documenté de cette personne…').open();
+  };
+  editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
+    const record=REVIEWED_HISTORICAL_EVENTS.find(item=>item.event.id===eventId);
+    const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??this.episodeConnectionsStore.listPersonalEpisodes().find(item=>item.id===eventId)?.title??eventId;
+    new EpisodeConnectionsModal(this.app,eventId,title,this.snapshot.atlas,this.episodeConnectionsStore,async file=>{
+      await this.indexFile(file);
+      await this.refreshEpisodeModules(eventId);
+      if(onSaved)await onSaved();
+    },reference=>readLocalEpisodePassage(this.localBible,reference)).open();
+  };
   openEntity = (key: AtlasEntityKey): void => { this.run(this.openAtlas(key)); };
   linkForSelection = (selection: AtlasSelection | null): string => selection
     ? atlasDeepLink(selection.key, this.app.vault.getName())

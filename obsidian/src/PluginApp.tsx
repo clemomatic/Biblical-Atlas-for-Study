@@ -10,6 +10,7 @@ import type { AtlasHost } from './host';
 import { ageAtCursor, dateFromPosition, type ProbeDate } from './ages';
 import { AgeProbe } from './AgeProbe';
 import { workspaceSnapshot } from './snapshot';
+import { REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData';
 
 const EXTRA_CATEGORIES = [PERSONAL_CATEGORY];
 const OFFLINE_BACKGROUND = { land: offlineLand, lakes: offlineLakes } as unknown as AtlasOfflineBackground;
@@ -51,6 +52,9 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
   }), [initialState, navigation, snapshot.atlas, snapshot.settings.allowOnlineMaps, handleNavigate, updateSelection, host, isMapEditing, activeView, mapTiles, ageProbe, snapshotForPeriod]);
 
   const linkedNotes = useMemo(() => selection ? snapshot.notes.filter(note => note.keys.includes(selection.key)) : [], [snapshot.notes, selection?.key]);
+  const sourcedEpisodes = useMemo(() => selection?.type === 'person'
+    ? REVIEWED_HISTORICAL_EVENTS.filter(record=>record.event.participantMentions?.some(mention=>mention.personId===selection.id))
+    : [], [selection?.key]);
   const displayedNotes = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase('fr');
     const notes = selection && !showAllNotes ? linkedNotes : snapshot.notes;
@@ -76,6 +80,8 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
           <button type="button" className="atlas-vault-button atlas-vault-research" title="Ouvrir JW Study Desk" onClick={() => void host.openBibleLab()}><Search size={16} /><span>Explorer</span></button>
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.openEntityNote(selection)}><BookOpen size={16} /><span>Note d’étude</span></button>}
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.editEntity(selection)}><Pencil size={16} /><span>Modifier</span></button>}
+          {selection?.type==='event' && <button type="button" className="atlas-vault-button" onClick={() => host.editEpisodeConnections(selection.id)}><Network size={16}/><span>Connexions</span></button>}
+          {selection?.type==='person' && sourcedEpisodes.length>0 && <button type="button" className="atlas-vault-button" onClick={() => host.openPersonEpisodes(selection.id)}><Network size={16}/><span>Épisodes · {sourcedEpisodes.length}</span></button>}
           <button type="button" className={`atlas-vault-button ${isNotebookOpen ? 'is-active' : ''}`} aria-expanded={isNotebookOpen} aria-controls="atlas-personal-notebook" onClick={() => setIsNotebookOpen(open => !open)}><NotebookPen size={16} /><span>Mon carnet</span><span className="atlas-vault-count">{snapshot.notes.length}</span></button>
           {activeView === 'map' && <button type="button" className={`atlas-vault-button ${isMapEditing ? 'is-active' : ''}`} aria-label={isMapEditing ? 'Terminer la modification de la carte' : 'Modifier la carte'} aria-pressed={isMapEditing} onClick={() => { setIsMapEditing(value => !value); setIsNotebookOpen(false); }}><Move size={16} /></button>}
           <button type="button" className="atlas-vault-button" aria-label="Gérer toutes les fiches" title="Gérer toutes les fiches" onClick={host.manageAtlas}><Settings2 size={16} /></button>

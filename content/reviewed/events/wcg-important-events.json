@@ -650,10 +650,11 @@
       "participantMentions": [
         {
           "label": "Matthieu",
-          "certainty": "certain"
+          "certainty": "certain",
+          "personId": "person-a7-matthieu"
         }
       ],
-      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise."
+      "notes": "Fait court extrait de la frise ; aucune illustration ni formulation longue n’est reprise. L’identité de Matthieu est reliée à la fiche existante ; aucune nouvelle personne n’a été créée."
     }
   },
   {
