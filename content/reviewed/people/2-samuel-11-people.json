@@ -24,7 +24,11 @@
         "event-samuel-11-david-bethsabee-joab"
       ],
       "certainty": "certain",
-      "notes": "Personnage identifié par son rôle dans le récit. La période de sa vie n'est pas calculée depuis ce seul chapitre."
+      "notes": "Personnage identifié par son rôle dans le récit. La période de sa vie n'est pas calculée depuis ce seul chapitre.",
+      "associatedPersonIds": [
+        "event-david-iixp36",
+        "person-biblical-urie-hittite"
+      ]
     }
   },
   {
@@ -51,7 +55,12 @@
         "event-samuel-11-david-bethsabee-joab"
       ],
       "certainty": "certain",
-      "notes": "Le récit ne donne ni date de naissance ni âge à cet épisode."
+      "notes": "Le récit ne donne ni date de naissance ni âge à cet épisode.",
+      "associatedPersonIds": [
+        "event-david-iixp36",
+        "person-biblical-urie-hittite",
+        "person-biblical-eliam-father-bethsabee"
+      ]
     }
   },
   {
@@ -79,7 +88,11 @@
         "event-samuel-11-david-bethsabee-joab"
       ],
       "certainty": "certain",
-      "notes": "Identifié par son qualificatif « le Hittite », pour ne pas le confondre avec d'autres Urie."
+      "notes": "Identifié par son qualificatif « le Hittite », pour ne pas le confondre avec d'autres Urie.",
+      "associatedPersonIds": [
+        "person-biblical-bethsabee-wife-urie",
+        "person-biblical-joab-david-commander"
+      ]
     }
   },
   {
@@ -102,7 +115,10 @@
         "2 Samuel 11:3"
       ],
       "certainty": "certain",
-      "notes": "Mentionné comme père de Bethsabée, mais le récit ne dit pas qu'il était présent aux événements."
+      "notes": "Mentionné comme père de Bethsabée, mais le récit ne dit pas qu'il était présent aux événements.",
+      "associatedPersonIds": [
+        "person-biblical-bethsabee-wife-urie"
+      ]
     }
   }
 ]
