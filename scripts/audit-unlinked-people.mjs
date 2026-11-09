@@ -35,7 +35,7 @@ for(const record of events)for(const mention of record.event.participantMentions
 const classify=label=>{
   if(normalize(label)==='jehovah')return 'Hors fiches individuelles';
   if(/^(?:les|des|un|une|deux|trois|quatre|premiers|plusieurs)\s/i.test(label)||
-    /\s+et\s+/i.test(label)||/disciples|ap[oô]tres|fr[eè]res et s[oœ]urs/i.test(label))
+    /\s+et\s+/i.test(label)||/disciples|ap[oô]tres|fr[eè]res et s[oœ]urs|samaritains/i.test(label))
     return 'Collectif, composé ou anonyme';
   return 'Nom individuel à vérifier';
 };
