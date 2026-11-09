@@ -15,6 +15,8 @@ export interface EpisodePersonSuggestion {
   name:string;
   reference:string;
   matchedName:string;
+  /** Preview only, never persisted in episode connections. */
+  excerpt:string;
   /** Other places mentioned in the SAME verse; never individual locations. */
   placeNames:string[];
 }
@@ -74,7 +76,7 @@ export function suggestEpisodeMentions(
       const person=candidates[0],key=person.id+'|'+verse.reference;
       if(!suggestions.has(key))suggestions.set(key,{
         key,personId:person.id,name:person.display,reference:verse.reference,
-        matchedName:alias,placeNames:[...placeNames.values()]
+        matchedName:alias,excerpt:verse.text.trim().slice(0,320),placeNames:[...placeNames.values()]
       });
     }
   }
