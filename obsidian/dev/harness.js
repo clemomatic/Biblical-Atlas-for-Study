@@ -130,7 +130,7 @@ class Plugin {
   addCommand(command) { this.commands.set(command.id, command); }
   addSettingTab(tab) { this.settingTab = tab; }
   registerObsidianProtocolHandler(action, callback) { this.protocol = callback; }
-  registerMarkdownCodeBlockProcessor(language, callback) { this.codeBlock = callback; }
+  registerMarkdownCodeBlockProcessor(language, callback) { (this.codeBlocks??=new Map()).set(language,callback); if(language==='atlas')this.codeBlock=callback; }
   registerMarkdownPostProcessor(callback) { this.markdownPostProcessor = callback; }
   registerEditorExtension(extension) { this.editorExtension = extension; }
   register(callback) { this.cleanups.push(callback); }
@@ -180,6 +180,7 @@ class Modal {
 }
 class FuzzySuggestModal extends Modal {
   setPlaceholder(text) { this.placeholder = text; }
+  setInstructions(instructions) { this.instructions=instructions; }
   onOpen() { const input = this.contentEl.createEl('input', { attr: { placeholder: this.placeholder, 'aria-label': this.placeholder } }); const list = this.contentEl.createDiv(); const update = () => { list.empty(); for (const item of this.getItems().filter(item => this.getItemText(item).toLowerCase().includes(input.value.toLowerCase()))) { const button = list.createEl('button', { text: this.getItemText(item), cls: 'suggestion-item' }); button.onclick = () => { this.onChooseItem(item); this.close(); }; } }; input.oninput = update; update(); }
 }
 class Setting {
@@ -195,11 +196,13 @@ class Setting {
   addTextArea(configure) { return this.input('textarea', null, configure); }
   addDropdown(configure) { return this.input('select', null, configure); }
   addToggle(configure) { return this.input('input', 'checkbox', configure); }
-  addButton(configure) { const button = this.control.createEl('button'); const component = { setButtonText: value => { button.textContent = value; return component; }, setCta: () => { button.classList.add('mod-cta'); return component; }, setDisabled: value => { button.disabled = value; return component; }, onClick: callback => { button.onclick = callback; return component; } }; configure(component); return this; }
+  addExtraButton(configure) { const button=this.control.createEl('button'); const comp={setIcon: name => { button.dataset.icon=name;return comp; },setTooltip: name => {button.title=name;return comp;},onClick:cb=>{button.onclick=cb;return comp;}};configure(comp);return this; }
+  addButton(configure) { const button = this.control.createEl('button'); const component = { setButtonText: value => { button.textContent = value; return component; }, setCta: () => { button.classList.add('mod-cta'); return component; }, setWarning: () => { button.classList.add('mod-warning'); return component; }, setDisabled: value => { button.disabled = value; return component; }, onClick: callback => { button.onclick = callback; return component; } }; configure(component); return this; }
 }
 const notices = [];
 class Notice { constructor(text) { notices.push(text); } }
 class Component { load() {} unload() {} }
+class MarkdownRenderChild extends Component { constructor(containerEl){super();this.containerEl=containerEl;} }
 class MarkdownRenderer { static async render(application, markdown, target) { target.textContent = markdown; } }
 const requestUrl = async parameters => {
   window.atlasNetworkRequests ??= []; window.atlasNetworkRequests.push(parameters);
@@ -230,7 +233,7 @@ const setIcon = (node,name) => {
   node.innerHTML=renderToStaticMarkup(createElement(component,{size:18,'aria-hidden':true}));
 };
 const debounce = (callback, delay) => { let timer; return (...args) => { clearTimeout(timer); timer = setTimeout(() => callback(...args), delay); }; };
-const api = { ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, Menu, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, addIcon, debounce };
+const api = { ItemView, MarkdownView, MarkdownRenderChild, Notice, Plugin, PluginSettingTab, Setting, TFile, TFolder, Modal, Menu, FuzzySuggestModal, Component, MarkdownRenderer, parseYaml: parse, stringifyYaml: stringify, requestUrl, setIcon, addIcon, debounce };
 if (new URLSearchParams(location.search).get('theme') === 'dark') document.body.classList.add('theme-dark');
 await vault.createFolder('Mes notes');
 await vault.create('Mes notes/Une idée précieuse.md', '---\ntags: [personnel]\npriorite: 3\n---\nMon texte personnel **à conserver**.\n\nUne seconde ligne.\n');
@@ -252,6 +255,18 @@ window.atlasTest = {
     return event.defaultPrevented;
   },
   file(path) { return vault.files.get(path)?.content; },
+  async renderCodeBlock(language,source){
+    const processor=plugin.codeBlocks?.get(language);
+    if(!processor)throw Error('Aucun processeur Markdown pour '+language);
+    const element=document.createElement('section');element.dataset.codeBlock=language;document.body.appendChild(element);
+    await processor(source,element,{addChild(child){child.load();}});
+    return element;
+  },
+  async command(id){
+    const action=plugin.commands.get(id);
+    if(!action)throw Error('Commande introuvable : '+id);
+    return action.callback?.();
+  },
   mountInlineEditor(text) {
     this.editorView?.destroy();
     document.querySelector('#test-inline-editor')?.remove();
