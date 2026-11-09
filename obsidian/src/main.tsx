@@ -54,6 +54,7 @@ import { EpisodePickerModal } from './episodePickerModal';
 import { EpisodeConnectionsStore } from './episodeConnectionsStore';
 import { EpisodeConnectionsModal } from './episodeConnectionsModal';
 import { PersonalEpisodeModal } from './personalEpisodeModal';
+import { readLocalEpisodePassage } from './episodePassage';
 import { parseScripture } from './bibleLabData';
 import { REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData';
 import { normalizeSearch } from './bibleLabData';
@@ -826,7 +827,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       await this.indexFile(file);
       await this.refreshEpisodeModules(eventId);
       if(onSaved)await onSaved();
-    }).open();
+    },reference=>readLocalEpisodePassage(this.localBible,reference)).open();
   };
   openEntity = (key: AtlasEntityKey): void => { this.run(this.openAtlas(key)); };
   linkForSelection = (selection: AtlasSelection | null): string => selection
