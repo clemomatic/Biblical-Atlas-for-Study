@@ -51,6 +51,9 @@ import inlineReferenceCss from './inlineReferences.css?inline';
 import episodeContextCss from './episodeContext.css?inline';
 import { renderEpisodeContext } from './episodeContextView';
 import { EpisodePickerModal } from './episodePickerModal';
+import { EpisodeConnectionsStore } from './episodeConnectionsStore';
+import { EpisodeConnectionsModal } from './episodeConnectionsModal';
+import { parseScripture } from './bibleLabData';
 import { REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData';
 import { normalizeSearch } from './bibleLabData';
 import { TalkStudioModal, saveTalkToVault } from './talkStudio';
@@ -298,6 +301,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
   maps!: MapTileCache;
   private mapViewport?: MapBounds;
   private storage!: AtlasVault;
+  private episodeConnectionsStore!: EpisodeConnectionsStore;
   getSnapshot = (): AtlasSnapshot => this.snapshot;
   subscribe = (listener: () => void): (() => void) => { this.listeners.add(listener); return () => this.listeners.delete(listener); };
   private publish(): void {
@@ -353,6 +357,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.researchCollection=normalizeResearchCollection(stored?.bibleLabCollection);
     this.researchArchive=pruneMissingCaptures(normalizeBibleLabArchive(stored?.bibleLabArchive),this.researchCollection);
     this.storage = new AtlasVault(this.app, () => this.settings.noteFolder, () => this.snapshot.notes, this.manifest.version);
+    this.episodeConnectionsStore = new EpisodeConnectionsStore(this.app, () => this.settings.noteFolder);
     this.maps = new MapTileCache(this.app, this.settings.noteFolder); await this.maps.load();
     this.publish();
     this.localBible=new LocalBibleLibrary(this.app,()=>this.settings.noteFolder);
@@ -440,6 +445,13 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.addCommand({id:'open-jw-study-desk',name:'Ouvrir JW Study Desk',callback:()=>this.run(this.openStudyDesk())});
     this.addCommand({id:'open-jw-study-desk-bible',name:'Ouvrir la Bible',callback:()=>this.run(this.openStudyDesk('bible'))});
     this.addCommand({ id: 'open-atlas', name: 'Ouvrir l’Atlas', callback: () => this.run(this.openAtlas()) });
+    this.addCommand({id:'edit-episode-connections',name:'Compléter les connexions d’un épisode',callback:()=>{
+      const options=new Map<string,string>();
+      for(const entry of this.snapshot.atlas.catalog.values())if(entry.type==='event')options.set(entry.id,entry.title);
+      for(const record of REVIEWED_HISTORICAL_EVENTS)options.set(record.event.id,record.event.name);
+      new EpisodePickerModal(this.app,[...options].map(([id,title])=>({id,title})).sort((a,b)=>a.title.localeCompare(b.title,'fr')),
+        choice=>this.editEpisodeConnections(choice.id)).open();
+    }});
     this.addCommand({ id:'insert-episode-context', name:'Insérer le contexte d’un épisode de l’Atlas', editorCallback:editor=>{
       const options=new Map<string,string>();
       for(const entry of this.snapshot.atlas.catalog.values())if(entry.type==='event')options.set(entry.id,entry.title);
@@ -560,16 +572,30 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         button.addEventListener('click', () => this.openEntity(selection.key));
       }
     });
-    this.registerMarkdownCodeBlockProcessor('jwsd',(source,element)=>{
+    this.registerMarkdownCodeBlockProcessor('jwsd',async (source,element)=>{
       const line=source.split(/\r?\n/).map(item=>item.trim()).find(item=>item.startsWith('event:'));
       const eventId=line?.slice('event:'.length).trim();
       if(!eventId||!/^[\w-]{1,300}$/.test(eventId)){
         element.createEl('p',{text:'Module JW Study Desk : indique un identifiant d’événement valide.'});return;
       }
-      renderEpisodeContext(element,eventId,this.snapshot.atlas,{
-        openEntity:this.openEntity,
-        readReference:reference=>this.run(this.openBibleLab(passageUrl(reference),reference))
-      });
+      const refresh=async()=>{
+        try {
+          const personal=await this.episodeConnectionsStore.read(eventId);
+          if(!element.isConnected)return;
+          renderEpisodeContext(element,eventId,this.snapshot.atlas,{
+            openEntity:this.openEntity,
+            readReference:reference=>{
+              if(parseScripture(reference))this.run(this.openBibleLab(passageUrl(reference),reference));
+              else this.run(this.openWolSearchTab(wolResearchUrl(reference,{match:'par',scope:'all'})));
+            },
+            editConnections:id=>this.editEpisodeConnections(id,refresh),
+            personalConnections:personal.items
+          });
+        } catch(error) {
+          element.createEl('p',{text:error instanceof Error?error.message:'Impossible de charger les connexions personnelles.'});
+        }
+      };
+      await refresh();
     });
     this.registerEvent(this.app.metadataCache.on('changed', file => this.run(this.indexFile(file))));
     this.registerEvent(this.app.vault.on('delete', file => {
@@ -760,6 +786,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     if (selection) await leaf.setViewState({ type: VIEW_TYPE, active: true, state: { ...navigationForKey(selection.key) } });
     await this.app.workspace.revealLeaf(leaf);
   }
+  private editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
+    const record=REVIEWED_HISTORICAL_EVENTS.find(item=>item.event.id===eventId);
+    const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??eventId;
+    new EpisodeConnectionsModal(this.app,eventId,title,this.snapshot.atlas,this.episodeConnectionsStore,async file=>{
+      await this.indexFile(file);
+      if(onSaved)await onSaved();
+    }).open();
+  };
   openEntity = (key: AtlasEntityKey): void => { this.run(this.openAtlas(key)); };
   linkForSelection = (selection: AtlasSelection | null): string => selection
     ? atlasDeepLink(selection.key, this.app.vault.getName())
