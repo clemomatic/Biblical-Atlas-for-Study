@@ -53,8 +53,13 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
 
   const linkedNotes = useMemo(() => selection ? snapshot.notes.filter(note => note.keys.includes(selection.key)) : [], [snapshot.notes, selection?.key]);
   const sourcedEpisodes = useMemo(() => selection?.type === 'person'
-    ? REVIEWED_HISTORICAL_EVENTS.filter(record=>record.event.participantMentions?.some(mention=>mention.personId===selection.id))
-    : [], [selection?.key]);
+    ? [...new Set([
+      ...REVIEWED_HISTORICAL_EVENTS
+        .filter(record => record.event.participantMentions?.some(mention => mention.personId === selection.id))
+        .map(record => record.event.id),
+      ...(snapshot.studyFacts.byPerson[selection.id] ?? []).map(item => item.id)
+    ])]
+    : [], [selection?.key, snapshot.studyFacts]);
   const displayedNotes = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase('fr');
     const notes = selection && !showAllNotes ? linkedNotes : snapshot.notes;
