@@ -338,7 +338,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     if (mayBeEpisode) {
       try {
         const raw = await this.app.vault.read(file);
-        const match = /^---\\r?\\n([\\s\\S]*?)\\r?\\n---(?:\\r?\\n|$)/.exec(raw);
+        const match = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/.exec(raw);
         episodeFrontmatter = match ? parseYaml(match[1]) : undefined;
       } catch (error) {
         episodeError = error instanceof Error ? error.message : 'Carnet d’épisode invalide.';
