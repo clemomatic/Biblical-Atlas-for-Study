@@ -126,7 +126,7 @@ test('un fait structuré est sauvegardé et indexé depuis le personnage et le l
   await create.getByRole('button',{name:'Créer et relier les personnages'}).click();
 
   const editor = page.getByRole('dialog').last();
-  await expect(editor.getByRole('heading',{name:'Faits et relations documentés (0)'})).toBeVisible();
+  await expect(editor.getByRole('heading',{name:'Faits et relations de mon étude (0)'})).toBeVisible();
   await editor.getByRole('button',{name:'Choisir un personnage'}).click();
   await page.getByPlaceholder('Rechercher un personnage biblique…').fill('David');
   await page.getByRole('dialog').last().getByRole('button',{name:'David',exact:true}).click();
@@ -135,7 +135,7 @@ test('un fait structuré est sauvegardé et indexé depuis le personnage et le l
   await page.getByRole('dialog').last().getByRole('button',{name:'Jérusalem',exact:true}).first().click();
   await editor.getByRole('textbox',{name:'Référence justificative'}).fill('2 Samuel 11:1');
   await editor.getByRole('button',{name:'Ajouter le fait'}).click();
-  await expect(editor.getByRole('heading',{name:'Faits et relations documentés (1)'})).toBeVisible();
+  await expect(editor.getByRole('heading',{name:'Faits et relations de mon étude (1)'})).toBeVisible();
   await editor.getByRole('button',{name:'Enregistrer les connexions'}).click();
 
   const saved=await page.evaluate(()=>{
