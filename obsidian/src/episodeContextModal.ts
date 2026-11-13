@@ -30,6 +30,7 @@ export class EpisodeContextModal extends Modal {
         readReference:reference=>this.actions.readReference(reference),
         editConnections:id=>this.actions.editConnections(id,this.refresh),
         personalConnections:personal.items,
+        personalFacts:personal.facts,
         ...(personal.personalTitle&&personal.personalReference
           ?{personalEpisode:{title:personal.personalTitle,reference:personal.personalReference}}:{})
       });
