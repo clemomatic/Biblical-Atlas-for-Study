@@ -35,6 +35,7 @@ export class EpisodeConnectionsModal extends Modal {
   private passageAnalysis: EpisodePassageAnalysis | undefined;
   private selectedProposals = new Set<string>();
   private passageOpen = false;
+  private legacyOpen = false;
   private passageStatus = '';
   private scanning = false;
 
@@ -350,6 +351,8 @@ export class EpisodeConnectionsModal extends Modal {
 
     this.renderFactEditor(parent);
     const legacy = parent.createEl('details', { cls: 'jwsd-episode-scan' });
+    legacy.open = this.legacyOpen;
+    legacy.addEventListener('toggle', () => { this.legacyOpen = legacy.open; });
     legacy.createEl('summary', { text: 'Associations simples et analyse du passage (compatibilité)' });
     const legacyEditor = legacy.createDiv({ cls: 'jwsd-episode-scan-content' });
     this.renderPassageAssistant(legacyEditor);
