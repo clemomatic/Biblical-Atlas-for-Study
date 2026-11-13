@@ -1,7 +1,7 @@
 import type { AtlasEntityKey } from '../../src/atlasIntegration.ts';
 import type { AtlasWorkspace } from './catalog.ts';
 import { resolveEntity } from './catalog.ts';
-import { HISTORICAL_INDEX, HISTORICAL_PEOPLE, HISTORICAL_SOURCE_CATALOG, REVIEWED_HISTORICAL_EVENTS } from '../../src/data/historicalStudyData.ts';
+import { HISTORICAL_INDEX, HISTORICAL_PEOPLE, HISTORICAL_SOURCE_CATALOG, REVIEWED_HISTORICAL_EVENTS, REVIEWED_HISTORICAL_CLAIMS } from '../../src/data/historicalStudyData.ts';
 import { buildEpisodeContext, type EpisodeContext } from './episodeContext.ts';
 import type { PersonalEpisodeConnection } from './episodeConnections.ts';
 
@@ -33,7 +33,8 @@ export function renderEpisodeContext(
     people: workspace.dataset.people.length ? workspace.dataset.people : HISTORICAL_PEOPLE,
     places: workspace.dataset.places,
     presences: HISTORICAL_INDEX.presences,
-    sources: HISTORICAL_SOURCE_CATALOG
+    sources: HISTORICAL_SOURCE_CATALOG,
+    claims: REVIEWED_HISTORICAL_CLAIMS
   });
   const context: EpisodeContext | null = sourced ?? (actions.personalEpisode ? {
     eventId, title: actions.personalEpisode.title, description:'',
@@ -78,14 +79,16 @@ export function renderEpisodeContext(
       for (const place of person.locations) {
         const row = card.createDiv({ cls: 'jwsd-episode-presence' });
         row.createSpan({ text: 'Présence documentée : ' });
-        const placeKey: AtlasEntityKey = ('place:' + place.placeId) as AtlasEntityKey;
-        if (resolveEntity(workspace.catalog, placeKey)) {
+        const placeKey: AtlasEntityKey | undefined = place.placeId
+          ? ('place:' + place.placeId) as AtlasEntityKey : undefined;
+        if (placeKey && resolveEntity(workspace.catalog, placeKey)) {
           const button = row.createEl('button', { cls: 'jwsd-episode-entity', text: place.name });
           button.addEventListener('click', () => actions.openEntity(placeKey));
         } else {
           row.createSpan({ text: place.name });
         }
-        row.createSpan({ cls: 'jwsd-episode-muted', text: ' · ' + place.certainty });
+        const citations = place.references.length ? ' · ' + place.references.join(' ; ') : '';
+        row.createSpan({ cls: 'jwsd-episode-muted', text: ' · ' + place.certainty + citations });
       }
     } else {
       card.createDiv({ cls: 'jwsd-episode-muted', text: 'Lieu individuel non établi pour cet épisode.' });
