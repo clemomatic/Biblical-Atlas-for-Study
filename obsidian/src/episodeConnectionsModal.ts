@@ -3,9 +3,16 @@ import type { AtlasWorkspace } from './catalog.ts';
 import type { AtlasEntityKey } from '../../src/atlasIntegration.ts';
 import type { PersonalEpisodeConnection } from './episodeConnections.ts';
 import { validatePersonalEpisodeConnections } from './episodeConnections.ts';
+import { studyFactLabels, validateStudyFacts, type StudyFact, type StudyFactKind } from './studyFacts.ts';
 import { EpisodeConnectionsStore } from './episodeConnectionsStore.ts';
 import { EpisodePickerModal, type EpisodeChoice } from './episodePickerModal.ts';
 import { pastedEpisodeVerses, suggestEpisodeMentions, type EpisodePassageAnalysis, type EpisodeVerse, type EpisodeLocalPassage } from './episodePassage.ts';
+
+interface DraftFact extends Partial<StudyFact> {
+  kind: StudyFactKind;
+  reference: string;
+  assessment: 'sourced' | 'hypothesis';
+}
 
 interface DraftConnection {
   id?: string;
@@ -17,6 +24,8 @@ interface DraftConnection {
 
 export class EpisodeConnectionsModal extends Modal {
   private items: PersonalEpisodeConnection[] = [];
+  private facts: StudyFact[] = [];
+  private factDraft: DraftFact = { kind: 'presence', reference: '', assessment: 'sourced' };
   private draft: DraftConnection = { reference: '', note: '' };
   private previousRaw?: string;
   private file?: TFile;
@@ -49,6 +58,7 @@ export class EpisodeConnectionsModal extends Modal {
       this.passageReference = state.personalReference ?? state.items[0]?.reference ?? '';
       this.items = validatePersonalEpisodeConnections(state.items,
         this.known('person'), this.known('place'));
+      this.facts = validateStudyFacts(state.facts, this.known('person'), this.known('place'));
       this.render();
     } catch (error) {
       this.contentEl.createEl('h2',{text:'Connexions indisponibles'});
@@ -64,6 +74,14 @@ export class EpisodeConnectionsModal extends Modal {
     return [...this.workspace.catalog.values()].filter(item=>item.type===type)
       .map(item=>({id:item.id,title:item.title}))
       .sort((a,b)=>a.title.localeCompare(b.title,'fr'));
+  }
+
+  private pickFact(type: 'person' | 'place', field: 'personId' | 'targetPersonId' | 'placeId'): void {
+    new EpisodePickerModal(this.app, this.choices(type), choice => {
+      this.factDraft[field] = choice.id;
+      if (field === 'placeId') this.factDraft.placeLabel = undefined;
+      this.render();
+    }, type === 'person' ? 'Rechercher un personnage biblique…' : 'Rechercher un lieu de l’Atlas…').open();
   }
 
   private name(type: 'person' | 'place', id?: string): string {
@@ -194,6 +212,105 @@ export class EpisodeConnectionsModal extends Modal {
     }));
   }
 
+  private renderFactEditor(parent: HTMLElement): void {
+    const section = parent.createDiv({ cls: 'jwsd-episode-section' });
+    section.createEl('h3', { text: 'Faits et relations documentés (' + this.facts.length + ')' });
+    section.createEl('p', { cls: 'jwsd-episode-muted', text:
+      'Ces faits restent personnels. Une référence est obligatoire ; une hypothèse ne devient jamais une certitude historique.' });
+
+    for (const fact of this.facts) {
+      const card = section.createDiv({ cls: 'jwsd-episode-person' });
+      card.createEl('strong', { text: studyFactLabels[fact.kind] + ' · ' + this.name('person', fact.personId) });
+      const target = fact.targetPersonId ? this.name('person', fact.targetPersonId) :
+        fact.placeId ? this.name('place', fact.placeId) : fact.placeLabel;
+      if (target) card.createEl('p', { text: 'Avec / vers : ' + target });
+      card.createEl('p', { text: 'Référence : ' + fact.reference });
+      card.createEl('small', { text: fact.assessment === 'hypothesis'
+        ? 'Hypothèse personnelle à vérifier' : 'Observation personnelle sourcée (non relue dans le corpus)' });
+      if (fact.note) card.createEl('p', { text: fact.note });
+      new Setting(card)
+        .addButton(button => button.setButtonText('Modifier').onClick(() => {
+          this.factDraft = { ...fact };
+          this.render();
+        }))
+        .addButton(button => button.setButtonText('Retirer').setWarning().onClick(() => {
+          this.facts = this.facts.filter(item => item.id !== fact.id);
+          if (this.factDraft.id === fact.id) this.factDraft = { kind: 'presence', reference: '', assessment: 'sourced' };
+          this.render();
+        }));
+    }
+
+    section.createEl('h4', { text: this.factDraft.id ? 'Modifier ce fait' : 'Ajouter un fait' });
+    new Setting(section).setName('Nature du renseignement').addDropdown(dropdown =>
+      dropdown.addOptions(studyFactLabels).setValue(this.factDraft.kind).onChange(value => {
+        this.factDraft = {
+          ...this.factDraft, kind: value as StudyFactKind,
+          targetPersonId: undefined, placeId: undefined, placeLabel: undefined
+        };
+        this.render();
+      })
+    );
+    new Setting(section).setName('Personnage concerné').addButton(button =>
+      button.setButtonText(this.name('person', this.factDraft.personId))
+        .onClick(() => this.pickFact('person', 'personId'))
+    );
+    if (this.factDraft.kind === 'interaction' || this.factDraft.kind === 'relationship') {
+      new Setting(section).setName('Autre personnage').addButton(button =>
+        button.setButtonText(this.name('person', this.factDraft.targetPersonId))
+          .onClick(() => this.pickFact('person', 'targetPersonId'))
+      );
+    } else if (this.factDraft.kind === 'presence') {
+      const place = new Setting(section).setName('Lieu').setDesc('Sélectionne un lieu identifié ou saisis un nom sans inventer de coordonnées.');
+      place.addButton(button => button.setButtonText(this.name('place', this.factDraft.placeId))
+        .onClick(() => this.pickFact('place', 'placeId')));
+      if (this.factDraft.placeId) place.addExtraButton(button => button.setIcon('x')
+        .setTooltip('Retirer le lieu identifié').onClick(() => {
+          this.factDraft.placeId = undefined; this.render();
+        }));
+      new Setting(section).setName('Ou nom du lieu non identifié').addText(field =>
+        field.setPlaceholder('Ex. Raba').setValue(this.factDraft.placeLabel ?? '')
+          .onChange(value => {
+            this.factDraft.placeLabel = value.trim() ? value : undefined;
+            if (value.trim()) this.factDraft.placeId = undefined;
+          })
+      );
+    }
+    new Setting(section).setName('Référence justificative').addText(field =>
+      field.setPlaceholder('Ex. 2 Samuel 11:1').setValue(this.factDraft.reference)
+        .onChange(value => { this.factDraft.reference = value; })
+    );
+    new Setting(section).setName('Interprétation').addDropdown(dropdown =>
+      dropdown.addOptions({
+        sourced: 'Observation personnelle fondée sur la source',
+        hypothesis: 'Hypothèse à vérifier'
+      }).setValue(this.factDraft.assessment).onChange(value => {
+        this.factDraft.assessment = value as 'sourced' | 'hypothesis';
+      })
+    );
+    new Setting(section).setName('Remarque facultative').addTextArea(area =>
+      area.setPlaceholder('Qu’est-ce que cela t’apprend ?')
+        .setValue(this.factDraft.note ?? '')
+        .onChange(value => { this.factDraft.note = value; })
+    );
+    const error = section.createEl('p', { attr: { role: 'alert' } });
+    new Setting(section).addButton(button =>
+      button.setButtonText(this.factDraft.id ? 'Appliquer le fait' : 'Ajouter le fait')
+        .onClick(() => {
+          try {
+            const candidate = { ...this.factDraft, id: this.factDraft.id ?? crypto.randomUUID() };
+            const fact = validateStudyFacts([candidate], this.known('person'), this.known('place'))[0];
+            if (this.factDraft.id) this.facts = this.facts.map(item => item.id === fact.id ? fact : item);
+            else this.facts = [...this.facts, fact];
+            this.facts = validateStudyFacts(this.facts, this.known('person'), this.known('place'));
+            this.factDraft = { kind: 'presence', reference: '', assessment: 'sourced' };
+            this.render();
+          } catch (err) {
+            error.setText(err instanceof Error ? err.message : 'Fait invalide.');
+          }
+        })
+    );
+  }
+
   private render(): void {
     const parent = this.contentEl; parent.empty();
     parent.createEl('h2',{text:'Connexions de l’épisode'});
@@ -225,25 +342,29 @@ export class EpisodeConnectionsModal extends Modal {
       }
     }
 
-    this.renderPassageAssistant(parent);
-    parent.createEl('h3',{text:this.draft.id?'Modifier cette connexion':'Ajouter une connexion'});
-    const person=new Setting(parent).setName('Personnage').setDesc('Sélectionne une fiche existante ; aucune identité n’est déduite du nom.');
+    this.renderFactEditor(parent);
+    const legacy = parent.createEl('details', { cls: 'jwsd-episode-scan' });
+    legacy.createEl('summary', { text: 'Associations simples et analyse du passage (compatibilité)' });
+    const legacyEditor = legacy.createDiv({ cls: 'jwsd-episode-scan-content' });
+    this.renderPassageAssistant(legacyEditor);
+    legacyEditor.createEl('h3',{text:this.draft.id?'Modifier cette connexion':'Ajouter une connexion'});
+    const person=new Setting(legacyEditor).setName('Personnage').setDesc('Sélectionne une fiche existante ; aucune identité n’est déduite du nom.');
     person.addButton(button=>button.setButtonText(this.name('person',this.draft.personId)).onClick(()=>this.pick('person')));
-    const place=new Setting(parent).setName('Lieu précis (facultatif)').setDesc('Un lieu ne doit être associé à cette personne que si la source le justifie.');
+    const place=new Setting(legacyEditor).setName('Lieu précis (facultatif)').setDesc('Un lieu ne doit être associé à cette personne que si la source le justifie.');
     place.addButton(button=>button.setButtonText(this.name('place',this.draft.placeId)).onClick(()=>this.pick('place')));
     if(this.draft.placeId)place.addExtraButton(button=>button.setIcon('x').setTooltip('Ne pas préciser de lieu').onClick(()=>{
       this.draft.placeId=undefined;this.render();
     }));
-    new Setting(parent).setName('Référence justificative').setDesc('Obligatoire. Ex. : 2 Samuel 11:1.').addText(text=>
+    new Setting(legacyEditor).setName('Référence justificative').setDesc('Obligatoire. Ex. : 2 Samuel 11:1.').addText(text=>
       text.setPlaceholder('Référence biblique ou publication…')
         .setValue(this.draft.reference)
         .onChange(value=>{this.draft.reference=value;}));
-    new Setting(parent).setName('Observation personnelle (facultative)').addTextArea(area=>
+    new Setting(legacyEditor).setName('Observation personnelle (facultative)').addTextArea(area=>
       area.setPlaceholder('Quel élément important as-tu remarqué ?')
         .setValue(this.draft.note)
         .onChange(value=>{this.draft.note=value;}));
-    const error=parent.createEl('p',{attr:{role:'alert'}});
-    new Setting(parent)
+    const error=legacyEditor.createEl('p',{attr:{role:'alert'}});
+    new Setting(legacyEditor)
       .addButton(button=>button.setButtonText(this.draft.id?'Appliquer la modification':'Ajouter à la fiche').onClick(()=>{
         try {
           const candidate={
@@ -273,7 +394,7 @@ export class EpisodeConnectionsModal extends Modal {
       this.busy=true;button.setDisabled(true);error.setText('');
       try {
         this.items=validatePersonalEpisodeConnections(this.items,this.known('person'),this.known('place'));
-        const file=await this.store.save(this.eventId,this.eventTitle,this.items,this.previousRaw);
+        const file=await this.store.save(this.eventId,this.eventTitle,this.items,this.previousRaw,this.facts);
         await this.onSaved(file);
         new Notice('Connexions enregistrées dans ton Vault.');this.close();
       } catch(e){error.setText(e instanceof Error?e.message:'Enregistrement impossible.');}
