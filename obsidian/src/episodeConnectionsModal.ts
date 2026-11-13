@@ -221,7 +221,7 @@ export class EpisodeConnectionsModal extends Modal {
 
   private renderFactEditor(parent: HTMLElement): void {
     const section = parent.createDiv({ cls: 'jwsd-episode-section' });
-    section.createEl('h3', { text: 'Faits et relations documentés (' + this.facts.length + ')' });
+    section.createEl('h3', { text: 'Faits et relations de mon étude (' + this.facts.length + ')' });
     section.createEl('p', { cls: 'jwsd-episode-muted', text:
       'Ces faits restent personnels. Une référence est obligatoire ; une hypothèse ne devient jamais une certitude historique.' });
 
@@ -397,16 +397,17 @@ export class EpisodeConnectionsModal extends Modal {
 
     const info=parent.createEl('p',{cls:'jwsd-episode-muted'});
     info.setText('Enregistrer crée ou met à jour une note Markdown dans le Vault, liée automatiquement à cet épisode, aux personnages et aux lieux concernés.');
+    const saveError=parent.createEl('p',{attr:{role:'alert'}});
     const controls=new Setting(parent);
     controls.addButton(button=>button.setButtonText('Enregistrer les connexions').setCta().onClick(async()=>{
       if(this.busy)return;
-      this.busy=true;button.setDisabled(true);error.setText('');
+      this.busy=true;button.setDisabled(true);saveError.setText('');
       try {
         this.items=validatePersonalEpisodeConnections(this.items,this.known('person'),this.known('place'));
         const file=await this.store.save(this.eventId,this.eventTitle,this.items,this.previousRaw,this.facts);
         await this.onSaved(file);
         new Notice('Connexions enregistrées dans ton Vault.');this.close();
-      } catch(e){error.setText(e instanceof Error?e.message:'Enregistrement impossible.');}
+      } catch(e){saveError.setText(e instanceof Error?e.message:'Enregistrement impossible.');}
       finally{this.busy=false;button.setDisabled(false);}
     }));
     if(this.file)controls.addButton(button=>button.setButtonText('Ouvrir le carnet').onClick(async()=>{
