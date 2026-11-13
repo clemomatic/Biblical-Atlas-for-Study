@@ -16,17 +16,19 @@ test('un épisode personnel sans date relie une personne, un lieu et sa référe
 
   const editor=page.getByRole('dialog').last();
   await expect(editor.getByRole('heading',{name:'Connexions de l’épisode'})).toBeVisible();
-  await editor.getByRole('button',{name:'Choisir un personnage'}).click();
+  const legacy=editor.locator('details.jwsd-episode-scan').first();
+  await legacy.locator('summary').first().click();
+  await legacy.getByRole('button',{name:'Choisir un personnage'}).click();
   const personSearch=page.getByPlaceholder('Rechercher un personnage biblique…');
   await personSearch.fill('David');
   await page.getByRole('dialog').last().getByRole('button',{name:'David',exact:true}).click();
-  await editor.getByRole('button',{name:'Lieu non précisé'}).click();
+  await legacy.getByRole('button',{name:'Lieu non précisé'}).click();
   const placeSearch=page.getByPlaceholder('Rechercher un lieu de l’Atlas…');
   await placeSearch.fill('Jérusalem');
   await page.getByRole('dialog').last().getByRole('button',{name:'Jérusalem',exact:true}).first().click();
-  await editor.getByRole('textbox',{name:'Référence justificative'}).fill('2 Samuel 11:1');
-  await editor.getByRole('textbox',{name:'Observation personnelle (facultative)'}).fill('David est resté à Jérusalem.');
-  await editor.getByRole('button',{name:'Ajouter à la fiche'}).click();
+  await legacy.getByRole('textbox',{name:'Référence justificative'}).fill('2 Samuel 11:1');
+  await legacy.getByRole('textbox',{name:'Observation personnelle (facultative)'}).fill('David est resté à Jérusalem.');
+  await legacy.getByRole('button',{name:'Ajouter à la fiche'}).click();
   await expect(editor.getByRole('heading',{name:'Mes connexions (1)'})).toBeVisible();
   await editor.getByRole('button',{name:'Enregistrer les connexions'}).click();
   await expect(editor).toHaveCount(0);
@@ -72,7 +74,9 @@ test('l’analyse d’un passage propose une personne sans inventer sa position'
   await create.getByRole('button',{name:'Créer et relier les personnages'}).click();
 
   const editor=page.getByRole('dialog').last();
-  await editor.locator('summary').filter({hasText:'Analyser un passage'}).click();
+  const legacy=editor.locator('details.jwsd-episode-scan').first();
+  await legacy.locator('summary').first().click();
+  await legacy.locator('summary').filter({hasText:'Analyser un passage'}).click();
   await editor.getByRole('textbox',{name:'Ou coller le passage'}).fill('1 Joab est parti vers Raba. David est resté à Jérusalem.');
   await editor.getByRole('button',{name:'Analyser le texte collé'}).click();
 
