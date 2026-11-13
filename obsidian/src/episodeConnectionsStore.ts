@@ -1,6 +1,8 @@
 import { parseYaml, stringifyYaml, TFile, TFolder, type App } from 'obsidian';
 import type { PersonalEpisodeConnection } from './episodeConnections.ts';
 import { automaticEntityKeys, EPISODE_CONNECTIONS_SCHEMA, reconcileEntityKeys } from './episodeConnections.ts';
+import type { StudyFact } from './studyFacts.ts';
+import { studyFactEntityKeys, validateStudyFacts } from './studyFacts.ts';
 import { safeFilename, validFolder } from './model.ts';
 
 const FRONTMATTER = /^---\r?\n([\s\S]*?)\r?\n---(?:\r?\n|$)/;
@@ -12,6 +14,7 @@ export interface EpisodeConnectionsDocument {
   file?: TFile;
   raw?: string;
   items: PersonalEpisodeConnection[];
+  facts: StudyFact[];
   personalTitle?: string;
   personalReference?: string;
 }
@@ -54,17 +57,18 @@ export class EpisodeConnectionsStore {
       throw new Error('Plusieurs carnets personnels utilisent cet épisode. Renomme ou réconcilie ces fiches avant de poursuivre.');
     }
     const file = candidates[0];
-    if (!file) return { items: [] };
+    if (!file) return { items: [], facts: [] };
     const raw = await this.app.vault.read(file);
     const match = FRONTMATTER.exec(raw);
     if (!match) throw new Error('Le carnet de connexions n’a pas de propriétés YAML valides.');
     const data = parseYaml(match[1]) as Record<string, unknown> | null;
     if (!data || data.jwsd_kind !== 'episode-connections' || data.jwsd_episode_id !== eventId ||
-      data.jwsd_schema !== EPISODE_CONNECTIONS_SCHEMA) {
+      ![1, EPISODE_CONNECTIONS_SCHEMA].includes(data.jwsd_schema as number)) {
       throw new Error('Carnet de connexions incomplet ou version de données non reconnue.');
     }
     if (!Array.isArray(data.jwsd_episode_connections)) throw new Error('Les connexions du carnet ne sont pas un tableau valide.');
     return { file, raw, items: data.jwsd_episode_connections as PersonalEpisodeConnection[],
+      facts: validateStudyFacts(data.jwsd_episode_facts ?? []),
       personalTitle: typeof data.jwsd_episode_title === 'string' ? data.jwsd_episode_title : undefined,
       personalReference: typeof data.jwsd_episode_reference === 'string' ? data.jwsd_episode_reference : undefined };
   }
@@ -85,7 +89,7 @@ export class EpisodeConnectionsStore {
     if(!name||name.length>160)throw new Error('Donne un titre précis (160 caractères maximum).');
     if(!source||source.length>280)throw new Error('Ajoute une référence documentaire (280 caractères maximum).');
     const id='study-'+crypto.randomUUID();
-    const file=await this.save(id,name,[],undefined);
+    const file=await this.save(id,name,[],undefined,[]);
     await this.app.fileManager.processFrontMatter(file,metadata=>{
       if(metadata.jwsd_episode_id!==id)throw new Error('Cet épisode a changé pendant sa création.');
       metadata.jwsd_episode_title=name;
@@ -99,10 +103,11 @@ export class EpisodeConnectionsStore {
     eventId: string,
     title: string,
     items: PersonalEpisodeConnection[],
-    expectedRaw: string | undefined
+    expectedRaw: string | undefined,
+    facts: StudyFact[]
   ): Promise<TFile> {
     const previous = this.queues.get(eventId) ?? Promise.resolve();
-    const operation = previous.catch(() => {}).then(() => this.saveNow(eventId, title, items, expectedRaw));
+    const operation = previous.catch(() => {}).then(() => this.saveNow(eventId, title, items, expectedRaw, facts));
     this.queues.set(eventId, operation);
     try { return await operation; }
     finally { if (this.queues.get(eventId) === operation) this.queues.delete(eventId); }
@@ -112,11 +117,16 @@ export class EpisodeConnectionsStore {
     eventId: string,
     title: string,
     items: PersonalEpisodeConnection[],
-    expectedRaw: string | undefined
+    expectedRaw: string | undefined,
+    facts: StudyFact[]
   ): Promise<TFile> {
     const current = await this.read(eventId);
     if (current.raw !== expectedRaw) throw new Error('Cette fiche a été modifiée depuis son ouverture. Rouvre l’éditeur pour éviter de perdre des changements.');
-    const auto = automaticEntityKeys(eventId, items);
+    const validatedFacts = validateStudyFacts(facts);
+    const auto = [...new Set([
+      ...automaticEntityKeys(eventId, items),
+      ...studyFactEntityKeys(eventId, validatedFacts)
+    ])];
     if (!current.file) {
       const folder = validFolder(this.folder()) + '/Connexions';
       await this.folderExists(folder);
@@ -127,6 +137,7 @@ export class EpisodeConnectionsStore {
       const properties = {
         jwsd_schema: EPISODE_CONNECTIONS_SCHEMA, jwsd_kind: 'episode-connections',
         jwsd_episode_id: eventId, jwsd_episode_connections: items,
+        jwsd_episode_facts: validatedFacts,
         jwsd_auto_entities: auto, atlas_entities: auto
       };
       const content = '---\n' + stringifyYaml(properties) + '---\n' + body;
@@ -154,7 +165,9 @@ export class EpisodeConnectionsStore {
       }
       const updated = {
         ...metadata,
+        jwsd_schema: EPISODE_CONNECTIONS_SCHEMA,
         jwsd_episode_connections: items,
+        jwsd_episode_facts: validatedFacts,
         jwsd_auto_entities: auto,
         atlas_entities: reconcileEntityKeys(
           stringArray(metadata.atlas_entities), stringArray(metadata.jwsd_auto_entities), auto
