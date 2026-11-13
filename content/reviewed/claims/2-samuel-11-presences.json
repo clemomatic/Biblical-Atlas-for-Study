@@ -1,0 +1,48 @@
+[
+  {
+    "id": "claim-sam11-david-in-jerusalem",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "event-david-iixp36"
+    },
+    "predicate": "presence",
+    "eventId": "event-samuel-11-david-bethsabee-joab",
+    "placeId": "jerusalem",
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-2-samuel-11",
+        "shortReference": "2 Samuel 11:1",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "David reste à Jérusalem pendant la campagne conduite par Joab ; la date exacte n'est pas donnée."
+  },
+  {
+    "id": "claim-sam11-joab-at-raba",
+    "workflowStatus": "reviewed",
+    "origin": "reviewed",
+    "subject": {
+      "entityType": "person",
+      "entityId": "person-biblical-joab-david-commander"
+    },
+    "predicate": "presence",
+    "eventId": "event-samuel-11-david-bethsabee-joab",
+    "object": {
+      "literal": "Raba"
+    },
+    "certainty": "certain",
+    "evidence": [
+      {
+        "sourceId": "source-nwt-2-samuel-11",
+        "shortReference": "2 Samuel 11:1, 16-17",
+        "method": "direct",
+        "humanReviewStatus": "reviewed"
+      }
+    ],
+    "notes": "Joab commande le siège de Raba. Le lieu est conservé comme libellé non géoréférencé, sans coordonnées supposées."
+  }
+]

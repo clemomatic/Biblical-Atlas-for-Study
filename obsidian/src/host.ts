@@ -3,8 +3,9 @@ import type { AtlasWorkspace } from './catalog';
 import type { MapTileCache } from './MapTiles';
 import type { MapBounds } from './tileMath';
 import type { AtlasSettings, VaultNote } from './model';
+import type { StudyFactIndexSnapshot } from './studyFactIndex.ts';
 
-export interface AtlasSnapshot { notes: VaultNote[]; settings: AtlasSettings; atlas: AtlasWorkspace }
+export interface AtlasSnapshot { notes: VaultNote[]; settings: AtlasSettings; atlas: AtlasWorkspace; studyFacts: StudyFactIndexSnapshot }
 export interface AtlasHost {
   getSnapshot: () => AtlasSnapshot;
   subscribe: (listener: () => void) => () => void;
@@ -20,6 +21,8 @@ export interface AtlasHost {
   editEntity: (selection: AtlasSelection) => void;
   editEpisodeConnections: (eventId: string) => void;
   openPersonEpisodes: (personId: string) => void;
+  openPlaceEpisodes: (placeId: string) => void;
+  addStudyFact: (entity: AtlasEntityKey) => void;
   newAtlasEntity: (type: AtlasEntityType) => void;
   mapActions: AtlasMapEditing;
   renderMarkdown: NonNullable<import('../../src/atlasIntegration').AtlasIntegration['renderMarkdown']>;

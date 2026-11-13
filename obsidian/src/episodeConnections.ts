@@ -10,7 +10,7 @@ export interface PersonalEpisodeConnection {
   note?: string;
 }
 
-export const EPISODE_CONNECTIONS_SCHEMA = 1;
+export const EPISODE_CONNECTIONS_SCHEMA = 2;
 const identity = (value: unknown): value is string =>
   typeof value === 'string' && value.length > 0 && value.length <= 300 &&
   /^[a-zA-Z0-9_-]+$/.test(value);

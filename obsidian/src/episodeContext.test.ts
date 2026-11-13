@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildEpisodeContext } from './episodeContext.ts';
 import type { BiblicalPerson } from '../../src/domain/history/types.ts';
-import type { ReviewedEventRecord } from '../../src/domain/history/contentTypes.ts';
+import type { HistoricalClaim, ReviewedEventRecord } from '../../src/domain/history/contentTypes.ts';
 import type { PresenceIndexEntry } from '../../src/domain/history/historicalIndex.ts';
 import type { BiblicalPlace } from '../../src/types.ts';
 
@@ -78,4 +78,33 @@ test('unknown characters remain visible without an invented identity',()=>{
 
 test('missing event returns null rather than a fabricated biography',()=>{
   assert.equal(buildEpisodeContext(input({eventId:'missing'})),null);
+});
+
+test('undated event uses explicit person presence claims with citations, never event-wide places', () => {
+  const claims: HistoricalClaim[] = [
+    {
+      id:'claim-david-jerusalem',workflowStatus:'reviewed',origin:'reviewed',
+      subject:{entityType:'person',entityId:'person-a'},predicate:'presence',
+      eventId:'episode-a',placeId:'ville-a',certainty:'certain',
+      evidence:[{sourceId:'bible',shortReference:'Livre 1:2',method:'direct',humanReviewStatus:'reviewed'}]
+    },
+    {
+      id:'claim-joab-raba',workflowStatus:'reviewed',origin:'reviewed',
+      subject:{entityType:'person',entityId:'person-b'},predicate:'presence',
+      eventId:'episode-a',object:{literal:'Raba'},certainty:'certain',
+      evidence:[{sourceId:'bible',shortReference:'Livre 1:3',method:'direct',humanReviewStatus:'reviewed'}]
+    }
+  ];
+  const result=buildEpisodeContext(input({presences:[],claims}));
+  assert.ok(result);
+  const a=result.participants.find(p=>p.personId==='person-a')!;
+  const b=result.participants.find(p=>p.personId==='person-b')!;
+  assert.deepEqual(a.locations.map(loc=>loc.name),['Ville A']);
+  assert.deepEqual(b.locations.map(loc=>loc.name),['Raba']);
+  assert.equal(b.locations[0].placeId,undefined);
+  assert.deepEqual(b.locations[0].references,['Livre 1:3']);
+  assert.equal(a.age.precision,'unknown');
+  assert.equal(b.age.precision,'unknown');
+  assert.deepEqual(result.supportingClaimIds,['claim-david-jerusalem','claim-joab-raba']);
+  assert.ok(!result.warnings.some(warning=>warning.includes('Aucune présence')));
 });
