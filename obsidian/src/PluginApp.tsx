@@ -60,6 +60,14 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
       ...(snapshot.studyFacts.byPerson[selection.id] ?? []).map(item => item.id)
     ])]
     : [], [selection?.key, snapshot.studyFacts]);
+  const placeEpisodes = useMemo(() => selection?.type === 'place'
+    ? [...new Set([
+      ...REVIEWED_HISTORICAL_EVENTS
+        .filter(record => record.event.placeMentions?.some(mention => mention.placeId === selection.id))
+        .map(record => record.event.id),
+      ...(snapshot.studyFacts.byPlace[selection.id] ?? []).map(item => item.id)
+    ])]
+    : [], [selection?.key, snapshot.studyFacts]);
   const displayedNotes = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase('fr');
     const notes = selection && !showAllNotes ? linkedNotes : snapshot.notes;
@@ -87,6 +95,7 @@ export function PluginApp({ host, initialState, navigation, onNavigate }: {
           {selection && <button type="button" className="atlas-vault-button" onClick={() => host.editEntity(selection)}><Pencil size={16} /><span>Modifier</span></button>}
           {selection?.type==='event' && <button type="button" className="atlas-vault-button" onClick={() => host.editEpisodeConnections(selection.id)}><Network size={16}/><span>Connexions</span></button>}
           {selection?.type==='person' && sourcedEpisodes.length>0 && <button type="button" className="atlas-vault-button" onClick={() => host.openPersonEpisodes(selection.id)}><Network size={16}/><span>Épisodes · {sourcedEpisodes.length}</span></button>}
+          {selection?.type==='place' && placeEpisodes.length>0 && <button type="button" className="atlas-vault-button" onClick={() => host.openPlaceEpisodes(selection.id)}><Network size={16}/><span>Épisodes · {placeEpisodes.length}</span></button>}
           <button type="button" className={`atlas-vault-button ${isNotebookOpen ? 'is-active' : ''}`} aria-expanded={isNotebookOpen} aria-controls="atlas-personal-notebook" onClick={() => setIsNotebookOpen(open => !open)}><NotebookPen size={16} /><span>Mon carnet</span><span className="atlas-vault-count">{snapshot.notes.length}</span></button>
           {activeView === 'map' && <button type="button" className={`atlas-vault-button ${isMapEditing ? 'is-active' : ''}`} aria-label={isMapEditing ? 'Terminer la modification de la carte' : 'Modifier la carte'} aria-pressed={isMapEditing} onClick={() => { setIsMapEditing(value => !value); setIsNotebookOpen(false); }}><Move size={16} /></button>}
           <button type="button" className="atlas-vault-button" aria-label="Gérer toutes les fiches" title="Gérer toutes les fiches" onClick={host.manageAtlas}><Settings2 size={16} /></button>
