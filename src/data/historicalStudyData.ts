@@ -185,11 +185,17 @@ export const HISTORICAL_PEOPLE = mergedHistoricalPeople.map(person => {
     ...(person.associatedEventIds ?? []),
     ...relatedEvents.map(record => record.event.id)
   ]);
+  // Event-wide place mentions are NOT evidence that every participant was
+  // physically present there. Only keep a person's own locations and
+  // independently reviewed individual presence claims.
   const associatedLocationIds = unique([
     ...(person.associatedLocationIds ?? []),
-    ...relatedEvents.flatMap(record =>
-      (record.event.placeMentions ?? []).map(mention => mention.placeId)
-    )
+    ...REVIEWED_HISTORICAL_CLAIMS.filter(claim =>
+      claim.origin === 'reviewed' &&
+      claim.predicate === 'presence' &&
+      claim.subject.entityType === 'person' &&
+      claim.subject.entityId === person.id
+    ).map(claim => claim.placeId)
   ]);
   const associatedRouteIds = unique([
     ...(person.associatedRouteIds ?? []),
