@@ -299,7 +299,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.researchDesk=normalizeResearchDesk(desk);
     return this.enqueuePluginData();
   };
-  private snapshot: AtlasSnapshot = { notes: [], settings: this.settings, atlas: buildWorkspace([]), studyFacts: { byPerson: {} } };
+  private snapshot: AtlasSnapshot = { notes: [], settings: this.settings, atlas: buildWorkspace([]), studyFacts: { byPerson: {}, byPlace: {}, byEvent: {} } };
   private indexVersions = new Map<string, number>();
   private ready: Promise<void> = Promise.resolve();
   maps!: MapTileCache;
@@ -859,6 +859,30 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     }
     await Promise.allSettled(refreshers);
   }
+  private openEpisodeContext=(id:string):void=>{
+    new EpisodeContextModal(this.app,id,this.snapshot.atlas,this.episodeConnectionsStore,{
+      openEntity:this.openEntity,
+      readReference:reference=>{
+        if(parseScripture(reference))this.run(this.openBibleLab(passageUrl(reference),reference));
+        else this.run(this.openWolSearchTab(wolResearchUrl(reference,{match:'par',scope:'all'})));
+      },
+      editConnections:(eventId,onSaved)=>this.editEpisodeConnections(eventId,onSaved)
+    }).open();
+  };
+  openPlaceEpisodes=(placeId:string):void=>{
+    const options = new Map<string,{id:string;title:string}>();
+    for (const record of REVIEWED_HISTORICAL_EVENTS) {
+      if (record.event.placeMentions?.some(mention => mention.placeId === placeId))
+        options.set(record.event.id,{id:record.event.id,title:record.event.name});
+    }
+    for (const item of this.studyFactIndex.forPlace(placeId))
+      options.set(item.id,{id:item.id,title:item.title});
+    const episodes = [...options.values()].sort((a,b)=>a.title.localeCompare(b.title,'fr'));
+    if (!episodes.length) {new Notice('Aucun épisode associé à ce lieu.');return;}
+    if (episodes.length===1) this.openEpisodeContext(episodes[0].id);
+    else new EpisodePickerModal(this.app,episodes,choice=>this.openEpisodeContext(choice.id),
+      'Rechercher un épisode documenté dans ce lieu…').open();
+  };
   openPersonEpisodes=(personId:string):void=>{
     const episodes = [...new Map([
       ...REVIEWED_HISTORICAL_EVENTS.filter(record =>
@@ -868,16 +892,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         [item.id, {id:item.id,title:item.title}] as const)
     ]).values()].sort((a,b) => a.title.localeCompare(b.title,'fr'));
     if(!episodes.length){new Notice('Aucun épisode associé à cette personne.');return;}
-    const open=(id:string)=>{
-      new EpisodeContextModal(this.app,id,this.snapshot.atlas,this.episodeConnectionsStore,{
-        openEntity:this.openEntity,
-        readReference:reference=>{
-          if(parseScripture(reference))this.run(this.openBibleLab(passageUrl(reference),reference));
-          else this.run(this.openWolSearchTab(wolResearchUrl(reference,{match:'par',scope:'all'})));
-        },
-        editConnections:(eventId,onSaved)=>this.editEpisodeConnections(eventId,onSaved)
-      }).open();
-    };
+    const open=(id:string)=>this.openEpisodeContext(id);
     if(episodes.length===1)open(episodes[0].id);
     else new EpisodePickerModal(this.app,episodes,choice=>open(choice.id),
       'Rechercher un épisode documenté de cette personne…').open();
