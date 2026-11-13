@@ -8,6 +8,7 @@ export interface IndexedStudyEpisode {
   facts: StudyFact[];
   /** V1 links are merely associations, never asserted historical presences. */
   legacyLinks: Array<{ personId: string; placeId?: string; reference: string }>;
+  linkedPersonIds: string[];
 }
 export interface StudyEpisodeSummary {
   id: string;
@@ -28,6 +29,7 @@ export class StudyFactIndex {
   private byPerson = new Map<string, Map<string, StudyEpisodeSummary>>();
 
   hasPath(path: string): boolean { return this.records.has(path); }
+  paths(): string[] { return [...this.records.keys()]; }
 
   remove(path: string): boolean {
     const previous = this.records.get(path);
@@ -63,11 +65,6 @@ export class StudyFactIndex {
         reference: link.reference
       });
     }
-    const next: IndexedStudyEpisode = { id, title, path, facts, legacyLinks };
-    const previous = this.records.get(path);
-    if (previous && JSON.stringify(previous) === JSON.stringify(next)) return false;
-    this.remove(path);
-    this.records.set(path, next);
     const people = new Set([
       ...legacyLinks.map(item => item.personId),
       ...facts.map(fact => fact.personId),
@@ -76,6 +73,13 @@ export class StudyFactIndex {
         .filter((value): value is string => typeof value === 'string' && value.startsWith('person:'))
         .map(value => value.slice('person:'.length))
     ]);
+    const next: IndexedStudyEpisode = {
+      id, title, path, facts, legacyLinks, linkedPersonIds: [...people].sort()
+    };
+    const previous = this.records.get(path);
+    if (previous && JSON.stringify(previous) === JSON.stringify(next)) return false;
+    this.remove(path);
+    this.records.set(path, next);
     const summary: StudyEpisodeSummary = {
       id, title, path, factCount: facts.length, legacyCount: legacyLinks.length
     };
@@ -95,7 +99,8 @@ export class StudyFactIndex {
       jwsd_kind: 'episode-connections', jwsd_episode_id: previous.id,
       jwsd_episode_title: previous.title,
       jwsd_episode_facts: previous.facts,
-      jwsd_episode_connections: previous.legacyLinks
+      jwsd_episode_connections: previous.legacyLinks,
+      atlas_entities: previous.linkedPersonIds.map(id => 'person:' + id)
     });
   }
 
