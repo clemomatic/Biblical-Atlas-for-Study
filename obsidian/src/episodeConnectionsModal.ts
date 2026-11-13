@@ -45,7 +45,9 @@ export class EpisodeConnectionsModal extends Modal {
     private workspace: AtlasWorkspace,
     private store: EpisodeConnectionsStore,
     private onSaved: (file: TFile) => Promise<void>,
-    private readBible: (reference: string) => Promise<EpisodeLocalPassage | null>
+    private readBible: (reference: string) => Promise<EpisodeLocalPassage | null>,
+    private initialPersonId?: string,
+    private initialPlaceId?: string
   ) { super(app); }
 
   async onOpen(): Promise<void> {
@@ -59,6 +61,10 @@ export class EpisodeConnectionsModal extends Modal {
       this.items = validatePersonalEpisodeConnections(state.items,
         this.known('person'), this.known('place'));
       this.facts = validateStudyFacts(state.facts, this.known('person'), this.known('place'));
+      if (this.initialPersonId && this.known('person').has(this.initialPersonId))
+        this.factDraft.personId = this.initialPersonId;
+      if (this.initialPlaceId && this.known('place').has(this.initialPlaceId))
+        this.factDraft.placeId = this.initialPlaceId;
       this.render();
     } catch (error) {
       this.contentEl.createEl('h2',{text:'Connexions indisponibles'});
