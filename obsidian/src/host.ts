@@ -3,8 +3,9 @@ import type { AtlasWorkspace } from './catalog';
 import type { MapTileCache } from './MapTiles';
 import type { MapBounds } from './tileMath';
 import type { AtlasSettings, VaultNote } from './model';
+import type { StudyFactIndexSnapshot } from './studyFactIndex.ts';
 
-export interface AtlasSnapshot { notes: VaultNote[]; settings: AtlasSettings; atlas: AtlasWorkspace }
+export interface AtlasSnapshot { notes: VaultNote[]; settings: AtlasSettings; atlas: AtlasWorkspace; studyFacts: StudyFactIndexSnapshot }
 export interface AtlasHost {
   getSnapshot: () => AtlasSnapshot;
   subscribe: (listener: () => void) => () => void;
