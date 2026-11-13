@@ -4,12 +4,14 @@ import { resolveEntity } from './catalog.ts';
 import { HISTORICAL_INDEX, HISTORICAL_PEOPLE, HISTORICAL_SOURCE_CATALOG, REVIEWED_HISTORICAL_EVENTS, REVIEWED_HISTORICAL_CLAIMS } from '../../src/data/historicalStudyData.ts';
 import { buildEpisodeContext, type EpisodeContext } from './episodeContext.ts';
 import type { PersonalEpisodeConnection } from './episodeConnections.ts';
+import { studyFactLabels, type StudyFact } from './studyFacts.ts';
 
 export interface EpisodeContextActions {
   openEntity: (key: AtlasEntityKey) => void;
   readReference: (reference: string) => void;
   editConnections: (eventId: string) => void;
   personalConnections: readonly PersonalEpisodeConnection[];
+  personalFacts: readonly StudyFact[];
   personalEpisode?: {title:string;reference:string};
 }
 
@@ -126,6 +128,52 @@ export function renderEpisodeContext(
       } else sources.createSpan({ cls: 'jwsd-episode-reference', text: source.label });
     }
   }
+  const factsSection = container.createDiv({ cls: 'jwsd-episode-section' });
+  factsSection.createEl('h4', { text: 'Faits ajoutés pendant mes études (' + actions.personalFacts.length + ')' });
+  if (!actions.personalFacts.length) factsSection.createEl('p', {
+    cls: 'jwsd-episode-muted', text: 'Aucun fait personnel structuré pour cet épisode.'
+  });
+  for (const fact of actions.personalFacts) {
+    const card = factsSection.createDiv({ cls: 'jwsd-episode-person' });
+    const subjectKey: AtlasEntityKey = ('person:' + fact.personId) as AtlasEntityKey;
+    const subject = resolveEntity(workspace.catalog, subjectKey);
+    card.createEl('strong', { text: studyFactLabels[fact.kind] });
+    const line = card.createDiv();
+    if (subject) {
+      const button = line.createEl('button', { cls: 'jwsd-episode-entity', text: subject.title });
+      button.addEventListener('click', () => actions.openEntity(subjectKey));
+    } else line.createSpan({ text: fact.personId });
+    const other = fact.targetPersonId
+      ? resolveEntity(workspace.catalog, ('person:' + fact.targetPersonId) as AtlasEntityKey)
+      : undefined;
+    if (fact.targetPersonId) {
+      line.createSpan({ text: ' · ' });
+      if (other) {
+        const button = line.createEl('button', { cls: 'jwsd-episode-entity', text: other.title });
+        button.addEventListener('click', () => actions.openEntity(('person:' + fact.targetPersonId) as AtlasEntityKey));
+      } else line.createSpan({ text: fact.targetPersonId });
+    }
+    if (fact.placeId || fact.placeLabel) {
+      const place = fact.placeId
+        ? resolveEntity(workspace.catalog, ('place:' + fact.placeId) as AtlasEntityKey)
+        : undefined;
+      line.createSpan({ text: ' · ' });
+      if (place && fact.placeId) {
+        const button = line.createEl('button', { cls: 'jwsd-episode-entity', text: place.title });
+        button.addEventListener('click', () => actions.openEntity(('place:' + fact.placeId) as AtlasEntityKey));
+      } else line.createSpan({ text: fact.placeLabel ?? fact.placeId ?? '' });
+    }
+    const source = card.createDiv({ cls: 'jwsd-episode-age' });
+    source.createSpan({ text: 'Référence : ' });
+    const read = source.createEl('button', { cls: 'jwsd-episode-entity', text: fact.reference });
+    read.addEventListener('click', () => actions.readReference(fact.reference));
+    if (fact.note) card.createEl('p', { text: fact.note });
+    card.createEl('p', { cls: 'jwsd-episode-muted', text:
+      fact.assessment === 'hypothesis'
+        ? 'Hypothèse personnelle — non établie'
+        : 'Observation personnelle sourcée — non intégrée au corpus validé' });
+  }
+
   const personal = container.createDiv({ cls: 'jwsd-episode-section' });
   const heading=personal.createDiv({cls:'jwsd-episode-person-heading'});
   heading.createEl('h4',{text:'Mes connexions d’étude'});
