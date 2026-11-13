@@ -34,11 +34,14 @@ test('legacy links remain associations and preserve searchability after rename',
   });
   assert.equal(index.forPerson('david')[0].legacyCount,1);
   assert.equal(index.forPerson('joab').length,1);
+  assert.equal(index.forPlace('jerusalem').length,1);
+  assert.equal(index.forEvent('episode-a').length,1);
   assert.equal(index.rename('notes/ep.md','archives/ep.md'),true);
   assert.equal(index.forPerson('joab')[0].path,'archives/ep.md');
   assert.equal(index.forPerson('david')[0].path,'archives/ep.md');
+  assert.equal(index.forPlace('jerusalem')[0].path,'archives/ep.md');
   assert.equal(index.remove('archives/ep.md'),true);
-  assert.deepEqual(index.snapshot(),{byPerson:{}});
+  assert.deepEqual(index.snapshot(),{byPerson:{},byPlace:{},byEvent:{}});
 });
 
 test('changing a note removes old associations and repoints the reverse index', () => {
