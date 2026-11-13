@@ -9,6 +9,7 @@ export interface IndexedStudyEpisode {
   /** V1 links are merely associations, never asserted historical presences. */
   legacyLinks: Array<{ personId: string; placeId?: string; reference: string }>;
   linkedPersonIds: string[];
+  linkedPlaceIds: string[];
 }
 export interface StudyEpisodeSummary {
   id: string;
@@ -19,6 +20,8 @@ export interface StudyEpisodeSummary {
 }
 export interface StudyFactIndexSnapshot {
   byPerson: Record<string, StudyEpisodeSummary[]>;
+  byPlace: Record<string, StudyEpisodeSummary[]>;
+  byEvent: Record<string, StudyEpisodeSummary[]>;
 }
 const validId = (value: unknown): value is string =>
   typeof value === 'string' && /^[a-zA-Z0-9_-]{1,300}$/.test(value);
@@ -27,6 +30,8 @@ const validId = (value: unknown): value is string =>
 export class StudyFactIndex {
   private records = new Map<string, IndexedStudyEpisode>();
   private byPerson = new Map<string, Map<string, StudyEpisodeSummary>>();
+  private byPlace = new Map<string, Map<string, StudyEpisodeSummary>>();
+  private byEvent = new Map<string, Map<string, StudyEpisodeSummary>>();
 
   hasPath(path: string): boolean { return this.records.has(path); }
   paths(): string[] { return [...this.records.keys()]; }
@@ -35,9 +40,11 @@ export class StudyFactIndex {
     const previous = this.records.get(path);
     if (!previous) return false;
     this.records.delete(path);
-    for (const [personId, episodes] of this.byPerson) {
-      episodes.delete(path);
-      if (!episodes.size) this.byPerson.delete(personId);
+    for (const reverse of [this.byPerson, this.byPlace, this.byEvent]) {
+      for (const [entityId, episodes] of reverse) {
+        episodes.delete(path);
+        if (!episodes.size) reverse.delete(entityId);
+      }
     }
     return true;
   }
@@ -73,8 +80,16 @@ export class StudyFactIndex {
         .filter((value): value is string => typeof value === 'string' && value.startsWith('person:'))
         .map(value => value.slice('person:'.length))
     ]);
+    const places = new Set([
+      ...legacyLinks.flatMap(item => item.placeId ? [item.placeId] : []),
+      ...facts.flatMap(fact => fact.placeId ? [fact.placeId] : []),
+      ...(Array.isArray(meta.atlas_entities) ? meta.atlas_entities : [])
+        .filter((value): value is string => typeof value === 'string' && value.startsWith('place:'))
+        .map(value => value.slice('place:'.length))
+    ]);
     const next: IndexedStudyEpisode = {
-      id, title, path, facts, legacyLinks, linkedPersonIds: [...people].sort()
+      id, title, path, facts, legacyLinks,
+      linkedPersonIds: [...people].sort(), linkedPlaceIds: [...places].sort()
     };
     const previous = this.records.get(path);
     if (previous && JSON.stringify(previous) === JSON.stringify(next)) return false;
@@ -83,10 +98,15 @@ export class StudyFactIndex {
     const summary: StudyEpisodeSummary = {
       id, title, path, factCount: facts.length, legacyCount: legacyLinks.length
     };
-    for (const personId of people) {
-      const perPerson = this.byPerson.get(personId) ?? new Map<string, StudyEpisodeSummary>();
-      perPerson.set(path, summary);
-      this.byPerson.set(personId, perPerson);
+    for (const [reverse, keys] of [
+      [this.byPerson, people], [this.byPlace, places],
+      [this.byEvent, new Set([id])]
+    ] as const) {
+      for (const key of keys) {
+        const matches = reverse.get(key) ?? new Map<string, StudyEpisodeSummary>();
+        matches.set(path, summary);
+        reverse.set(key, matches);
+      }
     }
     return true;
   }
@@ -100,7 +120,10 @@ export class StudyFactIndex {
       jwsd_episode_title: previous.title,
       jwsd_episode_facts: previous.facts,
       jwsd_episode_connections: previous.legacyLinks,
-      atlas_entities: previous.linkedPersonIds.map(id => 'person:' + id)
+      atlas_entities: [
+        ...previous.linkedPersonIds.map(id => 'person:' + id),
+        ...previous.linkedPlaceIds.map(id => 'place:' + id)
+      ]
     });
   }
 
@@ -109,9 +132,20 @@ export class StudyFactIndex {
       .sort((a,b) => a.title.localeCompare(b.title, 'fr') || a.path.localeCompare(b.path));
   }
 
+  forPlace(placeId: string): StudyEpisodeSummary[] {
+    return [...(this.byPlace.get(placeId)?.values() ?? [])]
+      .sort((a,b) => a.title.localeCompare(b.title, 'fr') || a.path.localeCompare(b.path));
+  }
+  forEvent(eventId: string): StudyEpisodeSummary[] {
+    return [...(this.byEvent.get(eventId)?.values() ?? [])]
+      .sort((a,b) => a.title.localeCompare(b.title, 'fr') || a.path.localeCompare(b.path));
+  }
+
   snapshot(): StudyFactIndexSnapshot {
-    return { byPerson: Object.fromEntries(
-      [...this.byPerson.keys()].sort().map(id => [id, this.forPerson(id)])
-    ) };
+    return {
+      byPerson: Object.fromEntries([...this.byPerson.keys()].sort().map(id => [id, this.forPerson(id)])),
+      byPlace: Object.fromEntries([...this.byPlace.keys()].sort().map(id => [id, this.forPlace(id)])),
+      byEvent: Object.fromEntries([...this.byEvent.keys()].sort().map(id => [id, this.forEvent(id)]))
+    };
   }
 }
