@@ -897,14 +897,45 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     else new EpisodePickerModal(this.app,episodes,choice=>open(choice.id),
       'Rechercher un épisode documenté de cette personne…').open();
   };
-  editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>):void=>{
+  addStudyFact=(key:AtlasEntityKey):void=>{
+    const colon=key.indexOf(':');
+    const type=key.slice(0,colon),id=key.slice(colon+1);
+    if ((type !== 'person' && type !== 'place') || !resolveEntity(this.snapshot.atlas.catalog,key)) {
+      new Notice('Sélectionne un personnage ou un lieu existant dans l’Atlas.');return;
+    }
+    const options = new Map<string,string>();
+    for(const entry of this.snapshot.atlas.catalog.values())
+      if(entry.type==='event')options.set(entry.id,entry.title);
+    for(const record of REVIEWED_HISTORICAL_EVENTS)
+      options.set(record.event.id,record.event.name);
+    for(const item of this.episodeConnectionsStore.listPersonalEpisodes())
+      options.set(item.id,item.title);
+    const createId='__jwsd_create_personal_episode__';
+    const choices=[{id:createId,title:'Créer un nouvel épisode d’étude…'},
+      ...[...options].map(([eventId,title])=>({id:eventId,title}))
+        .sort((a,b)=>a.title.localeCompare(b.title,'fr'))];
+    const start=(eventId:string)=>this.editEpisodeConnections(eventId,undefined,
+      type==='person'?id:undefined,type==='place'?id:undefined);
+    new EpisodePickerModal(this.app,choices,choice=>{
+      if(choice.id===createId){
+        new PersonalEpisodeModal(this.app,async(title,reference)=>{
+          const created=await this.episodeConnectionsStore.createPersonalEpisode(title,reference);
+          await this.indexFile(created.file);
+          await this.storage.open(created.file.path);
+          start(created.id);
+        }).open();
+      }else start(choice.id);
+    },'Choisir un épisode pour ajouter un fait…').open();
+  };
+  editEpisodeConnections=(eventId:string,onSaved?:()=>Promise<void>,initialPersonId?:string,initialPlaceId?:string):void=>{
     const record=REVIEWED_HISTORICAL_EVENTS.find(item=>item.event.id===eventId);
     const title=record?.event.name??this.snapshot.atlas.catalog.get(('event:'+eventId) as AtlasEntityKey)?.title??this.episodeConnectionsStore.listPersonalEpisodes().find(item=>item.id===eventId)?.title??eventId;
     new EpisodeConnectionsModal(this.app,eventId,title,this.snapshot.atlas,this.episodeConnectionsStore,async file=>{
       await this.indexFile(file);
       await this.refreshEpisodeModules(eventId);
       if(onSaved)await onSaved();
-    },reference=>readLocalEpisodePassage(this.localBible,reference)).open();
+    },reference=>readLocalEpisodePassage(this.localBible,reference),
+      initialPersonId,initialPlaceId).open();
   };
   openEntity = (key: AtlasEntityKey): void => { this.run(this.openAtlas(key)); };
   linkForSelection = (selection: AtlasSelection | null): string => selection
