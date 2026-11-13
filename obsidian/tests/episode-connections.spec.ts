@@ -113,3 +113,51 @@ test('2 Samuel 11 relie les personnages à la source sans inventer une date',asy
   await expect(card).toContainText('Indication du récit');
   await expect(card).toContainText('2 Samuel 11:1-27');
 });
+
+test('un fait structuré est sauvegardé et indexé depuis le personnage et le lieu, même après redémarrage', async ({page}) => {
+  await page.evaluate(() => (window as any).atlasTest.command('create-personal-study-episode'));
+  const create = page.getByRole('dialog').last();
+  await create.getByRole('textbox',{name:'Titre de l’épisode'}).fill('Étude de David à Jérusalem');
+  await create.getByRole('textbox',{name:'Passage ou référence principale'}).fill('2 Samuel 11');
+  await create.getByRole('button',{name:'Créer et relier les personnages'}).click();
+
+  const editor = page.getByRole('dialog').last();
+  await expect(editor.getByRole('heading',{name:'Faits et relations documentés (0)'})).toBeVisible();
+  await editor.getByRole('button',{name:'Choisir un personnage'}).click();
+  await page.getByPlaceholder('Rechercher un personnage biblique…').fill('David');
+  await page.getByRole('dialog').last().getByRole('button',{name:'David',exact:true}).click();
+  await editor.getByRole('button',{name:'Lieu non précisé'}).click();
+  await page.getByPlaceholder('Rechercher un lieu de l’Atlas…').fill('Jérusalem');
+  await page.getByRole('dialog').last().getByRole('button',{name:'Jérusalem',exact:true}).first().click();
+  await editor.getByRole('textbox',{name:'Référence justificative'}).fill('2 Samuel 11:1');
+  await editor.getByRole('button',{name:'Ajouter le fait'}).click();
+  await expect(editor.getByRole('heading',{name:'Faits et relations documentés (1)'})).toBeVisible();
+  await editor.getByRole('button',{name:'Enregistrer les connexions'}).click();
+
+  const saved=await page.evaluate(()=>{
+    const t=(window as any).atlasTest;
+    const file=t.files().find((item:any)=>item.content.includes('Étude de David à Jérusalem'));
+    const meta=t.app.metadataCache.getFileCache(t.app.vault.getAbstractFileByPath(file.path)).frontmatter;
+    const index=t.plugin.getSnapshot().studyFacts;
+    return {
+      eventId:meta.jwsd_episode_id,
+      schema:meta.jwsd_schema,
+      facts:meta.jwsd_episode_facts,
+      person:(index.byPerson['event-david-iixp36']??[]).map((item:any)=>item.id),
+      place:(index.byPlace.jerusalem??[]).map((item:any)=>item.id)
+    };
+  });
+  expect(saved.schema).toBe(2);
+  expect(saved.facts).toHaveLength(1);
+  expect(saved.facts[0].kind).toBe('presence');
+  expect(saved.facts[0].reference).toBe('2 Samuel 11:1');
+  expect(saved.person).toContain(saved.eventId);
+  expect(saved.place).toContain(saved.eventId);
+
+  await page.evaluate(()=> (window as any).atlasTest.restart());
+  await expect.poll(async()=>page.evaluate(id=>{
+    const snap=(window as any).atlasTest.plugin.getSnapshot().studyFacts;
+    return (snap.byPerson['event-david-iixp36']??[]).some((item:any)=>item.id===id) &&
+      (snap.byPlace.jerusalem??[]).some((item:any)=>item.id===id);
+  },saved.eventId)).toBe(true);
+});
