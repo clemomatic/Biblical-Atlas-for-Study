@@ -1,5 +1,5 @@
 import { createRoot, type Root } from 'react-dom/client';
-import { ItemView, Notice, Plugin, addIcon, PluginSettingTab, Setting, TFile, MarkdownRenderChild, debounce, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
+import { ItemView, Notice, Plugin, addIcon, PluginSettingTab, Setting, TFile, MarkdownRenderChild, debounce, parseYaml, type App as ObsidianApp, type ViewStateResult, type WorkspaceLeaf } from 'obsidian';
 import appCss from '../../src/index.css?inline';
 import leafletCss from 'leaflet/dist/leaflet.css?inline';
 import pluginCss from './plugin.css?inline';
@@ -52,6 +52,7 @@ import episodeContextCss from './episodeContext.css?inline';
 import { renderEpisodeContext } from './episodeContextView';
 import { EpisodePickerModal } from './episodePickerModal';
 import { EpisodeConnectionsStore } from './episodeConnectionsStore';
+import { StudyFactIndex } from './studyFactIndex.ts';
 import { EpisodeConnectionsModal } from './episodeConnectionsModal';
 import { EpisodeContextModal } from './episodeContextModal';
 import { PersonalEpisodeModal } from './personalEpisodeModal';
@@ -298,13 +299,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.researchDesk=normalizeResearchDesk(desk);
     return this.enqueuePluginData();
   };
-  private snapshot: AtlasSnapshot = { notes: [], settings: this.settings, atlas: buildWorkspace([]) };
+  private snapshot: AtlasSnapshot = { notes: [], settings: this.settings, atlas: buildWorkspace([]), studyFacts: { byPerson: {} } };
   private indexVersions = new Map<string, number>();
   private ready: Promise<void> = Promise.resolve();
   maps!: MapTileCache;
   private mapViewport?: MapBounds;
   private storage!: AtlasVault;
   private episodeConnectionsStore!: EpisodeConnectionsStore;
+  private studyFactIndex = new StudyFactIndex();
   private episodeModuleRefreshers=new Map<HTMLElement,{eventId:string;refresh:()=>Promise<void>}>();
   getSnapshot = (): AtlasSnapshot => this.snapshot;
   subscribe = (listener: () => void): (() => void) => { this.listeners.add(listener); return () => this.listeners.delete(listener); };
@@ -316,7 +318,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       ? { ...note, warnings: [...note.warnings, 'Identifiant personnel en double : attribue un atlas_uid différent à chaque fiche.'] } : note)
       .sort((a, b) => a.title.localeCompare(b.title, 'fr'));
     const atlas = buildWorkspace(checked);
-    this.snapshot = { notes: checked.map(note => atlas.diagnostics.has(note.path) ? { ...note, warnings: [...note.warnings, ...atlas.diagnostics.get(note.path)!] } : note), settings: this.settings, atlas };
+    this.snapshot = { notes: checked.map(note => atlas.diagnostics.has(note.path) ? { ...note, warnings: [...note.warnings, ...atlas.diagnostics.get(note.path)!] } : note), settings: this.settings, atlas, studyFacts: this.studyFactIndex.snapshot() };
     this.listeners.forEach(listener => listener());
   }
   report(error: unknown): void { new Notice(error instanceof Error ? error.message : 'L’opération n’a pas pu aboutir.'); }
@@ -327,6 +329,21 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     const generation = (this.indexVersions.get(path) ?? 0) + 1; this.indexVersions.set(path, generation);
     const frontmatter = this.app.metadataCache.getFileCache(file)?.frontmatter;
     const note = noteFromMetadata(path, file.basename, frontmatter);
+    // Index personal episode facts from the actual saved YAML. MetadataCache
+    // can lag behind writes, particularly during initial creation.
+    const mayBeEpisode = frontmatter?.jwsd_kind === 'episode-connections' ||
+      path.includes('/Connexions/') || this.studyFactIndex.hasPath(path);
+    let episodeFrontmatter: unknown = undefined;
+    let episodeError: string | undefined;
+    if (mayBeEpisode) {
+      try {
+        const raw = await this.app.vault.read(file);
+        const match = /^---\\r?\\n([\\s\\S]*?)\\r?\\n---(?:\\r?\\n|$)/.exec(raw);
+        episodeFrontmatter = match ? parseYaml(match[1]) : undefined;
+      } catch (error) {
+        episodeError = error instanceof Error ? error.message : 'Carnet d’épisode invalide.';
+      }
+    }
     if (note && frontmatter?.atlas_entity) {
       try {
         const edit = editFromMetadata(path, frontmatter);
@@ -337,9 +354,18 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
       } catch (error) { note.warnings.push(error instanceof Error ? error.message : 'Personnalisation invalide.'); }
     }
     if (this.indexVersions.get(path) !== generation || file.path !== path || this.app.vault.getAbstractFileByPath(path) !== file) return;
-    if (JSON.stringify(note) === JSON.stringify(this.indexedNotes.get(file.path) ?? null)) return;
+    let episodeChanged = false;
+    if (mayBeEpisode) {
+      try { episodeChanged = this.studyFactIndex.update(path, episodeFrontmatter); }
+      catch (error) {
+        episodeChanged = this.studyFactIndex.remove(path);
+        episodeError = error instanceof Error ? error.message : 'Indexation des faits impossible.';
+      }
+    }
+    if (episodeError && note) note.warnings.push(episodeError);
+    const noteChanged = JSON.stringify(note) !== JSON.stringify(this.indexedNotes.get(file.path) ?? null);
     if (note) this.indexedNotes.set(file.path, note); else this.indexedNotes.delete(file.path);
-    if (publish) this.publish();
+    if (publish && (noteChanged || episodeChanged)) this.publish();
   }
   private async indexAll(): Promise<void> { await Promise.all(this.app.vault.getMarkdownFiles().map(file => this.indexFile(file, false))); this.publish(); }
   async updateSettings(change: Partial<AtlasSettings>): Promise<void> {
@@ -605,6 +631,7 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
             },
             editConnections:id=>this.editEpisodeConnections(id,refresh),
             personalConnections:personal.items,
+            personalFacts:personal.facts,
             ...(personal.personalTitle&&personal.personalReference
               ?{personalEpisode:{title:personal.personalTitle,reference:personal.personalReference}}:{})
           });
@@ -630,6 +657,11 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     this.registerEvent(this.app.vault.on('delete', file => {
       let changed = false;
       for (const path of this.indexedNotes.keys()) if (path === file.path || path.startsWith(`${file.path}/`)) { changed = true; this.indexedNotes.delete(path); this.indexVersions.set(path, (this.indexVersions.get(path) ?? 0) + 1); }
+      for (const path of this.studyFactIndex.paths()) {
+        if (path === file.path || path.startsWith(file.path + '/')) {
+          changed = this.studyFactIndex.remove(path) || changed;
+        }
+      }
       if (changed) this.publish();
     }));
     this.registerEvent(this.app.vault.on('rename', (file, oldPath) => {
@@ -641,6 +673,10 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
         const newBasename = nextPath.split('/').pop()?.replace(/\.md$/, '') ?? note.title;
         this.indexVersions.set(path, (this.indexVersions.get(path) ?? 0) + 1);
         this.indexedNotes.set(nextPath, { ...note, path: nextPath, ...(note.edit ? { edit: { ...note.edit, path: nextPath } } : {}), title: note.title === oldBasename ? newBasename : note.title });
+      }
+      for (const path of this.studyFactIndex.paths()) {
+        if (path !== oldPath && !path.startsWith(oldPath + '/')) continue;
+        this.studyFactIndex.rename(path, file.path + path.slice(oldPath.length));
       }
       this.publish();
       if (file instanceof TFile) this.run(this.indexFile(file));
@@ -824,10 +860,14 @@ export default class BiblicalAtlasPlugin extends Plugin implements AtlasHost {
     await Promise.allSettled(refreshers);
   }
   openPersonEpisodes=(personId:string):void=>{
-    const episodes=REVIEWED_HISTORICAL_EVENTS.filter(record=>
-      record.event.participantMentions?.some(mention=>mention.personId===personId)
-    ).map(record=>({id:record.event.id,title:record.event.name}));
-    if(!episodes.length){new Notice('Aucun épisode source n’est encore associé à cette personne.');return;}
+    const episodes = [...new Map([
+      ...REVIEWED_HISTORICAL_EVENTS.filter(record =>
+        record.event.participantMentions?.some(mention => mention.personId === personId)
+      ).map(record => [record.event.id, {id:record.event.id,title:record.event.name}] as const),
+      ...this.studyFactIndex.forPerson(personId).map(item =>
+        [item.id, {id:item.id,title:item.title}] as const)
+    ]).values()].sort((a,b) => a.title.localeCompare(b.title,'fr'));
+    if(!episodes.length){new Notice('Aucun épisode associé à cette personne.');return;}
     const open=(id:string)=>{
       new EpisodeContextModal(this.app,id,this.snapshot.atlas,this.episodeConnectionsStore,{
         openEntity:this.openEntity,
