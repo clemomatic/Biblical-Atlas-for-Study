@@ -12,7 +12,7 @@ import { preserveInlineEmphasis } from './readerInlineFormatting.ts';
 export type ReferenceKind='scripture'|'publication'|'document';
 export interface ReferenceEntry {label:string;url:string;kind:ReferenceKind;origin:'verse'|'marker'|'markdown'|'brackets'|'pinned'}
 export interface ReaderPart {text:string;url?:string;kind?:ReferenceKind;bold?:boolean;italic?:boolean}
-export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image'|'list'|'quote'|'theme';text:string;source?:string;number?:string;parts?:ReaderPart[];image?:ArticleImage;/** Exact official scripture targets associated with this verse or cross-reference. */references?:ReaderLink[];/** Position of original '+' symbols in cleaned verse text. */referenceMarkers?:{offset:number;targets:ReaderLink[]}[]}
+export interface ReaderLine {type:'heading'|'paragraph'|'note'|'study'|'crossref'|'verse'|'question'|'caption'|'image'|'list'|'quote'|'theme';text:string;source?:string;number?:string;/** The selected Bible verse to which this study note or cross-reference belongs. */verse?:string;parts?:ReaderPart[];image?:ArticleImage;/** Exact official scripture targets associated with this verse or cross-reference. */references?:ReaderLink[];/** Position of original '+' symbols in cleaned verse text. */referenceMarkers?:{offset:number;targets:ReaderLink[]}[]}
 export interface ReaderLink {label:string;url:string}
 export interface ReaderResult {title:string;sourceUrl:string;lines:ReaderLine[];links:ReaderLink[];kind:'verse'|'article'|'results';notice?:string;source?:'local'}
 export const MAX_REFERENCES=60;

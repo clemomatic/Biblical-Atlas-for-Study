@@ -1,7 +1,7 @@
 import { setIcon } from 'obsidian';
 import { jwLibraryLink } from './bibleLabData';
 import { linkifyReaderText, type ReaderResult, type ReaderLine, type ReferenceEntry } from './referenceReader';
-import { fetchReferenceContent } from './wolReferenceFetcher';
+import {fetchReferenceContent,fetchLocalStudyApparatus} from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 import { appendStyledReaderText } from './readerInlineFormatting';
@@ -69,7 +69,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
    if(text)state.copy(text);
  });
  const readable=(container:HTMLElement,line:ReaderLine):void=>{
-   const fragments=line.parts||linkifyReaderText(line.text);
+   const fragments=line.parts||linkifyReaderText(line.text,line.references);
    for(let i=0;i<fragments.length;){
      const part=fragments[i];
      if(!part.url){appendStyledReaderText(container,part);i++;continue;}
@@ -131,7 +131,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        const parts=result.lines.filter(x=>x.type===section.kind);
        if(!parts.length)continue;
        const group=contents.createEl('details',{cls:'biblelab-reader-section'});
-       if(section.kind!=='crossref')group.open=true;
+       if(section.kind!=='crossref'||parts.length<=6)group.open=true;
        const summary=group.createEl('summary',{cls:'biblelab-reader-section-title'});
        const glyph=summary.createSpan();setIcon(glyph,section.icon);
        summary.createSpan({text:section.title});
@@ -139,6 +139,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        const list=group.createDiv({cls:'biblelab-reader-section-list'});
        for(const part of parts){
          const note=list.createDiv({cls:'biblelab-reader-note-card'});
+         if(part.verse)note.createSpan({cls:'biblelab-reader-note-verse',text:'Verset '+part.verse});
          if(part.source)note.createEl('strong',{cls:'biblelab-reader-note-source',text:part.source});
          const noteBody=note.createEl('p',{attr:{lang:'fr'}});
          readable(noteBody,part);
@@ -260,9 +261,33 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
      }
    }
  };
+ /** A downloaded NWT/NWTsty provides verse text but no study apparatus in
+  * its compact cache. Keep reading instant and append official data in place. */
+ const enrichIfLocal=(result:ReaderResult):void=>{
+   if(ref.kind!=='scripture'||result.source!=='local'||
+      result.lines.some(line=>line.type==='study'||line.type==='note'||line.type==='crossref'))return;
+   const status=contents.createDiv({cls:'biblelab-apparatus-state',
+     attr:{role:'status'},text:'Chargement des notes d’étude et des renvois…'});
+   const unavailable=():void=>{
+     if(!status.isConnected)return;
+     status.empty();
+     status.createSpan({text:'Les compléments de la Bible d’étude ne sont pas accessibles pour le moment. '});
+     action(status,'Réessayer','refresh-cw',()=>{status.remove();enrichIfLocal(result);});
+   };
+   void fetchLocalStudyApparatus(ref,result).then(enriched=>{
+     if(!status.isConnected||!details.open)return;
+     if(enriched===result){unavailable();return;}
+     state.cache.set(id,{date:Date.now(),result:enriched});
+     draw(enriched);
+   }).catch(unavailable);
+ };
+ const showResult=(result:ReaderResult):void=>{
+   draw(result);
+   enrichIfLocal(result);
+ };
  const load=async():Promise<void>=>{
    const cached=state.cache.get(id);
-   if(cached&&cached.result.lines.length&&Date.now()-cached.date<30*60*1000){draw(cached.result);return;}
+   if(cached&&cached.result.lines.length&&Date.now()-cached.date<30*60*1000){showResult(cached.result);return;}
    contents.empty();contents.createDiv({cls:'biblelab-reader-loading',text:'Lecture de WOL…'});
    try{
      let task=state.pending.get(id);
@@ -281,7 +306,7 @@ export function renderReferenceAccordion(parent:HTMLElement,ref:ReferenceEntry,s
        if(oldest===undefined)break;
        state.cache.delete(oldest);
      }
-     if(contents.isConnected)draw(result);
+     if(contents.isConnected)showResult(result);
    }catch(error){
      if(contents.isConnected){
        contents.empty();

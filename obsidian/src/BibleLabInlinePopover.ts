@@ -2,7 +2,7 @@ import {STUDY_DESK_LOGO} from './studyDeskBrand';
 import { Notice, setIcon } from 'obsidian';
 import { parseScripture, jwLibraryLink } from './bibleLabData';
 import { passageUrl, cleanWolUrl, linkifyReaderText, type ReaderResult, type ReferenceEntry, type ReaderLine } from './referenceReader';
-import { fetchLocalReferenceContent,fetchWebReferenceContent } from './wolReferenceFetcher';
+import {fetchLocalReferenceContent,fetchWebReferenceContent,fetchLocalStudyApparatus} from './wolReferenceFetcher';
 import { referencedParagraphs } from './publicationReferences';
 import { renderArticleImage } from './articleImages';
 import { appendStyledReaderText } from './readerInlineFormatting';
@@ -232,6 +232,29 @@ export class BibleLabInlinePopover {
     content.empty();this.draw(content,result,anchor);this.keepVisible(root);
     if(ref.kind==='scripture')this.supplements?.(content,ref);
     void this.renderPersonalAnnotations(content,ref,token);
+    // Preserve instant offline Bible reading, then progressively restore
+    // official study notes and references missing from the compact local cache.
+    if(ref.kind==='scripture'&&result.source==='local'&&
+       !result.lines.some(line=>line.type==='study'||line.type==='note'||line.type==='crossref')){
+      const status=content.createDiv({cls:'biblelab-popover-apparatus-status',
+        attr:{role:'status'},text:'Chargement des notes d’étude et des renvois…'});
+      const unavailable=():void=>{
+        if(!status.isConnected||token!==this.serial)return;
+        status.empty();
+        status.createSpan({text:'Compléments de la Bible d’étude indisponibles pour le moment. '});
+        this.button(status,'Réessayer','refresh-cw',()=>this.render(ref,anchor));
+      };
+      void fetchLocalStudyApparatus(ref,result).then(enriched=>{
+        if(token!==this.serial||!content.isConnected)return;
+        if(enriched===result){unavailable();return;}
+        this.cache.set(key,{value:enriched,date:Date.now()});
+        content.empty();
+        this.draw(content,enriched,anchor);
+        if(ref.kind==='scripture')this.supplements?.(content,ref);
+        void this.renderPersonalAnnotations(content,ref,token);
+        this.keepVisible(root);
+      }).catch(unavailable);
+    }
   }).catch(()=>{
     if(token!==this.serial||!root.isConnected)return;
     content.empty();
@@ -389,6 +412,8 @@ export class BibleLabInlinePopover {
          '.biblelab-popover-apparatus-crossref .biblelab-popover-inline-link')];
        const matching=buttons.find(btn=>btn.getAttribute('aria-label')==='Lire '+targets[0]?.label);
        const focus=matching||buttons[0];
+       const section=focus?.closest('details');
+       if(section)section.open=true;
        if(focus)focus.focus({preventScroll:true});
        aside.scrollIntoView({block:'nearest',behavior:'smooth'});
      });
@@ -427,14 +452,18 @@ export class BibleLabInlinePopover {
   for(const group of groups){
    const items=apparatus.filter(line=>line.type===group.type);
    if(!items.length)continue;
-   area.createEl('h4',{cls:'biblelab-popover-apparatus-heading',text:group.title});
+   const section=area.createEl('details',{cls:'biblelab-popover-apparatus-group'});
+   section.open=group.type!=='crossref'||items.length<=6;
+   const heading=section.createEl('summary',{cls:'biblelab-popover-apparatus-heading'});
+   heading.createSpan({text:group.title});
+   heading.createSpan({cls:'biblelab-popover-apparatus-count',text:String(items.length)});
+   const list=section.createDiv({cls:'biblelab-popover-apparatus-list'});
    for(const line of items){
-    const item=area.createDiv({cls:'biblelab-popover-apparatus-item biblelab-popover-apparatus-'+group.type});
+    const item=list.createDiv({cls:'biblelab-popover-apparatus-item biblelab-popover-apparatus-'+group.type});
+    if(line.verse)item.createSpan({cls:'biblelab-popover-apparatus-verse',text:'Verset '+line.verse});
     if(line.source)item.createEl('strong',{text:line.source});
-    const content=item.createEl('p');
-    this.linkLine(content,line.references?.length
-      ?{...line,parts:linkifyReaderText(line.text,line.references)}
-      :line,anchor);
+    const content=item.createEl('p',{attr:{lang:'fr'}});
+    this.linkLine(content,line,anchor);
    }
   }
   if(extraLinks.length){
@@ -456,7 +485,7 @@ export class BibleLabInlinePopover {
   }
  }
  private linkLine(target:HTMLElement,line:ReaderLine,anchor:HTMLElement):void{
-  const parts=line.parts||linkifyReaderText(line.text);
+  const parts=line.parts||linkifyReaderText(line.text,line.references);
   for(let i=0;i<parts.length;){
    const part=parts[i];
    if(!part.url){appendStyledReaderText(target,part);i++;continue;}
