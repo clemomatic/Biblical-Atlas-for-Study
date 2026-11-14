@@ -1,4 +1,5 @@
 import { requestUrl } from 'obsidian';
+import {mergeLocalBibleApparatus} from './localBibleApparatus';
 import { normalizeSearch, parseScripture } from './bibleLabData';
 import { cleanWolUrl, parseWolDocument, parseWolLookupResults, type ReaderResult, type ReferenceEntry } from './referenceReader';
 import { readableOfficialHtml, readableOfficialElement, meaningfulNoteSource, cleanReadingText, verseCrossReferenceOffsets } from './readerText.ts';
@@ -1044,6 +1045,27 @@ export async function fetchLocalReferenceContent(ref:ReferenceEntry):Promise<Rea
     }catch{/* Never prevent the official reader from handling the source. */}
   }
   return null;
+}
+/** Cache only the public official study apparatus, never a user's private notes.
+ * Local verse text is returned first; the UI enriches it progressively. */
+const studyApparatusCache=new Map<string,{at:number;value:Promise<ReaderResult>}>();
+export async function fetchLocalStudyApparatus(ref:ReferenceEntry,local:ReaderResult):Promise<ReaderResult>{
+  if(ref.kind!=='scripture'||local.source!=='local'||local.kind!=='verse')return local;
+  const key=ref.label+'|'+ref.url;
+  const cached=studyApparatusCache.get(key);
+  if(cached&&Date.now()-cached.at>30*60*1000)studyApparatusCache.delete(key);
+  let promise=studyApparatusCache.get(key)?.value;
+  if(!promise){
+    promise=fetchStudyVerse(ref);
+    studyApparatusCache.set(key,{at:Date.now(),value:promise});
+    while(studyApparatusCache.size>50)studyApparatusCache.delete(studyApparatusCache.keys().next().value!);
+    void promise.then(official=>{
+      // Do not cache missing/offline responses as if they were complete.
+      if(!official.lines.some(line=>line.type==='study'||line.type==='note'||line.type==='crossref')&&
+          !official.links.length)studyApparatusCache.delete(key);
+    },()=>studyApparatusCache.delete(key));
+  }
+  return mergeLocalBibleApparatus(local,await promise);
 }
 export function fetchWebReferenceContent(ref:ReferenceEntry):Promise<ReaderResult>{
   return ref.kind==='scripture'?fetchStudyVerse(ref):fetchPublication(ref);
