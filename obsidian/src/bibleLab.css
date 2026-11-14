@@ -1741,3 +1741,21 @@
 .biblelab-vault-heading{display:block;font-size:11px;color:var(--text-muted);margin-top:5px}
 .biblelab-vault-hit p{font-size:13px;line-height:1.6;overflow-wrap:anywhere;margin:9px 0}
 .biblelab-reading-simple .biblelab-reader-labels>span{display:none}
+
+
+/* JW Study Desk — verse-specific study-note labels and nonblocking status. */
+.biblelab-reader-note-verse{
+  display:inline-block;width:max-content;max-width:100%;
+  padding:2px 7px;margin-bottom:6px;border-radius:6px;
+  background:color-mix(in srgb,var(--bl-brand) 9%,var(--background-secondary));
+  color:var(--bl-brand);font-size:10px;font-weight:750;
+}
+.biblelab-apparatus-state{
+  margin:10px 0;padding:10px 12px;border-radius:10px;
+  background:var(--background-secondary);
+  color:var(--text-muted);font-size:11px;line-height:1.65;
+}
+.biblelab-apparatus-state .biblelab-reader-action{margin:4px 0 0 5px}
+.biblelab-reader-section-list .biblelab-reader-note-card{
+  min-width:0;overflow-wrap:anywhere;
+}
