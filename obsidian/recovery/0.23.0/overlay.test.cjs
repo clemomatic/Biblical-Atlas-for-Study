@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 const path = require('node:path');
-const source = fs.readFileSync(path.join(__dirname, '../source/explorer-overlay.js'), 'utf8');
+const source = fs.readFileSync(fs.existsSync(path.join(__dirname,'explorer-overlay.js')) ? path.join(__dirname,'explorer-overlay.js') : path.join(__dirname,'../source/explorer-overlay.js'), 'utf8');
 const targeted = '  module.exports=JwsdExplorerPlugin;';
 assert.equal(source.split(targeted).length,2);
 const instrumented = source.replace(targeted,`  JwsdExplorerPlugin.__test = {safeWolUrl,safeReferenceUrl,safeThumb,safeState,urlFor,indexGroups,searchResults};\n${targeted}`);
