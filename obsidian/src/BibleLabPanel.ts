@@ -13,6 +13,7 @@ import { renderReferenceAccordion, type ReaderState } from './referencePanel';
 import { jwOrgResearchUrl, wolResearchUrl, parseWolSearchResults, type WolMatchMode, type WolSearchScope, type WolSearchHit } from './wolResearch';
 import { parseImportedJwNote, type LocalJwHit } from './localJwSearch';
 import { cleanReadingText } from './readerText';
+import { parseWolIndexDocument, type WolIndexRow } from './wolIndexExplorer';
 
 export const BIBLE_LAB_VIEW = 'bible-lab-sidebar';
 type Tab = 'home' | 'wol' | 'refs' | 'maps' | 'library' | 'studio';
@@ -66,6 +67,9 @@ export class BibleLabSidebarView extends ItemView {
   private wolResultsQuery='';
   private wolResultsError='';
   private wolResultsLoading=false;
+  private wolIndexRows:WolIndexRow[]=[];
+  private wolIndexSource='';
+  private wolIndexTitle='';
   private sourceCheckLoading=false;
   private searchAdvancedOpen=false;
   private sourceCheckMessage='';
@@ -402,11 +406,14 @@ export class BibleLabSidebarView extends ItemView {
     button(area,'Go','arrow-right',submit,true);
     return input;
   }
+  private clearIndexPreview():void{
+    this.wolIndexRows=[];this.wolIndexSource='';this.wolIndexTitle='';
+  }
   private renderWol():void{
     heading(this.scroller,'Recherche documentaire','Un sujet ou une référence, puis les sources officielles.');
     this.searchField(this.scroller,this.query,'Sujet, publication ou verset…',text=>{
       if(this.query!==text){
-        this.query=text;this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
+        this.query=text;this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';this.clearIndexPreview();
         this.wolResultsSequence++;this.wolResultsLoading=false;
         this.localSearchSequence++;this.localSearchLoading=false;this.localHits=[];this.localHitsQuery='';this.localSearchError='';
       }
@@ -427,7 +434,7 @@ export class BibleLabSidebarView extends ItemView {
       toggle.createSpan({text:mode.title});
       toggle.addEventListener('click',()=>{
         if(this.searchScope===mode.value)return;
-        this.searchScope=mode.value;this.wolResults=[];
+        this.searchScope=mode.value;this.wolResults=[];this.clearIndexPreview();
         this.wolResultsQuery='';this.wolResultsError='';
         this.wolResultsSequence++;this.wolResultsLoading=false;
         this.render();
@@ -466,6 +473,33 @@ export class BibleLabSidebarView extends ItemView {
       info.createEl('p',{text:this.wolResultsError});
       button(info,'Continuer sur WOL','external-link',()=>external(this.officialSearchUrl()));
     }
+    // One official Index entry can explain dozens of references more clearly
+    // than a flat result list. Keep the context sentence above its citations.
+    if(this.wolIndexRows.length && !this.wolResultsLoading){
+      const section=this.scroller.createDiv({cls:'biblelab-index-preview'});
+      const head=section.createDiv({cls:'biblelab-section-head'});
+      head.createEl('h3',{text:'DANS L’INDEX · '+(this.wolIndexTitle||'Rubriques')});
+      for(const entry of this.wolIndexRows.slice(0,12)){
+        const group=section.createDiv({cls:'biblelab-index-group'});
+        if(entry.section)group.createSpan({cls:'biblelab-index-section',text:entry.section});
+        group.createEl('h4',{cls:'biblelab-index-context',text:entry.context});
+        for(const ref of entry.references.slice(0,4)){
+          const line=group.createDiv({cls:'biblelab-index-ref'});
+          const thumb=line.createDiv({cls:'biblelab-index-thumb',attr:{'aria-hidden':'true'}});
+          setIcon(thumb,'book-open');
+          const info=line.createDiv({cls:'biblelab-index-ref-copy'});
+          const open=info.createEl('button',{cls:'biblelab-index-open',text:ref.label,attr:{type:'button'}});
+          open.addEventListener('click',()=>this.focusReference(ref.url,ref.label));
+          const direct=info.createEl('a',{text:'WOL ↗',href:ref.url,attr:{target:'_blank',rel:'noopener noreferrer'}});
+          direct.addEventListener('click',event=>{event.preventDefault();external(ref.url);});
+        }
+        if(entry.references.length>4)group.createEl('p',{cls:'biblelab-mini',
+          text:'+'+(entry.references.length-4)+' référence(s) · Voir l’entrée officielle pour la liste complète.'});
+      }
+      if(this.wolIndexSource)button(section,'Ouvrir l’entrée complète','external-link',()=>external(this.wolIndexSource));
+      if(this.wolIndexRows.length>12)section.createEl('p',{cls:'biblelab-mini',
+        text:'Aperçu de 12 rubriques. Toutes les autres sont disponibles dans l’Index officiel.'});
+    }
     if(this.wolResultsQuery&&!this.wolResultsLoading&&this.wolResults.length){
       const headingRow=this.scroller.createDiv({cls:'biblelab-section-head'});
       headingRow.createEl('h3',{text:'RÉSULTATS · '+this.wolResults.length+' LIENS'});
@@ -501,7 +535,7 @@ export class BibleLabSidebarView extends ItemView {
     }
     match.addEventListener('change',()=>{
       this.searchMatch=match.value==='sen'?'sen':'par';
-      this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
+      this.wolResults=[];this.clearIndexPreview();this.wolResultsQuery='';this.wolResultsError='';
       this.wolResultsSequence++;this.wolResultsLoading=false;
     });
     const scopeLabel=controls.createEl('label',{text:'Sources'});
@@ -512,7 +546,7 @@ export class BibleLabSidebarView extends ItemView {
     }
     scope.addEventListener('change',()=>{
       this.searchScope=scope.value==='index'?'index':scope.value==='guide'?'guide':'all';
-      this.wolResults=[];this.wolResultsQuery='';this.wolResultsError='';
+      this.wolResults=[];this.clearIndexPreview();this.wolResultsQuery='';this.wolResultsError='';
       this.wolResultsSequence++;this.wolResultsLoading=false;
     });
     const actions=advancedBody.createDiv({cls:'biblelab-buttons'});
@@ -576,7 +610,7 @@ export class BibleLabSidebarView extends ItemView {
     if(this.wolResultsLoading)return;
     const seq=++this.wolResultsSequence;
     const url=wolResearchUrl(term,{match:this.searchMatch,scope:this.searchScope});
-    this.wolResultsLoading=true;this.wolResultsError='';this.wolResults=[];this.wolResultsQuery='';
+    this.wolResultsLoading=true;this.wolResultsError='';this.wolResults=[];this.wolResultsQuery='';this.clearIndexPreview();
     if(this.tab==='wol')this.render();
     try{
       const response=await requestUrl({url,throw:false});
@@ -595,7 +629,21 @@ export class BibleLabSidebarView extends ItemView {
           ' n’a pu être identifiée avec certitude parmi les premiers résultats. Ouvre la recherche officielle pour poursuivre.');
       if(!items.length)throw Error('Réponse WOL reçue, mais aucun lien de document exploitable. La recherche peut dépendre de scripts ou d’une structure différente.');
       if(seq!==this.wolResultsSequence)return;
+      // Fetch at most one verified Index entry, only if search results name it.
+      // An unavailable/dynamic WOL page must not block the ordinary results.
+      let indexPreview:ReturnType<typeof parseWolIndexDocument>|null=null;
+      const indexHit=items.find(hit=>hit.collection==='index');
+      if(indexHit && this.searchScope!=='guide'){
+        try{
+          const page=await requestUrl({url:indexHit.url,throw:false});
+          if(page.status===200)indexPreview=parseWolIndexDocument(page.text,indexHit.url);
+        }catch{ /* The ordinary WOL results remain available. */ }
+      }
+      if(seq!==this.wolResultsSequence)return;
       this.wolResults=items;this.wolResultsQuery=term;
+      this.wolIndexRows=indexPreview?.rows||[];
+      this.wolIndexSource=indexPreview?.url||'';
+      this.wolIndexTitle=indexPreview?.title||'';
     }catch(error){
       if(seq!==this.wolResultsSequence)return;
       this.wolResultsError=(error instanceof Error?error.message:'Recherche indisponible.')+
