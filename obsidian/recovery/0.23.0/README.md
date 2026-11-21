@@ -1,4 +1,4 @@
-# JW Study Desk 0.23.0-beta.3 — Explorer WOL isolé
+# JW Study Desk 0.23.0-beta.4 — Explorer WOL isolé
 
 Cette expérimentation ne remplace aucun module livré en 0.22.9. Elle part de son ZIP d'origine exact (SHA-256 `d8fea56c79809c6f39368d89c17adab785bf7a7f2c47803e54a81b0b2bb0fb6b`). Les 7 686 193 octets de `main.js` sont préservés à l'identique comme préfixe du `main.js` bêta, puis le code Explorer est ajouté.
 
@@ -53,6 +53,16 @@ sur l'Index (`p=doc` et `p=par`) sont regroupées puis dédoublonnées, avec
 priorité aux titres exacts.
 
 Explorer n'ouvre aucune entrée sans clic. Le panneau affiche une indication
-de version « Explorer WOL · bêta 3 ». Si aucun résultat structuré n'est
+de version « Explorer WOL · bêta 4 ». Si aucun résultat structuré n'est
 lisible, un message clair et un lien vers la recherche officielle remplacent
 les faux résultats. Une validation manuelle sous Obsidian reste nécessaire.
+
+## Bêta 4 — Recherche principale intégrée
+
+Le parcours historique de JW Study Desk 0.22.9 lançait directement une recherche dans la visionneuse WOL, sans appeler Explorer. Cela expliquait pourquoi les modifications des bêta 1 à 3 ne changeaient pas le comportement de la touche Entrée.
+
+La bêta 4 enveloppe **seulement** la propriété d'instance `openWolSearchTab` après l'initialisation du plugin original : les URL de recherche par mot-clé `/fr/wol/s/r30/lp-f?q=...` ouvrent la sélection des rubriques Explorer dans un **nouvel onglet Obsidian**. Les liens vers les articles, la Bible et les références directes restent pris en charge par le plugin d'origine.
+
+**Test de parcours :** ouvrir la recherche principale, saisir « Amour » puis Entrée. L'onglet « Explorer WOL · bêta 4 » doit apparaître avec les rubriques à choisir, avant toute ouverture d'article. Répéter avec « Fidélité ». Vérifier « Jean 3:16 » pour la lecture directe. Les choix proposés restent dépendants des résultats HTML officiels de WOL.
+
+Le ZIP d'origine 0.22.9 est conservé à l'identique comme préfixe du plugin généré. La mise à jour ne modifie ni `data.json` ni les plans de discours.
