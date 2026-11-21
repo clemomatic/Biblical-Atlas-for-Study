@@ -92,6 +92,11 @@ test('Index entry preserves introductory phrases and shows official references w
  await expect(preview.getByText('dans la famille')).toBeVisible();
  await expect(preview.getByRole('button',{name:'w19.07 5-6'})).toBeVisible();
  await expect(preview.getByRole('button',{name:'w17.09 29-31'})).toBeVisible();
+ // An official /pc/ bibliography link must open WOL rather than the older /d/ reader.
+ await preview.getByRole('button',{name:'w17.09 29-31'}).click();
+ const opened=await page.evaluate(()=>(window as any).openedSites);
+ expect(opened[0]).toBe('https://wol.jw.org/fr/wol/pc/r30/lp-f/1200271433/9/0');
+ await expect(pane.locator('.biblelab-tab[aria-label="WOL"]')).toHaveAttribute('aria-selected','true');
  await expect(preview.locator('.biblelab-index-thumb')).toHaveCount(3);
  const box=await preview.locator('.biblelab-index-thumb').first().boundingBox();
  expect(box).not.toBeNull();
