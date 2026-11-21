@@ -65,7 +65,9 @@
   }
   function searchResults(html, sourceUrl, forceIndex = false) {
     const doc = parse(html);
-    const root = rootOf(doc);
+    // Refuse to treat the WOL navigation/menu shell as search results.
+    // Missing an explicit search container is an unavailable structured result.
+    const root = doc.querySelector('#searchResults,.searchResults,.search-results,#results,.resultList,#lookupResults,[data-search-results]');
     if (!root) return [];
     const output = [], seen = new Set();
     const selectors = '.searchResult,.search-result,.result,.result-item,.resultItem,[data-result],li,article';
