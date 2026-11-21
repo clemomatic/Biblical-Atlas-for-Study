@@ -14,8 +14,12 @@ class BasePlugin {
     this.app={ vault:{configDir:'.obsidian',adapter:{exists:async()=>false,write:async()=>{},read:async()=>''}},
       workspace:{getLeavesOfType:()=>[],getRightLeaf:()=>null,getLeaf:()=>({setViewState:async()=>{},view:{}}),revealLeaf:async()=>{}}
     };
-    this.manifest={id:'atlas-biblique',version:'0.23.0-beta.1'};
+    this.manifest={id:'atlas-biblique',version:'0.23.0-beta.4'};
     this.log=[];
+    // 0.22.9 owns this arrow function as an instance property.
+    this.openWolSearchTab=async url=>{
+      this.log.push(['old:WOL-tab',url]);return 'opened-original';
+    };
   }
   async onload(){this.log.push('old:onload');}
   registerView(type,create){this.log.push(['new:view',type]);this.factory=create;}
@@ -297,4 +301,49 @@ test('WOL index search is document-oriented and scoped',()=>{
  assert.equal(url.searchParams.get('p'),'doc');
  assert.equal(url.searchParams.get('st'),'g');
  assert.equal(url.searchParams.get('fc[]'),'dx');
+});
+
+test('MAIN 0.22.9 search on Enter reaches Explorer choices, not WOL viewer',async()=>{
+ const instance=new Plugin(); await instance.onload();
+ const requested=[];
+ instance.openExplorer=async query=>{requested.push(query);return {opened:true};};
+ await instance.openWolSearchTab('https://wol.jw.org/fr/wol/s/r30/lp-f?p=par&q=Amour&fc%5B%5D=dx');
+ assert.deepEqual(requested,['Amour']);
+ assert.equal(instance.log.some(x=>Array.isArray(x)&&x[0]==='old:WOL-tab'),false);
+ assert.equal(Object.hasOwn(instance,'openWolSearchTab'),true);
+});
+test('MAIN 0.22.9 search Fidélité routes through the same chooser',async()=>{
+ const instance=new Plugin();await instance.onload();
+ const requested=[];instance.openExplorer=async q=>{requested.push(q);};
+ await instance.openWolSearchTab('https://wol.jw.org/fr/wol/s/r30/lp-f?p=doc&q=Fid%C3%A9lit%C3%A9');
+ assert.deepEqual(requested,['Fidélité']);
+});
+test('direct documents, scripture refs and WOL home keep the original route',async()=>{
+ const instance=new Plugin();await instance.onload();
+ let redirects=0;instance.openExplorer=async()=>{redirects++;};
+ const original=[
+  'https://wol.jw.org/fr/wol/d/r30/lp-f/1200273529',
+  'https://wol.jw.org/fr/wol/pc/r30/lp-f/1200271433/9/0',
+  'https://wol.jw.org/fr/wol/b/r30/lp-f/nwt/43/3',
+  'https://wol.jw.org/fr/wol/s/r30/lp-f?p=par&q=Jean%203%3A16',
+  'https://wol.jw.org/fr/wol/s/r30/lp-f?q=w24.11',
+  'https://wol.jw.org/fr/wol/s/r30/lp-f?q=',
+  'https://wol.jw.org/fr/wol/h/r30/lp-f'
+ ];
+ for(const url of original)assert.equal(await instance.openWolSearchTab(url),'opened-original');
+ assert.equal(redirects,0);
+ assert.equal(instance.log.filter(x=>Array.isArray(x)&&x[0]==='old:WOL-tab').length,original.length);
+});
+test('new tab view is initialized before receiving old sidebar query',async()=>{
+ const instance=new Plugin();await instance.onload();
+ const events=[];const view={
+  getViewType:()=>'jwsd-wol-explorer-023',session:null,
+  onOpen:async()=>{events.push('init');view.session={id:'session'};},
+  search:async q=>{events.push('search '+q);}
+ };
+ const leaf={view:null,setViewState:async state=>{events.push('open '+state.type);leaf.view=view;}};
+ instance.app.workspace.getLeaf=type=>{assert.equal(type,'tab');return leaf;};
+ instance.app.workspace.revealLeaf=async()=>{events.push('reveal');};
+ await instance.openWolSearchTab('https://wol.jw.org/fr/wol/s/r30/lp-f?q=Amour');
+ assert.deepEqual(events,['open jwsd-wol-explorer-023','reveal','init','search Amour']);
 });
