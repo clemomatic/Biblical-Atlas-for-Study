@@ -3,14 +3,23 @@
 The source plugin main.js is a byte-for-byte prefix in the resulting artifact.
 Only main.js, styles.css and manifest.json can differ from the reference ZIP.
 """
-import hashlib,json,zipfile,pathlib,sys
+import hashlib,json,zipfile,pathlib,sys,base64
 
-ROOT=pathlib.Path(__file__).resolve().parents[1]
-SRC=ROOT/'source'
-BASE=pathlib.Path(sys.argv[1]) if len(sys.argv)>1 else pathlib.Path('/mnt/data/JW-Study-Desk-0.22.9(3).zip')
-OUT=pathlib.Path(sys.argv[2]) if len(sys.argv)>2 else pathlib.Path('/mnt/data/JW-Study-Desk-0.23.0-beta.1-Explorer-Test.zip')
+ROOT=pathlib.Path(__file__).resolve().parent
+SRC=ROOT.parent/'source' if (ROOT.parent/'source/explorer-overlay.js').exists() else ROOT
+DEFAULT_BASE=ROOT.parent/'0.22.9/JW-Study-Desk-0.22.9-original.zip'
+BASE=pathlib.Path(sys.argv[1]) if len(sys.argv)>1 else DEFAULT_BASE
+OUT=pathlib.Path(sys.argv[2]) if len(sys.argv)>2 else ROOT/'JW-Study-Desk-0.23.0-beta.1-Explorer-Test.zip'
 EXPECTED='d8fea56c79809c6f39368d89c17adab785bf7a7f2c47803e54a81b0b2bb0fb6b'
 sha=lambda b:hashlib.sha256(b).hexdigest()
+if not BASE.is_file() and len(sys.argv)==1:
+    # No sources are synthesized: restore exactly the saved 0.22.9 ZIP bytes.
+    parts=ROOT.parent/'0.22.9/zip-b64'
+    names=sorted(parts.glob('part-*.b64'))
+    assert len(names)==30, f'ZIP reference parts not found: {parts}'
+    assert [x.name for x in names] == [f'part-{i:02}.b64' for i in range(1,31)]
+    encoded=''.join(x.read_text().strip() for x in names)
+    BASE.write_bytes(base64.b64decode(encoded,validate=True))
 assert BASE.is_file(),f'Base ZIP missing: {BASE}'
 assert sha(BASE.read_bytes())==EXPECTED,'STOP: source archive is not the exact 0.22.9 release'
 with zipfile.ZipFile(BASE) as z:
