@@ -91,7 +91,7 @@ export function validateTalkPlan0229(value: unknown): TalkPlan0229 {
         !Array.isArray(node.references) || !Array.isArray(node.images)) {
       throw new Error('Une bulle de la carte de discours est invalide.');
     }
-    byId.set(node.id, node.parent);
+    byId.set(node.id as string, node.parent as string | null);
   }
   if (byId.get('theme') !== null || (nodes[0] as TalkNode).id !== 'theme') {
     throw new Error('La carte doit conserver le sujet central « theme ».');
