@@ -5,6 +5,7 @@ import {
   companionPlaylistPath, assertPlaylistReplacementAllowed,
   initialSpeakerState, toggleSpeakerFollow
 } from './talkStudio0229Recovery.ts';
+import type { TalkPlan0229 } from './talkStudio0229Recovery.ts';
 
 const plan = () => ({
   version: 1 as const,
@@ -33,7 +34,7 @@ test('0.22.9 cards keep their theme, branches, hymn and unknown project fields',
   const valid = validateTalkPlan0229(plan());
   assert.equal(valid.nodes[0].id, 'theme');
   assert.equal(valid.introSong?.number, 144);
-  assert.deepEqual(valid.outline, { collectionId: 'test', templateId: 'outline', revision: 'abc' });
+  assert.deepEqual(valid.outline, { collectionId: 'test', templateId: 'outline', revision: 'a'.repeat(64) });
 });
 
 test('read and write preserve surrounding Markdown and all original metadata', () => {
@@ -86,7 +87,7 @@ test('0.22.9 validates map layout, source and original template fingerprints', (
   }));
   assert.throws(() => validateTalkPlan0229({
     ...plan(), mapLayout:'unexpected'
-  }), /format inconnu/);
+  }), /Format de carte/);
   assert.throws(() => validateTalkPlan0229({
     ...plan(), outline:{collectionId:'test',templateId:'outline',revision:'bad'}
   }), /modèle de discours/);
@@ -96,20 +97,20 @@ test('0.22.9 validates map layout, source and original template fingerprints', (
 });
 
 test('0.22.9 rejects corrupt map styles and references before modifying Markdown', () => {
-  const badWidth = plan(); badWidth.nodes[1].mapWidth = 1000;
+  const badWidth: TalkPlan0229 = plan(); badWidth.nodes[1].mapWidth = 1000;
   assert.throws(() => validateTalkPlan0229(badWidth), /bulle/);
-  const badPosition = plan(); badPosition.nodes[1].position.x = 1000000;
+  const badPosition: TalkPlan0229 = plan(); badPosition.nodes[1].position.x = 1000000;
   assert.throws(() => validateTalkPlan0229(badPosition), /bulle/);
-  const badReference = plan(); badReference.nodes[1].references[0].read = undefined as unknown as boolean;
+  const badReference: TalkPlan0229 = plan(); badReference.nodes[1].references[0].read = undefined as unknown as boolean;
   assert.throws(() => validateTalkPlan0229(badReference), /bulle/);
-  const badImage = plan(); badImage.nodes[1].images.push({
+  const badImage: TalkPlan0229 = plan(); badImage.nodes[1].images.push({
     path:'illustration.png', caption:'', show:true, mapRatio:9
   });
   assert.throws(() => validateTalkPlan0229(badImage), /bulle/);
 });
 
 test('archivedFrom must match the archived state, invalid rehearsals fail', () => {
-  assert.throws(() => validateTalkPlan0229({...plan(), archivedFrom:'draft'}), /format inconnu/);
+  assert.throws(() => validateTalkPlan0229({...plan(), archivedFrom:'draft'}), /Format de carte/);
   assert.doesNotThrow(() => validateTalkPlan0229({...plan(), status:'archived', archivedFrom:'ready'}));
   assert.throws(() => validateTalkPlan0229({
     ...plan(), lastRehearsal:{date:NaN,seconds:300,checkpoints:{}}
