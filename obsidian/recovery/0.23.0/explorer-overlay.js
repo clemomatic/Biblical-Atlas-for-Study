@@ -308,12 +308,15 @@
       }catch(e){if(seq!==this.sequence)return;this.groups=[];this.updateStatus(String(e?.message||e));}
       finally {if(seq===this.sequence){this.loading=false;this.render();}}
     }
-    async openReference(url,label,context='') {
+    async openReference(url,label,context='',remember=true) {
       const target=safeWolUrl(url);if(!target)return;
-      await this.pushTrail({type:'document',url:target,label:trim(label,180)});
-      // Delegate the actual reading to the existing, untouched 0.22.9 reader.
-      // PC links may be unresolved; in that case expose the official source.
-      if (/\/wol\/pc\//.test(target)) { this.openOfficial(target); return; }
+      // Open the official /pc/ source synchronously from the user's click,
+      // before asynchronous persistence can cause pop-up blocking.
+      const bibliography=/\/wol\/pc\//.test(target);
+      if(bibliography)this.openOfficial(target);
+      if(remember)await this.pushTrail({type:'document',url:target,label:trim(label,180)});
+      // Delegate direct document reading to the untouched 0.22.9 reader.
+      if(bibliography){this.render();return;}
       try { await this.plugin.openBibleLab(target,label); }
       catch { this.openOfficial(target); }
       this.render();
@@ -343,7 +346,7 @@
       const item=this.session?.trail[index];if(!item)return;
       if(item.type==='search') {this.query=item.query;await this.search(item.query,false);}
       else if(item.type==='index')await this.exploreIndex(item.url,item.label,false);
-      else await this.openReference(item.url,item.label);
+      else await this.openReference(item.url,item.label,'',false);
     }
     card(host,hit,options={}) {
       const card=textNode('article','jwsd-x-card');
