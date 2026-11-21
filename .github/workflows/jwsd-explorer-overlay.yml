@@ -29,7 +29,7 @@ jobs:
           python3 - <<'PY'
           import zipfile, pathlib, hashlib
           root=pathlib.Path('obsidian/recovery')
-          new=root/'0.23.0/JW-Study-Desk-0.23.0-beta.1-Explorer-Test.zip'
+          new=root/'0.23.0/JW-Study-Desk-0.23.0-beta.3-Explorer-Test.zip'
           old=root/'0.22.9/JW-Study-Desk-0.22.9-original.zip'
           assert hashlib.sha256(old.read_bytes()).hexdigest()=='d8fea56c79809c6f39368d89c17adab785bf7a7f2c47803e54a81b0b2bb0fb6b'
           with zipfile.ZipFile(old) as a, zipfile.ZipFile(new) as b:
@@ -45,6 +45,6 @@ jobs:
       - name: Upload experimental archive
         uses: actions/upload-artifact@v4
         with:
-          name: JW-Study-Desk-0.23.0-beta.1-Explorer-Test
-          path: obsidian/recovery/0.23.0/JW-Study-Desk-0.23.0-beta.1-Explorer-Test.zip
+          name: JW-Study-Desk-0.23.0-beta.3-Explorer-Test
+          path: obsidian/recovery/0.23.0/JW-Study-Desk-0.23.0-beta.3-Explorer-Test.zip
           if-no-files-found: error
