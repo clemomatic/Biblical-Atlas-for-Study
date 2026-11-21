@@ -458,9 +458,44 @@
       const status=textNode('p','jwsd-x-status',this.status||'Saisis un mot pour explorer WOL et son Index.');
       status.setAttribute('role','status');status.setAttribute('aria-live','polite');this.statusEl=status;host.append(status);
       const body=textNode('div','jwsd-x-body');host.append(body);
-      if(this.groups.length){
+      if(this.indexHits.length){
+        const section=textNode('section','jwsd-x-panel jwsd-x-index-choices');
+        section.append(textNode('h3','','Choisis une rubrique de l’Index'));
+        section.append(textNode('p','jwsd-x-muted',
+          'Les titres exacts apparaissent d’abord. Aucune rubrique n’est ouverte automatiquement.'));
+        const labels=['Correspondance exacte','Rubriques commençant par ce terme',
+          'Rubriques contenant ce terme','Autres rubriques associées'];
+        for (let rank=0;rank<4;rank++){
+          const matches=this.indexHits.filter(hit=>hit.rank===rank);
+          if(!matches.length)continue;
+          section.append(textNode('h4','jwsd-x-choice-category',labels[rank]));
+          const list=textNode('div','jwsd-x-choice-list');
+          for(const hit of matches){
+            const choice=button(hit.title,()=>this.exploreIndex(hit.url,hit.title),'jwsd-x-choice');
+            if(hit.url===this.indexUrl){
+              choice.classList.add('is-selected');
+              choice.setAttribute('aria-current','true');
+            }
+            const info=textNode('div','jwsd-x-choice-info');
+            info.append(choice);
+            if(hit.meta)info.append(textNode('small','jwsd-x-muted',hit.meta));
+            list.append(info);
+          }
+          section.append(list);
+        }
+        if(!this.indexExhausted && this.indexPage<MAX_INDEX_PAGES){
+          const more=button('Afficher d’autres rubriques',()=>this.loadMoreIndex());
+          more.disabled=this.loading;section.append(more);
+        }
+        section.append(button('Voir tous les résultats de l’Index sur WOL ↗',
+          ()=>this.openOfficial(urlFor(this.query,'index'))));
+        body.append(section);
+      }
+      if(this.indexUrl){
         const section=textNode('section','jwsd-x-panel');
-        section.append(textNode('h3','','Dans l’Index'));
+        section.append(textNode('h3','',`Rubrique choisie : ${this.selectedIndexLabel||'Index'}`));
+        if(!this.loading && !this.groups.length)
+          section.append(textNode('p','jwsd-x-muted','Aucune référence structurée extraite ; consulte la rubrique officielle.'));
         for(const group of this.groups.slice(0,60)){
           const block=textNode('div','jwsd-x-index-block');
           if(group.path.length) block.append(textNode('small','jwsd-x-muted',group.path.join(' › ')));
@@ -471,12 +506,8 @@
           if(group.refs.length>9)block.append(textNode('p','jwsd-x-muted',`+${group.refs.length-9} référence(s) sur WOL`));
           section.append(block);
         }
-        if(this.indexUrl)section.append(button('Ouvrir l’entrée complète sur WOL ↗',()=>this.openOfficial(this.indexUrl)));
+        section.append(button('Ouvrir cette rubrique sur WOL ↗',()=>this.openOfficial(this.indexUrl)));
         body.append(section);
-      }
-      if(this.indexHits.length){
-        const section=textNode('section','jwsd-x-panel');section.append(textNode('h3','','Entrées de l’Index'));
-        for(const hit of this.indexHits.slice(0,18))this.card(section,hit,{index:true});body.append(section);
       }
       if(this.hits.length){
         const section=textNode('section','jwsd-x-panel');section.append(textNode('h3','','Articles et publications'));
