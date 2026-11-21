@@ -55,11 +55,54 @@ test('Official WOL sentence and Index filters are sent only on explicit search',
  await pane.getByRole('button',{name:'Voir les résultats'}).click();
  await expect(pane.getByText('Index : amour fidèle')).toBeVisible();
  const requests=await page.evaluate(()=>(window as any).atlasNetworkRequests);
- expect(requests).toHaveLength(1);
+ // A search result identified as an Index entry triggers one extra official fetch.
+ expect(requests).toHaveLength(2);
  const url=new URL(requests[0].url);
  expect(url.searchParams.get('p')).toBe('sen');
  expect(url.searchParams.get('fc[]')).toBe('dx');
  expect(url.searchParams.get('q')).toBe('amour fidèle');
+});
+
+
+test('Index entry preserves introductory phrases and shows official references with 1:1 placeholders',async({page})=>{
+ const searchHtml='<html><main class="searchResults"><article>'+
+  '<a href="/fr/wol/d/r30/lp-f/1200271433">Courage — Index</a>'+
+  '<p>dx86-23 — Index 1986-2023</p></article></main></html>';
+ const indexHtml='<html><article><h1>COURAGE</h1><div class="bodyTxt">'+
+  '<p>comment cultiver : <a href="/fr/wol/d/r30/lp-f/2019485">w19.07 5-6</a>; '+
+  '<a href="/fr/wol/d/r30/lp-f/202017285">mwb17.08 4</a></p>'+
+  '<p>dans la famille : <a href="/fr/wol/pc/r30/lp-f/1200271433/9/0">w17.09 29-31</a></p>'+
+  '</div></article></html>';
+ await page.route(/wol\.jw\.org\/fr\/wol\/s\/r30\/lp-f/,route=>route.fulfill({
+  status:200,contentType:'text/html',body:searchHtml
+ }));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/1200271433',route=>route.fulfill({
+  status:200,contentType:'text/html',body:indexHtml
+ }));
+ await page.route('https://wol.jw.org/fr/wol/d/r30/lp-f/2019485',route=>route.fulfill({
+  status:200,contentType:'text/html',
+  body:'<html><main><h1>Article sélectionné</h1><p>Le courage se cultive.</p></main></html>'
+ }));
+ const pane=page.locator('.biblelab-side');
+ await pane.getByPlaceholder('Sujet, publication ou verset…').fill('courage');
+ await pane.getByRole('button',{name:'Voir les résultats'}).click();
+ const preview=pane.locator('.biblelab-index-preview');
+ await expect(preview).toBeVisible();
+ await expect(preview.getByText('comment cultiver')).toBeVisible();
+ await expect(preview.getByText('dans la famille')).toBeVisible();
+ await expect(preview.getByRole('button',{name:'w19.07 5-6'})).toBeVisible();
+ await expect(preview.getByRole('button',{name:'w17.09 29-31'})).toBeVisible();
+ // An official /pc/ bibliography link must open WOL rather than the older /d/ reader.
+ await preview.getByRole('button',{name:'w17.09 29-31'}).click();
+ const opened=await page.evaluate(()=>(window as any).openedSites);
+ expect(opened[0]).toBe('https://wol.jw.org/fr/wol/pc/r30/lp-f/1200271433/9/0');
+ await expect(pane.locator('.biblelab-tab[aria-label="WOL"]')).toHaveAttribute('aria-selected','true');
+ await expect(preview.locator('.biblelab-index-thumb')).toHaveCount(3);
+ const box=await preview.locator('.biblelab-index-thumb').first().boundingBox();
+ expect(box).not.toBeNull();
+ expect(box!.width).toBe(box!.height);
+ await preview.getByRole('button',{name:'w19.07 5-6'}).click();
+ await expect(pane.locator('.biblelab-tab[aria-label="Références"]')).toHaveAttribute('aria-selected','true');
 });
 
 test('JW.org and JW Library remain separate official navigation targets',async({page})=>{
