@@ -116,8 +116,13 @@ export function duplicateTalkBranch0229(
     }
     assigned.add(next); replacements.set(n.id, next);
   }
-  const newRootX = root.position.x + (root.position.x < 0 ? -260 : 260);
-  const newRootY = root.position.y + 220;
+  // Original rm() chooses the next unoccupied position near the parent.
+  const anchor = root.parent ? get(plan, root.parent)?.position : undefined;
+  const newRootX = anchor ? anchor.x + (anchor.x < 0 ? -260 : 260) : 0;
+  let newRootY = anchor?.y ?? 220;
+  while (plan.nodes.some(n =>
+    Math.abs(n.position.x - newRootX) < 212 &&
+    Math.abs(n.position.y - newRootY) < 102)) newRootY += 108;
   const copies = branch.map(n => {
     const duplicate = structuredClone(n);
     duplicate.id = replacements.get(n.id)!;
