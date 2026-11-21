@@ -9,7 +9,7 @@ ROOT=pathlib.Path(__file__).resolve().parent
 SRC=ROOT.parent/'source' if (ROOT.parent/'source/explorer-overlay.js').exists() else ROOT
 DEFAULT_BASE=ROOT.parent/'0.22.9/JW-Study-Desk-0.22.9-original.zip'
 BASE=pathlib.Path(sys.argv[1]) if len(sys.argv)>1 else DEFAULT_BASE
-OUT=pathlib.Path(sys.argv[2]) if len(sys.argv)>2 else ROOT/'JW-Study-Desk-0.23.0-beta.3-Explorer-Test.zip'
+OUT=pathlib.Path(sys.argv[2]) if len(sys.argv)>2 else ROOT/'JW-Study-Desk-0.23.0-beta.4-Explorer-Test.zip'
 EXPECTED='d8fea56c79809c6f39368d89c17adab785bf7a7f2c47803e54a81b0b2bb0fb6b'
 sha=lambda b:hashlib.sha256(b).hexdigest()
 if not BASE.is_file() and len(sys.argv)==1:
@@ -35,7 +35,7 @@ files['atlas-biblique/main.js']=old_main+b'\n\n/* JWSD 0.23.0 beta: additive Exp
 files['atlas-biblique/styles.css']=old_css+b'\n\n'+css+b'\n'
 manifest=json.loads(files['atlas-biblique/manifest.json'])
 assert manifest['id']=='atlas-biblique' and manifest['version']=='0.22.9'
-manifest['version']='0.23.0-beta.3'
+manifest['version']='0.23.0-beta.4'
 files['atlas-biblique/manifest.json']=(json.dumps(manifest,ensure_ascii=False,indent=2)+'\n').encode()
 assert files['atlas-biblique/main.js'].startswith(old_main), 'original bundle modified!'
 assert files['atlas-biblique/styles.css'].startswith(old_css), 'original CSS modified!'
@@ -50,6 +50,6 @@ with zipfile.ZipFile(OUT) as z:
     assert z.testzip() is None
     assembled=z.read('atlas-biblique/main.js')
     assert assembled[:len(old_main)]==old_main
-    assert json.loads(z.read('atlas-biblique/manifest.json'))['version']=='0.23.0-beta.3'
+    assert json.loads(z.read('atlas-biblique/manifest.json'))['version']=='0.23.0-beta.4'
     assert len(set(z.namelist()))==len(z.namelist())
 print(json.dumps({'output':str(OUT),'base_sha256':sha(BASE.read_bytes()),'original_main_sha256':sha(old_main),'new_zip_sha256':sha(OUT.read_bytes()),'files':len(files),'original_main_prefix_preserved':True,'old_css_prefix_preserved':True},ensure_ascii=False,indent=2))
