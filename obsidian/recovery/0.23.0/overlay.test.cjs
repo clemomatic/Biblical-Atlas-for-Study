@@ -6,7 +6,7 @@ const path = require('node:path');
 const source = fs.readFileSync(fs.existsSync(path.join(__dirname,'explorer-overlay.js')) ? path.join(__dirname,'explorer-overlay.js') : path.join(__dirname,'../source/explorer-overlay.js'), 'utf8');
 const targeted = '  module.exports=JwsdExplorerPlugin;';
 assert.equal(source.split(targeted).length,2);
-const instrumented = source.replace(targeted,`  JwsdExplorerPlugin.__test = {safeWolUrl,safeReferenceUrl,safeThumb,safeState,urlFor,indexGroups,searchResults};\n${targeted}`);
+const instrumented = source.replace(targeted,`  JwsdExplorerPlugin.__test = {safeWolUrl,safeReferenceUrl,safeThumb,safeState,urlFor,indexGroups,searchResults,indexTopic,indexMatchRank,indexChoices,ExplorerView};\n${targeted}`);
 
 class MockView {constructor(leaf){this.leaf=leaf;this.contentEl={};}}
 class BasePlugin {
@@ -181,4 +181,92 @@ test('search parser accepts explicit result containers with official targets',()
     assert.equal(found[0].url,'https://wol.jw.org/fr/wol/d/r30/lp-f/1200271433');
     assert.equal(found[0].kind,'index');
   });
+});
+
+test('Index choices keep Amour separate from Amour fidèle; exact hit is first',()=>{
+ const hits=[
+  {title:'Amour fidèle',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/1200273532'},
+  {title:'Amour (\u200e5 occurrences)',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270001'},
+  {title:'Amour fraternel',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270002'},
+  {title:'Grandeur de l’amour',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270003'},
+  {title:'Amour fidèle',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/1200273532'}
+ ];
+ const choices=internals.indexChoices('Amour',hits);
+ assert.deepEqual(Array.from(choices.map(hit=>hit.title)),['Amour','Amour fidèle','Amour fraternel','Grandeur de l’amour']);
+ assert.deepEqual(Array.from(choices.map(hit=>hit.rank)),[0,1,1,2]);
+ assert.equal(choices.length,4);
+});
+test('Fidélité is ranked before Haute fidélité despite WOL input order',()=>{
+ const choices=internals.indexChoices('FIDÉLITÉ',[
+  {title:'Haute fidélité',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/123'},
+  {title:'Fidélité',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/124'},
+  {title:'Fidélité à Jéhovah',url:'https://wol.jw.org/fr/wol/d/r30/lp-f/125'}
+ ]);
+ assert.deepEqual(Array.from(choices.map(h=>h.title)),['Fidélité','Fidélité à Jéhovah','Haute fidélité']);
+ assert.deepEqual(Array.from(choices.map(h=>h.rank)),[0,1,2]);
+});
+function choiceHarness(){
+ const items=entries=>new El('div',{cls:'searchResults',children:
+   entries.map(([title,url])=>new El('li',{children:[link(url,title)]}))});
+ const first=items([
+  ['Amour fidèle','/fr/wol/d/r30/lp-f/1200273532'],
+  ['Amour','/fr/wol/d/r30/lp-f/1200270001'],
+  ['Amour fraternel','/fr/wol/d/r30/lp-f/1200270002']]);
+ const second=items([['L’amour dans la famille','/fr/wol/d/r30/lp-f/1200270042']]);
+ const article=new El('div',{cls:'bodyTxt',children:[
+  row('comment manifester l’amour : ',[link('/fr/wol/d/r30/lp-f/202012004','w12 12/10 15')])
+ ]});
+ const scope={module:{exports:BasePlugin},URL,URLSearchParams,Math,Date,console,
+   DOMParser:class{parseFromString(html){
+     const root=html==='INDEX'?first:html==='MORE'?second:
+       html==='ENTRY'?article:items([]);
+     return {querySelector(selector){
+       return selector.includes('#searchResults')? (html==='ENTRY'?null:root):
+         selector.includes('.bodyTxt')?(html==='ENTRY'?article:null):null;
+     }};
+   }},
+   require:()=>({ItemView:MockView,Notice:class{},requestUrl:async()=>{},setIcon:()=>{}})
+ };
+ vm.runInNewContext(instrumented,scope);
+ const view=new scope.module.exports.__test.ExplorerView({},new BasePlugin());
+ const requests=[];
+ view.render=()=>{};view.pushTrail=async()=>{};
+ view.updateStatus=message=>{view.status=message;};
+ view.fetchHtml=async url=>{
+   requests.push(url);const u=new URL(url);
+   return u.pathname.includes('/s/')?
+     u.searchParams.has('fc[]')?(u.searchParams.get('pg')==='2'?'MORE':'INDEX'):'SEARCH':'ENTRY';
+ };
+ return {view,requests};
+}
+test('search shows all Index choices and never preloads the first subject',async()=>{
+ const {view,requests}=choiceHarness();
+ await view.search('Amour');
+ assert.deepEqual(Array.from(view.indexHits.map(h=>h.title)),['Amour','Amour fidèle','Amour fraternel']);
+ assert.equal(view.indexUrl,null);
+ assert.equal(view.groups.length,0);
+ assert.equal(requests.length,2);
+ assert.match(view.status,/Choisis/);
+ await view.exploreIndex(view.indexHits[0].url,view.indexHits[0].title);
+ assert.equal(view.selectedIndexLabel,'Amour');
+ assert.equal(view.groups.length,1);
+ assert.equal(requests.length,3);
+ assert.equal(requests[2],'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270001');
+});
+test('more Index choices do not override the selected topic or request its article',async()=>{
+ const {view,requests}=choiceHarness();
+ await view.search('Amour');
+ await view.loadMoreIndex();
+ assert.equal(view.indexPage,2);
+ assert.equal(view.indexHits.length,4);
+ assert.equal(view.indexUrl,null);
+ assert.equal(view.groups.length,0);
+ assert.equal(requests.length,3);
+ assert.equal(new URL(requests[2]).searchParams.get('pg'),'2');
+ await view.exploreIndex(view.indexHits[0].url,view.indexHits[0].title);
+ await view.loadMoreIndex();
+ assert.equal(view.indexPage,3);
+ assert.equal(view.indexExhausted,true);
+ assert.equal(view.indexUrl,'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270001');
+ assert.equal(view.groups.length,1);
 });
