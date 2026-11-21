@@ -71,7 +71,7 @@ test('Index entry preserves introductory phrases and shows official references w
  const indexHtml='<html><article><h1>COURAGE</h1><div class="bodyTxt">'+
   '<p>comment cultiver : <a href="/fr/wol/d/r30/lp-f/2019485">w19.07 5-6</a>; '+
   '<a href="/fr/wol/d/r30/lp-f/202017285">mwb17.08 4</a></p>'+
-  '<p>dans la famille : <a href="/fr/wol/d/r30/lp-f/2017564">w17.09 29-31</a></p>'+
+  '<p>dans la famille : <a href="/fr/wol/pc/r30/lp-f/1200271433/9/0">w17.09 29-31</a></p>'+
   '</div></article></html>';
  await page.route(/wol\.jw\.org\/fr\/wol\/s\/r30\/lp-f/,route=>route.fulfill({
   status:200,contentType:'text/html',body:searchHtml
@@ -91,6 +91,7 @@ test('Index entry preserves introductory phrases and shows official references w
  await expect(preview.getByText('comment cultiver')).toBeVisible();
  await expect(preview.getByText('dans la famille')).toBeVisible();
  await expect(preview.getByRole('button',{name:'w19.07 5-6'})).toBeVisible();
+ await expect(preview.getByRole('button',{name:'w17.09 29-31'})).toBeVisible();
  await expect(preview.locator('.biblelab-index-thumb')).toHaveCount(3);
  const box=await preview.locator('.biblelab-index-thumb').first().boundingBox();
  expect(box).not.toBeNull();
