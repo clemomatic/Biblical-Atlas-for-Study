@@ -53,7 +53,13 @@ export interface TalkPlan0229 {
   nodes: TalkNode[];
   relations: Array<{ from: string; to: string; label: string }>;
   introSong?: TalkIntroSong;
-  [key: string]: unknown; // preserve outline, Xmind, pictures, rehearsals, etc.
+  mapLayout?: 'auto' | 'free';
+  archivedFrom?: 'draft' | 'ready';
+  source?: string;
+  outline?: { collectionId: string; templateId: string; revision: string; number?: number };
+  xmind?: { archive: string; sheet: number; filename: string; number?: number };
+  lastRehearsal?: { date: number; seconds: number; checkpoints: Record<string, number> };
+  [key: string]: unknown; // preserve other future fields, don't silently drop them.
 }
 
 const CODE_FENCE = /^\`\`\`jwsd-discours[ \t]*\r?\n([\s\S]*?)^\`\`\`[ \t]*$/m;
@@ -73,8 +79,42 @@ export function validateTalkPlan0229(value: unknown): TalkPlan0229 {
       typeof value.favorite !== 'boolean' ||
       !Array.isArray(value.tags) || value.tags.some(tag => typeof tag !== 'string') ||
       !Array.isArray(value.nodes) || value.nodes.length < 1 || value.nodes.length > 500 ||
-      !Array.isArray(value.relations)) {
+      !Array.isArray(value.relations) ||
+      (value.mapLayout !== undefined && !['auto','free'].includes(String(value.mapLayout))) ||
+      (value.archivedFrom !== undefined &&
+        (value.status !== 'archived' || !['draft','ready'].includes(String(value.archivedFrom)))) ||
+      (value.source !== undefined && typeof value.source !== 'string')) {
     throw new Error('Format de carte de discours inconnu ou incomplet.');
+  }
+  const fingerprint = /^[a-f0-9]{64}$/;
+  if (value.outline !== undefined) {
+    const outline = value.outline;
+    if (!isRecord(outline) || typeof outline.collectionId !== 'string' || !outline.collectionId ||
+        typeof outline.templateId !== 'string' || !outline.templateId ||
+        typeof outline.revision !== 'string' || !fingerprint.test(outline.revision) ||
+        (outline.number !== undefined && (!Number.isInteger(outline.number) ||
+          Number(outline.number) < 1 || Number(outline.number) > 999))) {
+      throw new Error('Les métadonnées du modèle de discours sont invalides.');
+    }
+  }
+  if (value.xmind !== undefined) {
+    const xmind = value.xmind;
+    if (!isRecord(xmind) || typeof xmind.archive !== 'string' || !fingerprint.test(xmind.archive) ||
+        !Number.isInteger(xmind.sheet) || Number(xmind.sheet) < 0 ||
+        typeof xmind.filename !== 'string' ||
+        (xmind.number !== undefined && (!Number.isInteger(xmind.number) ||
+          Number(xmind.number) < 1 || Number(xmind.number) > 999))) {
+      throw new Error('Les métadonnées XMind du discours sont invalides.');
+    }
+  }
+  if (value.lastRehearsal !== undefined) {
+    const rehearsal = value.lastRehearsal;
+    if (!isRecord(rehearsal) || typeof rehearsal.date !== 'number' ||
+        !Number.isFinite(rehearsal.date) || !Number.isFinite(new Date(rehearsal.date).getTime()) ||
+        !boundedSeconds(rehearsal.seconds) || !isRecord(rehearsal.checkpoints) ||
+        Object.values(rehearsal.checkpoints).some(item => !boundedSeconds(item))) {
+      throw new Error('Le relevé de répétition est invalide.');
+    }
   }
   const nodes = value.nodes as unknown[];
   const byId = new Map<string, string | null>();
@@ -85,10 +125,24 @@ export function validateTalkPlan0229(value: unknown): TalkPlan0229 {
         !isRecord(node.position) || typeof node.position.x !== 'number' ||
         typeof node.position.y !== 'number' ||
         !Number.isFinite(node.position.x) || !Number.isFinite(node.position.y) ||
+        Math.abs(node.position.x) > 150000 || Math.abs(node.position.y) > 150000 ||
+        (node.mapText !== undefined && typeof node.mapText !== 'boolean') ||
+        (node.mapWidth !== undefined && (!Number.isInteger(node.mapWidth) ||
+          Number(node.mapWidth) < 140 || Number(node.mapWidth) > 720)) ||
+        (node.mapColor !== undefined &&
+          (typeof node.mapColor !== 'string' || !/^#[a-f0-9]{6}$/i.test(node.mapColor))) ||
+        (node.mapDirection !== undefined && !['left','right','up','down'].includes(String(node.mapDirection))) ||
         !COLORS.has(node.color as TalkColor) ||
         !['auto', 'fixed', 'cue'].includes(String(node.mode)) ||
         !boundedSeconds(node.seconds) || typeof node.collapsed !== 'boolean' ||
-        !Array.isArray(node.references) || !Array.isArray(node.images)) {
+        !Array.isArray(node.references) || !Array.isArray(node.images) ||
+        node.references.some(ref => !isRecord(ref) || typeof ref.label !== 'string' ||
+          typeof ref.url !== 'string' || typeof ref.read !== 'boolean' ||
+          (ref.excerpt !== undefined && typeof ref.excerpt !== 'string')) ||
+        node.images.some(image => !isRecord(image) || typeof image.path !== 'string' ||
+          typeof image.caption !== 'string' || typeof image.show !== 'boolean' ||
+          (image.mapRatio !== undefined && (typeof image.mapRatio !== 'number' ||
+            !Number.isFinite(image.mapRatio) || image.mapRatio < .35 || image.mapRatio > 4)))) {
       throw new Error('Une bulle de la carte de discours est invalide.');
     }
     byId.set(node.id as string, node.parent as string | null);
@@ -180,7 +234,7 @@ export interface SpeakerRecoveryState {
   inlineNotes: boolean;
 }
 export const initialSpeakerState = (): SpeakerRecoveryState => ({
-  currentBranch: 0, followBranch: true, inlineNotes: false
+  currentBranch: 0, followBranch: true, inlineNotes: true
 });
 export const toggleSpeakerFollow = (state: SpeakerRecoveryState): SpeakerRecoveryState => ({
   ...state, followBranch: !state.followBranch
