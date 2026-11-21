@@ -245,13 +245,13 @@ test('search shows all Index choices and never preloads the first subject',async
  assert.deepEqual(Array.from(view.indexHits.map(h=>h.title)),['Amour','Amour fidèle','Amour fraternel']);
  assert.equal(view.indexUrl,null);
  assert.equal(view.groups.length,0);
- assert.equal(requests.length,2);
+ assert.equal(requests.length,3);
  assert.match(view.status,/Choisis/);
  await view.exploreIndex(view.indexHits[0].url,view.indexHits[0].title);
  assert.equal(view.selectedIndexLabel,'Amour');
  assert.equal(view.groups.length,1);
- assert.equal(requests.length,3);
- assert.equal(requests[2],'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270001');
+ assert.equal(requests.length,4);
+ assert.equal(requests[3],'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270001');
 });
 test('more Index choices do not override the selected topic or request its article',async()=>{
  const {view,requests}=choiceHarness();
@@ -261,12 +261,40 @@ test('more Index choices do not override the selected topic or request its artic
  assert.equal(view.indexHits.length,4);
  assert.equal(view.indexUrl,null);
  assert.equal(view.groups.length,0);
- assert.equal(requests.length,3);
- assert.equal(new URL(requests[2]).searchParams.get('pg'),'2');
+ assert.equal(requests.length,4);
+ assert.equal(new URL(requests[3]).searchParams.get('pg'),'2');
  await view.exploreIndex(view.indexHits[0].url,view.indexHits[0].title);
  await view.loadMoreIndex();
  assert.equal(view.indexPage,3);
  assert.equal(view.indexExhausted,true);
  assert.equal(view.indexUrl,'https://wol.jw.org/fr/wol/d/r30/lp-f/1200270001');
  assert.equal(view.groups.length,1);
+});
+
+test('WOL search pages with results directly inside main are parsed',()=>{
+ const content=new El('main',{children:[
+  new El('li',{children:[link('/fr/wol/d/r30/lp-f/1200273532','Amour fidèle'),
+    {nodeType:3,textContent:' dx86-23 - Index 1986-2023'}]}),
+  new El('li',{children:[link('/fr/wol/d/r30/lp-f/1200273529','Amour'),
+    {nodeType:3,textContent:' dx86-23 - Index 1986-2023'}]})
+ ]});
+ withDocument(()=>({querySelector:(selector)=>selector.includes('main')?content:null}),tools=>{
+  const hits=tools.searchResults('<html><main>23 résultats</main></html>',tools.urlFor('Amour','index'),true);
+  assert.equal(hits.length,2);
+  assert.deepEqual(Array.from(tools.indexChoices('Amour',hits).map(h=>h.title)),['Amour','Amour fidèle']);
+ });
+});
+test('navigation links without a search marker are not fabricated as Index choices',()=>{
+ const content=new El('main',{children:[new El('li',{children:[
+  link('/fr/wol/d/r30/lp-f/1200273532','Amour fidèle')
+ ]})]});
+ withDocument(()=>({querySelector:(selector)=>selector.includes('main')?content:null}),tools=>{
+  assert.equal(tools.searchResults('<main>navigation</main>',tools.urlFor('Amour','index'),true).length,0);
+ });
+});
+test('WOL index search is document-oriented and scoped',()=>{
+ const url=new URL(internals.urlFor('amour','index'));
+ assert.equal(url.searchParams.get('p'),'doc');
+ assert.equal(url.searchParams.get('st'),'g');
+ assert.equal(url.searchParams.get('fc[]'),'dx');
 });
