@@ -22,7 +22,8 @@ export function officialIndexHref(href: string, baseUrl: string): string | null 
     // No non-HTTPS schemes, credentials, third-party hosts or unrelated routes.
     const safe = cleanWolUrl(absolute.toString());
     if (!safe) return null;
-    if (!/^\/fr\/wol\/(?:d|l|b)\/r30\/lp-f(?:\/|$)/.test(new URL(safe).pathname)) return null;
+    // WOL Index bibliography hyperlinks commonly use /pc/ links, not /d/ document IDs.
+    if (!/^\/fr\/wol\/(?:d|l|b|pc)\/r30\/lp-f(?:\/|$)/.test(new URL(safe).pathname)) return null;
     return safe;
   } catch { return null; }
 }
@@ -47,10 +48,11 @@ export function groupWolIndexRows(rows: WolIndexRow[]): WolIndexRow[] {
     const seen = new Set(target.references.map(ref => ref.url));
     for (const ref of row.references) {
       const label = tidy(ref.label, 130);
-      if (!label || !ref.url || seen.has(ref.url)) continue;
+      const safeRef = officialIndexHref(ref.url, 'https://wol.jw.org');
+      if (!label || !safeRef || seen.has(safeRef)) continue;
       if (count >= MAX_INDEX_LINKS) return output;
-      target.references.push({ label, url: ref.url });
-      seen.add(ref.url);
+      target.references.push({ label, url: safeRef });
+      seen.add(safeRef);
       count++;
     }
   }
