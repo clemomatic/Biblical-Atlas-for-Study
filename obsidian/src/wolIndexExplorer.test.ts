@@ -11,6 +11,9 @@ test('official index links reject foreign domains and unsafe protocols', () => {
   assert.equal(officialIndexHref('https://wol.jw.org/other/path', BASE), null);
   assert.equal(officialIndexHref('/fr/wol/d/r30/lp-f/2019485', BASE),
     'https://wol.jw.org/fr/wol/d/r30/lp-f/2019485');
+  // Actual Index bibliography links use /pc/ (publication citations).
+  assert.equal(officialIndexHref('/fr/wol/pc/r30/lp-f/1200271433/7/0', BASE),
+    'https://wol.jw.org/fr/wol/pc/r30/lp-f/1200271433/7/0');
 });
 
 test('index context preceding references stays grouped with each article', () => {
@@ -39,6 +42,9 @@ test('duplicate citations are deduplicated but distinct Index sections are prese
   assert.equal(rows.length, 2);
   assert.equal(rows[0].references.length, 1);
   assert.equal(rows[1].section, 'facteurs');
+  assert.deepEqual(groupWolIndexRows([{context:'x',references:[
+    {label:'unsafe',url:'https://evil.test/fr/wol/pc/r30/lp-f/111/1/0'}
+  ]}]), []);
 });
 
 test('limits protect the sidebar from Index documents with thousands of links', () => {
