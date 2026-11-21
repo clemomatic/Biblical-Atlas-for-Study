@@ -5,6 +5,7 @@
 La version **0.22.9** reçue est un ZIP *installable*. Elle contient `main.js`, `styles.css`, `manifest.json` et la documentation, mais pas les sources TypeScript originales ni de sourcemap.
 
 - **`original/atlas-biblique/`** : reproduction bit à bit de la livraison fournie, sans modification. C'est **cette version seulement** qui est considérée comme installable et fonctionnelle selon la livraison précédente.
+- **`JW-Study-Desk-0.16.0-sources-base.zip`** : dernière archive complète de sources TypeScript retrouvée ; **point de comparaison uniquement**, plus ancienne que le plugin livré.
 - **`main.recovered.js`** : représentation plus lisible du bundle JavaScript générée par l'imprimeur syntaxique TypeScript, analysée sans erreur de syntaxe (`node --check`). **Ce n'est PAS la base TypeScript d'origine** et aucune équivalence fonctionnelle dans Obsidian n'a encore été vérifiée.
 - **`atelier-discours-extraits.js`** : extrait des principales fonctions et classes liées à l'Atelier discours depuis le bundle. Les identifiants minifiés et dépendances globales y sont conservés. **Fichier de référence non exécutable seul**.
 - **`symboles-atelier.json`** : table des noms, tailles et positions de ces fonctions/classes dans le bundle.
