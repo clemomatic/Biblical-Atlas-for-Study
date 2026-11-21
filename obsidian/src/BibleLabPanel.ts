@@ -489,7 +489,12 @@ export class BibleLabSidebarView extends ItemView {
           setIcon(thumb,'book-open');
           const info=line.createDiv({cls:'biblelab-index-ref-copy'});
           const open=info.createEl('button',{cls:'biblelab-index-open',text:ref.label,attr:{type:'button'}});
-          open.addEventListener('click',()=>this.focusReference(ref.url,ref.label));
+          // A /pc/ bibliography target is a WOL navigation page; the older integrated
+          // reader supports /d/ but cannot yet resolve /pc/ to a verified article.
+          open.addEventListener('click',()=>{
+            if(new URL(ref.url).pathname.startsWith('/fr/wol/pc/'))external(ref.url);
+            else this.focusReference(ref.url,ref.label);
+          });
           const direct=info.createEl('a',{text:'WOL ↗',href:ref.url,attr:{target:'_blank',rel:'noopener noreferrer'}});
           direct.addEventListener('click',event=>{event.preventDefault();external(ref.url);});
         }
