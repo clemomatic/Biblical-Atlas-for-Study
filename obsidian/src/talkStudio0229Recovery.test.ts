@@ -25,7 +25,7 @@ const plan = () => ({
   relations: [],
   introSong: { number: 144, title: 'Fixons nos regards sur le prix !',
     url: 'https://www.jw.org/fr/biblioth%C3%A8que/musique-chansons/chantons-joyeusement/144-fixons-nos-regards-sur-le-prix/' },
-  outline: { collectionId: 'test', templateId: 'outline', revision: 'abc' },
+  outline: { collectionId: 'test', templateId: 'outline', revision: 'a'.repeat(64) },
   xmind: { archive: 'a'.repeat(64), sheet: 0, filename: 'carte.xmind' }
 });
 
@@ -74,6 +74,44 @@ test('playlist path is a safe sibling of the Markdown project', () => {
 test('speaker follows current branch by default, and the control is reversible', () => {
   const initial = initialSpeakerState();
   assert.equal(initial.followBranch, true);
+  assert.equal(initial.inlineNotes, true);
   assert.equal(toggleSpeakerFollow(initial).followBranch, false);
   assert.deepEqual(toggleSpeakerFollow(toggleSpeakerFollow(initial)), initial);
+});
+
+test('0.22.9 validates map layout, source and original template fingerprints', () => {
+  assert.doesNotThrow(() => validateTalkPlan0229({
+    ...plan(), mapLayout:'free', source:'JWPub source ID',
+    lastRehearsal:{date:Date.now(),seconds:1234,checkpoints:{theme:0,'part-a':500}}
+  }));
+  assert.throws(() => validateTalkPlan0229({
+    ...plan(), mapLayout:'unexpected'
+  }), /format inconnu/);
+  assert.throws(() => validateTalkPlan0229({
+    ...plan(), outline:{collectionId:'test',templateId:'outline',revision:'bad'}
+  }), /modèle de discours/);
+  assert.throws(() => validateTalkPlan0229({
+    ...plan(), xmind:{archive:'bad',sheet:0,filename:'plan.xmind'}
+  }), /XMind/);
+});
+
+test('0.22.9 rejects corrupt map styles and references before modifying Markdown', () => {
+  const badWidth = plan(); badWidth.nodes[1].mapWidth = 1000;
+  assert.throws(() => validateTalkPlan0229(badWidth), /bulle/);
+  const badPosition = plan(); badPosition.nodes[1].position.x = 1000000;
+  assert.throws(() => validateTalkPlan0229(badPosition), /bulle/);
+  const badReference = plan(); badReference.nodes[1].references[0].read = undefined as unknown as boolean;
+  assert.throws(() => validateTalkPlan0229(badReference), /bulle/);
+  const badImage = plan(); badImage.nodes[1].images.push({
+    path:'illustration.png', caption:'', show:true, mapRatio:9
+  });
+  assert.throws(() => validateTalkPlan0229(badImage), /bulle/);
+});
+
+test('archivedFrom must match the archived state, invalid rehearsals fail', () => {
+  assert.throws(() => validateTalkPlan0229({...plan(), archivedFrom:'draft'}), /format inconnu/);
+  assert.doesNotThrow(() => validateTalkPlan0229({...plan(), status:'archived', archivedFrom:'ready'}));
+  assert.throws(() => validateTalkPlan0229({
+    ...plan(), lastRehearsal:{date:NaN,seconds:300,checkpoints:{}}
+  }), /répétition/);
 });
