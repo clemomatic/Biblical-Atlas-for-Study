@@ -1,4 +1,4 @@
-# JW Study Desk 0.23.0-beta.1 — Explorer WOL isolé
+# JW Study Desk 0.23.0-beta.3 — Explorer WOL isolé
 
 Cette expérimentation ne remplace aucun module livré en 0.22.9. Elle part de son ZIP d'origine exact (SHA-256 `d8fea56c79809c6f39368d89c17adab785bf7a7f2c47803e54a81b0b2bb0fb6b`). Les 7 686 193 octets de `main.js` sont préservés à l'identique comme préfixe du `main.js` bêta, puis le code Explorer est ajouté.
 
@@ -42,3 +42,17 @@ Le constructeur retrouve le ZIP d'origine à partir des 30 blocs conservés sous
 6. Tester les pannes réseau ; aucun faux résultat ne doit apparaître.
 
 PR en brouillon : cette bêta n'est pas encore la version 0.23.0 stable.
+## Bêta 3 — résolution des résultats manquants
+
+La bêta 2 ne découvrait pas toujours les entrées de l'Index : le parseur
+n'acceptait que certains blocs HTML de résultats, alors que WOL place aussi
+les résultats dans son contenu principal. Le nouveau parseur accepte cette
+variante **uniquement sur une page officielle de recherche portant un marqueur
+de résultats**, et exclut la navigation ordinaire. Deux recherches officielles
+sur l'Index (`p=doc` et `p=par`) sont regroupées puis dédoublonnées, avec
+priorité aux titres exacts.
+
+Explorer n'ouvre aucune entrée sans clic. Le panneau affiche une indication
+de version « Explorer WOL · bêta 3 ». Si aucun résultat structuré n'est
+lisible, un message clair et un lien vers la recherche officielle remplacent
+les faux résultats. Une validation manuelle sous Obsidian reste nécessaire.
