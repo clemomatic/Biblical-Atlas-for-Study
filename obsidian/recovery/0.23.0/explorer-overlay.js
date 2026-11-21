@@ -1,5 +1,5 @@
 /*
- * JW Study Desk 0.23.0-beta.1 — opt-in Explorer WOL extension.
+ * JW Study Desk 0.23.0-beta.2 — opt-in Explorer WOL extension.
  * Injected AFTER the exact original 0.22.9 main.js, with no replacement
  * or monkey-patching of any existing Atelier, reader or data logic.
  * Copyright (c) 2026 contributors. Source and tests in this directory.
@@ -18,13 +18,16 @@
   const MAX_PINS = 100;
   const MAX_TRAIL = 45;
   const MAX_RESULT = 60;
+  const MAX_INDEX_PAGES = 5;
+  const MAX_INDEX_CHOICES = 200;
   const htmlText = value => String(value || '').replace(/[\s\u00a0\u202f]+/g, ' ').trim();
   const trim = (value, max = 240) => htmlText(value).slice(0, max);
   const keyOf = value => trim(value, 250).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const cleanQuery = value => trim(value, 180);
-  const urlFor = (q, scope = 'all') => {
+  const urlFor = (q, scope = 'all', page = 1) => {
     const p = new URLSearchParams({ q: cleanQuery(q), p: 'par', r: 'occ', st: 'a' });
     if (scope === 'index') p.append('fc[]', 'dx');
+    if (Number.isInteger(page) && page > 1 && page <= MAX_INDEX_PAGES) p.set('pg', String(page));
     return BASE + '/fr/wol/s/r30/lp-f?' + p;
   };
 
@@ -63,6 +66,41 @@
     if (/guide de recherche/.test(t)) return 'guide';
     return 'article';
   }
+  // Exact Index headings and compound headings are distinct user choices.
+  // Never infer that the first search hit is the intended subject.
+  function indexTopic(title) {
+    return trim(title, 180)
+      .replace(/\s*\([\u200e\u200f\s]*\d+\s+occurrences?\s*\)\s*$/i, '')
+      .replace(/\s*[—–-]\s*Index(?: des publications[^)]*)?\s*$/i, '')
+      .replace(/^\s*Index\s*:\s*/i, '')
+      .trim();
+  }
+  function indexMatchRank(query, title) {
+    const q = keyOf(query).replace(/[^a-z0-9]+/g, ' ').trim();
+    const value = keyOf(indexTopic(title)).replace(/[^a-z0-9]+/g, ' ').trim();
+    if (!q || !value) return 3;
+    if (q === value) return 0;
+    if (value.startsWith(q + ' ')) return 1;
+    if ((' ' + value + ' ').includes(' ' + q + ' ')) return 2;
+    return 3;
+  }
+  function indexChoices(query, hits) {
+    const unique = new Map();
+    for (const hit of hits) {
+      const url = safeReferenceUrl(hit?.url);
+      const topic = indexTopic(hit?.title || '');
+      if (!url || !topic) continue;
+      const rank = indexMatchRank(query, topic);
+      const candidate = { ...hit, url, title:topic, rank, kind:'index' };
+      const previous = unique.get(url);
+      if (!previous || candidate.rank < previous.rank) unique.set(url, candidate);
+    }
+    const collator = new Intl.Collator('fr', { sensitivity:'base', numeric:true });
+    return [...unique.values()].sort((a, b) =>
+      a.rank - b.rank || collator.compare(a.title, b.title) || a.url.localeCompare(b.url)
+    ).slice(0, MAX_INDEX_CHOICES);
+  }
+
   function searchResults(html, sourceUrl, forceIndex = false) {
     const doc = parse(html);
     // Refuse to treat the WOL navigation/menu shell as search results.
@@ -202,6 +240,7 @@
       this.plugin = plugin;
       this.data = null; this.session = null; this.query = ''; this.scope = 'all';
       this.hits = []; this.indexHits = []; this.groups = []; this.indexUrl = null;
+      this.indexPage = 1; this.indexExhausted = false; this.selectedIndexLabel = '';
       this.loading = false; this.sequence = 0; this.status = '';
       this.cache = new Map(); this.showPins = false;
       this.history = []; this.historyIndex = -1;
@@ -231,6 +270,7 @@
       const session = newSession();
       this.data.sessions.unshift(session); this.data.activeId=session.id; this.session=session;
       this.query=''; this.hits=[]; this.indexHits=[]; this.groups=[]; this.indexUrl=null;
+      this.indexPage=1;this.indexExhausted=false;this.selectedIndexLabel='';
       this.history=[]; this.historyIndex=-1;
       await this.persist(); this.render();
     }
@@ -246,6 +286,7 @@
       if (!session) return;
       this.data.activeId=id;this.session=session;
       this.query='';this.hits=[];this.indexHits=[];this.groups=[];this.indexUrl=null;
+      this.indexPage=1;this.indexExhausted=false;this.selectedIndexLabel='';
       this.history=[];this.historyIndex=-1; await this.persist();this.render();
     }
     async fetchHtml(url) {
@@ -262,14 +303,15 @@
     }
     async search(query, remember=true) {
       const q=cleanQuery(query);if(!q) return;
-      this.query=q; this.groups=[]; this.indexUrl=null; this.loading=true;
+      this.query=q; this.hits=[]; this.indexHits=[]; this.groups=[]; this.indexUrl=null;
+      this.selectedIndexLabel='';this.indexPage=1;this.indexExhausted=false;this.loading=true;
       const seq=++this.sequence;
       this.updateStatus('Recherche sur WOL…'); this.render();
       if (remember) await this.pushTrail({type:'search',query:q,label:q});
       try {
         const regular = urlFor(q);
         const index = urlFor(q,'index');
-        // User-initiated requests only; one page per scope, plus at most one Index entry.
+        // User-initiated requests only. Never open an Index entry without a choice.
         let a=[], b=[];
         const failures=[];
         try { a=searchResults(await this.fetchHtml(regular),regular); }
@@ -278,16 +320,12 @@
         try { b=searchResults(await this.fetchHtml(index),index,true); }
         catch(e){ failures.push(String(e?.message||e)); }
         if(seq!==this.sequence)return;
-        this.hits=a;this.indexHits=b.filter(hit=>hit.kind==='index');
-        const first=this.indexHits.find(hit=>/\/wol\/d\//.test(hit.url));
-        if(first){
-          this.indexUrl=first.url;
-          try { this.groups=indexGroups(await this.fetchHtml(first.url),first.url); }
-          catch(e){ failures.push(String(e?.message||e)); }
-        }
+        this.hits=a.filter(hit=>hit.kind!=='index');
+        this.indexHits=indexChoices(q,[...b,...a.filter(hit=>hit.kind==='index')]);
         if(seq!==this.sequence)return;
-        this.updateStatus((a.length+b.length)?
-          `${a.length} résultat(s) · ${b.length} entrée(s) de l’Index${failures.length?' · lecture partielle':''}`:
+        this.updateStatus(this.indexHits.length ?
+          `${this.indexHits.length} rubrique(s) de l’Index proposée(s) · Choisis celle que tu veux explorer${failures.length?' · lecture partielle':''}` :
+          a.length ? `${this.hits.length} article(s) trouvé(s) · Aucune rubrique de l’Index sur cette page.` :
           'Aucun résultat structuré récupéré. La recherche officielle reste accessible.');
       } catch(e){
         if(seq!==this.sequence)return;
@@ -296,10 +334,31 @@
         if(seq===this.sequence){this.loading=false;this.render();}
       }
     }
+    async loadMoreIndex() {
+      if (!this.query || this.loading || this.indexExhausted || this.indexPage >= MAX_INDEX_PAGES) return;
+      this.loading=true;const seq=++this.sequence;
+      const nextPage=this.indexPage+1;
+      this.updateStatus(`Recherche d’autres rubriques (page ${nextPage})…`);this.render();
+      try {
+        const url=urlFor(this.query,'index',nextPage);
+        const more=searchResults(await this.fetchHtml(url),url,true);
+        if(seq!==this.sequence)return;
+        const found=indexChoices(this.query,[...this.indexHits,...more]);
+        const gained=found.length-this.indexHits.length;
+        this.indexHits=found;this.indexPage=nextPage;
+        this.indexExhausted=!gained || !more.length || nextPage>=MAX_INDEX_PAGES || found.length>=MAX_INDEX_CHOICES;
+        this.updateStatus(gained ? `${found.length} rubrique(s) au total · Choisis une rubrique` :
+          'Aucune autre rubrique trouvée sur cette page.');
+      } catch(e) {
+        if(seq!==this.sequence)return;
+        this.updateStatus('Impossible de charger d’autres rubriques : '+String(e?.message||e));
+      } finally {if(seq===this.sequence){this.loading=false;this.render();}}
+    }
     async exploreIndex(url,label,remember=true) {
       const target=safeReferenceUrl(url);
       if(!target)return;
       this.loading=true;const seq=++this.sequence;this.indexUrl=target;
+      this.selectedIndexLabel=trim(label,180);this.groups=[];
       this.updateStatus('Lecture de l’entrée de l’Index…');this.render();
       if(remember)await this.pushTrail({type:'index',url:target,label:trim(label,180)});
       try {
