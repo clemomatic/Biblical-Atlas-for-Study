@@ -1,5 +1,5 @@
 /*
- * JW Study Desk 0.23.0-beta.3 — opt-in Explorer WOL extension.
+ * JW Study Desk 0.23.0-beta.4 — integrated WOL search disambiguation.
  * Injected AFTER the exact original 0.22.9 main.js, with no replacement
  * or monkey-patching of any existing Atelier, reader or data logic.
  * Copyright (c) 2026 contributors. Source and tests in this directory.
@@ -262,18 +262,23 @@
     getDisplayText() { return 'Explorer WOL'; }
     getIcon() { return 'search'; }
     async onOpen() {
-      try {
-        this.data = await this.plugin.explorerState();
-        if (!this.data.sessions.length) {
-          const session = newSession();
-          this.data.sessions.push(session); this.data.activeId = session.id;
-          await this.plugin.storeExplorerState(this.data);
+      // Join initialization when the original 0.22.9 search opens Explorer.
+      if (this._readyPromise) return this._readyPromise;
+      this._readyPromise=(async()=>{
+        try {
+          this.data = await this.plugin.explorerState();
+          if (!this.data.sessions.length) {
+            const session = newSession();
+            this.data.sessions.push(session); this.data.activeId = session.id;
+            await this.plugin.storeExplorerState(this.data);
+          }
+          this.session = this.data.sessions.find(s => s.id === this.data.activeId) || this.data.sessions[0];
+          this.render();
+        } catch (error) {
+          this.contentEl.replaceChildren(textNode('p','jwsd-x-error','Impossible d’ouvrir Explorer : '+String(error?.message || error)));
         }
-        this.session = this.data.sessions.find(s => s.id === this.data.activeId) || this.data.sessions[0];
-        this.render();
-      } catch (error) {
-        this.contentEl.replaceChildren(textNode('p','jwsd-x-error','Impossible d’ouvrir Explorer : '+String(error?.message || error)));
-      }
+      })();
+      return this._readyPromise;
     }
     async onClose() { this.sequence++; this.cache.clear(); }
     updateStatus(message) { this.status = message; if (this.statusEl) this.statusEl.textContent = message; }
@@ -320,7 +325,7 @@
       this.selectedIndexLabel='';this.indexPage=1;this.indexExhausted=false;this.loading=true;
       const seq=++this.sequence;
       this.updateStatus('Recherche sur WOL…'); this.render();
-      if (remember) await this.pushTrail({type:'search',query:q,label:q});
+      if (remember) await this.pushTrail({type:'search',query:q,label:q}).catch(error=>{console.warn('Explorer: historique non enregistré',error);});
       try {
         const regular = urlFor(q);
         const index = urlFor(q,'index');
@@ -377,7 +382,7 @@
       this.loading=true;const seq=++this.sequence;this.indexUrl=target;
       this.selectedIndexLabel=trim(label,180);this.groups=[];
       this.updateStatus('Lecture de l’entrée de l’Index…');this.render();
-      if(remember)await this.pushTrail({type:'index',url:target,label:trim(label,180)});
+      if(remember)await this.pushTrail({type:'index',url:target,label:trim(label,180)}).catch(error=>{console.warn('Explorer: historique non enregistré',error);});
       try {
         this.groups=indexGroups(await this.fetchHtml(target),target);
         if(seq!==this.sequence)return;
@@ -392,7 +397,7 @@
       // before asynchronous persistence can cause pop-up blocking.
       const bibliography=/\/wol\/pc\//.test(target);
       if(bibliography)this.openOfficial(target);
-      if(remember)await this.pushTrail({type:'document',url:target,label:trim(label,180)});
+      if(remember)await this.pushTrail({type:'document',url:target,label:trim(label,180)}).catch(error=>{console.warn('Explorer: historique non enregistré',error);});
       // Delegate direct document reading to the untouched 0.22.9 reader.
       if(bibliography){this.render();return;}
       try { await this.plugin.openBibleLab(target,label); }
@@ -447,7 +452,8 @@
       if(!this.contentEl||!this.session)return;
       const host=this.contentEl;host.replaceChildren();host.addClass?.('jwsd-x-shell');
       const heading=textNode('div','jwsd-x-head');
-      heading.append(textNode('h2','','Explorer WOL · bêta 3'));
+      heading.append(textNode('h2','','Explorer WOL · bêta 4'));
+      heading.append(textNode('p','jwsd-x-muted','Recherche de JW Study Desk · choisir une rubrique de l’Index avant sa lecture'));
       heading.append(button('+',()=>this.addSession(),'jwsd-x-mini'));
       heading.append(button('Renommer',()=>this.renameSession(),'jwsd-x-mini'));
       host.append(heading);
@@ -558,6 +564,32 @@
   }
 
   class JwsdExplorerPlugin extends OriginalPlugin {
+    constructor(...args) {
+      super(...args);
+      // 0.22.9 uses an INSTANCE arrow field; prototype override is ineffective.
+      const previous=this.openWolSearchTab;
+      if(typeof previous !== 'function') throw new Error('JWSD Explorer: ouverture WOL originale introuvable.');
+      this._jwsdOriginalOpenWolSearchTab=previous;
+      this.openWolSearchTab=(url,...options)=>{
+        const intent=JwsdExplorerPlugin.searchIntent(url);
+        if(!intent) return previous(url,...options);
+        return this.openExplorer(intent.query).catch(error=>{
+          console.error('JWSD Explorer: passage recherche 0.22.9 vers la sélection',error);
+          new Notice('Impossible d’ouvrir le choix des rubriques. Utilise « Explorer WOL » dans les commandes.');
+        });
+      };
+    }
+    static searchIntent(url) {
+      const safe=safeWolUrl(url);
+      if(!safe)return null;
+      const parsed=new URL(safe);
+      if(!/^\/fr\/wol\/s\/r30\/lp-f\/?$/.test(parsed.pathname))return null;
+      const query=cleanQuery(parsed.searchParams.get('q')||'');
+      if(!query)return null;
+      if(/(?:^|\s)\d{1,3}:\d{1,3}(?:[-–]\d{1,3})?(?:\s|$)/.test(query) ||
+         /^(?:w\d{2}(?:\.\d{1,2})?|g\d{2}|mwb\d{2}|it-\d|km\d{2})\b/i.test(query))return null;
+      return {query};
+    }
     async onload() {
       await super.onload();
       try {
@@ -593,14 +625,25 @@
       this._jwsdExplorerSaveTail=current;
       await current;
     }
-    async openExplorer() {
+    async openExplorer(query=null) {
       const leaves=this.app.workspace.getLeavesOfType(TYPE);
       let leaf=leaves[0];
       if(!leaf) {
-        leaf=this.app.workspace.getRightLeaf(false)||this.app.workspace.getLeaf('tab');
+        // Keep the old side panel intact. Use a separate Obsidian tab.
+        leaf=this.app.workspace.getLeaf('tab');
+        if(!leaf) throw new Error('Aucun onglet Obsidian disponible pour Explorer.');
         await leaf.setViewState({type:TYPE,active:true});
       }
       await this.app.workspace.revealLeaf(leaf);
+      if(query!==null){
+        const view=leaf.view;
+        if(!view || view.getViewType?.()!==TYPE || typeof view.search!=='function')
+          throw new Error('La vue Explorer n’est pas accessible après ouverture.');
+        if(!view.session) await view.onOpen();
+        if(!view.session) throw new Error('La recherche ne peut pas initialiser une session.');
+        await view.search(query);
+      }
+      return leaf;
     }
   }
   module.exports=JwsdExplorerPlugin;
