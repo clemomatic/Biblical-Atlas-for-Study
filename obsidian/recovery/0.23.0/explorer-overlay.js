@@ -1,5 +1,5 @@
 /*
- * JW Study Desk 0.23.0-beta.2 — opt-in Explorer WOL extension.
+ * JW Study Desk 0.23.0-beta.3 — opt-in Explorer WOL extension.
  * Injected AFTER the exact original 0.22.9 main.js, with no replacement
  * or monkey-patching of any existing Atelier, reader or data logic.
  * Copyright (c) 2026 contributors. Source and tests in this directory.
@@ -25,7 +25,7 @@
   const keyOf = value => trim(value, 250).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
   const cleanQuery = value => trim(value, 180);
   const urlFor = (q, scope = 'all', page = 1) => {
-    const p = new URLSearchParams({ q: cleanQuery(q), p: 'par', r: 'occ', st: 'a' });
+    const p = new URLSearchParams({ q: cleanQuery(q), p: scope === 'index' ? 'doc' : 'par', r: 'occ', st: 'g' });
     if (scope === 'index') p.append('fc[]', 'dx');
     if (Number.isInteger(page) && page > 1 && page <= MAX_INDEX_PAGES) p.set('pg', String(page));
     return BASE + '/fr/wol/s/r30/lp-f?' + p;
@@ -101,31 +101,44 @@
     ).slice(0, MAX_INDEX_CHOICES);
   }
 
+  /**
+   * Parse WOL search pages with either a named results list or results
+   * embedded into main/#content. The fallback is limited to verified
+   * search pages with an explicit results marker, never article navigation.
+   */
   function searchResults(html, sourceUrl, forceIndex = false) {
+    if (!safeWolUrl(sourceUrl) || !/\/fr\/wol\/s\/r30\/lp-f/.test(new URL(sourceUrl).pathname)) return [];
     const doc = parse(html);
-    // Refuse to treat the WOL navigation/menu shell as search results.
-    // Missing an explicit search container is an unavailable structured result.
-    const root = doc.querySelector('#searchResults,.searchResults,.search-results,#results,.resultList,#lookupResults,[data-search-results]');
+    const resultsSelector = '#searchResults,.searchResults,.search-results,#results,.resultList,#lookupResults,[data-search-results],.search-result-list,.searchResultList';
+    const direct = doc.querySelector(resultsSelector);
+    const containsResultMarker = /(?:\d[\d\s,.]*\s*r[ée]sultats?\b|recherche limit[ée]e\s+[àa]|search results?\b)/i.test(html);
+    const fallback = !direct && containsResultMarker
+      ? doc.querySelector('main,[role="main"],#content,.mainContent,.content') || doc.body : null;
+    const root = direct || fallback;
     if (!root) return [];
     const output = [], seen = new Set();
-    const selectors = '.searchResult,.search-result,.result,.result-item,.resultItem,[data-result],li,article';
-    let nodes = Array.from(root.querySelectorAll(selectors)).filter(isValidItem);
-    nodes = nodes.filter(n => !n.querySelector('.searchResult,.search-result,.result,.result-item,.resultItem,[data-result]'));
-    if (!nodes.length) nodes = Array.from(root.querySelectorAll('div,p')).filter(isValidItem);
-    for (const node of nodes.slice(0, 900)) {
-      const anchors = Array.from(node.querySelectorAll('a[href]'));
-      const entry = anchors.map(a => ({ a, url: safeReferenceUrl(a.getAttribute('href') || '', sourceUrl) })).find(x => x.url);
-      if (!entry || seen.has(entry.url)) continue;
-      const title = trim(node.querySelector('h2,h3,h4,.resultTitle,.title')?.textContent || entry.a.textContent, 180);
-      if (!title || title.length < 3) continue;
-      const meta = mainText(node.querySelector('.pubRef,.publication,.source,.resultMeta,.resultSource'), 160);
-      const body = mainText(node, 800);
-      const excerpt = trim(body.replace(title, '').replace(meta, ''), 370);
-      const image = node.querySelector('img[src]');
+    const anchors = Array.from(root.querySelectorAll('a[href]'));
+    const requestedQuery = new URL(sourceUrl).searchParams.get('q') || '';
+    for (const anchor of anchors.slice(0, 1500)) {
+      if (!isValidItem(anchor)) continue;
+      const url = safeReferenceUrl(anchor.getAttribute('href') || '', sourceUrl);
+      if (!url || seen.has(url) || !/\/wol\/d\//.test(url)) continue;
+      const item = anchor.closest?.('.searchResult,.search-result,.result,.result-item,.resultItem,[data-result],li,article,div.result,div.item') || anchor.parentElement;
+      const title = indexTopic(anchor.textContent || anchor.getAttribute('title') || item?.querySelector('h2,h3,h4')?.textContent || '');
+      if (!title || title.length < 3 || /^(?:index des publications|rechercher|sommaire|retour|précédent|suivant|bible|accueil|ouvrir|imprimer|image|vidéo|écouter)$/i.test(title)) continue;
+      const entry = item?.closest?.('.searchResult,.search-result,.result,.result-item,.resultItem,[data-result]') || item;
+      const metadataText = trim(entry?.textContent || item?.textContent || '', 700);
+      const meta = trim(entry?.querySelector?.('.pubRef,.publication,.source,.resultMeta,.resultSource,small')?.textContent || '', 200);
+      const isIndex = /(?:\bdx(?:86[-–]23|\d{2}[-–]\d{2})?\b|index\s+1986[-–]2023|index\s+des\s+publications)/i.test(metadataText + ' ' + meta);
+      const related = indexMatchRank(requestedQuery,title);
+      if (fallback && !isIndex && related > 2) continue;
+      if (forceIndex && !isIndex && related > 2) continue;
+      const kind = forceIndex || isIndex ? 'index' : classify(title, meta);
+      const excerpt = trim(metadataText.replace(anchor.textContent || '', '').replace(meta, ''), 250);
+      const image = entry?.querySelector?.('img[src]');
       const thumb = image ? safeThumb(image.getAttribute('src') || '', sourceUrl) : null;
-      output.push({ title, url: entry.url, excerpt, meta, thumb,
-        kind: forceIndex ? 'index' : classify(title, meta) });
-      seen.add(entry.url);
+      output.push({ title, url, excerpt, meta:meta || (isIndex ? 'Index des publications' : ''), thumb, kind });
+      seen.add(url);
       if (output.length >= MAX_RESULT) break;
     }
     return output;
@@ -311,6 +324,7 @@
       try {
         const regular = urlFor(q);
         const index = urlFor(q,'index');
+        const indexParagraph = new URL(index); indexParagraph.searchParams.set('p','par');
         // User-initiated requests only. Never open an Index entry without a choice.
         let a=[], b=[];
         const failures=[];
@@ -318,6 +332,9 @@
         catch(e){ failures.push(String(e?.message||e)); }
         if(seq!==this.sequence)return;
         try { b=searchResults(await this.fetchHtml(index),index,true); }
+        catch(e){ failures.push(String(e?.message||e)); }
+        if(seq!==this.sequence)return;
+        try { b.push(...searchResults(await this.fetchHtml(indexParagraph.href),indexParagraph.href,true)); }
         catch(e){ failures.push(String(e?.message||e)); }
         if(seq!==this.sequence)return;
         this.hits=a.filter(hit=>hit.kind!=='index');
@@ -430,7 +447,7 @@
       if(!this.contentEl||!this.session)return;
       const host=this.contentEl;host.replaceChildren();host.addClass?.('jwsd-x-shell');
       const heading=textNode('div','jwsd-x-head');
-      heading.append(textNode('h2','','Explorer WOL'));
+      heading.append(textNode('h2','','Explorer WOL · bêta 3'));
       heading.append(button('+',()=>this.addSession(),'jwsd-x-mini'));
       heading.append(button('Renommer',()=>this.renameSession(),'jwsd-x-mini'));
       host.append(heading);
@@ -458,6 +475,15 @@
       const status=textNode('p','jwsd-x-status',this.status||'Saisis un mot pour explorer WOL et son Index.');
       status.setAttribute('role','status');status.setAttribute('aria-live','polite');this.statusEl=status;host.append(status);
       const body=textNode('div','jwsd-x-body');host.append(body);
+      if(this.query && !this.loading && !this.indexHits.length){
+        const notice=textNode('section','jwsd-x-panel');
+        notice.append(textNode('h3','','Rubriques de l’Index non identifiées'));
+        notice.append(textNode('p','jwsd-x-muted',
+          'Aucune rubrique n’a pu être extraite de la réponse WOL. Ouvre la recherche officielle pour consulter les sujets sans choix automatique.'));
+        notice.append(button('Consulter les rubriques sur WOL ↗',
+          ()=>this.openOfficial(urlFor(this.query,'index'))));
+        body.append(notice);
+      }
       if(this.indexHits.length){
         const section=textNode('section','jwsd-x-panel jwsd-x-index-choices');
         section.append(textNode('h3','','Choisis une rubrique de l’Index'));
