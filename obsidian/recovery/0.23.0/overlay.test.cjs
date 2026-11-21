@@ -156,3 +156,29 @@ test('Index parser keeps non-citation Bible links inside explanatory phrase',()=
    assert.equal(groups[0].refs.length,1);
  });
 });
+
+test('navigation shells are not mistaken for search results',()=>{
+  const nav=new El('div',{children:[new El('li',{children:[
+    link('/fr/wol/d/r30/lp-f/1200271433','Courage Index')
+  ]})]});
+  const doc={querySelector:(selector)=>selector.includes('#searchResults')?null:nav};
+  withDocument(()=>doc,tools=>{
+    const found=tools.searchResults('<main>navigation</main>','https://wol.jw.org/fr/wol/s/r30/lp-f?q=courage',false);
+    assert.equal(found.length,0,'no result container, no invented result');
+  });
+});
+
+test('search parser accepts explicit result containers with official targets',()=>{
+  const li=new El('li',{children:[
+    link('/fr/wol/d/r30/lp-f/1200271433','COURAGE — Index des publications'),
+    {nodeType:3,textContent:'dx86-23'}
+  ]});
+  const root=new El('div',{cls:'searchResults',children:[li]});
+  const doc={querySelector:(selector)=>selector.includes('#searchResults')?root:null};
+  withDocument(()=>doc,tools=>{
+    const found=tools.searchResults('<div class="searchResults"/>','https://wol.jw.org/fr/wol/s/r30/lp-f?q=courage',true);
+    assert.equal(found.length,1);
+    assert.equal(found[0].url,'https://wol.jw.org/fr/wol/d/r30/lp-f/1200271433');
+    assert.equal(found[0].kind,'index');
+  });
+});
