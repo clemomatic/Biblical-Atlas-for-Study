@@ -1,0 +1,50 @@
+name: JW Study Desk 0.23 — Explorer overlay safety
+
+on:
+  push:
+    branches:
+      - feat/jwsd-0.23.0-explorer-overlay
+  pull_request:
+    paths:
+      - "obsidian/recovery/0.23.0/**"
+      - "obsidian/recovery/0.22.9/zip-b64/**"
+      - ".github/workflows/jwsd-explorer-overlay.yml"
+  workflow_dispatch:
+
+jobs:
+  explorer-safety:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test isolated extension
+        run: node --test obsidian/recovery/0.23.0/overlay.test.cjs
+      - name: Build from verified original ZIP
+        run: python3 obsidian/recovery/0.23.0/build_release.py
+      - name: Verify JavaScript and unchanged 0.22.9 source prefix
+        run: |
+          python3 - <<'PY'
+          import zipfile, pathlib, hashlib
+          root=pathlib.Path('obsidian/recovery')
+          new=root/'0.23.0/JW-Study-Desk-0.23.0-beta.4-Explorer-Test.zip'
+          old=root/'0.22.9/JW-Study-Desk-0.22.9-original.zip'
+          assert hashlib.sha256(old.read_bytes()).hexdigest()=='d8fea56c79809c6f39368d89c17adab785bf7a7f2c47803e54a81b0b2bb0fb6b'
+          with zipfile.ZipFile(old) as a, zipfile.ZipFile(new) as b:
+            assert b.testzip() is None
+            for name in a.namelist():
+              if name not in ('atlas-biblique/main.js','atlas-biblique/styles.css','atlas-biblique/manifest.json'):
+                assert a.read(name)==b.read(name), 'Unexpected changed file: '+name
+            original=a.read('atlas-biblique/main.js')
+            assert b.read('atlas-biblique/main.js').startswith(original)
+            pathlib.Path('/tmp/jwsd-023-main.js').write_bytes(b.read('atlas-biblique/main.js'))
+          PY
+          node --check /tmp/jwsd-023-main.js
+      - name: Upload experimental archive
+        uses: actions/upload-artifact@v4
+        with:
+          name: JW-Study-Desk-0.23.0-beta.4-Explorer-Test
+          path: obsidian/recovery/0.23.0/JW-Study-Desk-0.23.0-beta.4-Explorer-Test.zip
+          if-no-files-found: error
